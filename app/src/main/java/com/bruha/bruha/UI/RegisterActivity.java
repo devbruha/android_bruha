@@ -3,14 +3,18 @@ package com.bruha.bruha.UI;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.bruha.bruha.Database.SQLUtils;
 import com.bruha.bruha.R;
+
+import javax.xml.datatype.Duration;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -46,6 +50,32 @@ public class RegisterActivity extends ActionBarActivity {
 
     }
 
+    // A function that shall be used to check that all fields are non-empty
+
+    public boolean isEntryFieldEmpty(String username, String password, String email){
+
+        //Setting a signal to return true / false
+
+        // Init signal to false
+        boolean signal = false;
+
+        // If either of the fields are empty signal is set true
+        // and toast is made indicating the error
+
+        if(username != null || password != null || email != null){
+
+            signal = true;
+
+            Toast toast = Toast.makeText(this,
+                    "Error: Please ensure all fields are filled in.",
+                    Toast.LENGTH_SHORT);
+
+            toast.setGravity(Gravity.CENTER,0,0);
+            toast.show();
+        }
+        return signal;
+    }
+
     // Setting the listeners for the choice the user is to make on button click
 
     @OnClick(R.id.createAccountButton)
@@ -57,11 +87,17 @@ public class RegisterActivity extends ActionBarActivity {
         String password = mRegisterPasswordEditText.getText().toString();
         String email = mRegisterEmailEditText.getText().toString();
 
-        // Calling the init function within SQLUtils with the parameters passed
 
-        SQLUtils sqlu = new SQLUtils(url,user,pass);
-        sqlu.init(username,password,email);
+        // Checking to ensure that all fields are non empty
 
+        if( !isEntryFieldEmpty(username, password, email) ){
+
+            // Calling the init function within SQLUtils with the parameters passed
+
+            SQLUtils sqlu = new SQLUtils(url,user,pass);
+            sqlu.init(username,password,email);
+
+        }
     }
 
     @OnClick(R.id.continueNotRegisteredButton)

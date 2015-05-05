@@ -1,5 +1,7 @@
 package com.bruha.bruha.Database;
 
+import android.util.Log;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -74,12 +76,21 @@ public class SQLUtils {
         }
 
         catch (ClassNotFoundException e) {
+
             e.printStackTrace();
-        } catch (SQLException e) {
+
+        }
+        catch (SQLException e) {
+
             e.printStackTrace();
-        } catch (InstantiationException e) {
+            Log.d("sql", "SQL Insert Fail");
+
+        }
+        catch (InstantiationException e) {
             e.printStackTrace();
-        } catch (IllegalAccessException e) {
+
+        }
+        catch (IllegalAccessException e) {
             e.printStackTrace();
         }
     }
