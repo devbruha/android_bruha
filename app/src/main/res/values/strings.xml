@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Bruha</string>
 
+    <string name="database_host_address">jdbc:mysql://66.147.244.109:3306/showdomc_web2</string>
+    <string name="database_username">showdomc_android</string>
+    <string name="database_password">show12345!</string>
+
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">LoginActivity</string>
@@ -16,6 +20,19 @@
 
     <string name="error_title_fields_empty">Empty Field</string>
     <string name="error_message_fields_empty">Please fill in all of the fields.</string>
+
+    <string name="error_title_no_connection">Connection Unavailable</string>
+    <string name="error_message_no_connection">Unable to establish a connection, please check your
+        internet settings.</string>
+
+    <string name="error_title_invalid_username">Invalid Username</string>
+    <string name="error_message_invalid_username">Usernames must be between 6-20 characters.</string>
+
+    <string name="error_title_invalid_password">Invalid Password</string>
+    <string name="error_message_invalid_password">Passwords must be between 6-20 characters.</string>
+
+    <string name="error_title_invalid_email">Invalid Email Address</string>
+    <string name="error_message_invalid_email">Please enter a valid email address.</string>
 
 
 

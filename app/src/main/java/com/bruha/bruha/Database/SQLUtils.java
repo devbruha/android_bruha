@@ -22,7 +22,7 @@ public class SQLUtils {
 
     // Error code to be used for user notification
 
-    private int errorCode;
+    private String errorCode;
 
     // Creating tags for debugging purposes
 
@@ -39,7 +39,7 @@ public class SQLUtils {
     // Creating a thread to run the database call
     // to avoid main thread over usage
 
-    public int init(final String username,final String password,final String email) {
+    public String init(final String username,final String password,final String email) {
 
         // Creating new thread to run the database query
 
@@ -71,9 +71,9 @@ public class SQLUtils {
         return errorCode;
     }
 
-    private int insert(String username, String password, String email) {
+    private String insert(String username, String password, String email) {
 
-        int code = 0;
+        String code = "666";
 
         try {
 
@@ -104,22 +104,36 @@ public class SQLUtils {
 
             st.close();
             c.close();
-        } catch (ClassNotFoundException e) {
+
+            code = "Success";
+        }
+
+        catch (ClassNotFoundException e) {
 
             e.printStackTrace();
+        }
 
-        } catch (SQLException e) {
+        catch (SQLException e) {
 
             e.printStackTrace();
-            code = e.getErrorCode();
+            code = e.getErrorCode()+"";
             Log.v(DB_DEBUGGING, code + "");
+        }
 
-        } catch (InstantiationException e) {
-
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        catch (InstantiationException e) {
 
             e.printStackTrace();
+        }
+
+        catch (IllegalAccessException e) {
+
+            e.printStackTrace();
+        }
+
+        catch (Exception e){
+            e.printStackTrace();
+            String message = e.getMessage();
+            Log.v(DB_DEBUGGING, message);
         }
 
         return code;

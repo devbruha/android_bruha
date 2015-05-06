@@ -1,9 +1,13 @@
 package com.bruha.bruha.UI;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,29 +46,118 @@ public class RegisterActivity extends ActionBarActivity {
         ButterKnife.inject(this);
     }
 
-    // A function that shall be used to check that all fields are non-empty
-
-    public boolean isEntryFieldEmpty(String username, String password, String email){
-
-        //Setting a signal to return true / false
-
-        // Init signal to true
-        boolean signal = false;
-
-        // If either of the fields are empty signal is set false
-
-        if(username.length() == 0 || password.length() == 0 || email.length() == 0){
-
-            signal = true;
-        }
-
-        return signal;
-    }
-
     private void alertUserAboutError(String errorTitle, String errorMessage) {
 
         AlertDialogFragment dialog = new AlertDialogFragment().newInstance(errorTitle,errorMessage);
         dialog.show(getFragmentManager(), "error_dialog");
+    }
+
+    // A function used to check whether users are connected to the internet
+
+    private boolean isNetworkAvailable() {
+
+        ConnectivityManager manager = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+        // boolean variable initialized to false, set true if there is a connection
+
+        boolean isAvailable = false;
+
+        if(networkInfo != null && networkInfo.isConnected()){
+
+            isAvailable = true;
+        }
+
+        return isAvailable;
+    }
+
+    private boolean isValidEmail(String email) {
+
+        if (TextUtils.isEmpty(email)) {
+
+            return false;
+        }
+        else {
+
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        }
+    }
+
+    private boolean isValidUsername(String username){
+
+        boolean isAvailable = false;
+
+        int length = username.length();
+
+        if( length >= 6 && length <= 20 ){
+
+            isAvailable = true;
+        }
+
+        return isAvailable;
+
+    }
+
+    private boolean isValidPassword(String password){
+
+        boolean isAvailable = false;
+
+        int length = password.length();
+
+        if( length >= 6 && length <= 20 ){
+
+            isAvailable = true;
+        }
+
+        return isAvailable;
+
+    }
+
+    private String isValidAccountInformation(String username, String password, String email){
+
+        String error;
+
+        if(isNetworkAvailable()) {
+
+            if ( isValidUsername(username) ) {
+
+                if( isValidPassword(password) ) {
+
+                    if (isValidEmail(email)) {
+
+                        // Calling the init function within SQLUtils with the parameters passed
+
+                        SQLUtils sqlu = new SQLUtils(url, user, pass);
+                        error = sqlu.init(username, password, email);
+
+                    }
+                    // If email is invalid, error string is updated
+
+                    else {
+                        error = "emailInvalid";
+                    }
+                }
+                // If password is invalid, error string is updated
+
+                else{
+                    error = "passwordInvalid";
+                }
+            }
+            // If username is invalid, error string is updated
+
+            else {
+                error = "usernameInvalid";
+            }
+        }
+        // If a connection cannot be established, update error string
+
+        else{
+            error = "connectionInvalid";
+        }
+
+        return error;
     }
 
     // Setting the listeners for the choice the user is to make on button click
@@ -82,40 +175,53 @@ public class RegisterActivity extends ActionBarActivity {
 
         Resources res = getResources();
 
-        // Checking to ensure that all fields are non empty
+        // Retrieving the response from attempting to create the new account
 
-        if( !isEntryFieldEmpty(username, password, email) ){
+        String response = isValidAccountInformation(username,password,email);
 
-            // Calling the init function within SQLUtils with the parameters passed
+        // A message is displayed to the user corresponding to the response received
 
-            SQLUtils sqlu = new SQLUtils(url,user,pass);
-            int errorCode = sqlu.init(username, password, email);
+        switch(response){
 
-            // If error code is non zero, a message is displayed to user explaining error
-            // Switch case to determine what message to send depending on the error
-            // Uses values-> strings to populate the title and message
+            case "connectionInvalid":
+                alertUserAboutError(
+                        res.getString(R.string.error_title_no_connection),
+                        res.getString(R.string.error_message_no_connection));
+                break;
 
-            switch(errorCode){
+            case "usernameInvalid":
+                alertUserAboutError(
+                        res.getString(R.string.error_title_invalid_username),
+                        res.getString(R.string.error_message_invalid_username));
+                break;
 
-                case 1062: alertUserAboutError(
+            case "passwordInvalid":
+                alertUserAboutError(
+                        res.getString(R.string.error_title_invalid_password),
+                        res.getString(R.string.error_message_invalid_password));
+                break;
+
+            case "emailInvalid":
+                alertUserAboutError(
+                        res.getString(R.string.error_title_invalid_email),
+                        res.getString(R.string.error_message_invalid_email));
+                break;
+
+            case "1062":
+                alertUserAboutError(
                         res.getString(R.string.error_title_username_taken),
                         res.getString(R.string.error_message_username_taken));
-                    break;
+                break;
 
-                default: alertUserAboutError(
+            case "Success":
+                alertUserAboutError(
                         res.getString(R.string.success_title_account_created),
                         res.getString(R.string.success_message_account_created));
-                    break;
-            }
-        }
+                break;
 
-        // If fields are not filled, error message displayed accordingly
-
-        else{
-
-            alertUserAboutError(
-                    res.getString(R.string.error_title_fields_empty),
-                    res.getString(R.string.error_message_fields_empty));
+            default:
+                alertUserAboutError(response, "Error " + response);
+                break;
         }
     }
 
