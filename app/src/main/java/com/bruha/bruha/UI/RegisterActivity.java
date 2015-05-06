@@ -1,19 +1,14 @@
 package com.bruha.bruha.UI;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
 import com.bruha.bruha.Database.SQLUtils;
 import com.bruha.bruha.R;
-
-import javax.xml.datatype.Duration;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -54,21 +49,21 @@ public class RegisterActivity extends ActionBarActivity {
         //Setting a signal to return true / false
 
         // Init signal to true
-        boolean signal = true;
+        boolean signal = false;
 
         // If either of the fields are empty signal is set false
 
-        if(username != null || password != null || email != null){
+        if(username.length() == 0 || password.length() == 0 || email.length() == 0){
 
-            signal = false;
+            signal = true;
         }
 
         return signal;
     }
 
-    private void alertUserAboutError(int error) {
+    private void alertUserAboutError(String errorTitle, String errorMessage) {
 
-        AlertDialogFragment dialog = new AlertDialogFragment();
+        AlertDialogFragment dialog = new AlertDialogFragment().newInstance(errorTitle,errorMessage);
         dialog.show(getFragmentManager(), "error_dialog");
     }
 
@@ -83,32 +78,44 @@ public class RegisterActivity extends ActionBarActivity {
         String password = mRegisterPasswordEditText.getText().toString();
         String email = mRegisterEmailEditText.getText().toString();
 
+        // Importing ressources in order to reference stored string values
+
+        Resources res = getResources();
 
         // Checking to ensure that all fields are non empty
 
-        if( isEntryFieldEmpty(username, password, email) ){
+        if( !isEntryFieldEmpty(username, password, email) ){
 
             // Calling the init function within SQLUtils with the parameters passed
 
             SQLUtils sqlu = new SQLUtils(url,user,pass);
-            int errorCode = sqlu.init(username,password,email);
+            int errorCode = sqlu.init(username, password, email);
 
-            if(errorCode != 0){
+            // If error code is non zero, a message is displayed to user explaining error
+            // Switch case to determine what message to send depending on the error
+            // Uses values-> strings to populate the title and message
 
-                alertUserAboutError(errorCode);
+            switch(errorCode){
+
+                case 1062: alertUserAboutError(
+                        res.getString(R.string.error_title_username_taken),
+                        res.getString(R.string.error_message_username_taken));
+                    break;
+
+                default: alertUserAboutError(
+                        res.getString(R.string.success_title_account_created),
+                        res.getString(R.string.success_message_account_created));
+                    break;
             }
         }
 
-        // If check fails, display to user error
+        // If fields are not filled, error message displayed accordingly
 
         else{
 
-            Toast toast = Toast.makeText(this,
-                    "Error: Please ensure all fields are filled in.",
-                    Toast.LENGTH_SHORT);
-
-            toast.setGravity(Gravity.CENTER,0,0);
-            toast.show();
+            alertUserAboutError(
+                    res.getString(R.string.error_title_fields_empty),
+                    res.getString(R.string.error_message_fields_empty));
         }
     }
 

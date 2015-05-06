@@ -5,4 +5,18 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="success_title_account_created">Account Successfully Created!</string>
+    <string name="success_message_account_created">Welcome to Bruha!</string>
+
+    <string name="error_title_username_taken">Username Already Taken</string>
+    <string name="error_message_username_taken">The username you have entered is already taken,
+    please enter a new username.</string>
+
+    <string name="error_title_fields_empty">Empty Field</string>
+    <string name="error_message_fields_empty">Please fill in all of the fields.</string>
+
+
+
 </resources>

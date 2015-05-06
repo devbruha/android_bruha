@@ -41,14 +41,32 @@ public class SQLUtils {
 
     public int init(final String username,final String password,final String email) {
 
-        new Thread(new Runnable() {
+        // Creating new thread to run the database query
+
+        Thread thread;
+
+        thread = new Thread(new Runnable() {
             @Override
             public void run() {
 
-                errorCode = insert(username, password, email);
+                // Running the function aswell as saving the errorcode into "errorCode"
 
+                errorCode = insert(username, password, email);
             }
-        }).start();
+        });
+
+        //Starting thread
+
+        thread.start();
+
+        // Running thread.join so ensure the operation finishes before the main thread returns
+        // the errorCode value
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         return errorCode;
     }
