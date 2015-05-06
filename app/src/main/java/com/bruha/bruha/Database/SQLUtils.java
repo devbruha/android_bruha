@@ -1,6 +1,7 @@
 package com.bruha.bruha.Database;
 
 import android.util.Log;
+import com.bruha.bruha.UI.AlertDialogFragment;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,6 +20,14 @@ public class SQLUtils {
     private String user;
     private String pass;
 
+    // Error code to be used for user notification
+
+    private int errorCode;
+
+    // Creating tags for debugging purposes
+
+    private final String DB_DEBUGGING = "DB_DEBUGGING";
+
     // Assigning the passed in url/user/password to the previously initialized variables
 
     public SQLUtils(String conn_url, String user, String pass) {
@@ -30,19 +39,23 @@ public class SQLUtils {
     // Creating a thread to run the database call
     // to avoid main thread over usage
 
-    public void init(final String username,final String password,final String email) {
+    public int init(final String username,final String password,final String email) {
 
         new Thread(new Runnable() {
             @Override
             public void run() {
 
-                insert(username, password, email);
+                errorCode = insert(username, password, email);
 
             }
         }).start();
+
+        return errorCode;
     }
 
-    private void insert(String username, String password, String email) {
+    private int insert(String username, String password, String email) {
+
+        int code = 0;
 
         try {
 
@@ -59,7 +72,7 @@ public class SQLUtils {
 
             String sql = "insert into user"
                     + "(user_id, password , email)"
-                    + "values ('"+username+"', '"+password+"', '"+email+"')";
+                    + "values ('" + username + "', '" + password + "', '" + email + "')";
 
             // Creates a statement from the SQL string made previously
 
@@ -73,25 +86,24 @@ public class SQLUtils {
 
             st.close();
             c.close();
-        }
-
-        catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
 
             e.printStackTrace();
 
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
 
             e.printStackTrace();
-            Log.d("sql", "SQL Insert Fail");
+            code = e.getErrorCode();
+            Log.v(DB_DEBUGGING, code + "");
 
-        }
-        catch (InstantiationException e) {
-            e.printStackTrace();
+        } catch (InstantiationException e) {
 
-        }
-        catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+
             e.printStackTrace();
         }
+
+        return code;
     }
 }

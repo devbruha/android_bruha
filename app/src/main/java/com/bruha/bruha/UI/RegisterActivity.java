@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,7 +45,6 @@ public class RegisterActivity extends ActionBarActivity {
         // using ButterKnife.inject to allow the InjectViews to take effect
 
         ButterKnife.inject(this);
-
     }
 
     // A function that shall be used to check that all fields are non-empty
@@ -56,24 +53,23 @@ public class RegisterActivity extends ActionBarActivity {
 
         //Setting a signal to return true / false
 
-        // Init signal to false
-        boolean signal = false;
+        // Init signal to true
+        boolean signal = true;
 
-        // If either of the fields are empty signal is set true
-        // and toast is made indicating the error
+        // If either of the fields are empty signal is set false
 
         if(username != null || password != null || email != null){
 
-            signal = true;
-
-            Toast toast = Toast.makeText(this,
-                    "Error: Please ensure all fields are filled in.",
-                    Toast.LENGTH_SHORT);
-
-            toast.setGravity(Gravity.CENTER,0,0);
-            toast.show();
+            signal = false;
         }
+
         return signal;
+    }
+
+    private void alertUserAboutError(int error) {
+
+        AlertDialogFragment dialog = new AlertDialogFragment();
+        dialog.show(getFragmentManager(), "error_dialog");
     }
 
     // Setting the listeners for the choice the user is to make on button click
@@ -90,13 +86,29 @@ public class RegisterActivity extends ActionBarActivity {
 
         // Checking to ensure that all fields are non empty
 
-        if( !isEntryFieldEmpty(username, password, email) ){
+        if( isEntryFieldEmpty(username, password, email) ){
 
             // Calling the init function within SQLUtils with the parameters passed
 
             SQLUtils sqlu = new SQLUtils(url,user,pass);
-            sqlu.init(username,password,email);
+            int errorCode = sqlu.init(username,password,email);
 
+            if(errorCode != 0){
+
+                alertUserAboutError(errorCode);
+            }
+        }
+
+        // If check fails, display to user error
+
+        else{
+
+            Toast toast = Toast.makeText(this,
+                    "Error: Please ensure all fields are filled in.",
+                    Toast.LENGTH_SHORT);
+
+            toast.setGravity(Gravity.CENTER,0,0);
+            toast.show();
         }
     }
 
