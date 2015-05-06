@@ -1,21 +1,18 @@
 package com.bruha.bruha.UI;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
 import com.bruha.bruha.Database.SQLUtils;
 import com.bruha.bruha.R;
-
-import javax.xml.datatype.Duration;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -47,33 +44,120 @@ public class RegisterActivity extends ActionBarActivity {
         // using ButterKnife.inject to allow the InjectViews to take effect
 
         ButterKnife.inject(this);
+    }
+
+    private void alertUserAboutError(String errorTitle, String errorMessage) {
+
+        AlertDialogFragment dialog = new AlertDialogFragment().newInstance(errorTitle,errorMessage);
+        dialog.show(getFragmentManager(), "error_dialog");
+    }
+
+    // A function used to check whether users are connected to the internet
+
+    private boolean isNetworkAvailable() {
+
+        ConnectivityManager manager = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+        // boolean variable initialized to false, set true if there is a connection
+
+        boolean isAvailable = false;
+
+        if(networkInfo != null && networkInfo.isConnected()){
+
+            isAvailable = true;
+        }
+
+        return isAvailable;
+    }
+
+    private boolean isValidEmail(String email) {
+
+        if (TextUtils.isEmpty(email)) {
+
+            return false;
+        }
+        else {
+
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        }
+    }
+
+    private boolean isValidUsername(String username){
+
+        boolean isAvailable = false;
+
+        int length = username.length();
+
+        if( length >= 6 && length <= 20 ){
+
+            isAvailable = true;
+        }
+
+        return isAvailable;
 
     }
 
-    // A function that shall be used to check that all fields are non-empty
+    private boolean isValidPassword(String password){
 
-    public boolean isEntryFieldEmpty(String username, String password, String email){
+        boolean isAvailable = false;
 
-        //Setting a signal to return true / false
+        int length = password.length();
 
-        // Init signal to false
-        boolean signal = false;
+        if( length >= 6 && length <= 20 ){
 
-        // If either of the fields are empty signal is set true
-        // and toast is made indicating the error
-
-        if(username != null || password != null || email != null){
-
-            signal = true;
-
-            Toast toast = Toast.makeText(this,
-                    "Error: Please ensure all fields are filled in.",
-                    Toast.LENGTH_SHORT);
-
-            toast.setGravity(Gravity.CENTER,0,0);
-            toast.show();
+            isAvailable = true;
         }
-        return signal;
+
+        return isAvailable;
+
+    }
+
+    private String isValidAccountInformation(String username, String password, String email){
+
+        String error;
+
+        if(isNetworkAvailable()) {
+
+            if ( isValidUsername(username) ) {
+
+                if( isValidPassword(password) ) {
+
+                    if (isValidEmail(email)) {
+
+                        // Calling the init function within SQLUtils with the parameters passed
+
+                        SQLUtils sqlu = new SQLUtils(url, user, pass);
+                        error = sqlu.init(username, password, email);
+
+                    }
+                    // If email is invalid, error string is updated
+
+                    else {
+                        error = "emailInvalid";
+                    }
+                }
+                // If password is invalid, error string is updated
+
+                else{
+                    error = "passwordInvalid";
+                }
+            }
+            // If username is invalid, error string is updated
+
+            else {
+                error = "usernameInvalid";
+            }
+        }
+        // If a connection cannot be established, update error string
+
+        else{
+            error = "connectionInvalid";
+        }
+
+        return error;
     }
 
     // Setting the listeners for the choice the user is to make on button click
@@ -87,16 +171,57 @@ public class RegisterActivity extends ActionBarActivity {
         String password = mRegisterPasswordEditText.getText().toString();
         String email = mRegisterEmailEditText.getText().toString();
 
+        // Importing ressources in order to reference stored string values
 
-        // Checking to ensure that all fields are non empty
+        Resources res = getResources();
 
-        if( !isEntryFieldEmpty(username, password, email) ){
+        // Retrieving the response from attempting to create the new account
 
-            // Calling the init function within SQLUtils with the parameters passed
+        String response = isValidAccountInformation(username,password,email);
 
-            SQLUtils sqlu = new SQLUtils(url,user,pass);
-            sqlu.init(username,password,email);
+        // A message is displayed to the user corresponding to the response received
 
+        switch(response){
+
+            case "connectionInvalid":
+                alertUserAboutError(
+                        res.getString(R.string.error_title_no_connection),
+                        res.getString(R.string.error_message_no_connection));
+                break;
+
+            case "usernameInvalid":
+                alertUserAboutError(
+                        res.getString(R.string.error_title_invalid_username),
+                        res.getString(R.string.error_message_invalid_username));
+                break;
+
+            case "passwordInvalid":
+                alertUserAboutError(
+                        res.getString(R.string.error_title_invalid_password),
+                        res.getString(R.string.error_message_invalid_password));
+                break;
+
+            case "emailInvalid":
+                alertUserAboutError(
+                        res.getString(R.string.error_title_invalid_email),
+                        res.getString(R.string.error_message_invalid_email));
+                break;
+
+            case "1062":
+                alertUserAboutError(
+                        res.getString(R.string.error_title_username_taken),
+                        res.getString(R.string.error_message_username_taken));
+                break;
+
+            case "Success":
+                alertUserAboutError(
+                        res.getString(R.string.success_title_account_created),
+                        res.getString(R.string.success_message_account_created));
+                break;
+
+            default:
+                alertUserAboutError(response, "Error " + response);
+                break;
         }
     }
 
