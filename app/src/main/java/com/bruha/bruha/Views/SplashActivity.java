@@ -1,23 +1,12 @@
-package com.bruha.bruha.UI;
+package com.bruha.bruha.Views;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.bruha.bruha.Database.SQLUtils;
 import com.bruha.bruha.R;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

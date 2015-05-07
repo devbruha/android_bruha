@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Bruha</string>
 
+    <!--
+             Database credentials
+      -->
+
     <string name="database_host_address">jdbc:mysql://66.147.244.109:3306/showdomc_web2</string>
     <string name="database_username">showdomc_android</string>
     <string name="database_password">show12345!</string>
@@ -10,6 +14,19 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_main">MainActivity</string>
+
+    <!--
+             Database Error Access Strings
+      -->
+
+    <string name="error_title_bad_SQL">SQL Error</string>
+    <string name="error_message_bad_SQL">There is a syntax error in the SQL.</string>
+
+
+    <!--
+             Register Activity Strings
+      -->
+    <string name="error_bad_register">Registration Failure</string>
 
     <string name="success_title_account_created">Account Successfully Created!</string>
     <string name="success_message_account_created">Welcome to Bruha!</string>
@@ -26,13 +43,35 @@
         internet settings.</string>
 
     <string name="error_title_invalid_username">Invalid Username</string>
-    <string name="error_message_invalid_username">Usernames must be between 6-20 characters.</string>
+    <string name="error_message_invalid_username">Usernames must be between 6-20 characters and only
+        contain numbers, letters or underscores (" _ ").</string>
 
     <string name="error_title_invalid_password">Invalid Password</string>
-    <string name="error_message_invalid_password">Passwords must be between 6-20 characters.</string>
+    <string name="error_message_invalid_password">Passwords must be between 6-20 characters and only
+        contain numbers, letters or underscores (" _ ").</string>
 
     <string name="error_title_invalid_email">Invalid Email Address</string>
     <string name="error_message_invalid_email">Please enter a valid email address.</string>
+
+    <!--
+             Login Activity Strings
+      -->
+    <string name="error_bad_login">Login Failure</string>
+
+    <string name="error_title_username_non_existent">Invalid Username</string>
+    <string name="error_message_username_non_existent">Username does not exist, please enter a
+    valid username</string>
+
+    <string name="error_title_password_non_existent">Invalid Password</string>
+    <string name="error_message_password_non_existent">An invalid password has been entered, please
+    enter a valid password.</string>
+
+    <string name="error_title_credential_mismatch">Invalid Username/Password Combination</string>
+    <string name="error_message_credential_mismatch">The password entered does not match the password
+    associated with the entered username.</string>
+
+    <string name="success_title_login">Login Successful</string>
+    <string name="success_message_login">Please wait while we log you in.</string>
 
 
 
