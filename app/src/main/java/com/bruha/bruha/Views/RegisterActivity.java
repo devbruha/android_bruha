@@ -1,7 +1,6 @@
-package com.bruha.bruha.UI;
+package com.bruha.bruha.Views;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -11,7 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import com.bruha.bruha.Database.SQLUtils;
+import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.R;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -24,6 +23,8 @@ public class RegisterActivity extends ActionBarActivity {
     String url = "jdbc:mysql://66.147.244.109:3306/showdomc_web2"; //
     String user = "showdomc_android";
     String pass = "show12345!";
+
+    String task = "register";
 
     // Injecting the EditTexts using Butterknife library
 
@@ -46,9 +47,11 @@ public class RegisterActivity extends ActionBarActivity {
         ButterKnife.inject(this);
     }
 
+    // A function to call the AlertDialogFragment Activity
+
     private void alertUserAboutError(String errorTitle, String errorMessage) {
 
-        AlertDialogFragment dialog = new AlertDialogFragment().newInstance(errorTitle,errorMessage);
+        AlertDialogFragment dialog = new AlertDialogFragment().newInstance( errorTitle,errorMessage );
         dialog.show(getFragmentManager(), "error_dialog");
     }
 
@@ -73,6 +76,8 @@ public class RegisterActivity extends ActionBarActivity {
         return isAvailable;
     }
 
+    // A function used to check whether users are entering a valid email address
+
     private boolean isValidEmail(String email) {
 
         if (TextUtils.isEmpty(email)) {
@@ -85,20 +90,38 @@ public class RegisterActivity extends ActionBarActivity {
         }
     }
 
+    // A function used to check whether users are entering a valid username
+
     private boolean isValidUsername(String username){
 
         boolean isAvailable = false;
 
         int length = username.length();
 
-        if( length >= 6 && length <= 20 ){
+        // Ensure the proper length and legal characters to prevent query injecting
 
-            isAvailable = true;
+        if( length >= 6 && length <= 20 ){
+            if( username.matches("[a-zA-Z]+") ||
+                    username.contains("0") ||
+                    username.contains("1") ||
+                    username.contains("2") ||
+                    username.contains("3") ||
+                    username.contains("4") ||
+                    username.contains("5") ||
+                    username.contains("6") ||
+                    username.contains("7") ||
+                    username.contains("8") ||
+                    username.contains("9") ||
+                    username.contains("_") ){
+
+                isAvailable = true;
+            }
         }
 
         return isAvailable;
-
     }
+
+    // A function used to check whether users are entering a valid password
 
     private boolean isValidPassword(String password){
 
@@ -106,14 +129,31 @@ public class RegisterActivity extends ActionBarActivity {
 
         int length = password.length();
 
-        if( length >= 6 && length <= 20 ){
+        // Ensure the proper length and legal characters to prevent query injecting
 
-            isAvailable = true;
+        if( length >= 6 && length <= 20 ){
+            if( password.matches("[a-zA-Z]+") ||
+                    password.contains("0") ||
+                    password.contains("1") ||
+                    password.contains("2") ||
+                    password.contains("3") ||
+                    password.contains("4") ||
+                    password.contains("5") ||
+                    password.contains("6") ||
+                    password.contains("7") ||
+                    password.contains("8") ||
+                    password.contains("9") ||
+                    password.contains("_") ){
+
+                isAvailable = true;
+            }
         }
 
         return isAvailable;
-
     }
+
+    // A function to run the previous check aswell as to call the SQLUtils class to run the
+    // queries
 
     private String isValidAccountInformation(String username, String password, String email){
 
@@ -130,7 +170,7 @@ public class RegisterActivity extends ActionBarActivity {
                         // Calling the init function within SQLUtils with the parameters passed
 
                         SQLUtils sqlu = new SQLUtils(url, user, pass);
-                        error = sqlu.init(username, password, email);
+                        error = sqlu.init(username, password, email, task);
 
                     }
                     // If email is invalid, error string is updated
@@ -175,9 +215,7 @@ public class RegisterActivity extends ActionBarActivity {
 
         Resources res = getResources();
 
-        // Retrieving the response from attempting to create the new account
-
-        String response = isValidAccountInformation(username,password,email);
+        String response = isValidAccountInformation(username, password, email);
 
         // A message is displayed to the user corresponding to the response received
 
@@ -185,38 +223,47 @@ public class RegisterActivity extends ActionBarActivity {
 
             case "connectionInvalid":
                 alertUserAboutError(
-                        res.getString(R.string.error_title_no_connection),
+                        res.getString(R.string.error_bad_register),
                         res.getString(R.string.error_message_no_connection));
                 break;
 
             case "usernameInvalid":
                 alertUserAboutError(
-                        res.getString(R.string.error_title_invalid_username),
+                        res.getString(R.string.error_bad_register),
                         res.getString(R.string.error_message_invalid_username));
                 break;
 
             case "passwordInvalid":
                 alertUserAboutError(
-                        res.getString(R.string.error_title_invalid_password),
+                        res.getString(R.string.error_bad_register),
                         res.getString(R.string.error_message_invalid_password));
                 break;
 
             case "emailInvalid":
                 alertUserAboutError(
-                        res.getString(R.string.error_title_invalid_email),
+                        res.getString(R.string.error_bad_register),
                         res.getString(R.string.error_message_invalid_email));
                 break;
 
             case "1062":
                 alertUserAboutError(
-                        res.getString(R.string.error_title_username_taken),
+                        res.getString(R.string.error_bad_register),
                         res.getString(R.string.error_message_username_taken));
+                break;
+
+            case "1064":
+                alertUserAboutError(
+                        res.getString(R.string.error_title_bad_SQL),
+                        res.getString(R.string.error_message_bad_SQL));
                 break;
 
             case "Success":
                 alertUserAboutError(
                         res.getString(R.string.success_title_account_created),
                         res.getString(R.string.success_message_account_created));
+
+                // Start the next activity here after the message
+
                 break;
 
             default:

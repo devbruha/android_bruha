@@ -1,4 +1,4 @@
-package com.bruha.bruha.UI;
+package com.bruha.bruha.Views;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
