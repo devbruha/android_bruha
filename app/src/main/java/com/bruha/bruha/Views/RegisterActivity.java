@@ -170,7 +170,7 @@ public class RegisterActivity extends ActionBarActivity {
                         // Calling the init function within SQLUtils with the parameters passed
 
                         SQLUtils sqlu = new SQLUtils(url, user, pass);
-                        error = sqlu.init(username, password, email, task);
+                        error = sqlu.register(username, password, email);
 
                     }
                     // If email is invalid, error string is updated

@@ -12,11 +12,18 @@ import android.widget.EditText;
 
 
 import com.bruha.bruha.Processing.SQLUtils;
+import com.bruha.bruha.Model.SQLiteDatabaseModel;
+import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+
+//TODO Continue with the attempted insertions into the local DB
+//TODO Fix the error checked regarding the query injection
 
 public class LoginActivity extends ActionBarActivity {
 
@@ -26,7 +33,9 @@ public class LoginActivity extends ActionBarActivity {
     String user = "showdomc_android";
     String pass = "show12345!";
 
-    String task = "login";
+    SQLUtils sqlu = new SQLUtils(url, user, pass);
+
+    private String DB_DEBUGGING = "Local Database Test";
 
     // Injecting the EditTexts using Butterknife library
 
@@ -37,6 +46,10 @@ public class LoginActivity extends ActionBarActivity {
 
     @InjectView(R.id.loginButton) Button mLoginButton;
     @InjectView(R.id.continueNotLoggedButton) Button mNoLoginButton;
+
+    // Create the local DB object
+
+    SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,8 +167,7 @@ public class LoginActivity extends ActionBarActivity {
 
                     // Calling the init function within SQLUtils with the parameters passed
 
-                    SQLUtils sqlu = new SQLUtils(url, user, pass);
-                    error = sqlu.init(username, password, "null", task);
+                    error = sqlu.loginCheck(username, password);
                 }
                 // If password is invalid, error string is updated
 
@@ -227,6 +239,18 @@ public class LoginActivity extends ActionBarActivity {
                 break;
 
             case "Success":
+
+                // Storing the user_info value into a list
+
+                List<String> user_info = sqlu.loginDatabasePush(username);
+
+                // Passing the newly created list and SQLite DB to next class to perform the
+                // insertion into the local DB
+
+                //SQLiteUtils sqLiteUtils = new SQLiteUtils();
+                //sqLiteUtils.insertNewUser(dbHelper, user_info);
+
+                // Alerting user of successfull login
 
                 alertUserAboutError(
                         res.getString(R.string.success_title_login),
