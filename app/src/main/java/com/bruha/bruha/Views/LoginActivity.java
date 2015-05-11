@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -247,8 +248,10 @@ public class LoginActivity extends ActionBarActivity {
                 // Passing the newly created list and SQLite DB to next class to perform the
                 // insertion into the local DB
 
-                //SQLiteUtils sqLiteUtils = new SQLiteUtils();
-                //sqLiteUtils.insertNewUser(dbHelper, user_info);
+                SQLiteUtils sqLiteUtils = new SQLiteUtils();
+                sqLiteUtils.insertNewUser(dbHelper, user_info);
+                sqLiteUtils.getUserInfo(dbHelper);
+
 
                 // Alerting user of successfull login
 
