@@ -37,7 +37,7 @@ public class LoginActivity extends ActionBarActivity {
     SQLUtils sqlu = new SQLUtils(url, user, pass);
 
     private String DB_DEBUGGING = "Local Database Test";
-    // test
+    // test1
 
     // Injecting the EditTexts using Butterknife library
 
