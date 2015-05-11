@@ -2,6 +2,8 @@ package com.bruha.bruha.Processing;
 
 import android.util.Log;
 
+import com.bruha.bruha.Model.SQLiteDatabaseModel;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -9,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -22,9 +26,15 @@ public class SQLUtils {
     private String user;
     private String pass;
 
+    // Initializing the result set variable rs
+    ResultSet rs = null;
+
+    // Initializing a list to store the results from "rs" to pass back to other activity
+    List<String> user_info = new ArrayList<>();
+
     // Error code to be used for user notification
 
-    private String errorCode;
+    private String errorCode =  "Error Code Init Value";
 
     // Creating tags for debugging purposes
 
@@ -38,12 +48,9 @@ public class SQLUtils {
         this.pass = pass;
     }
 
-    // Creating a thread to run the database call
-    // to avoid main thread over usage
+    public String loginCheck(final String username, final String password){
 
-    public String init(final String username, final String password, final String email, final String task) {
-
-        // Creating new thread to run the database query
+        // Creating a thread to run the database interaction on a seperate thread
 
         Thread thread;
 
@@ -51,25 +58,150 @@ public class SQLUtils {
             @Override
             public void run() {
 
-                // Running the function aswell as saving the errorcode into "errorCode"
+                try {
 
-                switch(task){
+                    // Instantiating the JDBC library
 
-                    case "register":
-                        errorCode = register(username, password, email);
-                        break;
+                    Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-                    case "login":
-                        errorCode = login(username, password);
+                    // Creating a connection using the passed in URL, username, and password
 
-                    default:
-                        break;
+                    Connection c = DriverManager.getConnection(CONNECTION_URL, user, pass);
+
+                    // Creating the SQL statements for checking if valid user credentials and for
+                    // retrieving the user information
+
+                    String sqlCheck = " SELECT USER_ID "
+                            + " FROM user "
+                            + " WHERE user_id = '" + username + "' AND password = '" + password + "' ";
+
+                    Statement st = c.createStatement();
+
+                    // Creating a result set from the results of the query
+
+                    rs = st.executeQuery(sqlCheck);
+
+                    if (!rs.next()) {
+
+                        // Setting code to reflect no results from the DB
+
+                        errorCode = "badCredentials";
+
+                        //Closing both the statement and the connection
+
+                        st.close();
+                        c.close();
+                    }
+                    else{
+
+                        errorCode = "Success";
+
+                        //Closing both the statement and the connection
+
+                        st.close();
+                        c.close();
+                    }
                 }
 
+                catch (ClassNotFoundException e) {
+
+                    e.printStackTrace();
+                }
+
+                catch (SQLException e) {
+
+                    e.printStackTrace();
+                    errorCode = e.getErrorCode()+"";
+                    Log.v(DB_DEBUGGING, errorCode + "");
+                    Log.v(DB_DEBUGGING, e.getMessage());
+                }
+
+                catch (Exception e){
+                    e.printStackTrace();
+                    String message = e.getMessage();
+                    Log.v(DB_DEBUGGING, message);
+                }
             }
         });
 
-        //Starting thread
+        // Execution of the thread
+
+        thread.start();
+
+        // Using the thread.join function in order to ensure that the thread is waited on before
+        // returning errorCode, otherwise null pointer error
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return errorCode;
+    }
+
+    public String register(final String username, final String password, final String email) {
+
+        // Creating a thread to run the database interaction on a seperate thread
+
+        Thread thread;
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+
+                    // Instantiating the JDBC library
+
+                    Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+                    // Creating a connection using the passed in URL, username, and password
+
+                    Connection c = DriverManager.getConnection(CONNECTION_URL, user, pass);
+
+                    // Creating the SQL statement to insert this new user into the database
+
+                    String sql = "insert into user"
+                            + "(user_id, password , email)"
+                            + "values ('" + username + "', '" + password + "', '" + email + "')";
+
+                    // Creating a statement from the SQL string made previously
+
+                    PreparedStatement st = c.prepareStatement(sql);
+
+                    //Exceuting the statement
+
+                    st.execute();
+
+                    //Closing both the statement and the connection
+
+                    st.close();
+                    c.close();
+
+                    errorCode = "Success";
+                }
+
+                catch (ClassNotFoundException e) {
+
+                    e.printStackTrace();
+                }
+
+                catch (SQLException e) {
+
+                    e.printStackTrace();
+                    errorCode = e.getErrorCode()+"";
+                    Log.v(DB_DEBUGGING, errorCode + "");
+                    Log.v(DB_DEBUGGING, e.getMessage());
+                }
+
+                catch (Exception e){
+                    e.printStackTrace();
+                    String message = e.getMessage();
+                    Log.v(DB_DEBUGGING, message);
+                }
+            }
+        });
 
         thread.start();
 
@@ -85,151 +217,90 @@ public class SQLUtils {
         return errorCode;
     }
 
-    private String register(String username, String password, String email) {
+    public List<String> loginDatabasePush( final String username ){
 
-        String code = "Error Code Init Value";
+        Thread thread;
 
-        try {
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
 
-            // Instantiating the JDBC library
+                try {
 
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
+                    // Instantiating the JDBC library
 
-            // Creating a connection using the passed in URL, username, and password
+                    Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-            Connection c = DriverManager.getConnection(CONNECTION_URL, user, pass);
+                    // Creating a connection using the passed in URL, username, and password
 
-            // Creating the SQL statement to insert this new user into the database
+                    Connection c = DriverManager.getConnection(CONNECTION_URL, user, pass);
 
-            String sql = "insert into user"
-                    + "(user_id, password , email)"
-                    + "values ('" + username + "', '" + password + "', '" + email + "')";
+                    // Creating the SQL statements for checking if valid user credentials and for
+                    // retrieving the user information
 
-            // Creates a statement from the SQL string made previously
+                    String sqlRetrieve = " SELECT * "
+                            + " FROM user_info "
+                            + " WHERE user_id = '" + username + "' ";
 
-            PreparedStatement st = c.prepareStatement(sql);
+                    Statement st = c.createStatement();
 
-            //Exceuting the statement
+                    // Creating a result set from the results of the query
 
-            st.execute();
+                    rs = st.executeQuery(sqlRetrieve);
 
-            //Closing both the statement and the connection
+                    // A loop to run through all values from the resultSet
 
-            st.close();
-            c.close();
+                    while (rs.next()) {
 
-            code = "Success";
-        }
+                        // Adding the 4 results from the resultSet to the user_info list
+                        // which has been initialized at the start of the class
 
-        catch (ClassNotFoundException e) {
+                        user_info.add(rs.getString("user_id"));
+                        user_info.add(rs.getString("name"));
 
-            e.printStackTrace();
-        }
+                        Date birthdate = rs.getDate("birtthdate");
+                        String birthdateString = birthdate + "";
+                        user_info.add(birthdateString);
 
-        catch (SQLException e) {
+                        user_info.add(rs.getString("gender"));
+                    }
 
-            e.printStackTrace();
-            code = e.getErrorCode()+"";
-            Log.v(DB_DEBUGGING, code + "");
-            Log.v(DB_DEBUGGING, e.getMessage());
-        }
+                    //Closing both the statement and the connection
 
-        catch (Exception e){
-            e.printStackTrace();
-            String message = e.getMessage();
-            Log.v(DB_DEBUGGING, message);
-        }
-
-        return code;
-    }
-
-    private String login(String username, String password){
-
-        String code = "Error Code Init Value";
-
-        try {
-
-            // Instantiating the JDBC library
-
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-
-            // Creating a connection using the passed in URL, username, and password
-
-            Connection c = DriverManager.getConnection(CONNECTION_URL, user, pass);
-
-            // Creating the SQL statements for checking if valid user credentials and for
-            // retrieving the user information
-
-            String sqlCheck = " SELECT USER_ID "
-                    + " FROM user "
-                    + " WHERE user_id = '" + username + "' AND password = '" + password + "' ";
-
-            String sqlRetrieve = " SELECT * "
-                    + " FROM user_info "
-                    + " WHERE user_id = '" + username + "' ";
-
-            Statement st = c.createStatement();
-
-            // Creating a result set from the results of the query
-
-            ResultSet rs = st.executeQuery(sqlCheck);
-
-            if (!rs.next()) {
-
-                // Setting code to reflect no results from the DB
-
-                code = "badCredentials";
-
-                //Closing both the statement and the connection
-
-                st.close();
-                c.close();
-            }
-            else{
-
-                code = "Success";
-
-                rs = st.executeQuery(sqlRetrieve);
-
-                while( rs.next() ){
-
-                    String user_id = rs.getString("user_id");
-                    String name = rs.getString("name");
-                    Date birthdate = rs.getDate("birtthdate");
-                    String gender = rs.getString("gender");
-
-                    Log.v(DB_DEBUGGING,user_id);
-                    Log.v(DB_DEBUGGING,name);
-                    Log.v(DB_DEBUGGING,birthdate+"");
-                    Log.v(DB_DEBUGGING,gender);
+                    st.close();
+                    c.close();
                 }
 
-                //Closing both the statement and the connection
+                catch (ClassNotFoundException e) {
 
-                st.close();
-                c.close();
+                    e.printStackTrace();
+                }
+
+                catch (SQLException e) {
+
+                    e.printStackTrace();
+                    Log.v(DB_DEBUGGING, e.getMessage());
+                }
+
+                catch (Exception e){
+                    e.printStackTrace();
+                    String message = e.getMessage();
+                    Log.v(DB_DEBUGGING, message);
+                }
             }
-        }
+        });
 
-        catch (ClassNotFoundException e) {
+        thread.start();
 
+        // Running thread.join so ensure the operation finishes before the main thread returns
+        // the errorCode value
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        catch (SQLException e) {
-
-            e.printStackTrace();
-            code = e.getErrorCode()+"";
-            Log.v(DB_DEBUGGING, code + "");
-            Log.v(DB_DEBUGGING, e.getMessage());
-        }
-
-        catch (Exception e){
-            e.printStackTrace();
-            String message = e.getMessage();
-            Log.v(DB_DEBUGGING, message);
-        }
-
-        return code;
+        return user_info;
     }
 }
