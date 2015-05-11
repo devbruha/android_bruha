@@ -102,18 +102,7 @@ public class LoginActivity extends ActionBarActivity {
         // Ensure the proper length and legal characters to prevent query injecting
 
         if( length >= 6 && length <= 20 ){
-            if( username.matches("[a-zA-Z]+") ||
-                    username.contains("0") ||
-                    username.contains("1") ||
-                    username.contains("2") ||
-                    username.contains("3") ||
-                    username.contains("4") ||
-                    username.contains("5") ||
-                    username.contains("6") ||
-                    username.contains("7") ||
-                    username.contains("8") ||
-                    username.contains("9") ||
-                    username.contains("_") ){
+            if( username.matches("^[a-zA-Z0-9_]*$")){
 
                 isAvailable = true;
             }
@@ -133,18 +122,7 @@ public class LoginActivity extends ActionBarActivity {
         // Ensure the proper length and legal characters to prevent query injecting
 
         if( length >= 6 && length <= 20 ){
-            if( password.matches("[a-zA-Z]+") ||
-                    password.contains("0") ||
-                    password.contains("1") ||
-                    password.contains("2") ||
-                    password.contains("3") ||
-                    password.contains("4") ||
-                    password.contains("5") ||
-                    password.contains("6") ||
-                    password.contains("7") ||
-                    password.contains("8") ||
-                    password.contains("9") ||
-                    password.contains("_") ){
+            if( password.matches("^[a-zA-Z0-9_]*$")){
 
                 isAvailable = true;
             }
