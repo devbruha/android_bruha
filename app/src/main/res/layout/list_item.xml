@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="300dip"
+                tools:background="@drawable/bg_gradient">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/ImageEventPicture"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/EventImageBubble"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/round"
+        android:alpha=".25"
+        android:focusable="false"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="The Arkells"
+        android:id="@+id/TextEventName"
+        android:textSize="20sp"
+        android:paddingBottom="8dp"
+
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/ImageEventIcon"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="December 25, 2015"
+        android:id="@+id/TextEventDate"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/TextEventName"
+        android:singleLine="true"
+        android:textSize="20dp"
+        android:paddingBottom="14dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$25.00"
+        android:id="@+id/TextEventPrice"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/TextEventDate"
+        android:textSize="20sp"
+        android:paddingBottom="7dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1km"
+        android:id="@+id/TextEventDistance"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/TextEventPrice"
+        android:textSize="12dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ImageEventIcon"
+        android:src="@android:drawable/ic_secure"
+        android:layout_alignTop="@+id/EventImageBubble"
+        android:layout_alignLeft="@+id/TextEventDistance"
+        android:layout_alignStart="@+id/TextEventDistance"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="8dp"/>
+
+
+</RelativeLayout>
