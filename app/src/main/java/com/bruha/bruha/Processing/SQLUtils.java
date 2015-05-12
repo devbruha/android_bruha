@@ -118,8 +118,8 @@ public class SQLUtils {
 
                 catch (Exception e){
                     e.printStackTrace();
-                    String message = e.getMessage();
-                    Log.v(DB_DEBUGGING, message);
+                    errorCode = e.getMessage();
+                    Log.v(DB_DEBUGGING, errorCode);
                 }
             }
         });

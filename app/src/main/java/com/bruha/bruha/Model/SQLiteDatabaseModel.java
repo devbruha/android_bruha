@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 
 /**
@@ -84,10 +85,18 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         if(cursor != null)
         {
             while(cursor.moveToNext()){
+
+                int id = cursor.getInt(cursor.getColumnIndex("_id"));
                 String username = cursor.getString(cursor.getColumnIndex("username"));
                 String name = cursor.getString(cursor.getColumnIndex("name"));
                 String DOB = cursor.getString(cursor.getColumnIndex("birthdate"));
                 String gender = cursor.getString(cursor.getColumnIndex("gender"));
+
+                Log.v("Local DB TEST", id+"");
+                Log.v("Local DB TEST", username);
+                Log.v("Local DB TEST", name);
+                Log.v("Local DB TEST", DOB);
+                Log.v("Local DB TEST", gender);
 
 
                 // use these strings as you want
