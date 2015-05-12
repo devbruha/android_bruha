@@ -59,8 +59,8 @@ public class SplashActivity extends ActionBarActivity {
 
         //Shall proceed to the list activity NOT signed in or registered
 
-        //Intent intent = new Intent(this, RegisterActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, DashboardActivity.class);
+        startActivity(intent);
 
     }
 }

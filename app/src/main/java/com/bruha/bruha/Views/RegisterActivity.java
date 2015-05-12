@@ -1,6 +1,7 @@
 package com.bruha.bruha.Views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -23,8 +24,6 @@ public class RegisterActivity extends ActionBarActivity {
     String url = "jdbc:mysql://66.147.244.109:3306/showdomc_web2"; //
     String user = "showdomc_android";
     String pass = "show12345!";
-
-    String task = "register";
 
     // Injecting the EditTexts using Butterknife library
 
@@ -253,8 +252,8 @@ public class RegisterActivity extends ActionBarActivity {
     @OnClick(R.id.continueNotRegisteredButton)
     public void proceedWithoutAccount(View view){
 
-        //Intent intent = new Intent(this, LoginActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, DashboardActivity.class);
+        startActivity(intent);
 
     }
 }

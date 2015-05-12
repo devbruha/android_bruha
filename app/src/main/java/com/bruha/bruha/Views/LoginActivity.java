@@ -1,6 +1,7 @@
 package com.bruha.bruha.Views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -245,6 +246,14 @@ public class LoginActivity extends ActionBarActivity {
                 alertUserAboutError("Dev Error"+response, "Error " + response);
                 break;
         }
+    }
+
+    @OnClick(R.id.continueNotLoggedButton)
+    public void proceedWithoutAccount(View view){
+
+        Intent intent = new Intent(this, DashboardActivity.class);
+        startActivity(intent);
+
     }
 
 }
