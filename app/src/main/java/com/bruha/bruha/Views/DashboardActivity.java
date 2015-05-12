@@ -1,12 +1,10 @@
 package com.bruha.bruha.Views;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.bruha.bruha.R;
 
@@ -40,8 +38,8 @@ public class DashboardActivity extends ActionBarActivity {
     @OnClick(R.id.mapButton)
     public void startMapActivity(View view){
 
-        //Intent intent = new Intent(this, LoginActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
 
     }
 
