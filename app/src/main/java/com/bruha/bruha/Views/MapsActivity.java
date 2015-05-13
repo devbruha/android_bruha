@@ -2,6 +2,7 @@ package com.bruha.bruha.Views;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 
 import com.bruha.bruha.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -9,8 +10,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 public class MapsActivity extends FragmentActivity {
+
+    private SlidingUpPanelLayout mLayout;
+    private LinearLayout dragLayout;
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
@@ -19,6 +24,14 @@ public class MapsActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         setUpMapIfNeeded();
+
+        mLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+        dragLayout = (LinearLayout) findViewById(R.id.dragView);
+
+        mLayout.setAnchorPoint(.9f);
+        mLayout.setAnchorPoint(.5f);
+
+
     }
 
     @Override

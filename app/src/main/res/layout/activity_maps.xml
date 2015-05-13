@@ -11,37 +11,56 @@
         android:layout_height="match_parent"
         android:gravity="bottom"
         sothree:umanoPanelHeight="68dp"
-        sothree:umanoShadowHeight="4dp"
-        sothree:umanoParalaxOffset="100dp"
         sothree:umanoDragView="@+id/dragView"
-        sothree:umanoOverlay="true">
+        sothree:umanoOverlay="false"
+        sothree:umanoFadeColor="@android:color/transparent"
+        >
 
         <!-- MAIN CONTENT -->
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                      xmlns:tools="http://schemas.android.com/tools"
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:id="@+id/map"
-                      tools:context="com.bruha.bruha.Views.MapsActivity"
-                      android:name="com.google.android.gms.maps.SupportMapFragment"/>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        </FrameLayout>
+                <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                          xmlns:tools="http://schemas.android.com/tools"
+                          android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:id="@+id/map"
+                          tools:context="com.bruha.bruha.Views.MapsActivity"
+                          android:name="com.google.android.gms.maps.SupportMapFragment"/>
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Button"
+                    android:id="@+id/dudeButton"
+                    android:layout_gravity="left|top"/>
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Button"
+                    android:id="@+id/listButton"
+                    android:layout_gravity="right|top"/>
+
+            </FrameLayout>
 
         <!-- SLIDING LAYOUT -->
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="900dp"
             android:background="#ffffff"
             android:orientation="vertical"
             android:clickable="true"
             android:focusable="false"
-            android:id="@+id/dragView">
+            android:id="@+id/dragView"
+            android:elevation="50dp"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -68,15 +87,6 @@
                     android:paddingRight="10dp"
                     android:paddingLeft="10dp"
                     android:text="Venues"/>
-                <Button
-                    android:id="@+id/orgButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textSize="14sp"
-                    android:layout_weight="0.25"
-                    android:paddingRight="10dp"
-                    android:paddingLeft="10dp"
-                    android:text="Organizations"/>
 
                 <Button
                     android:id="@+id/artistButton"
@@ -88,18 +98,41 @@
                     android:paddingLeft="10dp"
                     android:text="Artists"/>
 
+                <Button
+                    android:id="@+id/orgButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="14sp"
+                    android:layout_weight="0.25"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:text="Organizations"/>
+
             </LinearLayout>
 
-            <ImageView
+            <ExpandableListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/recommendedExpList"
+                android:headerDividersEnabled="false"/>
+
+            <CalendarView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:scaleType="fitStart"
-                android:src="@drawable/abc_btn_check_to_on_mtrl_015" >
-            </ImageView>
+                android:layout_height="match_parent"
+
+                android:id="@+id/calendarView"/>
+
+            <ExpandableListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:id="@+id/categoryExpList"/>
+
         </LinearLayout>
 
 
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+
 
 </RelativeLayout>
