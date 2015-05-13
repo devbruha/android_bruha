@@ -2,30 +2,38 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="300dip"
-                tools:background="@drawable/bg_gradient">
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_gradient"
+                android:paddingTop="25dp"
+                android:paddingBottom="25dp"
+                android:id="@+id/LayoutToChange">
+    >
 
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/ImageEventPicture"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="false"
+        android:scaleType="fitXY"
         />
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="180dp"
         android:id="@+id/EventImageBubble"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/round"
         android:alpha=".25"
-        android:focusable="false"/>
+        android:focusable="false"
+        android:layout_weight="5"
+        />
 
     <TextView
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="The Arkells"
@@ -46,24 +54,24 @@
         android:layout_below="@+id/TextEventName"
         android:singleLine="true"
         android:textSize="20dp"
-        android:paddingBottom="14dp"/>
+        android:paddingBottom="8dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="$25.00"
         android:id="@+id/TextEventPrice"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/TextEventDate"
         android:textSize="20sp"
-        android:paddingBottom="7dp"/>
+        android:paddingBottom="8dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1km"
         android:id="@+id/TextEventDistance"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/TextEventPrice"
         android:textSize="12dp"/>
 

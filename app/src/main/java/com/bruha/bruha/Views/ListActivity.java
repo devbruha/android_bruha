@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.bruha.bruha.Adapters.ListviewAdapter;
 import com.bruha.bruha.Model.Event;
@@ -20,12 +23,13 @@ import butterknife.OnClick;
 
 public class ListActivity extends ActionBarActivity {
 
-    Event[] mEvents = new Event[3];
+    Event[] mEvents = new Event[10];
 
     //Injecting Buttons using ButterKnife Library
     @InjectView(R.id.MapButton) Button mMapButton;
     @InjectView(R.id.DashboardButton) Button mDashboardButton;
     @InjectView(android.R.id.list) ListView mListView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +37,7 @@ public class ListActivity extends ActionBarActivity {
         setContentView(R.layout.activity_list2);
         ButterKnife.inject(this);
 
-        for(int i=0; i<3;i++) {
+        for(int i=0; i<10;i++) {
 
             Event event = new Event();
            // mEvents[i].setEventIcon(R.drawable.testround);
@@ -50,6 +54,25 @@ public class ListActivity extends ActionBarActivity {
 
         mListView.setAdapter(adapter);
 
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+
+
+                String name = mEvents[position].getEventName();
+                String date = mEvents[position].getEventDate();
+                String price = mEvents[position].getEventPrice() + "";
+                String distance= mEvents[position].getEventDistance()+ "";
+                String message = String.format("%s will be playing on %s and it will be %s and is at a distance of %s from you",
+                        name,
+                        date,
+                        price,
+                        distance);
+                Toast.makeText(ListActivity.this, message, Toast.LENGTH_LONG).show();
+            }
+        });
 
 
     }
