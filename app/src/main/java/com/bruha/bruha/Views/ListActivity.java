@@ -8,8 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.bruha.bruha.Adapters.ListviewAdapter;
+import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.R;
 
 import butterknife.ButterKnife;
@@ -18,9 +20,12 @@ import butterknife.OnClick;
 
 public class ListActivity extends ActionBarActivity {
 
+    Event[] mEvents = new Event[3];
+
     //Injecting Buttons using ButterKnife Library
     @InjectView(R.id.MapButton) Button mMapButton;
     @InjectView(R.id.DashboardButton) Button mDashboardButton;
+    @InjectView(android.R.id.list) ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +33,22 @@ public class ListActivity extends ActionBarActivity {
         setContentView(R.layout.activity_list2);
         ButterKnife.inject(this);
 
-        ListviewAdapter adapter=new ListviewAdapter(this); //Calling the adapter ListView to help set the List
+        for(int i=0; i<3;i++) {
+
+            Event event = new Event();
+           // mEvents[i].setEventIcon(R.drawable.testround);
+           // mEvents[i].setEventPicture(R.drawable.testround);
+            event.setEventName("Meow");
+            event.setEventDate("May 25,2015");
+            event.setEventDistance(5.0);
+            event.setEventPrice(10.0);
+
+            mEvents[i] = event;
+        }
+
+        ListviewAdapter adapter=new ListviewAdapter(this,mEvents); //Calling the adapter ListView to help set the List
+
+        mListView.setAdapter(adapter);
 
 
 

@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.R;
 
 /**
@@ -16,42 +17,44 @@ import com.bruha.bruha.R;
 public class ListviewAdapter extends BaseAdapter {
 
     private Context mContext;
+    private Event[] mEvents;
 
     //the Constructor for the class
-    public ListviewAdapter(Context context)
-    {mContext=context;}
-
-
+    public ListviewAdapter(Context context, Event[] events) {
+        mContext = context;
+        mEvents = events;
+    }
 
 
     @Override
     public int getCount() {
-        return 0;  //Retuns length of the view
+        return mEvents.length;  //Returns length of the array of Events
     }
 
     @Override
     public Object getItem(int position) {
-        return null;  //Returns the Item being accessed in the view
+        return mEvents[position];  //Returns the Item being accessed in the the array}
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;   //Id of the Itel being accessed in the view
+        return 0;   //Id of the Item being accessed in the view
     }
 
 
     //Gets the view
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+         ViewHolder holder;
 
 
         if (convertView == null) {
             // brand new view if it is null
             convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item, null);
+
             holder = new ViewHolder();
-            holder.EventPicture= (ImageView) convertView.findViewById(R.id.ImageEventPicture);
-            holder.EventIcon = (ImageView) convertView.findViewById(R.id.ImageEventIcon);
+            //holder.EventPicture= (ImageView) convertView.findViewById(R.id.ImageEventPicture);
+            //holder.EventIcon = (ImageView) convertView.findViewById(R.id.ImageEventIcon);
             holder.EventName = (TextView) convertView.findViewById(R.id.TextEventName);
             holder.EventDate = (TextView) convertView.findViewById(R.id.TextEventDate);
             holder.EventPrice= (TextView) convertView.findViewById(R.id.TextEventPrice);
@@ -64,18 +67,28 @@ public class ListviewAdapter extends BaseAdapter {
         }
 
 
+        Event event = mEvents[position];
+
+        holder.EventDistance.setText(event.getEventDistance()+"");
+        holder.EventName.setText(event.getEventName());
+        holder.EventDate.setText(event.getEventDate());
+        holder.EventPrice.setText(event.getEventPrice()+"");
+        //holder.EventIcon.setImageResource(event.getEventIcon());
+        //holder.EventPicture.setImageResource(event.getEventPicture());
 
 
-        return convertView;
-    }
+
+
+            return convertView;
+        }
 
 
 
 
     //A view holder that contain the things that need to be changed everytime
     private static class ViewHolder{
-        ImageView EventPicture;
-        ImageView EventIcon;
+        //ImageView EventPicture;
+       // ImageView EventIcon;
         TextView EventName;
         TextView EventDate;
         TextView EventPrice;
@@ -85,4 +98,5 @@ public class ListviewAdapter extends BaseAdapter {
 
     }
 
-}
+
+    }
