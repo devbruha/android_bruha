@@ -67,6 +67,8 @@ public class ListviewAdapter extends BaseAdapter {
         }
 
 
+        //Initializing each item to the required type
+
         Event event = mEvents[position];
 
         holder.EventDistance.setText(event.getEventDistance()+"");

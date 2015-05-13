@@ -37,6 +37,8 @@ public class ListActivity extends ActionBarActivity {
         setContentView(R.layout.activity_list2);
         ButterKnife.inject(this);
 
+
+        //A test array for Events
         for(int i=0; i<10;i++) {
 
             Event event = new Event();
@@ -54,11 +56,11 @@ public class ListActivity extends ActionBarActivity {
 
         mListView.setAdapter(adapter);
 
+
+        //Setting an OnClickListener everytime a item of the list is tapped.
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
 
 
                 String name = mEvents[position].getEventName();

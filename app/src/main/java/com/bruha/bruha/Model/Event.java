@@ -5,6 +5,8 @@ package com.bruha.bruha.Model;
  */
 public class Event {
 
+
+    //All the variables the Event holds
     private int EventIcon;
     private String EventName;
     private String EventDate;
@@ -12,9 +14,13 @@ public class Event {
     private double EventDistance;
     private int EventPicture;
 
+
+    //Default Constructor for Event
     public Event()
     {}
 
+
+    //Get and Set methods for each of the global variables declared above.
     public int getEventPicture() {
         return EventPicture;
     }
