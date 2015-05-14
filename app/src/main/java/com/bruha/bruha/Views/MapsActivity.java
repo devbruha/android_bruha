@@ -1,12 +1,28 @@
 package com.bruha.bruha.Views;
 
+import android.content.res.Configuration;
+import android.graphics.Point;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Display;
+import android.view.ViewGroup;
+import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 
+import com.bruha.bruha.Adapters.FilterAdapter;
+import com.bruha.bruha.Processing.ExpandableListDataProvider;
+import com.bruha.bruha.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class MapsActivity extends FragmentActivity {
 
@@ -17,6 +33,10 @@ public class MapsActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         setUpMapIfNeeded();
+
+        setPanel();
+
+        setExpLists();
     }
 
     @Override
@@ -25,21 +45,8 @@ public class MapsActivity extends FragmentActivity {
         setUpMapIfNeeded();
     }
 
-    /**
-     * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
-     * installed) and the map has not already been instantiated.. This will ensure that we only ever
-     * call {@link #setUpMap()} once when {@link #mMap} is not null.
-     * <p/>
-     * If it isn't installed {@link SupportMapFragment} (and
-     * {@link com.google.android.gms.maps.MapView MapView}) will show a prompt for the user to
-     * install/update the Google Play services APK on their device.
-     * <p/>
-     * A user can return to this FragmentActivity after following the prompt and correctly
-     * installing/updating/enabling the Google Play services. Since the FragmentActivity may not
-     * have been completely destroyed during this process (it is likely that it would only be
-     * stopped or paused), {@link #onCreate(Bundle)} may not be called again so we should call this
-     * method in {@link #onResume()} to guarantee that it will be called.
-     */
+    // Function to ensure a map has not already been instantiated
+
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
@@ -53,13 +60,53 @@ public class MapsActivity extends FragmentActivity {
         }
     }
 
-    /**
-     * This is where we can add markers or lines, add listeners or move the camera. In this case, we
-     * just add a marker near Africa.
-     * <p/>
-     * This should only be called once and when we are sure that {@link #mMap} is not null.
-     */
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+
+        // Setting default location to mcmaster, eventually will be set to user location
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.2500,-79.919501), 14.0f));
     }
+
+    // A function that shall be used to dynamically set the max height of the sliding panel
+
+    private void setPanel(){
+
+        SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+
+        mLayout.setAnchorPoint(.5f);
+
+        // Storing the sliding panel (lin layout) into a linear layout variable
+
+        LinearLayout dragLayout = (LinearLayout) findViewById(R.id.dragView);
+
+        // Android functions to determine the screen dimensions
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        // Storing the screen height into an int variable
+        int height = size.y;
+
+        // Retrieves the current parameters of the layout and storing them in variable params
+
+        ViewGroup.LayoutParams params = dragLayout.getLayoutParams();
+
+        // Re-setting the height parameter to .75 the max screen height
+
+        params.height =  (int)Math.round(height*.75);
+    }
+
+    private void setExpLists(){
+
+        HashMap<String, List<String>> QuickieFields = ExpandableListDataProvider.getQuickieInfo();
+
+        List<String> QuickieList = new ArrayList<String>(QuickieFields.keySet());
+        ExpandableListView QuickieExpList = (ExpandableListView) findViewById(R.id.recommendedExpList);
+        FilterAdapter adapter = new FilterAdapter(this, QuickieFields, QuickieList);
+
+        QuickieExpList.setAdapter(adapter);
+
+    }
+
 }

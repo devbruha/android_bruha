@@ -103,6 +103,8 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             }
         }
 
+        cursor.close();
+
         return cursor;
     }
 }

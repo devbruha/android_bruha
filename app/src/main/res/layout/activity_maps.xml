@@ -1,7 +1,146 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:id="@+id/map"
-          tools:context="com.bruha.bruha.Views.MapsActivity"
-          android:name="com.google.android.gms.maps.SupportMapFragment"/>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".MapsActivity" >
+
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        xmlns:sothree="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/sliding_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        sothree:umanoPanelHeight="68dp"
+        sothree:umanoDragView="@+id/dragView"
+        sothree:umanoOverlay="false"
+        sothree:umanoFadeColor="@android:color/transparent"
+        >
+
+        <!-- MAIN CONTENT -->
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:minHeight="100dp">
+
+                <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                          xmlns:tools="http://schemas.android.com/tools"
+                          android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:id="@+id/map"
+                          tools:context="com.bruha.bruha.Views.MapsActivity"
+                          android:name="com.google.android.gms.maps.SupportMapFragment"/>
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Button"
+                    android:id="@+id/dudeButton"
+                    android:layout_gravity="left|top"/>
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Button"
+                    android:id="@+id/listButton"
+                    android:layout_gravity="right|top"/>
+
+                <!-- Transparent View to fix the map bug -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent" />
+
+            </FrameLayout>
+
+        <!-- SLIDING LAYOUT -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="false"
+            android:id="@+id/dragView"
+            android:elevation="50dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:weightSum="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/eventButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="14sp"
+                    android:layout_weight="0.25"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:text="Events"/>
+
+                <Button
+                    android:id="@+id/venueButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="14sp"
+                    android:layout_weight="0.25"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:text="Venues"/>
+
+                <Button
+                    android:id="@+id/artistButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="14sp"
+                    android:layout_weight="0.25"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:text="Artists"/>
+
+                <Button
+                    android:id="@+id/orgButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="14sp"
+                    android:layout_weight="0.25"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:text="Organizations"/>
+
+            </LinearLayout>
+
+            <ExpandableListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+                android:dividerHeight=".5dp"
+                android:id="@+id/recommendedExpList"
+                android:headerDividersEnabled="true"/>
+
+            <CalendarView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/calendarView"/>
+
+
+            <ExpandableListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+                android:dividerHeight=".5dp"
+                android:layout_margin="10dp"
+                android:id="@+id/categoryExpList"/>
+
+        </LinearLayout>
+
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+</RelativeLayout>
