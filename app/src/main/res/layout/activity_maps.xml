@@ -21,7 +21,8 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:minHeight="100dp">
 
                 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
                           xmlns:tools="http://schemas.android.com/tools"
@@ -47,13 +48,19 @@
                     android:id="@+id/listButton"
                     android:layout_gravity="right|top"/>
 
+                <!-- Transparent View to fix the map bug -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent" />
+
             </FrameLayout>
 
         <!-- SLIDING LAYOUT -->
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="900dp"
+            android:layout_height="match_parent"
             android:background="#ffffff"
             android:orientation="vertical"
             android:clickable="true"
@@ -111,28 +118,29 @@
             </LinearLayout>
 
             <ExpandableListView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+                android:dividerHeight=".5dp"
                 android:id="@+id/recommendedExpList"
-                android:headerDividersEnabled="false"/>
+                android:headerDividersEnabled="true"/>
 
             <CalendarView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                android:id="@+id/calendarView"/>
-
-            <ExpandableListView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/calendarView"/>
+
+
+            <ExpandableListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+                android:dividerHeight=".5dp"
                 android:layout_margin="10dp"
                 android:id="@+id/categoryExpList"/>
 
         </LinearLayout>
 
-
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
-
-
 
 </RelativeLayout>
