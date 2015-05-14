@@ -15,7 +15,7 @@ import butterknife.OnClick;
 
 public class DashboardActivity extends ActionBarActivity {
 
-    // Injecting the EditTexts using Butterknife library
+    // Injecting the EditTexts using Butterknife  library
 
     @InjectView(R.id.mapButton) Button mMapButton;
     @InjectView(R.id.listButton) Button mListButton;
