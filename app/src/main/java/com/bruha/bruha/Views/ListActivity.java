@@ -2,15 +2,20 @@ package com.bruha.bruha.Views;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Point;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bruha.bruha.Adapters.ListviewAdapter;
@@ -23,6 +28,9 @@ import butterknife.OnClick;
 
 public class ListActivity extends ActionBarActivity {
 
+    public ListActivity()
+    {}
+
     Event[] mEvents = new Event[10];
 
     //Injecting Buttons using ButterKnife Library
@@ -31,11 +39,14 @@ public class ListActivity extends ActionBarActivity {
     @InjectView(android.R.id.list) ListView mListView;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list2);
         ButterKnife.inject(this);
+
+
 
 
         //A test array for Events
@@ -52,9 +63,11 @@ public class ListActivity extends ActionBarActivity {
             mEvents[i] = event;
         }
 
+
         ListviewAdapter adapter=new ListviewAdapter(this,mEvents); //Calling the adapter ListView to help set the List
 
         mListView.setAdapter(adapter);
+
 
 
         //Setting an OnClickListener everytime a item of the list is tapped.
@@ -63,6 +76,7 @@ public class ListActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 
+               setPanelHeight();
                 String name = mEvents[position].getEventName();
                 String date = mEvents[position].getEventDate();
                 String price = mEvents[position].getEventPrice() + "";
@@ -96,6 +110,44 @@ public class ListActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+
+
+    public void setPanelHeight(){
+
+
+
+        // Storing the sliding panel (lin layout) into a linear layout variable
+
+      RelativeLayout mLayouttoChange=(RelativeLayout) findViewById(R.id.LayoutToChange);
+
+
+
+
+        // Android functions to determine the screen dimensions
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+
+
+
+
+        // Storing the screen height into an int variable
+           int height = size.y;
+
+
+        // Retrieves the current parameters of the layout and storing them in variable params
+
+        ViewGroup.LayoutParams params = mLayouttoChange.getLayoutParams();
+
+        // Re-setting the height parameter to .75 the max screen height
+
+
+        params.height =  (int)Math.round(height*.50);
+
+        Log.v("height test", params.height + "");
+
+    }
 
 
 
