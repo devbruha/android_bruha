@@ -50,6 +50,11 @@
             android:name=".Views.MapsActivity"
             android:label="@string/title_activity_maps" >
         </activity>
+        <activity
+            android:name=".Views.ListActivity"
+            android:label="@string/title_activity_list"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

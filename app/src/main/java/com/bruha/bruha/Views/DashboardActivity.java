@@ -30,8 +30,8 @@ public class DashboardActivity extends ActionBarActivity {
     @OnClick(R.id.listButton)
     public void startListActivity(View view){
 
-        //Intent intent = new Intent(this, LoginActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, ListActivity.class);
+        startActivity(intent);
 
     }
 
