@@ -34,16 +34,20 @@ import butterknife.OnClick;
 public class ListActivity extends ActionBarActivity {
 
 
+    //Default Constructor for the class ListActivity
     public ListActivity()
     {}
 
-    Event[] mEvents = new Event[10];
+
+    Event[] mEvents = new Event[10]; //Creating an array of Events to help Test our Application.
 
     //Injecting Buttons using ButterKnife Library
     @InjectView(R.id.MapButton) Button mMapButton;
     @InjectView(R.id.DashboardButton) Button mDashboardButton;
     @InjectView(android.R.id.list) ListView mListView;
    // @InjectView(R.id.example_swipe_lv_list) SwipeListView swipe;
+
+    public static int Clicks=0; //The variable holding the number of times the user has tapped on a list item.
 
 
 
@@ -151,35 +155,50 @@ public class ListActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 
-                setPanelHeight();
 
-                //Popping the detailed description into view.
-                RelativeLayout layout= (RelativeLayout) view.findViewById(R.id.DescriptionLayout);
-                layout.setVisibility(View.VISIBLE);
+                setPanelHeight(); //Setting the layout to cover half the page
 
 
+                //Assigning the Relative Layout that contains the detailed description.
+                RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.DescriptionLayout);
+
+                //Assigning the summary desciption stuff that will hide and reappear depending on the clicks.
+                ImageView Bubble = (ImageView) view.findViewById(R.id.EventImageBubble);
+                TextView EventName = (TextView) view.findViewById(R.id.TextEventName);
+                TextView EventDate = (TextView) view.findViewById(R.id.TextEventDate);
+                TextView EventPrice = (TextView) view.findViewById(R.id.TextEventPrice);
+                TextView EventDistance = (TextView) view.findViewById(R.id.TextEventDistance);
 
 
-                //Assigning each variable of the summary Description to be lowered visibility of.
-                ImageView Bubble= (ImageView) view.findViewById(R.id.EventImageBubble);
-                TextView EventName= (TextView) view.findViewById(R.id.TextEventName);
-                TextView EventDate= (TextView) view.findViewById(R.id.TextEventDate);
-                TextView EventPrice= (TextView) view.findViewById(R.id.TextEventPrice);
-                TextView EventDistance= (TextView) view.findViewById(R.id.TextEventDistance);
+                if(Clicks%2==0) {
+                    //Popping the detailed description into view.
+                    layout.setVisibility(View.VISIBLE);
 
-                //Lowering the visibility of each variable from the summary Description.
-                Bubble.setVisibility(View.INVISIBLE);
-                EventName.setVisibility(View.INVISIBLE);
-                EventDate.setVisibility(View.INVISIBLE);
-                EventPrice.setVisibility(View.INVISIBLE);
-                EventDistance.setVisibility(View.INVISIBLE);
+                    //Hiding the summary Description from view to display the detailed description.
+                    Bubble.setVisibility(View.INVISIBLE);
+                    EventName.setVisibility(View.INVISIBLE);
+                    EventDate.setVisibility(View.INVISIBLE);
+                    EventPrice.setVisibility(View.INVISIBLE);
+                    EventDistance.setVisibility(View.INVISIBLE);
+                }
+
+                else{
+                    //Hiding the detailed description upon the 2nd click.
+                    layout.setVisibility(View.INVISIBLE);
+
+                    //Displaying the summary description back upon the 2nd click.
+                    Bubble.setVisibility(View.VISIBLE);
+                    EventName.setVisibility(View.VISIBLE);
+                    EventDate.setVisibility(View.VISIBLE);
+                    EventPrice.setVisibility(View.VISIBLE);
+                    EventDistance.setVisibility(View.VISIBLE);
+
+                }
 
 
 
 
-
-
-
+                Clicks++; //Adds to the number of times the user has tapped on an item.
             }
         });
 
