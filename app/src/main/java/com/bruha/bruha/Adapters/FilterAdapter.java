@@ -29,8 +29,6 @@ public class FilterAdapter extends BaseExpandableListAdapter{
         this.Quickie_List = Quickie_List;
     }
 
-
-
     @Override
     public int getGroupCount() {
         return Quickie_List.size();
