@@ -62,7 +62,6 @@ public class ListviewAdapter extends BaseAdapter {
         if (convertView == null) {
             // brand new view if it is null
             convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item, null);
-
             holder = new ViewHolder(); //Creating holder object from class defined below
 
 
@@ -76,6 +75,7 @@ public class ListviewAdapter extends BaseAdapter {
 
 
             //Detailed Description of Events.
+
             holder.EventDName=(TextView) convertView.findViewById(R.id.DesEventName);
             holder.EventDPrice= (TextView) convertView.findViewById(R.id.DesEventPrice);
             holder.EventLocName=(TextView) convertView.findViewById(R.id.DesEventLocName);
@@ -85,6 +85,7 @@ public class ListviewAdapter extends BaseAdapter {
             holder.EventStartTime=(TextView) convertView.findViewById(R.id.DesEventStartTime);
             holder.EventEndDate=(TextView) convertView.findViewById(R.id.DesEventEndDate);
             holder.EventEndTime= (TextView) convertView.findViewById(R.id.DesEventEndTime);
+
 
 
             convertView.setTag(holder);
@@ -102,16 +103,29 @@ public class ListviewAdapter extends BaseAdapter {
 
         //Setting the text boxes to the information retrieved from the arrays of events
 
-        //Setting the Summary
-        holder.EventDistance.setText(event.getEventDistance()+"");
+
+        /*
+        //Setting the summary description
+        holder.EventDistance.setText(event.getEventDistance()+"km");
         holder.EventName.setText(event.getEventName());
         holder.EventDate.setText(event.getEventDate());
-        holder.EventPrice.setText(event.getEventPrice()+"");
+        holder.EventPrice.setText("$"+event.getEventPrice());
         //holder.EventIcon.setImageResource(event.getEventIcon());
         //holder.EventPicture.setImageResource(event.getEventPicture());
 
 
-
+        
+        //Setting the detailed description.
+        holder.EventDName.setText(event.getEventName());
+        holder.EventDPrice.setText("$"+event.getEventPrice());
+        holder.EventLocName.setText(event.getEventLocName());
+        holder.EventLocSt.setText(event.getEventLocSt());
+        holder.EventLocAdd.setText(event.getEventLocAdd());
+        holder.EventStartDate.setText(event.getEventDate());
+        holder.EventStartTime.setText(event.getEventStartTime());
+        holder.EventEndDate.setText(event.getEventEndDate());
+        holder.EventEndTime.setText(event.getEventEndTime());
+        */
 
             return convertView;
         }

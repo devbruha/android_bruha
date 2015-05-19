@@ -51,7 +51,7 @@ public class ListActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list2);
-        ButterKnife.inject(this);
+        ButterKnife.inject(this);                   //Injecting all the objects to be imported from above.
 
 
 
@@ -71,10 +71,14 @@ public class ListActivity extends ActionBarActivity {
         }
 
 
+        //Creating an variable of type Listview Adapter to create the list view.
         ListviewAdapter adapter=new ListviewAdapter(this,mEvents); //Calling the adapter ListView to help set the List
 
 
 /*
+
+//Swipe List View Interface being Implemented
+
         swipe.setSwipeListViewListener(new BaseSwipeListViewListener() {
             @Override
             public void onOpened(int position, boolean toRight) {
@@ -124,6 +128,8 @@ public class ListActivity extends ActionBarActivity {
 
         });
 
+        //Setting what each swipe does
+
         swipe.setSwipeMode(SwipeListView.SWIPE_MODE_LEFT); // there are five swiping modes
         swipe.setSwipeActionLeft(SwipeListView.SWIPE_ACTION_REVEAL); //there are four swipe actions
         swipe.setSwipeActionRight(SwipeListView.SWIPE_ACTION_REVEAL);
@@ -133,7 +139,11 @@ public class ListActivity extends ActionBarActivity {
         swipe.setSwipeOpenOnLongPress(true); // enable or disable SwipeOpenOnLongPress
 */
 
+
+        //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(adapter);
+
+
 
         //Setting an OnClickListener everytime a item of the list is tapped.
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -166,7 +176,7 @@ public class ListActivity extends ActionBarActivity {
 
 
 
-               // view.setAlpha((float) 0.25);
+
 
 
 
@@ -195,6 +205,8 @@ public class ListActivity extends ActionBarActivity {
 
 
 /*
+
+ //Used for the ListSwipe
     public int convertDpToPixel(float dp) {
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         float px = dp * (metrics.densityDpi / 160f);
@@ -204,6 +216,7 @@ public class ListActivity extends ActionBarActivity {
 */
 
 
+    //The method that sets the height of the layout to half the screen.
     public void setPanelHeight(){
 
 
@@ -236,7 +249,7 @@ public class ListActivity extends ActionBarActivity {
 
         ViewGroup.LayoutParams params = mLayouttoChange.getLayoutParams();
 
-        // Re-setting the height parameter to .75 the max screen height
+        // Re-setting the height parameter to .50 the max screen height
 
 
         params.height =  (int)Math.round(height*.50);
