@@ -63,13 +63,29 @@ public class ListviewAdapter extends BaseAdapter {
             // brand new view if it is null
             convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item, null);
 
-            holder = new ViewHolder();
+            holder = new ViewHolder(); //Creating holder object from class defined below
+
+
+            //Summary Description of the events
             holder.EventPicture= (ImageView) convertView.findViewById(R.id.ImageEventPicture);
             holder.EventIcon = (ImageView) convertView.findViewById(R.id.ImageEventIcon);
             holder.EventName = (TextView) convertView.findViewById(R.id.TextEventName);
             holder.EventDate = (TextView) convertView.findViewById(R.id.TextEventDate);
             holder.EventPrice= (TextView) convertView.findViewById(R.id.TextEventPrice);
             holder.EventDistance= (TextView) convertView.findViewById(R.id.TextEventDistance);
+
+
+            //Detailed Description of Events.
+            holder.EventDName=(TextView) convertView.findViewById(R.id.DesEventName);
+            holder.EventDPrice= (TextView) convertView.findViewById(R.id.DesEventPrice);
+            holder.EventLocName=(TextView) convertView.findViewById(R.id.DesEventLocName);
+            holder.EventLocSt=(TextView) convertView.findViewById(R.id.DesEventLocStreet);
+            holder.EventLocAdd=(TextView) convertView.findViewById(R.id.DesEventLocAddress);
+            holder.EventStartDate=(TextView) convertView.findViewById(R.id.DesEventStartDate);
+            holder.EventStartTime=(TextView) convertView.findViewById(R.id.DesEventStartTime);
+            holder.EventEndDate=(TextView) convertView.findViewById(R.id.DesEventEndDate);
+            holder.EventEndTime= (TextView) convertView.findViewById(R.id.DesEventEndTime);
+
 
             convertView.setTag(holder);
 
@@ -81,9 +97,12 @@ public class ListviewAdapter extends BaseAdapter {
 
 
         //Initializing each item to the required type
-
         Event event = mEvents[position];
 
+
+        //Setting the text boxes to the information retrieved from the arrays of events
+
+        //Setting the Summary
         holder.EventDistance.setText(event.getEventDistance()+"");
         holder.EventName.setText(event.getEventName());
         holder.EventDate.setText(event.getEventDate());
@@ -100,14 +119,29 @@ public class ListviewAdapter extends BaseAdapter {
 
 
 
-    //A view holder that contain the things that need to be changed everytime
+    //A view holder that contain the things that need to be changed for every event
     private static class ViewHolder{
+
+        //The values holding summary description of the event.
         ImageView EventPicture;
         ImageView EventIcon;
         TextView EventName;
         TextView EventDate;
         TextView EventPrice;
         TextView EventDistance;
+
+
+        //The Values holding detailed description of the event.
+        TextView EventDName;
+        TextView EventDPrice;
+        TextView EventLocName;
+        TextView EventLocSt;
+        TextView EventLocAdd;
+        TextView EventStartDate;
+        TextView EventStartTime;
+        TextView EventEndDate;
+        TextView EventEndTime;
+        //No need for Name,Price and Start Date for event as it is already given in first batch above
 
 
 

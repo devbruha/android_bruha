@@ -43,7 +43,7 @@ public class ListActivity extends ActionBarActivity {
     @InjectView(R.id.MapButton) Button mMapButton;
     @InjectView(R.id.DashboardButton) Button mDashboardButton;
     @InjectView(android.R.id.list) ListView mListView;
-    @InjectView(R.id.example_swipe_lv_list) SwipeListView swipe;
+   // @InjectView(R.id.example_swipe_lv_list) SwipeListView swipe;
 
 
 
@@ -74,7 +74,7 @@ public class ListActivity extends ActionBarActivity {
         ListviewAdapter adapter=new ListviewAdapter(this,mEvents); //Calling the adapter ListView to help set the List
 
 
-
+/*
         swipe.setSwipeListViewListener(new BaseSwipeListViewListener() {
             @Override
             public void onOpened(int position, boolean toRight) {
@@ -131,7 +131,7 @@ public class ListActivity extends ActionBarActivity {
         swipe.setOffsetRight(convertDpToPixel(0f)); // right side offset
         swipe.setAnimationTime(50); // animarion time
         swipe.setSwipeOpenOnLongPress(true); // enable or disable SwipeOpenOnLongPress
-
+*/
 
         mListView.setAdapter(adapter);
 
@@ -142,16 +142,14 @@ public class ListActivity extends ActionBarActivity {
 
 
                 setPanelHeight();
-                String name = mEvents[position].getEventName();
-                String date = mEvents[position].getEventDate();
-                String price = mEvents[position].getEventPrice() + "";
-                String distance = mEvents[position].getEventDistance() + "";
-                String message = String.format("%s will be playing on %s and it will be %s and is at a distance of %s from you",
-                        name,
-                        date,
-                        price,
-                        distance);
-                Toast.makeText(ListActivity.this, message, Toast.LENGTH_LONG).show();
+
+                ImageView mBubble= (ImageView) view.findViewById(R.id.EventImageBubble);
+                mBubble.setVisibility(View.INVISIBLE);
+
+               // view.setAlpha((float) 0.25);
+
+
+
             }
         });
 
@@ -176,12 +174,14 @@ public class ListActivity extends ActionBarActivity {
     }
 
 
-
+/*
     public int convertDpToPixel(float dp) {
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         float px = dp * (metrics.densityDpi / 160f);
         return (int) px;
     }
+
+*/
 
 
     public void setPanelHeight(){

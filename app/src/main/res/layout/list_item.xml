@@ -92,5 +92,138 @@
         android:layout_marginTop="10dp"
         android:paddingBottom="8dp"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffa2d8d8"
+        android:alpha="0.55"
+        android:id="@+id/DescriptionLayout"
+        android:layout_alignTop="@+id/EventImageBubble"
+        android:layout_alignParentLeft="true"
+        android:layout_alignBottom="@+id/EventImageBubble">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$25.00"
+            android:id="@+id/DesEventPrice"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="The Arkells"
+            android:id="@+id/DesEventName"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textSize="20dp"
+            />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:src="@drawable/testround"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="X Lounge"
+            android:id="@+id/DesEventLocName"
+            android:layout_alignBottom="@+id/imageView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Machtree St."
+            android:id="@+id/DesEventLocStreet"
+            android:layout_below="@+id/DesEventLocName"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GA 319204"
+            android:id="@+id/DesEventLocAddress"
+            android:layout_below="@+id/DesEventLocStreet"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start:"
+            android:id="@+id/textView4"
+            android:textSize="10dp"
+            android:layout_below="@+id/DesEventLocAddress"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="May 25, 2015"
+            android:id="@+id/DesEventStartDate"
+            android:textSize="10dp"
+            android:layout_below="@+id/textView4"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10:30 PM"
+            android:id="@+id/DesEventStartTime"
+            android:textSize="10dp"
+            android:layout_below="@+id/DesEventStartDate"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="End:"
+            android:id="@+id/textView3"
+            android:textSize="10dp"
+            android:layout_below="@+id/DesEventStartTime"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="May 26,2015"
+            android:id="@+id/DesEventEndDate"
+            android:textSize="10dp"
+            android:layout_below="@+id/textView3"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2:00 AM"
+            android:id="@+id/DesEventEndTime"
+            android:textSize="10dp"
+            android:layout_below="@+id/DesEventEndDate"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+    </RelativeLayout>
+
 
 </RelativeLayout>
