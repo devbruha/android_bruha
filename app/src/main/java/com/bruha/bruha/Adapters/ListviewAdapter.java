@@ -114,7 +114,7 @@ public class ListviewAdapter extends BaseAdapter {
         //holder.EventPicture.setImageResource(event.getEventPicture());
 
 
-        
+
         //Setting the detailed description.
         holder.EventDName.setText(event.getEventName());
         holder.EventDPrice.setText("$"+event.getEventPrice());
