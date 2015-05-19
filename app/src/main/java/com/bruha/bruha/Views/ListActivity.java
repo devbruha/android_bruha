@@ -143,8 +143,28 @@ public class ListActivity extends ActionBarActivity {
 
                 setPanelHeight();
 
-                ImageView mBubble= (ImageView) view.findViewById(R.id.EventImageBubble);
-                mBubble.setVisibility(View.INVISIBLE);
+                //Popping the detailed description into view.
+                RelativeLayout layout= (RelativeLayout) view.findViewById(R.id.DescriptionLayout);
+                layout.setVisibility(View.VISIBLE);
+
+
+
+
+                //Assigning each variable of the summary Description to be lowered visibility of.
+                ImageView Bubble= (ImageView) view.findViewById(R.id.EventImageBubble);
+                TextView EventName= (TextView) view.findViewById(R.id.TextEventName);
+                TextView EventDate= (TextView) view.findViewById(R.id.TextEventDate);
+                TextView EventPrice= (TextView) view.findViewById(R.id.TextEventPrice);
+                TextView EventDistance= (TextView) view.findViewById(R.id.TextEventDistance);
+
+                //Lowering the visibility of each variable from the summary Description.
+                Bubble.setVisibility(View.INVISIBLE);
+                EventName.setVisibility(View.INVISIBLE);
+                EventDate.setVisibility(View.INVISIBLE);
+                EventPrice.setVisibility(View.INVISIBLE);
+                EventDistance.setVisibility(View.INVISIBLE);
+
+
 
                // view.setAlpha((float) 0.25);
 
