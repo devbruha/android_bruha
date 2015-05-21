@@ -141,8 +141,9 @@ public class ListActivity extends ActionBarActivity {
         swipe.setOffsetRight(convertDpToPixel(0f)); // right side offset
         swipe.setAnimationTime(50); // animarion time
         swipe.setSwipeOpenOnLongPress(true); // enable or disable SwipeOpenOnLongPress
-*/
 
+
+        */
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(adapter);
@@ -223,7 +224,7 @@ public class ListActivity extends ActionBarActivity {
     }
 
 
-/*
+
 
  //Used for the ListSwipe
     public int convertDpToPixel(float dp) {
@@ -232,7 +233,7 @@ public class ListActivity extends ActionBarActivity {
         return (int) px;
     }
 
-*/
+
 
 
     //The method that sets the height of the layout to half the screen.
