@@ -8,15 +8,19 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.R;
 import com.bruha.bruha.Views.ListActivity;
+import com.daimajia.swipe.SimpleSwipeListener;
+import com.daimajia.swipe.SwipeLayout;
+import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 
 /**
  * Created by Work on 2015-05-12.
  */
-public class ListviewAdapter extends BaseAdapter {
+public class ListviewAdapter extends BaseSwipeAdapter {
 
     private Context mContext;
     private Event[] mEvents;
@@ -51,6 +55,143 @@ public class ListviewAdapter extends BaseAdapter {
     }
 
 
+    @Override
+    public int getSwipeLayoutResourceId(int i) {
+        return R.id.swipe;
+    }
+
+
+        @Override
+        public View generateView(int position, ViewGroup parent) {
+            View convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item, null);
+
+
+            ViewHolder holder=new ViewHolder();
+
+            /*
+
+            if (convertView == null) {
+                // brand new view if it is null
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item, null);
+                holder = new ViewHolder(); //Creating holder object from class defined below
+
+
+
+                //Summary Description of the events
+                holder.EventPicture= (ImageView) convertView.findViewById(R.id.ImageEventPicture);
+                holder.EventIcon = (ImageView) convertView.findViewById(R.id.ImageEventIcon);
+                holder.EventName = (TextView) convertView.findViewById(R.id.TextEventName);
+                holder.EventDate = (TextView) convertView.findViewById(R.id.TextEventDate);
+                holder.EventPrice= (TextView) convertView.findViewById(R.id.TextEventPrice);
+                holder.EventDistance= (TextView) convertView.findViewById(R.id.TextEventDistance);
+
+
+                //Detailed Description of Events.
+
+                holder.EventDName=(TextView) convertView.findViewById(R.id.DesEventName);
+                holder.EventDPrice= (TextView) convertView.findViewById(R.id.DesEventPrice);
+                holder.EventLocName=(TextView) convertView.findViewById(R.id.DesEventLocName);
+                holder.EventLocSt=(TextView) convertView.findViewById(R.id.DesEventLocStreet);
+                holder.EventLocAdd=(TextView) convertView.findViewById(R.id.DesEventLocAddress);
+                holder.EventStartDate=(TextView) convertView.findViewById(R.id.DesEventStartDate);
+                holder.EventStartTime=(TextView) convertView.findViewById(R.id.DesEventStartTime);
+                holder.EventEndDate=(TextView) convertView.findViewById(R.id.DesEventEndDate);
+                holder.EventEndTime= (TextView) convertView.findViewById(R.id.DesEventEndTime);
+
+
+
+
+                //convertView.setTag(holder);
+
+
+            }
+            else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+            */
+
+            convertView.setTag(holder);
+
+            //Summary Description of the events
+            holder.EventPicture= (ImageView) convertView.findViewById(R.id.ImageEventPicture);
+            holder.EventIcon = (ImageView) convertView.findViewById(R.id.ImageEventIcon);
+            holder.EventName = (TextView) convertView.findViewById(R.id.TextEventName);
+            holder.EventDate = (TextView) convertView.findViewById(R.id.TextEventDate);
+            holder.EventPrice= (TextView) convertView.findViewById(R.id.TextEventPrice);
+            holder.EventDistance= (TextView) convertView.findViewById(R.id.TextEventDistance);
+
+            //Initializing each item to the required type
+            Event event = mEvents[position];
+            holder.EventDName=(TextView) convertView.findViewById(R.id.DesEventName);
+            holder.EventDPrice= (TextView) convertView.findViewById(R.id.DesEventPrice);
+            holder.EventLocName=(TextView) convertView.findViewById(R.id.DesEventLocName);
+            holder.EventLocSt=(TextView) convertView.findViewById(R.id.DesEventLocStreet);
+            holder.EventLocAdd=(TextView) convertView.findViewById(R.id.DesEventLocAddress);
+            holder.EventStartDate=(TextView) convertView.findViewById(R.id.DesEventStartDate);
+            holder.EventStartTime=(TextView) convertView.findViewById(R.id.DesEventStartTime);
+            holder.EventEndDate=(TextView) convertView.findViewById(R.id.DesEventEndDate);
+            holder.EventEndTime= (TextView) convertView.findViewById(R.id.DesEventEndTime);
+
+
+            //Setting the text boxes to the information retrieved from the arrays of events
+
+
+
+            //Setting the summary description
+            holder.EventDistance.setText(event.getEventDistance()+"km");
+            holder.EventName.setText(event.getEventName());
+            holder.EventDate.setText(event.getEventDate());
+            holder.EventPrice.setText("$"+event.getEventPrice());
+            //holder.EventIcon.setImageResource(event.getEventIcon());
+            //holder.EventPicture.setImageResource(event.getEventPicture());
+
+
+
+            //Setting the detailed description.
+            holder.EventDName.setText(event.getEventName());
+            holder.EventDPrice.setText("$"+event.getEventPrice());
+            holder.EventLocName.setText(event.getEventLocName());
+            holder.EventLocSt.setText(event.getEventLocSt());
+            holder.EventLocAdd.setText(event.getEventLocAdd());
+            holder.EventStartDate.setText(event.getEventDate());
+            holder.EventStartTime.setText(event.getEventStartTime());
+            holder.EventEndDate.setText(event.getEventEndDate());
+            holder.EventEndTime.setText(event.getEventEndTime());
+
+
+
+
+
+
+            //Swipe shit
+            SwipeLayout swipeLayout = (SwipeLayout)convertView.findViewById(getSwipeLayoutResourceId(position));
+            swipeLayout.addSwipeListener(new SimpleSwipeListener() {
+                @Override
+                public void onOpen(SwipeLayout layout) {
+                    //YoYo.with(Techniques.Tada).duration(500).delay(100).playOn(layout.findViewById(R.id.trash));
+                }
+            });
+            swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
+                @Override
+                public void onDoubleClick(SwipeLayout layout, boolean surface) {
+                    Toast.makeText(mContext, "DoubleClick", Toast.LENGTH_SHORT).show();
+                }
+            });
+            convertView.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
+                }
+            });
+            return convertView;
+        }
+
+
+    @Override
+    public void fillValues(int position, View convertView) {
+
+    }
+/*
     //Gets the view
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -104,7 +245,7 @@ public class ListviewAdapter extends BaseAdapter {
         //Setting the text boxes to the information retrieved from the arrays of events
 
 
-        /*
+
         //Setting the summary description
         holder.EventDistance.setText(event.getEventDistance()+"km");
         holder.EventName.setText(event.getEventName());
@@ -125,11 +266,12 @@ public class ListviewAdapter extends BaseAdapter {
         holder.EventStartTime.setText(event.getEventStartTime());
         holder.EventEndDate.setText(event.getEventEndDate());
         holder.EventEndTime.setText(event.getEventEndTime());
-        */
+
 
             return convertView;
         }
 
+*/
 
 
 
@@ -163,3 +305,5 @@ public class ListviewAdapter extends BaseAdapter {
 
 
     }
+
+
