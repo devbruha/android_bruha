@@ -153,9 +153,52 @@ public class ListActivity extends ActionBarActivity {
 
         adapter.setMode(Attributes.Mode.Single);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);
+
+                //Assigning the Relative Layout that contains the detailed description.
+                RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.DescriptionLayout);
+
+                //Assigning the summary desciption stuff that will hide and reappear depending on the clicks.
+                ImageView Bubble = (ImageView) view.findViewById(R.id.EventImageBubble);
+                TextView EventName = (TextView) view.findViewById(R.id.TextEventName);
+                TextView EventDate = (TextView) view.findViewById(R.id.TextEventDate);
+                TextView EventPrice = (TextView) view.findViewById(R.id.TextEventPrice);
+                TextView EventDistance = (TextView) view.findViewById(R.id.TextEventDistance);
+
+
+                if(Clicks%2==0) {
+                    //Popping the detailed description into view.
+                    layout.setVisibility(View.VISIBLE);
+
+                    //Hiding the summary Description from view to display the detailed description.
+                    Bubble.setVisibility(View.INVISIBLE);
+                    EventName.setVisibility(View.INVISIBLE);
+                    EventDate.setVisibility(View.INVISIBLE);
+                    EventPrice.setVisibility(View.INVISIBLE);
+                    EventDistance.setVisibility(View.INVISIBLE);
+                }
+
+                else{
+                    //Hiding the detailed description upon the 2nd click.
+                    layout.setVisibility(View.INVISIBLE);
+
+                    //Displaying the summary description back upon the 2nd click.
+                    Bubble.setVisibility(View.VISIBLE);
+                    EventName.setVisibility(View.VISIBLE);
+                    EventDate.setVisibility(View.VISIBLE);
+                    EventPrice.setVisibility(View.VISIBLE);
+                    EventDistance.setVisibility(View.VISIBLE);
+
+                }
+
+
+
+
+                Clicks++; //Adds to the number of times the user has tapped on an item.
             }
         });
         mListView.setOnTouchListener(new View.OnTouchListener() {
