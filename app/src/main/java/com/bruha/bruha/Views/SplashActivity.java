@@ -96,7 +96,7 @@ public class SplashActivity extends ActionBarActivity {
             return view;
         }
 
-        //OverRiding the Interface
+        //OverRiding the Interface.
         @Override
         public void destroyItem(final View arg0, final int arg1, final Object arg2) {
             ((ViewPager) arg0).removeView((View) arg2);
