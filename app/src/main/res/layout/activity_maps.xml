@@ -16,7 +16,7 @@
         sothree:umanoFadeColor="@android:color/transparent"
         >
 
-        <!-- MAIN CONTENT -->
+        <!-- MAIN CONTENT s-->
 
         <FrameLayout
             android:layout_width="match_parent"
