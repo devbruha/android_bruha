@@ -101,7 +101,7 @@ public class ListviewAdapter extends BaseSwipeAdapter {
 
 
             //Setting the text boxes to the information retrieved from the arrays of events
-
+            /*
             //Setting the summary description
             holder.EventDistance.setText(event.getEventDistance()+"km");
             holder.EventName.setText(event.getEventName());
@@ -120,7 +120,7 @@ public class ListviewAdapter extends BaseSwipeAdapter {
             holder.EventStartTime.setText(event.getEventStartTime());
             holder.EventEndDate.setText(event.getEventEndDate());
             holder.EventEndTime.setText(event.getEventEndTime());
-
+*/
 
 
 

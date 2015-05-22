@@ -2,18 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 tools:context="com.bruha.bruha.Views.DashboardActivity">
-
-
-
-    <!-- this code is temporarily here to help test
-    the swipe layout function -->
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
 
     <Button
         android:layout_width="wrap_content"
