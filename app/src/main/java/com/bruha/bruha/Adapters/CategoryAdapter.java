@@ -26,6 +26,7 @@ public class CategoryAdapter {
     private ArrayList<Items> mMainList;
 
     // boolean variables reepresenting the upper and lower levels being selected
+    //s
 
     boolean isFirstViewClick=false;
     boolean isSecondViewClick=false;
