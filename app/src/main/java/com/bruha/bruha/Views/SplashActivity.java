@@ -19,7 +19,7 @@ import butterknife.OnClick;
 
 public class SplashActivity extends ActionBarActivity {
 
-    // Injecting the Buttons using Butterknife library
+    // Injecting the Buttons using Butterknife library.
     @InjectView(R.id.loginButton) Button mLoginButton;
     @InjectView(R.id.noLoginButton) Button mNoLoginButton;
     @InjectView(R.id.registerButton) Button mRegisterButton;
