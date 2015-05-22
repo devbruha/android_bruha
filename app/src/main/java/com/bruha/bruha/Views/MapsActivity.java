@@ -1,31 +1,24 @@
 package com.bruha.bruha.Views;
 
-import android.content.res.Configuration;
 import android.graphics.Point;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.ViewGroup;
-import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 
 import com.bruha.bruha.Adapters.CategoryAdapter;
-import com.bruha.bruha.Adapters.FilterAdapter;
+import com.bruha.bruha.Adapters.QuickieAdapter;
 import com.bruha.bruha.Model.Items;
-import com.bruha.bruha.Processing.CategoryGen;
-import com.bruha.bruha.Processing.ExpandableListDataProvider;
+import com.bruha.bruha.Processing.FilterGen;
 import com.bruha.bruha.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class MapsActivity extends FragmentActivity {
 
@@ -41,19 +34,13 @@ public class MapsActivity extends FragmentActivity {
         setContentView(R.layout.activity_maps);
         setUpMapIfNeeded();
 
-        mLinearListView = (LinearLayout) findViewById(R.id.linear_listview);
-
         setPanel();
 
-        setExpLists();
+        setQuickieList();
 
-        //Make array list one is for mainlist and other is for sublist
+        setCategoryList();
 
-        CategoryGen catGen = new CategoryGen();
-        mainList = catGen.init();
 
-        CategoryAdapter adapter = new CategoryAdapter(this, mLinearListView, mainList);
-        adapter.set();
     }
 
     @Override
@@ -114,26 +101,31 @@ public class MapsActivity extends FragmentActivity {
         params.height =  (int)Math.round(height*.75);
     }
 
-    private void setExpLists(){
+    private void setQuickieList(){
 
-        // Getting an instance of the recommended expandable list
+        mLinearListView = (LinearLayout) findViewById(R.id.quickie_listview);
 
-        ExpandableListView QuickieExpList = (ExpandableListView) findViewById(R.id.recommendedExpList);
+        FilterGen quickieGen = new FilterGen();
+        mainList = quickieGen.initRecommended();
 
-        // Storing the list of fields into a hashmap with key "Quickie"
+        QuickieAdapter adapter = new QuickieAdapter(this, mLinearListView, mainList);
+        adapter.set();
+    }
 
-        HashMap<String, List<String>> QuickieFields = ExpandableListDataProvider.getQuickieInfo();
+    private void setCategoryList(){
 
-        // Retrieving the parent title (quickie) and storing into a list
+        mLinearListView = (LinearLayout) findViewById(R.id.category_listview);
 
-        List<String> QuickieList = new ArrayList<String>(QuickieFields.keySet());
+        //Make array list one is for mainlist and other is for sublist
 
-        // Passing the hashmap containing all quickie fields aswell as a list of keys for the
-        // hash map in the adapter
+        FilterGen catGen = new FilterGen();
+        mainList = catGen.initCategory();
 
-        FilterAdapter adapter = new FilterAdapter(this, QuickieFields, QuickieList);
+        CategoryAdapter adapter = new CategoryAdapter(this, mLinearListView, mainList);
+        adapter.set();
+    }
 
-        QuickieExpList.setAdapter(adapter);
+    private void setAdmissionPrice(){
 
     }
 

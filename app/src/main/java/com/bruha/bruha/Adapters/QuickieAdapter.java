@@ -1,8 +1,5 @@
 package com.bruha.bruha.Adapters;
 
-/**
- * Created by Thomas on 5/22/2015.
- */
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +14,9 @@ import com.bruha.bruha.R;
 import java.util.ArrayList;
 
 /**
- * Created by Thomas on 5/21/2015.
+ * Created by Thomas on 5/22/2015.
  */
-public class CategoryAdapter {
+public class QuickieAdapter {
 
     private Context mContext;
     private LinearLayout mLinearListView;
@@ -28,11 +25,10 @@ public class CategoryAdapter {
     // boolean variables representing the upper and lower levels being selected
 
     boolean isFirstViewClick=false;
-    boolean isSecondViewClick=false;
 
     // Constructor for the adapter, takes a context, linear layout and "super" list
 
-    public CategoryAdapter(Context context, LinearLayout linearListView, ArrayList<Items> mainList){
+    public QuickieAdapter(Context context, LinearLayout linearListView, ArrayList<Items> mainList){
 
         this.mContext = context;
         this.mLinearListView = linearListView;
@@ -112,46 +108,12 @@ public class CategoryAdapter {
 
             LayoutInflater inflater2 = null;
             inflater2 = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View mLinearView2 = inflater2.inflate(R.layout.row_second, null);
+            View mLinearView2 = inflater2.inflate(R.layout.row_third, null);
 
-            TextView mSubItemName = (TextView) mLinearView2.findViewById(R.id.textViewTitle);
-            final RelativeLayout mLinearSecondArrow=(RelativeLayout)mLinearView2.findViewById(R.id.linearSecond);
-            final ImageView mImageArrowSecond=(ImageView)mLinearView2.findViewById(R.id.imageSecondArrow);
-            final LinearLayout mLinearScrollThird=(LinearLayout)mLinearView2.findViewById(R.id.linear_scroll_third);
-
-            // Similar listeners implements as previously for list item clicks
-
-            isMenuOpen(isSecondViewClick, mImageArrowSecond, mLinearScrollThird);
-
-            //Handles onclick effect on list item
-
-            mLinearSecondArrow.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(isSecondViewClick==false)
-                    {
-                        isSecondViewClick=true;
-                        mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_down_float);
-                        mLinearScrollThird.setVisibility(View.VISIBLE);
-
-                    }
-                    else
-                    {
-                        isSecondViewClick=false;
-                        mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_up_float);
-                        mLinearScrollThird.setVisibility(View.GONE);
-                    }
-                }
-            });
-
-            // Sets the title of the child level (primary category)
+            TextView mSubItemName = (TextView) mLinearView2.findViewById(R.id.textViewItemName);
 
             final String catName = mMainList.get(firstLevelNumber).getmSubCategoryList().get(j).getpSubCatName();
             mSubItemName.setText(catName);
-
-            // Goes in one more level to add the child-child (sub category)
-
-            addThirdRow(firstLevelNumber,j, mLinearScrollThird);
 
             mLinearScrollSecond.addView(mLinearView2);
 

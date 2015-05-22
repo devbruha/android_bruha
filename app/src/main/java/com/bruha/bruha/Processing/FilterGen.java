@@ -12,12 +12,12 @@ import java.util.ArrayList;
 /**
  * Created by Thomas on 5/21/2015.
  */
-public class CategoryGen {
+public class FilterGen {
 
     private ArrayList<Items>mainList = new ArrayList<Items>();
     private ArrayList<SubCategory>ParentArrayList = new ArrayList<SubCategory>();
 
-    //This arraylists are used to put items in sublists
+    //Each arraylist corresponds to a different primary category
     ArrayList<Items.SubCategory.ItemList> primaryCategory1=new ArrayList<ItemList>();
     ArrayList<Items.SubCategory.ItemList> primaryCategory2=new ArrayList<ItemList>();
     ArrayList<Items.SubCategory.ItemList> primaryCategory3=new ArrayList<ItemList>();
@@ -37,11 +37,30 @@ public class CategoryGen {
     ArrayList<Items.SubCategory.ItemList> primaryCategory17=new ArrayList<ItemList>();
     ArrayList<Items.SubCategory.ItemList> primaryCategory18=new ArrayList<ItemList>();
 
-    public ArrayList<Items> init(){
+    //Each arraylist corresponds to a different recommended category
+    ArrayList<Items.SubCategory.ItemList> recommendedCategory1=new ArrayList<ItemList>();
+    ArrayList<Items.SubCategory.ItemList> recommendedCategory2=new ArrayList<ItemList>();
+    ArrayList<Items.SubCategory.ItemList> recommendedCategory3=new ArrayList<ItemList>();
+    ArrayList<Items.SubCategory.ItemList> recommendedCategory4=new ArrayList<ItemList>();
+
+    public ArrayList<Items> initCategory(){
 
         addParentLevel();
         addPrimaryCategories();
         addSubCategories();
+
+        return mainList;
+    }
+
+    public ArrayList<Items> initRecommended(){
+
+        mainList.add(new Items("Quickie", ParentArrayList));
+
+        //Add arraylist in category
+        ParentArrayList.add(new Items.SubCategory("Featured", recommendedCategory1));
+        ParentArrayList.add(new Items.SubCategory("Recommended", recommendedCategory2));
+        ParentArrayList.add(new Items.SubCategory("Today", recommendedCategory3));
+        ParentArrayList.add(new Items.SubCategory("This Weekend", recommendedCategory4));
 
         return mainList;
     }
