@@ -26,7 +26,7 @@ public class CategoryAdapter {
     private LinearLayout mLinearListView;
     private ArrayList<Items> mMainList;
 
-    // boolean variables representing the upper and lower levels being selected
+    // boolean variables reepresenting the upper and lower levels being selected
 
     boolean isFirstViewClick=false;
     boolean isSecondViewClick=false;
