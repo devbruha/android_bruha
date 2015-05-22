@@ -29,7 +29,7 @@ public class SplashActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        // using ButterKnife.inject to allow the InjectViews to take effect
+        // using ButterKnife.inject to allow the InjectViews to take effect.
         ButterKnife.inject(this);
 
         //Code to execute the swipe code.
