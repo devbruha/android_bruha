@@ -36,22 +36,16 @@ import butterknife.OnClick;
 
 public class ListActivity extends ActionBarActivity {
 
-
     //Default Constructor for the class ListActivity
     public ListActivity()
     {}
 
-
     Event[] mEvents = new Event[10]; //Creating an array of Events to help Test our Application.
 
     //Injecting Buttons using ButterKnife Library
-    @InjectView(R.id.MapButton) Button mMapButton;
-    @InjectView(R.id.DashboardButton) Button mDashboardButton;
     @InjectView(android.R.id.list) ListView mListView;
-   // @InjectView(R.id.example_swipe_lv_list) SwipeListView swipe;
 
     public static int Clicks=0; //The variable holding the number of times the user has tapped on a list item.
-
 
 
     @Override
@@ -61,11 +55,10 @@ public class ListActivity extends ActionBarActivity {
         ButterKnife.inject(this);                   //Injecting all the objects to be imported from above.
 
 
-
-
         //A test array for Events
         for(int i=0; i<10;i++) {
 
+            //Creating variables type event used for testing the app
             Event event = new Event();
            // mEvents[i].setEventIcon(R.drawable.testround);
            // mEvents[i].setEventPicture(R.drawable.testround);
@@ -82,79 +75,14 @@ public class ListActivity extends ActionBarActivity {
         ListviewAdapter adapter=new ListviewAdapter(this,mEvents); //Calling the adapter ListView to help set the List
 
 
-/*
-
-//Swipe List View Interface being Implemented
-
-        swipe.setSwipeListViewListener(new BaseSwipeListViewListener() {
-            @Override
-            public void onOpened(int position, boolean toRight) {
-            }
-
-            @Override
-            public void onClosed(int position, boolean fromRight) {
-            }
-
-            @Override
-            public void onListChanged() {
-            }
-
-            @Override
-            public void onMove(int position, float x) {
-            }
-
-            @Override
-            public void onStartOpen(int position, int action, boolean right) {
-                Log.d("swipe", String.format("onStartOpen %d - action %d", position, action));
-            }
-
-            @Override
-            public void onStartClose(int position, boolean right) {
-                Log.d("swipe", String.format("onStartClose %d", position));
-            }
-
-            @Override
-            public void onClickFrontView(int position) {
-                Log.d("swipe", String.format("onClickFrontView %d", position));
-
-                swipe.openAnimate(position); //when you touch front view it will open
-
-            }
-
-            @Override
-            public void onClickBackView(int position) {
-                Log.d("swipe", String.format("onClickBackView %d", position));
-
-                swipe.closeAnimate(position);//when you touch back view it will close
-            }
-
-            @Override
-            public void onDismiss(int[] reverseSortedPositions) {
-
-            }
-
-        });
-
-        //Setting what each swipe does
-
-        swipe.setSwipeMode(SwipeListView.SWIPE_MODE_LEFT); // there are five swiping modes
-        swipe.setSwipeActionLeft(SwipeListView.SWIPE_ACTION_REVEAL); //there are four swipe actions
-        swipe.setSwipeActionRight(SwipeListView.SWIPE_ACTION_REVEAL);
-        swipe.setOffsetLeft(convertDpToPixel(260f)); // left side offset
-        swipe.setOffsetRight(convertDpToPixel(0f)); // right side offset
-        swipe.setAnimationTime(50); // animarion time
-        swipe.setSwipeOpenOnLongPress(true); // enable or disable SwipeOpenOnLongPress
-
-
-        */
-
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(adapter);
 
+        //Swipe stuff
         adapter.setMode(Attributes.Mode.Single);
+
+        //OnClick listener when Item on the list is tapped
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -192,15 +120,15 @@ public class ListActivity extends ActionBarActivity {
                     EventDate.setVisibility(View.VISIBLE);
                     EventPrice.setVisibility(View.VISIBLE);
                     EventDistance.setVisibility(View.VISIBLE);
-
                 }
-
-
-
 
                 Clicks++; //Adds to the number of times the user has tapped on an item.
             }
         });
+
+        //Swipe Interface being Implemented
+
+        //What happens upon touching the ListView.
         mListView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -208,6 +136,8 @@ public class ListActivity extends ActionBarActivity {
                 return false;
             }
         });
+
+        //OnClick Listener when Item is tapped for a longer period of time
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -215,6 +145,7 @@ public class ListActivity extends ActionBarActivity {
                 return true;
             }
         });
+
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -241,8 +172,9 @@ public class ListActivity extends ActionBarActivity {
 
     }
 
-/*
 
+/*
+         //The Old OnClick Listener
         //Setting an OnClickListener everytime a item of the list is tapped.
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -295,8 +227,6 @@ public class ListActivity extends ActionBarActivity {
                 Clicks++; //Adds to the number of times the user has tapped on an item.
             }
         });
-
-
     }
     */
 
@@ -308,7 +238,6 @@ public class ListActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
-
     //Button Implementation for navigating to the Dashboard from ListView.
     @OnClick(R.id.DashboardButton)
     public void StartDashboardActivity(View view)
@@ -318,61 +247,28 @@ public class ListActivity extends ActionBarActivity {
     }
 
 
-
-
- //Used for the ListSwipe
-    public int convertDpToPixel(float dp) {
-        DisplayMetrics metrics = getResources().getDisplayMetrics();
-        float px = dp * (metrics.densityDpi / 160f);
-        return (int) px;
-    }
-
-
-
-
+/*
     //The method that sets the height of the layout to half the screen.
     public void setPanelHeight(){
 
-
-
-
-
-        // Storing the sliding panel (lin layout) into a linear layout variable
-
+        // Storing the Relative Layout in a Variable to alter its dimens with.
       RelativeLayout mLayouttoChange=(RelativeLayout) findViewById(R.id.LayoutToChange);
-
-
-
 
         // Android functions to determine the screen dimensions
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
 
-
-
-
-
         // Storing the screen height into an int variable
            int height = size.y;
 
-
-
-
         // Retrieves the current parameters of the layout and storing them in variable params
-
         ViewGroup.LayoutParams params = mLayouttoChange.getLayoutParams();
 
         // Re-setting the height parameter to .50 the max screen height
-
-
         params.height =  (int)Math.round(height*.50);
 
         Log.v("height test", params.height + "");
-
     }
-
-
-
-
+*/
 }

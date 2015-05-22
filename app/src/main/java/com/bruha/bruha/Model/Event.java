@@ -30,6 +30,7 @@ public class Event {
 
     //All the setters and getters of the variables declared above.
 
+
     //Getters and Setters for the Detailed Description of event.
     public String getEventLocName() {
         return EventLocName;
@@ -80,7 +81,6 @@ public class Event {
     }
 
 
-
     //Getters and Setters for the Summary Description of event.
     public int getEventPicture() {
         return EventPicture;
@@ -129,7 +129,4 @@ public class Event {
     public void setEventDistance(double eventDistance) {
         EventDistance = eventDistance;
     }
-
-
-
 }
