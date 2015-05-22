@@ -17,6 +17,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -249,10 +250,10 @@ public class ListActivity extends ActionBarActivity {
 
 /*
     //The method that sets the height of the layout to half the screen.
-    public void setPanelHeight(){
+    public void setPanel(){
 
         // Storing the Relative Layout in a Variable to alter its dimens with.
-      RelativeLayout mLayouttoChange=(RelativeLayout) findViewById(R.id.LayoutToChange);
+      LinearLayout mLinearLayout = (LinearLayout) findViewById(R.id.mLinear);
 
         // Android functions to determine the screen dimensions
         Display display = getWindowManager().getDefaultDisplay();
@@ -260,15 +261,16 @@ public class ListActivity extends ActionBarActivity {
         display.getSize(size);
 
         // Storing the screen height into an int variable
-           int height = size.y;
+           int width = size.x;
 
         // Retrieves the current parameters of the layout and storing them in variable params
-        ViewGroup.LayoutParams params = mLayouttoChange.getLayoutParams();
+        ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
 
         // Re-setting the height parameter to .50 the max screen height
-        params.height =  (int)Math.round(height*.50);
+        params.width =  (int)Math.round(width*.50);
 
         Log.v("height test", params.height + "");
     }
-*/
+    */
+
 }

@@ -144,13 +144,13 @@ public class ListviewAdapter extends BaseSwipeAdapter {
                 }
             });
 
-            convertView.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
+           /* convertView.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
                 }
             });
-
+*/
             return convertView;
         }
 
