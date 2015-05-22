@@ -60,27 +60,35 @@ public class SplashActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
-    //Code temporarily here for testing,this is part of the code needed for the swipe layout
+    //MyPageAdapter class to decide which page is going to be swiped to.
     public class MyPagerAdapter extends PagerAdapter {
 
+        //set  number of swipe screens here
         @Override
         public int getCount() {
-            return 3; //set  number of swipe screens here
+            return 5;
         }
+
 
         @Override
         public Object instantiateItem(final View collection, final int position) {
             LayoutInflater inflater = (LayoutInflater) collection.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             int resId = 0;
             switch (position) {
+                case 4:
+                    resId = R.layout.activity_splash; //Set which Layout to be Displayed on Load.
+                    break;
+                case 3:
+                    resId = R.layout.splash_discover; //The first Layout to be shown when swiped.
+                    break;
                 case 2:
-                    resId = R.layout.activity_splash; //set which layout will show on load
+                    resId = R.layout.splash_tickets;
                     break;
                 case 1:
-                    resId = R.layout.activity_splash_discover; //what layout swiping shows//
+                    resId=R.layout.splash_events;
                     break;
                 case 0:
-                    resId = R.layout.activity_register;
+                    resId=R.layout.splash_addicted; //The last Layout to be shown through swiping.
                     break;
             }
             View view = inflater.inflate(resId, null);
@@ -88,6 +96,7 @@ public class SplashActivity extends ActionBarActivity {
             return view;
         }
 
+        //OverRiding the Interface
         @Override
         public void destroyItem(final View arg0, final int arg1, final Object arg2) {
             ((ViewPager) arg0).removeView((View) arg2);

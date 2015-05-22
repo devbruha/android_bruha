@@ -55,10 +55,6 @@
             android:label="@string/title_activity_list"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
-        <activity
-            android:name=".Views.SplashDiscover"
-            android:label="@string/title_activity_splash_discover" >
-        </activity>
     </application>
 
 </manifest>
