@@ -66,7 +66,7 @@ public class DashboardActivity extends ActionBarActivity {
                     resId = R.layout.activity_dashboard; //set which layout will show on load
                     break;
                 case 1:
-                    resId = R.layout.activity_splash_discover; //what layout swiping shows//
+                    resId = R.layout.splash_discover; //what layout swiping shows//
                      break;
                 case 0:
                     resId = R.layout.activity_register;
