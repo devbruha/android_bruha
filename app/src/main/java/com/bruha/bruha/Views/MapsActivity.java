@@ -10,7 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 
+import com.bruha.bruha.Adapters.CategoryAdapter;
 import com.bruha.bruha.Adapters.FilterAdapter;
+import com.bruha.bruha.Model.Items;
+import com.bruha.bruha.Processing.CategoryGen;
 import com.bruha.bruha.Processing.ExpandableListDataProvider;
 import com.bruha.bruha.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -28,15 +31,29 @@ public class MapsActivity extends FragmentActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
+    private ArrayList<Items>mainList;
+
+    private LinearLayout mLinearListView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         setUpMapIfNeeded();
 
+        mLinearListView = (LinearLayout) findViewById(R.id.linear_listview);
+
         setPanel();
 
         setExpLists();
+
+        //Make array list one is for mainlist and other is for sublist
+
+        CategoryGen catGen = new CategoryGen();
+        mainList = catGen.init();
+
+        CategoryAdapter adapter = new CategoryAdapter(this, mLinearListView, mainList);
+        adapter.set();
     }
 
     @Override
