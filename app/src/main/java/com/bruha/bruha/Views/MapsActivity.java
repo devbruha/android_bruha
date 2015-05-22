@@ -99,10 +99,21 @@ public class MapsActivity extends FragmentActivity {
 
     private void setExpLists(){
 
+        // Getting an instance of the recommended expandable list
+
+        ExpandableListView QuickieExpList = (ExpandableListView) findViewById(R.id.recommendedExpList);
+
+        // Storing the list of fields into a hashmap with key "Quickie"
+
         HashMap<String, List<String>> QuickieFields = ExpandableListDataProvider.getQuickieInfo();
 
+        // Retrieving the parent title (quickie) and storing into a list
+
         List<String> QuickieList = new ArrayList<String>(QuickieFields.keySet());
-        ExpandableListView QuickieExpList = (ExpandableListView) findViewById(R.id.recommendedExpList);
+
+        // Passing the hashmap containing all quickie fields aswell as a list of keys for the
+        // hash map in the adapter
+
         FilterAdapter adapter = new FilterAdapter(this, QuickieFields, QuickieList);
 
         QuickieExpList.setAdapter(adapter);

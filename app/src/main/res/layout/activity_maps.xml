@@ -18,43 +18,43 @@
 
         <!-- MAIN CONTENT -->
 
-            <FrameLayout
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:minHeight="100dp">
+
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                      xmlns:tools="http://schemas.android.com/tools"
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:id="@+id/map"
+                      tools:context="com.bruha.bruha.Views.MapsActivity"
+                      android:name="com.google.android.gms.maps.SupportMapFragment"/>
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button"
+                android:id="@+id/dudeButton"
+                android:layout_gravity="left|top"/>
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button"
+                android:id="@+id/listButton"
+                android:layout_gravity="right|top"/>
+
+            <!-- Transparent View to fix the map bug -->
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:minHeight="100dp">
+                android:background="@android:color/transparent" />
 
-                <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                          xmlns:tools="http://schemas.android.com/tools"
-                          android:layout_width="match_parent"
-                          android:layout_height="match_parent"
-                          android:id="@+id/map"
-                          tools:context="com.bruha.bruha.Views.MapsActivity"
-                          android:name="com.google.android.gms.maps.SupportMapFragment"/>
-
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
-                    android:id="@+id/dudeButton"
-                    android:layout_gravity="left|top"/>
-
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
-                    android:id="@+id/listButton"
-                    android:layout_gravity="right|top"/>
-
-                <!-- Transparent View to fix the map bug -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent" />
-
-            </FrameLayout>
+        </FrameLayout>
 
         <!-- SLIDING LAYOUT -->
 
@@ -63,7 +63,7 @@
             android:layout_height="match_parent"
             android:background="#ffffff"
             android:orientation="vertical"
-            android:clickable="true"
+            android:clickable="false"
             android:focusable="false"
             android:id="@+id/dragView"
             android:elevation="50dp"
@@ -123,12 +123,14 @@
                 android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
                 android:dividerHeight=".5dp"
                 android:id="@+id/recommendedExpList"
-                android:headerDividersEnabled="true"/>
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"/>
 
-            <CalendarView
-                android:layout_width="wrap_content"
+            <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/calendarView"/>
+                />
 
 
             <ExpandableListView
