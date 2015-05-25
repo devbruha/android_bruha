@@ -10,6 +10,29 @@
     swipe:rightEdgeSwipeOffset="0dp">
 
 
+    <LinearLayout
+        android:tag="Bottom1"
+        android:background="#66ddff00"
+        android:id="@+id/bottom_wrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Like!"
+            android:textStyle="bold"
+            android:background="#66ddff00"
+            android:textColor="#ffffff"
+            android:id="@+id/button"/>
+
+
+    </LinearLayout>
+
+
+
+
     <!--The Linear Layout of the sliding panal -->
     <LinearLayout
         android:layout_width="wrap_content"

@@ -1,0 +1,131 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.bruha.bruha.Views.EventPageActivity"
+
+    >
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:id="@+id/imageView2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#80a0e011"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageView3"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="64dp"
+        android:background="#cad04039"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:text="The Event Name"
+        android:id="@+id/textView15"
+        android:layout_below="@+id/imageView2"
+        android:layout_toRightOf="@+id/imageView3"
+        android:layout_toEndOf="@+id/imageView3"
+        android:layout_marginLeft="5dp"
+        android:textColor="#ffffc514"
+        android:alpha="0.90"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Age+"
+        android:id="@+id/textView17"
+        android:layout_alignTop="@+id/textView15"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="15sp"
+        android:alpha="0.80"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Time"
+        android:textStyle="bold"
+        android:id="@+id/textView29"
+        android:layout_below="@+id/imageView3"
+        android:layout_alignLeft="@+id/textView15"
+        android:layout_alignStart="@+id/textView15"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="Start Date"
+        android:id="@+id/textView48"
+        android:layout_below="@+id/textView29"
+        android:layout_alignLeft="@+id/textView15"
+        android:layout_alignStart="@+id/textView15"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Address"
+        android:id="@+id/textView49"
+        android:layout_below="@+id/textView48"
+        android:layout_marginTop="6dp"
+        android:layout_alignLeft="@+id/textView15"
+        android:layout_alignStart="@+id/textView15"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="MAP SPACE"
+        android:id="@+id/textView50"
+        android:layout_below="@+id/textView49"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="60sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="About"
+        android:id="@+id/textView51"
+        android:layout_below="@+id/textView50"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#ff060606"
+        android:alpha="0.75"
+        android:textColor="#ffffff"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:text="Information about the Event"
+        android:id="@+id/textView52"
+        android:layout_below="@+id/textView51"
+        android:layout_alignLeft="@+id/textView51"
+        android:layout_alignStart="@+id/textView51"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:id="@+id/imageView4"
+        android:layout_below="@+id/textView52"
+        android:layout_alignLeft="@+id/textView52"
+        android:layout_alignStart="@+id/textView52"
+        android:background="#a00996e9"
+        android:alpha="0.60"/>
+</RelativeLayout>

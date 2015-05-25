@@ -55,6 +55,10 @@
             android:label="@string/title_activity_list"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
+        <activity
+            android:name=".Views.EventPageActivity"
+            android:label="@string/title_activity_event_page" >
+        </activity>
     </application>
 
 </manifest>

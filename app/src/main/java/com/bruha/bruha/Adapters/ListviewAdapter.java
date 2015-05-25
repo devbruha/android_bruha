@@ -24,6 +24,7 @@ public class ListviewAdapter extends BaseSwipeAdapter {
 
     private Context mContext;
     private Event[] mEvents;
+    public static int Clicks=0;
 
 
 
@@ -64,16 +65,60 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         @Override
         public View generateView(int position, ViewGroup parent) {
 
+
             //Inflates the view to be used
             View convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item, null);
 
 
             ViewHolder holder=new ViewHolder(); //Making variable of class type ViewHolder def
 
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Assigning the Relative Layout that contains the detailed description.
+                    RelativeLayout layout = (RelativeLayout) v.findViewById(R.id.DescriptionLayout);
+
+                    //Assigning the summary desciption stuff that will hide and reappear depending on the clicks.
+                    ImageView Bubble = (ImageView) v.findViewById(R.id.EventImageBubble);
+                    TextView EventName = (TextView) v.findViewById(R.id.TextEventName);
+                    TextView EventDate = (TextView) v.findViewById(R.id.TextEventDate);
+                    TextView EventPrice = (TextView) v.findViewById(R.id.TextEventPrice);
+                    TextView EventDistance = (TextView) v.findViewById(R.id.TextEventDistance);
+
+
+                    if (Clicks % 2 == 0) {
+                        //Popping the detailed description into view.
+                        layout.setVisibility(View.VISIBLE);
+
+                        //Hiding the summary Description from view to display the detailed description.
+                        Bubble.setVisibility(View.INVISIBLE);
+                        EventName.setVisibility(View.INVISIBLE);
+                        EventDate.setVisibility(View.INVISIBLE);
+                        EventPrice.setVisibility(View.INVISIBLE);
+                        EventDistance.setVisibility(View.INVISIBLE);
+                    } else {
+                        //Hiding the detailed description upon the 2nd click.
+                        layout.setVisibility(View.INVISIBLE);
+
+                        //Displaying the summary description back upon the 2nd click.
+                        Bubble.setVisibility(View.VISIBLE);
+                        EventName.setVisibility(View.VISIBLE);
+                        EventDate.setVisibility(View.VISIBLE);
+                        EventPrice.setVisibility(View.VISIBLE);
+                        EventDistance.setVisibility(View.VISIBLE);
+                    }
+
+                    Clicks++; //Adds to the number of times the user has tapped on an item.
+
+
+                }
+            });
 
 
 
-            convertView.setTag(holder); //sets the tag
+
+
+                    convertView.setTag(holder); //sets the tag
 
 
 
@@ -128,6 +173,14 @@ public class ListviewAdapter extends BaseSwipeAdapter {
 
             //Swipe methods being Implemented
             SwipeLayout swipeLayout = (SwipeLayout)convertView.findViewById(getSwipeLayoutResourceId(position));
+
+
+            swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
+
+            swipeLayout.addDrag(SwipeLayout.DragEdge.Left, convertView.findViewById(R.id.bottom_wrapper));
+
+            swipeLayout.addDrag(SwipeLayout.DragEdge.Right, convertView.findViewById(R.id.mLinear));
+
 
             swipeLayout.addSwipeListener(new SimpleSwipeListener() {
                 @Override
