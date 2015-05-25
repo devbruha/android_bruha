@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:id="@+id/childChildItem"
               android:background="@android:color/white"
               android:orientation="vertical" >
 
@@ -15,7 +16,7 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:textColor="@android:color/white"
-        android:textSize="24sp" />
+        android:textSize="20sp" />
 
     <View
         android:layout_width="match_parent"

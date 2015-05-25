@@ -2,7 +2,8 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".MapsActivity" >
+                tools:context=".MapsActivity"
+                android:background="@android:color/transparent">
 
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
         xmlns:sothree="http://schemas.android.com/apk/res-auto"
@@ -12,9 +13,9 @@
         android:gravity="bottom"
         sothree:umanoPanelHeight="68dp"
         sothree:umanoDragView="@+id/dragView"
-        sothree:umanoOverlay="false"
+        sothree:umanoOverlay="true"
         sothree:umanoFadeColor="@android:color/transparent"
-        >
+        android:background="@android:color/transparent">
 
         <!-- MAIN CONTENT s-->
 
@@ -36,7 +37,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Button"
+                android:text="Dashboard"
                 android:id="@+id/dudeButton"
                 android:layout_gravity="left|top"/>
 
@@ -44,7 +45,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Button"
+                android:text="List View"
                 android:id="@+id/listButton"
                 android:layout_gravity="right|top"/>
 
@@ -58,159 +59,11 @@
 
         <!-- SLIDING LAYOUT -->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
 
-            android:orientation="vertical"
-            android:clickable="false"
-            android:focusable="false"
-            android:id="@+id/dragView"
-            android:elevation="50dp"
-            >
+        <include android:id="@+id/mapFilterLayout" layout="@layout/filters_layout"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:weightSum="1"
-                android:orientation="horizontal"
-                android:background="@null">
-
-                <Button
-                    android:id="@+id/eventButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textSize="14sp"
-                    android:layout_weight="0.25"
-                    android:paddingRight="10dp"
-                    android:paddingLeft="10dp"
-                    android:text="Events"/>
-
-                <Button
-                    android:id="@+id/venueButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textSize="14sp"
-                    android:layout_weight="0.25"
-                    android:paddingRight="10dp"
-                    android:paddingLeft="10dp"
-                    android:text="Venues"/>
-
-                <Button
-                    android:id="@+id/artistButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textSize="14sp"
-                    android:layout_weight="0.25"
-                    android:paddingRight="10dp"
-                    android:paddingLeft="10dp"
-                    android:text="Artists"/>
-
-                <Button
-                    android:id="@+id/orgButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textSize="14sp"
-                    android:layout_weight="0.25"
-                    android:paddingRight="10dp"
-                    android:paddingLeft="10dp"
-                    android:text="Organizations"/>
-
-            </LinearLayout>
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="false"
-                android:background="@android:color/black">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <ScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:paddingTop="10dp">
-
-                        <!-- Linearlaout which acts as listview -->
-                        <LinearLayout
-                            android:id="@+id/quickie_listview"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical" />
-
-                    </ScrollView>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:layout_gravity="center_horizontal">
-
-                        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-                            android:id="@+id/calendarView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@android:color/white"
-                            />
-
-                    </LinearLayout>
-
-                    <ScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:paddingTop="10dp">
-
-                        <!-- Linearlaout which acts as listview -->
-                        <LinearLayout
-                            android:id="@+id/category_listview"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical" />
-
-                    </ScrollView>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:paddingTop="10dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:text="Admission Price"
-                        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
-                        android:background="@android:color/holo_orange_dark"
-                        android:textColor="@android:color/white"
-                        android:id="@+id/admissionTextView"
-                        android:textSize="24sp"/>
-
-                    <SeekBar
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/white"
-                        android:id="@+id/priceBar"
-                        android:max="999"
-                        android:thumb="@android:drawable/editbox_background_normal"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </ScrollView>
-
-        </LinearLayout>
 
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 

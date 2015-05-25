@@ -30,6 +30,7 @@ public class CategoryAdapter {
 
     boolean isFirstViewClick=false;
     boolean isSecondViewClick=false;
+    boolean isThirdViewClick=false;
 
     // Constructor for the adapter, takes a context, linear layout and "super" list
 
@@ -175,7 +176,33 @@ public class CategoryAdapter {
             inflater3 = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View mLinearView3 = inflater3.inflate(R.layout.row_third, null);
 
-            TextView mItemName = (TextView) mLinearView3.findViewById(R.id.textViewItemName);
+            final LinearLayout childChildLayout = (LinearLayout)mLinearView3.findViewById(R.id.childChildItem);
+
+            final TextView mItemName = (TextView) mLinearView3.findViewById(R.id.textViewItemName);
+
+            childChildLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (isThirdViewClick == false) {
+
+                        isThirdViewClick = true;
+
+                        mItemName.setBackgroundResource(android.R.color.holo_blue_bright);
+
+                        //Toast.makeText(mContext, catName + " Selected", Toast.LENGTH_SHORT).show();
+
+                    } else {
+
+                        isThirdViewClick = false;
+
+                        mItemName.setBackgroundResource(android.R.color.background_dark);
+
+                        //Toast.makeText(mContext, catName + " No Longer Selected", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
             final String itemName = mMainList.get(firstLevelNumber).getmSubCategoryList().get(secondLevelNumber).getmItemListArray().get(k).getItemName();
             mItemName.setText(itemName);
 
