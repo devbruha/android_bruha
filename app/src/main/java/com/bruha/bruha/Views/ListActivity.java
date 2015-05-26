@@ -25,10 +25,13 @@ import android.widget.Toast;
 
 import com.bruha.bruha.Adapters.ListviewAdapter;
 import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.R;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.util.Attributes;
 
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -37,11 +40,41 @@ import butterknife.OnClick;
 
 public class ListActivity extends ActionBarActivity {
 
+    // Our database hostname and the credentials for our showdom_android account
+    String url = "jdbc:mysql://66.147.244.109:3306/showdomc_web2"; //
+    String user = "showdomc_android";
+    String pass = "show12345!";
+    SQLUtils sqlu ;
+    List<String> events;
+    Event[] nmEvents;
+
     //Default Constructor for the class ListActivity
     public ListActivity()
-    {}
+    {
+        sqlu = new SQLUtils(url, user, pass); //Creating Object type SQLUtils using credentials needed
+        events = sqlu.Events();
 
-    Event[] mEvents = new Event[10]; //Creating an array of Events to help Test our Application.
+        int size = events.size();
+        size=size/3;
+        nmEvents=  new Event[size];
+        int j=0;
+        for(int i=0;i<nmEvents.length;i++)
+        {
+            Event eventsi=new Event();
+            eventsi.setEventName(events.get(j));
+            j++;
+            eventsi.setEventDate(events.get(j));
+            j++;
+            eventsi.setEventLocName(events.get(j));
+            j++;
+
+
+            nmEvents[i]=eventsi;
+        }
+
+    }
+
+  //  Event[] mEvents = new Event[10]; //Creating an array of Events to help Test our Application.
 
     //Injecting Buttons using ButterKnife Library
     @InjectView(android.R.id.list) ListView mListView;
@@ -56,6 +89,7 @@ public class ListActivity extends ActionBarActivity {
         ButterKnife.inject(this);                   //Injecting all the objects to be imported from above.
 
 
+        /*
         //A test array for Events
         for(int i=0; i<10;i++) {
 
@@ -70,10 +104,10 @@ public class ListActivity extends ActionBarActivity {
 
             mEvents[i] = event;
         }
-
+*/
 
         //Creating an variable of type Listview Adapter to create the list view.
-        ListviewAdapter adapter=new ListviewAdapter(this,mEvents); //Calling the adapter ListView to help set the List
+        ListviewAdapter adapter=new ListviewAdapter(this,nmEvents); //Calling the adapter ListView to help set the List
 
 
         //Sets the Adapter from the class Listview Adapter
@@ -142,7 +176,9 @@ public class ListActivity extends ActionBarActivity {
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(view.getContext(), "OnItemLongClickListener", Toast.LENGTH_SHORT).show();
+                String name = nmEvents[0].getEventName();
+                String nsize= nmEvents.length + "" ;
+                Toast.makeText(view.getContext(), nsize , Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -230,6 +266,8 @@ public class ListActivity extends ActionBarActivity {
         });
     }
     */
+
+
 
     //Button Implementation for navigating to the Map from ListView.
     @OnClick(R.id.MapButton)

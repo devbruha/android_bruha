@@ -1,17 +1,20 @@
 package com.bruha.bruha.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.R;
+import com.bruha.bruha.Views.EventPageActivity;
 import com.bruha.bruha.Views.ListActivity;
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
@@ -146,26 +149,26 @@ public class ListviewAdapter extends BaseSwipeAdapter {
 
 
             //Setting the text boxes to the information retrieved from the arrays of events
-            /*
+
             //Setting the summary description
-            holder.EventDistance.setText(event.getEventDistance()+"km");
+         //   holder.EventDistance.setText(event.getEventDistance()+"km");
             holder.EventName.setText(event.getEventName());
             holder.EventDate.setText(event.getEventDate());
-            holder.EventPrice.setText("$"+event.getEventPrice());
+            //holder.EventPrice.setText("$"+event.getEventPrice());
             //holder.EventIcon.setImageResource(event.getEventIcon());
             //holder.EventPicture.setImageResource(event.getEventPicture());
 
             //Setting the detailed description.
             holder.EventDName.setText(event.getEventName());
-            holder.EventDPrice.setText("$"+event.getEventPrice());
+            //holder.EventDPrice.setText("$"+event.getEventPrice());
             holder.EventLocName.setText(event.getEventLocName());
-            holder.EventLocSt.setText(event.getEventLocSt());
-            holder.EventLocAdd.setText(event.getEventLocAdd());
+            //holder.EventLocSt.setText(event.getEventLocSt());
+            //holder.EventLocAdd.setText(event.getEventLocAdd());
             holder.EventStartDate.setText(event.getEventDate());
-            holder.EventStartTime.setText(event.getEventStartTime());
-            holder.EventEndDate.setText(event.getEventEndDate());
-            holder.EventEndTime.setText(event.getEventEndTime());
-*/
+            //holder.EventStartTime.setText(event.getEventStartTime());
+            //holder.EventEndDate.setText(event.getEventEndDate());
+          //  holder.EventEndTime.setText(event.getEventEndTime());
+
 
 
 
@@ -185,7 +188,7 @@ public class ListviewAdapter extends BaseSwipeAdapter {
             swipeLayout.addSwipeListener(new SimpleSwipeListener() {
                 @Override
                 public void onOpen(SwipeLayout layout) {
-                  //  YoYo.with(Techniques.Tada).duration(500).delay(100).playOn(layout.findViewById(R.id.trash));
+                    //  YoYo.with(Techniques.Tada).duration(500).delay(100).playOn(layout.findViewById(R.id.trash));
                 }
             });
 
@@ -196,6 +199,8 @@ public class ListviewAdapter extends BaseSwipeAdapter {
                     Toast.makeText(mContext, "DoubleClick", Toast.LENGTH_SHORT).show();
                 }
             });
+
+
 
            /* convertView.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
                 @Override
