@@ -2,6 +2,7 @@ package com.bruha.bruha.Views;
 
 import android.app.Activity;
 import android.graphics.Point;
+import android.util.Log;
 import android.view.Display;
 import android.view.DragEvent;
 import android.view.MotionEvent;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bruha.bruha.Adapters.CategoryAdapter;
 import com.bruha.bruha.Adapters.QuickieAdapter;
@@ -57,10 +59,6 @@ public class FilterView {
         Button venueButton = (Button)mActivity.findViewById(R.id.venueButton);
         Button artistButton = (Button)mActivity.findViewById(R.id.artistButton);
         Button orgButton = (Button)mActivity.findViewById(R.id.orgButton);
-
-        // Disabling touch to drag the panel (to allow for only the handle to move the window)
-
-        //mLayout.setTouchEnabled(false);
 
         // Setting an anchor point at the halfway point
 
@@ -118,10 +116,60 @@ public class FilterView {
         eventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mLayout.setTouchEnabled(true);
+
+                if (mLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+
+                } else {
+
+                    mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                    mLayout.setTouchEnabled(true);
+                }
+            }
+        });
+        venueButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(mLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED){
+
+                }
+                else{
+
+                    mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                    mLayout.setTouchEnabled(true);
+                }
             }
         });
 
+        artistButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(mLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED){
+
+                }
+                else{
+
+                    mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                    mLayout.setTouchEnabled(true);
+                }
+            }
+        });
+
+        orgButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(mLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED){
+
+                }
+                else{
+
+                    mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                    mLayout.setTouchEnabled(true);
+                }
+            }
+        });
 
     }
 

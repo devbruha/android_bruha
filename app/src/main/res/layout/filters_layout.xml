@@ -9,58 +9,64 @@
               android:elevation="50dp"
               android:background="@android:color/transparent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="68dp"
-        android:id="@+id/handleLayout"
-        android:weightSum="1"
-        android:orientation="horizontal"
-        android:background="@android:color/transparent"
-        android:clickable="true"
-        android:baselineAligned="false">
+        android:layout_height="68dp">
 
-        <Button
-            android:id="@+id/eventButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="14sp"
-            android:layout_weight="0.25"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
-            android:text="Events"
-            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:id="@+id/handleLayout"
+            android:weightSum="1"
+            android:orientation="horizontal"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:baselineAligned="false">
 
-        <Button
-            android:id="@+id/venueButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="14sp"
-            android:layout_weight="0.25"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
-            android:text="Venues"/>
+            <Button
+                android:id="@+id/eventButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:layout_weight="0.25"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:text="Events"
+                />
 
-        <Button
-            android:id="@+id/artistButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="14sp"
-            android:layout_weight="0.25"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
-            android:text="Artists"/>
+            <Button
+                android:id="@+id/venueButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:layout_weight="0.25"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:text="Venues"/>
 
-        <Button
-            android:id="@+id/orgButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="14sp"
-            android:layout_weight="0.25"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
-            android:text="Organizations"/>
+            <Button
+                android:id="@+id/artistButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:layout_weight="0.25"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:text="Artists"/>
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/orgButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:layout_weight="0.25"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:text="Organizations"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"

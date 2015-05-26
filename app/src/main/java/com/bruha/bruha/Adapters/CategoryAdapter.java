@@ -4,6 +4,7 @@ package com.bruha.bruha.Adapters;
  * Created by Thomas on 5/22/2015.
  */
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,6 +16,9 @@ import com.bruha.bruha.Model.Items;
 import com.bruha.bruha.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Thomas on 5/21/2015.
@@ -25,8 +29,11 @@ public class CategoryAdapter {
     private LinearLayout mLinearListView;
     private ArrayList<Items> mMainList;
 
+    // Creating a list to store the current categories selected by the user
+
+    private Map<String, ArrayList<String>> mCategorySelected = new HashMap<String, ArrayList<String>>();
+
     // boolean variables reepresenting the upper and lower levels being selected
-    //s
 
     boolean isFirstViewClick=false;
     boolean isSecondViewClick=false;
@@ -125,6 +132,8 @@ public class CategoryAdapter {
 
             isMenuOpen(isSecondViewClick, mImageArrowSecond, mLinearScrollThird);
 
+            final String catName = mMainList.get(firstLevelNumber).getmSubCategoryList().get(j).getpSubCatName();
+
             //Handles onclick effect on list item
 
             mLinearSecondArrow.setOnClickListener(new View.OnClickListener() {
@@ -136,24 +145,34 @@ public class CategoryAdapter {
                         mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_down_float);
                         mLinearScrollThird.setVisibility(View.VISIBLE);
 
+                        ArrayList<String> primaryCategory = new ArrayList<String>();
+                        primaryCategory.add(catName);
+
+                        mCategorySelected.put(catName, primaryCategory);
+
+                        Log.v("Custom Filter Stuff", mCategorySelected.keySet()+"");
+
                     }
                     else
                     {
                         isSecondViewClick=false;
                         mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_up_float);
                         mLinearScrollThird.setVisibility(View.GONE);
+
+                        mCategorySelected.remove(catName);
+
+                        Log.v("Custom Filter Stuff", mCategorySelected.keySet() + "");
                     }
                 }
             });
 
             // Sets the title of the child level (primary category)
 
-            final String catName = mMainList.get(firstLevelNumber).getmSubCategoryList().get(j).getpSubCatName();
             mSubItemName.setText(catName);
 
             // Goes in one more level to add the child-child (sub category)
 
-            addThirdRow(firstLevelNumber,j, mLinearScrollThird);
+            addThirdRow(firstLevelNumber,j, mLinearScrollThird,catName);
 
             mLinearScrollSecond.addView(mLinearView2);
 
@@ -161,7 +180,7 @@ public class CategoryAdapter {
         mLinearListView.addView(mLinearView);
     }
 
-    private void addThirdRow(int firstLevelNumber, int secondLevelNumber, LinearLayout mLinearScrollThird){
+    private void addThirdRow(int firstLevelNumber, int secondLevelNumber, LinearLayout mLinearScrollThird, final String catName){
 
         //Adds items in subcategories
 
@@ -180,30 +199,38 @@ public class CategoryAdapter {
 
             final TextView mItemName = (TextView) mLinearView3.findViewById(R.id.textViewItemName);
 
+            final String itemName = mMainList.get(firstLevelNumber).getmSubCategoryList().get(secondLevelNumber).getmItemListArray().get(k).getItemName();
+
             childChildLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    ArrayList<String> categoryArrayList = mCategorySelected.get(catName);
 
                     if (isThirdViewClick == false) {
 
                         isThirdViewClick = true;
 
                         mItemName.setBackgroundResource(android.R.color.holo_blue_bright);
+                        categoryArrayList.add(itemName);
 
-                        //Toast.makeText(mContext, catName + " Selected", Toast.LENGTH_SHORT).show();
+                        Log.v("Custom Filter Stuff", categoryArrayList.get(0) + "");
+                        //Log.v("Custom Filter Stuff", categoryArrayList.get(1) + "");
 
                     } else {
 
                         isThirdViewClick = false;
 
                         mItemName.setBackgroundResource(android.R.color.background_dark);
+                        categoryArrayList.remove(itemName);
+                        Log.v("Custom Filter Stuff", categoryArrayList.get(0) + "");
+                        //Log.v("Custom Filter Stuff", categoryArrayList.get(1) + "");
 
-                        //Toast.makeText(mContext, catName + " No Longer Selected", Toast.LENGTH_SHORT).show();
+
                     }
                 }
             });
 
-            final String itemName = mMainList.get(firstLevelNumber).getmSubCategoryList().get(secondLevelNumber).getmItemListArray().get(k).getItemName();
             mItemName.setText(itemName);
 
             mLinearScrollThird.addView(mLinearView3);
