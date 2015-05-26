@@ -44,21 +44,22 @@ public class ListActivity extends ActionBarActivity {
     String url = "jdbc:mysql://66.147.244.109:3306/showdomc_web2"; //
     String user = "showdomc_android";
     String pass = "show12345!";
-    SQLUtils sqlu ;
-    List<String> events;
-    Event[] nmEvents;
+
+    SQLUtils sqlu ; //The SQLUtil object type that will be initialized later depending on the credentials given above.
+    List<String> events;    //The List that will temporarily hold the List Array of type String returned by the call of Event Database.
+    Event[] nmEvents;       //The Array that will hold the Events that we will pass around(to Adapter,the List...)
 
     //Default Constructor for the class ListActivity
     public ListActivity()
     {
         sqlu = new SQLUtils(url, user, pass); //Creating Object type SQLUtils using credentials needed
-        events = sqlu.Events();
+        events = sqlu.Events();               //Initializing the list to the one returned from Database call of Events function.
 
-        int size = events.size();
-        size=size/3;
-        nmEvents=  new Event[size];
-        int j=0;
-        for(int i=0;i<nmEvents.length;i++)
+        int size = events.size();             //Determining the size we need to set our Array Of Events.
+        size=size/3;                           // Divided by 3 for now since each event has 3 fields,name date n locname as 0 1 2 index and then next event is 3 4 5
+        nmEvents=  new Event[size];             //creating the array where Event objects will be stored.
+        int j=0;                                //Index pointer for the Database returned array.
+        for(int i=0;i<nmEvents.length;i++)      //The function that creates and initializes the Events into the Array of Events to be passed along.
         {
             Event eventsi=new Event();
             eventsi.setEventName(events.get(j));
@@ -176,9 +177,9 @@ public class ListActivity extends ActionBarActivity {
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                String name = nmEvents[0].getEventName();
-                String nsize= nmEvents.length + "" ;
-                Toast.makeText(view.getContext(), nsize , Toast.LENGTH_SHORT).show();
+               //Just used for testing,ignore if not delete String name = nmEvents[0].getEventName();
+               //Just used for testing,ignore if not delete  String nsize= nmEvents.length + "" ;
+                Toast.makeText(view.getContext(), "OnItemLongClickListener" , Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
