@@ -25,14 +25,53 @@ public class DashboardActivity extends ActionBarActivity {
         setContentView(R.layout.activity_dashboard);
         ButterKnife.inject(this);
 
-/*
-        //Code temporarily here for testing, this is the swipe layout code.
-        MyPagerAdapter adapter = new MyPagerAdapter();
-        ViewPager pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(adapter);
-        pager.setCurrentItem(R.layout.activity_dashboard);
-*/
     }
+
+
+    //The OnClickListeners for the DashBoard Buttons:
+
+    //OnClickListener for "Explore" that leads to the ListView Activity.
+    @OnClick(R.id.ExploreButton)
+    public void startExploreActivity(View view){
+        Intent intent = new Intent(this, ListActivity.class);
+        startActivity(intent);
+    }
+
+    //OnClickListener for "Explore" that leads to the Addiction Activity.
+    @OnClick(R.id.AddictionButton)
+    public void startAddictionAcitivty(View view){
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
+    }
+
+    //OnClickListener for "Explore" that leads to the Ticket Activity.
+    @OnClick(R.id.TicketButton)
+    public void startTicketAcitivity(View view){
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
+    }
+
+    //OnClickListener for "Explore" that leads to the Hot Activity.
+    @OnClick(R.id.HotButton)
+    public void startHotActivity(View view){
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
+    }
+
+    //OnClickListener for "Explore" that leads to the Upload Activity.
+    @OnClick(R.id.UploadButton)
+    public void startUploadActivity(View view){
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
+    }
+
+    //OnClickListener for "Explore" that leads to the Profile Activity.
+    @OnClick(R.id.ProfileButton)
+    public void startProfileActivity(View view){
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
+    }
+
 
     @OnClick(R.id.mapButton)
     public void startMapActivity(View view){

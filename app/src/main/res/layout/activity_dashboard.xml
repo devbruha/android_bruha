@@ -2,7 +2,8 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.bruha.bruha.Views.DashboardActivity">
+                tools:context="com.bruha.bruha.Views.DashboardActivity"
+                android:background="#d3000000">
 
     <Button
         android:layout_width="wrap_content"
@@ -21,5 +22,76 @@
         android:layout_alignTop="@+id/listButton"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Explore"
+        android:id="@+id/ExploreButton"
+        android:layout_below="@+id/listButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="37dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="86dp"
+        android:textColor="#fe50e3ff"
+        android:textSize="25sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Tickets"
+        android:id="@+id/TicketButton"
+        android:textColor="#fe50e3ff"
+        android:textSize="25sp"
+        android:layout_above="@+id/UploadButton"
+        android:layout_alignLeft="@+id/ExploreButton"
+        android:layout_alignStart="@+id/ExploreButton"
+        android:layout_marginBottom="106dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Uploads"
+        android:id="@+id/UploadButton"
+        android:textColor="#fe50e3ff"
+        android:textSize="25sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/TicketButton"
+        android:layout_alignStart="@+id/TicketButton"
+        android:layout_marginBottom="76dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fe50e3ff"
+        android:textSize="25sp"
+        android:text="My Addictions"
+        android:id="@+id/AddictionButton"
+        android:layout_alignTop="@+id/ExploreButton"
+        android:layout_alignRight="@+id/mapButton"
+        android:layout_alignEnd="@+id/mapButton"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="What's Hot"
+        android:textColor="#fe50e3ff"
+        android:textSize="25sp"
+        android:id="@+id/HotButton"
+        android:layout_alignBottom="@+id/TicketButton"
+        android:layout_alignLeft="@+id/AddictionButton"
+        android:layout_alignStart="@+id/AddictionButton"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profile"
+        android:textColor="#fe50e3ff"
+        android:textSize="25sp"
+        android:id="@+id/ProfileButton"
+        android:layout_alignBottom="@+id/UploadButton"
+        android:layout_alignLeft="@+id/HotButton"
+        android:layout_alignStart="@+id/HotButton"/>
 
 </RelativeLayout>

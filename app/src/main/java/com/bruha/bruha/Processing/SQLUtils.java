@@ -32,6 +32,7 @@ public class SQLUtils {
     // Initializing a list to store the results from "rs" to pass back to other activity
     List<String> user_info = new ArrayList<>();
     List<String> events = new ArrayList<>();
+    List<String> eventprice= new ArrayList<>();
 
     // Error code to be used for user notification
 
@@ -145,44 +146,61 @@ public class SQLUtils {
     {
         Thread thread;
 
+       final List<String> eventsid=new ArrayList<>();
+
         thread= new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     // Instantiating the JDBC library
-
                     Class.forName("com.mysql.jdbc.Driver").newInstance();
 
                     // Creating a connection using the passed in URL, username, and password
-
                     Connection c = DriverManager.getConnection(CONNECTION_URL, user, pass);
 
+                    String username = "TestAccount";
 
-                    String username = "Hamilton" ;
-
-                    String sql= "SELECT * " + "FROM events"  + " WHERE city = '" + username + "' ";
-
+                    String sql = "SELECT * " + "FROM events" + " WHERE user_id = '" + username + "' ";
 
                     Statement st = c.createStatement();
 
                     // Creating a result set from the results of the query
-
                     rs = st.executeQuery(sql);
 
                     // A loop to run through all values from the resultSet
-
                     while (rs.next()) {
 
                         // Adding the 3 results from the resultSet to the user_info list
                         // which has been initialized at the start of the class
-
                         events.add(rs.getString("event_name"));
                         events.add(rs.getString("event_desc"));
-                        events.add(rs.getString("city"));
+                        events.add(rs.getString("organization_id"));
+                       // eventsid.add(rs.getString("event_id"));
+
+
+                        /*
+
+                        String sq2= "SELECT admission_price " + "FROM events_tickets"  + " WHERE event_id = '" + rs.getString("event_id");
+                        Statement st1 = c.createStatement();
+
+                        // Creating a result set from the results of the query
+                        rs = st1.executeQuery(sq2);
+                        events.add(rs.getString("admission_price"));
+
+                        */
                     }
 
-                    //Closing both the statement and the connection
+                  /*
+                   for(int i=0;i<eventsid.size();i++) {
+                        String sq2 = "SELECT admission_price " + "FROM events_tickets" + " WHERE event_id = '" + eventsid.get(i) + "' ";
+                        Statement st1 = c.createStatement();
+                        // Creating a result set from the results of the query
+                        rs = st1.executeQuery(sq2);
+                        eventprice.add(rs.getString("admission_price"));
+                }
+                */
 
+                    //Closing both the statement and the connection
                     st.close();
                     c.close();
 
