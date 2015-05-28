@@ -3,9 +3,10 @@ package com.bruha.bruha.Views;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
+import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -18,6 +19,8 @@ import butterknife.OnClick;
 public class MapsActivity extends FragmentActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+
+    private UserCustomFilters mUserCustomFilters = new UserCustomFilters();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +67,7 @@ public class MapsActivity extends FragmentActivity {
         // Calling the FilterView class to set the layout for the filters
 
         FilterView filterView = new FilterView(this);
-        filterView.init();
+        mUserCustomFilters = filterView.init();
     }
 
     @OnClick(R.id.dudeButton)
@@ -79,5 +82,14 @@ public class MapsActivity extends FragmentActivity {
 
         Intent intent = new Intent(this, ListActivity.class);
         startActivity(intent);
+    }
+
+    @OnClick(R.id.filterSaveButton)
+    public void saveFilters(View view){
+
+        // Testing if the filters are being saved
+
+        Log.v("Big Filter Test", mUserCustomFilters.getCategoryFilter().keySet()+"");
+        Log.v("Big Filter Test", mUserCustomFilters.getAdmissionPriceFilter()+"");
     }
 }

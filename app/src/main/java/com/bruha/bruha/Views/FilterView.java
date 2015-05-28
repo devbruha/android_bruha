@@ -1,11 +1,11 @@
 package com.bruha.bruha.Views;
 
-import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.graphics.Point;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
-import android.view.DragEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,44 +17,75 @@ import android.widget.Toast;
 import com.bruha.bruha.Adapters.CategoryAdapter;
 import com.bruha.bruha.Adapters.QuickieAdapter;
 import com.bruha.bruha.Model.Items;
+import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.Processing.FilterGen;
 import com.bruha.bruha.R;
+import com.roomorama.caldroid.CaldroidFragment;
+import com.roomorama.caldroid.CaldroidListener;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by Thomas on 5/25/2015.
  */
 public class FilterView {
 
-    private Activity mActivity;
+    // Creating a UserCustomFilters object to store user filters
 
-    public FilterView(Activity activity){
+    UserCustomFilters userCustomFilters = new UserCustomFilters();
+
+    // Creating a CaldroidFragment object
+    private CaldroidFragment caldroidFragment;
+
+    // Casting the passed activity as a Fragment activity
+    private FragmentActivity mActivity;
+
+    public FilterView(FragmentActivity activity){
 
         mActivity = activity;
     }
 
-    public void init(){
+    public UserCustomFilters init(){
 
         setPanel();
 
         setQuickieList();
 
-        setCategoryList();
+        setupCalendar();
+
+        // Simulteanously setting the category lists and updating the user custom filters
+
+        userCustomFilters.setCategoryFilter(setCategoryList());
+
+        //Admission price is added to userCustomFilters within its function
 
         setAdmissionPrice();
+
+        // Returning the userCustomFilters to parent activity
+
+        return userCustomFilters;
     }
 
     private void setPanel(){
+
+        // Retrieving the device API level to determine if the modification to the sliding panel need
+        //to be made (click instead of swiping)
+
+        int device_sdk = android.os.Build.VERSION.SDK_INT;
+
+        Log.v("DEVICE API", device_sdk + "");
 
         // Storing the sliding panel into mLayout
 
         final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout)mActivity.findViewById(R.id.sliding_layout);
 
-        // Storing the handle layout into handleLayout
+        // Creating buttons for all the buttons on the sliding panel handle
 
-        LinearLayout handleLayout = (LinearLayout)mActivity.findViewById(R.id.handleLayout);
         Button eventButton = (Button)mActivity.findViewById(R.id.eventButton);
         Button venueButton = (Button)mActivity.findViewById(R.id.venueButton);
         Button artistButton = (Button)mActivity.findViewById(R.id.artistButton);
@@ -85,33 +116,37 @@ public class FilterView {
 
         params.height =  (int)Math.round(height*.75);
 
-        mLayout.setPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
-            @Override
-            public void onPanelSlide(View view, float v) {
+        // If device is API level 15 then we disable the drag while the sliding panel is expanded
 
-            }
+        if(device_sdk == 15) {
 
-            @Override
-            public void onPanelCollapsed(View view) {
+            mLayout.setPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
+                @Override
+                public void onPanelSlide(View view, float v) {
 
-            }
+                }
 
-            @Override
-            public void onPanelExpanded(View view) {
+                @Override
+                public void onPanelCollapsed(View view) {
 
-                mLayout.setTouchEnabled(false);
-            }
+                }
 
-            @Override
-            public void onPanelAnchored(View view) {
+                @Override
+                public void onPanelExpanded(View view) {
 
-            }
+                    mLayout.setTouchEnabled(false);
+                }
 
-            @Override
-            public void onPanelHidden(View view) {
+                @Override
+                public void onPanelAnchored(View view) {
 
-            }
-        });
+                }
+
+                @Override
+                public void onPanelHidden(View view) {
+
+                }
+            });
 
         eventButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,6 +206,7 @@ public class FilterView {
             }
         });
 
+        }
     }
 
     private void setQuickieList(){
@@ -190,7 +226,81 @@ public class FilterView {
         adapter.set();
     }
 
-    private void setCategoryList(){
+    private void setupCalendar(){
+
+        // Dyanmically changing the calendar height / width due to the bug while it is within a
+        // scrollview
+
+        LinearLayout linearCalendar = (LinearLayout)mActivity.findViewById(R.id.calendarView);
+
+        Display display = mActivity.getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        // Storing the screen height and width into int variables
+        int height = size.y;
+        int width = size.x;
+
+        // Retrieves the current parameters of the layout and storing them in variable params
+
+        ViewGroup.LayoutParams params = linearCalendar.getLayoutParams();
+
+        // Re-setting the height parameter to .75 the max screen height
+
+        params.height =  (int)Math.round(height*.55);
+        params.width = (int)Math.round(width*.80);
+
+        // Creating a date formatter for the calendar
+
+        final SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+
+        // Setup caldroid fragment
+
+        caldroidFragment = new CaldroidFragment();
+
+        // Setup arguments for the CalDroid
+
+        Bundle args = new Bundle();
+        Calendar cal = Calendar.getInstance();
+
+        // Setting month / year
+        args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
+        args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
+
+        // Swipe nav between months
+        args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
+
+        // Enable 6 weeks in calendar
+        args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, true);
+
+        // Dark Theme
+        args.putInt(CaldroidFragment.THEME_RESOURCE, com.caldroid.R.style.CaldroidDefaultDark);
+
+        // Applying the arguments
+
+        caldroidFragment.setArguments(args);
+
+        // Attach to the activity
+        FragmentTransaction t = mActivity.getSupportFragmentManager().beginTransaction();
+        t.replace(R.id.calendarView, caldroidFragment);
+        t.commit();
+
+
+        // Setup listener for date onClick
+        final CaldroidListener listener = new CaldroidListener() {
+
+            @Override
+            public void onSelectDate(Date date, View view) {
+                Toast.makeText(mActivity.getApplicationContext(), formatter.format(date),
+                        Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        // Setting the listener to the calendar
+        caldroidFragment.setCaldroidListener(listener);
+    }
+
+    private Map<String, ArrayList<String>> setCategoryList(){
 
         // Storing the quickie layout into mCategoryListview
 
@@ -204,7 +314,8 @@ public class FilterView {
         // calling and setting the "adapter" to set the list items
 
         CategoryAdapter adapter = new CategoryAdapter(mActivity, mCategoryListView, mainList);
-        adapter.set();
+
+        return adapter.set();
     }
 
     private void setAdmissionPrice(){
@@ -222,13 +333,15 @@ public class FilterView {
 
                 // If the progress bar is 0 set the text to free, otherwise to progress value
 
-                if(progress == 0){
+                if (progress == 0) {
                     seekBarValue.setText("Free Events");
-                }
-                else{
-                    seekBarValue.setText(String.valueOf(progress)+" $");
+                } else {
+                    seekBarValue.setText(String.valueOf(progress) + " $");
                 }
 
+                // As the seekBar is changed we shall update the userCustomFilters aswell
+
+                userCustomFilters.setAdmissionPriceFilter(progress);
             }
 
             @Override
@@ -242,5 +355,4 @@ public class FilterView {
             }
         });
     }
-
 }
