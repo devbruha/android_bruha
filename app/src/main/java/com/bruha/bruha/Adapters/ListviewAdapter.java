@@ -45,7 +45,7 @@ public class ListviewAdapter extends BaseSwipeAdapter {
 
     @Override
     public int getCount() {
-        return mEvents.length;  //Returns length of the array of Events
+        return mEvents.length;  //Returns length of the array of Events.
     }
 
     @Override
@@ -154,20 +154,20 @@ public class ListviewAdapter extends BaseSwipeAdapter {
          //   holder.EventDistance.setText(event.getEventDistance()+"km");
             holder.EventName.setText(event.getEventName());
             holder.EventDate.setText(event.getEventDate());
-            //holder.EventPrice.setText("$"+event.getEventPrice());
+            holder.EventPrice.setText("$"+event.getEventPrice());
             //holder.EventIcon.setImageResource(event.getEventIcon());
             //holder.EventPicture.setImageResource(event.getEventPicture());
 
             //Setting the detailed description.
             holder.EventDName.setText(event.getEventName());
-            //holder.EventDPrice.setText("$"+event.getEventPrice());
+            holder.EventDPrice.setText("$"+event.getEventPrice());
             holder.EventLocName.setText(event.getEventLocName());
-            //holder.EventLocSt.setText(event.getEventLocSt());
-            //holder.EventLocAdd.setText(event.getEventLocAdd());
+            holder.EventLocSt.setText(event.getEventLocSt());
+            holder.EventLocAdd.setText(event.getEventLocAdd());
             holder.EventStartDate.setText(event.getEventDate());
-            //holder.EventStartTime.setText(event.getEventStartTime());
-            //holder.EventEndDate.setText(event.getEventEndDate());
-          //  holder.EventEndTime.setText(event.getEventEndTime());
+            holder.EventStartTime.setText(event.getEventStartTime());
+            holder.EventEndDate.setText(event.getEventEndDate());
+            holder.EventEndTime.setText(event.getEventEndTime());
 
 
 
