@@ -1,46 +1,37 @@
 package com.bruha.bruha.Views;
 
-import android.graphics.Point;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.view.Display;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.util.Log;
+import android.view.View;
 
-import com.bruha.bruha.Adapters.CategoryAdapter;
-import com.bruha.bruha.Adapters.QuickieAdapter;
-import com.bruha.bruha.Model.Items;
-import com.bruha.bruha.Processing.FilterGen;
+import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
-import java.util.ArrayList;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MapsActivity extends FragmentActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
-    private ArrayList<Items>mainList;
-
-    private LinearLayout mLinearListView;
+    private UserCustomFilters mUserCustomFilters = new UserCustomFilters();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        ButterKnife.inject(this);
+
+        // Map and Filter setup
+
         setUpMapIfNeeded();
-
-        setPanel();
-
-        setQuickieList();
-
-        setCategoryList();
-
-
+        setUpFilters();
     }
 
     @Override
@@ -71,62 +62,34 @@ public class MapsActivity extends FragmentActivity {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.2500,-79.919501), 14.0f));
     }
 
-    // A function that shall be used to dynamically set the max height of the sliding panel
+    private void setUpFilters(){
 
-    private void setPanel(){
+        // Calling the FilterView class to set the layout for the filters
 
-        SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-
-        mLayout.setAnchorPoint(.5f);
-
-        // Storing the sliding panel (lin layout) into a linear layout variable
-
-        LinearLayout dragLayout = (LinearLayout) findViewById(R.id.dragView);
-
-        // Android functions to determine the screen dimensions
-
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-
-        // Storing the screen height into an int variable
-        int height = size.y;
-
-        // Retrieves the current parameters of the layout and storing them in variable params
-
-        ViewGroup.LayoutParams params = dragLayout.getLayoutParams();
-
-        // Re-setting the height parameter to .75 the max screen height
-
-        params.height =  (int)Math.round(height*.75);
+        FilterView filterView = new FilterView(this);
+        mUserCustomFilters = filterView.init();
     }
 
-    private void setQuickieList(){
+    @OnClick(R.id.dudeButton)
+    public void startDashboardActivity(View view){
 
-        mLinearListView = (LinearLayout) findViewById(R.id.quickie_listview);
-
-        FilterGen quickieGen = new FilterGen();
-        mainList = quickieGen.initRecommended();
-
-        QuickieAdapter adapter = new QuickieAdapter(this, mLinearListView, mainList);
-        adapter.set();
+        Intent intent = new Intent(this, DashboardActivity.class);
+        startActivity(intent);
     }
 
-    private void setCategoryList(){
+    @OnClick(R.id.listButton)
+    public void startListViewActivity(View view){
 
-        mLinearListView = (LinearLayout) findViewById(R.id.category_listview);
-
-        //Make array list one is for mainlist and other is for sublist
-
-        FilterGen catGen = new FilterGen();
-        mainList = catGen.initCategory();
-
-        CategoryAdapter adapter = new CategoryAdapter(this, mLinearListView, mainList);
-        adapter.set();
+        Intent intent = new Intent(this, ListActivity.class);
+        startActivity(intent);
     }
 
-    private void setAdmissionPrice(){
+    @OnClick(R.id.filterSaveButton)
+    public void saveFilters(View view){
 
+        // Testing if the filters are being saved
+
+        Log.v("Big Filter Test", mUserCustomFilters.getCategoryFilter().keySet()+"");
+        Log.v("Big Filter Test", mUserCustomFilters.getAdmissionPriceFilter()+"");
     }
-
 }

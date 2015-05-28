@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bruha.bruha.Model.Items;
 import com.bruha.bruha.R;
@@ -25,6 +26,7 @@ public class QuickieAdapter {
     // boolean variables representing the upper and lower levels being selected
 
     boolean isFirstViewClick=false;
+    boolean isSecondViewClick=false;
 
     // Constructor for the adapter, takes a context, linear layout and "super" list
 
@@ -60,6 +62,8 @@ public class QuickieAdapter {
             final ImageView mImageArrowFirst=(ImageView)mLinearView.findViewById(R.id.imageFirstArrow);
             final LinearLayout mLinearScrollSecond=(LinearLayout)mLinearView.findViewById(R.id.linear_scroll);
 
+            final String name = mMainList.get(i).getpName();
+
             // If the item is pressed, the linear layout representing the lower level is set to visible
 
             isMenuOpen(isFirstViewClick, mImageArrowFirst, mLinearScrollSecond);
@@ -76,17 +80,21 @@ public class QuickieAdapter {
                         mImageArrowFirst.setBackgroundResource(android.R.drawable.arrow_down_float);
                         mLinearScrollSecond.setVisibility(View.VISIBLE);
 
+                        Toast.makeText(mContext, name +" Selected", Toast.LENGTH_SHORT).show();
+
                     } else {
                         isFirstViewClick = false;
                         mImageArrowFirst.setBackgroundResource(android.R.drawable.arrow_up_float);
                         mLinearScrollSecond.setVisibility(View.GONE);
+
+                        Toast.makeText(mContext, name +" No Longer Selected", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
 
             // Setting the title of the parent item (in this case categories)
 
-            final String name = mMainList.get(i).getpName();
+
             mProductName.setText(name);
 
             // Calling function to go to the lower levels
@@ -101,8 +109,7 @@ public class QuickieAdapter {
 
         // Retrieves the children of the corresponding parent (in this case children of "category")
 
-        for (int j = 0; j < mMainList.get(firstLevelNumber).getmSubCategoryList().size(); j++)
-        {
+        for (int j = 0; j < mMainList.get(firstLevelNumber).getmSubCategoryList().size(); j++) {
 
             // Each child (primary category) gets inflated as a row item (row second)
 
@@ -110,38 +117,41 @@ public class QuickieAdapter {
             inflater2 = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View mLinearView2 = inflater2.inflate(R.layout.row_third, null);
 
-            TextView mSubItemName = (TextView) mLinearView2.findViewById(R.id.textViewItemName);
+            final LinearLayout childChildLayout = (LinearLayout)mLinearView2.findViewById(R.id.childChildItem);
+
+            final TextView mSubItemName = (TextView) mLinearView2.findViewById(R.id.textViewItemName);
 
             final String catName = mMainList.get(firstLevelNumber).getmSubCategoryList().get(j).getpSubCatName();
+
+            childChildLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (isSecondViewClick == false) {
+
+                        isSecondViewClick = true;
+
+                        mSubItemName.setBackgroundResource(android.R.color.holo_blue_bright);
+
+                        //Toast.makeText(mContext, catName + " Selected", Toast.LENGTH_SHORT).show();
+
+                    } else {
+
+                        isSecondViewClick = false;
+
+                        mSubItemName.setBackgroundResource(android.R.color.background_dark);
+
+                        //Toast.makeText(mContext, catName + " No Longer Selected", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
             mSubItemName.setText(catName);
 
             mLinearScrollSecond.addView(mLinearView2);
 
         }
         mLinearListView.addView(mLinearView);
-    }
-
-    private void addThirdRow(int firstLevelNumber, int secondLevelNumber, LinearLayout mLinearScrollThird){
-
-        //Adds items in subcategories
-
-        // Loops through all child-children (subcategories)
-
-        for (int k = 0; k < mMainList.get(firstLevelNumber).getmSubCategoryList().get(secondLevelNumber).getmItemListArray().size(); k++)
-        {
-
-            // Inflates each sub category as a super sub level list item
-
-            LayoutInflater inflater3 = null;
-            inflater3 = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View mLinearView3 = inflater3.inflate(R.layout.row_third, null);
-
-            TextView mItemName = (TextView) mLinearView3.findViewById(R.id.textViewItemName);
-            final String itemName = mMainList.get(firstLevelNumber).getmSubCategoryList().get(secondLevelNumber).getmItemListArray().get(k).getItemName();
-            mItemName.setText(itemName);
-
-            mLinearScrollThird.addView(mLinearView3);
-        }
     }
 
     // A function used to set the layout depending on if the item is pressed or not
