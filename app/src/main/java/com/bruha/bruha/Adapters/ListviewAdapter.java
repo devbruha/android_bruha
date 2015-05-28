@@ -33,7 +33,7 @@ public class ListviewAdapter extends BaseSwipeAdapter {
 
 
 
-    //the Constructor for the class.
+    //the Constructor for the class..
     public ListviewAdapter(Context context, Event[] events) {
         mContext = context;
         mEvents = events;
