@@ -46,8 +46,11 @@ public class ListActivity extends ActionBarActivity {
     String pass = "show12345!";
 
     SQLUtils sqlu ; //The SQLUtil object type that will be initialized later depending on the credentials given above.
-    List<String> events;    //The List that will temporarily hold the List Array of type String returned by the call of Event Database.
+    List<String> events;    //The List that will temporarily hold the List Array of type String holding the event's Name returned by the call of Event Database.
     Event[] nmEvents;       //The Array that will hold the Events that we will pass around(to Adapter,the List...)
+    List<String> eventsTimings; //The List that will temporarily hold the List Array of type String holding the event's timings returned by the call of Event Database.
+    List<String> eventsTickets;  //The List that will temporarily hold the List Array of type String holding the event's tickets returned by the call of Event Database.
+    List<String> eventVenue;     //The List that will temporarily hold the List Array of type String holding the event's venues returned by the call of Event Database.
 
     //Default Constructor for the class ListActivity
     public ListActivity()
@@ -55,6 +58,7 @@ public class ListActivity extends ActionBarActivity {
         sqlu = new SQLUtils(url, user, pass); //Creating Object type SQLUtils using credentials needed
         events = sqlu.Events();               //Initializing the list to the one returned from Database call of Events function.
 
+        //Setting the name
         int size = events.size();             //Determining the size we need to set our Array Of Events.
         size=size/3;                           // Divided by 3 for now since each event has 3 fields,name date n locname as 0 1 2 index and then next event is 3 4 5
         nmEvents=  new Event[size];             //creating the array where Event objects will be stored.
@@ -64,13 +68,55 @@ public class ListActivity extends ActionBarActivity {
             Event eventsi=new Event();
             eventsi.setEventName(events.get(j));
             j++;
-            eventsi.setEventDate(events.get(j));
+            eventsi.setEventLocAdd(events.get(j));  //Was for testing purposes,can remove later on, remember to set it in Utils too.
             j++;
-            eventsi.setEventLocName(events.get(j));
+            eventsi.setEventLocName(events.get(j));  //Was for testing purposes,can remove later on, remember to set it in Utils too.
             j++;
-
 
             nmEvents[i]=eventsi;
+        }
+
+
+        //Setting the Timing
+        eventsTimings = sqlu.EventsTimings();               //Initializing the list to the one returned from Database call of Events function.
+
+        int jj=0;                                          //Index pointer for the Database returned array.
+        for(int i=0;i<nmEvents.length;i++)                 //The function that creates and initializes the Events into the Array of Events to be passed along.
+        {
+            nmEvents[i].setEventDate(eventsTimings.get(jj));
+            jj++;
+            nmEvents[i].setEventStartTime(eventsTimings.get(jj));
+            jj++;
+            nmEvents[i].setEventEndDate(eventsTimings.get(jj));
+            jj++;
+            nmEvents[i].setEventEndTime(eventsTimings.get(jj));
+            jj++;
+        }
+
+
+        //Setting the Price
+        eventsTickets = sqlu.EventsTickets();               //Initializing the list to the one returned from Database call of Events function.
+        //creating the array where Event objects will be stored.
+        int jjj=0;                                          //Index pointer for the Database returned array.
+        for(int i=0;i<nmEvents.length;i++)                 //The function that creates and initializes the Events into the Array of Events to be passed along.
+        {
+            double value = Double.parseDouble(eventsTickets.get(jjj));
+            nmEvents[i].setEventPrice(value);
+            jjj++;
+        }
+
+        //Setting the Address and Venue Names in Detailed Description
+        eventVenue = sqlu.EventsVenue();               //Initializing the list to the one returned from Database call of Events function.
+
+        int jjjj=0;                                          //Index pointer for the Database returned array.
+        for(int i=0;i<nmEvents.length;i++)                 //The function that creates and initializes the Events into the Array of Events to be passed along.
+        {
+            nmEvents[i].setEventLocName(eventVenue.get(jjjj));
+            jjjj++;
+            nmEvents[i].setEventLocSt(eventVenue.get(jjjj));
+            jjjj++;
+            nmEvents[i].setEventLocAdd(eventVenue.get(jjjj));
+            jjjj++;
         }
 
     }
