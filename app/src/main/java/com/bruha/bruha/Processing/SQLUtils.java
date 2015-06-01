@@ -145,307 +145,8 @@ public class SQLUtils {
 
 
 
-    public List<String> TestEvent()
-    {
-        Thread thread;
 
-
-        thread= new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    // Instantiating the JDBC library
-                    Class.forName("com.mysql.jdbc.Driver").newInstance();
-
-                    // Creating a connection using the passed in URL, username, and password
-                    Connection c = DriverManager.getConnection(CONNECTION_URL, user, pass);
-
-                    String username = "TestAccount";
-
-                    String sql = "SELECT * " + "FROM events" + " WHERE user_id = '" + username + "' ";
-
-                    Statement st = c.createStatement();
-
-                    // Creating a result set from the results of the query
-                    rs = st.executeQuery(sql);
-
-                    // A loop to run through all values from the resultSet
-                    while (rs.next()) {
-
-                        // Adding the 3 results from the resultSet to the user_info list
-                        // which has been initialized at the start of the class
-                        events.add(rs.getString("event_name"));
-                        events.add(rs.getString("event_desc"));
-                        events.add(rs.getString("organization_id"));
-                        eventsid.add(rs.getString("event_id"));
-                    }
-
-
-
-
-                    //Closing both the statement and the connection
-                    st.close();
-                    c.close();
-
-                }
-
-
-
-                catch (ClassNotFoundException e) {
-
-                    e.printStackTrace();
-                }
-
-                catch (SQLException e) {
-
-                    e.printStackTrace();
-                    errorCode = e.getErrorCode()+"";
-                    Log.v(DB_DEBUGGING, errorCode + "");
-                    Log.v(DB_DEBUGGING, e.getMessage());
-                }
-
-                catch (Exception e){
-                    e.printStackTrace();
-                    String message = e.getMessage();
-                    Log.v(DB_DEBUGGING, message);
-                }
-
-
-            }
-
-
-
-        });
-
-        thread.start();
-
-        // Running thread.join so ensure the operation finishes before the main thread returns
-        // the errorCode value
-
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return events;
-
-
-    }
-    public List<String> TestEventsTickets()
-    {
-
-        Thread thread;
-
-        thread= new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    // Instantiating the JDBC library
-                    Class.forName("com.mysql.jdbc.Driver").newInstance();
-
-                    // Creating a connection using the passed in URL, username, and password
-                    Connection c = DriverManager.getConnection(CONNECTION_URL, user, pass);
-
-                    //  String username = "TestAccount";
-
-                    String sql = "SELECT * " + "FROM event_tickets" ;
-
-                    Statement st = c.createStatement();
-
-                    // Creating a result set from the results of the query
-                    rs = st.executeQuery(sql);
-
-                    // A loop to run through all values from the resultSet
-                    while (rs.next()) {
-                        // Adding the 1 results from the resultSet to the eventtickets
-                        // which has been initialized at the start of the class
-                        eventTickets.add(rs.getString("admission_price"));
-
-                    }
-
-                    //Closing both the statement and the connection
-                    st.close();
-                    c.close();
-                }
-
-                catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-                catch (SQLException e) {
-                    e.printStackTrace();
-                    errorCode = e.getErrorCode()+"";
-                    Log.v(DB_DEBUGGING, errorCode + "");
-                    Log.v(DB_DEBUGGING, e.getMessage());
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                    String message = e.getMessage();
-                    Log.v(DB_DEBUGGING, message);
-                }
-            }
-        });
-
-        thread.start();
-
-        // Running thread.join so ensure the operation finishes before the main thread returns
-        // the errorCode value
-
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return eventTickets;
-    }
-
-    public List<String> TestEventsTimings()
-    {
-
-        Thread thread;
-
-        thread= new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    // Instantiating the JDBC library
-                    Class.forName("com.mysql.jdbc.Driver").newInstance();
-
-                    // Creating a connection using the passed in URL, username, and password
-                    Connection c = DriverManager.getConnection(CONNECTION_URL, user, pass);
-
-                    String username = "TestAccount";
-
-                    String sql = "SELECT * " + "FROM events_timings" ;
-
-                    Statement st = c.createStatement();
-
-                    // Creating a result set from the results of the query
-                    rs = st.executeQuery(sql);
-
-                    // A loop to run through all values from the resultSet
-                    while (rs.next()) {
-                        // Adding the 4 results from the resultSet to the eventtickets
-                        // which has been initialized at the start of the class
-                        eventtimings.add(rs.getString("evnt_start_date"));
-                        eventtimings.add(rs.getString("event_start_time"));
-                        eventtimings.add(rs.getString("event_end_date"));
-                        eventtimings.add(rs.getString("event_end_time"));
-                    }
-
-                    //Closing both the statement and the connection
-                    st.close();
-                    c.close();
-                }
-
-                catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-                catch (SQLException e) {
-                    e.printStackTrace();
-                    errorCode = e.getErrorCode()+"";
-                    Log.v(DB_DEBUGGING, errorCode + "");
-                    Log.v(DB_DEBUGGING, e.getMessage());
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                    String message = e.getMessage();
-                    Log.v(DB_DEBUGGING, message);
-                }
-            }
-        });
-
-        thread.start();
-
-        // Running thread.join so ensure the operation finishes before the main thread returns
-        // the errorCode value
-
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return eventtimings;
-
-    }
-
-    public List<String> TestEventsVenue()
-    {
-
-        Thread thread;
-
-        thread= new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    // Instantiating the JDBC library
-                    Class.forName("com.mysql.jdbc.Driver").newInstance();
-
-                    // Creating a connection using the passed in URL, username, and password
-                    Connection c = DriverManager.getConnection(CONNECTION_URL, user, pass);
-
-                    //  String username = "TestAccount";
-
-                    String sql = "SELECT * " + "FROM venues" ;
-
-                    Statement st = c.createStatement();
-
-                    // Creating a result set from the results of the query
-                    rs = st.executeQuery(sql);
-
-                    // A loop to run through all values from the resultSet
-                    while (rs.next()) {
-                        // Adding the 1 results from the resultSet to the eventtickets
-                        // which has been initialized at the start of the class
-                        eventVenue.add(rs.getString("venue_name"));
-                        eventVenue.add(rs.getString("venue_location"));
-                        eventVenue.add(rs.getString("venue_desc"));
-
-                    }
-
-                    //Closing both the statement and the connection
-                    st.close();
-                    c.close();
-                }
-
-                catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-                catch (SQLException e) {
-                    e.printStackTrace();
-                    errorCode = e.getErrorCode()+"";
-                    Log.v(DB_DEBUGGING, errorCode + "");
-                    Log.v(DB_DEBUGGING, e.getMessage());
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                    String message = e.getMessage();
-                    Log.v(DB_DEBUGGING, message);
-                }
-            }
-        });
-
-        thread.start();
-
-        // Running thread.join so ensure the operation finishes before the main thread returns
-        // the errorCode value
-
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return eventVenue;
-    }
-
-
-
-
-
-    public List<Event> EventsVenue()
+    public void EventsVenue()
     {
 
         Thread thread;
@@ -512,7 +213,7 @@ public class SQLUtils {
             e.printStackTrace();
         }
 
-        return Eve;
+
     }
 
 
@@ -656,7 +357,7 @@ public class SQLUtils {
 
     }
 
-    public void Events()
+    public List<Event> Events()
     {
         Thread thread;
 
@@ -738,7 +439,10 @@ public class SQLUtils {
             e.printStackTrace();
         }
 
-        //return events;
+        EventsTimings();
+        EventsTickets();
+        EventsVenue();
+        return Eve;
     }
 
 
