@@ -3,6 +3,7 @@ package com.bruha.bruha.Views;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 
 import com.bruha.bruha.Adapters.ListviewAdapter;
 import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.R;
 import com.daimajia.swipe.SwipeLayout;
@@ -38,7 +40,9 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 
-public class ListActivity extends ActionBarActivity {
+public class ListActivity extends FragmentActivity {
+
+    private UserCustomFilters mUserCustomFilters = new UserCustomFilters();
 
     // Our database hostname and the credentials for our showdom_android account
     String url = "jdbc:mysql://66.147.244.109:3306/showdomc_web2"; //
@@ -82,6 +86,13 @@ public class ListActivity extends ActionBarActivity {
 
     public static int Clicks=0; //The variable holding the number of times the user has tapped on a list item.
 
+    private void setUpFilters(){
+
+        // Calling the FilterView class to set the layout for the filters
+
+        FilterView filterView = new FilterView(this);
+        mUserCustomFilters = filterView.init();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +101,7 @@ public class ListActivity extends ActionBarActivity {
         ButterKnife.inject(this);                   //Injecting all the objects to be imported from above.
 
 
+        setUpFilters();
         /*
         //A test array for Events
         for(int i=0; i<10;i++) {

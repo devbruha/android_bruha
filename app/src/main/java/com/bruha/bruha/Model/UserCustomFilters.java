@@ -1,5 +1,6 @@
 package com.bruha.bruha.Model;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +11,7 @@ import java.util.Map;
 public class UserCustomFilters {
 
     private ArrayList<String> QuickieFilter = new ArrayList<>();
-    private ArrayList<String> DateFilter = new ArrayList<>();
+    private ArrayList<Date> DateFilter = new ArrayList<>();
     private Map<String, ArrayList<String>> CategoryFilter = new HashMap<>();
     private int AdmissionPriceFilter;
 
@@ -23,11 +24,11 @@ public class UserCustomFilters {
         QuickieFilter = quickieFilter;
     }
 
-    public ArrayList<String> getDateFilter() {
+    public ArrayList<Date> getDateFilter() {
         return DateFilter;
     }
 
-    public void setDateFilter(ArrayList<String> dateFilter) {
+    public void setDateFilter(ArrayList<Date> dateFilter) {
         DateFilter = dateFilter;
     }
 

@@ -142,8 +142,8 @@ public class SQLUtils {
         return errorCode;
     }
 
-    public List<String> Events()
-    {
+    public List<String> Events(){
+
         Thread thread;
 
        final List<String> eventsid=new ArrayList<>();
@@ -226,12 +226,7 @@ public class SQLUtils {
                     String message = e.getMessage();
                     Log.v(DB_DEBUGGING, message);
                 }
-
-
             }
-
-
-
         });
 
         thread.start();

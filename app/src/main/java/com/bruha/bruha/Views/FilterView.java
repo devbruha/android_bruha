@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bruha.bruha.Adapters.CategoryAdapter;
 import com.bruha.bruha.Adapters.QuickieAdapter;
@@ -42,6 +41,8 @@ public class FilterView {
     // Creating a CaldroidFragment object
     private CaldroidFragment caldroidFragment;
 
+    ArrayList<Date> calendarSelected = new ArrayList<>();
+
     // Casting the passed activity as a Fragment activity
     private FragmentActivity mActivity;
 
@@ -54,11 +55,15 @@ public class FilterView {
 
         setPanel();
 
-        setQuickieList();
+        // Setting and storing the quickie filters.
 
-        setupCalendar();
+        userCustomFilters.setQuickieFilter(setQuickieList());
 
-        // Simulteanously setting the category lists and updating the user custom filters
+        // Simultaneously setting calendar and updating the user custom filters
+
+        userCustomFilters.setDateFilter(setCalendar());
+
+        // Simultaneously setting the category lists and updating the user custom filters
 
         userCustomFilters.setCategoryFilter(setCategoryList());
 
@@ -209,7 +214,7 @@ public class FilterView {
         }
     }
 
-    private void setQuickieList(){
+    private ArrayList<String> setQuickieList(){
 
         // Storing the quickie layout into mQuickieListview
 
@@ -223,12 +228,12 @@ public class FilterView {
         // calling and setting the "adapter" to set the list items
 
         QuickieAdapter adapter = new QuickieAdapter(mActivity, mQuickieListView, mainList);
-        adapter.set();
+        return adapter.set();
     }
 
-    private void setupCalendar(){
+    private ArrayList<Date> setCalendar(){
 
-        // Dyanmically changing the calendar height / width due to the bug while it is within a
+        // Dynamically changing the calendar height / width due to the bug while it is within a
         // scrollview
 
         LinearLayout linearCalendar = (LinearLayout)mActivity.findViewById(R.id.calendarView);
@@ -252,7 +257,7 @@ public class FilterView {
 
         // Creating a date formatter for the calendar
 
-        final SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+        final SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 
         // Setup caldroid fragment
 
@@ -285,19 +290,43 @@ public class FilterView {
         t.replace(R.id.calendarView, caldroidFragment);
         t.commit();
 
+        // Getting current date and setting background and adding to arraylist
+
+        cal.add(Calendar.DATE, 0);
+        Date currentDate = cal.getTime();
+
+        caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_blue_light, currentDate);
+        calendarSelected.add(currentDate);
+
 
         // Setup listener for date onClick
         final CaldroidListener listener = new CaldroidListener() {
 
             @Override
             public void onSelectDate(Date date, View view) {
-                Toast.makeText(mActivity.getApplicationContext(), formatter.format(date),
-                        Toast.LENGTH_SHORT).show();
+
+                // if the selected date has already been selected, set background to black and remove from
+                // date array list, other wise set background to light blue and add to array list
+
+                if(!calendarSelected.contains(date)){
+
+                    caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_blue_light, date);
+                    calendarSelected.add(date);
+                }
+                else{
+
+                    caldroidFragment.setBackgroundResourceForDate(android.R.color.background_dark, date);
+                    calendarSelected.remove(date);
+                }
+
+                caldroidFragment.refreshView();
             }
         };
 
         // Setting the listener to the calendar
         caldroidFragment.setCaldroidListener(listener);
+
+        return calendarSelected;
     }
 
     private Map<String, ArrayList<String>> setCategoryList(){

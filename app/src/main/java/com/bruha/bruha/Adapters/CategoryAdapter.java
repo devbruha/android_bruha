@@ -28,7 +28,7 @@ public class CategoryAdapter {
     private LinearLayout mLinearListView;
     private ArrayList<Items> mMainList;
 
-    // Creating aa hashmap to store the current categories selected by the user
+    // Creating a hashmap to store the current categories selected by the user
     // the hashmap shall contain string ArrayLists for each primary category selected
     // each string arrayList shall contain the primary category as its first index, then
     // each other index will represent the subcategory(s) selected

@@ -110,7 +110,8 @@
                 android:id="@+id/calendarView"
                 android:paddingTop="10dp"
                 android:layout_below="@+id/quickie"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:gravity="center_vertical">
 
             </LinearLayout>
 

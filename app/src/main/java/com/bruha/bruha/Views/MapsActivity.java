@@ -89,7 +89,10 @@ public class MapsActivity extends FragmentActivity {
 
         // Testing if the filters are being saved
 
+        Log.v("Big Filter Test", mUserCustomFilters.getQuickieFilter()+"");
+        Log.v("Big Filter Test", mUserCustomFilters.getDateFilter()+"");
         Log.v("Big Filter Test", mUserCustomFilters.getCategoryFilter().keySet()+"");
         Log.v("Big Filter Test", mUserCustomFilters.getAdmissionPriceFilter()+"");
+
     }
 }

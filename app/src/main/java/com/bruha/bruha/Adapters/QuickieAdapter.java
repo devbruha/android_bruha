@@ -23,6 +23,8 @@ public class QuickieAdapter {
     private LinearLayout mLinearListView;
     private ArrayList<Items> mMainList;
 
+    ArrayList<String> quickieFilters = new ArrayList<>();
+
     // boolean variables representing the upper and lower levels being selected
 
     boolean isFirstViewClick=false;
@@ -37,9 +39,10 @@ public class QuickieAdapter {
         this.mMainList = mainList;
     }
 
-    public void set(){
+    public ArrayList<String> set(){
 
         addFirstRow();
+        return quickieFilters;
     }
 
     private void addFirstRow(){
@@ -76,18 +79,16 @@ public class QuickieAdapter {
                 public void onClick(View v) {
 
                     if (isFirstViewClick == false) {
+
                         isFirstViewClick = true;
                         mImageArrowFirst.setBackgroundResource(android.R.drawable.arrow_down_float);
                         mLinearScrollSecond.setVisibility(View.VISIBLE);
+                    }
+                    else {
 
-                        Toast.makeText(mContext, name +" Selected", Toast.LENGTH_SHORT).show();
-
-                    } else {
                         isFirstViewClick = false;
                         mImageArrowFirst.setBackgroundResource(android.R.drawable.arrow_up_float);
                         mLinearScrollSecond.setVisibility(View.GONE);
-
-                        Toast.makeText(mContext, name +" No Longer Selected", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -133,7 +134,7 @@ public class QuickieAdapter {
 
                         mSubItemName.setBackgroundResource(android.R.color.holo_blue_bright);
 
-                        //Toast.makeText(mContext, catName + " Selected", Toast.LENGTH_SHORT).show();
+                        quickieFilters.add(catName);
 
                     } else {
 
@@ -141,7 +142,7 @@ public class QuickieAdapter {
 
                         mSubItemName.setBackgroundResource(android.R.color.background_dark);
 
-                        //Toast.makeText(mContext, catName + " No Longer Selected", Toast.LENGTH_SHORT).show();
+                        quickieFilters.remove(catName);
                     }
                 }
             });
