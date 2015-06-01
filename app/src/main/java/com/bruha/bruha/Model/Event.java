@@ -23,12 +23,35 @@ public class Event {
     private String EventEndTime;
 
 
+    //Event Page Description Information.
+    private String EventDescription;
+    private String Eventid;
+
+    public String getEventid() {
+        return Eventid;
+    }
+
+    public void setEventid(String eventid) {
+        Eventid = eventid;
+    }
+
     //Default Constructor for Event.
     public Event()
     {}
 
 
     //All the setters and getters of the variables declared above.
+
+
+    //Event Page getter and setters.
+
+    public String getEventDescription() {
+        return EventDescription;
+    }
+
+    public void setEventDescription(String eventDescription) {
+        EventDescription = eventDescription;
+    }
 
 
     //Getters and Setters for the Detailed Description of event.

@@ -51,12 +51,13 @@ public class ListActivity extends ActionBarActivity {
     List<String> eventsTimings; //The List that will temporarily hold the List Array of type String holding the event's timings returned by the call of Event Database.
     List<String> eventsTickets;  //The List that will temporarily hold the List Array of type String holding the event's tickets returned by the call of Event Database.
     List<String> eventVenue;     //The List that will temporarily hold the List Array of type String holding the event's venues returned by the call of Event Database.
+    List<Event> Even;
 
     //Default Constructor for the class ListActivity
     public ListActivity()
     {
         sqlu = new SQLUtils(url, user, pass); //Creating Object type SQLUtils using credentials needed
-        events = sqlu.Events();               //Initializing the list to the one returned from Database call of Events function.
+        events = sqlu.TestEvent();               //Initializing the list to the one returned from Database call of Events function.
 
         //Setting the name
         int size = events.size();             //Determining the size we need to set our Array Of Events.
@@ -78,7 +79,7 @@ public class ListActivity extends ActionBarActivity {
 
 
         //Setting the Timing
-        eventsTimings = sqlu.EventsTimings();               //Initializing the list to the one returned from Database call of Events function.
+        eventsTimings = sqlu.TestEventsTimings();               //Initializing the list to the one returned from Database call of Events function.
 
         int jj=0;                                          //Index pointer for the Database returned array.
         for(int i=0;i<nmEvents.length;i++)                 //The function that creates and initializes the Events into the Array of Events to be passed along.
@@ -94,8 +95,13 @@ public class ListActivity extends ActionBarActivity {
         }
 
 
+        sqlu.Events();
+        sqlu.EventsTimings();
+        Even= sqlu.EventsTickets();
+
+
         //Setting the Price
-        eventsTickets = sqlu.EventsTickets();               //Initializing the list to the one returned from Database call of Events function.
+        eventsTickets = sqlu.TestEventsTickets();               //Initializing the list to the one returned from Database call of Events function.
         //creating the array where Event objects will be stored.
         int jjj=0;                                          //Index pointer for the Database returned array.
         for(int i=0;i<nmEvents.length;i++)                 //The function that creates and initializes the Events into the Array of Events to be passed along.
@@ -223,9 +229,8 @@ public class ListActivity extends ActionBarActivity {
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-               //Just used for testing,ignore if not delete String name = nmEvents[0].getEventName();
-               //Just used for testing,ignore if not delete  String nsize= nmEvents.length + "" ;
-                Toast.makeText(view.getContext(), "OnItemLongClickListener" , Toast.LENGTH_SHORT).show();
+               String price= Even.get(0).getEventPrice() + "";
+                Toast.makeText(view.getContext(), price , Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
