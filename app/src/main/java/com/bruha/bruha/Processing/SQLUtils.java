@@ -371,11 +371,7 @@ public class SQLUtils {
 
     }
 
-
-
-
-
-    public List<String> EventsVenue()
+    public List<String> TestEventsVenue()
     {
 
         Thread thread;
@@ -446,7 +442,10 @@ public class SQLUtils {
     }
 
 
-    public List<Event> EventsTickets()
+
+
+
+    public List<Event> EventsVenue()
     {
 
         Thread thread;
@@ -461,25 +460,23 @@ public class SQLUtils {
                     // Creating a connection using the passed in URL, username, and password
                     Connection c = DriverManager.getConnection(CONNECTION_URL, user, pass);
 
-                  //  String username = "TestAccount";
-
-
-
                     for(Event Ev:Eve) {
 
-                        String Eventid = Ev.getEventid();
-                        //int id= Integer.parseInt(Eventid);
-                        String sql = "SELECT * " + "FROM event_tickets " + "WHERE event_id= " + Eventid + " "  ;
-                        Log.v("database test",sql) ;
 
+                        String Venueid = Ev.getVenueid();
+                        String sql = "SELECT * " + "FROM venues " + "WHERE venue_id= "+Venueid+" ";
 
                         Statement st = c.createStatement();
 
                         // Creating a result set from the results of the query
                         rs = st.executeQuery(sql);
 
-                        double price = Double.parseDouble(rs.getString("admission_price")) ;
-                        Ev.setEventPrice(price);
+                        // A loop to run through all values from the resultSet
+                        if (rs.next()) {
+                            Ev.setEventLocName(rs.getString("venue_name"));
+                            Ev.setEventLocSt(rs.getString("venue_location"));
+                            Ev.setEventLocAdd(rs.getString("venue_desc"));
+                        }
 
                         //Closing both the statement and the connection
                         st.close();
@@ -519,6 +516,74 @@ public class SQLUtils {
     }
 
 
+    public void EventsTickets()
+    {
+        Thread thread;
+
+        thread= new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Instantiating the JDBC library
+                    Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+                    // Creating a connection using the passed in URL, username, and password
+                    Connection c = DriverManager.getConnection(CONNECTION_URL, user, pass);
+
+
+                    for(Event Ev:Eve) {
+
+                        String Eventid = Ev.getEventid();
+                        String sql = "SELECT * " + "FROM event_tickets " + "WHERE event_id= "+Eventid+" " ;
+
+
+                        Statement st = c.createStatement();
+
+                        // Creating a result set from the results of the query
+                        rs = st.executeQuery(sql);
+
+                            if(rs.next()) {
+                                double price = Double.parseDouble(rs.getString("admission_price"));
+                                Ev.setEventPrice(price);
+                            }
+
+                        //Closing both the statement and the connection
+                        st.close();
+                    }
+                    c.close();
+                }
+
+                catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                catch (SQLException e) {
+                    e.printStackTrace();
+                    errorCode = e.getErrorCode()+"";
+                    Log.v(DB_DEBUGGING, errorCode + "");
+                    Log.v(DB_DEBUGGING, e.getMessage());
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    String message = e.getMessage();
+                    Log.v(DB_DEBUGGING, message);
+                }
+            }
+        });
+
+        thread.start();
+
+        // Running thread.join so ensure the operation finishes before the main thread returns
+        // the errorCode value
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 
     public void EventsTimings()
     {
@@ -538,18 +603,19 @@ public class SQLUtils {
                     for(Event Ev:Eve) {
 
                         String Eventid = Ev.getEventid();
-                        String sql = "SELECT * " + "FROM events_timings" + "WHERE event_id= '" + Eventid + "'  ";
+                        String sql = "SELECT * " + "FROM events_timings " + "WHERE event_id= " + Eventid + "  ";
 
                         Statement st = c.createStatement();
 
                         // Creating a result set from the results of the query
                         rs = st.executeQuery(sql);
 
-                            Ev.setEventStartTime(rs.getString("evnt_start_date"));
+                        if(rs.next()) {
+                            Ev.setEventDate(rs.getString("evnt_start_date"));
                             Ev.setEventStartTime(rs.getString("event_start_time"));
                             Ev.setEventEndDate(rs.getString("event_end_date"));
                             Ev.setEventEndTime(rs.getString("event_end_time"));
-
+                        }
 
                         //Closing both the statement and the connection
                         st.close();
@@ -613,49 +679,26 @@ public class SQLUtils {
                     // Creating a result set from the results of the query
                     rs = st.executeQuery(sql);
 
-
-
                     // A loop to run through all values from the resultSet
                     while (rs.next()) {
-
                         // Adding the 3 results from the resultSet to the user_info list
                         // which has been initialized at the start of the class
                         Event event = new Event();
                         event.setEventName(rs.getString("event_name"));
                         event.setEventDescription(rs.getString("event_desc"));
                         event.setEventid(rs.getString("event_id"));
+                        event.setVenueid(rs.getString("venue_id"));
 
                         Eve.add(event);
 
-
-                        /*
-
-                        String sq2= "SELECT admission_price " + "FROM events_tickets"  + " WHERE event_id = '" + rs.getString("event_id");
-                        Statement st1 = c.createStatement();
-
-                        // Creating a result set from the results of the query
-                        rs = st1.executeQuery(sq2);
-                        events.add(rs.getString("admission_price"));
-
-                        */
                     }
 
-                  /*
-                   for(int i=0;i<eventsid.size();i++) {
-                        String sq2 = "SELECT admission_price " + "FROM events_tickets" + " WHERE event_id = '" + eventsid.get(i) + "' ";
-                        Statement st1 = c.createStatement();
-                        // Creating a result set from the results of the query
-                        rs = st1.executeQuery(sq2);
-                        eventprice.add(rs.getString("admission_price"));
-                }
-                */
 
                     //Closing both the statement and the connection
                     st.close();
                     c.close();
 
                 }
-
 
 
                 catch (ClassNotFoundException e) {

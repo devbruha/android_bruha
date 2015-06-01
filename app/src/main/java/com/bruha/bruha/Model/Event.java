@@ -26,6 +26,15 @@ public class Event {
     //Event Page Description Information.
     private String EventDescription;
     private String Eventid;
+    private String Venueid;
+
+    public String getVenueid() {
+        return Venueid;
+    }
+
+    public void setVenueid(String venueid) {
+        Venueid = venueid;
+    }
 
     public String getEventid() {
         return Eventid;

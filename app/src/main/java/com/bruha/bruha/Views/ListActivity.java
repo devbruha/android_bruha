@@ -97,10 +97,11 @@ public class ListActivity extends ActionBarActivity {
 
         sqlu.Events();
         sqlu.EventsTimings();
-        Even= sqlu.EventsTickets();
+        sqlu.EventsTickets();
+        Even= sqlu.EventsVenue();
 
 
-        //Setting the Price
+                //Setting the Price
         eventsTickets = sqlu.TestEventsTickets();               //Initializing the list to the one returned from Database call of Events function.
         //creating the array where Event objects will be stored.
         int jjj=0;                                          //Index pointer for the Database returned array.
@@ -112,7 +113,7 @@ public class ListActivity extends ActionBarActivity {
         }
 
         //Setting the Address and Venue Names in Detailed Description
-        eventVenue = sqlu.EventsVenue();               //Initializing the list to the one returned from Database call of Events function.
+        eventVenue = sqlu.TestEventsVenue();               //Initializing the list to the one returned from Database call of Events function.
 
         int jjjj=0;                                          //Index pointer for the Database returned array.
         for(int i=0;i<nmEvents.length;i++)                 //The function that creates and initializes the Events into the Array of Events to be passed along.
@@ -229,7 +230,7 @@ public class ListActivity extends ActionBarActivity {
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-               String price= Even.get(0).getEventPrice() + "";
+               String price= Even.get(1).getEventLocAdd();
                 Toast.makeText(view.getContext(), price , Toast.LENGTH_SHORT).show();
                 return true;
             }
