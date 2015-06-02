@@ -52,30 +52,23 @@ public class ListActivity extends FragmentActivity {
     SQLUtils sqlu ; //The SQLUtil object type that will be initialized later depending on the credentials given above.
     List<String> events;    //The List that will temporarily hold the List Array of type String returned by the call of Event Database.
     Event[] nmEvents;       //The Array that will hold the Events that we will pass around(to Adapter,the List...)
+    List<Event> Even;
+
 
     //Default Constructor for the class ListActivity
     public ListActivity()
     {
         sqlu = new SQLUtils(url, user, pass); //Creating Object type SQLUtils using credentials needed
-        events = sqlu.Events();               //Initializing the list to the one returned from Database call of Events function.
 
-        int size = events.size();             //Determining the size we need to set our Array Of Events.
-        size=size/3;                           // Divided by 3 for now since each event has 3 fields,name date n locname as 0 1 2 index and then next event is 3 4 5
-        nmEvents=  new Event[size];             //creating the array where Event objects will be stored.
-        int j=0;                                //Index pointer for the Database returned array.
-        for(int i=0;i<nmEvents.length;i++)      //The function that creates and initializes the Events into the Array of Events to be passed along.
+        Even= sqlu.Events();  //Imports the List of Events from the Database.
+        nmEvents= new Event[Even.size()];  //Assigning the new array where the events go.
+
+        //Setting it into the new Array.
+        for(int i=0;i<nmEvents.length;i++)
         {
-            Event eventsi=new Event();
-            eventsi.setEventName(events.get(j));
-            j++;
-            eventsi.setEventDate(events.get(j));
-            j++;
-            eventsi.setEventLocName(events.get(j));
-            j++;
-
-
-            nmEvents[i]=eventsi;
+            nmEvents[i]=Even.get(i);
         }
+
 
     }
 

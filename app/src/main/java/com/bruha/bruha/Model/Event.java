@@ -22,11 +22,14 @@ public class Event {
     private String EventEndDate;
     private String EventEndTime;
 
+    //SQL variables and eventpage
+    private String EventDescription;
+    private String Eventid;
+    private String Venueid;
 
     //Default Constructor for Event.
     public Event()
     {}
-
 
     //All the setters and getters of the variables declared above.
 
@@ -128,5 +131,24 @@ public class Event {
 
     public void setEventDistance(double eventDistance) {
         EventDistance = eventDistance;
+    }
+
+    //Event Page getter and setters.
+    public String getEventDescription() { return EventDescription; }
+
+    public void setEventDescription(String eventDescription) { EventDescription = eventDescription; }
+
+    public String getVenueid() { return Venueid; }
+
+    public void setVenueid(String venueid) {
+        Venueid = venueid;
+    }
+
+    public String getEventid() {
+        return Eventid;
+    }
+
+    public void setEventid(String eventid) {
+        Eventid = eventid;
     }
 }

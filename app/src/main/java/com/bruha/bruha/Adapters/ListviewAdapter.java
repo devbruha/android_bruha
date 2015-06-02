@@ -151,23 +151,23 @@ public class ListviewAdapter extends BaseSwipeAdapter {
             //Setting the text boxes to the information retrieved from the arrays of events
 
             //Setting the summary description
-         //   holder.EventDistance.setText(event.getEventDistance()+"km");
+            holder.EventDistance.setText(event.getEventDistance()+"km");
             holder.EventName.setText(event.getEventName());
             holder.EventDate.setText(event.getEventDate());
-            //holder.EventPrice.setText("$"+event.getEventPrice());
+            holder.EventPrice.setText("$"+event.getEventPrice());
             //holder.EventIcon.setImageResource(event.getEventIcon());
             //holder.EventPicture.setImageResource(event.getEventPicture());
 
             //Setting the detailed description.
             holder.EventDName.setText(event.getEventName());
-            //holder.EventDPrice.setText("$"+event.getEventPrice());
+            holder.EventDPrice.setText("$"+event.getEventPrice());
             holder.EventLocName.setText(event.getEventLocName());
-            //holder.EventLocSt.setText(event.getEventLocSt());
-            //holder.EventLocAdd.setText(event.getEventLocAdd());
+            holder.EventLocSt.setText(event.getEventLocSt());
+            holder.EventLocAdd.setText(event.getEventLocAdd());
             holder.EventStartDate.setText(event.getEventDate());
-            //holder.EventStartTime.setText(event.getEventStartTime());
-            //holder.EventEndDate.setText(event.getEventEndDate());
-          //  holder.EventEndTime.setText(event.getEventEndTime());
+            holder.EventStartTime.setText(event.getEventStartTime());
+            holder.EventEndDate.setText(event.getEventEndDate());
+            holder.EventEndTime.setText(event.getEventEndTime());
 
 
 
