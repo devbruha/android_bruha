@@ -41,7 +41,7 @@ public class FilterView {
     // Creating a CaldroidFragment object
     private CaldroidFragment caldroidFragment;
 
-    ArrayList<Date> calendarSelected = new ArrayList<>();
+    ArrayList<String> calendarSelected = new ArrayList<>();
 
     // Casting the passed activity as a Fragment activity
     private FragmentActivity mActivity;
@@ -231,7 +231,7 @@ public class FilterView {
         return adapter.set();
     }
 
-    private ArrayList<Date> setCalendar(){
+    private ArrayList<String> setCalendar(){
 
         // Dynamically changing the calendar height / width due to the bug while it is within a
         // scrollview
@@ -296,7 +296,7 @@ public class FilterView {
         Date currentDate = cal.getTime();
 
         caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_blue_light, currentDate);
-        calendarSelected.add(currentDate);
+        calendarSelected.add(formatter.format(currentDate));
 
 
         // Setup listener for date onClick
@@ -311,7 +311,7 @@ public class FilterView {
                 if(!calendarSelected.contains(date)){
 
                     caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_blue_light, date);
-                    calendarSelected.add(date);
+                    calendarSelected.add(formatter.format(date));
                 }
                 else{
 

@@ -33,6 +33,10 @@ import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.util.Attributes;
 
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -95,22 +99,7 @@ public class ListActivity extends FragmentActivity {
 
 
         setUpFilters();
-        /*
-        //A test array for Events
-        for(int i=0; i<10;i++) {
 
-            //Creating variables type event used for testing the app
-            Event event = new Event();
-           // mEvents[i].setEventIcon(R.drawable.testround);
-           // mEvents[i].setEventPicture(R.drawable.testround);
-            event.setEventName("Meow");
-            event.setEventDate("May 25,2015");
-            event.setEventDistance(5.0);
-            event.setEventPrice(10.0);
-
-            mEvents[i] = event;
-        }
-*/
 
         //Creating an variable of type Listview Adapter to create the list view.
         ListviewAdapter adapter=new ListviewAdapter(this,nmEvents); //Calling the adapter ListView to help set the List
@@ -272,6 +261,30 @@ public class ListActivity extends FragmentActivity {
         });
     }
     */
+
+    @OnClick(R.id.filterSaveButton)
+    public void ImplementingButton(View view)  {
+        // mUserCustomFilters.getQuickieFilter();
+        //  mUserCustomFilters.getCategoryFilter().keySet() ;
+       //  mUserCustomFilters.getAdmissionPriceFilter() ;
+        List<String> Dates= mUserCustomFilters.getDateFilter();
+
+        String startDateString = nmEvents[0].getEventDate();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date startDate;
+
+        try {
+            startDate = df.parse(startDateString);
+            String newDateString = df.format(startDate);
+            Log.v("Big Filter Test", newDateString);
+            //Toast.makeText(view.getContext(), newDateString , Toast.LENGTH_SHORT).show();;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+// me
+        Log.v("Big Filter Test", Dates.get(0));
+
+    }
 
 
 
