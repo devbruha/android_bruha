@@ -281,7 +281,7 @@ public class ListActivity extends FragmentActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
+// me
         Log.v("Big Filter Test", Dates.get(0));
 
     }
