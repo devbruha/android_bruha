@@ -11,7 +11,7 @@ import java.util.Map;
 public class UserCustomFilters {
 
     private ArrayList<String> QuickieFilter = new ArrayList<>();
-    private ArrayList<Date> DateFilter = new ArrayList<>();
+    private ArrayList<String> DateFilter = new ArrayList<>();
     private Map<String, ArrayList<String>> CategoryFilter = new HashMap<>();
     private int AdmissionPriceFilter;
 
@@ -24,11 +24,11 @@ public class UserCustomFilters {
         QuickieFilter = quickieFilter;
     }
 
-    public ArrayList<Date> getDateFilter() {
+    public ArrayList<String> getDateFilter() {
         return DateFilter;
     }
 
-    public void setDateFilter(ArrayList<Date> dateFilter) {
+    public void setDateFilter(ArrayList<String> dateFilter) {
         DateFilter = dateFilter;
     }
 
