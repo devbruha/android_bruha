@@ -257,7 +257,7 @@ public class FilterView {
 
         // Creating a date formatter for the calendar
 
-        final SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+        final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
         // Setup caldroid fragment
 
