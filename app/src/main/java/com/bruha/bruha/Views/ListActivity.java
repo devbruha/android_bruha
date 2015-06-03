@@ -1,24 +1,14 @@
 package com.bruha.bruha.Views;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Point;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,7 +19,6 @@ import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.R;
-import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.util.Attributes;
 
 
@@ -54,10 +43,8 @@ public class ListActivity extends FragmentActivity {
     String pass = "show12345!";
 
     SQLUtils sqlu ; //The SQLUtil object type that will be initialized later depending on the credentials given above.
-    List<String> events;    //The List that will temporarily hold the List Array of type String returned by the call of Event Database.
     Event[] nmEvents;       //The Array that will hold the Events that we will pass around(to Adapter,the List...)
     List<Event> Even;
-
 
     //Default Constructor for the class ListActivity
     public ListActivity()
@@ -72,11 +59,7 @@ public class ListActivity extends FragmentActivity {
         {
             nmEvents[i]=Even.get(i);
         }
-
-
     }
-
-  //  Event[] mEvents = new Event[10]; //Creating an array of Events to help Test our Application.
 
     //Injecting Buttons using ButterKnife Library
     @InjectView(android.R.id.list) ListView mListView;
@@ -97,13 +80,10 @@ public class ListActivity extends FragmentActivity {
         setContentView(R.layout.activity_list2);
         ButterKnife.inject(this);                   //Injecting all the objects to be imported from above.
 
-
         setUpFilters();
-
 
         //Creating an variable of type Listview Adapter to create the list view.
         ListviewAdapter adapter=new ListviewAdapter(this,nmEvents); //Calling the adapter ListView to help set the List
-
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(adapter);
@@ -201,10 +181,7 @@ public class ListActivity extends FragmentActivity {
                 Log.e("ListView", "onNothingSelected:");
             }
         });
-
     }
-
-
 /*
          //The Old OnClick Listener
         //Setting an OnClickListener everytime a item of the list is tapped.
@@ -281,12 +258,9 @@ public class ListActivity extends FragmentActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-// me
+
         Log.v("Big Filter Test", Dates.get(0));
-
     }
-
-
 
     //Button Implementation for navigating to the Map from ListView.
     @OnClick(R.id.MapButton)
@@ -303,31 +277,4 @@ public class ListActivity extends FragmentActivity {
         Intent intent=new Intent(this,DashboardActivity.class);
         startActivity(intent);
     }
-
-
-/*
-    //The method that sets the height of the layout to half the screen.
-    public void setPanel(){
-
-        // Storing the Relative Layout in a Variable to alter its dimens with.
-      LinearLayout mLinearLayout = (LinearLayout) findViewById(R.id.mLinear);
-
-        // Android functions to determine the screen dimensions
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-
-        // Storing the screen height into an int variable
-           int width = size.x;
-
-        // Retrieves the current parameters of the layout and storing them in variable params
-        ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
-
-        // Re-setting the height parameter to .50 the max screen height
-        params.width =  (int)Math.round(width*.50);
-
-        Log.v("height test", params.height + "");
-    }
-    */
-
 }

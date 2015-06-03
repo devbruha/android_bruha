@@ -59,7 +59,7 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         //Inflates the view to be used
         View convertView = LayoutInflater.from(mActivity).inflate(R.layout.list_item, parent, false);
 
-        ViewHolder holder=new ViewHolder(); //Making variable of class type ViewHolder def
+        ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

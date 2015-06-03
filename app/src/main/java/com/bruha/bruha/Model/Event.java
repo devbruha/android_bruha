@@ -5,7 +5,6 @@ package com.bruha.bruha.Model;
  */
 public class Event {
 
-
     //All the variables the Event Summary holds.
     private int EventIcon;
     private String EventName;
@@ -13,6 +12,11 @@ public class Event {
     private double EventPrice;
     private double EventDistance;
     private int EventPicture;
+
+    //ALL the variables for the lat/lng of event
+
+    private double eventLatitude;
+    private double eventLongitude;
 
     //All the variables the Event Detailed Description holds.
     private String EventLocName;
@@ -26,6 +30,7 @@ public class Event {
     private String EventDescription;
     private String Eventid;
     private String Venueid;
+    private String LocationID;
 
     //Default Constructor for Event.
     public Event()
@@ -83,8 +88,26 @@ public class Event {
         EventEndTime = eventEndTime;
     }
 
+     //Getters and Setters for lat/lng
+
+    public double getEventLatitude() {
+        return eventLatitude;
+    }
+
+    public void setEventLatitude(double eventLatitude) {
+        this.eventLatitude = eventLatitude;
+    }
+
+    public double getEventLongitude() {
+        return eventLongitude;
+    }
+
+    public void setEventLongitude(double eventLongitude) {
+        this.eventLongitude = eventLongitude;
+    }
 
     //Getters and Setters for the Summary Description of event.
+
     public int getEventPicture() {
         return EventPicture;
     }
@@ -150,5 +173,13 @@ public class Event {
 
     public void setEventid(String eventid) {
         Eventid = eventid;
+    }
+
+    public String getLocationID() {
+        return LocationID;
+    }
+
+    public void setLocationID(String locationID) {
+        LocationID = locationID;
     }
 }
