@@ -25,6 +25,7 @@ import com.daimajia.swipe.util.Attributes;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -46,12 +47,19 @@ public class ListActivity extends FragmentActivity {
     Event[] nmEvents;       //The Array that will hold the Events that we will pass around(to Adapter,the List...)
     List<Event> Even;
 
+    //Change Even to static if intent is used to refresh
+    List<Event> NewEvent=new ArrayList<>();
+    static int meow=0;
+    ListviewAdapter adapter;
+
     //Default Constructor for the class ListActivity
     public ListActivity()
     {
-        sqlu = new SQLUtils(url, user, pass); //Creating Object type SQLUtils using credentials needed
+        if(meow==0) {
+            sqlu = new SQLUtils(url, user, pass); //Creating Object type SQLUtils using credentials needed
+            Even = sqlu.Events();  //Imports the List of Events from the Database.
+        }
 
-        Even= sqlu.Events();  //Imports the List of Events from the Database.
         nmEvents= new Event[Even.size()];  //Assigning the new array where the events go.
 
         //Setting it into the new Array.
@@ -83,7 +91,7 @@ public class ListActivity extends FragmentActivity {
         setUpFilters();
 
         //Creating an variable of type Listview Adapter to create the list view.
-        ListviewAdapter adapter=new ListviewAdapter(this,nmEvents); //Calling the adapter ListView to help set the List
+        adapter=new ListviewAdapter(this,nmEvents); //Calling the adapter ListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(adapter);
@@ -241,25 +249,50 @@ public class ListActivity extends FragmentActivity {
 
     @OnClick(R.id.filterSaveButton)
     public void ImplementingButton(View view)  {
-        // mUserCustomFilters.getQuickieFilter();
-        //  mUserCustomFilters.getCategoryFilter().keySet() ;
-       //  mUserCustomFilters.getAdmissionPriceFilter() ;
         List<String> Dates= mUserCustomFilters.getDateFilter();
 
-        String startDateString = nmEvents[0].getEventDate();
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        Date startDate;
 
-        try {
-            startDate = df.parse(startDateString);
-            String newDateString = df.format(startDate);
-            Log.v("Big Filter Test", newDateString);
-            //Toast.makeText(view.getContext(), newDateString , Toast.LENGTH_SHORT).show();;
-        } catch (ParseException e) {
-            e.printStackTrace();
+        // meow++
+        //   if(Dates.size()!=0) {
+
+        for (String x : Dates) {
+            int i = 0;
+            while (i < nmEvents.length) {
+                if (x.equals(nmEvents[i].getEventDate())) {
+                    NewEvent.add(nmEvents[i]);
+                }
+                i++;
+            }
+
         }
 
-        Log.v("Big Filter Test", Dates.get(0));
+
+
+       /*
+       Intent intent = getIntent();
+       finish();
+
+       startActivity(intent);
+
+*/
+
+
+        Even=NewEvent;
+
+
+        nmEvents= new Event[Even.size()];  //Assigning the new array where the events go.
+
+        //Setting it into the new Array.
+        for(int i=0;i<nmEvents.length;i++)
+        {
+            nmEvents[i]=Even.get(i);
+        }
+
+
+        adapter.notifyDataSetChanged();
+        adapter.notifyDataSetInvalidated();
+
+
     }
 
     //Button Implementation for navigating to the Map from ListView.
