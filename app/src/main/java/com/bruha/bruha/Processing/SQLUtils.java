@@ -310,8 +310,7 @@ public class SQLUtils {
     }
 
     //This method sets the price of the Event in the EventList.
-    public void EventsTickets()
-    {
+    public void EventsTickets() {
         Thread thread;
 
         thread= new Thread(new Runnable() {
@@ -380,8 +379,7 @@ public class SQLUtils {
     }
 
     //This methods sets the Venue Location/Address of the List of Events.
-    public void EventsVenue()
-    {
+    public void EventsVenue() {
 
         Thread thread;
 
@@ -450,8 +448,7 @@ public class SQLUtils {
     }
 
     //This method sets the timing of the Event in the EventList.
-    public void EventsTimings()
-    {
+    public void EventsTimings() {
 
         Thread thread;
 
@@ -517,11 +514,10 @@ public class SQLUtils {
         }
     }
 
-    //This method sets the Name/Description of the Event in the EventList.
-    public List<Event> Events()
-    {
-        Thread thread;
+    //This method sets the timing of the Event in the EventList.
+    public void EventsLocation() {
 
+        Thread thread;
 
         thread= new Thread(new Runnable() {
             @Override
@@ -533,6 +529,70 @@ public class SQLUtils {
                     // Creating a connection using the passed in URL, username, and password
                     Connection c = DriverManager.getConnection(CONNECTION_URL, user, pass);
 
+                    for(Event Ev: Events) {
+
+                        String locationID = Ev.getLocationID();
+                        String sql = "SELECT * " + "FROM locations " + "WHERE location_id= " + locationID + " ";
+
+                        Statement st = c.createStatement();
+
+                        // Creating a result set from the results of the query
+                        rs = st.executeQuery(sql);
+
+                        if(rs.next()) {
+                            Ev.setEventLatitude(rs.getDouble("lat"));
+                            Ev.setEventLongitude(rs.getDouble("lng"));
+                        }
+
+                        //Closing both the statement and the connection
+                        st.close();
+                    }
+                    c.close();
+                }
+
+                catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                catch (SQLException e) {
+                    e.printStackTrace();
+                    errorCode = e.getErrorCode()+"";
+                    Log.v(DB_DEBUGGING, errorCode + "");
+                    Log.v(DB_DEBUGGING, e.getMessage());
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    String message = e.getMessage();
+                    Log.v(DB_DEBUGGING, message);
+                }
+            }
+        });
+
+        thread.start();
+
+        // Running thread.join so ensure the operation finishes before the main thread returns
+        // the errorCode value
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //This method sets the Name/Description of the Event in the EventList.
+    public List<Event> Events() {
+
+        Thread thread;
+
+        thread= new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Instantiating the JDBC library
+                    Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+                    // Creating a connection using the passed in URL, username, and password
+                    Connection c = DriverManager.getConnection(CONNECTION_URL, user, pass);
 
                     String sql = "SELECT * " + "FROM events" ;
 
@@ -548,18 +608,15 @@ public class SQLUtils {
                         event.setEventDescription(rs.getString("event_desc"));
                         event.setEventid(rs.getString("event_id"));
                         event.setVenueid(rs.getString("venue_id"));
+                        event.setLocationID(rs.getString("location_id"));
 
                         Events.add(event);
-
                     }
-
 
                     //Closing both the statement and the connection
                     st.close();
                     c.close();
-
                 }
-
 
                 catch (ClassNotFoundException e) {
 
@@ -579,11 +636,7 @@ public class SQLUtils {
                     String message = e.getMessage();
                     Log.v(DB_DEBUGGING, message);
                 }
-
-
             }
-
-
         });
 
         thread.start();
@@ -600,6 +653,8 @@ public class SQLUtils {
         EventsTickets();
         EventsTimings();
         EventsVenue();
+        EventsLocation();
+
         return Events;
     }
 }

@@ -87,7 +87,7 @@ public class FilterView {
 
         // Storing the sliding panel into mLayout
 
-        final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout)mActivity.findViewById(R.id.sliding_layout);
+        final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout)mActivity.findViewById(R.id.sliding_layout_lower);
 
         // Creating buttons for all the buttons on the sliding panel handle
 
@@ -308,7 +308,7 @@ public class FilterView {
                 // if the selected date has already been selected, set background to black and remove from
                 // date array list, other wise set background to light blue and add to array list
 
-                if(!calendarSelected.contains(date)){
+                if(!calendarSelected.contains(formatter.format(date))){
 
                     caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_blue_light, date);
                     calendarSelected.add(formatter.format(date));
@@ -316,7 +316,7 @@ public class FilterView {
                 else{
 
                     caldroidFragment.setBackgroundResourceForDate(android.R.color.background_dark, date);
-                    calendarSelected.remove(date);
+                    calendarSelected.remove(formatter.format(date));
                 }
 
                 caldroidFragment.refreshView();

@@ -7,63 +7,93 @@
 
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
         xmlns:sothree="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/sliding_layout"
+        android:id="@+id/sliding_layout_upper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="bottom"
-        sothree:umanoPanelHeight="68dp"
-        sothree:umanoDragView="@+id/dragView"
+        android:gravity="top"
+        sothree:umanoPanelHeight="0dp"
+        sothree:umanoDragView="@+id/dragViewUpper"
         sothree:umanoOverlay="true"
         sothree:umanoFadeColor="@android:color/transparent"
         android:background="@android:color/transparent">
 
         <!-- MAIN CONTENT s-->
 
-        <FrameLayout
+        <com.sothree.slidinguppanel.SlidingUpPanelLayout
+            xmlns:sothree="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/sliding_layout_lower"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:minHeight="100dp">
+            android:gravity="bottom"
 
-            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                      xmlns:tools="http://schemas.android.com/tools"
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:id="@+id/map"
-                      tools:context="com.bruha.bruha.Views.MapsActivity"
-                      android:name="com.google.android.gms.maps.SupportMapFragment"/>
+            sothree:umanoDragView="@+id/dragView"
+            sothree:umanoOverlay="true"
+            sothree:umanoFadeColor="@android:color/transparent"
+            android:background="@android:color/transparent">
 
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dashboard"
-                android:id="@+id/dudeButton"
-                android:layout_gravity="left|top"/>
+            <!-- MAIN CONTENT s-->
 
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="List View"
-                android:id="@+id/listButton"
-                android:layout_gravity="right|top"/>
-
-            <!-- Transparent View to fix the map bug -->
-            <View
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/transparent" />
+                android:orientation="vertical"
+                android:minHeight="100dp">
 
-        </FrameLayout>
+                <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/map"
+                    tools:context="com.bruha.bruha.Views.MapsActivity"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"/>
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dashboard"
+                    android:id="@+id/dudeButton"
+                    android:layout_gravity="left|top"
+                    android:layout_marginTop="10dp" />
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="List View"
+                    android:id="@+id/listButton"
+                    android:layout_gravity="right|top"
+                    android:layout_marginRight="60dp"
+                    android:layout_marginTop="10dp" />
+
+                <!-- Transparent View to fix the map bug -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent" />
+
+            </FrameLayout>
+
+            <!-- SLIDING LAYOUT -->
+
+
+            <include android:id="@+id/mapFilterLayout" layout="@layout/filters_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+
+        </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
         <!-- SLIDING LAYOUT -->
 
+        <LinearLayout
+            android:id="@+id/dragViewUpper"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#B4000000">
 
-        <include android:id="@+id/mapFilterLayout" layout="@layout/filters_layout"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"/>
-
+        </LinearLayout>
 
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
