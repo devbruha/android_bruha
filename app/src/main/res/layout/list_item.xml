@@ -174,7 +174,7 @@
                     android:text="LOLi"
                     android:visibility="invisible"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView28"/>
+                    android:id="@+id/SwipeBarsize1"/>
             </LinearLayout>
         </TableRow>
 
@@ -271,7 +271,7 @@
                     android:text="LOLi"
                     android:visibility="invisible"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView37"/>
+                    android:id="@+id/SwipeBarSize2"/>
 
 
             </LinearLayout>
@@ -392,7 +392,7 @@
                     android:text="LOLi"
                     android:visibility="invisible"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView47"/>
+                    android:id="@+id/SwipeBarSize3"/>
 
             </LinearLayout>
         </TableRow>
@@ -503,7 +503,8 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:paddingRight="5dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -514,26 +515,20 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:textSize="20dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="5dp"
                 />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView"
-                android:src="@drawable/testround"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:visibility="invisible" />
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="X Lounge"
                 android:id="@+id/DesEventLocName"
-                android:layout_alignBottom="@+id/imageView"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"/>
+                android:layout_below="@+id/DesEventName"
+                android:paddingLeft="5dp"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -543,6 +538,7 @@
                 android:layout_below="@+id/DesEventLocName"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:paddingLeft="5dp"
                 />
 
             <TextView
@@ -553,16 +549,19 @@
                 android:layout_below="@+id/DesEventLocStreet"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:paddingLeft="5dp"
                 android:layout_marginBottom="5dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Start:"
-                android:id="@+id/textView4"
+                android:id="@+id/StartText"
                 android:textSize="10dp"
+                android:textStyle="bold"
                 android:layout_below="@+id/DesEventLocAddress"
                 android:layout_alignParentLeft="true"
+                android:paddingLeft="5dp"
                 android:layout_alignParentStart="true"/>
 
             <TextView
@@ -570,8 +569,9 @@
                 android:layout_height="wrap_content"
                 android:text="May 25, 2015"
                 android:id="@+id/DesEventStartDate"
+                android:paddingLeft="8dp"
                 android:textSize="10dp"
-                android:layout_below="@+id/textView4"
+                android:layout_below="@+id/StartText"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"/>
 
@@ -580,6 +580,7 @@
                 android:layout_height="wrap_content"
                 android:text="10:30 PM"
                 android:id="@+id/DesEventStartTime"
+                android:paddingLeft="8dp"
                 android:textSize="10dp"
                 android:layout_below="@+id/DesEventStartDate"
                 android:layout_alignParentLeft="true"
@@ -590,8 +591,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="End:"
-                android:id="@+id/textView3"
+                android:id="@+id/EndText"
                 android:textSize="10dp"
+                android:paddingLeft="5dp"
+                android:textStyle="bold"
                 android:layout_below="@+id/DesEventStartTime"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"/>
@@ -603,8 +606,9 @@
                 android:layout_height="wrap_content"
                 android:text="May 26,2015"
                 android:id="@+id/DesEventEndDate"
+                android:paddingLeft="8dp"
                 android:textSize="10dp"
-                android:layout_below="@+id/textView3"
+                android:layout_below="@+id/EndText"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"/>
 
@@ -613,6 +617,7 @@
                 android:layout_height="wrap_content"
                 android:text="2:00 AM"
                 android:id="@+id/DesEventEndTime"
+                android:paddingLeft="8dp"
                 android:textSize="10dp"
                 android:layout_below="@+id/DesEventEndDate"
                 android:layout_alignParentLeft="true"
