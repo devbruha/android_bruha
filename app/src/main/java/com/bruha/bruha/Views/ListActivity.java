@@ -44,11 +44,11 @@ public class ListActivity extends FragmentActivity {
     String pass = "show12345!";
 
     SQLUtils sqlu ; //The SQLUtil object type that will be initialized later depending on the credentials given above.
-    Event[] nmEvents;       //The Array that will hold the Events that we will pass around(to Adapter,the List...)
+    ArrayList<Event> nmEvents;       //The Array that will hold the Events that we will pass around(to Adapter,the List...)
     List<Event> Even;
 
     //Change Even to static if intent is used to refresh
-    List<Event> NewEvent=new ArrayList<>();
+    ArrayList<Event> NewEvent=new ArrayList<>();
     static int meow=0;
     ListviewAdapter adapter;
 
@@ -60,12 +60,12 @@ public class ListActivity extends FragmentActivity {
             Even = sqlu.Events();  //Imports the List of Events from the Database.
         }
 
-        nmEvents= new Event[Even.size()];  //Assigning the new array where the events go.
+        nmEvents= new ArrayList<>();  //Assigning the new array where the events go.
 
         //Setting it into the new Array.
-        for(int i=0;i<nmEvents.length;i++)
+        for(int i=0;i<Even.size();i++)
         {
-            nmEvents[i]=Even.get(i);
+            nmEvents.add(Even.get(i));
         }
     }
 
@@ -251,20 +251,39 @@ public class ListActivity extends FragmentActivity {
     public void ImplementingButton(View view)  {
         List<String> Dates= mUserCustomFilters.getDateFilter();
 
-
-        // meow++
-        //   if(Dates.size()!=0) {
-
         for (String x : Dates) {
             int i = 0;
-            while (i < nmEvents.length) {
-                if (x.equals(nmEvents[i].getEventDate())) {
-                    NewEvent.add(nmEvents[i]);
+            while (i < nmEvents.size()) {
+                if (x.equals(nmEvents.get(i).getEventDate())) {
+                    //NewEvent.add(nmEvents.get(i));
                 }
                 i++;
             }
 
         }
+
+        Toast.makeText(getApplicationContext(), "LSITUPDATETEST",
+                Toast.LENGTH_LONG).show();
+
+        for(int i =0; i<nmEvents.size();i++){
+
+            if(nmEvents.get(i).getEventName().equals("Meowing Cats")){
+                //nmEvents.remove(i);
+            }
+            else{
+                NewEvent.add(nmEvents.get(i));
+            }
+        }
+
+        nmEvents.clear();
+
+        for(int i  = 0; i<NewEvent.size();i++){
+            nmEvents.add(NewEvent.get(i));
+        }
+
+        adapter.notifyDataSetChanged();
+        //adapter.notifyDataSetInvalidated();
+
 
 
 
@@ -274,7 +293,7 @@ public class ListActivity extends FragmentActivity {
 
        startActivity(intent);
 
-*/
+
 
 
         Even=NewEvent;
@@ -288,9 +307,11 @@ public class ListActivity extends FragmentActivity {
             nmEvents[i]=Even.get(i);
         }
 
+        */
 
-        adapter.notifyDataSetChanged();
-        adapter.notifyDataSetInvalidated();
+
+        //adapter.notifyDataSetChanged();
+        //adapter.notifyDataSetInvalidated();
 
 
     }
