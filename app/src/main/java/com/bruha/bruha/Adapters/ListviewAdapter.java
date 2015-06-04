@@ -17,29 +17,31 @@ import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 
+import java.util.ArrayList;
+
 /**
  * Created by Work on 2015-05-12.
  */
 public class ListviewAdapter extends BaseSwipeAdapter {
 
     private Activity mActivity;
-    private Event[] mEvents;
+    private ArrayList<Event> mEvents;
     public static int Clicks=0;
 
     //the Constructor for the class.
-    public ListviewAdapter(Activity activity, Event[] events) {
+    public ListviewAdapter(Activity activity, ArrayList<Event> events) {
         mActivity = activity;
         mEvents = events;
     }
 
     @Override
     public int getCount() {
-        return mEvents.length;  //Returns length of the array of Events
+        return mEvents.size();  //Returns length of the array of Events
     }
 
     @Override
     public Object getItem(int position) {
-        return mEvents[position];  //Returns the Item being accessed in the the array}
+        return mEvents.get(position);  //Returns the Item being accessed in the the array}
     }
 
     @Override
@@ -47,6 +49,10 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         return 0;   //Id of the Item being accessed in the view
     }
 
+    public ArrayList<Event> getData() {
+
+        return mEvents;
+    }
 
     @Override
     public int getSwipeLayoutResourceId(int i) {
@@ -112,7 +118,7 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         holder.EventDistance= (TextView) convertView.findViewById(R.id.TextEventDistance);
 
         //Initializing each item to the required type
-        Event event = mEvents[position];
+        Event event = mEvents.get(position);
 
         //Detailed Description of the events.
         holder.EventDName=(TextView) convertView.findViewById(R.id.DesEventName);
