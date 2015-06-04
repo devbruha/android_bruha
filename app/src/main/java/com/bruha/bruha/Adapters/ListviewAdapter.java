@@ -161,20 +161,11 @@ public class ListviewAdapter extends BaseSwipeAdapter {
 
         swipeLayout.addDrag(SwipeLayout.DragEdge.Right, convertView.findViewById(R.id.mLinear));
 
-
         swipeLayout.addSwipeListener(new SimpleSwipeListener() {
 
             @Override
             public void onOpen(SwipeLayout layout) {
 
-            }
-        });
-
-        //A Click listener for double click.
-        swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
-            @Override
-            public void onDoubleClick(SwipeLayout layout, boolean surface) {
-                Toast.makeText(mActivity, "DoubleClick", Toast.LENGTH_SHORT).show();
             }
         });
 

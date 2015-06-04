@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +21,10 @@ public class SQLiteUtils {
         // Attempting to insert these values into the local DB
 
         dbHelper.addUser(user_info.get(0), user_info.get(1), user_info.get(2), user_info.get(3));
+    }
+
+    public void insertEvents(SQLiteDatabaseModel dbHelper, ArrayList<String> eventNames){
+
     }
 
     public void getUserInfo(SQLiteDatabaseModel dbHelper){

@@ -13,6 +13,8 @@ import android.util.Log;
  */
 public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
+    // User Info Table Stuff
+
     public static final String TABLE_USER_INFO = "user_info";
     public static final String USER_INFO_ID = "_id";
 
@@ -21,15 +23,48 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String USER_INFO_BIRTHDATE = "birthdate";
     public static final String USER_INFO_GENDER = "gender";
 
+    // Events Info Table Stuff
+
+    public static final String TABLE_EVENT_INFO = "user_info";
+    public static final String EVENT_ID = "_id";
+    public static final String EVENT_VENUE_ID = "venueID";
+    public static final String EVENT_ORGANIZATION_ID = "orgID";
+    public static final String EVENT_LOCATION_ID = "locID";
+    public static final String EVENT_DESCRIPTION = "eventDescription";
+
+    public static final String EVENT_NAME = "eventName";
+    public static final String EVENT_ICON = "eventIcon";
+    public static final String EVENT_DATE_ = "eventDate";
+    public static final String EVENT_PRICE = "eventPrice";
+    public static final String EVENT_DISTANCE = "eventDistance";
+
+    public static final String EVENT_LATITUDE = "eventLatitude";
+    public static final String EVENT_LONGITUDE = "eventLongitude";
+
+    public static final String EVENT_LOCATION_NAME = "username";
+    public static final String EVENT_LOCATION_STREET = "username";
+    public static final String EVENT_LOCATION_ADDRESS = "username";
+    public static final String EVENT_LOCATION_START_TIME = "username";
+    public static final String EVENT_LOCATION_END_TIME = "username";
+    public static final String EVENT_LOCATION_END_DATE = "username";
+
     // Storing our local database name and version as strings
 
-    private static final String DATABASE_NAME="BruhaUserDatabase.db";
+    private static final String DATABASE_NAME="BruhaDatabase.db";
     private static final int DATABASE_VERSION = 1;
 
     // SQL to create DB
 
     private static final String DATABASE_CREATE_USER_INFO = "create table "
             + TABLE_USER_INFO + "(" + USER_INFO_ID
+            + " integer primary key autoincrement, "
+            + USER_INFO_USERNAME + " text not null, "
+            + USER_INFO_NAME + " text not null, "
+            + USER_INFO_BIRTHDATE + " text not null, "
+            + USER_INFO_GENDER + " text not null);";
+
+    private static final String DATABASE_CREATE_EVENT_INFO = "create table "
+            + TABLE_EVENT_INFO + "(" + EVENT_ID
             + " integer primary key autoincrement, "
             + USER_INFO_USERNAME + " text not null, "
             + USER_INFO_NAME + " text not null, "

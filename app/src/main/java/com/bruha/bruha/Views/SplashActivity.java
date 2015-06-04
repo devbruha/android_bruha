@@ -1,5 +1,6 @@
 package com.bruha.bruha.Views;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
@@ -12,14 +13,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.SQLiteDatabaseModel;
+import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.R;
+
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
 
-public class SplashActivity extends ActionBarActivity {
+public class SplashActivity extends Activity {
+
+    // Our database hostname and the credentials for our showdom_android account
+    String url = "jdbc:mysql://66.147.244.109:3306/showdomc_web2"; //
+    String user = "showdomc_android";
+    String pass = "show12345!";
+
+    SQLUtils sqlu ; //The SQLUtil object type that will be initialized later depending on the credentials given above.
+    ArrayList<Event> mEvents = new ArrayList<>();
+
+    // Create the local DB object
+
+    SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
 
     // Injecting the Buttons using Butterknife library.
     @InjectView(R.id.loginButton) Button mLoginButton;
@@ -34,11 +52,19 @@ public class SplashActivity extends ActionBarActivity {
         // using ButterKnife.inject to allow the InjectViews to take effect.
         ButterKnife.inject(this);
 
+        initialEventRetrieval();
+
         //Code to execute the swipe code.
         MyPagerAdapter adapter = new MyPagerAdapter();          //Making variable adapter of class MyPageAdapter defined below.
         ViewPager pager = (ViewPager) findViewById(R.id.pager); //The Layout where the new Layout will be displayed.
         pager.setAdapter(adapter);                              //Setting the Adapter of the layout to adapter.
-        pager.setCurrentItem(0);                                 //The first page to be displayed in the Layout
+        pager.setCurrentItem(0);                                 //The first page to be displayed in the
+    }
+
+    private void initialEventRetrieval(){
+
+        sqlu = new SQLUtils(url, user, pass); //Creating Object type SQLUtils using credentials needed
+        mEvents = sqlu.Events();
     }
 
     //Button to proceed to the Login page.
