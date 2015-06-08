@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.R;
@@ -34,6 +35,8 @@ import butterknife.OnClick;
 
 public class MapsActivity extends FragmentActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+
+    //SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
 
     // Our database hostname and the credentials for our showdom_android account
     String url = "jdbc:mysql://66.147.244.109:3306/showdomc_web2"; //
