@@ -45,7 +45,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:gravity="center">
+            android:gravity="center"
+            android:id="@+id/BuyTicketRow">
 
 
             <LinearLayout
@@ -53,7 +54,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#e2643faa"
-                android:gravity="center">
+                android:gravity="center"
+                android:id="@+id/BuyTicketLayout">
 
                 <TextView
                     android:textStyle="bold"
@@ -182,14 +184,16 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3">
+            android:layout_weight="3"
+            android:id="@+id/PreviewRow">
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:background="#cf075a52">
+                android:background="#cf075a52"
+                android:id="@+id/PreviewLayout">
 
             <TextView
                 android:textStyle="bold"
@@ -283,14 +287,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:id="@+id/TableClick">
+            android:id="@+id/MoreInfoRow">
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#afffba28"
-                android:gravity="center">
+                android:gravity="center"
+                android:id="@+id/MoreInfoLayout">
 
             <TextView
                 android:textStyle="bold"

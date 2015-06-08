@@ -1,6 +1,11 @@
 package com.bruha.bruha.Adapters;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.util.TypedValue;
 import android.view.Display;
@@ -8,17 +13,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.R;
+import com.bruha.bruha.Views.DashboardActivity;
+import com.bruha.bruha.Views.EventPageActivity;
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 /**
  * Created by Work on 2015-05-12.
@@ -112,7 +126,9 @@ public class ListviewAdapter extends BaseSwipeAdapter {
     public View generateView(int position, ViewGroup parent) {
 
         //Inflates the view to be used
-        View convertView = LayoutInflater.from(mActivity).inflate(R.layout.list_item, parent, false);
+        final View convertView = LayoutInflater.from(mActivity).inflate(R.layout.list_item, parent, false);
+        LinearLayout MoreInfoLay= (LinearLayout) convertView.findViewById(R.id.MoreInfoLayout);
+
 
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
 
@@ -226,6 +242,70 @@ public class ListviewAdapter extends BaseSwipeAdapter {
                 Toast.makeText(mActivity, "DoubleClick", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+        //Implement this if the one below works.
+        TableRow GoBuyTicketPage = (TableRow) convertView.findViewById(R.id.BuyTicketRow);
+        GoBuyTicketPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final LinearLayout BuyTicketLayout= (LinearLayout) convertView.findViewById(R.id.BuyTicketLayout);
+                ObjectAnimator animator = ObjectAnimator.ofFloat(BuyTicketLayout, "alpha", 1f, 0.5f);
+                animator.setDuration(500);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        BuyTicketLayout.setAlpha(1f);
+                        //Intent intent = new Intent(mActivity, DashboardActivity.class);
+                        //mActivity.startActivity(intent);
+                    }
+                });
+                animator.start();
+
+            }
+        });
+
+        //Implement this if below works.
+        TableRow GoPreviewPage  = (TableRow) convertView.findViewById(R.id.PreviewRow);
+        GoPreviewPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final LinearLayout PreviewLayout= (LinearLayout) convertView.findViewById(R.id.PreviewLayout);
+                ObjectAnimator animator = ObjectAnimator.ofFloat(PreviewLayout, "alpha", 1f, 0.5f);
+                animator.setDuration(500);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        PreviewLayout.setAlpha(1f);
+                        //Intent intent = new Intent(mActivity, DashboardActivity.class);
+                       // mActivity.startActivity(intent);
+                    }
+                });
+                animator.start();
+            }
+        });
+
+        //Check if this works
+        TableRow GoMoreInfoPage = (TableRow) convertView.findViewById(R.id.MoreInfoRow);
+        GoMoreInfoPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final LinearLayout MoreInfoLay= (LinearLayout) convertView.findViewById(R.id.MoreInfoLayout);
+                ObjectAnimator animator = ObjectAnimator.ofFloat(MoreInfoLay, "alpha", 1f, 0.5f);
+                animator.setDuration(500);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        MoreInfoLay.setAlpha(1f);
+                        Intent intent = new Intent(mActivity, EventPageActivity.class);
+                        mActivity.startActivity(intent);
+                    }
+                });
+                animator.start();
+
+
+
+            }
+        });
+
+
 
         return convertView;
     }
