@@ -42,6 +42,7 @@ public class ListActivity extends FragmentActivity {
     SQLUtils sqlu ; //The SQLUtil object type that will be initialized later depending on the credentials given above.
     ArrayList<Event> mEvents = new ArrayList<>();       //The Array that will hold the Events that we will pass around(to Adapter,the List...
     ArrayList<Event> newEvent = new ArrayList<>();
+    ArrayList<Event> Backup= new ArrayList<>();         //Array Backup of the whole list,since mEvent changes when we update the adapter in filtersavebutton.
     ListviewAdapter adapter;
 
     //Default Constructor for the class ListActivity
@@ -49,6 +50,11 @@ public class ListActivity extends FragmentActivity {
     {
         sqlu = new SQLUtils(url, user, pass); //Creating Object type SQLUtils using credentials needed
         mEvents = sqlu.Events();
+
+        for(Event x:mEvents)
+        {
+            Backup.add(x);
+        }
     }
 
     //Injecting Buttons using ButterKnife Library
@@ -177,29 +183,27 @@ public class ListActivity extends FragmentActivity {
     public void ImplementingButton(View view)  {
 
         newEvent.clear();
+
+        //Filtering the date.
         List<String> Dates= mUserCustomFilters.getDateFilter();
+        double price=(double)mUserCustomFilters.getAdmissionPriceFilter();
+
+       ArrayList<String> Filters= mUserCustomFilters.getQuickieFilter();
+
+
+        //Last Checkpoint,remember to come here and see what the Log values shows and implement the filters accordingly.
+        for(String y:Filters)
+        {
+            Log.v("The Tags:",y);
+        }
 
         for (String x : Dates) {
             int i = 0;
-            while (i < mEvents.size()) {
-                if (x.equals(mEvents.get(i).getEventDate())) {
-                    //newEvent.add(mEvents.get(i));
+            while (i < Backup.size()) {
+                if (x.equals(Backup.get(i).getEventDate()) && Backup.get(i).getEventPrice()<=price ) {
+                    newEvent.add(Backup.get(i));
                 }
                 i++;
-            }
-
-        }
-
-        Toast.makeText(getApplicationContext(), "LIST UPDATE TEST",
-                Toast.LENGTH_LONG).show();
-
-        for(int i =0; i< mEvents.size();i++){
-
-            if(mEvents.get(i).getEventName().equals("The Arkells")){
-
-            }
-            else{
-                newEvent.add(mEvents.get(i));
             }
         }
 
