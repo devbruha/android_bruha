@@ -31,11 +31,8 @@ public class SQLUtils {
     ResultSet rs = null;
 
     // Initializing a list to store the results from "rs" to pass back to other activity
-    List<String> user_info = new ArrayList<>();
-    List<String> events = new ArrayList<>();
-    List<String> eventprice= new ArrayList<>();
-
-    List<Event> Events = new ArrayList<>();
+    ArrayList<String> user_info = new ArrayList<>();
+    ArrayList<Event> Events = new ArrayList<>();
 
     // Error code to be used for user notification
 
@@ -580,7 +577,7 @@ public class SQLUtils {
     }
 
     //This method sets the Name/Description of the Event in the EventList.
-    public List<Event> Events() {
+    public ArrayList<Event> Events() {
 
         Thread thread;
 

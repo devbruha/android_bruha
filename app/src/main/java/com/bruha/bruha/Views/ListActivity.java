@@ -22,11 +22,7 @@ import com.bruha.bruha.R;
 import com.daimajia.swipe.util.Attributes;
 
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -44,29 +40,15 @@ public class ListActivity extends FragmentActivity {
     String pass = "show12345!";
 
     SQLUtils sqlu ; //The SQLUtil object type that will be initialized later depending on the credentials given above.
-    ArrayList<Event> nmEvents;       //The Array that will hold the Events that we will pass around(to Adapter,the List...)
-    List<Event> Even;
-
-    //Change Even to static if intent is used to refresh
-    ArrayList<Event> NewEvent=new ArrayList<>();
-    static int meow=0;
+    ArrayList<Event> mEvents = new ArrayList<>();       //The Array that will hold the Events that we will pass around(to Adapter,the List...
+    ArrayList<Event> newEvent = new ArrayList<>();
     ListviewAdapter adapter;
 
     //Default Constructor for the class ListActivity
     public ListActivity()
     {
-        if(meow==0) {
-            sqlu = new SQLUtils(url, user, pass); //Creating Object type SQLUtils using credentials needed
-            Even = sqlu.Events();  //Imports the List of Events from the Database.
-        }
-
-        nmEvents= new ArrayList<>();  //Assigning the new array where the events go.
-
-        //Setting it into the new Array.
-        for(int i=0;i<Even.size();i++)
-        {
-            nmEvents.add(Even.get(i));
-        }
+        sqlu = new SQLUtils(url, user, pass); //Creating Object type SQLUtils using credentials needed
+        mEvents = sqlu.Events();
     }
 
     //Injecting Buttons using ButterKnife Library
@@ -91,7 +73,7 @@ public class ListActivity extends FragmentActivity {
         setUpFilters();
 
         //Creating an variable of type Listview Adapter to create the list view.
-        adapter=new ListviewAdapter(this,nmEvents); //Calling the adapter ListView to help set the List
+        adapter=new ListviewAdapter(this, mEvents); //Calling the adapter ListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(adapter);
@@ -159,8 +141,8 @@ public class ListActivity extends FragmentActivity {
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-               //Just used for testing,ignore if not delete String name = nmEvents[0].getEventName();
-               //Just used for testing,ignore if not delete  String nsize= nmEvents.length + "" ;
+               //Just used for testing,ignore if not delete String name = mEvents[0].getEventName();
+               //Just used for testing,ignore if not delete  String nsize= mEvents.length + "" ;
                 Toast.makeText(view.getContext(), "OnItemLongClickListener" , Toast.LENGTH_SHORT).show();
                 return true;
             }
@@ -190,129 +172,42 @@ public class ListActivity extends FragmentActivity {
             }
         });
     }
-/*
-         //The Old OnClick Listener
-        //Setting an OnClickListener everytime a item of the list is tapped.
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-
-                setPanelHeight(); //Setting the layout to cover half the page
-
-
-                //Assigning the Relative Layout that contains the detailed description.
-                RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.DescriptionLayout);
-
-                //Assigning the summary desciption stuff that will hide and reappear depending on the clicks.
-                ImageView Bubble = (ImageView) view.findViewById(R.id.EventImageBubble);
-                TextView EventName = (TextView) view.findViewById(R.id.TextEventName);
-                TextView EventDate = (TextView) view.findViewById(R.id.TextEventDate);
-                TextView EventPrice = (TextView) view.findViewById(R.id.TextEventPrice);
-                TextView EventDistance = (TextView) view.findViewById(R.id.TextEventDistance);
-
-
-                if(Clicks%2==0) {
-                    //Popping the detailed description into view.
-                    layout.setVisibility(View.VISIBLE);
-
-                    //Hiding the summary Description from view to display the detailed description.
-                    Bubble.setVisibility(View.INVISIBLE);
-                    EventName.setVisibility(View.INVISIBLE);
-                    EventDate.setVisibility(View.INVISIBLE);
-                    EventPrice.setVisibility(View.INVISIBLE);
-                    EventDistance.setVisibility(View.INVISIBLE);
-                }
-
-                else{
-                    //Hiding the detailed description upon the 2nd click.
-                    layout.setVisibility(View.INVISIBLE);
-
-                    //Displaying the summary description back upon the 2nd click.
-                    Bubble.setVisibility(View.VISIBLE);
-                    EventName.setVisibility(View.VISIBLE);
-                    EventDate.setVisibility(View.VISIBLE);
-                    EventPrice.setVisibility(View.VISIBLE);
-                    EventDistance.setVisibility(View.VISIBLE);
-
-                }
-
-
-
-
-                Clicks++; //Adds to the number of times the user has tapped on an item.
-            }
-        });
-    }
-    */
 
     @OnClick(R.id.filterSaveButton)
     public void ImplementingButton(View view)  {
+
+        newEvent.clear();
         List<String> Dates= mUserCustomFilters.getDateFilter();
 
         for (String x : Dates) {
             int i = 0;
-            while (i < nmEvents.size()) {
-                if (x.equals(nmEvents.get(i).getEventDate())) {
-                    //NewEvent.add(nmEvents.get(i));
+            while (i < mEvents.size()) {
+                if (x.equals(mEvents.get(i).getEventDate())) {
+                    //newEvent.add(mEvents.get(i));
                 }
                 i++;
             }
 
         }
 
-        Toast.makeText(getApplicationContext(), "LSITUPDATETEST",
+        Toast.makeText(getApplicationContext(), "LIST UPDATE TEST",
                 Toast.LENGTH_LONG).show();
 
-        for(int i =0; i<nmEvents.size();i++){
+        for(int i =0; i< mEvents.size();i++){
 
-            if(nmEvents.get(i).getEventName().equals("Meowing Cats")){
-                //nmEvents.remove(i);
+            if(mEvents.get(i).getEventName().equals("The Arkells")){
+
             }
             else{
-                NewEvent.add(nmEvents.get(i));
+                newEvent.add(mEvents.get(i));
             }
         }
 
-        nmEvents.clear();
+        adapter.getData().clear();
 
-        for(int i  = 0; i<NewEvent.size();i++){
-            nmEvents.add(NewEvent.get(i));
-        }
+        adapter.getData().addAll(newEvent);
 
-        adapter.notifyDataSetChanged();
-        //adapter.notifyDataSetInvalidated();
-
-
-
-
-       /*
-       Intent intent = getIntent();
-       finish();
-
-       startActivity(intent);
-
-
-
-
-        Even=NewEvent;
-
-
-        nmEvents= new Event[Even.size()];  //Assigning the new array where the events go.
-
-        //Setting it into the new Array.
-        for(int i=0;i<nmEvents.length;i++)
-        {
-            nmEvents[i]=Even.get(i);
-        }
-
-        */
-
-
-        //adapter.notifyDataSetChanged();
-        //adapter.notifyDataSetInvalidated();
-
+        mListView.setAdapter(adapter);
 
     }
 

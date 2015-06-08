@@ -1,5 +1,6 @@
 package com.bruha.bruha.Views;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
@@ -12,14 +13,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.SQLiteDatabaseModel;
+import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.R;
+
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
 
-public class SplashActivity extends ActionBarActivity {
+public class SplashActivity extends Activity {
 
     // Injecting the Buttons using Butterknife library.
     @InjectView(R.id.loginButton) Button mLoginButton;
@@ -38,7 +44,7 @@ public class SplashActivity extends ActionBarActivity {
         MyPagerAdapter adapter = new MyPagerAdapter();          //Making variable adapter of class MyPageAdapter defined below.
         ViewPager pager = (ViewPager) findViewById(R.id.pager); //The Layout where the new Layout will be displayed.
         pager.setAdapter(adapter);                              //Setting the Adapter of the layout to adapter.
-        pager.setCurrentItem(0);                                 //The first page to be displayed in the Layout
+        pager.setCurrentItem(0);                                 //The first page to be displayed in the
     }
 
     //Button to proceed to the Login page.
@@ -61,9 +67,6 @@ public class SplashActivity extends ActionBarActivity {
         Intent intent = new Intent(this, DashboardActivity.class);
         startActivity(intent);
     }
-
-
-
 
     //MyPageAdapter class to decide which page is going to be swiped to.
     public class MyPagerAdapter extends PagerAdapter {
