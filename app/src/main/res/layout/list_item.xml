@@ -561,7 +561,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Start:"
-                android:id="@+id/StartText"
+                android:id="@+id/PageStartText"
                 android:textSize="10dp"
                 android:textStyle="bold"
                 android:layout_below="@+id/DesEventLocAddress"
@@ -576,7 +576,7 @@
                 android:id="@+id/DesEventStartDate"
                 android:paddingLeft="8dp"
                 android:textSize="10dp"
-                android:layout_below="@+id/StartText"
+                android:layout_below="@+id/PageStartText"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"/>
 
@@ -596,7 +596,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="End:"
-                android:id="@+id/EndText"
+                android:id="@+id/PageEndText"
                 android:textSize="10dp"
                 android:paddingLeft="5dp"
                 android:textStyle="bold"
@@ -613,7 +613,7 @@
                 android:id="@+id/DesEventEndDate"
                 android:paddingLeft="8dp"
                 android:textSize="10dp"
-                android:layout_below="@+id/EndText"
+                android:layout_below="@+id/PageEndText"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"/>
 

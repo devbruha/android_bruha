@@ -354,11 +354,11 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         int y7= (int)Math.round(height*.014);
         DesEndTime.setTextSize(TypedValue.COMPLEX_UNIT_PX,y7);
         //The TextView saying "start" being formatted.
-        TextView start = (TextView) convertView.findViewById(R.id.StartText);
+        TextView start = (TextView) convertView.findViewById(R.id.PageStartText);
         int y8= (int)Math.round(height*.0127);
         start.setTextSize(TypedValue.COMPLEX_UNIT_PX,y8);
         //The TextView saying "end" being formatted.
-        TextView end = (TextView) convertView.findViewById(R.id.EndText);
+        TextView end = (TextView) convertView.findViewById(R.id.PageEndText);
         int y9= (int)Math.round(height*.0127);
         end.setTextSize(TypedValue.COMPLEX_UNIT_PX,y9);
         //Swipe Bars being resized.
