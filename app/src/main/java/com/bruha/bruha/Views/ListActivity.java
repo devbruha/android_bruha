@@ -31,6 +31,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Filter;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -189,14 +190,21 @@ public class ListActivity extends FragmentActivity {
     @OnClick(R.id.filterSaveButton)
     public void ImplementingButton(View view)  {
 
+        ArrayList<String> Filters = new ArrayList<>();
+
         //To make sure it is empty beforehand.
         newEvent.clear();
+        Filters.clear();
 
         //Obtaining all the filters that the user selected.
         List<String> Dates= mUserCustomFilters.getDateFilter();
         double price=(double)mUserCustomFilters.getAdmissionPriceFilter();
-        ArrayList<String> Filters= mUserCustomFilters.getQuickieFilter();
+        Filters= mUserCustomFilters.getQuickieFilter();
         Map<String, ArrayList<String>> CategoryFilter = mUserCustomFilters.getCategoryFilter();
+
+        if(Filters.size() == 0){
+            Filters.add("No Filters Test");
+        }
 
 
         //If "All Events" chosen from the filter layout,then load all events from the backup.
@@ -227,7 +235,6 @@ public class ListActivity extends FragmentActivity {
                 {
                     newEvent.add(Ev);
                 }
-
             }
         }
 
@@ -260,20 +267,21 @@ public class ListActivity extends FragmentActivity {
 
 
         //If none of the quickie fields are selected,we check the calender dates.
-        else {
 
-            //Getting the dates from the filter, filtering events out accordingly and setting the price along with it.
-            for (String x : Dates) {
-                int i = 0;
-                while (i < Backup.size()) {
-                    if (x.equals(Backup.get(i).getEventDate()) && Backup.get(i).getEventPrice() <= price) {
-                        newEvent.add(Backup.get(i));
-                    }
 
-                    i++;
+        //Getting the dates from the filter, filtering events out accordingly and setting the price along with it.
+        for (String x : Dates) {
+            int i = 0;
+            while (i < Backup.size()) {
+                if (x.equals(Backup.get(i).getEventDate()) && Backup.get(i).getEventPrice() <= price) {
+                    newEvent.add(Backup.get(i));
                 }
+
+                i++;
             }
         }
+
+
 
         adapter.getData().clear();
         adapter.getData().addAll(newEvent);
