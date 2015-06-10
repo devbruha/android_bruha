@@ -10,7 +10,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:id="@+id/imageView2"
+        android:id="@+id/PageEventCoverPicture"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -19,7 +19,7 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/imageView3"
+        android:id="@+id/PageEventPicture"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -32,10 +32,10 @@
         android:textStyle="bold"
         android:textSize="30sp"
         android:text="The Event Name"
-        android:id="@+id/textView15"
-        android:layout_below="@+id/imageView2"
-        android:layout_toRightOf="@+id/imageView3"
-        android:layout_toEndOf="@+id/imageView3"
+        android:id="@+id/PageEventName"
+        android:layout_below="@+id/PageEventCoverPicture"
+        android:layout_toRightOf="@+id/PageEventPicture"
+        android:layout_toEndOf="@+id/PageEventPicture"
         android:layout_marginLeft="5dp"
         android:textColor="#ffffc514"
         android:alpha="0.90"/>
@@ -45,8 +45,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Age+"
-        android:id="@+id/textView17"
-        android:layout_alignTop="@+id/textView15"
+        android:id="@+id/PageEventAge"
+        android:layout_alignTop="@+id/PageEventName"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
@@ -57,41 +57,41 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start Time"
+        android:text="Start:"
         android:textStyle="bold"
-        android:id="@+id/textView29"
-        android:layout_below="@+id/imageView3"
-        android:layout_alignLeft="@+id/textView15"
-        android:layout_alignStart="@+id/textView15"
+        android:id="@+id/PageStartText"
+        android:layout_below="@+id/PageEventPicture"
+        android:layout_alignLeft="@+id/PageEventName"
+        android:layout_alignStart="@+id/PageEventName"
         android:layout_marginTop="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:text="Start Date"
-        android:id="@+id/textView48"
-        android:layout_below="@+id/textView29"
-        android:layout_alignLeft="@+id/textView15"
-        android:layout_alignStart="@+id/textView15"
+        android:text="End:"
+        android:id="@+id/PageEndText"
+        android:layout_below="@+id/PageStartText"
+        android:layout_alignLeft="@+id/PageEventName"
+        android:layout_alignStart="@+id/PageEventName"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Address"
-        android:id="@+id/textView49"
-        android:layout_below="@+id/textView48"
+        android:text="Address:"
+        android:id="@+id/PageAddressText"
+        android:layout_below="@+id/PageEndText"
         android:layout_marginTop="6dp"
-        android:layout_alignLeft="@+id/textView15"
-        android:layout_alignStart="@+id/textView15"/>
+        android:layout_alignLeft="@+id/PageEventName"
+        android:layout_alignStart="@+id/PageEventName"/>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:text="MAP SPACE"
-        android:id="@+id/textView50"
-        android:layout_below="@+id/textView49"
+        android:id="@+id/PageMapSpace"
+        android:layout_below="@+id/PageAddressText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textSize="60sp"/>
@@ -101,8 +101,8 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:text="About"
-        android:id="@+id/textView51"
-        android:layout_below="@+id/textView50"
+        android:id="@+id/PageAboutText"
+        android:layout_below="@+id/PageMapSpace"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="#ff060606"
@@ -113,19 +113,21 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:text="Information about the Event"
-        android:id="@+id/textView52"
-        android:layout_below="@+id/textView51"
-        android:layout_alignLeft="@+id/textView51"
-        android:layout_alignStart="@+id/textView51"/>
+        android:text="Information about the Event."
+        android:id="@+id/PageEventDescription"
+        android:layout_below="@+id/PageAboutText"
+        android:layout_alignLeft="@+id/PageAboutText"
+        android:layout_alignStart="@+id/PageAboutText"/>
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="95dp"
+        android:layout_height="match_parent"
         android:id="@+id/imageView4"
-        android:layout_below="@+id/textView52"
-        android:layout_alignLeft="@+id/textView52"
-        android:layout_alignStart="@+id/textView52"
+        android:layout_below="@+id/PageEventDescription"
+        android:layout_alignLeft="@+id/PageEventDescription"
+        android:layout_alignStart="@+id/PageEventDescription"
         android:background="#a00996e9"
-        android:alpha="0.60"/>
+        android:alpha="0.60"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="false" />
 </RelativeLayout>

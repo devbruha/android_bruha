@@ -58,7 +58,7 @@ public class FilterGen {
 
         //Add arraylist in category
         ParentArrayList.add(new Items.SubCategory("Featured", recommendedCategory1));
-        ParentArrayList.add(new Items.SubCategory("Recommended", recommendedCategory2));
+        ParentArrayList.add(new Items.SubCategory("All Events", recommendedCategory2));
         ParentArrayList.add(new Items.SubCategory("Today", recommendedCategory3));
         ParentArrayList.add(new Items.SubCategory("This Weekend", recommendedCategory4));
 

@@ -1,5 +1,8 @@
 package com.bruha.bruha.Views;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
@@ -25,10 +28,57 @@ public class DashboardActivity extends ActionBarActivity {
         setContentView(R.layout.activity_dashboard);
         ButterKnife.inject(this);
 
+
+        //Shade Animator for MapButton
+        final Button MapButton=(Button) findViewById(R.id.mapButton);
+        MapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(MapButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        MapButton.setAlpha(1f);
+                        startMapActivity(v);
+                    }
+                });
+                animator.start();
+            }
+        });
+
+        //Shade Animator for ListButton
+        final Button ListButton=(Button) findViewById(R.id.listButton);
+        ListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(ListButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        ListButton.setAlpha(1f);
+                        startListActivity(v);
+                    }
+                });
+                animator.start();
+            }
+        });
+
     }
 
 
     //The OnClickListeners for the DashBoard Buttons:
+
+    public void startMapActivity(View view)
+    {
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
+    }
+
+    public void startListActivity(View view){
+        Intent intent = new Intent(this, ListActivity.class);
+        startActivity(intent);
+
+    }
 
     //OnClickListener for "Explore" that leads to the ListView Activity.
     @OnClick(R.id.ExploreButton)
@@ -72,60 +122,6 @@ public class DashboardActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
-
-    @OnClick(R.id.mapButton)
-    public void startMapActivity(View view){
-        Intent intent = new Intent(this, MapsActivity.class);
-        startActivity(intent);
-
-    }
-
-
-
-    @OnClick(R.id.listButton)
-    public void startListActivity(View view){
-        Intent intent = new Intent(this, ListActivity.class);
-        startActivity(intent);
-
-    }
-
-/*
-    //Code temporarily here for testing,this is part of the code needed for the swipe layout
-    public class MyPagerAdapter extends PagerAdapter {
-        @Override
-        public int getCount() {
-            return 3; //set  number of swipe screens here
-        }
-        @Override
-        public Object instantiateItem(final View collection, final int position) {
-            LayoutInflater inflater = (LayoutInflater) collection.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            int resId = 0;
-            switch (position) {
-                case 2:
-                    resId = R.layout.activity_dashboard; //set which layout will show on load
-                    break;
-                case 1:
-                    resId = R.layout.splash_discover; //what layout swiping shows//
-                     break;
-                case 0:
-                    resId = R.layout.activity_register;
-                    break;
-            }
-            View view = inflater.inflate(resId, null);
-            ((ViewPager) collection).addView(view, 0);
-            return view;
-        }
-        @Override
-        public void destroyItem(final View arg0, final int arg1, final Object arg2) {
-            ((ViewPager) arg0).removeView((View) arg2);
-        }
-        @Override
-        public boolean isViewFromObject(final View arg0, final Object arg1) {
-            return arg0 == ((View) arg1);
-        }
-    }
-
-*/
 
 
 

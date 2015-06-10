@@ -22,8 +22,12 @@ import com.bruha.bruha.R;
 import com.daimajia.swipe.util.Attributes;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -42,6 +46,7 @@ public class ListActivity extends FragmentActivity {
     SQLUtils sqlu ; //The SQLUtil object type that will be initialized later depending on the credentials given above.
     ArrayList<Event> mEvents = new ArrayList<>();       //The Array that will hold the Events that we will pass around(to Adapter,the List...
     ArrayList<Event> newEvent = new ArrayList<>();
+    ArrayList<Event> Backup= new ArrayList<>();         //Array Backup of the whole list,since mEvent changes when we update the adapter in filtersavebutton.
     ListviewAdapter adapter;
 
     //Default Constructor for the class ListActivity
@@ -49,6 +54,11 @@ public class ListActivity extends FragmentActivity {
     {
         sqlu = new SQLUtils(url, user, pass); //Creating Object type SQLUtils using credentials needed
         mEvents = sqlu.Events();
+
+        for(Event x:mEvents)
+        {
+            Backup.add(x);
+        }
     }
 
     //Injecting Buttons using ButterKnife Library
@@ -176,37 +186,93 @@ public class ListActivity extends FragmentActivity {
     @OnClick(R.id.filterSaveButton)
     public void ImplementingButton(View view)  {
 
+        //To make sure it is empty beforehand.
         newEvent.clear();
+
+        //Obtaining all the filters that the user selected.
         List<String> Dates= mUserCustomFilters.getDateFilter();
+        double price=(double)mUserCustomFilters.getAdmissionPriceFilter();
+        ArrayList<String> Filters= mUserCustomFilters.getQuickieFilter();
+        Map<String, ArrayList<String>> CategoryFilter = mUserCustomFilters.getCategoryFilter();
 
-        for (String x : Dates) {
-            int i = 0;
-            while (i < mEvents.size()) {
-                if (x.equals(mEvents.get(i).getEventDate())) {
-                    //newEvent.add(mEvents.get(i));
-                }
-                i++;
+
+        //If "All Events" chosen from the filter layout,then load all events from the backup.
+        if(Filters.get(0).equals("All Events"))
+        {
+            //Filtering out the Items,remember to compare with price.
+            for(Event event:Backup)
+            {
+                if(event.getEventPrice() <= price)
+                newEvent.add(event);
             }
-
         }
 
-        Toast.makeText(getApplicationContext(), "LIST UPDATE TEST",
-                Toast.LENGTH_LONG).show();
 
-        for(int i =0; i< mEvents.size();i++){
+        //If "Today" Chosen from the filter layout,then load all events in that day.
+        else if(Filters.get(0).equals("Today"))
+        {
+            //Getting today's date and formatting it to the type that can be compared with the Event Date's type.
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            String formattedDate = df.format(c.getTime());
+            Log.v("Date:",formattedDate);
 
-            if(mEvents.get(i).getEventName().equals("The Arkells")){
+            //Filtering the Quickie,remember to compare with price.
+            for(Event Ev:Backup)
+            {
+                if(Ev.getEventDate().equals(formattedDate) && Ev.getEventPrice() <= price )
+                {
+                    newEvent.add(Ev);
+                }
 
             }
-            else{
-                newEvent.add(mEvents.get(i));
+        }
+
+        //If 'This Weekend' is selected in the Quickie Filter.
+        else if(Filters.get(0).equals("This Weekend"))
+        {
+            //Getting the date of Saturday for the week.
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+            c.getTime();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            String formattedDate = df.format(c.getTime());
+
+            //Getting the date of Sunday for the week.
+            Calendar d=Calendar.getInstance();
+            d.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+            d.getTime();
+            SimpleDateFormat dff = new SimpleDateFormat("yyyy-MM-dd");
+            String formattedDatee = dff.format(d.getTime());
+
+            //Filtering out the items.,remember to compare with price.
+            for(Event Eve:Backup)
+            {
+                if((Eve.getEventDate().equals(formattedDate) || Eve.getEventDate().equals(formattedDatee))&& Eve.getEventPrice() <= price)
+                {
+                    newEvent.add(Eve);
+                }
+            }
+        }
+
+
+        //If none of the quickie feilds are selected,we check the calender dates.
+        else {
+
+            //Getting the dates from the filter, filtering events out accordingly and setting the price along with it.
+            for (String x : Dates) {
+                int i = 0;
+                while (i < Backup.size()) {
+                    if (x.equals(Backup.get(i).getEventDate()) && Backup.get(i).getEventPrice() <= price) {
+                        newEvent.add(Backup.get(i));
+                    }
+                    i++;
+                }
             }
         }
 
         adapter.getData().clear();
-
         adapter.getData().addAll(newEvent);
-
         mListView.setAdapter(adapter);
 
     }

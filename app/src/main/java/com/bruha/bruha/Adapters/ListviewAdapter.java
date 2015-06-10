@@ -34,11 +34,13 @@ public class ListviewAdapter extends BaseSwipeAdapter {
     private Activity mActivity;
     private ArrayList<Event> mEvents;
     public static int Clicks=0;
+
     //the Constructor for the class.
     public ListviewAdapter(Activity activity, ArrayList<Event> events) {
         mActivity = activity;
         mEvents = events;
     }
+
     //Method to Format the Date that will be displayed.
     public String dateFormat(String Date)
     {
@@ -48,6 +50,7 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         String Displayed=getMonth(Month)+ " " + Dates + "," + year;
         return Displayed;
     }
+
     //Part of the Implementation of the dateFormat Method.
     public String getMonth(String Month)
     {
@@ -77,49 +80,62 @@ public class ListviewAdapter extends BaseSwipeAdapter {
             Month="December";
         return Month;
     }
+
     //Checks if it is a free event, if so, Displays it.
     public String freeEventCheck(double price)
     {
         if(price==0.0)
-        {return "Free Event!";}
+        {return "Free!";}
         else {return "$"+price; }
     }
+
     @Override
     public int getCount() {
         return mEvents.size();  //Returns length of the array of Events
     }
+
     @Override
     public Object getItem(int position) {
         return mEvents.get(position);  //Returns the Item being accessed in the the array}
     }
+
     @Override
     public long getItemId(int position) {
         return 0;   //Id of the Item being accessed in the view
     }
+
     public ArrayList<Event> getData() {
         return mEvents;
     }
+
     @Override
     public int getSwipeLayoutResourceId(int i) {
         return R.id.swipe;
     }
+
     @Override
     public View generateView(int position, ViewGroup parent) {
         //Inflates the view to be used
         final View convertView = LayoutInflater.from(mActivity).inflate(R.layout.list_item, parent, false);
+
         LinearLayout MoreInfoLay= (LinearLayout) convertView.findViewById(R.id.MoreInfoLayout);
+
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
+
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //Assigning the Relative Layout that contains the detailed description.
                 RelativeLayout layout = (RelativeLayout) v.findViewById(R.id.DescriptionLayout);
-                //Assigning the summary description stuff that will hide and reappear depending on the clicks.
+
+               //Assigning the summary description stuff that will hide and reappear depending on the clicks.
                 ImageView Bubble = (ImageView) v.findViewById(R.id.EventImageBubble);
                 TextView EventName = (TextView) v.findViewById(R.id.TextEventName);
                 TextView EventDate = (TextView) v.findViewById(R.id.TextEventDate);
                 TextView EventPrice = (TextView) v.findViewById(R.id.TextEventPrice);
                 TextView EventDistance = (TextView) v.findViewById(R.id.TextEventDistance);
+
                 if (Clicks % 2 == 0) {
                     //Popping the detailed description into view.
                     layout.setVisibility(View.VISIBLE);
@@ -142,7 +158,9 @@ public class ListviewAdapter extends BaseSwipeAdapter {
                 Clicks++; //Adds to the number of times the user has tapped on an item.
             }
         });
+
         convertView.setTag(holder); //sets the tag
+
         //Summary Description of the events.
         holder.EventPicture= (ImageView) convertView.findViewById(R.id.ImageEventPicture);
         holder.EventIcon = (ImageView) convertView.findViewById(R.id.ImageEventIcon);
@@ -150,8 +168,10 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         holder.EventDate = (TextView) convertView.findViewById(R.id.TextEventDate);
         holder.EventPrice= (TextView) convertView.findViewById(R.id.TextEventPrice);
         holder.EventDistance= (TextView) convertView.findViewById(R.id.TextEventDistance);
+
         //Initializing each item to the required type
         Event event = mEvents.get(position);
+
         //Detailed Description of the events.
         holder.EventDName=(TextView) convertView.findViewById(R.id.DesEventName);
         holder.EventDPrice= (TextView) convertView.findViewById(R.id.DesEventPrice);
@@ -163,6 +183,7 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         holder.EventEndDate = (TextView) convertView.findViewById(R.id.DesEventEndDate);
         holder.EventEndTime= (TextView) convertView.findViewById(R.id.DesEventEndTime);
         //Setting the text boxes to the information retrieved from the arrays of events
+
         //Setting the summary description
         holder.EventDistance.setText(event.getEventDistance() + "km");
         holder.EventName.setText(event.getEventName());
@@ -170,6 +191,7 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         holder.EventPrice.setText(freeEventCheck(event.getEventPrice()));
         //holder.EventIcon.setImageResource(event.getEventIcon());
         //holder.EventPicture.setImageResource(event.getEventPicture());
+
         //Setting the detailed description.
         holder.EventDName.setText(event.getEventName());
         holder.EventDPrice.setText("$"+event.getEventPrice());
@@ -180,6 +202,7 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         holder.EventStartTime.setText(event.getEventStartTime());
         holder.EventEndDate.setText(dateFormat(event.getEventEndDate()));
         holder.EventEndTime.setText(event.getEventEndTime());
+
         //Swipe methods being Implemented
         SwipeLayout swipeLayout = (SwipeLayout)convertView.findViewById(getSwipeLayoutResourceId(position));
         swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
@@ -190,6 +213,7 @@ public class ListviewAdapter extends BaseSwipeAdapter {
             public void onOpen(SwipeLayout layout) {
             }
         });
+
         //A Click listener for double click.
         swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
             @Override
@@ -197,7 +221,8 @@ public class ListviewAdapter extends BaseSwipeAdapter {
                 Toast.makeText(mActivity, "DoubleClick", Toast.LENGTH_SHORT).show();
             }
         });
-        //Implement this if the one below works.
+
+        //Implements the Button 'Buy Ticket' that appears after swipe right,Shows Button Highlight for half a second when clicked.
         TableRow GoBuyTicketPage = (TableRow) convertView.findViewById(R.id.BuyTicketRow);
         GoBuyTicketPage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -215,7 +240,8 @@ public class ListviewAdapter extends BaseSwipeAdapter {
                 animator.start();
             }
         });
-        //Implement this if below works.
+
+        //Implements the Button 'Preview' that appears after swipe right,Shows Button Highlight for half a second when clicked.
         TableRow GoPreviewPage  = (TableRow) convertView.findViewById(R.id.PreviewRow);
         GoPreviewPage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -233,7 +259,8 @@ public class ListviewAdapter extends BaseSwipeAdapter {
                 animator.start();
             }
         });
-        //Check if this works
+
+        //Implements the Button 'More Info' that appears after swipe right,Shows Button Highlight for half a second when clicked.
         TableRow GoMoreInfoPage = (TableRow) convertView.findViewById(R.id.MoreInfoRow);
         GoMoreInfoPage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -253,6 +280,7 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         });
         return convertView;
     }
+
     @Override
     public void fillValues(int position, View convertView) {
         //Assigning the ImageBubble to a variable to alter iits dimensions after with.
@@ -326,11 +354,11 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         int y7= (int)Math.round(height*.014);
         DesEndTime.setTextSize(TypedValue.COMPLEX_UNIT_PX,y7);
         //The TextView saying "start" being formatted.
-        TextView start = (TextView) convertView.findViewById(R.id.StartText);
+        TextView start = (TextView) convertView.findViewById(R.id.PageStartText);
         int y8= (int)Math.round(height*.0127);
         start.setTextSize(TypedValue.COMPLEX_UNIT_PX,y8);
         //The TextView saying "end" being formatted.
-        TextView end = (TextView) convertView.findViewById(R.id.EndText);
+        TextView end = (TextView) convertView.findViewById(R.id.PageEndText);
         int y9= (int)Math.round(height*.0127);
         end.setTextSize(TypedValue.COMPLEX_UNIT_PX,y9);
         //Swipe Bars being resized.
@@ -347,6 +375,7 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         int yx7= (int)Math.round(height*.030);
         Swipe3.setTextSize(TypedValue.COMPLEX_UNIT_PX,yx7);
     }
+
     //A view holder that contain the things that need to be changed for every event
     private static class ViewHolder{
         //The values holding summary description of the event.
