@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.Processing.SQLiteUtils;
@@ -25,10 +26,6 @@ public class LoadScreenActivity extends Activity {
     SQLUtils sqlu ; //The SQLUtil object type that will be initialized later depending on the credentials given above.
     ArrayList<Event> mEvents = new ArrayList<>();
 
-    // Create the local DB object
-
-    SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,12 +42,16 @@ public class LoadScreenActivity extends Activity {
 
     private void initialEventRetrieval() {
 
+        // Create the local DB object
+
+        //SQLiteDatabaseModel dbHelper = ((MyApplication) getApplicationContext()).getDbHelper();
+        SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
+
         sqlu = new SQLUtils(url, user, pass); //Creating Object type SQLUtils using credentials needed
         mEvents = sqlu.Events();
 
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
         sqLiteUtils.insertEvents(dbHelper, mEvents);
 
-        //sqLiteUtils.getEventInfo(dbHelper);
     }
 }

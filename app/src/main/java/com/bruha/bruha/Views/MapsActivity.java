@@ -16,6 +16,7 @@ import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.Processing.SQLUtils;
+import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -28,6 +29,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -36,16 +38,7 @@ import butterknife.OnClick;
 public class MapsActivity extends FragmentActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
-    //SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
-
-    // Our database hostname and the credentials for our showdom_android account
-    String url = "jdbc:mysql://66.147.244.109:3306/showdomc_web2"; //
-    String user = "showdomc_android";
-    String pass = "show12345!";
-
-    SQLUtils sqlu ; //The SQLUtil object type that will be initialized later depending on the credentials given above.
-    Event[] nmEvents;       //The Array that will hold the Events that we will pass around(to Adapter,the List...)
-    List<Event> Even;
+    ArrayList<Event> mEvents;       //The Array that will hold the Events that we will pass around(to Adapter,the List...)
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
@@ -123,28 +116,24 @@ public class MapsActivity extends FragmentActivity implements
 
     private void retrieveEvents(){
 
-        sqlu = new SQLUtils(url, user, pass); //Creating Object type SQLUtils using credentials needed
+        // Create the local DB object
 
-        Even= sqlu.Events();  //Imports the List of Events from the Database.
-        nmEvents= new Event[Even.size()];  //Assigning the new array where the events go.
+        SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
 
-        //Setting it into the new Array.
-        for(int i=0;i<nmEvents.length;i++)
-        {
-            nmEvents[i]=Even.get(i);
-        }
+        SQLiteUtils sqLiteUtils = new SQLiteUtils();
+        mEvents = sqLiteUtils.getEventInfo(dbHelper);
     }
 
     private void setEventMarkers(){
 
         final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout)findViewById(R.id.sliding_layout_upper);
 
-        for(int i=0;i<nmEvents.length;i++){
+        for(int i=0;i< mEvents.size();i++){
 
-            double eventLat = nmEvents[i].getEventLatitude();
-            double eventLng = nmEvents[i].getEventLongitude();
+            double eventLat = mEvents.get(i).getEventLatitude();
+            double eventLng = mEvents.get(i).getEventLongitude();
 
-            String eventName = nmEvents[i].getEventName();
+            String eventName = mEvents.get(i).getEventName();
 
             LatLng eventLocation = new LatLng(eventLat, eventLng);
 

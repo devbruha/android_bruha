@@ -16,8 +16,11 @@ import android.widget.Toast;
 
 import com.bruha.bruha.Adapters.ListviewAdapter;
 import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.MyApplication;
+import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.Processing.SQLUtils;
+import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.daimajia.swipe.util.Attributes;
 
@@ -38,28 +41,10 @@ public class ListActivity extends FragmentActivity {
 
     private UserCustomFilters mUserCustomFilters = new UserCustomFilters();
 
-    // Our database hostname and the credentials for our showdom_android account
-    String url = "jdbc:mysql://66.147.244.109:3306/showdomc_web2"; //
-    String user = "showdomc_android";
-    String pass = "show12345!";
-
-    SQLUtils sqlu ; //The SQLUtil object type that will be initialized later depending on the credentials given above.
     ArrayList<Event> mEvents = new ArrayList<>();       //The Array that will hold the Events that we will pass around(to Adapter,the List...
     ArrayList<Event> newEvent = new ArrayList<>();
-    ArrayList<Event> Backup= new ArrayList<>();         //Array Backup of the whole list,since mEvent changes when we update the adapter in filtersavebutton.
+    ArrayList<Event> Backup= new ArrayList<>();         //Array Backup of the whole list,since mEvent changes when we update the adapter in filter save button.
     ListviewAdapter adapter;
-
-    //Default Constructor for the class ListActivity
-    public ListActivity()
-    {
-        sqlu = new SQLUtils(url, user, pass); //Creating Object type SQLUtils using credentials needed
-        mEvents = sqlu.Events();
-
-        for(Event x:mEvents)
-        {
-            Backup.add(x);
-        }
-    }
 
     //Injecting Buttons using ButterKnife Library
     @InjectView(android.R.id.list) ListView mListView;
@@ -79,6 +64,8 @@ public class ListActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list2);
         ButterKnife.inject(this);                   //Injecting all the objects to be imported from above.
+
+        init();
 
         setUpFilters();
 
@@ -183,6 +170,22 @@ public class ListActivity extends FragmentActivity {
         });
     }
 
+    private void init(){
+
+        // Create the local DB object
+
+        SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
+
+        SQLiteUtils sqLiteUtils = new SQLiteUtils();
+        mEvents = sqLiteUtils.getEventInfo(dbHelper);
+
+        for(Event x:mEvents)
+        {
+            Backup.add(x);
+        }
+
+    }
+
     @OnClick(R.id.filterSaveButton)
     public void ImplementingButton(View view)  {
 
@@ -256,7 +259,7 @@ public class ListActivity extends FragmentActivity {
         }
 
 
-        //If none of the quickie feilds are selected,we check the calender dates.
+        //If none of the quickie fields are selected,we check the calender dates.
         else {
 
             //Getting the dates from the filter, filtering events out accordingly and setting the price along with it.
@@ -266,6 +269,7 @@ public class ListActivity extends FragmentActivity {
                     if (x.equals(Backup.get(i).getEventDate()) && Backup.get(i).getEventPrice() <= price) {
                         newEvent.add(Backup.get(i));
                     }
+
                     i++;
                 }
             }
