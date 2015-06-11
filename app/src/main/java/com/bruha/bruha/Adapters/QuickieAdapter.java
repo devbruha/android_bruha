@@ -1,6 +1,7 @@
 package com.bruha.bruha.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,9 +11,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bruha.bruha.Model.Items;
+import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Thomas on 5/22/2015.
@@ -23,7 +26,9 @@ public class QuickieAdapter {
     private LinearLayout mLinearListView;
     private ArrayList<Items> mMainList;
 
-    ArrayList<String> quickieFilters = new ArrayList<>();
+    ArrayList<String> calendarSelected;
+    ArrayList<Date> datesSaved;
+    ArrayList<String> quickieFilters;
 
     // boolean variables representing the upper and lower levels being selected
 
@@ -37,6 +42,10 @@ public class QuickieAdapter {
         this.mContext = context;
         this.mLinearListView = linearListView;
         this.mMainList = mainList;
+
+        calendarSelected = ((MyApplication) mContext.getApplicationContext()).getDatesSelected();
+        datesSaved = ((MyApplication) mContext.getApplicationContext()).getSavedDates();
+        quickieFilters = ((MyApplication) mContext.getApplicationContext()).getSavedQuickie();
     }
 
     public ArrayList<String> set(){
@@ -74,6 +83,7 @@ public class QuickieAdapter {
             //We must have allow the adapter to reconize click for both the list item AND the
             // image view which is why we have both of these similar functions
 
+
             mLinearFirstArrow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -92,6 +102,13 @@ public class QuickieAdapter {
                     }
                 }
             });
+
+            // If there are selected categories from previous activity, simulate click the first level
+
+            if(!quickieFilters.isEmpty()){
+
+                mLinearFirstArrow.performClick();
+            }
 
             // Setting the title of the parent item (in this case categories)
 
@@ -128,15 +145,21 @@ public class QuickieAdapter {
                 @Override
                 public void onClick(View v) {
 
+                    // If not previously opened, isFirstViewClick is false, therefore we open the
+                    // lower level rather than close it
+
                     if (isSecondViewClick == false) {
 
                         isSecondViewClick = true;
 
                         mSubItemName.setBackgroundResource(android.R.color.holo_blue_bright);
 
-                        quickieFilters.add(catName);
+                        if(!quickieFilters.contains(catName)){
 
-                    } else {
+                            quickieFilters.add(catName);
+                        }
+                    }
+                    else {
 
                         isSecondViewClick = false;
 
@@ -146,6 +169,14 @@ public class QuickieAdapter {
                     }
                 }
             });
+
+            if(quickieFilters.contains(catName)){
+
+                // simulating clicks if appropriate
+
+                isSecondViewClick = false;
+                childChildLayout.performClick();
+            }
 
             mSubItemName.setText(catName);
 
@@ -173,4 +204,5 @@ public class QuickieAdapter {
             image.setBackgroundResource(android.R.drawable.arrow_down_float);
         }
     }
+
 }

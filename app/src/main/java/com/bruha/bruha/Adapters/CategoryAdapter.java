@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bruha.bruha.Model.Items;
+import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.R;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class CategoryAdapter {
     // each string arrayList shall contain the primary category as its first index, then
     // each other index will represent the subcategory(s) selected
 
-    private Map<String, ArrayList<String>> mUserCategorySelected = new HashMap<String, ArrayList<String>>();
+    private Map<String, ArrayList<String>> mUserCategorySelected;
 
     // boolean variables representing the upper and lower levels being selected
 
@@ -48,6 +49,10 @@ public class CategoryAdapter {
         this.mContext = context;
         this.mLinearListView = linearListView;
         this.mMainList = mainList;
+
+        // Linking the local userCategories to the shared variable
+
+        mUserCategorySelected = ((MyApplication) mContext.getApplicationContext()).getSavedCategories();
     }
 
     public Map<String, ArrayList<String>> set(){
@@ -106,6 +111,13 @@ public class CategoryAdapter {
                 }
             });
 
+            if(!mUserCategorySelected.isEmpty()){
+
+                // If there are selected categories from previous activity, simulate click the first level
+
+                mLinearFirstArrow.performClick();
+            }
+
             // Setting the title of the parent item (in this case categories)
 
             final String name = mMainList.get(i).getpName();
@@ -131,14 +143,10 @@ public class CategoryAdapter {
             inflater2 = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View mLinearView2 = inflater2.inflate(R.layout.row_second, null);
 
-            TextView mSubItemName = (TextView) mLinearView2.findViewById(R.id.textViewTitle);
+            final TextView mSubItemName = (TextView) mLinearView2.findViewById(R.id.textViewTitle);
             final RelativeLayout mLinearSecondArrow=(RelativeLayout)mLinearView2.findViewById(R.id.linearSecond);
             final ImageView mImageArrowSecond=(ImageView)mLinearView2.findViewById(R.id.imageSecondArrow);
             final LinearLayout mLinearScrollThird=(LinearLayout)mLinearView2.findViewById(R.id.linear_scroll_third);
-
-            // Similar listeners implements as previously for list item clicks
-
-            isMenuOpen(isSecondViewClick, mImageArrowSecond, mLinearScrollThird);
 
             // Retrieving the name for the selected primary category
 
@@ -149,22 +157,29 @@ public class CategoryAdapter {
             mLinearSecondArrow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(isSecondViewClick==false)
-                    {
-                        isSecondViewClick=true;
+                    if (isSecondViewClick == false) {
+
+                        isSecondViewClick = true;
                         mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_down_float);
                         mLinearScrollThird.setVisibility(View.VISIBLE);
 
+                        mLinearSecondArrow.setBackgroundResource(android.R.color.holo_blue_dark);
+
                         // Each key of the hashmap shall be the primary category(s) selected
+                        // this is only if it does not already exist in the categories variable
+                        // in order to prevent duplicate entries
 
-                        ArrayList<String> primaryCategory = new ArrayList<String>();
-                        primaryCategory.add(catName);
+                        if (!mUserCategorySelected.containsKey(catName)) {
 
-                        mUserCategorySelected.put(catName, primaryCategory);
-                    }
-                    else
-                    {
-                        isSecondViewClick=false;
+                            ArrayList<String> primaryCategory = new ArrayList<String>();
+                            primaryCategory.add(catName);
+
+                            mUserCategorySelected.put(catName, primaryCategory);
+                        }
+                    } else {
+                        mLinearSecondArrow.setBackgroundResource(android.R.color.holo_orange_light);
+
+                        isSecondViewClick = false;
                         mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_up_float);
                         mLinearScrollThird.setVisibility(View.GONE);
 
@@ -175,13 +190,31 @@ public class CategoryAdapter {
                 }
             });
 
+            // Checking to see if there is a stored category variable
+            // if there is, the corresponding item is click simulated, aswell as inflated
+            // otherwise it is not
+
+            if(mUserCategorySelected.containsKey(catName)){
+
+                mLinearScrollThird.setVisibility(View.VISIBLE);
+                mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_down_float);
+
+                isSecondViewClick = false;
+                mLinearSecondArrow.performClick();
+            }
+            else{
+
+                mLinearScrollThird.setVisibility(View.GONE);
+                mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_up_float);
+            }
+
             // Sets the title of the child level (primary category)
 
             mSubItemName.setText(catName);
 
             // Goes in one more level to add the child-child (sub category)
 
-            addThirdRow(firstLevelNumber,j, mLinearScrollThird,catName);
+            addThirdRow(firstLevelNumber, j, mLinearScrollThird, catName);
 
             mLinearScrollSecond.addView(mLinearView2);
 
