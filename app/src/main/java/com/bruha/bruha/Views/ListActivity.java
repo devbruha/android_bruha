@@ -240,6 +240,7 @@ public class ListActivity extends FragmentActivity {
     {
         Intent intent=new Intent(this,MapsActivity.class);
         startActivity(intent);
+        finish();
     }
 
     //Button Implementation for navigating to the Dashboard from ListView.
@@ -248,5 +249,6 @@ public class ListActivity extends FragmentActivity {
     {
         Intent intent=new Intent(this,DashboardActivity.class);
         startActivity(intent);
+        finish();
     }
 }

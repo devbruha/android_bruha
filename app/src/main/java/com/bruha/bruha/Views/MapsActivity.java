@@ -1,5 +1,6 @@
 package com.bruha.bruha.Views;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
 import android.location.Location;
@@ -65,6 +66,11 @@ public class MapsActivity extends FragmentActivity implements
     protected String mLatitudeText;
     protected String mLongitudeText;
 
+    // Variables for the marker clicks one for lat/lng storing and one for the applicable events
+
+    LatLng venueLocation;
+    ArrayList<Event> selectedEvents = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,14 +78,16 @@ public class MapsActivity extends FragmentActivity implements
         setContentView(R.layout.activity_maps);
         ButterKnife.inject(this);
 
-        ArrayList<Event> Eve=new ArrayList<>();
-        Eve.add(new Event());
 
-        adapter=new MapListViewAdapter(this, Eve); //Calling the adapter ListView to help set the List
+
+
+        /*
+        adapter=new MapListViewAdapter(this, selectedEvents); //Calling the adapter ListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter
         ListView.setAdapter(adapter);
 
+*/
         // Map and Filter setup
 
         buildGoogleApiClient();
@@ -157,6 +165,26 @@ public class MapsActivity extends FragmentActivity implements
                 @Override
                 public boolean onMarkerClick(Marker marker) {
 
+                    selectedEvents.clear();
+                    venueLocation = marker.getPosition();
+
+                    double venueLat = venueLocation.latitude;
+                    double venueLon = venueLocation.longitude;
+
+                    for(int i = 0; i<mEvents.size(); i++){
+
+                        if(mEvents.get(i).getEventLatitude() == venueLat &&
+                                mEvents.get(i).getEventLongitude() == venueLon){
+
+                            selectedEvents.add(mEvents.get(i));
+                        }
+                    }
+
+
+                    SetAdapter();
+
+
+
                     mLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
                     return false;
                 }
@@ -171,6 +199,17 @@ public class MapsActivity extends FragmentActivity implements
 
         }
     }
+
+
+    private void SetAdapter()
+    {
+        adapter=new MapListViewAdapter(this, selectedEvents); //Calling the adapter ListView to help set the List
+
+        //Sets the Adapter from the class Listview Adapter
+        ListView.setAdapter(adapter);
+
+    }
+
 
     private void setUpperPanel(){
 
@@ -282,6 +321,7 @@ public class MapsActivity extends FragmentActivity implements
 
         Intent intent = new Intent(this, DashboardActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @OnClick(R.id.listButton)
@@ -289,6 +329,7 @@ public class MapsActivity extends FragmentActivity implements
 
         Intent intent = new Intent(this, ListActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @OnClick(R.id.filterSaveButton)

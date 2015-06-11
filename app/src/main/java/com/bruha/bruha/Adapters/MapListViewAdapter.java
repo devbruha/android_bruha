@@ -67,7 +67,7 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         final Event event = mEvent.get(position);
 
 
-        /*
+
         //Changing the text in the fields everytime.
         holder.Title.setText(event.getEventName());
         holder.Price.setText(event.getEventPrice()+"");
@@ -75,8 +75,8 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         holder.LocSt.setText(event.getEventLocSt());
         holder.LocAdd.setText(event.getEventLocAdd());
         holder.Hours.setText(event.getEventDate()+" At "+event.getEventStartTime());
-        holder.Picture.setImageResource();
-        */
+        //holder.Picture.setImageResource();
+
 
 
 
