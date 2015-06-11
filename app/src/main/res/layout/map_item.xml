@@ -13,7 +13,7 @@
     <LinearLayout
         android:tag="Bottom1"
         android:background="#66ddff00"
-        android:id="@+id/bottom_wrapper"
+        android:id="@+id/left_wrapper_map"
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
@@ -34,7 +34,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/mLinear"
+        android:id="@+id/MapRightSwipeLayout"
         android:orientation="horizontal"
         android:weightSum="9">
 
@@ -46,7 +46,7 @@
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:gravity="center"
-            android:id="@+id/BuyTicketRow">
+            android:id="@+id/MapBuyTicket">
 
 
             <LinearLayout
@@ -55,7 +55,7 @@
                 android:layout_height="match_parent"
                 android:background="#e2643faa"
                 android:gravity="center"
-                android:id="@+id/BuyTicketLayout">
+                android:id="@+id/MapBuyTicketLayout">
 
                 <TextView
                     android:textStyle="bold"
@@ -65,7 +65,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="B"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView16"/>
+                    android:id="@+id/MapTextView1"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -75,7 +75,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="U"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView18"/>
+                    android:id="@+id/MapTextView2"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -85,7 +85,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="Y"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView19"/>
+                    android:id="@+id/MapTextView3"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -95,7 +95,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text=" "
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView20"/>
+                    android:id="@+id/MapTextView4"/>
 
 
 
@@ -107,7 +107,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="T"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView21"/>
+                    android:id="@+id/MapTextView5"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -117,7 +117,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="I"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView22"/>
+                    android:id="@+id/MapTextView6"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -127,7 +127,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="C"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView23"/>
+                    android:id="@+id/MapTextView7"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -137,7 +137,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="K"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView24"/>
+                    android:id="@+id/MapTextView8"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -147,7 +147,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="E"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView25"/>
+                    android:id="@+id/MapTextView9"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -157,7 +157,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="T"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView26"/>
+                    android:id="@+id/MapTextView10"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -167,7 +167,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="S"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView27"/>
+                    android:id="@+id/MapTextView11"/>
                 <TextView
                     android:textColor="#e2643faa"
                     android:layout_width="match_parent"
@@ -176,7 +176,7 @@
                     android:text="LOLi"
                     android:visibility="invisible"
                     android:gravity="center_horizontal"
-                    android:id="@+id/SwipeBarsize1"/>
+                    android:id="@+id/MapSwipeBarSize1"/>
             </LinearLayout>
         </TableRow>
 
@@ -185,7 +185,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:id="@+id/PreviewRow">
+            android:id="@+id/MapPreview">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -193,7 +193,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:background="#cf075a52"
-                android:id="@+id/PreviewLayout">
+                android:id="@+id/MapPreviewLayout">
 
                 <TextView
                     android:textStyle="bold"
@@ -203,7 +203,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="P"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView30"/>
+                    android:id="@+id/MapTextView12"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -213,7 +213,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="R"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView31"/>
+                    android:id="@+id/MapTextView13"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -223,7 +223,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="E"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView32"/>
+                    android:id="@+id/MapTextView14"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -233,7 +233,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="V"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView33"/>
+                    android:id="@+id/MapTextView15"/>
 
 
 
@@ -245,7 +245,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="I"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView34"
+                    android:id="@+id/MapTextView16"
                     />
                 <TextView
                     android:textStyle="bold"
@@ -255,7 +255,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="E"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView35"/>
+                    android:id="@+id/MapTextView17"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -265,7 +265,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="W"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView36"/>
+                    android:id="@+id/MapTextView18"/>
 
                 <TextView
                     android:textColor="#cf075a52"
@@ -275,7 +275,7 @@
                     android:text="LOLi"
                     android:visibility="invisible"
                     android:gravity="center_horizontal"
-                    android:id="@+id/SwipeBarSize2"/>
+                    android:id="@+id/MapSwipeBarSize2"/>
 
 
             </LinearLayout>
@@ -287,7 +287,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:id="@+id/MoreInfoRow">
+            android:id="@+id/MapMoreInfo">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -295,7 +295,7 @@
                 android:layout_height="match_parent"
                 android:background="#afffba28"
                 android:gravity="center"
-                android:id="@+id/MoreInfoLayout">
+                android:id="@+id/MapMoreInfoLayout">
 
                 <TextView
                     android:textStyle="bold"
@@ -305,7 +305,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="M"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView38"/>
+                    android:id="@+id/MapTextView19"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -315,7 +315,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="O"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView39"/>
+                    android:id="@+id/MapTextView20"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -325,7 +325,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="R"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView40"/>
+                    android:id="@+id/MapTextView21"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -335,7 +335,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="E"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView41"/>
+                    android:id="@+id/MapTextView22"/>
 
 
 
@@ -347,7 +347,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text=" "
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView42"/>
+                    android:id="@+id/MapTextView23"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -357,7 +357,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="I"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView43"/>
+                    android:id="@+id/MapTextView24"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -367,7 +367,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="N"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView44"/>
+                    android:id="@+id/MapTextView25"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -377,7 +377,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="F"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView45"/>
+                    android:id="@+id/MapTextView26"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -387,7 +387,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="O"
                     android:gravity="center_horizontal"
-                    android:id="@+id/textView46"/>
+                    android:id="@+id/MapTextView27"/>
 
                 <TextView
                     android:textColor="#afffba28"
@@ -397,7 +397,7 @@
                     android:text="LOLi"
                     android:visibility="invisible"
                     android:gravity="center_horizontal"
-                    android:id="@+id/SwipeBarSize3"/>
+                    android:id="@+id/MapSwipeBarSize3"/>
 
             </LinearLayout>
         </TableRow>
@@ -407,225 +407,95 @@
         xmlns:swipe="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_gradient"
-        android:paddingTop="25dp"
-        android:paddingBottom="25dp"
-        android:id="@+id/LayoutToChange"
+        android:background="#B4000000"
+        android:id="@+id/MapMainLayout"
         >
 
+
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/ImageEventPicture"
-            android:layout_alignParentTop="true"
+            android:layout_width="120dp"
+            android:layout_height="100dp"
+            android:id="@+id/MapEventPicture"
+            android:src="#4565fe2b"
+            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="false"
-            android:scaleType="fitXY"
-            />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/VenueImageBubble"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/round"
-            android:alpha=".25"
-            android:focusable="false"
-            android:layout_weight="5"
-            />
-
-        <TextView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="The Arkells"
-            android:id="@+id/TextEventName"
-            android:textSize="20sp"
-            android:paddingBottom="8dp"
-
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/VenueIcon"
-            />
+            android:paddingLeft="10dp"
+            android:layout_alignParentEnd="false" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="December 25, 2015"
-            android:id="@+id/VenueName"
-            android:layout_centerInParent="true"
-            android:layout_below="@+id/TextEventName"
-            android:singleLine="true"
-            android:textSize="20dp"
-            android:paddingBottom="8dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="$25.00"
-            android:id="@+id/TextEventPrice"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/VenueName"
-            android:textSize="20sp"
-            android:paddingBottom="8dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1km"
-            android:id="@+id/VenueDistance"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/TextEventPrice"
-            android:textSize="12dp"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/VenueIcon"
-            android:src="@android:drawable/ic_secure"
-            android:layout_alignTop="@+id/VenueImageBubble"
-            android:layout_alignLeft="@+id/VenueDistance"
-            android:layout_alignStart="@+id/VenueDistance"
-            android:layout_marginTop="10dp"
-            android:paddingBottom="8dp"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#ffa2d8d8"
-            android:alpha="0.55"
-            android:id="@+id/DescriptionLayout"
-            android:layout_alignTop="@+id/VenueImageBubble"
+            android:text="Hamilton Bull Dogs - @home"
+            android:id="@+id/MapEventName"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:layout_above="@+id/MapEventPicture"
             android:layout_alignParentLeft="true"
-            android:layout_alignBottom="@+id/VenueImageBubble"
-            android:visibility="invisible">
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="5dp"
+            android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="$25.00"
-                android:id="@+id/DesEventPrice"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:textSize="20dp"
-                android:paddingRight="5dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$32.0"
+            android:id="@+id/MapEventPrice"
+            android:layout_above="@+id/MapEventPicture"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:layout_marginRight="5dp"
+            android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="The Arkells"
-                android:id="@+id/DesVenueName"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:textSize="20dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="5dp"
-                />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="First Ontario Place"
+            android:id="@+id/MapEventLocName"
+            android:layout_below="@+id/MapEventName"
+            android:layout_toRightOf="@+id/MapEventPicture"
+            android:layout_toEndOf="@+id/MapEventPicture"
+            android:textColor="#ffffff"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123 Bay St. North"
+            android:id="@+id/MapEventLocSt"
+            android:layout_below="@+id/MapEventLocName"
+            android:layout_toRightOf="@+id/MapEventPicture"
+            android:layout_toEndOf="@+id/MapEventPicture"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="5dp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hamilton, ON"
+            android:id="@+id/MapEventLocAddress"
+            android:layout_below="@+id/MapEventLocSt"
+            android:layout_toRightOf="@+id/MapEventPicture"
+            android:layout_toEndOf="@+id/MapEventPicture"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="5dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="X Lounge"
-                android:id="@+id/DesVenueLocName"
-                android:layout_below="@+id/DesVenueName"
-                android:paddingLeft="5dp"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Machtree St."
-                android:id="@+id/DesVenueLocStreet"
-                android:layout_below="@+id/DesVenueLocName"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:paddingLeft="5dp"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="GA 319204"
-                android:id="@+id/DesVenueLocAddress"
-                android:layout_below="@+id/DesVenueLocStreet"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:paddingLeft="5dp"
-                android:layout_marginBottom="5dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Start:"
-                android:id="@+id/VenueHourText"
-                android:textSize="10dp"
-                android:textStyle="bold"
-                android:layout_below="@+id/DesVenueLocAddress"
-                android:layout_alignParentLeft="true"
-                android:paddingLeft="5dp"
-                android:layout_alignParentStart="true"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="May 25, 2015"
-                android:id="@+id/DesEventStartDate"
-                android:paddingLeft="8dp"
-                android:textSize="10dp"
-                android:layout_below="@+id/VenueHourText"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="10:30 PM"
-                android:id="@+id/DesEventStartTime"
-                android:paddingLeft="8dp"
-                android:textSize="10dp"
-                android:layout_below="@+id/DesEventStartDate"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="5dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="End:"
-                android:id="@+id/PageEndText"
-                android:textSize="10dp"
-                android:paddingLeft="5dp"
-                android:textStyle="bold"
-                android:layout_below="@+id/DesEventStartTime"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="May 26,2015"
-                android:id="@+id/DesEventEndDate"
-                android:paddingLeft="8dp"
-                android:textSize="10dp"
-                android:layout_below="@+id/PageEndText"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2:00 AM"
-                android:id="@+id/DesEventEndTime"
-                android:paddingLeft="8dp"
-                android:textSize="10dp"
-                android:layout_below="@+id/DesEventEndDate"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"/>
-        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Friday May 21, 2015 at 7:00 pm"
+            android:id="@+id/MapEventStartDateAndTime"
+            android:layout_alignBottom="@+id/MapEventPicture"
+            android:layout_toRightOf="@+id/MapEventPicture"
+            android:layout_toEndOf="@+id/MapEventPicture"
+            android:textColor="#ffffff"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

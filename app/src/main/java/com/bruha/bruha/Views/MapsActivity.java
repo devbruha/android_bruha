@@ -10,8 +10,10 @@ import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.bruha.bruha.Adapters.MapListViewAdapter;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.UserCustomFilters;
@@ -31,6 +33,7 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import butterknife.InjectView;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -41,6 +44,9 @@ public class MapsActivity extends FragmentActivity implements
     ArrayList<Event> mEvents;       //The Array that will hold the Events that we will pass around(to Adapter,the List...)
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+
+    @InjectView(android.R.id.list) ListView ListView;
+    MapListViewAdapter adapter;
 
     private UserCustomFilters mUserCustomFilters = new UserCustomFilters();
 
@@ -65,6 +71,14 @@ public class MapsActivity extends FragmentActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         ButterKnife.inject(this);
+
+        ArrayList<Event> Eve=new ArrayList<>();
+        Eve.add(new Event());
+
+        adapter=new MapListViewAdapter(this, Eve); //Calling the adapter ListView to help set the List
+
+        //Sets the Adapter from the class Listview Adapter
+        ListView.setAdapter(adapter);
 
         // Map and Filter setup
 
