@@ -26,6 +26,7 @@
             android:layout_height="match_parent"
             android:gravity="bottom"
 
+            android:clickable="true"
             sothree:umanoDragView="@+id/dragView"
             sothree:umanoOverlay="true"
             sothree:umanoFadeColor="@android:color/transparent"

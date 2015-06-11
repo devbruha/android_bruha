@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.bruha.bruha.Adapters.CategoryAdapter;
 import com.bruha.bruha.Adapters.QuickieAdapter;
 import com.bruha.bruha.Model.Items;
+import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.Processing.FilterGen;
 import com.bruha.bruha.R;
@@ -41,7 +42,11 @@ public class FilterView {
     // Creating a CaldroidFragment object
     private CaldroidFragment caldroidFragment;
 
-    ArrayList<String> calendarSelected = new ArrayList<>();
+    ArrayList<String> calendarSelected;
+    ArrayList<Date> datesSaved;
+    ArrayList<String> quickieSaved;
+
+    int savedAdmissionPrice;
 
     // Casting the passed activity as a Fragment activity
     private FragmentActivity mActivity;
@@ -49,6 +54,13 @@ public class FilterView {
     public FilterView(FragmentActivity activity){
 
         mActivity = activity;
+
+        // Linking the local variables with their global counterparts
+
+        calendarSelected = ((MyApplication) mActivity.getApplicationContext()).getDatesSelected();
+        datesSaved = ((MyApplication) mActivity.getApplicationContext()).getSavedDates();
+        quickieSaved = ((MyApplication) mActivity.getApplicationContext()).getSavedQuickie();
+        savedAdmissionPrice = ((MyApplication) mActivity.getApplicationContext()).getSavedAdmissionPrice();
     }
 
     public UserCustomFilters init(){
@@ -96,6 +108,12 @@ public class FilterView {
         Button artistButton = (Button)mActivity.findViewById(R.id.artistButton);
         Button orgButton = (Button)mActivity.findViewById(R.id.orgButton);
 
+        // Finding the handle layout
+
+        LinearLayout handleLayout = (LinearLayout)mActivity.findViewById(R.id.handleLayout);
+
+        mLayout.setDragView(handleLayout);
+
         // Setting an anchor point at the halfway point
 
         mLayout.setAnchorPoint(.5f);
@@ -113,105 +131,28 @@ public class FilterView {
         // Storing the screen height into an int variable
         int height = size.y;
 
+        // Taking the status bar height into account for height calculations
+
+        int workingHeight = height - getStatusBarHeight();
+
         // Retrieves the current parameters of the layout and storing them in variable params
 
         ViewGroup.LayoutParams params = dragLayout.getLayoutParams();
 
-        // Re-setting the height parameter to .75 the max screen height
+        // Re-setting the height parameter to .65 the max screen height (status bar included)
 
-        params.height =  (int)Math.round(height*.75);
+        params.height =  (int)Math.round(workingHeight*.65);
+    }
 
-        // If device is API level 15 then we disable the drag while the sliding panel is expanded
+    // A function to determine the height of the status bar in all android devices
 
-        if(device_sdk == 15) {
-
-            mLayout.setPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
-                @Override
-                public void onPanelSlide(View view, float v) {
-
-                }
-
-                @Override
-                public void onPanelCollapsed(View view) {
-
-                }
-
-                @Override
-                public void onPanelExpanded(View view) {
-
-                    mLayout.setTouchEnabled(false);
-                }
-
-                @Override
-                public void onPanelAnchored(View view) {
-
-                }
-
-                @Override
-                public void onPanelHidden(View view) {
-
-                }
-            });
-
-        eventButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (mLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
-
-                } else {
-
-                    mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                    mLayout.setTouchEnabled(true);
-                }
-            }
-        });
-        venueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(mLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED){
-
-                }
-                else{
-
-                    mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                    mLayout.setTouchEnabled(true);
-                }
-            }
-        });
-
-        artistButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(mLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED){
-
-                }
-                else{
-
-                    mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                    mLayout.setTouchEnabled(true);
-                }
-            }
-        });
-
-        orgButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(mLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED){
-
-                }
-                else{
-
-                    mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                    mLayout.setTouchEnabled(true);
-                }
-            }
-        });
-
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = mActivity.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = mActivity.getResources().getDimensionPixelSize(resourceId);
         }
+        return result;
     }
 
     private ArrayList<String> setQuickieList(){
@@ -295,8 +236,21 @@ public class FilterView {
         cal.add(Calendar.DATE, 0);
         Date currentDate = cal.getTime();
 
-        caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_blue_light, currentDate);
-        calendarSelected.add(formatter.format(currentDate));
+        // Overriding the default background for current date
+
+        caldroidFragment.setBackgroundResourceForDate(android.R.color.black, currentDate);
+
+        // If there are dates from the previous activity, they are looped through and added visually
+
+        if(!datesSaved.isEmpty()){
+
+            for(int i = 0; i<datesSaved.size();i++){
+                caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_blue_light, datesSaved.get(i));
+            }
+        }
+
+        //caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_blue_light, currentDate);
+        //calendarSelected.add(formatter.format(currentDate));
 
 
         // Setup listener for date onClick
@@ -306,16 +260,20 @@ public class FilterView {
             public void onSelectDate(Date date, View view) {
 
                 // if the selected date has already been selected, set background to black and remove from
-                // date array list, other wise set background to light blue and add to array list
+                // date array list(s), other wise set background to light blue and add to array list
+                // we have two arraylists to store the dates as date variables aswell as formatted string
+                // variables
 
                 if(!calendarSelected.contains(formatter.format(date))){
 
                     caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_blue_light, date);
+                    datesSaved.add(date);
                     calendarSelected.add(formatter.format(date));
                 }
                 else{
 
                     caldroidFragment.setBackgroundResourceForDate(android.R.color.background_dark, date);
+                    datesSaved.remove(date);
                     calendarSelected.remove(formatter.format(date));
                 }
 
@@ -349,12 +307,19 @@ public class FilterView {
 
     private void setAdmissionPrice(){
 
-        // Storing both the seek bar and the price textview display
+        // Storing both the seek bar and the price textView display
 
         SeekBar mSeekBar = (SeekBar) mActivity.findViewById(R.id.priceBar);
         final TextView seekBarValue = (TextView)mActivity.findViewById(R.id.priceDisplay);
 
-        // Setting a listener for the seekbar changing values
+        if(savedAdmissionPrice > 0){
+
+            mSeekBar.setProgress(savedAdmissionPrice);
+        }
+
+        Log.v("admission", savedAdmissionPrice+"");
+
+        // Setting a listener for the seek bar changing values
 
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -369,6 +334,7 @@ public class FilterView {
                 }
 
                 // As the seekBar is changed we shall update the userCustomFilters aswell
+                savedAdmissionPrice = progress;
 
                 userCustomFilters.setAdmissionPriceFilter(progress);
             }
@@ -384,4 +350,5 @@ public class FilterView {
             }
         });
     }
+
 }

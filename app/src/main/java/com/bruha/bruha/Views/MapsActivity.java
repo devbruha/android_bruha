@@ -154,6 +154,7 @@ public class MapsActivity extends FragmentActivity implements
                     mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                 }
             });
+
         }
     }
 
@@ -162,6 +163,8 @@ public class MapsActivity extends FragmentActivity implements
         // Storing the sliding panel into mLayout
 
         LinearLayout mLayout = (LinearLayout)findViewById(R.id.dragViewUpper);
+
+        Log.v("Status bar height", getStatusBarHeight() + "");
 
         // Android functions to determine the screen dimensions
 
@@ -172,13 +175,28 @@ public class MapsActivity extends FragmentActivity implements
         // Storing the screen height into an int variable
         int height = size.y;
 
+        // Taking the status bar height into account for height calculations
+
+        int workingHeight = height - getStatusBarHeight();
+
         // Retrieves the current parameters of the layout and storing them in variable params
 
         ViewGroup.LayoutParams params = mLayout.getLayoutParams();
 
-        // Re-setting the height parameter to .25 the max screen height
+        // Re-setting the height parameter to .35 the max screen height (status bar included)
 
-        params.height =  (int)Math.round(height*.25);
+        params.height =  (int)Math.round(workingHeight*.35);
+    }
+
+    // A function to determine the height of the status bar present in android devices
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
     @Override
