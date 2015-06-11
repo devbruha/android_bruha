@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsListView;
@@ -15,11 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bruha.bruha.Adapters.ListviewAdapter;
+import com.bruha.bruha.Adapters.VenueListViewAdapter;
 import com.bruha.bruha.Model.Event;
-import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.UserCustomFilters;
-import com.bruha.bruha.Processing.SQLUtils;
+import com.bruha.bruha.Model.Venues;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.daimajia.swipe.util.Attributes;
@@ -28,10 +29,8 @@ import com.daimajia.swipe.util.Attributes;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Filter;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -79,96 +78,7 @@ public class ListActivity extends FragmentActivity {
         //Swipe stuff
         adapter.setMode(Attributes.Mode.Single);
 
-        //OnClick listener when Item on the list is tapped
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                //Assigning the Relative Layout that contains the detailed description.
-                RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.DescriptionLayout);
-
-                //Assigning the summary desciption stuff that will hide and reappear depending on the clicks.
-                ImageView Bubble = (ImageView) view.findViewById(R.id.EventImageBubble);
-                TextView EventName = (TextView) view.findViewById(R.id.TextEventName);
-                TextView EventDate = (TextView) view.findViewById(R.id.TextEventDate);
-                TextView EventPrice = (TextView) view.findViewById(R.id.TextEventPrice);
-                TextView EventDistance = (TextView) view.findViewById(R.id.TextEventDistance);
-
-
-                if(Clicks%2==0) {
-                    //Popping the detailed description into view.
-                    layout.setVisibility(View.VISIBLE);
-
-                    //Hiding the summary Description from view to display the detailed description.
-                    Bubble.setVisibility(View.INVISIBLE);
-                    EventName.setVisibility(View.INVISIBLE);
-                    EventDate.setVisibility(View.INVISIBLE);
-                    EventPrice.setVisibility(View.INVISIBLE);
-                    EventDistance.setVisibility(View.INVISIBLE);
-                }
-
-                else{
-                    //Hiding the detailed description upon the 2nd click.
-                    layout.setVisibility(View.INVISIBLE);
-
-                    //Displaying the summary description back upon the 2nd click.
-                    Bubble.setVisibility(View.VISIBLE);
-                    EventName.setVisibility(View.VISIBLE);
-                    EventDate.setVisibility(View.VISIBLE);
-                    EventPrice.setVisibility(View.VISIBLE);
-                    EventDistance.setVisibility(View.VISIBLE);
-                }
-
-                Clicks++; //Adds to the number of times the user has tapped on an item.
-            }
-        });
-
-        //Swipe Interface being Implemented
-
-        //What happens upon touching the ListView.
-        mListView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Log.e("ListView", "OnTouch");
-                return false;
-            }
-        });
-
-        //OnClick Listener when Item is tapped for a longer period of time
-        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-               //Just used for testing,ignore if not delete String name = mEvents[0].getEventName();
-               //Just used for testing,ignore if not delete  String nsize= mEvents.length + "" ;
-                Toast.makeText(view.getContext(), "OnItemLongClickListener" , Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        });
-
-        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                Log.e("ListView", "onScrollStateChanged");
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-            }
-        });
-
-        mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("ListView", "onItemSelected:" + position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Log.e("ListView", "onNothingSelected:");
-            }
-        });
     }
 
     private void init(){
@@ -184,6 +94,41 @@ public class ListActivity extends FragmentActivity {
         {
             Backup.add(x);
         }
+
+    }
+
+
+
+    //VenueButton Implemented to switch the ListView to show List of Venues.
+    @OnClick(R.id.venueButton)
+    public void VenueButton(View view)
+    {
+
+        VenueListViewAdapter venueAdapter;
+
+        ArrayList<Venues> mVenue= new ArrayList<>();
+        mVenue.add(new Venues());
+        mVenue.add(new Venues());
+        mVenue.add(new Venues());
+
+        //Creating an variable of type Listview Adapter to create the list view.
+
+        venueAdapter=new VenueListViewAdapter(this, mVenue); //Calling the adapter ListView to help set the List
+
+        //Sets the Adapter from the class Listview Adapter
+        mListView.setAdapter(venueAdapter);
+
+
+
+    }
+
+
+    @OnClick(R.id.eventButton)
+    public void eventButton(View view)
+    {
+
+        mListView.setAdapter(adapter);
+
 
     }
 
@@ -214,7 +159,7 @@ public class ListActivity extends FragmentActivity {
             for(Event event:Backup)
             {
                 if(event.getEventPrice() <= price)
-                newEvent.add(event);
+                    newEvent.add(event);
             }
         }
 

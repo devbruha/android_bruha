@@ -1,8 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context="com.bruha.bruha.Views.EventPageActivity"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bruha.bruha.Views.EventPageActivity"
 
     >
 
@@ -59,11 +59,21 @@
         android:layout_height="wrap_content"
         android:text="Start:"
         android:textStyle="bold"
-        android:id="@+id/PageStartText"
-        android:layout_below="@+id/PageEventPicture"
-        android:layout_alignLeft="@+id/PageEventName"
+        android:id="@+id/VenueHourText"
+        android:layout_below="@+id/PageEventName"
         android:layout_alignStart="@+id/PageEventName"
         android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Changes"
+        android:id="@+id/PageStartDateandTime"
+        android:layout_below="@+id/PageEventName"
+        android:layout_toRightOf="@+id/VenueHourText"
+        android:layout_toEndOf="@+id/VenueHourText"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -71,7 +81,7 @@
         android:textStyle="bold"
         android:text="End:"
         android:id="@+id/PageEndText"
-        android:layout_below="@+id/PageStartText"
+        android:layout_below="@+id/VenueHourText"
         android:layout_alignLeft="@+id/PageEventName"
         android:layout_alignStart="@+id/PageEventName"
         />
@@ -79,12 +89,34 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Changes"
+        android:id="@+id/PageEndDateandTime"
+        android:layout_below="@+id/VenueHourText"
+        android:layout_toRightOf="@+id/PageEndText"
+        android:layout_toEndOf="@+id/PageEndText"
+        android:layout_marginLeft="5dp"/>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Address:"
         android:id="@+id/PageAddressText"
+        android:textStyle="bold"
         android:layout_below="@+id/PageEndText"
-        android:layout_marginTop="6dp"
         android:layout_alignLeft="@+id/PageEventName"
         android:layout_alignStart="@+id/PageEventName"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Changes"
+        android:id="@+id/PageAddressLocation"
+        android:layout_below="@+id/PageEndText"
+        android:layout_toRightOf="@+id/PageAddressText"
+        android:layout_toEndOf="@+id/PageAddressText"
+        android:layout_marginLeft="5dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -94,6 +126,7 @@
         android:layout_below="@+id/PageAddressText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_marginTop="3dp"
         android:textSize="60sp"/>
 
     <TextView
