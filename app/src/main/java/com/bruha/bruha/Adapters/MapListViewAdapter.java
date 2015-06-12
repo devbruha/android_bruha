@@ -70,7 +70,7 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
 
         //Changing the text in the fields everytime.
         holder.Title.setText(event.getEventName());
-        holder.Price.setText(event.getEventPrice()+"");
+        holder.Price.setText("$"+event.getEventPrice());
         holder.LocName.setText(event.getEventLocName());
         holder.LocSt.setText(event.getEventLocSt());
         holder.LocAdd.setText(event.getEventLocAdd());

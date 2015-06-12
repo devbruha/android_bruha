@@ -1,6 +1,8 @@
 package com.bruha.bruha.Views;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -53,7 +56,14 @@ public class ListActivity extends FragmentActivity {
     //Injecting Buttons using ButterKnife Library
     @InjectView(android.R.id.list) ListView mListView;
 
+    @InjectView(R.id.venueButton) Button VenueButton;
+    @InjectView(R.id.artistButton) Button ArtistButton;
+    @InjectView(R.id.orgButton) Button OrgButton;
+    @InjectView(R.id.eventButton) Button EventButton;
+
     public static int Clicks=0; //The variable holding the number of times the user has tapped on a list item.
+
+
 
     private void setUpFilters(){
 
@@ -103,6 +113,18 @@ public class ListActivity extends FragmentActivity {
     public void VenueButton(View view)
     {
 
+        VenueButton.setTextColor(Color.BLUE);
+        VenueButton.setTypeface(null, Typeface.BOLD);
+
+        ArtistButton.setTypeface(null, Typeface.NORMAL);
+        OrgButton.setTypeface(null, Typeface.NORMAL);
+        EventButton.setTypeface(null, Typeface.NORMAL);
+
+
+        EventButton.setTextColor(Color.BLACK);
+        ArtistButton.setTextColor(Color.BLACK);
+        OrgButton.setTextColor(Color.BLACK);
+
         VenueListViewAdapter venueAdapter;
 
         ArrayList<Venues> mVenue= new ArrayList<>();
@@ -122,6 +144,17 @@ public class ListActivity extends FragmentActivity {
     @OnClick(R.id.orgButton)
     public void organizationButton(View view)
     {
+        OrgButton.setTextColor(Color.BLUE);
+        OrgButton.setTypeface(null, Typeface.BOLD);
+
+        VenueButton.setTypeface(null, Typeface.NORMAL);
+        ArtistButton.setTypeface(null, Typeface.NORMAL);
+        EventButton.setTypeface(null, Typeface.NORMAL);
+
+
+        VenueButton.setTextColor(Color.BLACK);
+        ArtistButton.setTextColor(Color.BLACK);
+        EventButton.setTextColor(Color.BLACK);
 
         OrganizationListViewAdapter OrgAdapter;
 
@@ -145,10 +178,36 @@ public class ListActivity extends FragmentActivity {
     public void eventButton(View view)
     {
         mListView.setAdapter(adapter);
+
+        EventButton.setTextColor(Color.BLUE);
+        EventButton.setTypeface(null, Typeface.BOLD);
+
+        VenueButton.setTypeface(null, Typeface.NORMAL);
+        OrgButton.setTypeface(null, Typeface.NORMAL);
+        ArtistButton.setTypeface(null, Typeface.NORMAL);
+
+        VenueButton.setTextColor(Color.BLACK);
+        ArtistButton.setTextColor(Color.BLACK);
+        OrgButton.setTextColor(Color.BLACK);
+
     }
 
     @OnClick(R.id.artistButton)
     public void artistButton(View view) {
+
+        ArtistButton.setTextColor(Color.BLUE);
+        ArtistButton.setTypeface(null, Typeface.BOLD);
+
+        VenueButton.setTypeface(null, Typeface.NORMAL);
+        OrgButton.setTypeface(null, Typeface.NORMAL);
+        EventButton.setTypeface(null, Typeface.NORMAL);
+
+
+        VenueButton.setTextColor(Color.BLACK);
+        EventButton.setTextColor(Color.BLACK);
+        OrgButton.setTextColor(Color.BLACK);
+
+
         ArtistsListViewAdapter Adapter;
 
         ArrayList<Artists> mArtists= new ArrayList<>();
