@@ -15,9 +15,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bruha.bruha.Adapters.ArtistsListViewAdapter;
 import com.bruha.bruha.Adapters.ListviewAdapter;
+import com.bruha.bruha.Adapters.OrganizationListViewAdapter;
 import com.bruha.bruha.Adapters.VenueListViewAdapter;
+import com.bruha.bruha.Model.Artists;
 import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.Model.Venues;
@@ -114,10 +118,50 @@ public class ListActivity extends FragmentActivity {
         mListView.setAdapter(venueAdapter);
     }
 
+    //VenueButton Implemented to switch the ListView to show List of Venues.
+    @OnClick(R.id.orgButton)
+    public void organizationButton(View view)
+    {
+
+        OrganizationListViewAdapter OrgAdapter;
+
+        ArrayList<Organizations> mOrganizations= new ArrayList<>();
+        mOrganizations.add(new Organizations());
+        mOrganizations.add(new Organizations());
+        mOrganizations.add(new Organizations());
+
+        //Creating an variable of type Listview Adapter to create the list view.
+
+        OrgAdapter=new OrganizationListViewAdapter(this, mOrganizations); //Calling the adapter ListView to help set the List
+
+        //Sets the Adapter from the class Listview Adapter
+        mListView.setAdapter(OrgAdapter);
+    }
+
+
+
+
     @OnClick(R.id.eventButton)
     public void eventButton(View view)
     {
         mListView.setAdapter(adapter);
+    }
+
+    @OnClick(R.id.artistButton)
+    public void artistButton(View view) {
+        ArtistsListViewAdapter Adapter;
+
+        ArrayList<Artists> mArtists= new ArrayList<>();
+        mArtists.add(new Artists());
+        mArtists.add(new Artists());
+        mArtists.add(new Artists());
+
+        //Creating an variable of type Listview Adapter to create the list view.
+
+        Adapter=new ArtistsListViewAdapter(this, mArtists); //Calling the adapter ListView to help set the List
+
+        //Sets the Adapter from the class Listview Adapter
+        mListView.setAdapter(Adapter);
     }
 
     @OnClick(R.id.filterSaveButton)

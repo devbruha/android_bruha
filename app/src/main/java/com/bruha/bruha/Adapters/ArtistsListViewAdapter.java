@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Point;
 import android.util.TypedValue;
 import android.view.Display;
@@ -17,37 +16,37 @@ import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.bruha.bruha.Model.Venues;
+import com.bruha.bruha.Model.Artists;
 import com.bruha.bruha.R;
-import com.bruha.bruha.Views.EventPageActivity;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 
 import java.util.ArrayList;
 
 /**
- * Created by Work on 2015-06-09.
+ * Created by Work on 2015-06-12.
  */
-public class VenueListViewAdapter extends BaseSwipeAdapter {
+public class ArtistsListViewAdapter extends BaseSwipeAdapter {
 
     private Activity mActivity;
-    private ArrayList<Venues> mVenue;
+    private ArrayList<Artists> mArtists;
     public static int Clicks=0;
 
-    public VenueListViewAdapter(Activity activity,ArrayList<Venues> venues)
+    public ArtistsListViewAdapter(Activity activity,ArrayList<Artists> artists)
     {
-        mActivity=activity;
-        mVenue=venues;
+        mActivity = activity;
+        mArtists = artists;
     }
+
 
     @Override
     public int getSwipeLayoutResourceId(int i) {
         return R.id.swipe;
     }
 
-    //Generates the view,look at ListViewAdapter when implementing this.
     @Override
     public View generateView(int position, ViewGroup viewGroup) {
+
         //Inflates the view to be used
         final View convertView = LayoutInflater.from(mActivity).inflate(R.layout.venue_item, viewGroup, false);
 
@@ -87,41 +86,39 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         });
 
         //Initializing each item to the required type
-        final Venues Venue = mVenue.get(position);
+        final Artists artist = mArtists.get(position);
 
         //Summary Description of the Venue.
-        holder.VenuePicture= (ImageView) convertView.findViewById(R.id.VenuePicture);
-        holder.VenueIcon = (ImageView) convertView.findViewById(R.id.VenueIcon);
-        holder.VenueName = (TextView) convertView.findViewById(R.id.VenueName);
-        holder.VenueDistance = (TextView) convertView.findViewById(R.id.VenueDistance);
+        holder.ArtistPicture= (ImageView) convertView.findViewById(R.id.VenuePicture);
+        holder.ArtistIcon = (ImageView) convertView.findViewById(R.id.VenueIcon);
+        holder.ArtistName = (TextView) convertView.findViewById(R.id.VenueName);
+        holder.ArtistDistance = (TextView) convertView.findViewById(R.id.VenueDistance);
 
         //Detailed Description of the Venue
-        holder.VenueLocName= (TextView) convertView.findViewById(R.id.DesVenueLocName);
-        holder.VenueLocSt= (TextView) convertView.findViewById(R.id.DesVenueLocStreet);
-        holder.VenueLocAdd= (TextView) convertView.findViewById(R.id.DesVenueLocAddress);
-        holder.VenueHourWeekDay= (TextView) convertView.findViewById(R.id.VenueMontoFriHour);
-        holder.VenueHourSaturday= (TextView) convertView.findViewById(R.id.VenueSaturdayHour);
-        holder.VenueHourSunday= (TextView) convertView.findViewById(R.id.VenueSundayHour);
+        holder.ArtistLocName= (TextView) convertView.findViewById(R.id.DesVenueLocName);
+        holder.ArtistLocSt= (TextView) convertView.findViewById(R.id.DesVenueLocStreet);
+        holder.ArtistLocAdd = (TextView) convertView.findViewById(R.id.DesVenueLocAddress);
+        holder.ArtistEventTiming= (TextView) convertView.findViewById(R.id.VenueMontoFriHour);
 
 
 
-/*
+
+
         //Setting all the text inside the view.
 
         //Summary being set.
-        holder.VenuePicture.setImageResource();
-        holder.VenueIcon.setImageResource();
-        holder.VenueName.setText();
-        holder.VenueDistance.setText();
+       // holder.ArtistPicture.setImageResource();
+       // holder.ArtistIcon.setImageResource();
+        holder.ArtistName.setText("The Arkells");
+        holder.ArtistDistance.setText("1.2 km");
 
         //Detailed Description being set.
-        holder.VenueLocName.setText();
-        holder.VenueLocSt.setText();
-        holder.VenueLocAdd.setText();
-        holder.VenueHourWeekDay.setText();
-        holder.VenueHourSaturday.setText();
-        holder.VenueHourSunday.setText();
-        */
+        holder.ArtistLocName.setText("X Lounge");
+        holder.ArtistLocSt.setText("1250 Main St. West");
+        holder.ArtistLocAdd.setText("Hamilton, ON Canada");
+        holder.ArtistEventTiming.setText("30 September,2015 At 3:30:00");
+
+
 
 
         //Swipe methods being Implemented
@@ -171,17 +168,14 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         });
 
 
-
-
-
         return convertView;
     }
 
 
-    //Use for resizing everything like in the Event ListViewAdapter.
+
+
     @Override
     public void fillValues(int i, View view) {
-
         //Assigning the ImageBubble to a variable to alter iits dimensions after with.
         ImageView circle = (ImageView) view.findViewById(R.id.VenueImageBubble);
 
@@ -260,50 +254,40 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
         TextView Swipe2 = (TextView) view.findViewById(R.id.VenueSwipeBarSize2);
         Swipe2.setTextSize(TypedValue.COMPLEX_UNIT_PX,x7);
-
-
     }
-
-
-
-
-
 
     @Override
     public int getCount() {
-        return mVenue.size();  //Returns length of the array of Events
+        return mArtists.size();  //Returns length of the array of Events
     }
 
     @Override
     public Object getItem(int position) {
-        return mVenue.get(position);  //Returns the Item being accessed in the the array
+        return mArtists.get(position);  //Returns the Item being accessed in the the array
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;  //Id of the Item being accessed in the view
+        return 0;
     }
-
 
     //A view holder that contain the things that need to be changed for every event
     private static class ViewHolder{
 
         //The values holding summary description of the Venue.
-        ImageView VenuePicture;
-        ImageView VenueIcon;
-        TextView VenueName;
-        TextView VenueDistance;
+        ImageView ArtistPicture;
+        ImageView ArtistIcon;
+        TextView ArtistName;
+        TextView ArtistDistance;
 
         //Values holding the detailed description of venues.
-        TextView VenueLocName;
-        TextView VenueLocSt;
-        TextView VenueLocAdd;
-        TextView VenueHourWeekDay;
-        TextView VenueHourSaturday;
-        TextView VenueHourSunday;
+        TextView ArtistLocName;
+        TextView ArtistLocSt;
+        TextView ArtistLocAdd;
+        TextView ArtistEventTiming;
+
 
     }
-
 
 
 }

@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Point;
 import android.util.TypedValue;
 import android.view.Display;
@@ -17,35 +16,37 @@ import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.bruha.bruha.Model.Venues;
+import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.R;
-import com.bruha.bruha.Views.EventPageActivity;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 /**
- * Created by Work on 2015-06-09.
+ * Created by Work on 2015-06-12.
  */
-public class VenueListViewAdapter extends BaseSwipeAdapter {
+public class OrganizationListViewAdapter extends BaseSwipeAdapter {
 
     private Activity mActivity;
-    private ArrayList<Venues> mVenue;
+    private ArrayList<Organizations> mOrganizations;
     public static int Clicks=0;
 
-    public VenueListViewAdapter(Activity activity,ArrayList<Venues> venues)
+    public OrganizationListViewAdapter(Activity activity,ArrayList<Organizations> organizations)
     {
         mActivity=activity;
-        mVenue=venues;
+        mOrganizations=organizations;
     }
+
+
 
     @Override
     public int getSwipeLayoutResourceId(int i) {
         return R.id.swipe;
     }
 
-    //Generates the view,look at ListViewAdapter when implementing this.
     @Override
     public View generateView(int position, ViewGroup viewGroup) {
         //Inflates the view to be used
@@ -61,6 +62,7 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
 
                 //Assigning the Relative Layout that contains the detailed description.
                 RelativeLayout layout = (RelativeLayout) v.findViewById(R.id.VenueDescriptionLayout);
+
                 //Assigning the summary description stuff that will hide and reappear depending on the clicks.
                 ImageView Bubble = (ImageView) v.findViewById(R.id.VenueImageBubble);
                 TextView OrganizationName = (TextView) v.findViewById(R.id.VenueName);
@@ -87,41 +89,45 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         });
 
         //Initializing each item to the required type
-        final Venues Venue = mVenue.get(position);
+        final Organizations artist = mOrganizations.get(position);
 
         //Summary Description of the Venue.
-        holder.VenuePicture= (ImageView) convertView.findViewById(R.id.VenuePicture);
-        holder.VenueIcon = (ImageView) convertView.findViewById(R.id.VenueIcon);
-        holder.VenueName = (TextView) convertView.findViewById(R.id.VenueName);
-        holder.VenueDistance = (TextView) convertView.findViewById(R.id.VenueDistance);
+        holder.OrganizationPicture= (ImageView) convertView.findViewById(R.id.VenuePicture);
+        holder.OrganizationIcon = (ImageView) convertView.findViewById(R.id.VenueIcon);
+        holder.OrganizationName = (TextView) convertView.findViewById(R.id.VenueName);
+        holder.OrganizationDistance = (TextView) convertView.findViewById(R.id.VenueDistance);
 
         //Detailed Description of the Venue
-        holder.VenueLocName= (TextView) convertView.findViewById(R.id.DesVenueLocName);
-        holder.VenueLocSt= (TextView) convertView.findViewById(R.id.DesVenueLocStreet);
-        holder.VenueLocAdd= (TextView) convertView.findViewById(R.id.DesVenueLocAddress);
-        holder.VenueHourWeekDay= (TextView) convertView.findViewById(R.id.VenueMontoFriHour);
-        holder.VenueHourSaturday= (TextView) convertView.findViewById(R.id.VenueSaturdayHour);
-        holder.VenueHourSunday= (TextView) convertView.findViewById(R.id.VenueSundayHour);
+        holder.OrganizationDetailedName= (TextView) convertView.findViewById(R.id.DesVenueName);
+        holder.OrganizationLocName= (TextView) convertView.findViewById(R.id.DesVenueLocName);
+        holder.OrganizationLocSt= (TextView) convertView.findViewById(R.id.DesVenueLocStreet);
+        holder.OrganizationLocAdd = (TextView) convertView.findViewById(R.id.DesVenueLocAddress);
+        holder.OrganizationWeekDayHours= (TextView) convertView.findViewById(R.id.VenueMontoFriHour);
+        holder.OrganizationSaturday = (TextView) convertView.findViewById(R.id.VenueSaturdayHour);
+        holder.OrganizationSunday = (TextView) convertView.findViewById(R.id.VenueSundayHour);
 
 
 
-/*
+
         //Setting all the text inside the view.
 
         //Summary being set.
-        holder.VenuePicture.setImageResource();
-        holder.VenueIcon.setImageResource();
-        holder.VenueName.setText();
-        holder.VenueDistance.setText();
+      //  holder.OrganizationPicture.setImageResource();
+      // holder.OrganizationIcon.setImageResource();
+        holder.OrganizationName.setText("The Forge");
+        holder.OrganizationDistance.setText("1.2 km");
 
         //Detailed Description being set.
-        holder.VenueLocName.setText();
-        holder.VenueLocSt.setText();
-        holder.VenueLocAdd.setText();
-        holder.VenueHourWeekDay.setText();
-        holder.VenueHourSaturday.setText();
-        holder.VenueHourSunday.setText();
-        */
+        holder.OrganizationDetailedName.setText("The Forge");
+        holder.OrganizationLocName.setText("McMaster Innovation Park");
+        holder.OrganizationLocSt.setText("Main at Longwood");
+        holder.OrganizationLocAdd.setText("Hamilton, ON Canada");
+        holder.OrganizationWeekDayHours.setText("Mon to Fri: 8 AM - 10 PM ");
+        holder.OrganizationSaturday.setText("Saturday: 10 AM - 5 PM");
+        holder.OrganizationSunday.setText("Sunday: Closed");
+
+
+
 
 
         //Swipe methods being Implemented
@@ -171,14 +177,12 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         });
 
 
-
-
-
         return convertView;
     }
 
 
-    //Use for resizing everything like in the Event ListViewAdapter.
+
+
     @Override
     public void fillValues(int i, View view) {
 
@@ -261,27 +265,27 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         TextView Swipe2 = (TextView) view.findViewById(R.id.VenueSwipeBarSize2);
         Swipe2.setTextSize(TypedValue.COMPLEX_UNIT_PX,x7);
 
-
     }
-
-
-
 
 
 
     @Override
     public int getCount() {
-        return mVenue.size();  //Returns length of the array of Events
+        return mOrganizations.size();
     }
+
+
 
     @Override
     public Object getItem(int position) {
-        return mVenue.get(position);  //Returns the Item being accessed in the the array
+        return mOrganizations.get(position);  //Returns the Item being accessed in the the array
     }
+
+
 
     @Override
     public long getItemId(int position) {
-        return 0;  //Id of the Item being accessed in the view
+        return 0;
     }
 
 
@@ -289,18 +293,20 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
     private static class ViewHolder{
 
         //The values holding summary description of the Venue.
-        ImageView VenuePicture;
-        ImageView VenueIcon;
-        TextView VenueName;
-        TextView VenueDistance;
+        ImageView OrganizationPicture;
+        ImageView OrganizationIcon;
+        TextView OrganizationName;
+        TextView OrganizationDistance;
 
         //Values holding the detailed description of venues.
-        TextView VenueLocName;
-        TextView VenueLocSt;
-        TextView VenueLocAdd;
-        TextView VenueHourWeekDay;
-        TextView VenueHourSaturday;
-        TextView VenueHourSunday;
+        TextView OrganizationDetailedName;
+        TextView OrganizationLocName;
+        TextView OrganizationLocSt;
+        TextView OrganizationLocAdd;
+        TextView OrganizationWeekDayHours;
+        TextView OrganizationSaturday;
+        TextView OrganizationSunday;
+
 
     }
 
