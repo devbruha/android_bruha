@@ -228,7 +228,7 @@ public class ListActivity extends FragmentActivity {
 
         Adapter=new ArtistsListViewAdapter(this, mArtists); //Calling the adapter ListView to help set the List
 
-        //Sets the Adapter from the class Listview Adapter
+        //Sets the Adapter from the class Listview Adapter.
         mListView.setAdapter(Adapter);
     }
 
