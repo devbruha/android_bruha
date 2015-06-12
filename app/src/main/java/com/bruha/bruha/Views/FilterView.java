@@ -37,7 +37,7 @@ public class FilterView {
 
     // Creating a UserCustomFilters object to store user filters
 
-    UserCustomFilters userCustomFilters = new UserCustomFilters();
+    UserCustomFilters userCustomFilters;
 
     // Creating a CaldroidFragment object
     private CaldroidFragment caldroidFragment;
@@ -45,8 +45,6 @@ public class FilterView {
     ArrayList<String> calendarSelected;
     ArrayList<Date> datesSaved;
     ArrayList<String> quickieSaved;
-
-    int savedAdmissionPrice;
 
     // Casting the passed activity as a Fragment activity
     private FragmentActivity mActivity;
@@ -57,10 +55,11 @@ public class FilterView {
 
         // Linking the local variables with their global counterparts
 
+        userCustomFilters = ((MyApplication) mActivity.getApplicationContext()).getUserCustomFilters();
+
         calendarSelected = ((MyApplication) mActivity.getApplicationContext()).getDatesSelected();
         datesSaved = ((MyApplication) mActivity.getApplicationContext()).getSavedDates();
         quickieSaved = ((MyApplication) mActivity.getApplicationContext()).getSavedQuickie();
-        savedAdmissionPrice = ((MyApplication) mActivity.getApplicationContext()).getSavedAdmissionPrice();
     }
 
     public UserCustomFilters init(){
@@ -277,6 +276,8 @@ public class FilterView {
                     calendarSelected.remove(formatter.format(date));
                 }
 
+                userCustomFilters.setNonFormattedDateFilter(datesSaved);
+
                 caldroidFragment.refreshView();
             }
         };
@@ -312,12 +313,11 @@ public class FilterView {
         SeekBar mSeekBar = (SeekBar) mActivity.findViewById(R.id.priceBar);
         final TextView seekBarValue = (TextView)mActivity.findViewById(R.id.priceDisplay);
 
-        if(savedAdmissionPrice > 0){
+        if(userCustomFilters.getAdmissionPriceFilter() > 0){
 
-            mSeekBar.setProgress(savedAdmissionPrice);
+            mSeekBar.setProgress(userCustomFilters.getAdmissionPriceFilter());
+            seekBarValue.setText(String.valueOf(userCustomFilters.getAdmissionPriceFilter()) + " $");
         }
-
-        Log.v("admission", savedAdmissionPrice+"");
 
         // Setting a listener for the seek bar changing values
 
@@ -334,7 +334,8 @@ public class FilterView {
                 }
 
                 // As the seekBar is changed we shall update the userCustomFilters aswell
-                savedAdmissionPrice = progress;
+
+                Log.v("progress test", progress+"");
 
                 userCustomFilters.setAdmissionPriceFilter(progress);
             }

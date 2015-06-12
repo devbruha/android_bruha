@@ -77,8 +77,6 @@ public class ListActivity extends FragmentActivity {
 
         //Swipe stuff
         adapter.setMode(Attributes.Mode.Single);
-
-
     }
 
     private void init(){
@@ -94,10 +92,7 @@ public class ListActivity extends FragmentActivity {
         {
             Backup.add(x);
         }
-
     }
-
-
 
     //VenueButton Implemented to switch the ListView to show List of Venues.
     @OnClick(R.id.venueButton)
@@ -117,19 +112,12 @@ public class ListActivity extends FragmentActivity {
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(venueAdapter);
-
-
-
     }
-
 
     @OnClick(R.id.eventButton)
     public void eventButton(View view)
     {
-
         mListView.setAdapter(adapter);
-
-
     }
 
     @OnClick(R.id.filterSaveButton)
@@ -210,9 +198,7 @@ public class ListActivity extends FragmentActivity {
             }
         }
 
-
         //If none of the quickie fields are selected,we check the calender dates.
-
 
         //Getting the dates from the filter, filtering events out accordingly and setting the price along with it.
         for (String x : Dates) {
@@ -226,12 +212,9 @@ public class ListActivity extends FragmentActivity {
             }
         }
 
-
-
         adapter.getData().clear();
         adapter.getData().addAll(newEvent);
         mListView.setAdapter(adapter);
-
     }
 
     //Button Implementation for navigating to the Map from ListView.
