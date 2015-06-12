@@ -52,6 +52,7 @@ public class ListActivity extends FragmentActivity {
     ArrayList<Event> newEvent = new ArrayList<>();
     ArrayList<Event> Backup= new ArrayList<>();         //Array Backup of the whole list,since mEvent changes when we update the adapter in filter save button.
     ListviewAdapter adapter;
+    ArrayList<Event> MBACKUP = new ArrayList<>();
 
     //Injecting Buttons using ButterKnife Library
     @InjectView(android.R.id.list) ListView mListView;
@@ -106,6 +107,14 @@ public class ListActivity extends FragmentActivity {
         {
             Backup.add(x);
         }
+
+        for(Event x:mEvents)
+        {
+            MBACKUP.add(x);
+        }
+
+
+
     }
 
     //VenueButton Implemented to switch the ListView to show List of Venues.
@@ -226,11 +235,11 @@ public class ListActivity extends FragmentActivity {
     @OnClick(R.id.filterSaveButton)
     public void ImplementingButton(View view)  {
 
-        ArrayList<String> Filters = new ArrayList<>();
+        ArrayList<String> Filters;
 
         //To make sure it is empty beforehand.
         newEvent.clear();
-        Filters.clear();
+
 
         //Obtaining all the filters that the user selected.
         List<String> Dates= mUserCustomFilters.getDateFilter();
@@ -314,6 +323,18 @@ public class ListActivity extends FragmentActivity {
                 i++;
             }
         }
+
+
+        for(Event x:newEvent)
+        { Log.v("NewEvent:",x.getEventName()); }
+
+
+        for(Event y:Backup) {
+            Log.v("Backup:",y.getEventName());
+        }
+
+
+        Filters.clear();
 
         adapter.getData().clear();
         adapter.getData().addAll(newEvent);
