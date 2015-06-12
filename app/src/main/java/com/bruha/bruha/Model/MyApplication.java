@@ -15,6 +15,8 @@ import java.util.Map;
  */
 public class MyApplication extends Application{
 
+    UserCustomFilters userCustomFilters = new UserCustomFilters();
+
     ArrayList<String> savedQuickie = new ArrayList<>();
 
     // Two calendar variables for different formats depending on tasks
@@ -24,7 +26,7 @@ public class MyApplication extends Application{
 
     Map<String, ArrayList<String>> savedCategories = new HashMap<>();
 
-    int savedAdmissionPrice;
+    int savedAdmissionPrice = 0;
 
     public ArrayList<String> getDatesSelected(){
 
@@ -49,6 +51,11 @@ public class MyApplication extends Application{
     public int getSavedAdmissionPrice(){
 
         return savedAdmissionPrice;
+    }
+
+    public UserCustomFilters getUserCustomFilters(){
+
+        return userCustomFilters;
     }
 
 

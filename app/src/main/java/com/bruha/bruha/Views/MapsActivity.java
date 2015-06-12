@@ -180,10 +180,7 @@ public class MapsActivity extends FragmentActivity implements
                         }
                     }
 
-
                     SetAdapter();
-
-
 
                     mLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
                     return false;
@@ -207,15 +204,17 @@ public class MapsActivity extends FragmentActivity implements
 
         //Sets the Adapter from the class Listview Adapter
         ListView.setAdapter(adapter);
-
     }
-
 
     private void setUpperPanel(){
 
         // Storing the sliding panel into mLayout
 
         LinearLayout mLayout = (LinearLayout)findViewById(R.id.dragViewUpper);
+
+        SlidingUpPanelLayout mSlidingPanel = (SlidingUpPanelLayout)findViewById(R.id.sliding_layout_upper);
+
+        mSlidingPanel.setTouchEnabled(false);
 
         Log.v("Status bar height", getStatusBarHeight() + "");
 
@@ -339,8 +338,8 @@ public class MapsActivity extends FragmentActivity implements
 
         Log.v("Big Filter Test", mUserCustomFilters.getQuickieFilter()+"");
         Log.v("Big Filter Test", mUserCustomFilters.getDateFilter()+"");
+        Log.v("Big Filter Test", mUserCustomFilters.getNonFormattedDateFilter()+"");
         Log.v("Big Filter Test", mUserCustomFilters.getCategoryFilter().keySet() + "");
         Log.v("Big Filter Test", mUserCustomFilters.getAdmissionPriceFilter() + "");
-
     }
 }
