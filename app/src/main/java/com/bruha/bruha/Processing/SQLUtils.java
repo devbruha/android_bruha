@@ -33,6 +33,7 @@ public class SQLUtils {
     // Initializing a list to store the results from "rs" to pass back to other activity
     ArrayList<String> user_info = new ArrayList<>();
     ArrayList<Event> Events = new ArrayList<>();
+    ArrayList<Event> UserEvents = new ArrayList<>();
 
     // Error code to be used for user notification
 
@@ -259,12 +260,13 @@ public class SQLUtils {
 
                         user_info.add(rs.getString("user_id"));
                         user_info.add(rs.getString("name"));
+                        user_info.add(rs.getString("gender"));
 
-                        Date birthdate = rs.getDate("birtthdate");
+                        Date birthdate = rs.getDate("birtth_date");
                         String birthdateString = birthdate + "";
                         user_info.add(birthdateString);
 
-                        user_info.add(rs.getString("gender"));
+
                     }
 
                     //Closing both the statement and the connection
@@ -303,8 +305,380 @@ public class SQLUtils {
             e.printStackTrace();
         }
 
+        Log.v("Size of UserInfo is",user_info.size()+"");
         return user_info;
     }
+
+
+    //This method sets the price of the Event in the EventList.
+    public ArrayList<Event> userEvents() {
+
+        Thread thread;
+
+        thread= new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Instantiating the JDBC library
+                    Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+                    // Creating a connection using the passed in URL, username, and password
+                    Connection c = DriverManager.getConnection(CONNECTION_URL, user, pass);
+
+
+
+                    String UserId= user_info.get(0) ;
+                   // String UserId= "TestAccount";
+
+                    String sql = "SELECT * " + "FROM events " + "WHERE user_id= '" + UserId + "' "  ;
+
+
+                    Statement st = c.createStatement();
+
+                    // Creating a result set from the results of the query
+                    rs = st.executeQuery(sql);
+
+                    // A loop to run through all values from the resultSet
+                    while (rs.next()) {
+                        Event event = new Event();
+                        event.setEventName(rs.getString("event_name"));
+                        event.setEventDescription(rs.getString("event_desc"));
+                        event.setEventid(rs.getString("event_id"));
+                        event.setVenueid(rs.getString("venue_id"));
+                        event.setLocationID(rs.getString("location_id"));
+
+                        UserEvents.add(event);
+                    }
+
+                    //Closing both the statement and the connection
+                    st.close();
+                    c.close();
+                }
+
+                catch (ClassNotFoundException e) {
+
+                    e.printStackTrace();
+                }
+
+                catch (SQLException e) {
+
+                    e.printStackTrace();
+                    errorCode = e.getErrorCode()+"";
+                    Log.v(DB_DEBUGGING, errorCode + "");
+                    Log.v(DB_DEBUGGING, e.getMessage());
+                }
+
+                catch (Exception e){
+                    e.printStackTrace();
+                    String message = e.getMessage();
+                    Log.v(DB_DEBUGGING, message);
+                }
+            }
+        });
+
+        thread.start();
+
+        // Running thread.join so ensure the operation finishes before the main thread returns
+        // the errorCode value
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        UserEventsTickets();
+        UserEventsTimings();
+        UserEventsVenue();
+        UserEventsLocation();
+
+        return UserEvents;
+    }
+
+    //HERE
+
+
+
+    //This method sets the price of the Event in the EventList.
+    public void UserEventsTickets() {
+        Thread thread;
+
+        thread= new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Instantiating the JDBC library
+                    Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+                    // Creating a connection using the passed in URL, username, and password
+                    Connection c = DriverManager.getConnection(CONNECTION_URL, user, pass);
+
+
+                    //Setting the price.
+                    for(Event Ev: UserEvents) {
+
+                        String Eventid = Ev.getEventid();
+                        String sql = "SELECT * " + "FROM event_tickets " + "WHERE event_id= "+Eventid+" " ;
+
+
+                        Statement st = c.createStatement();
+
+                        // Creating a result set from the results of the query
+                        rs = st.executeQuery(sql);
+
+                        if(rs.next()) {
+                            double price = Double.parseDouble(rs.getString("admission_price"));
+                            Ev.setEventPrice(price);
+                        }
+
+                        //Closing both the statement and the connection
+                        st.close();
+                    }
+
+                    c.close();
+                }
+
+                catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                catch (SQLException e) {
+                    e.printStackTrace();
+                    errorCode = e.getErrorCode()+"";
+                    Log.v(DB_DEBUGGING, errorCode + "");
+                    Log.v(DB_DEBUGGING, e.getMessage());
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    String message = e.getMessage();
+                    Log.v(DB_DEBUGGING, message);
+                }
+            }
+        });
+
+        thread.start();
+
+        // Running thread.join so ensure the operation finishes before the main thread returns
+        // the errorCode value
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    //This methods sets the Venue Location/Address of the List of Events.
+    public void UserEventsVenue() {
+
+        Thread thread;
+
+        thread= new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Instantiating the JDBC library
+                    Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+                    // Creating a connection using the passed in URL, username, and password
+                    Connection c = DriverManager.getConnection(CONNECTION_URL, user, pass);
+
+                    for(Event Ev: UserEvents) {
+
+
+                        String Venueid = Ev.getVenueid();
+                        String sql = "SELECT * " + "FROM venues " + "WHERE venue_id= "+Venueid+" ";
+
+                        Statement st = c.createStatement();
+
+                        // Creating a result set from the results of the query
+                        rs = st.executeQuery(sql);
+
+                        // A loop to run through all values from the resultSet
+                        if (rs.next()) {
+                            Ev.setEventLocName(rs.getString("venue_name"));
+                            Ev.setEventLocSt(rs.getString("venue_location"));
+                            Ev.setEventLocAdd(rs.getString("venue_desc"));
+                        }
+
+                        //Closing both the statement and the connection
+                        st.close();
+                    }
+                    c.close();
+                }
+
+                catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                catch (SQLException e) {
+                    e.printStackTrace();
+                    errorCode = e.getErrorCode()+"";
+                    Log.v(DB_DEBUGGING, errorCode + "");
+                    Log.v(DB_DEBUGGING, e.getMessage());
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    String message = e.getMessage();
+                    Log.v(DB_DEBUGGING, message);
+                }
+            }
+        });
+
+        thread.start();
+
+        // Running thread.join so ensure the operation finishes before the main thread returns
+        // the errorCode value
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    //This method sets the timing of the Event in the EventList.
+    public void UserEventsTimings() {
+
+        Thread thread;
+
+        thread= new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Instantiating the JDBC library
+                    Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+                    // Creating a connection using the passed in URL, username, and password
+                    Connection c = DriverManager.getConnection(CONNECTION_URL, user, pass);
+
+                    for(Event Ev: UserEvents) {
+
+                        String Eventid = Ev.getEventid();
+                        String sql = "SELECT * " + "FROM events_timings " + "WHERE event_id= " + Eventid + "  ";
+
+                        Statement st = c.createStatement();
+
+                        // Creating a result set from the results of the query
+                        rs = st.executeQuery(sql);
+
+                        if(rs.next()) {
+                            Ev.setEventDate(rs.getString("evnt_start_date"));
+                            Ev.setEventStartTime(rs.getString("event_start_time"));
+                            Ev.setEventEndDate(rs.getString("event_end_date"));
+                            Ev.setEventEndTime(rs.getString("event_end_time"));
+                        }
+
+                        //Closing both the statement and the connection
+                        st.close();
+                    }
+                    c.close();
+                }
+
+                catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                catch (SQLException e) {
+                    e.printStackTrace();
+                    errorCode = e.getErrorCode()+"";
+                    Log.v(DB_DEBUGGING, errorCode + "");
+                    Log.v(DB_DEBUGGING, e.getMessage());
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    String message = e.getMessage();
+                    Log.v(DB_DEBUGGING, message);
+                }
+            }
+        });
+
+        thread.start();
+
+        // Running thread.join so ensure the operation finishes before the main thread returns
+        // the errorCode value
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //This method sets the timing of the Event in the EventList.
+    public void UserEventsLocation() {
+
+        Thread thread;
+
+        thread= new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Instantiating the JDBC library
+                    Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+                    // Creating a connection using the passed in URL, username, and password
+                    Connection c = DriverManager.getConnection(CONNECTION_URL, user, pass);
+
+                    for(Event Ev: UserEvents) {
+
+                        String locationID = Ev.getLocationID();
+                        String sql = "SELECT * " + "FROM locations " + "WHERE location_id= " + locationID + " ";
+
+                        Statement st = c.createStatement();
+
+                        // Creating a result set from the results of the query
+                        rs = st.executeQuery(sql);
+
+                        if(rs.next()) {
+                            Ev.setEventLatitude(rs.getDouble("lat"));
+                            Ev.setEventLongitude(rs.getDouble("lng"));
+                        }
+
+                        //Closing both the statement and the connection
+                        st.close();
+                    }
+                    c.close();
+                }
+
+                catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                catch (SQLException e) {
+                    e.printStackTrace();
+                    errorCode = e.getErrorCode()+"";
+                    Log.v(DB_DEBUGGING, errorCode + "");
+                    Log.v(DB_DEBUGGING, e.getMessage());
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    String message = e.getMessage();
+                    Log.v(DB_DEBUGGING, message);
+                }
+            }
+        });
+
+        thread.start();
+
+        // Running thread.join so ensure the operation finishes before the main thread returns
+        // the errorCode value
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+//HERE
 
     //This method sets the price of the Event in the EventList.
     public void EventsTickets() {

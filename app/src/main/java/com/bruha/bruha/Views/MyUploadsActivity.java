@@ -9,6 +9,7 @@ import android.widget.ListView;
 import com.bruha.bruha.Adapters.ListviewAdapter;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
+import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 
@@ -46,14 +47,13 @@ public class MyUploadsActivity extends ActionBarActivity {
 
     private void init(){
 
+
         // Create the local DB object
 
         SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
 
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
-        mEvents = sqLiteUtils.getEventInfo(dbHelper);
-
-
+        mEvents = sqLiteUtils.getUserEventInfo(dbHelper);
 
     }
 
