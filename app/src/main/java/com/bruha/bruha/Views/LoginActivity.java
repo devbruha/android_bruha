@@ -245,6 +245,7 @@ public class LoginActivity extends ActionBarActivity {
 
                 // Start the next activity right here
                 Intent intent = new Intent(this, DashboardActivity.class);
+                intent.putExtra("Logged","YES");
                 startActivity(intent);
 
                 break;

@@ -46,15 +46,12 @@ public class MyUploadsActivity extends ActionBarActivity {
 
 
     private void init(){
-
-
         // Create the local DB object
 
         SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
 
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
         mEvents = sqLiteUtils.getUserEventInfo(dbHelper);
-
     }
 
 

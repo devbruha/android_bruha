@@ -65,6 +65,7 @@ public class SplashActivity extends Activity {
     @OnClick(R.id.noLoginButton)
     public void noLogin(View view){
         Intent intent = new Intent(this, DashboardActivity.class);
+        intent.putExtra("Logged","NO");
         startActivity(intent);
     }
 
