@@ -111,7 +111,7 @@ public class DashboardActivity extends ActionBarActivity {
     //OnClickListener for "Explore" that leads to the Upload Activity.
     @OnClick(R.id.UploadButton)
     public void startUploadActivity(View view){
-        Intent intent = new Intent(this, MapsActivity.class);
+        Intent intent = new Intent(this, MyUploadsActivity.class);
         startActivity(intent);
     }
 

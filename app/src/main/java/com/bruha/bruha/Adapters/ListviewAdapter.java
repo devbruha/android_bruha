@@ -41,6 +41,26 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         mEvents = events;
     }
 
+
+    public String TimeFormat(String Time)
+    {
+        String Hour= Time.substring(0,2);
+        String Min= Time.substring(3, 5);
+        double hr= Double.parseDouble(Hour);
+        int t= (int) (hr/12);
+        String M= "";
+        if(t==0)
+        {M="AM" ;}
+        else { M= "PM" ; }
+        hr=hr%12;
+        int x= (int) hr;
+        Hour= x+"";
+        String time = Hour + ":" + Min + " " + M;
+        return time;
+
+    }
+
+
     //Method to Format the Date that will be displayed.
     public String dateFormat(String Date)
     {
@@ -199,9 +219,9 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         holder.EventLocSt.setText(event.getEventLocSt());
         holder.EventLocAdd.setText(event.getEventLocAdd());
         holder.EventStartDate.setText(dateFormat(event.getEventDate()));
-        holder.EventStartTime.setText(event.getEventStartTime());
+        holder.EventStartTime.setText(TimeFormat(event.getEventStartTime()));
         holder.EventEndDate.setText(dateFormat(event.getEventEndDate()));
-        holder.EventEndTime.setText(event.getEventEndTime());
+        holder.EventEndTime.setText(TimeFormat(event.getEventEndTime()));
 
         //Swipe methods being Implemented
         SwipeLayout swipeLayout = (SwipeLayout)convertView.findViewById(getSwipeLayoutResourceId(position));

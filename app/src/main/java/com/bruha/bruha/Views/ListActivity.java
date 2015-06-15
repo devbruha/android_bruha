@@ -52,7 +52,6 @@ public class ListActivity extends FragmentActivity {
     ArrayList<Event> newEvent = new ArrayList<>();
     ArrayList<Event> Backup= new ArrayList<>();         //Array Backup of the whole list,since mEvent changes when we update the adapter in filter save button.
     ListviewAdapter adapter;
-    ArrayList<Event> MBACKUP = new ArrayList<>();
 
     //Injecting Buttons using ButterKnife Library
     @InjectView(android.R.id.list) ListView mListView;
@@ -108,10 +107,6 @@ public class ListActivity extends FragmentActivity {
             Backup.add(x);
         }
 
-        for(Event x:mEvents)
-        {
-            MBACKUP.add(x);
-        }
 
 
 

@@ -39,6 +39,75 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         mEvent=event;
     }
 
+
+    //Checks if it is a free event, if so, Displays it.
+    public String freeEventCheck(double price)
+    {
+        if(price==0.0)
+        {return "Free!";}
+        else {return "$"+price; }
+    }
+
+
+    public String TimeFormat(String Time)
+    {
+        String Hour= Time.substring(0,2);
+        String Min= Time.substring(3, 5);
+        double hr= Double.parseDouble(Hour);
+        int t= (int) (hr/12);
+        String M= "";
+        if(t==0)
+        {M="AM" ;}
+        else { M= "PM" ; }
+        hr=hr%12;
+        int x= (int) hr;
+        Hour= x+"";
+        String time = Hour + ":" + Min + " " + M;
+        return time;
+
+    }
+
+
+    //Method to Format the Date that will be displayed.
+    public String dateFormat(String Date)
+    {
+        String year=Date.substring(0,4);
+        String Month=Date.substring(5,7);
+        String Dates=Date.substring(8,10);
+        String Displayed=getMonth(Month)+ " " + Dates + "," + year;
+        return Displayed;
+    }
+
+    //Part of the Implementation of the dateFormat Method.
+    public String getMonth(String Month)
+    {
+        if(Month.equals("01"))
+            Month="January";
+        if(Month.equals("02"))
+            Month="Febuary";
+        if(Month.equals("03"))
+            Month="March";
+        if(Month.equals("04"))
+            Month="April";
+        if(Month.equals("05"))
+            Month="May";
+        if(Month.equals("06"))
+            Month="June";
+        if(Month.equals("07"))
+            Month="July";
+        if(Month.equals("08"))
+            Month="August";
+        if(Month.equals("09"))
+            Month="September";
+        if(Month.equals("10"))
+            Month="October";
+        if(Month.equals("11"))
+            Month="November";
+        if(Month.equals("12"))
+            Month="December";
+        return Month;
+    }
+
     @Override
     public int getSwipeLayoutResourceId(int i) {
         return R.id.swipe;
@@ -70,11 +139,11 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
 
         //Changing the text in the fields everytime.
         holder.Title.setText(event.getEventName());
-        holder.Price.setText("$"+event.getEventPrice());
+        holder.Price.setText(freeEventCheck(event.getEventPrice()));
         holder.LocName.setText(event.getEventLocName());
         holder.LocSt.setText(event.getEventLocSt());
         holder.LocAdd.setText(event.getEventLocAdd());
-        holder.Hours.setText(event.getEventDate()+" At "+event.getEventStartTime());
+        holder.Hours.setText(dateFormat(event.getEventDate())+" At "+TimeFormat(event.getEventStartTime()));
         //holder.Picture.setImageResource();
 
 

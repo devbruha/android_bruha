@@ -79,6 +79,7 @@
     <string name="title_activity_splash_tickets">SplashTickets</string>
     <string name="title_activity_event_page">EventPageActivity</string>
     <string name="title_activity_load_screen">LoadScreenActivity</string>
+    <string name="title_activity_my_uploads">MyUploadsActivity</string>
 
 
 
