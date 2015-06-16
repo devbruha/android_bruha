@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.daimajia.swipe.SwipeLayout
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    swipe:leftEdgeSwipeOffset="0dp"
+    swipe:rightEdgeSwipeOffset="0dp">
+
+
+    <LinearLayout
+        android:tag="Bottom1"
+        android:background="#66ddff00"
+        android:id="@+id/left_wrapper_mapven"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Like!"
+            android:textStyle="bold"
+            android:background="#66ddff00"
+            android:textColor="#ffffff"
+            android:id="@+id/button"/>
+
+
+    </LinearLayout>
+
+    <!--The Linear Layout of the sliding panal -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/MapvenRightSwipeLayout"
+        android:orientation="horizontal"
+        android:weightSum="6">
+
+        <!--Table Rows which are the buttons -->
+
+
+        <!--TableRow Button 2 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:id="@+id/venMapPreview">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="#cf075a52"
+                android:id="@+id/venMapPreviewLayout">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="P"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/MapTextView12"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="R"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/MapTextView13"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="E"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/MapTextView14"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="V"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/MapTextView15"/>
+
+
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="I"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/MapTextView16"
+                    />
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="E"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/MapTextView17"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="W"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/MapTextView18"/>
+
+                <TextView
+                    android:textColor="#cf075a52"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="LOLi"
+                    android:visibility="invisible"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/venMapSwipeBarSize1"/>
+
+
+            </LinearLayout>
+
+        </TableRow>
+
+        <!--TableRow Button 3 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:id="@+id/venMapMoreInfo">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#afffba28"
+                android:gravity="center"
+                android:id="@+id/venMapMoreInfoLayout">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="M"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/MapTextView19"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="O"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/MapTextView20"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="R"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/MapTextView21"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="E"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/MapTextView22"/>
+
+
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text=" "
+                    android:gravity="center_horizontal"
+                    android:id="@+id/MapTextView23"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="I"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/MapTextView24"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="N"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/MapTextView25"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="F"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/MapTextView26"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="O"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/MapTextView27"/>
+
+                <TextView
+                    android:textColor="#afffba28"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="LOLi"
+                    android:visibility="invisible"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/venMapSwipeBarSize2"/>
+
+            </LinearLayout>
+        </TableRow>
+    </LinearLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:swipe="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B4000000"
+        android:id="@+id/venMapMainLayout"
+        >
+
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="100dp"
+            android:id="@+id/MapEventPicture"
+            android:src="#4565fe2b"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="false"
+            android:paddingLeft="10dp"
+            android:layout_alignParentEnd="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hamilton Bull Dogs - @home"
+            android:id="@+id/MapEventName"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:layout_above="@+id/MapEventPicture"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="5dp"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$32.0"
+            android:id="@+id/MapEventPrice"
+            android:layout_above="@+id/MapEventPicture"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:layout_marginRight="5dp"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="First Ontario Place"
+            android:id="@+id/MapEventLocName"
+            android:layout_below="@+id/MapEventName"
+            android:layout_toRightOf="@+id/MapEventPicture"
+            android:layout_toEndOf="@+id/MapEventPicture"
+            android:textColor="#ffffff"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123 Bay St. North"
+            android:id="@+id/MapEventLocSt"
+            android:layout_below="@+id/MapEventLocName"
+            android:layout_toRightOf="@+id/MapEventPicture"
+            android:layout_toEndOf="@+id/MapEventPicture"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hamilton, ON"
+            android:id="@+id/MapEventLocAddress"
+            android:layout_below="@+id/MapEventLocSt"
+            android:layout_toRightOf="@+id/MapEventPicture"
+            android:layout_toEndOf="@+id/MapEventPicture"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Friday May 21, 2015 at 7:00 pm"
+            android:id="@+id/MapEventStartDateAndTime"
+            android:layout_alignBottom="@+id/MapEventPicture"
+            android:layout_toRightOf="@+id/MapEventPicture"
+            android:layout_toEndOf="@+id/MapEventPicture"
+            android:textColor="#ffffff"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+</com.daimajia.swipe.SwipeLayout>

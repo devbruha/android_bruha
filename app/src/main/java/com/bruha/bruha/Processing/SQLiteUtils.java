@@ -30,6 +30,12 @@ public class SQLiteUtils {
 
     }
 
+    public void insertUserEvents(SQLiteDatabaseModel dbHelper, ArrayList<Event> events){
+
+        dbHelper.addUserEvents(events);
+
+    }
+
     public void getUserInfo(SQLiteDatabaseModel dbHelper){
 
         dbHelper.retrieveUserInfo();
@@ -40,5 +46,10 @@ public class SQLiteUtils {
         return dbhelper.retrieveEventInfo();
     }
 
+
+    public ArrayList<Event> getUserEventInfo(SQLiteDatabaseModel dbhelper){
+
+        return dbhelper.retrieveUserEventInfo();
+    }
 
 }

@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -12,6 +13,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bruha.bruha.R;
 
@@ -22,11 +25,80 @@ import butterknife.OnClick;
 
 public class DashboardActivity extends ActionBarActivity {
 
+    @InjectView(R.id.UploadButton) TextView MyUploadButton;
+    @InjectView(R.id.TicketButton) TextView MyTicketButton;
+    @InjectView(R.id.ProfileButton) TextView ProfileButton;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         ButterKnife.inject(this);
+
+
+        //The MyUploadButton's implementation.
+        String IfLogged = getIntent().getStringExtra("Logged");
+        if(IfLogged.equals("YES"))
+        {
+
+            //MyUpload Button's Implementation.
+            MyUploadButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startUploadActivity(v);
+                }
+            });
+
+            //MyTicket Button's Implementation.
+            MyTicketButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startTicketAcitivity(v);
+                }
+            });
+
+            //Profile Button's Implementation
+            ProfileButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startProfileActivity(v);
+                }
+            });
+        }
+        else {
+
+            //UploadButton's Implementation.
+            MyUploadButton.setTextColor(Color.WHITE);
+            MyUploadButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(),"You Gotta Login First!!",Toast.LENGTH_LONG).show();
+                }
+            });
+
+            //TicketButton's Implementation.
+            MyTicketButton.setTextColor(Color.WHITE);
+            MyTicketButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(),"You Gotta Login First!!",Toast.LENGTH_LONG).show();
+                }
+            });
+
+            //Profile Button's Implementation
+            ProfileButton.setTextColor(Color.WHITE);
+            ProfileButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(),"You Gotta Login First!!",Toast.LENGTH_LONG).show();
+                }
+            });
+
+        }
+
 
 
         //Shade Animator for MapButton
@@ -109,9 +181,9 @@ public class DashboardActivity extends ActionBarActivity {
     }
 
     //OnClickListener for "Explore" that leads to the Upload Activity.
-    @OnClick(R.id.UploadButton)
+
     public void startUploadActivity(View view){
-        Intent intent = new Intent(this, MapsActivity.class);
+        Intent intent = new Intent(this, MyUploadsActivity.class);
         startActivity(intent);
     }
 

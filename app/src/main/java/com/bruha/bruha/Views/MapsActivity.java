@@ -14,10 +14,16 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.bruha.bruha.Adapters.MapArtistListViewAdapter;
 import com.bruha.bruha.Adapters.MapListViewAdapter;
+import com.bruha.bruha.Adapters.MapOrganizationListViewAdapter;
+import com.bruha.bruha.Adapters.MapVenListViewAdapter;
+import com.bruha.bruha.Model.Artists;
 import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.UserCustomFilters;
+import com.bruha.bruha.Model.Venues;
 import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;

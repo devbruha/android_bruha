@@ -1,6 +1,8 @@
 package com.bruha.bruha.Views;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,15 +11,20 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bruha.bruha.Adapters.ArtistsListViewAdapter;
 import com.bruha.bruha.Adapters.ListviewAdapter;
+import com.bruha.bruha.Adapters.OrganizationListViewAdapter;
 import com.bruha.bruha.Adapters.VenueListViewAdapter;
+import com.bruha.bruha.Model.Artists;
 import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.Model.Venues;
@@ -49,7 +56,14 @@ public class ListActivity extends FragmentActivity {
     //Injecting Buttons using ButterKnife Library
     @InjectView(android.R.id.list) ListView mListView;
 
+    @InjectView(R.id.venueButton) Button VenueButton;
+    @InjectView(R.id.artistButton) Button ArtistButton;
+    @InjectView(R.id.orgButton) Button OrgButton;
+    @InjectView(R.id.eventButton) Button EventButton;
+
     public static int Clicks=0; //The variable holding the number of times the user has tapped on a list item.
+
+
 
     private void setUpFilters(){
 
@@ -92,12 +106,28 @@ public class ListActivity extends FragmentActivity {
         {
             Backup.add(x);
         }
+
+
+
+
     }
 
     //VenueButton Implemented to switch the ListView to show List of Venues.
     @OnClick(R.id.venueButton)
     public void VenueButton(View view)
     {
+
+        VenueButton.setTextColor(Color.BLUE);
+        VenueButton.setTypeface(null, Typeface.BOLD);
+
+        ArtistButton.setTypeface(null, Typeface.NORMAL);
+        OrgButton.setTypeface(null, Typeface.NORMAL);
+        EventButton.setTypeface(null, Typeface.NORMAL);
+
+
+        EventButton.setTextColor(Color.BLACK);
+        ArtistButton.setTextColor(Color.BLACK);
+        OrgButton.setTextColor(Color.BLACK);
 
         VenueListViewAdapter venueAdapter;
 
@@ -114,20 +144,97 @@ public class ListActivity extends FragmentActivity {
         mListView.setAdapter(venueAdapter);
     }
 
+    //VenueButton Implemented to switch the ListView to show List of Venues.
+    @OnClick(R.id.orgButton)
+    public void organizationButton(View view)
+    {
+        OrgButton.setTextColor(Color.BLUE);
+        OrgButton.setTypeface(null, Typeface.BOLD);
+
+        VenueButton.setTypeface(null, Typeface.NORMAL);
+        ArtistButton.setTypeface(null, Typeface.NORMAL);
+        EventButton.setTypeface(null, Typeface.NORMAL);
+
+
+        VenueButton.setTextColor(Color.BLACK);
+        ArtistButton.setTextColor(Color.BLACK);
+        EventButton.setTextColor(Color.BLACK);
+
+        OrganizationListViewAdapter OrgAdapter;
+
+        ArrayList<Organizations> mOrganizations= new ArrayList<>();
+        mOrganizations.add(new Organizations());
+        mOrganizations.add(new Organizations());
+        mOrganizations.add(new Organizations());
+
+        //Creating an variable of type Listview Adapter to create the list view.
+
+        OrgAdapter=new OrganizationListViewAdapter(this, mOrganizations); //Calling the adapter ListView to help set the List
+
+        //Sets the Adapter from the class Listview Adapter
+        mListView.setAdapter(OrgAdapter);
+    }
+
+
+
+
     @OnClick(R.id.eventButton)
     public void eventButton(View view)
     {
         mListView.setAdapter(adapter);
+
+        EventButton.setTextColor(Color.BLUE);
+        EventButton.setTypeface(null, Typeface.BOLD);
+
+        VenueButton.setTypeface(null, Typeface.NORMAL);
+        OrgButton.setTypeface(null, Typeface.NORMAL);
+        ArtistButton.setTypeface(null, Typeface.NORMAL);
+
+        VenueButton.setTextColor(Color.BLACK);
+        ArtistButton.setTextColor(Color.BLACK);
+        OrgButton.setTextColor(Color.BLACK);
+
+    }
+
+    @OnClick(R.id.artistButton)
+    public void artistButton(View view) {
+
+        ArtistButton.setTextColor(Color.BLUE);
+        ArtistButton.setTypeface(null, Typeface.BOLD);
+
+        VenueButton.setTypeface(null, Typeface.NORMAL);
+        OrgButton.setTypeface(null, Typeface.NORMAL);
+        EventButton.setTypeface(null, Typeface.NORMAL);
+
+
+        VenueButton.setTextColor(Color.BLACK);
+        EventButton.setTextColor(Color.BLACK);
+        OrgButton.setTextColor(Color.BLACK);
+
+
+        ArtistsListViewAdapter Adapter;
+
+        ArrayList<Artists> mArtists= new ArrayList<>();
+        mArtists.add(new Artists());
+        mArtists.add(new Artists());
+        mArtists.add(new Artists());
+
+        //Creating an variable of type Listview Adapter to create the list view.
+
+        Adapter=new ArtistsListViewAdapter(this, mArtists); //Calling the adapter ListView to help set the List
+
+        //Sets the Adapter from the class Listview Adapter.
+        mListView.setAdapter(Adapter);
     }
 
     @OnClick(R.id.filterSaveButton)
     public void ImplementingButton(View view)  {
 
-        ArrayList<String> Filters = new ArrayList<>();
+        ArrayList<String> Filters;
 
         //To make sure it is empty beforehand.
         newEvent.clear();
-        Filters.clear();
+
 
         //Obtaining all the filters that the user selected.
         List<String> Dates= mUserCustomFilters.getDateFilter();
@@ -211,6 +318,18 @@ public class ListActivity extends FragmentActivity {
                 i++;
             }
         }
+
+
+        for(Event x:newEvent)
+        { Log.v("NewEvent:",x.getEventName()); }
+
+
+        for(Event y:Backup) {
+            Log.v("Backup:",y.getEventName());
+        }
+
+
+        Filters.clear();
 
         adapter.getData().clear();
         adapter.getData().addAll(newEvent);

@@ -13,11 +13,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
+import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -223,14 +225,17 @@ public class LoginActivity extends ActionBarActivity {
                 // Storing the user_info value into a list
 
                 List<String> user_info = sqlu.loginDatabasePush(username);
+                ArrayList<Event> userEvents = sqlu.userEvents();
 
                 // Passing the newly created list and SQLite DB to next class to perform the
                 // insertion into the local DB
 
                 SQLiteUtils sqLiteUtils = new SQLiteUtils();
+
                 sqLiteUtils.insertNewUser(dbHelper, user_info);
                 sqLiteUtils.getUserInfo(dbHelper);
 
+                sqLiteUtils.insertUserEvents(dbHelper,userEvents);
 
                 // Alerting user of successfull login
 
@@ -239,12 +244,16 @@ public class LoginActivity extends ActionBarActivity {
                         res.getString(R.string.success_message_login));
 
                 // Start the next activity right here
+                Intent intent = new Intent(this, DashboardActivity.class);
+                intent.putExtra("Logged","YES");
+                startActivity(intent);
 
                 break;
 
             default:
                 alertUserAboutError("Dev Error"+response, "Error " + response);
                 break;
+
         }
     }
 

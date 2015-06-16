@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Point;
 import android.util.TypedValue;
 import android.view.Display;
@@ -16,96 +15,24 @@ import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.Artists;
 import com.bruha.bruha.R;
-import com.bruha.bruha.Views.EventPageActivity;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 /**
- * Created by Work on 2015-06-10.
+ * Created by Work on 2015-06-12.
  */
-public class MapListViewAdapter extends BaseSwipeAdapter {
+public class MapArtistListViewAdapter extends BaseSwipeAdapter {
     private Activity mActivity;
-    private ArrayList<Event> mEvent;
+    private ArrayList<Artists> mArtists;
 
-    public MapListViewAdapter(Activity activity,ArrayList<Event> event)
+    public MapArtistListViewAdapter(Activity activity,ArrayList<Artists> artists)
     {
         mActivity=activity;
-        mEvent=event;
-    }
-
-
-    //Checks if it is a free event, if so, Displays it.
-    public String freeEventCheck(double price)
-    {
-        if(price==0.0)
-        {return "Free!";}
-        else {return "$"+price; }
-    }
-
-
-    public String TimeFormat(String Time)
-    {
-        String Hour= Time.substring(0,2);
-        String Min= Time.substring(3, 5);
-        double hr= Double.parseDouble(Hour);
-        int t= (int) (hr/12);
-        String M= "";
-        if(t==0)
-        {M="AM" ;}
-        else { M= "PM" ; }
-        hr=hr%12;
-        int x= (int) hr;
-        Hour= x+"";
-        String time = Hour + ":" + Min + " " + M;
-        return time;
-
-    }
-
-
-    //Method to Format the Date that will be displayed.
-    public String dateFormat(String Date)
-    {
-        String year=Date.substring(0,4);
-        String Month=Date.substring(5,7);
-        String Dates=Date.substring(8,10);
-        String Displayed=getMonth(Month)+ " " + Dates + "," + year;
-        return Displayed;
-    }
-
-    //Part of the Implementation of the dateFormat Method.
-    public String getMonth(String Month)
-    {
-        if(Month.equals("01"))
-            Month="January";
-        if(Month.equals("02"))
-            Month="Febuary";
-        if(Month.equals("03"))
-            Month="March";
-        if(Month.equals("04"))
-            Month="April";
-        if(Month.equals("05"))
-            Month="May";
-        if(Month.equals("06"))
-            Month="June";
-        if(Month.equals("07"))
-            Month="July";
-        if(Month.equals("08"))
-            Month="August";
-        if(Month.equals("09"))
-            Month="September";
-        if(Month.equals("10"))
-            Month="October";
-        if(Month.equals("11"))
-            Month="November";
-        if(Month.equals("12"))
-            Month="December";
-        return Month;
+        mArtists=artists;
     }
 
     @Override
@@ -116,7 +43,7 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
     //Generates the view,look at ListViewAdapter when implementing this.
     @Override
     public View generateView(int position, ViewGroup viewGroup) {
-        final View convertView = LayoutInflater.from(mActivity).inflate(R.layout.map_item, viewGroup, false);
+        final View convertView = LayoutInflater.from(mActivity).inflate(R.layout.map_ven_item, viewGroup, false);
 
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
 
@@ -133,18 +60,19 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         holder.Hours= (TextView) convertView.findViewById(R.id.MapEventStartDateAndTime);
 
         //Initializing each item to the required type
-        final Event event = mEvent.get(position);
+        final Artists artist = mArtists.get(position);
+
 
 
 
         //Changing the text in the fields everytime.
-        holder.Title.setText(event.getEventName());
-        holder.Price.setText(freeEventCheck(event.getEventPrice()));
-        holder.LocName.setText(event.getEventLocName());
-        holder.LocSt.setText(event.getEventLocSt());
-        holder.LocAdd.setText(event.getEventLocAdd());
-        holder.Hours.setText(dateFormat(event.getEventDate())+" At "+TimeFormat(event.getEventStartTime()));
-        //holder.Picture.setImageResource();
+        holder.Title.setText("The Arkells");
+        holder.Price.setText("$20.50");
+        holder.LocName.setText("McMaster University");
+        holder.LocSt.setText("1280 Main St. West");
+        holder.LocAdd.setText("Hamilton, ON Canada");
+        holder.Hours.setText("20 September, 2015 At 8:30 PM");
+        // holder.Picture.setImageResource();
 
 
 
@@ -153,36 +81,18 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         //Swipe methods being Implemented
         SwipeLayout swipeLayout = (SwipeLayout)convertView.findViewById(getSwipeLayoutResourceId(position));
         swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
-        swipeLayout.addDrag(SwipeLayout.DragEdge.Left, convertView.findViewById(R.id.left_wrapper_map));
-        swipeLayout.addDrag(SwipeLayout.DragEdge.Right, convertView.findViewById(R.id.MapRightSwipeLayout));
+        swipeLayout.addDrag(SwipeLayout.DragEdge.Left, convertView.findViewById(R.id.left_wrapper_mapven));
+        swipeLayout.addDrag(SwipeLayout.DragEdge.Right, convertView.findViewById(R.id.MapvenRightSwipeLayout));
 
 
 
-        //Implements the Button 'Buy Ticket' that appears after swipe right,Shows Button Highlight for half a second when clicked.
-        TableRow GoBuyTicketPage = (TableRow) convertView.findViewById(R.id.MapBuyTicket);
-        GoBuyTicketPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final LinearLayout BuyTicketLayout= (LinearLayout) convertView.findViewById(R.id.MapBuyTicketLayout);
-                ObjectAnimator animator = ObjectAnimator.ofFloat(BuyTicketLayout, "alpha", 1f, 0.5f);
-                animator.setDuration(500);
-                animator.addListener(new AnimatorListenerAdapter() {
-                    public void onAnimationEnd(Animator animation) {
-                        BuyTicketLayout.setAlpha(1f);
-                        //Intent intent = new Intent(mActivity, DashboardActivity.class);
-                        //mActivity.startActivity(intent);
-                    }
-                });
-                animator.start();
-            }
-        });
 
         //Implements the Button 'Preview' that appears after swipe right,Shows Button Highlight for half a second when clicked.
-        TableRow GoPreviewPage  = (TableRow) convertView.findViewById(R.id.MapPreview);
+        TableRow GoPreviewPage  = (TableRow) convertView.findViewById(R.id.venMapPreview);
         GoPreviewPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final LinearLayout PreviewLayout= (LinearLayout) convertView.findViewById(R.id.MapPreviewLayout);
+                final LinearLayout PreviewLayout= (LinearLayout) convertView.findViewById(R.id.venMapPreviewLayout);
                 ObjectAnimator animator = ObjectAnimator.ofFloat(PreviewLayout, "alpha", 1f, 0.5f);
                 animator.setDuration(500);
                 animator.addListener(new AnimatorListenerAdapter() {
@@ -197,19 +107,19 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         });
 
         //Implements the Button 'More Info' that appears after swipe right,Shows Button Highlight for half a second when clicked.
-        TableRow GoMoreInfoPage = (TableRow) convertView.findViewById(R.id.MapMoreInfo);
+        TableRow GoMoreInfoPage = (TableRow) convertView.findViewById(R.id.venMapMoreInfo);
         GoMoreInfoPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final LinearLayout MoreInfoLay = (LinearLayout) convertView.findViewById(R.id.MapMoreInfoLayout);
+                final LinearLayout MoreInfoLay = (LinearLayout) convertView.findViewById(R.id.venMapMoreInfoLayout);
                 ObjectAnimator animator = ObjectAnimator.ofFloat(MoreInfoLay, "alpha", 1f, 0.5f);
                 animator.setDuration(500);
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
                         MoreInfoLay.setAlpha(1f);
-                        Intent intent = new Intent(mActivity, EventPageActivity.class);
-                        intent.putExtra("EventId", event.getEventid());
-                        mActivity.startActivity(intent);
+                        //  Intent intent = new Intent(mActivity, EventPageActivity.class);
+                        //  intent.putExtra("EventId", event.getEventid());
+                        // mActivity.startActivity(intent);
                     }
                 });
                 animator.start();
@@ -275,29 +185,24 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         //Swipe Bars being resized.
 
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
-        TextView Swipe1 = (TextView) view.findViewById(R.id.MapSwipeBarSize1);
+        TextView Swipe1 = (TextView) view.findViewById(R.id.venMapSwipeBarSize1);
         int x5= (int)Math.round(height*.030);
         Swipe1.setTextSize(TypedValue.COMPLEX_UNIT_PX,x5);
 
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
-        TextView Swipe2 = (TextView) view.findViewById(R.id.MapSwipeBarSize2);
+        TextView Swipe2 = (TextView) view.findViewById(R.id.venMapSwipeBarSize2);
         Swipe2.setTextSize(TypedValue.COMPLEX_UNIT_PX,x5);
-
-        //The TextView "LOLi" that helps set size of right swipe bar being formatted.
-        TextView Swipe3 = (TextView) view.findViewById(R.id.MapSwipeBarSize3);
-        Swipe3.setTextSize(TypedValue.COMPLEX_UNIT_PX,x5);
-
 
     }
 
     @Override
     public int getCount() {
-        return mEvent.size();  //Returns length of the array of Events
+        return mArtists.size();  //Returns length of the array of Events
     }
 
     @Override
     public Object getItem(int position) {
-        return mEvent.get(position);  //Returns the Item being accessed in the the array
+        return mArtists.get(position);  //Returns the Item being accessed in the the array
     }
 
     @Override
@@ -317,6 +222,5 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         private TextView Hours;
 
     }
-
 
 }
