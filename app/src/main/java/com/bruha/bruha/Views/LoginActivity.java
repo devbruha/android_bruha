@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 
 import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.SQLiteUtils;
@@ -242,6 +243,10 @@ public class LoginActivity extends ActionBarActivity {
                 alertUserAboutError(
                         res.getString(R.string.success_title_login),
                         res.getString(R.string.success_message_login));
+
+                // Updating the shared variable login check to true on successful login
+
+                MyApplication.loginCheck = true;
 
                 // Start the next activity right here
                 Intent intent = new Intent(this, DashboardActivity.class);

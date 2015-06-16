@@ -286,7 +286,7 @@ public class MapsActivity extends FragmentActivity implements
 
         // Calling the FilterView class to set the layout for the filters
 
-        FilterView filterView = new FilterView(this);
+        FilterView filterView = new FilterView(this, null);
         mUserCustomFilters = filterView.init();
     }
 

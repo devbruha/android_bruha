@@ -15,6 +15,16 @@ import java.util.Map;
  */
 public class MyApplication extends Application{
 
+    ArrayList<Event> backupEventList = new ArrayList<>();
+    ArrayList<Event> selectedEventList = new ArrayList<>();
+
+    // Variable to represent whether the user is logged in or not, static so that it can be called
+    // from any other class and updated.
+
+    public static boolean loginCheck = false;
+
+    public static int savedAdmissionPrice = 0;
+
     UserCustomFilters userCustomFilters = new UserCustomFilters();
 
     ArrayList<String> savedQuickie = new ArrayList<>();
@@ -25,8 +35,6 @@ public class MyApplication extends Application{
     ArrayList<Date> savedDates = new ArrayList<>();
 
     Map<String, ArrayList<String>> savedCategories = new HashMap<>();
-
-    int savedAdmissionPrice = 0;
 
     public ArrayList<String> getDatesSelected(){
 
@@ -58,5 +66,13 @@ public class MyApplication extends Application{
         return userCustomFilters;
     }
 
+    public ArrayList<Event> getBackupEventList(){
 
+        return backupEventList;
+    }
+
+    public ArrayList<Event> getSelectedEventList(){
+
+        return selectedEventList;
+    }
 }

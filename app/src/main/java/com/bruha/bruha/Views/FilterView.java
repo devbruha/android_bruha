@@ -14,11 +14,13 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.bruha.bruha.Adapters.CategoryAdapter;
+import com.bruha.bruha.Adapters.ListviewAdapter;
 import com.bruha.bruha.Adapters.QuickieAdapter;
 import com.bruha.bruha.Model.Items;
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.Processing.FilterGen;
+import com.bruha.bruha.Processing.FilterOut;
 import com.bruha.bruha.R;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
@@ -35,6 +37,8 @@ import java.util.Map;
  */
 public class FilterView {
 
+    FilterOut filtering;
+
     // Creating a UserCustomFilters object to store user filters
 
     UserCustomFilters userCustomFilters;
@@ -48,10 +52,14 @@ public class FilterView {
 
     // Casting the passed activity as a Fragment activity
     private FragmentActivity mActivity;
+    private ListviewAdapter mAdapter;
 
-    public FilterView(FragmentActivity activity){
+    public FilterView(FragmentActivity activity, ListviewAdapter adapter){
 
         mActivity = activity;
+        mAdapter = adapter;
+
+        filtering = new FilterOut(activity);
 
         // Linking the local variables with their global counterparts
 
@@ -268,12 +276,25 @@ public class FilterView {
                     caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_blue_light, date);
                     datesSaved.add(date);
                     calendarSelected.add(formatter.format(date));
+
+                    // Checking to ensure adapter is non null, i.e if this is being used in the list activity
+                    // going to have to pass in a map type object to apply changes to map activity
+
+                    if(mAdapter != null) {
+
+                        filtering.filterDate(calendarSelected, mAdapter);
+                    }
                 }
                 else{
 
                     caldroidFragment.setBackgroundResourceForDate(android.R.color.background_dark, date);
                     datesSaved.remove(date);
                     calendarSelected.remove(formatter.format(date));
+
+                    if(mAdapter != null) {
+
+                        filtering.filterDate(calendarSelected, mAdapter);
+                    }
                 }
 
                 userCustomFilters.setNonFormattedDateFilter(datesSaved);

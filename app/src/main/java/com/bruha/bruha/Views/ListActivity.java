@@ -24,6 +24,7 @@ import com.bruha.bruha.Adapters.OrganizationListViewAdapter;
 import com.bruha.bruha.Adapters.VenueListViewAdapter;
 import com.bruha.bruha.Model.Artists;
 import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.UserCustomFilters;
@@ -50,7 +51,7 @@ public class ListActivity extends FragmentActivity {
 
     ArrayList<Event> mEvents = new ArrayList<>();       //The Array that will hold the Events that we will pass around(to Adapter,the List...
     ArrayList<Event> newEvent = new ArrayList<>();
-    ArrayList<Event> Backup= new ArrayList<>();         //Array Backup of the whole list,since mEvent changes when we update the adapter in filter save button.
+    ArrayList<Event> Backup;         //Array Backup of the whole list,since mEvent changes when we update the adapter in filter save button.
     ListviewAdapter adapter;
 
     //Injecting Buttons using ButterKnife Library
@@ -61,15 +62,11 @@ public class ListActivity extends FragmentActivity {
     @InjectView(R.id.orgButton) Button OrgButton;
     @InjectView(R.id.eventButton) Button EventButton;
 
-    public static int Clicks=0; //The variable holding the number of times the user has tapped on a list item.
-
-
-
     private void setUpFilters(){
 
         // Calling the FilterView class to set the layout for the filters
 
-        FilterView filterView = new FilterView(this);
+        FilterView filterView = new FilterView(this, adapter);
         mUserCustomFilters = filterView.init();
     }
 
@@ -81,10 +78,10 @@ public class ListActivity extends FragmentActivity {
 
         init();
 
-        setUpFilters();
-
         //Creating an variable of type Listview Adapter to create the list view.
         adapter=new ListviewAdapter(this, mEvents); //Calling the adapter ListView to help set the List
+
+        setUpFilters();
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(adapter);
@@ -94,6 +91,8 @@ public class ListActivity extends FragmentActivity {
     }
 
     private void init(){
+
+        Backup = ((MyApplication) getApplicationContext()).getBackupEventList();
 
         // Create the local DB object
 
@@ -106,16 +105,11 @@ public class ListActivity extends FragmentActivity {
         {
             Backup.add(x);
         }
-
-
-
-
     }
 
     //VenueButton Implemented to switch the ListView to show List of Venues.
     @OnClick(R.id.venueButton)
-    public void VenueButton(View view)
-    {
+    public void VenueButton(View view) {
 
         VenueButton.setTextColor(Color.BLUE);
         VenueButton.setTypeface(null, Typeface.BOLD);
@@ -146,8 +140,8 @@ public class ListActivity extends FragmentActivity {
 
     //VenueButton Implemented to switch the ListView to show List of Venues.
     @OnClick(R.id.orgButton)
-    public void organizationButton(View view)
-    {
+    public void organizationButton(View view) {
+
         OrgButton.setTextColor(Color.BLUE);
         OrgButton.setTypeface(null, Typeface.BOLD);
 
@@ -175,12 +169,9 @@ public class ListActivity extends FragmentActivity {
         mListView.setAdapter(OrgAdapter);
     }
 
-
-
-
     @OnClick(R.id.eventButton)
-    public void eventButton(View view)
-    {
+    public void eventButton(View view) {
+
         mListView.setAdapter(adapter);
 
         EventButton.setTextColor(Color.BLUE);

@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.R;
 
 import butterknife.ButterKnife;
@@ -29,9 +30,6 @@ public class DashboardActivity extends ActionBarActivity {
     @InjectView(R.id.TicketButton) TextView MyTicketButton;
     @InjectView(R.id.ProfileButton) TextView ProfileButton;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,9 +37,13 @@ public class DashboardActivity extends ActionBarActivity {
         ButterKnife.inject(this);
 
 
+        // The condition for the if statement is determined by the static varaible "loginCheck" found
+        // in the MyApplication class, by default the variable is set to false but on successful login
+        // it gets set to true
+
         //The MyUploadButton's implementation.
-        String IfLogged = getIntent().getStringExtra("Logged");
-        if(IfLogged.equals("YES"))
+
+        if(MyApplication.loginCheck == true)
         {
 
             //MyUpload Button's Implementation.
