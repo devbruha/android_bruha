@@ -22,6 +22,7 @@ import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.Processing.FilterGen;
 import com.bruha.bruha.Processing.FilterOut;
 import com.bruha.bruha.R;
+import com.google.android.gms.maps.GoogleMap;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -53,11 +54,13 @@ public class FilterView {
     // Casting the passed activity as a Fragment activity
     private FragmentActivity mActivity;
     private ListviewAdapter mAdapter;
+    private GoogleMap mMap;
 
-    public FilterView(FragmentActivity activity, ListviewAdapter adapter){
+    public FilterView(FragmentActivity activity, ListviewAdapter adapter, GoogleMap map){
 
         mActivity = activity;
         mAdapter = adapter;
+        mMap = map;
 
         filtering = new FilterOut(activity);
 
@@ -80,7 +83,7 @@ public class FilterView {
 
         // Simultaneously setting calendar and updating the user custom filters
 
-        userCustomFilters.setDateFilter(setCalendar());
+        setCalendar();
 
         // Simultaneously setting the category lists and updating the user custom filters
 
@@ -179,7 +182,7 @@ public class FilterView {
         return adapter.set();
     }
 
-    private ArrayList<String> setCalendar(){
+    private void setCalendar(){
 
         // Dynamically changing the calendar height / width due to the bug while it is within a
         // scrollview
@@ -249,16 +252,12 @@ public class FilterView {
 
         // If there are dates from the previous activity, they are looped through and added visually
 
-        if(!datesSaved.isEmpty()){
+        if(!userCustomFilters.getNonFormattedDateFilter().isEmpty()){
 
-            for(int i = 0; i<datesSaved.size();i++){
-                caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_blue_light, datesSaved.get(i));
+            for(int i = 0; i<userCustomFilters.getNonFormattedDateFilter().size();i++){
+                caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_blue_light, userCustomFilters.getNonFormattedDateFilter().get(i));
             }
         }
-
-        //caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_blue_light, currentDate);
-        //calendarSelected.add(formatter.format(currentDate));
-
 
         // Setup listener for date onClick
         final CaldroidListener listener = new CaldroidListener() {
@@ -276,28 +275,25 @@ public class FilterView {
                     caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_blue_light, date);
                     datesSaved.add(date);
                     calendarSelected.add(formatter.format(date));
-
-                    // Checking to ensure adapter is non null, i.e if this is being used in the list activity
-                    // going to have to pass in a map type object to apply changes to map activity
-
-                    if(mAdapter != null) {
-
-                        filtering.filterDate(calendarSelected, mAdapter);
-                    }
                 }
                 else{
 
                     caldroidFragment.setBackgroundResourceForDate(android.R.color.background_dark, date);
                     datesSaved.remove(date);
                     calendarSelected.remove(formatter.format(date));
-
-                    if(mAdapter != null) {
-
-                        filtering.filterDate(calendarSelected, mAdapter);
-                    }
                 }
 
+                userCustomFilters.setDateFilter(calendarSelected);
+
                 userCustomFilters.setNonFormattedDateFilter(datesSaved);
+
+                // Checking to ensure adapter is non null, i.e if this is being used in the list activity
+                // going to have to pass in a map type object to apply changes to map activity
+
+                if(mAdapter != null) {
+
+                    filtering.filterAll(mAdapter);
+                }
 
                 caldroidFragment.refreshView();
             }
@@ -305,8 +301,6 @@ public class FilterView {
 
         // Setting the listener to the calendar
         caldroidFragment.setCaldroidListener(listener);
-
-        return calendarSelected;
     }
 
     private Map<String, ArrayList<String>> setCategoryList(){
@@ -336,8 +330,16 @@ public class FilterView {
 
         if(userCustomFilters.getAdmissionPriceFilter() > 0){
 
-            mSeekBar.setProgress(userCustomFilters.getAdmissionPriceFilter());
-            seekBarValue.setText(String.valueOf(userCustomFilters.getAdmissionPriceFilter()) + " $");
+            mSeekBar.setProgress(userCustomFilters.getAdmissionPriceFilter()-1);
+            seekBarValue.setText(String.valueOf(userCustomFilters.getAdmissionPriceFilter()-1) + " $");
+        }
+        else if(userCustomFilters.getAdmissionPriceFilter() == 0){
+
+            mSeekBar.setProgress(userCustomFilters.getAdmissionPriceFilter()-1);
+            seekBarValue.setText("Free Events");
+        }
+        else {
+            seekBarValue.setText("No Price Filter");
         }
 
         // Setting a listener for the seek bar changing values
@@ -349,16 +351,25 @@ public class FilterView {
                 // If the progress bar is 0 set the text to free, otherwise to progress value
 
                 if (progress == 0) {
+                    seekBarValue.setText("No Price Filter");
+                }
+                else if(progress == 1){
                     seekBarValue.setText("Free Events");
-                } else {
-                    seekBarValue.setText(String.valueOf(progress) + " $");
+                }
+                else {
+                    seekBarValue.setText(String.valueOf(progress-1) + " $");
                 }
 
                 // As the seekBar is changed we shall update the userCustomFilters aswell
 
                 Log.v("progress test", progress+"");
 
-                userCustomFilters.setAdmissionPriceFilter(progress);
+                userCustomFilters.setAdmissionPriceFilter(progress-1);
+
+                if(mAdapter != null) {
+
+                    filtering.filterAll(mAdapter);
+                }
             }
 
             @Override

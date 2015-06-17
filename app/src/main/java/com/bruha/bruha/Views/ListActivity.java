@@ -50,8 +50,9 @@ public class ListActivity extends FragmentActivity {
     private UserCustomFilters mUserCustomFilters = new UserCustomFilters();
 
     ArrayList<Event> mEvents = new ArrayList<>();       //The Array that will hold the Events that we will pass around(to Adapter,the List...
-    ArrayList<Event> newEvent = new ArrayList<>();
+
     ArrayList<Event> Backup;         //Array Backup of the whole list,since mEvent changes when we update the adapter in filter save button.
+
     ListviewAdapter adapter;
 
     //Injecting Buttons using ButterKnife Library
@@ -62,14 +63,6 @@ public class ListActivity extends FragmentActivity {
     @InjectView(R.id.orgButton) Button OrgButton;
     @InjectView(R.id.eventButton) Button EventButton;
 
-    private void setUpFilters(){
-
-        // Calling the FilterView class to set the layout for the filters
-
-        FilterView filterView = new FilterView(this, adapter);
-        mUserCustomFilters = filterView.init();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,8 +71,14 @@ public class ListActivity extends FragmentActivity {
 
         init();
 
-        //Creating an variable of type Listview Adapter to create the list view.
-        adapter=new ListviewAdapter(this, mEvents); //Calling the adapter ListView to help set the List
+        if(MyApplication.sourceEvents.size() == 0) {
+
+            //Creating an variable of type Listview Adapter to create the list view.
+            adapter = new ListviewAdapter(this, mEvents); //Calling the adapter ListView to help set the List
+        }
+        else{
+            adapter = new ListviewAdapter(this, MyApplication.sourceEvents);
+        }
 
         setUpFilters();
 
@@ -93,6 +92,7 @@ public class ListActivity extends FragmentActivity {
     private void init(){
 
         Backup = ((MyApplication) getApplicationContext()).getBackupEventList();
+        Backup.clear();
 
         // Create the local DB object
 
@@ -105,6 +105,14 @@ public class ListActivity extends FragmentActivity {
         {
             Backup.add(x);
         }
+    }
+
+    private void setUpFilters(){
+
+        // Calling the FilterView class to set the layout for the filters
+
+        FilterView filterView = new FilterView(this, adapter, null);
+        mUserCustomFilters = filterView.init();
     }
 
     //VenueButton Implemented to switch the ListView to show List of Venues.
@@ -216,115 +224,6 @@ public class ListActivity extends FragmentActivity {
 
         //Sets the Adapter from the class Listview Adapter.
         mListView.setAdapter(Adapter);
-    }
-
-    @OnClick(R.id.filterSaveButton)
-    public void ImplementingButton(View view)  {
-
-        ArrayList<String> Filters;
-
-        //To make sure it is empty beforehand.
-        newEvent.clear();
-
-
-        //Obtaining all the filters that the user selected.
-        List<String> Dates= mUserCustomFilters.getDateFilter();
-        double price=(double)mUserCustomFilters.getAdmissionPriceFilter();
-        Filters= mUserCustomFilters.getQuickieFilter();
-        Map<String, ArrayList<String>> CategoryFilter = mUserCustomFilters.getCategoryFilter();
-
-        if(Filters.size() == 0){
-            Filters.add("No Filters Test");
-        }
-
-
-        //If "All Events" chosen from the filter layout,then load all events from the backup.
-        if(Filters.get(0).equals("All Events"))
-        {
-            //Filtering out the Items,remember to compare with price.
-            for(Event event:Backup)
-            {
-                if(event.getEventPrice() <= price)
-                    newEvent.add(event);
-            }
-        }
-
-
-        //If "Today" Chosen from the filter layout,then load all events in that day.
-        else if(Filters.get(0).equals("Today"))
-        {
-            //Getting today's date and formatting it to the type that can be compared with the Event Date's type.
-            Calendar c = Calendar.getInstance();
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            String formattedDate = df.format(c.getTime());
-            Log.v("Date:",formattedDate);
-
-            //Filtering the Quickie,remember to compare with price.
-            for(Event Ev:Backup)
-            {
-                if(Ev.getEventDate().equals(formattedDate) && Ev.getEventPrice() <= price )
-                {
-                    newEvent.add(Ev);
-                }
-            }
-        }
-
-        //If 'This Weekend' is selected in the Quickie Filter.
-        else if(Filters.get(0).equals("This Weekend"))
-        {
-            //Getting the date of Saturday for the week.
-            Calendar c = Calendar.getInstance();
-            c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-            c.getTime();
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            String formattedDate = df.format(c.getTime());
-
-            //Getting the date of Sunday for the week.
-            Calendar d=Calendar.getInstance();
-            d.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-            d.getTime();
-            SimpleDateFormat dff = new SimpleDateFormat("yyyy-MM-dd");
-            String formattedDatee = dff.format(d.getTime());
-
-            //Filtering out the items.,remember to compare with price.
-            for(Event Eve:Backup)
-            {
-                if((Eve.getEventDate().equals(formattedDate) || Eve.getEventDate().equals(formattedDatee))&& Eve.getEventPrice() <= price)
-                {
-                    newEvent.add(Eve);
-                }
-            }
-        }
-
-        //If none of the quickie fields are selected,we check the calender dates.
-
-        //Getting the dates from the filter, filtering events out accordingly and setting the price along with it.
-        for (String x : Dates) {
-            int i = 0;
-            while (i < Backup.size()) {
-                if (x.equals(Backup.get(i).getEventDate()) && Backup.get(i).getEventPrice() <= price) {
-                    newEvent.add(Backup.get(i));
-                }
-
-                i++;
-            }
-        }
-
-
-        for(Event x:newEvent)
-        { Log.v("NewEvent:",x.getEventName()); }
-
-
-        for(Event y:Backup) {
-            Log.v("Backup:",y.getEventName());
-        }
-
-
-        Filters.clear();
-
-        adapter.getData().clear();
-        adapter.getData().addAll(newEvent);
-        mListView.setAdapter(adapter);
     }
 
     //Button Implementation for navigating to the Map from ListView.

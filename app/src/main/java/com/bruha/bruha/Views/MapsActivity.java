@@ -14,12 +14,14 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.bruha.bruha.Adapters.ListviewAdapter;
 import com.bruha.bruha.Adapters.MapArtistListViewAdapter;
 import com.bruha.bruha.Adapters.MapListViewAdapter;
 import com.bruha.bruha.Adapters.MapOrganizationListViewAdapter;
 import com.bruha.bruha.Adapters.MapVenListViewAdapter;
 import com.bruha.bruha.Model.Artists;
 import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.UserCustomFilters;
@@ -39,6 +41,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import butterknife.InjectView;
 
@@ -149,12 +152,21 @@ public class MapsActivity extends FragmentActivity implements
         SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
 
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
-        mEvents = sqLiteUtils.getEventInfo(dbHelper);
+
+        if(MyApplication.sourceEvents.size() == 0) {
+
+            mEvents = sqLiteUtils.getEventInfo(dbHelper);
+        }
+        else{
+            mEvents = new ArrayList<>(MyApplication.sourceEvents);
+        }
+
     }
 
     private void setEventMarkers(){
 
         final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout)findViewById(R.id.sliding_layout_upper);
+        final SlidingUpPanelLayout mLowerLayout = (SlidingUpPanelLayout)findViewById(R.id.sliding_layout_lower);
 
         for(int i=0;i< mEvents.size();i++){
 
@@ -165,7 +177,12 @@ public class MapsActivity extends FragmentActivity implements
 
             LatLng eventLocation = new LatLng(eventLat, eventLng);
 
+            HashMap<String, Marker> markerMap = new HashMap<>();
+
             Marker eventMarker = mMap.addMarker(new MarkerOptions().position(eventLocation).title(eventName).draggable(true));
+            eventMarker.setVisible(true);
+
+            markerMap.put(mEvents.get(i).getEventid(),eventMarker);
 
             mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
@@ -189,6 +206,7 @@ public class MapsActivity extends FragmentActivity implements
                     SetAdapter();
 
                     mLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                    mLowerLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                     return false;
                 }
             });
@@ -204,8 +222,8 @@ public class MapsActivity extends FragmentActivity implements
     }
 
 
-    private void SetAdapter()
-    {
+    private void SetAdapter() {
+
         adapter=new MapListViewAdapter(this, selectedEvents); //Calling the adapter ListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter
@@ -286,7 +304,7 @@ public class MapsActivity extends FragmentActivity implements
 
         // Calling the FilterView class to set the layout for the filters
 
-        FilterView filterView = new FilterView(this, null);
+        FilterView filterView = new FilterView(this, null, mMap);
         mUserCustomFilters = filterView.init();
     }
 
@@ -301,7 +319,9 @@ public class MapsActivity extends FragmentActivity implements
             mLatitudeText =String.valueOf(mLastLocation.getLatitude());
             mLongitudeText = String.valueOf(mLastLocation.getLongitude());
 
-        } else {
+        }
+        else {
+
             Toast.makeText(this,"No location detected", Toast.LENGTH_LONG).show();
         }
     }
@@ -337,15 +357,4 @@ public class MapsActivity extends FragmentActivity implements
         finish();
     }
 
-    @OnClick(R.id.filterSaveButton)
-    public void saveFilters(View view){
-
-        // Testing if the filters are being saved
-
-        Log.v("Big Filter Test", mUserCustomFilters.getQuickieFilter()+"");
-        Log.v("Big Filter Test", mUserCustomFilters.getDateFilter()+"");
-        Log.v("Big Filter Test", mUserCustomFilters.getNonFormattedDateFilter()+"");
-        Log.v("Big Filter Test", mUserCustomFilters.getCategoryFilter().keySet() + "");
-        Log.v("Big Filter Test", mUserCustomFilters.getAdmissionPriceFilter() + "");
-    }
 }

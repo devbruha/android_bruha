@@ -162,7 +162,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Free"
                     android:layout_gravity="center_horizontal"
                     android:id="@+id/priceDisplay"
                     android:textColor="@android:color/white"
@@ -173,24 +172,10 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/white"
                     android:id="@+id/priceBar"
-                    android:max="999"
+                    android:max="100"
                     android:thumb="@android:drawable/editbox_background_normal"/>
 
             </LinearLayout>
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:layout_gravity="center_horizontal"
-                android:text="Save as Custom Filter!"
-                android:id="@+id/filterSaveButton"
-                android:background="@android:color/white"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/admission"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="15dp" />
 
         </LinearLayout>
 
