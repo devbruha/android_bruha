@@ -8,6 +8,7 @@ import android.widget.ListView;
 import com.bruha.bruha.Adapters.ListviewAdapter;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.MyApplication;
+import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.R;
 
 import java.util.ArrayList;
@@ -22,53 +23,73 @@ public class FilterOut {
 
     Activity mActivity;
 
+    UserCustomFilters customFilters;
+
     ArrayList<Event> events = new ArrayList<>();
     ArrayList<Event> filteredEvents= new ArrayList<>();
+    ArrayList<Event> tempList = new ArrayList<>();
 
     public FilterOut(Activity activity){
 
         mActivity = activity;
+
+        customFilters = ((MyApplication) mActivity.getApplicationContext()).getUserCustomFilters();
     }
 
-    public void filterDate(ArrayList<String> dates, ListviewAdapter adapter){
+    public void filterAll(ListviewAdapter adapter){
 
         // Retrieves the shared variables events and filteredEvents, events contains all events and filterd
         // events contains the filtered
 
         events = ((MyApplication) mActivity.getApplicationContext()).getBackupEventList();
-        filteredEvents = ((MyApplication) mActivity.getApplicationContext()).getSelectedEventList();
+
+        tempList.clear();
+
+        tempList = new ArrayList<>(events);
 
         ListView listView = (ListView)mActivity.findViewById(android.R.id.list);
 
-        // clears the filtered events then re fills it
+        // If the date filter is non null, filter off all events that dont have date...
 
-        filteredEvents.clear();
+        //Log.v("date size", customFilters.getDateFilter().size()+"");
 
-        for(int i = 0; i < events.size(); i++){
+        if(customFilters.getDateFilter().size() != 0) {
 
-            if(dates.contains(events.get(i).getEventDate())){
+            for (int i = tempList.size(); i > 0; i--) {
 
-                filteredEvents.add(events.get(i));
+                if (!customFilters.getDateFilter().contains(tempList.get(i - 1).getEventDate())) {
+
+                    tempList.remove(i - 1);
+                }
             }
         }
 
-        // If there are no filters then fill the adapter with all events (events variable) otherwise
-        // fill the adapter with the filtered events
+        // If event price > admission filter, filter event off
 
-        if(filteredEvents.size() == 0){
 
-            adapter.getData().clear();
-            adapter.getData().addAll(events);
-            listView.setAdapter(adapter);
+        Log.v("price value check", customFilters.getAdmissionPriceFilter()+"");
+
+        if(customFilters.getAdmissionPriceFilter() != -1) {
+
+            for (int i = tempList.size(); i > 0; i--) {
+
+                if (tempList.get(i - 1).getEventPrice() > customFilters.getAdmissionPriceFilter()) {
+
+                    tempList.remove(i - 1);
+                }
+            }
         }
 
-        else{
+        if(customFilters.getDateFilter().size() == 0 &&
+                customFilters.getAdmissionPriceFilter() == -1) {
 
-            adapter.getData().clear();
-            adapter.getData().addAll(filteredEvents);
-            listView.setAdapter(adapter);
+            tempList = new ArrayList<>(events);
         }
 
+        MyApplication.sourceEvents = new ArrayList<>(tempList);
 
+        adapter.getData().clear();
+        adapter.getData().addAll(tempList);
+        listView.setAdapter(adapter);
     }
 }

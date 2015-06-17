@@ -13,6 +13,7 @@ import java.util.Map;
 /**
  * Created by Thomas on 6/10/2015.
  */
+
 public class MyApplication extends Application{
 
     ArrayList<Event> backupEventList = new ArrayList<>();
@@ -22,8 +23,7 @@ public class MyApplication extends Application{
     // from any other class and updated.
 
     public static boolean loginCheck = false;
-
-    public static int savedAdmissionPrice = 0;
+    public static ArrayList<Event> sourceEvents= new ArrayList<>();
 
     UserCustomFilters userCustomFilters = new UserCustomFilters();
 
@@ -54,11 +54,6 @@ public class MyApplication extends Application{
     public Map<String,ArrayList<String>> getSavedCategories(){
 
         return savedCategories;
-    }
-
-    public int getSavedAdmissionPrice(){
-
-        return savedAdmissionPrice;
     }
 
     public UserCustomFilters getUserCustomFilters(){

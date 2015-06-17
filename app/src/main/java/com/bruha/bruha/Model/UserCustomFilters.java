@@ -15,7 +15,7 @@ public class UserCustomFilters {
 
     private ArrayList<Date> nonFormattedDateFilter = new ArrayList<>();
     private Map<String, ArrayList<String>> CategoryFilter = new HashMap<>();
-    private int AdmissionPriceFilter;
+    private int AdmissionPriceFilter = -1;
 
 
     public ArrayList<String> getQuickieFilter() {
