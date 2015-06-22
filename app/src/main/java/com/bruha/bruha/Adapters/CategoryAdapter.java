@@ -11,9 +11,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bruha.bruha.Model.Items;
 import com.bruha.bruha.Model.MyApplication;
+import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.R;
 
 import java.util.ArrayList;
@@ -29,12 +31,14 @@ public class CategoryAdapter {
     private LinearLayout mLinearListView;
     private ArrayList<Items> mMainList;
 
+    UserCustomFilters mUserCustomFilter;
+
     // Creating a hashmap to store the current categories selected by the user
     // the hashmap shall contain string ArrayLists for each primary category selected
     // each string arrayList shall contain the primary category as its first index, then
     // each other index will represent the subcategory(s) selected
 
-    private Map<String, ArrayList<String>> mUserCategorySelected;
+    private Map<String, ArrayList<String>> mUserCategorySelected = new HashMap<>();
 
     // boolean variables representing the upper and lower levels being selected
 
@@ -50,9 +54,7 @@ public class CategoryAdapter {
         this.mLinearListView = linearListView;
         this.mMainList = mainList;
 
-        // Linking the local userCategories to the shared variable
-
-        mUserCategorySelected = ((MyApplication) mContext.getApplicationContext()).getSavedCategories();
+        this.mUserCustomFilter = ((MyApplication) mContext.getApplicationContext()).getUserCustomFilters();
     }
 
     public Map<String, ArrayList<String>> set(){
@@ -111,7 +113,7 @@ public class CategoryAdapter {
                 }
             });
 
-            if(!mUserCategorySelected.isEmpty()){
+            if(!mUserCustomFilter.getCategoryFilter().isEmpty()){
 
                 // If there are selected categories from previous activity, simulate click the first level
 
@@ -157,29 +159,48 @@ public class CategoryAdapter {
             mLinearSecondArrow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (isSecondViewClick == false) {
+
+                    // Setting the isSecondViewClick variable dependant if the category is already stored in the filter
+
+                    if(mUserCustomFilter.getCategoryFilter().containsKey(catName)){
 
                         isSecondViewClick = true;
-                        mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_down_float);
-                        mLinearScrollThird.setVisibility(View.VISIBLE);
-
-                        mLinearSecondArrow.setBackgroundResource(android.R.color.holo_blue_dark);
-
-                        // Each key of the hashmap shall be the primary category(s) selected
-                        // this is only if it does not already exist in the categories variable
-                        // in order to prevent duplicate entries
-
-                        if (!mUserCategorySelected.containsKey(catName)) {
-
-                            ArrayList<String> primaryCategory = new ArrayList<String>();
-                            primaryCategory.add(catName);
-
-                            mUserCategorySelected.put(catName, primaryCategory);
-                        }
-                    } else {
-                        mLinearSecondArrow.setBackgroundResource(android.R.color.holo_orange_light);
+                    }
+                    else{
 
                         isSecondViewClick = false;
+                    }
+
+                    if (isSecondViewClick == false) {
+
+                        if (mUserCustomFilter.getCategoryFilter().size() < 3) {
+
+                            mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_down_float);
+                            mLinearScrollThird.setVisibility(View.VISIBLE);
+
+                            mLinearSecondArrow.setBackgroundResource(android.R.color.holo_blue_dark);
+
+                            // Each key of the hashmap shall be the primary category(s) selected
+                            // this is only if it does not already exist in the categories variable
+                            // in order to prevent duplicate entries
+
+                            if (!mUserCustomFilter.getCategoryFilter().containsKey(catName)) {
+
+                                ArrayList<String> primaryCategory = new ArrayList<>();
+                                primaryCategory.add(catName);
+
+                                mUserCategorySelected.put(catName, primaryCategory);
+                            }
+                        }
+                        else{
+
+                            Toast toast = Toast.makeText(mContext, "While filtering please select only up to 3 primary categories!", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    }
+                    else {
+                        mLinearSecondArrow.setBackgroundResource(android.R.color.holo_orange_light);
+
                         mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_up_float);
                         mLinearScrollThird.setVisibility(View.GONE);
 
@@ -187,6 +208,8 @@ public class CategoryAdapter {
 
                         mUserCategorySelected.remove(catName);
                     }
+
+                    mUserCustomFilter.setCategoryFilter(mUserCategorySelected);
                 }
             });
 
@@ -194,13 +217,12 @@ public class CategoryAdapter {
             // if there is, the corresponding item is click simulated, aswell as inflated
             // otherwise it is not
 
-            if(mUserCategorySelected.containsKey(catName)){
+            if(mUserCustomFilter.getCategoryFilter().containsKey(catName)){
 
                 mLinearScrollThird.setVisibility(View.VISIBLE);
                 mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_down_float);
 
-                isSecondViewClick = false;
-                mLinearSecondArrow.performClick();
+                mLinearSecondArrow.setBackgroundResource(android.R.color.holo_blue_dark);
             }
             else{
 

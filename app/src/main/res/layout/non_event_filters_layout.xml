@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:clickable="false"
+    android:focusable="false"
+    android:id="@+id/dragView"
+    android:elevation="50dp"
+    android:background="@android:color/transparent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="68dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:id="@+id/handleLayout"
+            android:weightSum="1"
+            android:orientation="horizontal"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:baselineAligned="false">
+
+            <Button
+                android:id="@+id/eventButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:layout_weight="0.25"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:text="Events"
+                />
+
+            <Button
+                android:id="@+id/venueButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:layout_weight="0.25"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:text="Venues"/>
+
+            <Button
+                android:id="@+id/artistButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:layout_weight="0.25"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:text="Artists"/>
+
+            <Button
+                android:id="@+id/orgButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:layout_weight="0.25"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:text="Organizations"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:background="@android:color/black">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Category Filters -->
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp"
+                android:id="@+id/category"
+                android:layout_below="@+id/calendarView">
+
+                <!-- Linearlaout which acts as listview -->
+                <LinearLayout
+                    android:id="@+id/category_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+            </ScrollView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

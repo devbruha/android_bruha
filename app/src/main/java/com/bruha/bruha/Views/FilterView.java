@@ -23,6 +23,7 @@ import com.bruha.bruha.Processing.FilterGen;
 import com.bruha.bruha.Processing.FilterOut;
 import com.bruha.bruha.R;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.Marker;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -31,6 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -54,13 +56,13 @@ public class FilterView {
     // Casting the passed activity as a Fragment activity
     private FragmentActivity mActivity;
     private ListviewAdapter mAdapter;
-    private GoogleMap mMap;
+    HashMap<String, Marker> markerMap = new HashMap<>();
 
-    public FilterView(FragmentActivity activity, ListviewAdapter adapter, GoogleMap map){
+    public FilterView(FragmentActivity activity, ListviewAdapter adapter, HashMap markerHashMap){
 
         mActivity = activity;
         mAdapter = adapter;
-        mMap = map;
+        markerMap = markerHashMap;
 
         filtering = new FilterOut(activity);
 
@@ -68,18 +70,19 @@ public class FilterView {
 
         userCustomFilters = ((MyApplication) mActivity.getApplicationContext()).getUserCustomFilters();
 
-        calendarSelected = ((MyApplication) mActivity.getApplicationContext()).getDatesSelected();
+        calendarSelected = new ArrayList<>(userCustomFilters.getDateFilter());
         datesSaved = ((MyApplication) mActivity.getApplicationContext()).getSavedDates();
+
         quickieSaved = ((MyApplication) mActivity.getApplicationContext()).getSavedQuickie();
     }
 
-    public UserCustomFilters init(){
+    public void init(){
 
         setPanel();
 
         // Setting and storing the quickie filters.
 
-        userCustomFilters.setQuickieFilter(setQuickieList());
+        setQuickieList();
 
         // Simultaneously setting calendar and updating the user custom filters
 
@@ -87,15 +90,11 @@ public class FilterView {
 
         // Simultaneously setting the category lists and updating the user custom filters
 
-        userCustomFilters.setCategoryFilter(setCategoryList());
+        setCategoryList();
 
         //Admission price is added to userCustomFilters within its function
 
         setAdmissionPrice();
-
-        // Returning the userCustomFilters to parent activity
-
-        return userCustomFilters;
     }
 
     private void setPanel(){
@@ -117,6 +116,17 @@ public class FilterView {
         Button venueButton = (Button)mActivity.findViewById(R.id.venueButton);
         Button artistButton = (Button)mActivity.findViewById(R.id.artistButton);
         Button orgButton = (Button)mActivity.findViewById(R.id.orgButton);
+
+        eventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v("Filter Final Test!!", userCustomFilters.getQuickieFilter()+"");
+                Log.v("Filter Final Test!!", userCustomFilters.getDateFilter()+"");
+                Log.v("Filter Final Test!!", userCustomFilters.getCategoryFilter().keySet()+"");
+                Log.v("Filter Final Test!!", userCustomFilters.getNonFormattedDateFilter()+"");
+                Log.v("Filter Final Test!!", userCustomFilters.getAdmissionPriceFilter()+"");
+            }
+        });
 
         // Finding the handle layout
 
@@ -165,7 +175,7 @@ public class FilterView {
         return result;
     }
 
-    private ArrayList<String> setQuickieList(){
+    private void setQuickieList(){
 
         // Storing the quickie layout into mQuickieListview
 
@@ -179,7 +189,7 @@ public class FilterView {
         // calling and setting the "adapter" to set the list items
 
         QuickieAdapter adapter = new QuickieAdapter(mActivity, mQuickieListView, mainList);
-        return adapter.set();
+        adapter.set();
     }
 
     private void setCalendar(){
@@ -267,10 +277,12 @@ public class FilterView {
 
                 // if the selected date has already been selected, set background to black and remove from
                 // date array list(s), other wise set background to light blue and add to array list
-                // we have two arraylists to store the dates as date variables aswell as formatted string
+                // we have two arraylists to store the dates as date variables as well as formatted string
                 // variables
 
-                if(!calendarSelected.contains(formatter.format(date))){
+                Log.v("calendar check", userCustomFilters.getDateFilter().size()+"");
+
+                if (!userCustomFilters.getDateFilter().contains(formatter.format(date))){
 
                     caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_blue_light, date);
                     datesSaved.add(date);
@@ -292,7 +304,11 @@ public class FilterView {
 
                 if(mAdapter != null) {
 
-                    filtering.filterAll(mAdapter);
+                    filtering.filterList(mAdapter);
+                }
+
+                if(markerMap!= null){
+                    filtering.filterMap(markerMap);
                 }
 
                 caldroidFragment.refreshView();
@@ -303,7 +319,7 @@ public class FilterView {
         caldroidFragment.setCaldroidListener(listener);
     }
 
-    private Map<String, ArrayList<String>> setCategoryList(){
+    private void setCategoryList(){
 
         // Storing the quickie layout into mCategoryListview
 
@@ -318,7 +334,7 @@ public class FilterView {
 
         CategoryAdapter adapter = new CategoryAdapter(mActivity, mCategoryListView, mainList);
 
-        return adapter.set();
+        adapter.set();
     }
 
     private void setAdmissionPrice(){
@@ -364,11 +380,15 @@ public class FilterView {
 
                 Log.v("progress test", progress+"");
 
-                userCustomFilters.setAdmissionPriceFilter(progress-1);
+                userCustomFilters.setAdmissionPriceFilter(progress - 1);
 
                 if(mAdapter != null) {
 
-                    filtering.filterAll(mAdapter);
+                    filtering.filterList(mAdapter);
+                }
+
+                if(markerMap!= null){
+                    filtering.filterMap(markerMap);
                 }
             }
 
