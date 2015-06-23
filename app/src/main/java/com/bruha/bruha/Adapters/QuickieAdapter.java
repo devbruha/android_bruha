@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.bruha.bruha.Model.Items;
 import com.bruha.bruha.Model.MyApplication;
+import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.R;
 
 import java.util.ArrayList;
@@ -26,9 +27,9 @@ public class QuickieAdapter {
     private LinearLayout mLinearListView;
     private ArrayList<Items> mMainList;
 
-    ArrayList<String> calendarSelected;
-    ArrayList<Date> datesSaved;
-    ArrayList<String> quickieFilters;
+    ArrayList<String> quickieFilters = new ArrayList<>();
+
+    UserCustomFilters mUserCustomFilter;
 
     // boolean variables representing the upper and lower levels being selected
 
@@ -43,15 +44,12 @@ public class QuickieAdapter {
         this.mLinearListView = linearListView;
         this.mMainList = mainList;
 
-        calendarSelected = ((MyApplication) mContext.getApplicationContext()).getDatesSelected();
-        datesSaved = ((MyApplication) mContext.getApplicationContext()).getSavedDates();
-        quickieFilters = ((MyApplication) mContext.getApplicationContext()).getSavedQuickie();
+        mUserCustomFilter = ((MyApplication) mContext.getApplicationContext()).getUserCustomFilters();
     }
 
-    public ArrayList<String> set(){
+    public void set(){
 
         addFirstRow();
-        return quickieFilters;
     }
 
     private void addFirstRow(){
@@ -60,8 +58,7 @@ public class QuickieAdapter {
 
         // This for loop only performs once as we only have 1 item on the parent level
 
-        for (int i = 0; i < mMainList.size(); i++)
-        {
+        for (int i = 0; i < mMainList.size(); i++) {
 
             //Inflating the first level
 
@@ -105,7 +102,7 @@ public class QuickieAdapter {
 
             // If there are selected categories from previous activity, simulate click the first level
 
-            if(!quickieFilters.isEmpty()){
+            if(!mUserCustomFilter.getQuickieFilter().isEmpty()){
 
                 mLinearFirstArrow.performClick();
             }
@@ -145,6 +142,15 @@ public class QuickieAdapter {
                 @Override
                 public void onClick(View v) {
 
+                    if(mUserCustomFilter.getQuickieFilter().contains(catName)){
+
+                        isSecondViewClick = true;
+                    }
+                    else{
+
+                        isSecondViewClick = false;
+                    }
+
                     // If not previously opened, isFirstViewClick is false, therefore we open the
                     // lower level rather than close it
 
@@ -167,15 +173,15 @@ public class QuickieAdapter {
 
                         quickieFilters.remove(catName);
                     }
+
+                    mUserCustomFilter.setQuickieFilter(quickieFilters);
                 }
             });
 
-            if(quickieFilters.contains(catName)){
+            if(mUserCustomFilter.getQuickieFilter().contains(catName)){
 
                 // simulating clicks if appropriate
-
-                isSecondViewClick = false;
-                childChildLayout.performClick();
+                mSubItemName.setBackgroundResource(android.R.color.holo_blue_bright);
             }
 
             mSubItemName.setText(catName);

@@ -47,8 +47,6 @@ import butterknife.OnClick;
 
 public class ListActivity extends FragmentActivity {
 
-    private UserCustomFilters mUserCustomFilters = new UserCustomFilters();
-
     ArrayList<Event> mEvents = new ArrayList<>();       //The Array that will hold the Events that we will pass around(to Adapter,the List...
 
     ArrayList<Event> Backup;         //Array Backup of the whole list,since mEvent changes when we update the adapter in filter save button.
@@ -112,7 +110,7 @@ public class ListActivity extends FragmentActivity {
         // Calling the FilterView class to set the layout for the filters
 
         FilterView filterView = new FilterView(this, adapter, null);
-        mUserCustomFilters = filterView.init();
+        filterView.init();
     }
 
     //VenueButton Implemented to switch the ListView to show List of Venues.

@@ -23,7 +23,9 @@ public class MyApplication extends Application{
     // from any other class and updated.
 
     public static boolean loginCheck = false;
+
     public static ArrayList<Event> sourceEvents= new ArrayList<>();
+    public static ArrayList<String> sourceEventsID= new ArrayList<>();
 
     UserCustomFilters userCustomFilters = new UserCustomFilters();
 
@@ -33,8 +35,6 @@ public class MyApplication extends Application{
 
     ArrayList<String> calendarSelected = new ArrayList<>();
     ArrayList<Date> savedDates = new ArrayList<>();
-
-    Map<String, ArrayList<String>> savedCategories = new HashMap<>();
 
     public ArrayList<String> getDatesSelected(){
 
@@ -49,11 +49,6 @@ public class MyApplication extends Application{
     public ArrayList<String> getSavedQuickie(){
 
         return savedQuickie;
-    }
-
-    public Map<String,ArrayList<String>> getSavedCategories(){
-
-        return savedCategories;
     }
 
     public UserCustomFilters getUserCustomFilters(){

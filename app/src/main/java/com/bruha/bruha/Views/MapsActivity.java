@@ -58,7 +58,7 @@ public class MapsActivity extends FragmentActivity implements
     @InjectView(android.R.id.list) ListView ListView;
     MapListViewAdapter adapter;
 
-    private UserCustomFilters mUserCustomFilters = new UserCustomFilters();
+    //private UserCustomFilters mUserCustomFilters;
 
     protected static final String TAG = "basic-location-sample";
 
@@ -75,11 +75,12 @@ public class MapsActivity extends FragmentActivity implements
     protected String mLatitudeText;
     protected String mLongitudeText;
 
+    HashMap<String, Marker> markerMap = new HashMap<>();
+
     // Variables for the marker clicks one for lat/lng storing and one for the applicable events
 
     LatLng venueLocation;
     ArrayList<Event> selectedEvents = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +88,7 @@ public class MapsActivity extends FragmentActivity implements
         setContentView(R.layout.activity_maps);
         ButterKnife.inject(this);
 
-
-
+        //mUserCustomFilters = ((MyApplication) getApplicationContext()).getUserCustomFilters();
 
         /*
         adapter=new MapListViewAdapter(this, selectedEvents); //Calling the adapter ListView to help set the List
@@ -153,14 +153,7 @@ public class MapsActivity extends FragmentActivity implements
 
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
 
-        if(MyApplication.sourceEvents.size() == 0) {
-
-            mEvents = sqLiteUtils.getEventInfo(dbHelper);
-        }
-        else{
-            mEvents = new ArrayList<>(MyApplication.sourceEvents);
-        }
-
+        mEvents = sqLiteUtils.getEventInfo(dbHelper);
     }
 
     private void setEventMarkers(){
@@ -177,10 +170,20 @@ public class MapsActivity extends FragmentActivity implements
 
             LatLng eventLocation = new LatLng(eventLat, eventLng);
 
-            HashMap<String, Marker> markerMap = new HashMap<>();
+            Marker eventMarker = mMap.addMarker(new MarkerOptions().position(eventLocation).title(eventName));
 
-            Marker eventMarker = mMap.addMarker(new MarkerOptions().position(eventLocation).title(eventName).draggable(true));
-            eventMarker.setVisible(true);
+            if(MyApplication.sourceEventsID.contains(mEvents.get(i).getEventid())) {
+
+                eventMarker.setVisible(false);
+            }
+            else if(MyApplication.sourceEventsID.contains("All")){
+
+                eventMarker.setVisible(true);
+            }
+            else{
+
+                eventMarker.setVisible(true);
+            }
 
             markerMap.put(mEvents.get(i).getEventid(),eventMarker);
 
@@ -194,12 +197,15 @@ public class MapsActivity extends FragmentActivity implements
                     double venueLat = venueLocation.latitude;
                     double venueLon = venueLocation.longitude;
 
-                    for(int i = 0; i<mEvents.size(); i++){
+                    for (int i = 0; i < mEvents.size(); i++) {
 
-                        if(mEvents.get(i).getEventLatitude() == venueLat &&
-                                mEvents.get(i).getEventLongitude() == venueLon){
+                        if (mEvents.get(i).getEventLatitude() == venueLat &&
+                                mEvents.get(i).getEventLongitude() == venueLon) {
 
-                            selectedEvents.add(mEvents.get(i));
+                            if (!MyApplication.sourceEventsID.contains(mEvents.get(i).getEventid())) {
+
+                                selectedEvents.add(mEvents.get(i));
+                            }
                         }
                     }
 
@@ -220,7 +226,6 @@ public class MapsActivity extends FragmentActivity implements
 
         }
     }
-
 
     private void SetAdapter() {
 
@@ -304,8 +309,8 @@ public class MapsActivity extends FragmentActivity implements
 
         // Calling the FilterView class to set the layout for the filters
 
-        FilterView filterView = new FilterView(this, null, mMap);
-        mUserCustomFilters = filterView.init();
+        FilterView filterView = new FilterView(this, null, markerMap);
+        filterView.init();
     }
 
     @Override
