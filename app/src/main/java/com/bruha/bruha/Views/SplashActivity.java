@@ -15,6 +15,8 @@ import android.widget.Button;
 
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
+import com.bruha.bruha.PHP.MainActivity;
+import com.bruha.bruha.PHP.Signuppp;
 import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.R;
 
@@ -50,14 +52,14 @@ public class SplashActivity extends Activity {
     //Button to proceed to the Login page.
     @OnClick(R.id.loginButton)
     public void login(View view){
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
     //Button to proceed to register Activity.
     @OnClick(R.id.registerButton)
     public void register(View view){
-        Intent intent = new Intent(this, RegisterActivity.class);
+        Intent intent = new Intent(this, Signuppp.class);
         startActivity(intent);
     }
 

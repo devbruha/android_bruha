@@ -2,14 +2,15 @@ package com.bruha.bruha.Views;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 
+import com.bruha.bruha.Model.Artists;
 import com.bruha.bruha.Model.Event;
-import com.bruha.bruha.Model.MyApplication;
+import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
+import com.bruha.bruha.Model.Venues;
+import com.bruha.bruha.PHP.RetrieveEvents;
 import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
@@ -48,7 +49,48 @@ public class LoadScreenActivity extends Activity {
         SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
 
         sqlu = new SQLUtils(url, user, pass); //Creating Object type SQLUtils using credentials needed
-        mEvents = sqlu.Events();
+
+
+        RetrieveEvents EList = new RetrieveEvents();
+        ArrayList<Event> x= new ArrayList<>() ;
+        try {
+            x = EList.GetEventList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+      /*
+        //A few Test Runs:
+
+        ArrayList<Venues> y= new ArrayList<>() ;
+
+        try {
+            y = EList.GetVenueList();
+            Log.v("VENUES",y.size()+"");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        ArrayList<Organizations> z= new ArrayList<>() ;
+        try {
+            z = EList.GetOrgList();
+            Log.v("Organization",z.size()+"");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        ArrayList<Artists> xy= new ArrayList<>() ;
+        try {
+            xy = EList.GetArtistList();
+            Log.v("Artist",xy.size()+"");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+*/
+
+
+        mEvents = x;
 
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
         sqLiteUtils.insertEvents(dbHelper, mEvents);
