@@ -26,6 +26,7 @@ public class LoadScreenActivity extends Activity {
 
     SQLUtils sqlu ; //The SQLUtil object type that will be initialized later depending on the credentials given above.
     ArrayList<Event> mEvents = new ArrayList<>();
+    ArrayList<Venues> mVenues = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,40 +61,22 @@ public class LoadScreenActivity extends Activity {
         }
 
 
-      /*
-        //A few Test Runs:
-
-        ArrayList<Venues> y= new ArrayList<>() ;
-
+        ArrayList<Venues> Ven= new ArrayList<>() ;
         try {
-            y = EList.GetVenueList();
-            Log.v("VENUES",y.size()+"");
+            Ven = EList.GetVenueList();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        ArrayList<Organizations> z= new ArrayList<>() ;
-        try {
-            z = EList.GetOrgList();
-            Log.v("Organization",z.size()+"");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        ArrayList<Artists> xy= new ArrayList<>() ;
-        try {
-            xy = EList.GetArtistList();
-            Log.v("Artist",xy.size()+"");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-*/
 
 
+
+        mVenues = Ven;
         mEvents = x;
 
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
         sqLiteUtils.insertEvents(dbHelper, mEvents);
+        sqLiteUtils.insertVenues(dbHelper, mVenues);
 
     }
 }

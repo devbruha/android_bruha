@@ -34,6 +34,7 @@ import com.bruha.bruha.R;
 import com.daimajia.swipe.util.Attributes;
 
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,6 +49,8 @@ import butterknife.OnClick;
 public class ListActivity extends FragmentActivity {
 
     ArrayList<Event> mEvents = new ArrayList<>();       //The Array that will hold the Events that we will pass around(to Adapter,the List...
+
+    ArrayList<Venues> mVenues = new ArrayList<>();
 
     ArrayList<Event> Backup;         //Array Backup of the whole list,since mEvent changes when we update the adapter in filter save button.
 
@@ -98,6 +101,7 @@ public class ListActivity extends FragmentActivity {
 
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
         mEvents = sqLiteUtils.getEventInfo(dbHelper);
+        mVenues= sqLiteUtils.getVenuesInfo(dbHelper);
 
         for(Event x:mEvents)
         {
@@ -125,20 +129,19 @@ public class ListActivity extends FragmentActivity {
         EventButton.setTypeface(null, Typeface.NORMAL);
 
 
+        Log.v("Venues",mVenues.size()+"");
+
         EventButton.setTextColor(Color.BLACK);
         ArtistButton.setTextColor(Color.BLACK);
         OrgButton.setTextColor(Color.BLACK);
 
         VenueListViewAdapter venueAdapter;
 
-        ArrayList<Venues> mVenue= new ArrayList<>();
-        mVenue.add(new Venues());
-        mVenue.add(new Venues());
-        mVenue.add(new Venues());
+
 
         //Creating an variable of type Listview Adapter to create the list view.
 
-        venueAdapter=new VenueListViewAdapter(this, mVenue); //Calling the adapter ListView to help set the List
+        venueAdapter=new VenueListViewAdapter(this, mVenues); //Calling the adapter ListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(venueAdapter);

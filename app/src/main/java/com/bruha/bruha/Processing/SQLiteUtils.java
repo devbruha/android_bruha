@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
+import com.bruha.bruha.Model.Venues;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,5 +52,20 @@ public class SQLiteUtils {
 
         return dbhelper.retrieveUserEventInfo();
     }
+
+    public ArrayList<Venues> getVenuesInfo(SQLiteDatabaseModel dbhelper){
+
+        return dbhelper.retrieveVenuesInfo();
+    }
+
+
+
+    public void insertVenues(SQLiteDatabaseModel dbHelper, ArrayList<Venues> ven){
+
+        dbHelper.addVenues(ven);
+
+    }
+
+
 
 }

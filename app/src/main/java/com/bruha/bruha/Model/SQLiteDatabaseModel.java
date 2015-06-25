@@ -53,6 +53,37 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String EVENT_END_TIME = "eventEndTime";
     public static final String EVENT_END_DATE = "eventEndDate";
 
+
+
+    // VENUES Info Table Stuff
+
+   // public static final String TABLE_USER_VENUES_INFO = "user_venue_info";
+
+    public static final String TABLE_VENUES_INFO = "venue_info";
+    public static final String VENUES_LOCAL_ID = "_id";
+    public static final String VENUES_REMOTE_ID = "venueID";
+    public static final String VENUE_LOCATION_ID = "locID";
+    public static final String VENUE_DESCRIPTION = "venueDescription";
+    public static final String VENUE_NAME = "venueName";
+    public static final String VENUE_LATITUDE = "venueLatitude";
+    public static final String VENUE_LONGITUDE = "venueLongitude";
+    public static final String VENUE_LOCATION_NAME = "venueLocName";
+   // public static final String VENUE_LOCATION_STREET = "venueLocStreet";
+    // public static final String VENUE_LOCATION_ADDRESS = "venueLocAddress";
+    //public static final String VENUE_START_TIME = "eventStartTime";
+   // public static final String VENUE_END_TIME = "eventEndTime";
+   // public static final String VENUE_END_DATE = "eventEndDate";
+    //  public static final String VENUE_ICON = "venueIcon";
+    // public static final String VENUE_DATE = "eventDate";
+    // public static final String VENUE_PRICE = "eventPrice";
+    // public static final String VENUE_DISTANCE = "eventDistance"
+
+
+
+
+
+
+
     // Storing our local database name and version as strings
 
     private static final String DATABASE_NAME="BruhaDatabase.db";
@@ -113,6 +144,95 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + EVENT_END_DATE + " text not null);";
 
 
+    private static final String DATABASE_CREATE_VENUE_INFO = "create table "
+            + TABLE_VENUES_INFO + "(" + VENUES_LOCAL_ID
+            + " integer primary key autoincrement, "
+            + VENUES_REMOTE_ID + " text not null, "
+            + VENUE_DESCRIPTION + " text not null, "
+            + VENUE_NAME + " text not null, "
+            + VENUE_LATITUDE + " text not null, "
+            + VENUE_LONGITUDE + " text not null, "
+            + VENUE_LOCATION_NAME + " text not null); ";
+
+
+
+
+
+    //VENUES LOCAL DATABASE SHIT
+
+    public void addVenues( ArrayList<Venues> venue){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        for(int i =0; i< venue.size();i++){
+
+            values.put("venueID", venue.get(i).getVenueId());
+            values.put("venueDescription", venue.get(i).getVenueDescription());
+            values.put("venueName", venue.get(i).getVenueName());
+            values.put("venueLatitude", venue.get(i).getLat());
+            values.put("venueLongitude", venue.get(i).getLng());
+            values.put("venueLocName", venue.get(i).getVenueLocation());
+            //values.put("eventIcon", venue.get(i).getEventIcon());
+            // values.put("eventDate", venue.get(i).getEventDate());
+            //values.put("eventPrice", venue.get(i).getEventPrice());
+            //values.put("eventDistance", venue.get(i).getEventDistance());
+            // values.put("locID", venue.get(i).getLocationID());
+            //values.put("eventLocStreet", venue.get(i).getEventLocSt());
+            //values.put("eventLocAddress", venue.get(i).getEventLocAdd());
+            //values.put("eventStartTime", venue.get(i).getEventStartTime());
+            //values.put("eventEndTime", venue.get(i).getEventEndTime());
+            //values.put("eventEndDate", venue.get(i).getEventEndDate());
+
+            db.insert(TABLE_VENUES_INFO, null, values);
+        }
+    }
+
+
+
+    public ArrayList<Venues> retrieveVenuesInfo(){
+
+        ArrayList<Venues> mVenues = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_VENUES_INFO, null, null, null, null, null, null);
+
+        if(cursor != null)
+        {
+            while(cursor.moveToNext()){
+
+                Venues newVen = new Venues();
+
+                //int id = cursor.getInt(cursor.getColumnIndex("_id"));
+
+                newVen.setVenueId(Integer.parseInt(cursor.getString(cursor.getColumnIndex("venueID"))));
+                newVen.setVenueDescription(cursor.getString(cursor.getColumnIndex("venueDescription")));
+                newVen.setVenueName(cursor.getString(cursor.getColumnIndex("venueName")));
+                newVen.setLat(cursor.getDouble(cursor.getColumnIndex("venueLatitude")));
+                newVen.setLng(cursor.getDouble(cursor.getColumnIndex("venueLongitude")));
+                newVen.setVenueLocation(cursor.getString(cursor.getColumnIndex("venueLocName")));
+
+                mVenues.add(newVen);
+            }
+        }
+
+        cursor.close();
+
+        return mVenues;
+    }
+
+
+
+
+
+
+
+
+
+
+
+    //MyUpload, User's Event Info Pages.
 
     public void addUserEvents( ArrayList<Event> events){
 
@@ -214,6 +334,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.execSQL(DATABASE_CREATE_USER_INFO);
         db.execSQL(DATABASE_CREATE_EVENT_INFO);
         db.execSQL(DATABASE_CREATE_USER_EVENT_INFO);
+        db.execSQL(DATABASE_CREATE_VENUE_INFO);
 
     }
 
@@ -225,6 +346,9 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
         onCreate(db);
     }
+
+
+    //Event List being Implemented.
 
     public void addEvents( ArrayList<Event> events){
 
