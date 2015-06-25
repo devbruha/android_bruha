@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.Venues;
 
@@ -64,6 +65,17 @@ public class SQLiteUtils {
 
         dbHelper.addVenues(ven);
 
+    }
+
+    public void insertOutfits(SQLiteDatabaseModel dbHelper, ArrayList<Organizations> org){
+
+        dbHelper.addOutfits(org);
+
+    }
+
+    public ArrayList<Organizations> getOutfitsInfo(SQLiteDatabaseModel dbhelper){
+
+        return dbhelper.retrieveOutfitInfo();
     }
 
 

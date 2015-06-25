@@ -83,6 +83,15 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
 
 
+    //OUTFITS INTO LOCAL DATABASE:
+    public static final String TABLE_OUTFIT_INFO = "outfit_info";
+    public static final String OUTFIT_LOCAL_ID = "_id";
+    public static final String OUTFIT_REMOTE_ID = "outfitID";
+    public static final String OUTFIT_DESCRIPTION = "outfitDescription";
+    public static final String OUTFIT_NAME = "outfitName";
+    public static final String OUTFIT_LATITUDE = "outfitLatitude";
+    public static final String OUTFIT_LONGITUDE = "outfitLongitude";
+    public static final String OUTFIT_LOCATION_NAME = "outfitLocName";
 
     // Storing our local database name and version as strings
 
@@ -154,6 +163,73 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + VENUE_LONGITUDE + " text not null, "
             + VENUE_LOCATION_NAME + " text not null); ";
 
+    private static final String DATABASE_CREATE_OUTFIT_INFO = "create table "
+            + TABLE_OUTFIT_INFO + "(" + OUTFIT_LOCAL_ID
+            + " integer primary key autoincrement, "
+            + OUTFIT_REMOTE_ID + " text not null, "
+            + OUTFIT_DESCRIPTION + " text not null, "
+            + OUTFIT_NAME + " text not null, "
+            + OUTFIT_LATITUDE + " text not null, "
+            + OUTFIT_LONGITUDE + " text not null, "
+            + OUTFIT_LOCATION_NAME + " text not null); ";
+
+
+
+
+    //OUTFIT LOCAL DATABASE SHIT
+
+    public void addOutfits( ArrayList<Organizations> Org){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        for(int i =0; i< Org.size();i++){
+
+            values.put("outfitID", Org.get(i).getOrgId());
+            values.put("outfitDescription", Org.get(i).getOrgDescription());
+            values.put("outfitName", Org.get(i).getOrgName());
+            values.put("outfitLatitude", Org.get(i).getLat());
+            values.put("outfitLongitude", Org.get(i).getLng());
+            values.put("outfitLocName", Org.get(i).getOrgLocation());
+
+            db.insert(TABLE_OUTFIT_INFO, null, values);
+        }
+    }
+
+
+
+    public ArrayList<Organizations> retrieveOutfitInfo(){
+
+        ArrayList<Organizations> mOutfit = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_OUTFIT_INFO, null, null, null, null, null, null);
+
+        if(cursor != null)
+        {
+            while(cursor.moveToNext()){
+
+                Organizations Org = new Organizations();
+
+                int id = cursor.getInt(cursor.getColumnIndex("_id"));
+
+                Org.setOrgId(Integer.parseInt(cursor.getString(cursor.getColumnIndex("outfitID"))));
+                Org.setOrgDescription(cursor.getString(cursor.getColumnIndex("outfitDescription")));
+                Org.setOrgName(cursor.getString(cursor.getColumnIndex("outfitName")));
+                Org.setLat(cursor.getDouble(cursor.getColumnIndex("outfitLatitude")));
+                Org.setLng(cursor.getDouble(cursor.getColumnIndex("outfitLongitude")));
+                Org.setOrgLocation(cursor.getString(cursor.getColumnIndex("outfitLocName")));
+
+                mOutfit.add(Org);
+            }
+        }
+
+        cursor.close();
+
+        return mOutfit;
+    }
+
 
 
 
@@ -188,8 +264,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         }
     }
 
-
-
     public ArrayList<Venues> retrieveVenuesInfo(){
 
         ArrayList<Venues> mVenues = new ArrayList<>();
@@ -221,15 +295,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
         return mVenues;
     }
-
-
-
-
-
-
-
-
-
 
 
     //MyUpload, User's Event Info Pages.
@@ -335,6 +400,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.execSQL(DATABASE_CREATE_EVENT_INFO);
         db.execSQL(DATABASE_CREATE_USER_EVENT_INFO);
         db.execSQL(DATABASE_CREATE_VENUE_INFO);
+        db.execSQL(DATABASE_CREATE_OUTFIT_INFO);
 
     }
 

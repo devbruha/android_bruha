@@ -89,7 +89,7 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         });
 
         //Initializing each item to the required type
-        final Organizations artist = mOrganizations.get(position);
+        final Organizations Outfit = mOrganizations.get(position);
 
         //Summary Description of the Venue.
         holder.OrganizationPicture= (ImageView) convertView.findViewById(R.id.VenuePicture);
@@ -114,17 +114,17 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         //Summary being set.
       //  holder.OrganizationPicture.setImageResource();
       // holder.OrganizationIcon.setImageResource();
-        holder.OrganizationName.setText("The Forge");
-        holder.OrganizationDistance.setText("1.2 km");
+        holder.OrganizationName.setText(Outfit.getOrgName());
+      //  holder.OrganizationDistance.setText("1.2 km");
 
         //Detailed Description being set.
-        holder.OrganizationDetailedName.setText("The Forge");
-        holder.OrganizationLocName.setText("McMaster Innovation Park");
-        holder.OrganizationLocSt.setText("Main at Longwood");
-        holder.OrganizationLocAdd.setText("Hamilton, ON Canada");
-        holder.OrganizationWeekDayHours.setText("Mon to Fri: 8 AM - 10 PM ");
-        holder.OrganizationSaturday.setText("Saturday: 10 AM - 5 PM");
-        holder.OrganizationSunday.setText("Sunday: Closed");
+        holder.OrganizationDetailedName.setText(Outfit.getOrgName());
+        holder.OrganizationLocName.setText(Outfit.getOrgLocation());
+       // holder.OrganizationLocSt.setText("Main at Longwood");
+        //holder.OrganizationLocAdd.setText("Hamilton, ON Canada");
+        //holder.OrganizationWeekDayHours.setText("Mon to Fri: 8 AM - 10 PM ");
+        //holder.OrganizationSaturday.setText("Saturday: 10 AM - 5 PM");
+        //holder.OrganizationSunday.setText("Sunday: Closed");
 
 
 

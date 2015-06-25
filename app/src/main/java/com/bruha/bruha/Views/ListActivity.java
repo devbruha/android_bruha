@@ -49,7 +49,7 @@ import butterknife.OnClick;
 public class ListActivity extends FragmentActivity {
 
     ArrayList<Event> mEvents = new ArrayList<>();       //The Array that will hold the Events that we will pass around(to Adapter,the List...
-
+    ArrayList<Organizations> mOutfit = new ArrayList<>();
     ArrayList<Venues> mVenues = new ArrayList<>();
 
     ArrayList<Event> Backup;         //Array Backup of the whole list,since mEvent changes when we update the adapter in filter save button.
@@ -102,6 +102,7 @@ public class ListActivity extends FragmentActivity {
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
         mEvents = sqLiteUtils.getEventInfo(dbHelper);
         mVenues= sqLiteUtils.getVenuesInfo(dbHelper);
+        mOutfit= sqLiteUtils.getOutfitsInfo(dbHelper);
 
         for(Event x:mEvents)
         {
@@ -163,16 +164,15 @@ public class ListActivity extends FragmentActivity {
         ArtistButton.setTextColor(Color.BLACK);
         EventButton.setTextColor(Color.BLACK);
 
+
+
         OrganizationListViewAdapter OrgAdapter;
 
-        ArrayList<Organizations> mOrganizations= new ArrayList<>();
-        mOrganizations.add(new Organizations());
-        mOrganizations.add(new Organizations());
-        mOrganizations.add(new Organizations());
+
 
         //Creating an variable of type Listview Adapter to create the list view.
 
-        OrgAdapter=new OrganizationListViewAdapter(this, mOrganizations); //Calling the adapter ListView to help set the List
+        OrgAdapter=new OrganizationListViewAdapter(this, mOutfit); //Calling the adapter ListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(OrgAdapter);
