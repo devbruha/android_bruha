@@ -51,6 +51,7 @@ public class ListActivity extends FragmentActivity {
     ArrayList<Event> mEvents = new ArrayList<>();       //The Array that will hold the Events that we will pass around(to Adapter,the List...
     ArrayList<Organizations> mOutfit = new ArrayList<>();
     ArrayList<Venues> mVenues = new ArrayList<>();
+    ArrayList<Artists> mArtists = new ArrayList<>();
 
     ArrayList<Event> Backup;         //Array Backup of the whole list,since mEvent changes when we update the adapter in filter save button.
 
@@ -103,6 +104,7 @@ public class ListActivity extends FragmentActivity {
         mEvents = sqLiteUtils.getEventInfo(dbHelper);
         mVenues= sqLiteUtils.getVenuesInfo(dbHelper);
         mOutfit= sqLiteUtils.getOutfitsInfo(dbHelper);
+        mArtists= sqLiteUtils.getArtistInfo(dbHelper);
 
         for(Event x:mEvents)
         {
@@ -214,10 +216,7 @@ public class ListActivity extends FragmentActivity {
 
         ArtistsListViewAdapter Adapter;
 
-        ArrayList<Artists> mArtists= new ArrayList<>();
-        mArtists.add(new Artists());
-        mArtists.add(new Artists());
-        mArtists.add(new Artists());
+
 
         //Creating an variable of type Listview Adapter to create the list view.
 

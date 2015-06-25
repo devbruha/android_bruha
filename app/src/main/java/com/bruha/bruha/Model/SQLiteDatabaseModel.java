@@ -93,6 +93,14 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String OUTFIT_LONGITUDE = "outfitLongitude";
     public static final String OUTFIT_LOCATION_NAME = "outfitLocName";
 
+
+    //ARTIST INTO LOCAL DATABASE:
+    public static final String TABLE_ARTIST_INFO = "artist_info";
+    public static final String ARTIST_LOCAL_ID = "_id";
+    public static final String ARTIST_REMOTE_ID = "artistID";
+    public static final String ARTIST_DESCRIPTION = "artistDescription";
+    public static final String ARTIST_NAME = "artistName";
+
     // Storing our local database name and version as strings
 
     private static final String DATABASE_NAME="BruhaDatabase.db";
@@ -172,6 +180,68 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + OUTFIT_LATITUDE + " text not null, "
             + OUTFIT_LONGITUDE + " text not null, "
             + OUTFIT_LOCATION_NAME + " text not null); ";
+
+    private static final String DATABASE_CREATE_ARTIST_INFO = "create table "
+            + TABLE_ARTIST_INFO + "(" + ARTIST_LOCAL_ID
+            + " integer primary key autoincrement, "
+            + ARTIST_REMOTE_ID + " text not null, "
+            + ARTIST_DESCRIPTION + " text not null, "
+            + ARTIST_NAME + " text not null); ";
+
+
+
+
+
+    //ARTIST LOCAL DATABASE SHIT
+
+    public void addArtists( ArrayList<Artists> artist){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        for(int i =0; i< artist.size();i++){
+
+            values.put("artistID", artist.get(i).getArtistId());
+            values.put("artistDescription", artist.get(i).getArtistDescription());
+            values.put("artistName", artist.get(i).getArtistName());
+
+            db.insert(TABLE_ARTIST_INFO, null, values);
+        }
+    }
+
+
+
+    public ArrayList<Artists> retrieveArtistInfo(){
+
+        ArrayList<Artists> mArtist = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_ARTIST_INFO, null, null, null, null, null, null);
+
+        if(cursor != null)
+        {
+            while(cursor.moveToNext()){
+
+                Artists artist = new Artists();
+
+                int id = cursor.getInt(cursor.getColumnIndex("_id"));
+
+                artist.setArtistId(Integer.parseInt(cursor.getString(cursor.getColumnIndex("artistID"))));
+                artist.setArtistDescription(cursor.getString(cursor.getColumnIndex("artistDescription")));
+                artist.setArtistName(cursor.getString(cursor.getColumnIndex("artistName")));
+
+                mArtist.add(artist);
+            }
+        }
+
+        cursor.close();
+
+        return mArtist;
+    }
+
+
+
 
 
 
@@ -401,6 +471,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.execSQL(DATABASE_CREATE_USER_EVENT_INFO);
         db.execSQL(DATABASE_CREATE_VENUE_INFO);
         db.execSQL(DATABASE_CREATE_OUTFIT_INFO);
+        db.execSQL(DATABASE_CREATE_ARTIST_INFO);
 
     }
 

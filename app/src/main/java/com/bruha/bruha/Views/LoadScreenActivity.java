@@ -28,6 +28,7 @@ public class LoadScreenActivity extends Activity {
     ArrayList<Event> mEvents = new ArrayList<>();
     ArrayList<Venues> mVenues = new ArrayList<>();
     ArrayList<Organizations> mOutfits = new ArrayList<>();
+    ArrayList<Artists> mArtists = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +78,15 @@ public class LoadScreenActivity extends Activity {
             e.printStackTrace();
         }
 
+        ArrayList<Artists> artist= new ArrayList<>() ;
+        try {
+            artist = EList.GetArtistList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+
+        mArtists= artist;
         mOutfits = org;
         mVenues = Ven;
         mEvents = x;
@@ -86,6 +95,7 @@ public class LoadScreenActivity extends Activity {
         sqLiteUtils.insertEvents(dbHelper, mEvents);
         sqLiteUtils.insertVenues(dbHelper, mVenues);
         sqLiteUtils.insertOutfits(dbHelper, mOutfits);
+        sqLiteUtils.insertArtist(dbHelper, mArtists);
 
     }
 }
