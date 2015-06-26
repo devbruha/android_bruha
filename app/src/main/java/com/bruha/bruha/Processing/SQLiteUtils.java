@@ -4,8 +4,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.bruha.bruha.Model.Artists;
 import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
+import com.bruha.bruha.Model.Venues;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,5 +54,42 @@ public class SQLiteUtils {
 
         return dbhelper.retrieveUserEventInfo();
     }
+
+    public ArrayList<Venues> getVenuesInfo(SQLiteDatabaseModel dbhelper){
+
+        return dbhelper.retrieveVenuesInfo();
+    }
+
+
+
+    public void insertVenues(SQLiteDatabaseModel dbHelper, ArrayList<Venues> ven){
+
+        dbHelper.addVenues(ven);
+
+    }
+
+    public void insertOutfits(SQLiteDatabaseModel dbHelper, ArrayList<Organizations> org){
+
+        dbHelper.addOutfits(org);
+
+    }
+
+    public ArrayList<Organizations> getOutfitsInfo(SQLiteDatabaseModel dbhelper){
+
+        return dbhelper.retrieveOutfitInfo();
+    }
+
+
+    public void insertArtist(SQLiteDatabaseModel dbHelper, ArrayList<Artists> artist){
+
+        dbHelper.addArtists(artist);
+
+    }
+
+    public ArrayList<Artists> getArtistInfo(SQLiteDatabaseModel dbhelper){
+
+        return dbhelper.retrieveArtistInfo();
+    }
+
 
 }

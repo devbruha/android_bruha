@@ -22,6 +22,25 @@ public class Venues {
     private String ContactWebsite;
     private String ContactAddress;
 
+    //Venue Location
+    private double Lat;
+    private double Lng;
+
+    public double getLat() {
+        return Lat;
+    }
+
+    public void setLat(double lat) {
+        Lat = lat;
+    }
+
+    public double getLng() {
+        return Lng;
+    }
+
+    public void setLng(double lng) {
+        Lng = lng;
+    }
     //All the Getters and Setters:
 
     public int getVenueId() {

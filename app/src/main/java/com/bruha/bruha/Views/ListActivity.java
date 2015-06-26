@@ -34,6 +34,7 @@ import com.bruha.bruha.R;
 import com.daimajia.swipe.util.Attributes;
 
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,6 +49,9 @@ import butterknife.OnClick;
 public class ListActivity extends FragmentActivity {
 
     ArrayList<Event> mEvents = new ArrayList<>();       //The Array that will hold the Events that we will pass around(to Adapter,the List...
+    ArrayList<Organizations> mOutfit = new ArrayList<>();
+    ArrayList<Venues> mVenues = new ArrayList<>();
+    ArrayList<Artists> mArtists = new ArrayList<>();
 
     ArrayList<Event> Backup;         //Array Backup of the whole list,since mEvent changes when we update the adapter in filter save button.
 
@@ -98,6 +102,9 @@ public class ListActivity extends FragmentActivity {
 
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
         mEvents = sqLiteUtils.getEventInfo(dbHelper);
+        mVenues= sqLiteUtils.getVenuesInfo(dbHelper);
+        mOutfit= sqLiteUtils.getOutfitsInfo(dbHelper);
+        mArtists= sqLiteUtils.getArtistInfo(dbHelper);
 
         for(Event x:mEvents)
         {
@@ -125,20 +132,19 @@ public class ListActivity extends FragmentActivity {
         EventButton.setTypeface(null, Typeface.NORMAL);
 
 
+        Log.v("Venues",mVenues.size()+"");
+
         EventButton.setTextColor(Color.BLACK);
         ArtistButton.setTextColor(Color.BLACK);
         OrgButton.setTextColor(Color.BLACK);
 
         VenueListViewAdapter venueAdapter;
 
-        ArrayList<Venues> mVenue= new ArrayList<>();
-        mVenue.add(new Venues());
-        mVenue.add(new Venues());
-        mVenue.add(new Venues());
+
 
         //Creating an variable of type Listview Adapter to create the list view.
 
-        venueAdapter=new VenueListViewAdapter(this, mVenue); //Calling the adapter ListView to help set the List
+        venueAdapter=new VenueListViewAdapter(this, mVenues); //Calling the adapter ListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(venueAdapter);
@@ -160,16 +166,15 @@ public class ListActivity extends FragmentActivity {
         ArtistButton.setTextColor(Color.BLACK);
         EventButton.setTextColor(Color.BLACK);
 
+
+
         OrganizationListViewAdapter OrgAdapter;
 
-        ArrayList<Organizations> mOrganizations= new ArrayList<>();
-        mOrganizations.add(new Organizations());
-        mOrganizations.add(new Organizations());
-        mOrganizations.add(new Organizations());
+
 
         //Creating an variable of type Listview Adapter to create the list view.
 
-        OrgAdapter=new OrganizationListViewAdapter(this, mOrganizations); //Calling the adapter ListView to help set the List
+        OrgAdapter=new OrganizationListViewAdapter(this, mOutfit); //Calling the adapter ListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(OrgAdapter);
@@ -211,10 +216,7 @@ public class ListActivity extends FragmentActivity {
 
         ArtistsListViewAdapter Adapter;
 
-        ArrayList<Artists> mArtists= new ArrayList<>();
-        mArtists.add(new Artists());
-        mArtists.add(new Artists());
-        mArtists.add(new Artists());
+
 
         //Creating an variable of type Listview Adapter to create the list view.
 

@@ -99,6 +99,7 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         holder.ArtistLocSt= (TextView) convertView.findViewById(R.id.DesVenueLocStreet);
         holder.ArtistLocAdd = (TextView) convertView.findViewById(R.id.DesVenueLocAddress);
         holder.ArtistEventTiming= (TextView) convertView.findViewById(R.id.VenueMontoFriHour);
+        holder.DesArtistName=(TextView) convertView.findViewById(R.id.DesVenueName);
 
 
 
@@ -109,14 +110,15 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         //Summary being set.
        // holder.ArtistPicture.setImageResource();
        // holder.ArtistIcon.setImageResource();
-        holder.ArtistName.setText("The Arkells");
-        holder.ArtistDistance.setText("1.2 km");
+        holder.ArtistName.setText(artist.getArtistName());
+        holder.ArtistDistance.setText(artist.getArtistDescription());
 
         //Detailed Description being set.
-        holder.ArtistLocName.setText("X Lounge");
-        holder.ArtistLocSt.setText("1250 Main St. West");
-        holder.ArtistLocAdd.setText("Hamilton, ON Canada");
-        holder.ArtistEventTiming.setText("30 September,2015 At 3:30:00");
+        holder.DesArtistName.setText(artist.getArtistName());
+      //  holder.ArtistLocName.setText("X Lounge");
+        //holder.ArtistLocSt.setText("1250 Main St. West");
+        //holder.ArtistLocAdd.setText("Hamilton, ON Canada");
+        //holder.ArtistEventTiming.setText("30 September,2015 At 3:30:00");
 
 
 
@@ -281,6 +283,7 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         TextView ArtistDistance;
 
         //Values holding the detailed description of venues.
+        TextView DesArtistName;
         TextView ArtistLocName;
         TextView ArtistLocSt;
         TextView ArtistLocAdd;

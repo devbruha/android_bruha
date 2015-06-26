@@ -2,14 +2,15 @@ package com.bruha.bruha.Views;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 
+import com.bruha.bruha.Model.Artists;
 import com.bruha.bruha.Model.Event;
-import com.bruha.bruha.Model.MyApplication;
+import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
+import com.bruha.bruha.Model.Venues;
+import com.bruha.bruha.PHP.RetrieveEvents;
 import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
@@ -25,6 +26,9 @@ public class LoadScreenActivity extends Activity {
 
     SQLUtils sqlu ; //The SQLUtil object type that will be initialized later depending on the credentials given above.
     ArrayList<Event> mEvents = new ArrayList<>();
+    ArrayList<Venues> mVenues = new ArrayList<>();
+    ArrayList<Organizations> mOutfits = new ArrayList<>();
+    ArrayList<Artists> mArtists = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +52,50 @@ public class LoadScreenActivity extends Activity {
         SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
 
         sqlu = new SQLUtils(url, user, pass); //Creating Object type SQLUtils using credentials needed
-        mEvents = sqlu.Events();
+
+
+        RetrieveEvents EList = new RetrieveEvents();
+        ArrayList<Event> x= new ArrayList<>() ;
+        try {
+            x = EList.GetEventList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        ArrayList<Venues> Ven= new ArrayList<>() ;
+        try {
+            Ven = EList.GetVenueList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        ArrayList<Organizations> org= new ArrayList<>() ;
+        try {
+            org = EList.GetOrgList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        ArrayList<Artists> artist= new ArrayList<>() ;
+        try {
+            artist = EList.GetArtistList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        mArtists= artist;
+        mOutfits = org;
+        mVenues = Ven;
+        mEvents = x;
 
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
         sqLiteUtils.insertEvents(dbHelper, mEvents);
+        sqLiteUtils.insertVenues(dbHelper, mVenues);
+        sqLiteUtils.insertOutfits(dbHelper, mOutfits);
+        sqLiteUtils.insertArtist(dbHelper, mArtists);
 
     }
 }

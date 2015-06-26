@@ -102,26 +102,29 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         holder.VenueHourWeekDay= (TextView) convertView.findViewById(R.id.VenueMontoFriHour);
         holder.VenueHourSaturday= (TextView) convertView.findViewById(R.id.VenueSaturdayHour);
         holder.VenueHourSunday= (TextView) convertView.findViewById(R.id.VenueSundayHour);
+        holder.VenueDesName = (TextView) convertView.findViewById(R.id.DesVenueName);
 
 
 
-/*
+
         //Setting all the text inside the view.
 
         //Summary being set.
-        holder.VenuePicture.setImageResource();
-        holder.VenueIcon.setImageResource();
-        holder.VenueName.setText();
-        holder.VenueDistance.setText();
+      //  holder.VenuePicture.setImageResource();
+       // holder.VenueIcon.setImageResource();
+        holder.VenueName.setText(Venue.getVenueName());
+       // holder.VenueDistance.setText();
 
         //Detailed Description being set.
-        holder.VenueLocName.setText();
-        holder.VenueLocSt.setText();
-        holder.VenueLocAdd.setText();
-        holder.VenueHourWeekDay.setText();
-        holder.VenueHourSaturday.setText();
-        holder.VenueHourSunday.setText();
-        */
+        holder.VenueDesName.setText(Venue.getVenueName());
+        holder.VenueLocName.setText(Venue.getVenueLocation());
+       // holder.VenueLocSt.setText();
+       // holder.VenueLocAdd.setText();
+       // holder.VenueHourWeekDay.setText();
+       // holder.VenueHourSaturday.setText();
+       // holder.VenueHourSunday.setText();
+
+
 
 
         //Swipe methods being Implemented
@@ -301,6 +304,7 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         TextView VenueHourWeekDay;
         TextView VenueHourSaturday;
         TextView VenueHourSunday;
+        TextView VenueDesName;
 
     }
 
