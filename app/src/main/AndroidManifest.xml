@@ -88,6 +88,10 @@
             android:name=".PHP.EventListing"
             android:label="@string/title_activity_event_listing" >
         </activity>
+        <activity
+            android:name=".Views.MyTicketActivity"
+            android:label="@string/title_activity_my_ticket" >
+        </activity>
     </application>
 
 </manifest>

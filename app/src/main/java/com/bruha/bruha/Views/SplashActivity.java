@@ -15,6 +15,7 @@ import android.widget.Button;
 
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
+import com.bruha.bruha.PHP.EventListing;
 import com.bruha.bruha.PHP.MainActivity;
 import com.bruha.bruha.PHP.Signuppp;
 import com.bruha.bruha.Processing.SQLUtils;
@@ -59,7 +60,7 @@ public class SplashActivity extends Activity {
     //Button to proceed to register Activity.
     @OnClick(R.id.registerButton)
     public void register(View view){
-        Intent intent = new Intent(this, Signuppp.class);
+        Intent intent = new Intent(this, EventListing.class);
         startActivity(intent);
     }
 

@@ -1,168 +1,121 @@
 package com.bruha.bruha.PHP;
 
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
+        import java.io.BufferedReader;
+        import java.io.IOException;
+        import java.io.InputStreamReader;
+        import java.io.OutputStreamWriter;
+        import java.net.HttpURLConnection;
+        import java.net.URL;
 
-import com.bruha.bruha.Model.Event;
-import com.bruha.bruha.R;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+        import android.app.Activity;
+        import android.os.Bundle;
+        import android.util.Log;
+        import android.view.View;
+        import android.view.View.OnClickListener;
+        import android.widget.Button;
+        import android.widget.EditText;
+        import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+        import com.bruha.bruha.R;
 
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+public class EventListing extends Activity {
+    /** Called when the activity is first created. */
+    private Button login;
+    private EditText username, password;
 
-public class EventListing extends ActionBarActivity {
-
-    public ArrayList<Event> New = new ArrayList<>();
-
-
-    public EventListing()
-    {
-
-    }
-
-    public ArrayList<Event> getNew()
-    {
-        GetList();
-        return New; }
+    URL url = null;
+    String response = null;
+    HttpURLConnection connection;
+    OutputStreamWriter request = null;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_listing);
+        setContentView(R.layout.activity_main);
 
+        login = (Button) findViewById(R.id.login);
+        username = (EditText) findViewById(R.id.username);
+        password = (EditText) findViewById(R.id.password);
 
+        login.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                // Stores user entered credentials as strings then passes them to tryLogin function
+
+                String   mUsername = username.getText().toString();
+                String  mPassword = password.getText().toString();
+
+                tryLogin(mUsername, mPassword);
+            }
+        });
     }
 
-    private void GetList() {
+    protected void tryLogin(String mUsername, String mPassword)
+    {
 
-        String Url = "http://bruha.com/mobile_php/JSONTest.php";
+        // creates parameters for the DB call to attach to the "initial" URL
+        // to attach more paramenters its of the form:
+        // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
 
+        //final String parameters = "username="+mUsername+"&password="+mPassword;
+        final String parameters = "username=TestAccount";
 
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder()
-                    .url(Url)
-                    .build();
+        Thread thread;
 
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
 
+                try {
 
-            Call call = client.newCall(request);
-            call.enqueue(new Callback() {
-                @Override
-                public void onFailure(Request request, IOException e) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
+                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
 
-                        }
-                    });
-                 ;
-                }
+                    // alot of boiler plate stuff
 
+                    url = new URL("http://bruha.com/mobile_php/phpPostTest.php?" + parameters);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setDoOutput(true);
+                    connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    connection.setRequestMethod("POST");
 
-
-                @Override
-                public void onResponse(Response response) throws IOException {
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                        }
-                    });
-
-
-                    try {
-
-                        Log.v("Does it work?","YES");
-
-                        String jsonData = response.body().string();
-                        if (response.isSuccessful()) {
-                            Log.v("Works Again","Yes");
-                            Log.v("What",jsonData) ;
-
-                            JSONArray x = new JSONArray(jsonData);
-
-
-
-
-                            for (int i = 0; i < x.length(); i++) {
-                                JSONObject Event = x.getJSONObject(i);
-                                Event even = new Event();
-
-                                even.setEventName(Event.getString("event_name"));
-                                even.setEventDate(Event.getString("evnt_start_date"));
-                                even.setEventEndDate(Event.getString("event_end_date"));
-                                even.setEventStartTime(Event.getString("event_start_time"));
-                                even.setEventEndTime(Event.getString("event_end_time"));
-                                even.setEventLocAdd(Event.getString("venue_location"));
-                             //  even.setEventPrice(Event.getDouble("Admission_price"));
-
-                                New.add(even) ;
-                            }
-
-                            Log.v("WOW","WOWW");
-
-
-
-                        }
-
+                    request = new OutputStreamWriter(connection.getOutputStream());
+                    request.write(parameters);
+                    request.flush();
+                    request.close();
+                    String line = "";
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader reader = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
                     }
+                    // Response from server after login process will be stored in response variable.
 
+                    // in this case the response is the echo from the php script (i.e = 1) if successful
 
+                    response = sb.toString();
+                    // You can perform UI operations here
+                    isr.close();
+                    reader.close();
 
-                    catch(Exception e)
-                    {
-                        Log.v("Exception" , e+"");
+                } catch (IOException e) {
+                    // Error
                 }
+            }
+        });
 
+        thread.start();
 
-            };
-                });
-
-
-    }
-
-    /*
-
-    private Day[] getDailyForecast(String jsonData) throws JSONException {
-        JSONObject forecast = new JSONObject(jsonData);
-        String timezone = forecast.getString("timezone");
-        JSONObject daily = forecast.getJSONObject("daily");
-        JSONArray data = daily.getJSONArray("data");
-
-        Day[] days = new Day[data.length()];
-
-        for (int i = 0; i < data.length(); i++) {
-            JSONObject jsonDay = data.getJSONObject(i);
-            Day day = new Day();
-
-
-            day.setSummary(jsonDay.getString("summary"));
-            day.setIcon(jsonDay.getString("icon"));
-            day.setTemperatureMax(jsonDay.getDouble("temperatureMax"));
-            day.setTime(jsonDay.getLong("time"));
-            day.setTimezone(timezone);
-
-            days[i] = day;
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
-        return days;
+        Log.v("TEST:", response);
+
+
     }
-
-*/
-
-
 }

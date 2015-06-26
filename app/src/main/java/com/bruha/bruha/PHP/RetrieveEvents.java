@@ -30,7 +30,7 @@ public class RetrieveEvents {
 
     public ArrayList<Event> GetEventList() {
 
-        final String Url = "http://bruha.com/mobile_php/JSONTest.php";
+        final String Url = "http://bruha.com/mobile_php/EventList.php";
 
 
         Thread T = new Thread(new Runnable() {
@@ -151,7 +151,7 @@ public class RetrieveEvents {
 
     public ArrayList<Organizations> GetOrgList() {
 
-        final String Url = "http://bruha.com/mobile_php/ORG.php";
+        final String Url = "http://bruha.com/mobile_php/OrganizationList.php";
 
 
         Thread T = new Thread(new Runnable() {
@@ -209,7 +209,7 @@ public class RetrieveEvents {
 
     public ArrayList<Artists> GetArtistList() {
 
-        final String Url = "http://bruha.com/mobile_php/artistList.php";
+        final String Url = "http://bruha.com/mobile_php/ArtistList.php";
 
 
         Thread T = new Thread(new Runnable() {

@@ -119,6 +119,11 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
 
+
+
+        Log.v("Response",response);
+
+        /*
         // toasting the response from the server, gg
 
         Toast.makeText(this,"Message from Server: \n"+ response, Toast.LENGTH_SHORT).show();
@@ -135,6 +140,7 @@ public class MainActivity extends Activity {
             startActivity(intent);
         }
 
+*/
 
     }
 }
