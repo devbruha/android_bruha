@@ -91,6 +91,11 @@
         <activity
             android:name=".Views.MyTicketActivity"
             android:label="@string/title_activity_my_ticket"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".Views.UserProfileActivity"
+            android:label="@string/title_activity_user_profile"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
     </application>

@@ -351,6 +351,8 @@ public class RetrieveEvents {
                 even.setEventEndTime(Event.getString("event_end_time"));
                 even.setEventDate(Event.getString("event_start_date"));
                 even.setEventEndDate(Event.getString("event_end_date"));
+                even.setEventLocName(Event.getString("venue_name"));
+                even.setEventLocSt(Event.getString("venue_location"));
 
 
                 mUserEvents.add(even);

@@ -22,18 +22,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView15"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:layout_above="@+id/ticketPic"
-        android:layout_alignLeft="@+id/ticketPic"
-        android:layout_alignStart="@+id/ticketPic" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Type:"
-        android:id="@+id/textView17"
+        android:id="@+id/type"
         android:layout_alignTop="@+id/ticketPic"
         android:layout_centerHorizontal="true"
         android:textSize="15sp"
@@ -42,10 +32,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView28"
-        android:layout_below="@+id/textView17"
-        android:layout_alignLeft="@+id/textView48"
-        android:layout_alignStart="@+id/textView48"
+        android:id="@+id/rem"
+        android:layout_below="@+id/type"
+        android:layout_alignLeft="@+id/ttl"
+        android:layout_alignStart="@+id/ttl"
         android:text="Remaining:"
         android:textSize="15sp"
         android:layout_marginBottom="3dp" />
@@ -54,10 +44,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="End:"
-        android:id="@+id/textView29"
-        android:layout_below="@+id/textView28"
-        android:layout_alignLeft="@+id/textView17"
-        android:layout_alignStart="@+id/textView17"
+        android:id="@+id/en"
+        android:layout_below="@+id/rem"
+        android:layout_alignLeft="@+id/type"
+        android:layout_alignStart="@+id/type"
         android:textSize="15dp"
         android:layout_marginBottom="3dp" />
 
@@ -65,10 +55,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Price:"
-        android:id="@+id/textView37"
-        android:layout_below="@+id/textView29"
-        android:layout_alignLeft="@+id/textView28"
-        android:layout_alignStart="@+id/textView28"
+        android:id="@+id/prce"
+        android:layout_below="@+id/en"
+        android:layout_alignLeft="@+id/rem"
+        android:layout_alignStart="@+id/rem"
         android:textSize="15sp"
         android:layout_marginBottom="3dp" />
 
@@ -76,10 +66,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Quantity:"
-        android:id="@+id/textView47"
-        android:layout_below="@+id/textView37"
-        android:layout_alignLeft="@+id/textView29"
-        android:layout_alignStart="@+id/textView29"
+        android:id="@+id/quan"
+        android:layout_below="@+id/prce"
+        android:layout_alignLeft="@+id/en"
+        android:layout_alignStart="@+id/en"
         android:textSize="15sp"
         android:layout_marginBottom="3dp" />
 
@@ -87,8 +77,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Total:"
-        android:id="@+id/textView48"
-        android:layout_below="@+id/textView47"
+        android:id="@+id/ttl"
+        android:layout_below="@+id/quan"
         android:layout_centerHorizontal="true"
         android:textSize="15sp" />
 
@@ -97,9 +87,9 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/ticketType"
-        android:layout_alignBottom="@+id/textView17"
-        android:layout_toRightOf="@+id/textView17"
-        android:layout_toEndOf="@+id/textView17"
+        android:layout_alignBottom="@+id/type"
+        android:layout_toRightOf="@+id/type"
+        android:layout_toEndOf="@+id/type"
         android:layout_marginLeft="10dp" />
 
     <TextView
@@ -107,9 +97,9 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/ticketRemaining"
-        android:layout_alignBottom="@+id/textView28"
-        android:layout_toRightOf="@+id/textView28"
-        android:layout_toEndOf="@+id/textView28"
+        android:layout_alignBottom="@+id/rem"
+        android:layout_toRightOf="@+id/rem"
+        android:layout_toEndOf="@+id/rem"
         android:layout_marginLeft="10dp" />
 
     <TextView
@@ -117,9 +107,9 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/ticketEnd"
-        android:layout_alignBottom="@+id/textView29"
-        android:layout_toRightOf="@+id/textView29"
-        android:layout_toEndOf="@+id/textView29"
+        android:layout_alignBottom="@+id/en"
+        android:layout_toRightOf="@+id/en"
+        android:layout_toEndOf="@+id/en"
         android:layout_marginLeft="10dp" />
 
     <TextView
@@ -127,7 +117,7 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/ticketPrice"
-        android:layout_alignBottom="@+id/textView37"
+        android:layout_alignBottom="@+id/prce"
         android:layout_alignLeft="@+id/ticketEnd"
         android:layout_alignStart="@+id/ticketEnd"
         android:layout_marginLeft="10dp" />
@@ -137,7 +127,7 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/ticketTotal"
-        android:layout_alignBottom="@+id/textView48"
+        android:layout_alignBottom="@+id/ttl"
         android:layout_alignLeft="@+id/ticketEnd"
         android:layout_alignStart="@+id/ticketEnd"
         android:layout_marginLeft="10dp" />
@@ -147,9 +137,9 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/ticketQuantity"
-        android:layout_alignBottom="@+id/textView47"
-        android:layout_toRightOf="@+id/textView47"
-        android:layout_toEndOf="@+id/textView47"
+        android:layout_alignBottom="@+id/quan"
+        android:layout_toRightOf="@+id/quan"
+        android:layout_toEndOf="@+id/quan"
         android:layout_marginLeft="10dp" />
 
     <TextView
@@ -158,9 +148,8 @@
         android:text="Event Name"
         android:id="@+id/ticketName"
         android:layout_above="@+id/ticketPic"
-        android:layout_toRightOf="@+id/textView15"
-        android:layout_toEndOf="@+id/textView15"
         android:textSize="25sp"
+        android:layout_alignLeft="@+id/ticketPic"
         android:textStyle="bold" />
 
 </RelativeLayout>
