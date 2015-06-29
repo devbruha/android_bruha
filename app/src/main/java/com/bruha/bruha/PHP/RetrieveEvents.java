@@ -373,7 +373,6 @@ public class RetrieveEvents {
         return mUserEvents;
     }
 
-
     public void login(String mUsername, String mPassword)
     {
 
@@ -464,7 +463,6 @@ public class RetrieveEvents {
 
 
     }
-
 
     public void Register(String mUsername, String mPassword,String mEmail)
     {

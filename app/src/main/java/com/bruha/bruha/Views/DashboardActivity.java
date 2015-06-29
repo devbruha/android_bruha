@@ -157,21 +157,21 @@ public class DashboardActivity extends ActionBarActivity {
     //OnClickListener for "Explore" that leads to the ListView Activity.
     @OnClick(R.id.ExploreButton)
     public void startExploreActivity(View view){
-        Intent intent = new Intent(this, UserProfileActivity.class);
+        Intent intent = new Intent(this, ListActivity.class);
         startActivity(intent);
     }
 
     //OnClickListener for "Explore" that leads to the Addiction Activity.
     @OnClick(R.id.AddictionButton)
     public void startAddictionAcitivty(View view){
-        Intent intent = new Intent(this, MapsActivity.class);
+        Intent intent = new Intent(this, UserProfileActivity.class);
         startActivity(intent);
     }
 
     //OnClickListener for "Explore" that leads to the Ticket Activity.
     @OnClick(R.id.TicketButton)
     public void startTicketAcitivity(View view){
-        Intent intent = new Intent(this, MapsActivity.class);
+        Intent intent = new Intent(this, MyTicketActivity.class);
         startActivity(intent);
     }
 
@@ -192,7 +192,7 @@ public class DashboardActivity extends ActionBarActivity {
     //OnClickListener for "Explore" that leads to the Profile Activity.
     @OnClick(R.id.ProfileButton)
     public void startProfileActivity(View view){
-        Intent intent = new Intent(this, MapsActivity.class);
+        Intent intent = new Intent(this, UserProfileActivity.class);
         startActivity(intent);
     }
 

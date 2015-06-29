@@ -6,6 +6,7 @@ package com.bruha.bruha.PHP;
         import java.io.OutputStreamWriter;
         import java.net.HttpURLConnection;
         import java.net.URL;
+        import java.util.ArrayList;
 
         import android.app.Activity;
         import android.os.Bundle;
@@ -16,7 +17,12 @@ package com.bruha.bruha.PHP;
         import android.widget.EditText;
         import android.widget.Toast;
 
+        import com.bruha.bruha.Model.Event;
         import com.bruha.bruha.R;
+
+        import org.json.JSONArray;
+        import org.json.JSONException;
+        import org.json.JSONObject;
 
 public class EventListing extends Activity {
     /** Called when the activity is first created. */
@@ -47,20 +53,15 @@ public class EventListing extends Activity {
                 String   mUsername = username.getText().toString();
                 String  mPassword = password.getText().toString();
 
-                tryLogin(mUsername, mPassword);
+                GetUserEventList("TestAccount");
             }
         });
     }
 
-    protected void tryLogin(String mUsername, String mPassword)
-    {
+    public void GetUserEventList(String user) {
 
-        // creates parameters for the DB call to attach to the "initial" URL
-        // to attach more paramenters its of the form:
-        // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
 
-        //final String parameters = "username="+mUsername+"&password="+mPassword;
-        final String parameters = "username=TestAccount";
+        final String parameters = "username=" + user;
 
         Thread thread;
 
@@ -74,7 +75,7 @@ public class EventListing extends Activity {
 
                     // alot of boiler plate stuff
 
-                    url = new URL("http://bruha.com/mobile_php/UserEventList.php?" + parameters);
+                    url = new URL("http://bruha.com/mobile_php/UserInfo.php?" + parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -96,6 +97,7 @@ public class EventListing extends Activity {
                     // in this case the response is the echo from the php script (i.e = 1) if successful
 
                     response = sb.toString();
+                    Log.v("YEAH",response);
                     // You can perform UI operations here
                     isr.close();
                     reader.close();
@@ -114,8 +116,32 @@ public class EventListing extends Activity {
             e.printStackTrace();
         }
 
-        Log.v("TEST:", response);
+        try {
+            JSONArray x = new JSONArray(response);
 
 
+            for (int i = 0; i < x.length(); i++) {
+                JSONObject Event = x.getJSONObject(i);
+
+               // com.bruha.bruha.Model.Event even = new Event();
+
+               String Name = Event.getString("Username");
+
+
+
+                Log.v("USER:", Name);
+            }
+
+
+            Log.v("USERTEST:", response);
+            //return mUserEvents;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+       // return mUserEvents;
     }
+
+
+
 }

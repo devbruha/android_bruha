@@ -60,7 +60,7 @@ public class SplashActivity extends Activity {
     //Button to proceed to register Activity.
     @OnClick(R.id.registerButton)
     public void register(View view){
-        Intent intent = new Intent(this, RegisterActivity.class);
+        Intent intent = new Intent(this, EventListing.class);
         startActivity(intent);
     }
 
