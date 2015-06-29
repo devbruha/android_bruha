@@ -11,6 +11,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.bruha.bruha.PHP.RetrieveEvents;
 import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.R;
 import butterknife.ButterKnife;
@@ -144,10 +146,19 @@ public class RegisterActivity extends ActionBarActivity {
 
                     if (isValidEmail(email)) {
 
+                        //error="Success";
+
                         // Calling the init function within SQLUtils with the parameters passed
 
+                        error="Success";
+                        RetrieveEvents Reg = new RetrieveEvents();
+                        Reg.Register(username,password,email);
+
+                        /*
                         SQLUtils sqlu = new SQLUtils(url, user, pass);
                         error = sqlu.register(username, password, email);
+                        */
+
 
                     }
                     // If email is invalid, error string is updated

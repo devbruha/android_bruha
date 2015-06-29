@@ -96,7 +96,11 @@
         <activity
             android:name=".Views.UserProfileActivity"
             android:label="@string/title_activity_user_profile"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".Views.WhatsHotActivity"
+            android:label="@string/title_activity_whats_hot" >
         </activity>
     </application>
 

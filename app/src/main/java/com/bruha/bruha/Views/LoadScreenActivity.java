@@ -51,9 +51,6 @@ public class LoadScreenActivity extends Activity {
         //SQLiteDatabaseModel dbHelper = ((MyApplication) getApplicationContext()).getDbHelper();
         SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
 
-        sqlu = new SQLUtils(url, user, pass); //Creating Object type SQLUtils using credentials needed
-
-
         RetrieveEvents EList = new RetrieveEvents();
         ArrayList<Event> x= new ArrayList<>() ;
         try {
@@ -72,7 +69,7 @@ public class LoadScreenActivity extends Activity {
             e.printStackTrace();
         }
 
-        EList.GetUserEventList();
+        EList.GetUserEventList("TestAccount");
 
 
 

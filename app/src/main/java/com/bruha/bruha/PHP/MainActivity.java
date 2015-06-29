@@ -76,7 +76,7 @@ public class MainActivity extends Activity {
 
                     // alot of boiler plate stuff
 
-                    url = new URL("http://bruha.com/mobile_php/login.php?"+parameters);
+                    url = new URL("http://bruha.com/mobile_php/Login.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -123,7 +123,7 @@ public class MainActivity extends Activity {
 
         Log.v("Response",response);
 
-        /*
+
         // toasting the response from the server, gg
 
         Toast.makeText(this,"Message from Server: \n"+ response, Toast.LENGTH_SHORT).show();
@@ -140,7 +140,7 @@ public class MainActivity extends Activity {
             startActivity(intent);
         }
 
-*/
+
 
     }
 }

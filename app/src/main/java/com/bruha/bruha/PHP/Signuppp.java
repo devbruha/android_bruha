@@ -82,7 +82,7 @@ public class Signuppp extends ActionBarActivity {
 
                     // alot of boiler plate stuff
 
-                    url = new URL("http://bruha.com/mobile_php/signUp.php?"+parameters);
+                    url = new URL("http://bruha.com/mobile_php/SignUp.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");

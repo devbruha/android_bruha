@@ -15,6 +15,7 @@ import android.widget.EditText;
 
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.MyApplication;
+import com.bruha.bruha.PHP.RetrieveEvents;
 import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.SQLiteUtils;
@@ -223,7 +224,19 @@ public class LoginActivity extends ActionBarActivity {
 
             case "Success":
 
-                // Storing the user_info value into a list
+
+
+
+                RetrieveEvents Call = new RetrieveEvents();
+                Call.login(username,password);
+                ArrayList<Event> userEvents=Call.GetUserEventList(username);
+
+
+                SQLiteUtils sqLiteUtils = new SQLiteUtils();
+                sqLiteUtils.insertUserEvents(dbHelper,userEvents);
+
+               /*
+               // Storing the user_info value into a list
 
                 List<String> user_info = sqlu.loginDatabasePush(username);
                 ArrayList<Event> userEvents = sqlu.userEvents();
@@ -237,9 +250,9 @@ public class LoginActivity extends ActionBarActivity {
                 sqLiteUtils.getUserInfo(dbHelper);
 
                 sqLiteUtils.insertUserEvents(dbHelper,userEvents);
+                */
 
                 // Alerting user of successfull login
-
                 alertUserAboutError(
                         res.getString(R.string.success_title_login),
                         res.getString(R.string.success_message_login));
@@ -250,7 +263,6 @@ public class LoginActivity extends ActionBarActivity {
 
                 // Start the next activity right here
                 Intent intent = new Intent(this, DashboardActivity.class);
-                intent.putExtra("Logged","YES");
                 startActivity(intent);
 
                 break;
