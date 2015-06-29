@@ -193,7 +193,7 @@ public class RegisterActivity extends ActionBarActivity {
     @OnClick(R.id.createAccountButton)
     public void createAccount(View view){
 
-        // Retrieving the entered information and converting to string
+        // Retrieving the entered information and converting to string.
 
         String username = mRegisterUsernameEditText.getText().toString();
         String password = mRegisterPasswordEditText.getText().toString();
