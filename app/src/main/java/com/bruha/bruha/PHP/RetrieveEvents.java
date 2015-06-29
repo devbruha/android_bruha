@@ -16,7 +16,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -27,6 +32,13 @@ public class RetrieveEvents {
     ArrayList<Venues> mVenues = new ArrayList<>();
     ArrayList<Organizations> mOrg = new ArrayList<>();
     ArrayList<Artists> mArtists = new ArrayList<>();
+    ArrayList<Event> mUserEvents = new ArrayList<>();
+
+    //UserEvents Stuff.
+    URL url = null;
+    String response = null;
+    HttpURLConnection connection;
+    OutputStreamWriter request = null;
 
     public ArrayList<Event> GetEventList() {
 
@@ -258,6 +270,101 @@ public class RetrieveEvents {
             e.printStackTrace();
         }
         return mArtists;
+    }
+
+    public ArrayList<Event> GetUserEventList() {
+
+
+        final String parameters = "username=TestAccount";
+
+        Thread thread;
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+
+                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
+
+                    // alot of boiler plate stuff
+
+                    url = new URL("http://bruha.com/mobile_php/UserEventList.php?" + parameters);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setDoOutput(true);
+                    connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    connection.setRequestMethod("POST");
+
+                    request = new OutputStreamWriter(connection.getOutputStream());
+                    request.write(parameters);
+                    request.flush();
+                    request.close();
+                    String line = "";
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader reader = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    // Response from server after login process will be stored in response variable.
+
+                    // in this case the response is the echo from the php script (i.e = 1) if successful
+
+                    response = sb.toString();
+                    Log.v("response",response);
+                    // You can perform UI operations here
+                    isr.close();
+                    reader.close();
+
+                } catch (IOException e) {
+                    // Error
+                }
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            JSONArray x = new JSONArray(response);
+
+
+            for (int i = 0; i < x.length(); i++) {
+                JSONObject Event = x.getJSONObject(i);
+                com.bruha.bruha.Model.Event even = new Event();
+
+                even.setEventName(Event.getString("event_name"));
+                even.setEventid(Event.getString("event_id"));
+                even.setVenueid(Event.getString("venue_id"));
+                even.setLocationID(Event.getString("location_id"));
+                even.setEventDescription(Event.getString("event_desc"));
+                even.setEventPrice(Double.parseDouble(Event.getString("Admission_price")));
+                even.setEventLocAdd(Event.getString("location_city"));
+                even.setEventLatitude(Double.parseDouble(Event.getString("location_lat")));
+                even.setEventLongitude(Double.parseDouble(Event.getString("location_lng")));
+                even.setEventStartTime(Event.getString("event_start_time"));
+                even.setEventEndTime(Event.getString("event_end_time"));
+                even.setEventDate(Event.getString("event_start_date"));
+                even.setEventEndDate(Event.getString("event_end_date"));
+
+
+                mUserEvents.add(even);
+                Log.v("Event:", even.getEventName());
+            }
+
+
+            Log.v("TEST:", response);
+            return mUserEvents;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return mUserEvents;
     }
 }
 

@@ -12,7 +12,7 @@
     <ImageView
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:id="@+id/imageView"
+        android:id="@+id/ticketPic"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -22,20 +22,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Event Title"
         android:id="@+id/textView15"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:layout_above="@+id/imageView"
-        android:layout_alignLeft="@+id/imageView"
-        android:layout_alignStart="@+id/imageView" />
+        android:layout_above="@+id/ticketPic"
+        android:layout_alignLeft="@+id/ticketPic"
+        android:layout_alignStart="@+id/ticketPic" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Type:"
         android:id="@+id/textView17"
-        android:layout_alignTop="@+id/imageView"
+        android:layout_alignTop="@+id/ticketPic"
         android:layout_centerHorizontal="true"
         android:textSize="15sp"
         android:layout_marginBottom="3dp" />
@@ -92,5 +91,76 @@
         android:layout_below="@+id/textView47"
         android:layout_centerHorizontal="true"
         android:textSize="15sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/ticketType"
+        android:layout_alignBottom="@+id/textView17"
+        android:layout_toRightOf="@+id/textView17"
+        android:layout_toEndOf="@+id/textView17"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/ticketRemaining"
+        android:layout_alignBottom="@+id/textView28"
+        android:layout_toRightOf="@+id/textView28"
+        android:layout_toEndOf="@+id/textView28"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/ticketEnd"
+        android:layout_alignBottom="@+id/textView29"
+        android:layout_toRightOf="@+id/textView29"
+        android:layout_toEndOf="@+id/textView29"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/ticketPrice"
+        android:layout_alignBottom="@+id/textView37"
+        android:layout_alignLeft="@+id/ticketEnd"
+        android:layout_alignStart="@+id/ticketEnd"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/ticketTotal"
+        android:layout_alignBottom="@+id/textView48"
+        android:layout_alignLeft="@+id/ticketEnd"
+        android:layout_alignStart="@+id/ticketEnd"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/ticketQuantity"
+        android:layout_alignBottom="@+id/textView47"
+        android:layout_toRightOf="@+id/textView47"
+        android:layout_toEndOf="@+id/textView47"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Event Name"
+        android:id="@+id/ticketName"
+        android:layout_above="@+id/ticketPic"
+        android:layout_toRightOf="@+id/textView15"
+        android:layout_toEndOf="@+id/textView15"
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

@@ -90,7 +90,8 @@
         </activity>
         <activity
             android:name=".Views.MyTicketActivity"
-            android:label="@string/title_activity_my_ticket" >
+            android:label="@string/title_activity_my_ticket"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
     </application>
 

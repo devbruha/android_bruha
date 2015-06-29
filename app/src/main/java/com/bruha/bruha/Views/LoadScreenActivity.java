@@ -63,12 +63,17 @@ public class LoadScreenActivity extends Activity {
         }
 
 
+
+
         ArrayList<Venues> Ven= new ArrayList<>() ;
         try {
             Ven = EList.GetVenueList();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        EList.GetUserEventList();
+
 
 
         ArrayList<Organizations> org= new ArrayList<>() ;
