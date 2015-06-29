@@ -117,17 +117,6 @@ public class FilterView {
         Button artistButton = (Button)mActivity.findViewById(R.id.artistButton);
         Button orgButton = (Button)mActivity.findViewById(R.id.orgButton);
 
-        eventButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.v("Filter Final Test!!", userCustomFilters.getQuickieFilter()+"");
-                Log.v("Filter Final Test!!", userCustomFilters.getDateFilter()+"");
-                Log.v("Filter Final Test!!", userCustomFilters.getCategoryFilter().keySet()+"");
-                Log.v("Filter Final Test!!", userCustomFilters.getNonFormattedDateFilter()+"");
-                Log.v("Filter Final Test!!", userCustomFilters.getAdmissionPriceFilter()+"");
-            }
-        });
-
         // Finding the handle layout
 
         LinearLayout handleLayout = (LinearLayout)mActivity.findViewById(R.id.handleLayout);
