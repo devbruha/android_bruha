@@ -178,7 +178,7 @@ public class DashboardActivity extends ActionBarActivity {
     //OnClickListener for "Explore" that leads to the Hot Activity.
     @OnClick(R.id.HotButton)
     public void startHotActivity(View view){
-        Intent intent = new Intent(this, EventPageActivity.class);
+        Intent intent = new Intent(this, MyTicketActivity.class);
         startActivity(intent);
     }
 

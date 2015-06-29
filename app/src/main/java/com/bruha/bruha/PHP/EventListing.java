@@ -74,7 +74,7 @@ public class EventListing extends Activity {
 
                     // alot of boiler plate stuff
 
-                    url = new URL("http://bruha.com/mobile_php/phpPostTest.php?" + parameters);
+                    url = new URL("http://bruha.com/mobile_php/UserEventList.php?" + parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
