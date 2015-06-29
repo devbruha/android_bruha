@@ -157,7 +157,7 @@ public class TicketListView extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View x, ViewGroup viewGroup) {
+    public View getView(int position, View view, ViewGroup viewGroup) {
         final View convertView = LayoutInflater.from(mActivity).inflate(R.layout.my_ticket_list_item, viewGroup, false);
 
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
@@ -173,19 +173,86 @@ public class TicketListView extends BaseAdapter {
         holder.End = (TextView) convertView.findViewById(R.id.ticketEnd);
         holder.Quantity = (TextView) convertView.findViewById(R.id.ticketQuantity);
         holder.Total = (TextView) convertView.findViewById(R.id.ticketTotal);
+        holder.Price= (TextView) convertView.findViewById(R.id.ticketPrice);
 
         //Initializing each item to the required type
         final Event event = mEvent.get(position);
 
 
         //Changing the text in the fields everytime.
-        holder.Title.setText("Lights");
+        holder.Title.setText("Three Day Grace");
         holder.Type.setText("Concert");
         holder.Remaining.setText("30");
         holder.End.setText("May 27,2015");
         holder.Quantity.setText("2");
         holder.Total.setText("500");
+        holder.Price.setText("$20");
         //holder.Picture.setImageResource(); {
+
+
+
+        // Android functions to determine the screen dimensions.
+        Display display = mActivity.getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        // Storing the screen height into an int variable.
+        int height = size.y;
+
+
+        //Sets the height to 1/3 the screensize.
+        ViewGroup.LayoutParams params = convertView.getLayoutParams();
+        params.height =  (int)Math.round(height*.33);
+
+
+
+        //Assigning the ImageBubble to a variable to alter its dimensions after with.
+        ViewGroup.LayoutParams ticketPicParam = holder.Picture.getLayoutParams();
+        ticketPicParam.height =  (int)Math.round(height*.22);
+        ticketPicParam.width = (int)Math.round(height*.20);
+
+
+        //Text Formatting inside the EventImage Bubble
+        //The EventName being Formatted.
+        int x1= (int)Math.round(height*.0380);
+        holder.Title.setTextSize(TypedValue.COMPLEX_UNIT_PX,x1);
+
+        //The EventPrice being formatted.
+        int x3= (int)Math.round(height * .02175);
+        holder.Type.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
+
+        //The EventPrice being formatted.
+        holder.Remaining.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
+
+        //The EventPrice being formatted.
+        holder.End.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
+
+
+
+        //The EventPrice being formatted.
+        holder.Quantity.setTextSize(TypedValue.COMPLEX_UNIT_PX, x3);
+
+        //The EventDate being formatted.
+        holder.Total.setTextSize(TypedValue.COMPLEX_UNIT_PX, x3);
+
+        holder.Price.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
+
+
+        TextView typ = (TextView) convertView.findViewById(R.id.type);
+        TextView rem = (TextView) convertView.findViewById(R.id.rem);
+        TextView nd = (TextView) convertView.findViewById(R.id.en);
+        TextView prce = (TextView) convertView.findViewById(R.id.prce);
+        TextView quan = (TextView) convertView.findViewById(R.id.quan);
+        TextView ttl = (TextView) convertView.findViewById(R.id.ttl);
+
+        typ.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
+        rem.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
+        nd.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
+        prce.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
+        quan.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
+        ttl.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
+
+
 
 
         return convertView;
@@ -201,6 +268,7 @@ public class TicketListView extends BaseAdapter {
         private TextView End;
         private TextView Quantity;
         private TextView Total;
+        private TextView Price;
 
     }
 

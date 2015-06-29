@@ -83,6 +83,7 @@
     <string name="title_activity_signuppp">Signuppp</string>
     <string name="title_activity_event_listing">EventListing</string>
     <string name="title_activity_my_ticket">MyTicketActivity</string>
+    <string name="title_activity_user_profile">UserProfileActivity</string>
 
 
 
