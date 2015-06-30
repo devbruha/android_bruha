@@ -373,7 +373,7 @@ public class RetrieveEvents {
         return mUserEvents;
     }
 
-    public void login(String mUsername, String mPassword)
+    public String login(String mUsername, String mPassword)
     {
 
         // creates parameters for the DB call to attach to the "initial" URL
@@ -449,17 +449,18 @@ public class RetrieveEvents {
         Log.v("The response is:", response);
         Log.v("Is:", "This");
 
-        /*
         double x = Double.parseDouble(response);
         int y= (int) x;
 
+        String error;
         if(y==1)
         {
-            Intent intent = new Intent(this, EventListing.class);
-            startActivity(intent);
+            error="Success";
         }
-        */
 
+        else{ error="badCredentials"; }
+
+        return error;
 
 
     }
@@ -539,6 +540,87 @@ public class RetrieveEvents {
 
 
 
+    }
+
+    public ArrayList<String> GetUserInfo(String user) {
+
+
+        ArrayList<String> UserInfo = new ArrayList<>();
+
+        final String parameters = "username=" + user;
+
+        Thread thread;
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+
+                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
+
+                    // alot of boiler plate stuff
+
+                    url = new URL("http://bruha.com/mobile_php/UserInfo.php?" + parameters);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setDoOutput(true);
+                    connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    connection.setRequestMethod("POST");
+
+                    request = new OutputStreamWriter(connection.getOutputStream());
+                    request.write(parameters);
+                    request.flush();
+                    request.close();
+                    String line = "";
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader reader = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    // Response from server after login process will be stored in response variable.
+
+                    // in this case the response is the echo from the php script (i.e = 1) if successful
+
+                    response = sb.toString();
+                    // You can perform UI operations here
+                    isr.close();
+                    reader.close();
+
+                } catch (IOException e) {
+                    // Error
+                }
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            JSONArray x = new JSONArray(response);
+
+
+            for (int i = 0; i < x.length(); i++) {
+                JSONObject User = x.getJSONObject(i);
+
+                UserInfo.add(User.getString("Username"));
+                UserInfo.add(User.getString("Name"));
+                UserInfo.add(User.getString("Birthdate"));
+                UserInfo.add(User.getString("Gender"));
+                UserInfo.add(User.getString("Email"));
+                UserInfo.add(User.getString("City"));
+            }
+            return UserInfo;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+         return UserInfo;
     }
 
 }

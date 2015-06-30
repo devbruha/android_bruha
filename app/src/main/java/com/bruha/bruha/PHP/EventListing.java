@@ -53,13 +53,15 @@ public class EventListing extends Activity {
                 String   mUsername = username.getText().toString();
                 String  mPassword = password.getText().toString();
 
-                GetUserEventList("TestAccount");
+                GetUserEventList(mUsername);
             }
         });
     }
 
     public void GetUserEventList(String user) {
 
+
+        ArrayList<String> UserInfo = new ArrayList<>();
 
         final String parameters = "username=" + user;
 
@@ -121,15 +123,19 @@ public class EventListing extends Activity {
 
 
             for (int i = 0; i < x.length(); i++) {
-                JSONObject Event = x.getJSONObject(i);
+                JSONObject User = x.getJSONObject(i);
 
                // com.bruha.bruha.Model.Event even = new Event();
 
-               String Name = Event.getString("Username");
+                UserInfo.add(User.getString("Name"));
+               UserInfo.add(User.getString("Username"));
+                UserInfo.add(User.getString("Gender"));
+                UserInfo.add(User.getString("Birthdate"));;
+                UserInfo.add(User.getString("Email"));
+                UserInfo.add(User.getString("City"));
 
 
-
-                Log.v("USER:", Name);
+                Log.v("USER:", UserInfo.get(1));
             }
 
 

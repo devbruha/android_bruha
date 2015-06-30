@@ -21,8 +21,9 @@
         android:text="Bought"
         android:id="@+id/button4"
         android:layout_below="@+id/button2"
-        android:layout_toRightOf="@+id/textView4"
-        android:layout_toEndOf="@+id/textView4" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#ffff9333" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -32,7 +33,8 @@
         android:id="@+id/button5"
         android:layout_alignBottom="@+id/button4"
         android:layout_toRightOf="@+id/button4"
-        android:layout_toEndOf="@+id/button4" />
+        android:layout_toEndOf="@+id/button4"
+        android:background="#ffff9333" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,11 +42,10 @@
         android:text="My Tickets"
         android:id="@+id/textView4"
         android:textColor="#ffffff"
-        android:textSize="20sp"
-        android:layout_below="@+id/button2"
-        android:layout_toRightOf="@+id/button2"
-        android:layout_toEndOf="@+id/button2"
-        android:layout_marginTop="10dp" />
+        android:textSize="30sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="#ffaf2f5c" />
 
     <ListView
         android:layout_width="match_parent"
