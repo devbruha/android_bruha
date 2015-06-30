@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -586,9 +587,10 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.insert(TABLE_USER_INFO, null, values);
     }
 
-    public Cursor retrieveUserInfo(){
+    public ArrayList<String> retrieveUserInfo(){
 
         SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<String> User=new ArrayList<>();
 
         Cursor cursor = db.query(TABLE_USER_INFO, null, null, null, null, null, null);
 
@@ -604,6 +606,13 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 String email = cursor.getString(cursor.getColumnIndex("email"));
                 String location = cursor.getString(cursor.getColumnIndex("location"));
 
+
+                User.add(username);
+                User.add(name);
+                User.add(DOB);
+                User.add(gender);
+                User.add(email);
+                User.add(location);
                 Log.v("Local DB TEST", id+"");
                 Log.v("Local DB TEST", username);
                 Log.v("Local DB TEST", name);
@@ -614,12 +623,13 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
 
                 // use these strings as you want
+
             }
         }
 
         cursor.close();
 
-        return cursor;
+        return User;
     }
 
 

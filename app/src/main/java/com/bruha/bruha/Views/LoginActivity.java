@@ -237,7 +237,7 @@ public class LoginActivity extends ActionBarActivity {
                 SQLiteUtils sqLiteUtils = new SQLiteUtils();
                 sqLiteUtils.insertUserEvents(dbHelper,userEvents);
                 sqLiteUtils.insertNewUser(dbHelper, userInfo);
-                sqLiteUtils.getUserInfo(dbHelper);
+
 
 
                /*

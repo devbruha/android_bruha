@@ -137,7 +137,7 @@ public class RetrieveEvents {
                             JSONObject Venue = x.getJSONObject(i);
                             com.bruha.bruha.Model.Venues ven = new Venues();
 
-                            ven.setVenueId(Integer.parseInt(Venue.getString("venue_id")));
+//                            ven.setVenueId(Integer.parseInt(Venue.getString("venue_id")));
                             ven.setVenueName(Venue.getString("venue_name"));
                             ven.setVenueDescription(Venue.getString("venue_desc"));
                             ven.setVenueLocation(Venue.getString("venue_location"));
@@ -193,7 +193,7 @@ public class RetrieveEvents {
                             JSONObject Organization = x.getJSONObject(i);
                             com.bruha.bruha.Model.Organizations org = new Organizations();
 
-                            org.setOrgId(Integer.parseInt(Organization.getString("organization_id")));
+//                            org.setOrgId(Integer.parseInt(Organization.getString("organization_id")));
                             org.setOrgName(Organization.getString("organization_name"));
                             org.setOrgDescription(Organization.getString("organization_desc"));
                             org.setOrgLocation(Organization.getString("organization_location"));

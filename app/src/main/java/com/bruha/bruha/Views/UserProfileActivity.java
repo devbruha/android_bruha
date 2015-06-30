@@ -11,9 +11,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bruha.bruha.Model.SQLiteDatabaseModel;
+import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 
+import java.util.ArrayList;
+
 public class UserProfileActivity extends ActionBarActivity {
+
+    ArrayList<String> UserInfo=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +27,18 @@ public class UserProfileActivity extends ActionBarActivity {
         setContentView(R.layout.activity_user_profile);
 
 
+        init();
+
+        resize();
+
+
+
+    }
+
+
+
+    private void resize()
+    {
         //The EventPage dimensions being set to fit all types of screen:
 
         // Android functions to determine the screen dimensions.
@@ -45,6 +63,7 @@ public class UserProfileActivity extends ActionBarActivity {
         InfoParam.width = (int)Math.round(height*.50);
 
         TextView Name = (TextView) findViewById(R.id.Name);
+        Name.setText(UserInfo.get(1));
         TextView Username = (TextView) findViewById(R.id.username);
         TextView Email = (TextView) findViewById(R.id.email);
         TextView Age = (TextView) findViewById(R.id.age);
@@ -52,10 +71,15 @@ public class UserProfileActivity extends ActionBarActivity {
         TextView Location = (TextView) findViewById(R.id.location);
 
         TextView UsernameText = (TextView) findViewById(R.id.usernametext);
+        UsernameText.setText(UserInfo.get(0));
         TextView EmailText = (TextView) findViewById(R.id.emailtext);
+        EmailText.setText(UserInfo.get(4));
         TextView AgeText = (TextView) findViewById(R.id.agetext);
+        AgeText.setText(UserInfo.get(2));
         TextView SexText = (TextView) findViewById(R.id.sextext);
+        SexText.setText(UserInfo.get(3));
         TextView LocationText = (TextView) findViewById(R.id.locationtext);
+        LocationText.setText(UserInfo.get(5));
 
         int x= (int)Math.round(height * .0275);
         int x1= (int)Math.round(height * .0485);
@@ -74,6 +98,13 @@ public class UserProfileActivity extends ActionBarActivity {
         LocationText.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
 
 
+    }
+
+    private void init() {
+
+        SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
+        SQLiteUtils sqLiteUtils = new SQLiteUtils();
+        UserInfo=sqLiteUtils.getUserInfo(dbHelper);
     }
 
 

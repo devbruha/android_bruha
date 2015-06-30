@@ -39,9 +39,9 @@ public class SQLiteUtils {
 
     }
 
-    public void getUserInfo(SQLiteDatabaseModel dbHelper){
+    public ArrayList<String> getUserInfo(SQLiteDatabaseModel dbHelper){
 
-        dbHelper.retrieveUserInfo();
+        return dbHelper.retrieveUserInfo();
     }
 
     public ArrayList<Event> getEventInfo(SQLiteDatabaseModel dbhelper){
