@@ -40,8 +40,6 @@ public class MyUploadsActivity extends ActionBarActivity {
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(adapter);
-
-
     }
 
 
