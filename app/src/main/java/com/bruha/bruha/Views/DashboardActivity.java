@@ -29,6 +29,8 @@ public class DashboardActivity extends ActionBarActivity {
     @InjectView(R.id.UploadButton) TextView MyUploadButton;
     @InjectView(R.id.TicketButton) TextView MyTicketButton;
     @InjectView(R.id.ProfileButton) TextView ProfileButton;
+    @InjectView(R.id.HotButton) TextView HotButton;
+    @InjectView(R.id.AddictionButton) TextView AddictionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,22 @@ public class DashboardActivity extends ActionBarActivity {
                     startProfileActivity(v);
                 }
             });
+
+            //Profile Button's Implementation
+            HotButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startHotActivity(v);
+                }
+            });
+
+            //Profile Button's Implementation
+            AddictionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startAddictionAcitivty(v);
+                }
+            });
         }
         else {
 
@@ -90,15 +108,34 @@ public class DashboardActivity extends ActionBarActivity {
                 }
             });
 
+
+            //WhatsHot's Implementation
             //Profile Button's Implementation
-            ProfileButton.setTextColor(Color.WHITE);
-            ProfileButton.setOnClickListener(new View.OnClickListener() {
+            HotButton.setTextColor(Color.WHITE);
+            HotButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getApplicationContext(),"You Gotta Login First!!",Toast.LENGTH_LONG).show();
                 }
             });
 
+            //Profile Button's Implementation
+            ProfileButton.setTextColor(Color.WHITE);
+            ProfileButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(), "You Gotta Login First!!", Toast.LENGTH_LONG).show();
+                }
+            });
+
+
+            AddictionButton.setTextColor(Color.WHITE);
+            AddictionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(),"You Gotta Login First!!", Toast.LENGTH_LONG).show();
+                }
+            });
         }
 
 

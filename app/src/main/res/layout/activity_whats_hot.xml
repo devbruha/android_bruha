@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:weightSum="4"
     android:orientation="vertical"
-    tools:context="com.bruha.bruha.Views.WhatsHotActivity">
+    tools:context="com.bruha.bruha.Views.WhatsHotActivity"
+    android:background="#fc0c1b30">
 
     <LinearLayout
         android:orientation="vertical"

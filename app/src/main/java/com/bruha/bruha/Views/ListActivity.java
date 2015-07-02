@@ -13,8 +13,10 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +55,14 @@ public class ListActivity extends FragmentActivity {
     ArrayList<Venues> mVenues = new ArrayList<>();
     ArrayList<Artists> mArtists = new ArrayList<>();
 
+
+    //Initualiing the Filter Obects to hide and display everytime Venue,Artist,Event and Outfit Filters are applied.
+    LinearLayout mQuickieListView ;
+    LinearLayout linearCalendar ;
+    TextView Admission ;
+    TextView Price;
+    SeekBar prce;
+
     ArrayList<Event> Backup;         //Array Backup of the whole list,since mEvent changes when we update the adapter in filter save button.
 
     ListviewAdapter adapter;
@@ -83,6 +93,13 @@ public class ListActivity extends FragmentActivity {
         }
 
         setUpFilters();
+
+        //Setting the Filters to the Filter Item once they have been declared and set in the view,later to be altered with.
+        mQuickieListView = (LinearLayout) findViewById(R.id.quickie_listview);
+        linearCalendar = (LinearLayout) findViewById(R.id.calendarView);
+        prce = (SeekBar) findViewById(R.id.priceBar);
+        Price = (TextView) findViewById(R.id.priceDisplay);
+        Admission = (TextView) findViewById(R.id.admissionTextView);
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(adapter);
@@ -132,7 +149,11 @@ public class ListActivity extends FragmentActivity {
         EventButton.setTypeface(null, Typeface.NORMAL);
 
 
-        Log.v("Venues",mVenues.size()+"");
+        Admission.setVisibility(View.GONE);
+        Price.setVisibility(View.GONE);
+        prce.setVisibility(View.GONE);
+        mQuickieListView.setVisibility(view.GONE);
+        linearCalendar.setVisibility(view.GONE);
 
         EventButton.setTextColor(Color.BLACK);
         ArtistButton.setTextColor(Color.BLACK);
@@ -171,6 +192,12 @@ public class ListActivity extends FragmentActivity {
         OrganizationListViewAdapter OrgAdapter;
 
 
+        Admission.setVisibility(View.GONE);
+        Price.setVisibility(View.GONE);
+        prce.setVisibility(View.GONE);
+        mQuickieListView.setVisibility(view.GONE);
+        linearCalendar.setVisibility(view.GONE);
+
 
         //Creating an variable of type Listview Adapter to create the list view.
 
@@ -196,6 +223,17 @@ public class ListActivity extends FragmentActivity {
         ArtistButton.setTextColor(Color.BLACK);
         OrgButton.setTextColor(Color.BLACK);
 
+        TextView Admission = (TextView) findViewById(R.id.admissionTextView);
+        TextView Price = (TextView) findViewById(R.id.priceDisplay);
+        SeekBar prce = (SeekBar) findViewById(R.id.priceBar);
+
+        Admission.setVisibility(View.VISIBLE);
+        Price.setVisibility(View.VISIBLE);
+        prce.setVisibility(View.VISIBLE);
+        mQuickieListView.setVisibility(view.VISIBLE);
+        linearCalendar.setVisibility(view.VISIBLE);
+
+
     }
 
     @OnClick(R.id.artistButton)
@@ -214,6 +252,14 @@ public class ListActivity extends FragmentActivity {
         OrgButton.setTextColor(Color.BLACK);
 
 
+
+        Admission.setVisibility(View.GONE);
+        Price.setVisibility(View.GONE);
+        prce.setVisibility(View.GONE);
+        mQuickieListView.setVisibility(view.GONE);
+        linearCalendar.setVisibility(view.GONE);
+
+
         ArtistsListViewAdapter Adapter;
 
 
@@ -221,6 +267,8 @@ public class ListActivity extends FragmentActivity {
         //Creating an variable of type Listview Adapter to create the list view.
 
         Adapter=new ArtistsListViewAdapter(this, mArtists); //Calling the adapter ListView to help set the List
+
+
 
         //Sets the Adapter from the class Listview Adapter.
         mListView.setAdapter(Adapter);
