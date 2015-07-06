@@ -3,6 +3,7 @@ package com.bruha.bruha.Adapters;
 
 import android.app.Activity;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -165,6 +166,8 @@ public class TicketListView extends BaseAdapter {
         convertView.setTag(holder); //sets the tag
 
 
+
+
         //Obtaining References to the Image/Text to change inside the layout.
         holder.Picture = (ImageView) convertView.findViewById(R.id.ticketPic);
         holder.Title = (TextView) convertView.findViewById(R.id.ticketName);
@@ -188,6 +191,13 @@ public class TicketListView extends BaseAdapter {
         holder.Total.setText("500");
         holder.Price.setText("$20");
         //holder.Picture.setImageResource(); {
+
+
+        //FONT SHIT
+        Typeface fnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Regular.ttf");
+        Typeface tfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Bold.ttf");
+        Typeface rest = Typeface.createFromAsset(mActivity.getAssets(),"fonts/OpenSans-Regular.ttf");
+
 
 
 
@@ -215,17 +225,21 @@ public class TicketListView extends BaseAdapter {
         //Text Formatting inside the EventImage Bubble
         //The EventName being Formatted.
         int x1= (int)Math.round(height*.0380);
-        holder.Title.setTextSize(TypedValue.COMPLEX_UNIT_PX,x1);
+        holder.Title.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
+        holder.Title.setTypeface(tfnt);
 
         //The EventPrice being formatted.
         int x3= (int)Math.round(height * .02175);
-        holder.Type.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
+        holder.Type.setTextSize(TypedValue.COMPLEX_UNIT_PX, x3);
+       // holder.Type.setTypeface(fnt);
 
         //The EventPrice being formatted.
-        holder.Remaining.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
+        holder.Remaining.setTextSize(TypedValue.COMPLEX_UNIT_PX, x3);
+      //  holder.Remaining.setTypeface(fnt);
 
         //The EventPrice being formatted.
-        holder.End.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
+        holder.End.setTextSize(TypedValue.COMPLEX_UNIT_PX, x3);
+      //  holder.End.setTypeface(fnt);
 
 
 
@@ -245,12 +259,18 @@ public class TicketListView extends BaseAdapter {
         TextView quan = (TextView) convertView.findViewById(R.id.quan);
         TextView ttl = (TextView) convertView.findViewById(R.id.ttl);
 
-        typ.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
-        rem.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
-        nd.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
-        prce.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
-        quan.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
+        typ.setTextSize(TypedValue.COMPLEX_UNIT_PX, x3);
+        typ.setTypeface(fnt);
+        rem.setTextSize(TypedValue.COMPLEX_UNIT_PX, x3);
+        rem.setTypeface(fnt);
+        nd.setTextSize(TypedValue.COMPLEX_UNIT_PX, x3);
+        nd.setTypeface(fnt);
+        prce.setTextSize(TypedValue.COMPLEX_UNIT_PX, x3);
+        prce.setTypeface(rest);
+        quan.setTextSize(TypedValue.COMPLEX_UNIT_PX, x3);
+        quan.setTypeface(rest);
         ttl.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
+        ttl.setTypeface(fnt);
 
 
 

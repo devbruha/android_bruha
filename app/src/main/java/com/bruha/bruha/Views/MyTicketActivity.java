@@ -1,5 +1,6 @@
 package com.bruha.bruha.Views;
 
+import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -41,6 +42,11 @@ public class MyTicketActivity extends ActionBarActivity {
 
         TicketListView adapter = new TicketListView(this,Ev);
         List.setAdapter(adapter);
+
+
+       // Typeface x = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/Domine-Regular.ttf");
+
+        Typeface fnt = Typeface.createFromAsset(getAssets(),"fonts/Domine-Regular.ttf");
 
 
 
