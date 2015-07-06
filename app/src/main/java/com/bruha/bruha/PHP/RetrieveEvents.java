@@ -46,233 +46,283 @@ public class RetrieveEvents {
 
     public ArrayList<Event> GetEventList() {
 
-        final String Url = "http://bruha.com/mobile_php/EventList.php";
+        Thread thread;
 
-
-        Thread T = new Thread(new Runnable() {
+        thread = new Thread(new Runnable() {
             @Override
             public void run() {
 
-                OkHttpClient client = new OkHttpClient();
-                Request request = new Request.Builder()
-                        .url(Url)
-                        .build();
-
-                Call call = client.newCall(request);
-
                 try {
 
-                    Response response = call.execute();
-                    String jsonData = response.body().string();
-                    if (response.isSuccessful()) {
+                    url = new URL("http://bruha.com/mobile_php/EventList.php");
+                    connection = (HttpURLConnection) url.openConnection();
 
-                        JSONArray x = new JSONArray(jsonData);
-
-                        for (int i = 0; i < x.length(); i++) {
-                            JSONObject Event = x.getJSONObject(i);
-                            com.bruha.bruha.Model.Event even = new Event();
-
-                            even.setEventName(Event.getString("event_name"));
-                            even.setEventDate(Event.getString("evnt_start_date"));
-                            even.setEventEndDate(Event.getString("event_end_date"));
-                            even.setEventStartTime(Event.getString("event_start_time"));
-                            even.setEventEndTime(Event.getString("event_end_time"));
-                            even.setEventPrice(Double.parseDouble(Event.getString("Admission_price")));
-                            even.setEventid(Event.getString("event_id"));
-                            even.setEventDescription(Event.getString("event_desc"));
-                            even.setVenueid(Event.getString("venue_id"));
-                            even.setLocationID(Event.getString("location_id"));
-                            even.setEventLocName(Event.getString("venue_name"));
-                            even.setEventLocSt(Event.getString("venue_location"));
-                            even.setEventLocAdd(Event.getString("location_city"));
-                            even.setEventLatitude(Double.parseDouble(Event.getString("location_lat")));
-                            even.setEventLongitude(Double.parseDouble(Event.getString("location_lng")));
-
-                            mEvents.add(even);
-                        }
+                    String line = "";
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader reader = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    // Response from server after login process will be stored in response variable.
+
+                    // in this case the response is the echo from the php script (i.e = 1) if successful
+
+                    response = sb.toString();
+                    isr.close();
+                    reader.close();
+
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.v("Exception",e.toString());
                 }
             }
         });
 
-        T.start();
+        thread.start();
 
         try {
-            T.join();
+            thread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        try {
+            JSONArray x = new JSONArray(response);
+
+
+            for (int i = 0; i < x.length(); i++) {
+                JSONObject Event = x.getJSONObject(i);
+                com.bruha.bruha.Model.Event even = new Event();
+
+                even.setEventName(Event.getString("event_name"));
+                even.setEventDate(Event.getString("evnt_start_date"));
+                even.setEventEndDate(Event.getString("event_end_date"));
+                even.setEventStartTime(Event.getString("event_start_time"));
+                even.setEventEndTime(Event.getString("event_end_time"));
+                even.setEventPrice(Double.parseDouble(Event.getString("Admission_price")));
+                even.setEventid(Event.getString("event_id"));
+                even.setEventDescription(Event.getString("event_desc"));
+                even.setVenueid(Event.getString("venue_id"));
+                even.setLocationID(Event.getString("location_id"));
+                even.setEventLocName(Event.getString("venue_name"));
+                even.setEventLocSt(Event.getString("venue_location"));
+                even.setEventLocAdd(Event.getString("location_city"));
+                even.setEventLatitude(Double.parseDouble(Event.getString("location_lat")));
+                even.setEventLongitude(Double.parseDouble(Event.getString("location_lng")));
+
+                mEvents.add(even);
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         return mEvents;
     }
 
     public ArrayList<Venues> GetVenueList() {
 
-        final String Url = "http://bruha.com/mobile_php/VenueList.php";
+        Thread thread;
 
-
-        Thread T = new Thread(new Runnable() {
+        thread = new Thread(new Runnable() {
             @Override
             public void run() {
 
-                OkHttpClient client = new OkHttpClient();
-                Request request = new Request.Builder()
-                        .url(Url)
-                        .build();
-
-                Call call = client.newCall(request);
-
                 try {
 
-                    Response response = call.execute();
-                    String jsonData = response.body().string();
-                    if (response.isSuccessful()) {
+                    url = new URL("http://bruha.com/mobile_php/VenueList.php");
+                    connection = (HttpURLConnection) url.openConnection();
 
-                        JSONArray x = new JSONArray(jsonData);
-
-                        for (int i = 0; i < x.length(); i++) {
-                            JSONObject Venue = x.getJSONObject(i);
-                            com.bruha.bruha.Model.Venues ven = new Venues();
-
-//                            ven.setVenueId(Integer.parseInt(Venue.getString("venue_id")));
-                            ven.setVenueName(Venue.getString("venue_name"));
-                            ven.setVenueDescription(Venue.getString("venue_desc"));
-                            ven.setVenueLocation(Venue.getString("venue_location"));
-                            ven.setLat(Double.parseDouble(Venue.getString("location_lat")));
-                            ven.setLng(Double.parseDouble(Venue.getString("location_lng")));
-
-                            mVenues.add(ven);
-                        }
+                    String line = "";
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader reader = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    // Response from server after login process will be stored in response variable.
+
+                    // in this case the response is the echo from the php script (i.e = 1) if successful
+
+                    response = sb.toString();
+                    isr.close();
+                    reader.close();
+
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.v("Exception",e.toString());
                 }
             }
         });
 
-        T.start();
+        thread.start();
 
         try {
-            T.join();
+            thread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        try {
+            JSONArray x = new JSONArray(response);
+
+
+            for (int i = 0; i < x.length(); i++) {
+                JSONObject Venue = x.getJSONObject(i);
+                com.bruha.bruha.Model.Venues ven = new Venues();
+
+//                            ven.setVenueId(Integer.parseInt(Venue.getString("venue_id")));
+                ven.setVenueName(Venue.getString("venue_name"));
+                ven.setVenueDescription(Venue.getString("venue_desc"));
+                ven.setVenueLocation(Venue.getString("venue_location"));
+                ven.setLat(Double.parseDouble(Venue.getString("location_lat")));
+                ven.setLng(Double.parseDouble(Venue.getString("location_lng")));
+
+                mVenues.add(ven);
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         return mVenues;
     }
 
+
+
     public ArrayList<Organizations> GetOrgList() {
 
-        final String Url = "http://bruha.com/mobile_php/OrganizationList.php";
+        Thread thread;
 
-
-        Thread T = new Thread(new Runnable() {
+        thread = new Thread(new Runnable() {
             @Override
             public void run() {
 
-                OkHttpClient client = new OkHttpClient();
-                Request request = new Request.Builder()
-                        .url(Url)
-                        .build();
-
-                Call call = client.newCall(request);
-
                 try {
 
-                    Response response = call.execute();
-                    String jsonData = response.body().string();
-                    if (response.isSuccessful()) {
+                    url = new URL("http://bruha.com/mobile_php/OrganizationList.php");
+                    connection = (HttpURLConnection) url.openConnection();
 
-                        JSONArray x = new JSONArray(jsonData);
-
-                        for (int i = 0; i < x.length(); i++) {
-                            JSONObject Organization = x.getJSONObject(i);
-                            com.bruha.bruha.Model.Organizations org = new Organizations();
-
-//                            org.setOrgId(Integer.parseInt(Organization.getString("organization_id")));
-                            org.setOrgName(Organization.getString("organization_name"));
-                            org.setOrgDescription(Organization.getString("organization_desc"));
-                            org.setOrgLocation(Organization.getString("organization_location"));
-                            org.setLocId(Integer.parseInt(Organization.getString("location_id")));
-                            org.setLat(Double.parseDouble(Organization.getString("location_lat")));
-                            org.setLng(Double.parseDouble(Organization.getString("location_lng")));
-
-
-                            mOrg.add(org);
-                        }
+                    String line = "";
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader reader = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    // Response from server after login process will be stored in response variable.
+
+                    // in this case the response is the echo from the php script (i.e = 1) if successful
+
+                    response = sb.toString();
+                    isr.close();
+                    reader.close();
+
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.v("Exception",e.toString());
                 }
             }
         });
 
-        T.start();
+        thread.start();
 
         try {
-            T.join();
+            thread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        try {
+            JSONArray x = new JSONArray(response);
+
+
+            for (int i = 0; i < x.length(); i++) {
+                JSONObject Organization = x.getJSONObject(i);
+                com.bruha.bruha.Model.Organizations org = new Organizations();
+
+                // org.setOrgId(Integer.parseInt(Organization.getString("organization_id")));
+                org.setOrgName(Organization.getString("organization_name"));
+                org.setOrgDescription(Organization.getString("organization_desc"));
+                org.setOrgLocation(Organization.getString("organization_location"));
+                org.setLocId(Integer.parseInt(Organization.getString("location_id")));
+                org.setLat(Double.parseDouble(Organization.getString("location_lat")));
+                org.setLng(Double.parseDouble(Organization.getString("location_lng")));
+
+
+                mOrg.add(org);
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         return mOrg;
     }
 
     public ArrayList<Artists> GetArtistList() {
 
-        final String Url = "http://bruha.com/mobile_php/ArtistList.php";
+        Thread thread;
 
-
-        Thread T = new Thread(new Runnable() {
+        thread = new Thread(new Runnable() {
             @Override
             public void run() {
 
-                OkHttpClient client = new OkHttpClient();
-                Request request = new Request.Builder()
-                        .url(Url)
-                        .build();
-
-                Call call = client.newCall(request);
-
                 try {
 
-                    Response response = call.execute();
-                    String jsonData = response.body().string();
-                    if (response.isSuccessful()) {
+                    url = new URL("http://bruha.com/mobile_php/ArtistList.php");
+                    connection = (HttpURLConnection) url.openConnection();
 
-                        JSONArray x = new JSONArray(jsonData);
-
-                        for (int i = 0; i < x.length(); i++) {
-                            JSONObject mArtist = x.getJSONObject(i);
-                            com.bruha.bruha.Model.Artists Artist = new Artists();
-
-                            Artist.setArtistId(Integer.parseInt(mArtist.getString("Artist_id")));
-                            Artist.setArtistName(mArtist.getString("Artist_name"));
-                            Artist.setArtistDescription(mArtist.getString("Artist_desc"));
-
-                            mArtists.add(Artist);
-                        }
+                    String line = "";
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader reader = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    // Response from server after login process will be stored in response variable.
+
+                    // in this case the response is the echo from the php script (i.e = 1) if successful
+
+                    response = sb.toString();
+                    isr.close();
+                    reader.close();
+
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.v("Exception",e.toString());
                 }
             }
         });
 
-        T.start();
+        thread.start();
 
         try {
-            T.join();
+            thread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        try {
+            JSONArray x = new JSONArray(response);
+
+
+            for (int i = 0; i < x.length(); i++) {
+                JSONObject mArtist = x.getJSONObject(i);
+                com.bruha.bruha.Model.Artists Artist = new Artists();
+
+                Artist.setArtistId(Integer.parseInt(mArtist.getString("Artist_id")));
+                Artist.setArtistName(mArtist.getString("Artist_name"));
+                Artist.setArtistDescription(mArtist.getString("Artist_desc"));
+
+                mArtists.add(Artist);
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         return mArtists;
     }
 

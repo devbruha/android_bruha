@@ -17,7 +17,10 @@ package com.bruha.bruha.PHP;
         import android.widget.EditText;
         import android.widget.Toast;
 
+        import com.bruha.bruha.Model.Artists;
         import com.bruha.bruha.Model.Event;
+        import com.bruha.bruha.Model.Organizations;
+        import com.bruha.bruha.Model.Venues;
         import com.bruha.bruha.R;
 
         import org.json.JSONArray;
@@ -53,17 +56,14 @@ public class EventListing extends Activity {
                 String   mUsername = username.getText().toString();
                 String  mPassword = password.getText().toString();
 
-                GetUserEventList(mUsername);
+                GetUserEventList();
             }
         });
     }
 
-    public void GetUserEventList(String user) {
+    public void GetUserEventList() {
 
 
-        ArrayList<String> UserInfo = new ArrayList<>();
-
-        final String parameters = "username=" + user;
 
         Thread thread;
 
@@ -73,20 +73,9 @@ public class EventListing extends Activity {
 
                 try {
 
-                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-
-                    // alot of boiler plate stuff
-
-                    url = new URL("http://bruha.com/mobile_php/UserInfo.php?" + parameters);
+                    url = new URL("http://bruha.com/mobile_php/EventList.php");
                     connection = (HttpURLConnection) url.openConnection();
-                    connection.setDoOutput(true);
-                    connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                    connection.setRequestMethod("POST");
 
-                    request = new OutputStreamWriter(connection.getOutputStream());
-                    request.write(parameters);
-                    request.flush();
-                    request.close();
                     String line = "";
                     InputStreamReader isr = new InputStreamReader(connection.getInputStream());
                     BufferedReader reader = new BufferedReader(isr);
@@ -99,13 +88,11 @@ public class EventListing extends Activity {
                     // in this case the response is the echo from the php script (i.e = 1) if successful
 
                     response = sb.toString();
-                    Log.v("YEAH",response);
-                    // You can perform UI operations here
                     isr.close();
                     reader.close();
 
                 } catch (IOException e) {
-                    // Error
+                    Log.v("Exception",e.toString());
                 }
             }
         });
@@ -123,29 +110,34 @@ public class EventListing extends Activity {
 
 
             for (int i = 0; i < x.length(); i++) {
-                JSONObject User = x.getJSONObject(i);
+                JSONObject Event = x.getJSONObject(i);
+                com.bruha.bruha.Model.Event even = new Event();
 
-               // com.bruha.bruha.Model.Event even = new Event();
+                even.setEventName(Event.getString("event_name"));
+                even.setEventDate(Event.getString("evnt_start_date"));
+                even.setEventEndDate(Event.getString("event_end_date"));
+                even.setEventStartTime(Event.getString("event_start_time"));
+                even.setEventEndTime(Event.getString("event_end_time"));
+                even.setEventPrice(Double.parseDouble(Event.getString("Admission_price")));
+                even.setEventid(Event.getString("event_id"));
+                even.setEventDescription(Event.getString("event_desc"));
+                even.setVenueid(Event.getString("venue_id"));
+                even.setLocationID(Event.getString("location_id"));
+                even.setEventLocName(Event.getString("venue_name"));
+                even.setEventLocSt(Event.getString("venue_location"));
+                even.setEventLocAdd(Event.getString("location_city"));
+                even.setEventLatitude(Double.parseDouble(Event.getString("location_lat")));
+                even.setEventLongitude(Double.parseDouble(Event.getString("location_lng")));
 
-                UserInfo.add(User.getString("Name"));
-               UserInfo.add(User.getString("Username"));
-                UserInfo.add(User.getString("Gender"));
-                UserInfo.add(User.getString("Birthdate"));;
-                UserInfo.add(User.getString("Email"));
-                UserInfo.add(User.getString("City"));
-
-
-                Log.v("USER:", UserInfo.get(1));
+               // mEvents.add(even);
             }
 
 
-            Log.v("USERTEST:", response);
-            //return mUserEvents;
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-       // return mUserEvents;
+       // return mEvents;
     }
 
 
