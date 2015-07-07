@@ -18,7 +18,6 @@ import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.PHP.EventListing;
 import com.bruha.bruha.PHP.MainActivity;
 import com.bruha.bruha.PHP.Signuppp;
-import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.R;
 
 import java.util.ArrayList;
@@ -60,7 +59,7 @@ public class SplashActivity extends Activity {
     //Button to proceed to register Activity.
     @OnClick(R.id.registerButton)
     public void register(View view){
-        Intent intent = new Intent(this, RegisterActivity.class);
+        Intent intent = new Intent(this, EventListing.class);
         startActivity(intent);
     }
 
@@ -68,7 +67,6 @@ public class SplashActivity extends Activity {
     @OnClick(R.id.noLoginButton)
     public void noLogin(View view){
         Intent intent = new Intent(this, DashboardActivity.class);
-        intent.putExtra("Logged","NO");
         startActivity(intent);
     }
 

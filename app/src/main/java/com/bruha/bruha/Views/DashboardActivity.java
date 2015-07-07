@@ -29,6 +29,8 @@ public class DashboardActivity extends ActionBarActivity {
     @InjectView(R.id.UploadButton) TextView MyUploadButton;
     @InjectView(R.id.TicketButton) TextView MyTicketButton;
     @InjectView(R.id.ProfileButton) TextView ProfileButton;
+    @InjectView(R.id.HotButton) TextView HotButton;
+    @InjectView(R.id.AddictionButton) TextView AddictionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,22 @@ public class DashboardActivity extends ActionBarActivity {
                     startProfileActivity(v);
                 }
             });
+
+            //Profile Button's Implementation
+            HotButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startHotActivity(v);
+                }
+            });
+
+            //Profile Button's Implementation
+            AddictionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startAddictionAcitivty(v);
+                }
+            });
         }
         else {
 
@@ -90,15 +108,34 @@ public class DashboardActivity extends ActionBarActivity {
                 }
             });
 
+
+            //WhatsHot's Implementation
             //Profile Button's Implementation
-            ProfileButton.setTextColor(Color.WHITE);
-            ProfileButton.setOnClickListener(new View.OnClickListener() {
+            HotButton.setTextColor(Color.WHITE);
+            HotButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getApplicationContext(),"You Gotta Login First!!",Toast.LENGTH_LONG).show();
                 }
             });
 
+            //Profile Button's Implementation
+            ProfileButton.setTextColor(Color.WHITE);
+            ProfileButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(), "You Gotta Login First!!", Toast.LENGTH_LONG).show();
+                }
+            });
+
+
+            AddictionButton.setTextColor(Color.WHITE);
+            AddictionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(),"You Gotta Login First!!", Toast.LENGTH_LONG).show();
+                }
+            });
         }
 
 
@@ -157,28 +194,28 @@ public class DashboardActivity extends ActionBarActivity {
     //OnClickListener for "Explore" that leads to the ListView Activity.
     @OnClick(R.id.ExploreButton)
     public void startExploreActivity(View view){
-        Intent intent = new Intent(this, UserProfileActivity.class);
+        Intent intent = new Intent(this, ListActivity.class);
         startActivity(intent);
     }
 
     //OnClickListener for "Explore" that leads to the Addiction Activity.
     @OnClick(R.id.AddictionButton)
     public void startAddictionAcitivty(View view){
-        Intent intent = new Intent(this, MapsActivity.class);
+        Intent intent = new Intent(this, UserProfileActivity.class);
         startActivity(intent);
     }
 
     //OnClickListener for "Explore" that leads to the Ticket Activity.
     @OnClick(R.id.TicketButton)
     public void startTicketAcitivity(View view){
-        Intent intent = new Intent(this, MapsActivity.class);
+        Intent intent = new Intent(this, MyTicketActivity.class);
         startActivity(intent);
     }
 
     //OnClickListener for "Explore" that leads to the Hot Activity.
     @OnClick(R.id.HotButton)
     public void startHotActivity(View view){
-        Intent intent = new Intent(this, MyTicketActivity.class);
+        Intent intent = new Intent(this, WhatsHotActivity.class);
         startActivity(intent);
     }
 
@@ -192,7 +229,7 @@ public class DashboardActivity extends ActionBarActivity {
     //OnClickListener for "Explore" that leads to the Profile Activity.
     @OnClick(R.id.ProfileButton)
     public void startProfileActivity(View view){
-        Intent intent = new Intent(this, MapsActivity.class);
+        Intent intent = new Intent(this, UserProfileActivity.class);
         startActivity(intent);
     }
 

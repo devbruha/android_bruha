@@ -9,7 +9,6 @@ import android.widget.ListView;
 import com.bruha.bruha.Adapters.ListviewAdapter;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
-import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 
@@ -37,10 +36,10 @@ public class MyUploadsActivity extends ActionBarActivity {
         //Creating an variable of type Listview Adapter to create the list view.
         adapter=new ListviewAdapter(this, mEvents); //Calling the adapter ListView to help set the List
 
+
+
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(adapter);
-
-
     }
 
 

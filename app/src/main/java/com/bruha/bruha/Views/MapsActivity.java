@@ -26,7 +26,6 @@ import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.Model.Venues;
-import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.google.android.gms.common.ConnectionResult;

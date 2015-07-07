@@ -97,6 +97,28 @@ public class FilterView {
         setAdmissionPrice();
     }
 
+    public void initArtist()
+    {
+
+        setPanel();
+
+        // Setting and storing the quickie filters.
+
+        setQuickieList();
+
+        // Simultaneously setting calendar and updating the user custom filters
+
+       // setCalendar();
+
+        // Simultaneously setting the category lists and updating the user custom filters
+
+        setCategoryList();
+
+        //Admission price is added to userCustomFilters within its function
+
+        setAdmissionPrice();
+    }
+
     private void setPanel(){
 
         // Retrieving the device API level to determine if the modification to the sliding panel need
@@ -163,6 +185,8 @@ public class FilterView {
         }
         return result;
     }
+
+
 
     private void setQuickieList(){
 

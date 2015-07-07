@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -24,6 +25,8 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String USER_INFO_NAME = "name";
     public static final String USER_INFO_BIRTHDATE = "birthdate";
     public static final String USER_INFO_GENDER = "gender";
+    public static final String USER_INFO_EMAIL = "email";
+    public static final String USER_INFO_LOCATION = "location";
 
     // Events Info Table Stuff
 
@@ -114,7 +117,9 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + USER_INFO_USERNAME + " text not null, "
             + USER_INFO_NAME + " text not null, "
             + USER_INFO_BIRTHDATE + " text not null, "
-            + USER_INFO_GENDER + " text not null);";
+            + USER_INFO_GENDER + " text not null, "
+            + USER_INFO_EMAIL + " text not null, "
+            + USER_INFO_LOCATION + " text not null);";
 
     private static final String DATABASE_CREATE_EVENT_INFO = "create table "
             + TABLE_EVENT_INFO + "(" + EVENT_LOCAL_ID
@@ -567,7 +572,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         return mEvents;
     }
 
-    public void addUser( String username, String name, String birthdate, String gender){
+    public void addUser( String username, String name, String birthdate, String gender,String email,String loc){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -576,13 +581,16 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         values.put("name",name);
         values.put("birthdate", birthdate);
         values.put("gender", gender);
+        values.put("email",email);
+        values.put("location",loc);
 
         db.insert(TABLE_USER_INFO, null, values);
     }
 
-    public Cursor retrieveUserInfo(){
+    public ArrayList<String> retrieveUserInfo(){
 
         SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<String> User=new ArrayList<>();
 
         Cursor cursor = db.query(TABLE_USER_INFO, null, null, null, null, null, null);
 
@@ -595,21 +603,33 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 String name = cursor.getString(cursor.getColumnIndex("name"));
                 String DOB = cursor.getString(cursor.getColumnIndex("birthdate"));
                 String gender = cursor.getString(cursor.getColumnIndex("gender"));
+                String email = cursor.getString(cursor.getColumnIndex("email"));
+                String location = cursor.getString(cursor.getColumnIndex("location"));
 
+
+                User.add(username);
+                User.add(name);
+                User.add(DOB);
+                User.add(gender);
+                User.add(email);
+                User.add(location);
                 Log.v("Local DB TEST", id+"");
                 Log.v("Local DB TEST", username);
                 Log.v("Local DB TEST", name);
                 Log.v("Local DB TEST", DOB);
                 Log.v("Local DB TEST", gender);
+                Log.v("Local DB Test", email );
+                Log.v("Local DB Test", location );
 
 
                 // use these strings as you want
+
             }
         }
 
         cursor.close();
 
-        return cursor;
+        return User;
     }
 
 

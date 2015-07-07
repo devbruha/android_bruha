@@ -24,7 +24,7 @@ public class SQLiteUtils {
 
         // Attempting to insert these values into the local DB
 
-        dbHelper.addUser(user_info.get(0), user_info.get(1), user_info.get(2), user_info.get(3));
+        dbHelper.addUser(user_info.get(0), user_info.get(1), user_info.get(2), user_info.get(3),user_info.get(4),user_info.get(5));
     }
 
     public void insertEvents(SQLiteDatabaseModel dbHelper, ArrayList<Event> events){
@@ -39,9 +39,9 @@ public class SQLiteUtils {
 
     }
 
-    public void getUserInfo(SQLiteDatabaseModel dbHelper){
+    public ArrayList<String> getUserInfo(SQLiteDatabaseModel dbHelper){
 
-        dbHelper.retrieveUserInfo();
+        return dbHelper.retrieveUserInfo();
     }
 
     public ArrayList<Event> getEventInfo(SQLiteDatabaseModel dbhelper){

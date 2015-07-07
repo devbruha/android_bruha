@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.bruha.bruha.PHP.RetrieveEvents;
-import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.R;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -131,7 +130,7 @@ public class RegisterActivity extends ActionBarActivity {
         return isAvailable;
     }
 
-    // A function to run the previous check aswell as to call the SQLUtils class to run the
+    // A function to run the previous check aswell as to call the PHP class to run the
     // queries
 
     private String isValidAccountInformation(String username, String password, String email){
@@ -148,16 +147,12 @@ public class RegisterActivity extends ActionBarActivity {
 
                         //error="Success";
 
-                        // Calling the init function within SQLUtils with the parameters passed
+                        // Calling the init function within PHP with the parameters passed
 
                         error="Success";
                         RetrieveEvents Reg = new RetrieveEvents();
                         Reg.Register(username,password,email);
 
-                        /*
-                        SQLUtils sqlu = new SQLUtils(url, user, pass);
-                        error = sqlu.register(username, password, email);
-                        */
 
 
                     }
@@ -193,7 +188,7 @@ public class RegisterActivity extends ActionBarActivity {
     @OnClick(R.id.createAccountButton)
     public void createAccount(View view){
 
-        // Retrieving the entered information and converting to string
+        // Retrieving the entered information and converting to string.
 
         String username = mRegisterUsernameEditText.getText().toString();
         String password = mRegisterPasswordEditText.getText().toString();

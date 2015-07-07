@@ -11,7 +11,6 @@ import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.Venues;
 import com.bruha.bruha.PHP.RetrieveEvents;
-import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 
@@ -24,7 +23,6 @@ public class LoadScreenActivity extends Activity {
     String user = "showdomc_android";
     String pass = "show12345!";
 
-    SQLUtils sqlu ; //The SQLUtil object type that will be initialized later depending on the credentials given above.
     ArrayList<Event> mEvents = new ArrayList<>();
     ArrayList<Venues> mVenues = new ArrayList<>();
     ArrayList<Organizations> mOutfits = new ArrayList<>();
@@ -69,7 +67,7 @@ public class LoadScreenActivity extends Activity {
             e.printStackTrace();
         }
 
-        EList.GetUserEventList("TestAccount");
+
 
 
 

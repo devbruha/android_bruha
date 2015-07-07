@@ -16,7 +16,6 @@ import android.widget.EditText;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.PHP.RetrieveEvents;
-import com.bruha.bruha.Processing.SQLUtils;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
@@ -35,11 +34,13 @@ public class LoginActivity extends ActionBarActivity {
 
     // Our database hostname and the credentials for our showdom_android account
 
+    RetrieveEvents Call = new RetrieveEvents();
+
     String url = "jdbc:mysql://66.147.244.109:3306/showdomc_web2"; //
     String user = "showdomc_android";
     String pass = "show12345!";
 
-    SQLUtils sqlu = new SQLUtils(url, user, pass);
+
 
     private String DB_DEBUGGING = "Local Database Test";
 
@@ -136,7 +137,7 @@ public class LoginActivity extends ActionBarActivity {
         return isAvailable;
     }
 
-    // A function to run the previous check aswell as to call the SQLUtils class to run the
+    // A function to run the previous check aswell as to call the PHP class to run the
     // queries
 
     private String isValidAccountInformation(String username, String password){
@@ -149,9 +150,9 @@ public class LoginActivity extends ActionBarActivity {
 
                 if( isValidPassword(password) ) {
 
-                    // Calling the init function within SQLUtils with the parameters passed
+                    // Calling the init function within PHP with the parameters passed
 
-                    error = sqlu.loginCheck(username, password);
+                    error= Call.login(username,password);
                 }
                 // If password is invalid, error string is updated
 
@@ -227,13 +228,17 @@ public class LoginActivity extends ActionBarActivity {
 
 
 
-                RetrieveEvents Call = new RetrieveEvents();
-                Call.login(username,password);
+
+
                 ArrayList<Event> userEvents=Call.GetUserEventList(username);
+                ArrayList<String> userInfo = Call.GetUserInfo(username);
 
 
                 SQLiteUtils sqLiteUtils = new SQLiteUtils();
                 sqLiteUtils.insertUserEvents(dbHelper,userEvents);
+                sqLiteUtils.insertNewUser(dbHelper, userInfo);
+
+
 
                /*
                // Storing the user_info value into a list
