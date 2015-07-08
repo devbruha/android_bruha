@@ -5,7 +5,13 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -25,6 +31,12 @@ import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -210,7 +222,20 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         holder.EventDate.setText(dateFormat(event.getEventDate()));
         holder.EventPrice.setText(freeEventCheck(event.getEventPrice()));
         //holder.EventIcon.setImageResource(event.getEventIcon());
-        //holder.EventPicture.setImageResource(event.getEventPicture());
+
+
+
+
+
+        Bitmap bitmap = getBitmapFromURL(event.getEventPicture());
+        Log.v("TAG", bitmap + "");
+       // holder.EventPicture.setImageBitmap(bitmap);
+
+        RelativeLayout LayoutToChange = (RelativeLayout) convertView.findViewById(R.id.LayoutToChange);
+        Drawable dr = new BitmapDrawable(bitmap);
+        LayoutToChange.setBackgroundDrawable(dr);
+
+       // holder.EventPicture.setImageResource(event.getEventPicture());
 
         //Setting the detailed description.
         holder.EventDName.setText(event.getEventName());
@@ -410,4 +435,43 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         TextView EventEndTime;
         //No need for Name,Price and Start Date for event as it is already given in first batch above
     }
+
+
+
+    public Bitmap getBitmapFromURL(final String s){
+
+        final Bitmap[] myBitmap = new Bitmap[1];
+
+        Thread thread = new Thread(new Runnable(){
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(s);
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setDoInput(true);
+                    connection.connect();
+                    InputStream input = connection.getInputStream();
+                    myBitmap[0] = BitmapFactory.decodeStream(input);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    myBitmap[0] = null;
+                }
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return myBitmap[0];
+    }
+
+
+
+
+
 }

@@ -11,7 +11,7 @@ public class Event {
     private String EventDate;
     private double EventPrice;
     private double EventDistance;
-    private int EventPicture;
+    private String EventPicture;
 
     //ALL the variables for the lat/lng of event
 
@@ -108,11 +108,11 @@ public class Event {
 
     //Getters and Setters for the Summary Description of event.
 
-    public int getEventPicture() {
+    public String getEventPicture() {
         return EventPicture;
     }
 
-    public void setEventPicture(int eventPicture) {
+    public void setEventPicture(String eventPicture) {
         EventPicture = eventPicture;
     }
 

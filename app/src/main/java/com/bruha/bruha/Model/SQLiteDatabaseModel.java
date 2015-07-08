@@ -48,7 +48,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
     public static final String EVENT_LATITUDE = "eventLatitude";
     public static final String EVENT_LONGITUDE = "eventLongitude";
-
+    public static final String EVENT_PICTURE = "eventPicture";
     public static final String EVENT_LOCATION_NAME = "eventLocName";
     public static final String EVENT_LOCATION_STREET = "eventLocStreet";
     public static final String EVENT_LOCATION_ADDRESS = "eventLocAddress";
@@ -140,6 +140,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + EVENT_LOCATION_STREET + " text not null, "
             + EVENT_LOCATION_ADDRESS + " text not null, "
             + EVENT_START_TIME + " text not null, "
+            + EVENT_PICTURE + " text not null, "
             + EVENT_END_TIME + " text not null, "
             + EVENT_END_DATE + " text not null);";
 
@@ -520,6 +521,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             values.put("eventStartTime", events.get(i).getEventStartTime());
             values.put("eventEndTime", events.get(i).getEventEndTime());
             values.put("eventEndDate", events.get(i).getEventEndDate());
+            values.put("eventPicture", events.get(i).getEventPicture());
 
             db.insert(TABLE_EVENT_INFO, null, values);
         }
@@ -556,6 +558,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 newEvent.setEventLatitude(cursor.getDouble(cursor.getColumnIndex("eventLatitude")));
                 newEvent.setEventLongitude(cursor.getDouble(cursor.getColumnIndex("eventLongitude")));
 
+                newEvent.setEventPicture(cursor.getString(cursor.getColumnIndex("eventPicture")));
                 newEvent.setEventLocName(cursor.getString(cursor.getColumnIndex("eventLocName")));
                 newEvent.setEventLocSt(cursor.getString(cursor.getColumnIndex("eventLocStreet")));
                 newEvent.setEventLocAdd(cursor.getString(cursor.getColumnIndex("eventLocAddress")));
@@ -613,13 +616,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 User.add(gender);
                 User.add(email);
                 User.add(location);
-                Log.v("Local DB TEST", id+"");
-                Log.v("Local DB TEST", username);
-                Log.v("Local DB TEST", name);
-                Log.v("Local DB TEST", DOB);
-                Log.v("Local DB TEST", gender);
-                Log.v("Local DB Test", email );
-                Log.v("Local DB Test", location );
 
 
                 // use these strings as you want
