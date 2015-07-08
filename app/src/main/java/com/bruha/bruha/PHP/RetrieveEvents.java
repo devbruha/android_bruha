@@ -8,11 +8,7 @@ import com.bruha.bruha.Model.Artists;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.Venues;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -109,6 +105,8 @@ public class RetrieveEvents {
                 even.setEventLocAdd(Event.getString("location_city"));
                 even.setEventLatitude(Double.parseDouble(Event.getString("location_lat")));
                 even.setEventLongitude(Double.parseDouble(Event.getString("location_lng")));
+                even.setEventPicture(Event.getString("image_link"));
+                Log.v("Link:",even.getEventPicture());
 
                 mEvents.add(even);
             }

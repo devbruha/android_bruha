@@ -1,6 +1,8 @@
 package com.bruha.bruha.Views;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -15,6 +17,10 @@ import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class EventPageActivity extends ActionBarActivity {
@@ -59,6 +65,10 @@ public class EventPageActivity extends ActionBarActivity {
         ImageView EventCoverPage = (ImageView) findViewById(R.id.PageEventCoverPicture);
         ViewGroup.LayoutParams EventCoverPageParams = EventCoverPage.getLayoutParams();
         EventCoverPageParams.height =  (int)Math.round(height*.20);
+
+
+
+
 
         //Assigning the PageEventPicture to a variable to alter its dimensions after with.
         ImageView EventPicture = (ImageView) findViewById(R.id.PageEventPicture);
