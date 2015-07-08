@@ -3,7 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:context="com.bruha.bruha.Views.ListActivity"
-                android:background="@drawable/bg_gradient"
+                android:background="#191919"
                 android:id="@+id/ListActRelativeLayout"
                 >
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
@@ -32,7 +32,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:drawSelectorOnTop="false"
-                android:dividerHeight="5dp"/>
+                android:dividerHeight="3dp"/>
 
             <Button
                 style="?android:attr/buttonStyleSmall"
