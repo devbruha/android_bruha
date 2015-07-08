@@ -1,6 +1,8 @@
 package com.bruha.bruha.PHP;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -16,6 +18,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -106,7 +109,9 @@ public class RetrieveEvents {
                 even.setEventLatitude(Double.parseDouble(Event.getString("location_lat")));
                 even.setEventLongitude(Double.parseDouble(Event.getString("location_lng")));
                 even.setEventPicture(Event.getString("image_link"));
-                Log.v("Link:",even.getEventPicture());
+                Bitmap bitmap = getBitmapFromURL(even.getEventPicture());
+                even.setEventPicturee(bitmap);
+
 
                 mEvents.add(even);
             }
@@ -669,6 +674,39 @@ public class RetrieveEvents {
         }
 
          return UserInfo;
+    }
+
+
+    public Bitmap getBitmapFromURL(final String s){
+
+        final Bitmap[] myBitmap = new Bitmap[1];
+
+        Thread thread = new Thread(new Runnable(){
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(s);
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setDoInput(true);
+                    connection.connect();
+                    InputStream input = connection.getInputStream();
+                    myBitmap[0] = BitmapFactory.decodeStream(input);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    myBitmap[0] = null;
+                }
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return myBitmap[0];
     }
 
 }

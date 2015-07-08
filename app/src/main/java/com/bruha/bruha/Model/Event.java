@@ -1,5 +1,7 @@
 package com.bruha.bruha.Model;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by Work on 2015-05-13.
  */
@@ -31,6 +33,16 @@ public class Event {
     private String Eventid;
     private String Venueid;
     private String LocationID;
+
+    public Bitmap getEventPicturee() {
+        return EventPicturee;
+    }
+
+    public void setEventPicturee(Bitmap eventPicturee) {
+        EventPicturee = eventPicturee;
+    }
+
+    private Bitmap EventPicturee;
 
     //Default Constructor for Event.
     public Event()
