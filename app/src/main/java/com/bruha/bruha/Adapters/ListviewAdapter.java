@@ -221,21 +221,15 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         holder.EventName.setText(event.getEventName());
         holder.EventDate.setText(dateFormat(event.getEventDate()));
         holder.EventPrice.setText(freeEventCheck(event.getEventPrice()));
-        //holder.EventIcon.setImageResource(event.getEventIcon());
 
 
+       // Bitmap bitmap = getBitmapFromURL(event.getEventPicture());
 
-
-
-        Bitmap bitmap = getBitmapFromURL(event.getEventPicture());
-        Log.v("TAG", bitmap + "");
-       // holder.EventPicture.setImageBitmap(bitmap);
 
         RelativeLayout LayoutToChange = (RelativeLayout) convertView.findViewById(R.id.LayoutToChange);
-        Drawable dr = new BitmapDrawable(bitmap);
+        Drawable dr = new BitmapDrawable(event.getEventPicturee());
         LayoutToChange.setBackgroundDrawable(dr);
 
-       // holder.EventPicture.setImageResource(event.getEventPicture());
 
         //Setting the detailed description.
         holder.EventDName.setText(event.getEventName());
@@ -438,6 +432,8 @@ public class ListviewAdapter extends BaseSwipeAdapter {
 
 
 
+    /*
+
     public Bitmap getBitmapFromURL(final String s){
 
         final Bitmap[] myBitmap = new Bitmap[1];
@@ -470,7 +466,7 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         return myBitmap[0];
     }
 
-
+*/
 
 
 

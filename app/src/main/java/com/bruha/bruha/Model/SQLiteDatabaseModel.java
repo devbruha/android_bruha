@@ -2,11 +2,17 @@ package com.bruha.bruha.Model;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import com.bruha.bruha.R;
+
+import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -45,6 +51,9 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String EVENT_DATE = "eventDate";
     public static final String EVENT_PRICE = "eventPrice";
     public static final String EVENT_DISTANCE = "eventDistance";
+
+   // static Bitmap icon = BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.car);
+    public static final String EVENT_PICTUREE = "eventPicturee" ;
 
     public static final String EVENT_LATITUDE = "eventLatitude";
     public static final String EVENT_LONGITUDE = "eventLongitude";
@@ -141,6 +150,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + EVENT_LOCATION_ADDRESS + " text not null, "
             + EVENT_START_TIME + " text not null, "
             + EVENT_PICTURE + " text not null, "
+            + EVENT_PICTUREE + " text not null, "
             + EVENT_END_TIME + " text not null, "
             + EVENT_END_DATE + " text not null);";
 
@@ -522,6 +532,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             values.put("eventEndTime", events.get(i).getEventEndTime());
             values.put("eventEndDate", events.get(i).getEventEndDate());
             values.put("eventPicture", events.get(i).getEventPicture());
+            values.put("eventPicturee", getBytes(events.get(i).getEventPicturee()));
 
             db.insert(TABLE_EVENT_INFO, null, values);
         }
@@ -565,6 +576,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 newEvent.setEventStartTime(cursor.getString(cursor.getColumnIndex("eventStartTime")));
                 newEvent.setEventEndTime(cursor.getString(cursor.getColumnIndex("eventEndTime")));
                 newEvent.setEventEndDate(cursor.getString(cursor.getColumnIndex("eventEndDate")));
+                newEvent.setEventPicturee(getImage(cursor.getBlob(cursor.getColumnIndex("eventPicturee"))));
 
                 mEvents.add(newEvent);
             }
@@ -627,6 +639,22 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
         return User;
     }
+
+
+
+
+        // convert from bitmap to byte array
+        public static byte[] getBytes(Bitmap bitmap) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+            return stream.toByteArray();
+        }
+
+        // convert from byte array to bitmap
+        public static Bitmap getImage(byte[] image) {
+            return BitmapFactory.decodeByteArray(image, 0, image.length);
+        }
+
 
 
 }
