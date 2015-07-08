@@ -231,7 +231,7 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         LayoutToChange.setBackgroundDrawable(dr);
 
 
-        //Setting the detailed description.
+        //Setting the detailed description..
         holder.EventDName.setText(event.getEventName());
         holder.EventDPrice.setText("$"+event.getEventPrice());
         holder.EventLocName.setText(event.getEventLocName());
