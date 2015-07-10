@@ -224,7 +224,7 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         holder.EventPrice.setText(freeEventCheck(event.getEventPrice()));
 
 
-       // Bitmap bitmap = getBitmapFromURL(event.getEventPicture());
+
 
 
         String url = event.getEventPicture();
@@ -232,14 +232,6 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         Picasso.with(parent.getContext()).load(url).into(holder.EventPicture);
 
 
-
-
-/*
-        Bitmap bitmap = event.getEventPicturee() ;
-
-        Drawable dr = new BitmapDrawable(bitmap);
-        LayoutToChange.setBackgroundDrawable(dr);
-*/
 
         //Setting the detailed description..
         holder.EventDName.setText(event.getEventName());

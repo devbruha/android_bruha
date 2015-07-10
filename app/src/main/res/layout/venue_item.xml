@@ -268,13 +268,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_gradient"
-        android:paddingTop="25dp"
-        android:paddingBottom="25dp"
         android:id="@+id/VenueMainLayout"
         >
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/VenuePicture"
             android:layout_alignParentTop="true"

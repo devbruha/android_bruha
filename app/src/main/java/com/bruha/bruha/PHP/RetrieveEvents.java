@@ -218,6 +218,8 @@ public class RetrieveEvents {
                 ven.setVenueLocation(Venue.getString("venue_location"));
                 ven.setLat(Double.parseDouble(Venue.getString("location_lat")));
                 ven.setLng(Double.parseDouble(Venue.getString("location_lng")));
+                ven.setVenuePicture(Venue.getString("media"));
+
 
                 mVenues.add(ven);
             }

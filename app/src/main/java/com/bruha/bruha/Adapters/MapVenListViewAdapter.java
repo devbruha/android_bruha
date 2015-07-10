@@ -21,6 +21,7 @@ import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -68,14 +69,17 @@ public class MapVenListViewAdapter extends BaseSwipeAdapter {
 
 
         //Changing the text in the fields everytime.
-        holder.Title.setText("H & M");
+        holder.Title.setText(venue.getVenueName());
         holder.Price.setVisibility(View.INVISIBLE);
-        holder.LocName.setText("Jackson Square");
-        holder.LocSt.setText("0 King St. West");
-        holder.LocAdd.setText("Hamilton, ON Canada");
+        holder.LocName.setText(venue.getVenueLocation());
+        holder.LocSt.setText("Street 42.");
+        holder.LocAdd.setText(venue.getVenueDescription());
         holder.Hours.setText("20 September, 2015 At 8:30 PM");
        // holder.Picture.setImageResource();
 
+
+
+        Picasso.with(viewGroup.getContext()).load(venue.getVenuePicture()).placeholder(R.drawable.car).into(holder.Picture);
 
 
 

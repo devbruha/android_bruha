@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
+import android.media.Image;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -125,6 +127,10 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
        // holder.VenueHourSunday.setText();
 
 
+        String url = Venue.getVenuePicture();
+
+        Picasso.with(viewGroup.getContext()).load(url).into(holder.VenuePicture);
+
 
 
         //Swipe methods being Implemented
@@ -200,6 +206,11 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         //Sets the height to 1/3 the screensize.
         ViewGroup.LayoutParams params = view.getLayoutParams();
         params.height =  (int)Math.round(height*.33);
+
+
+        ImageView Picture = (ImageView) view.findViewById(R.id.VenuePicture);
+        ViewGroup.LayoutParams PictureParam = Picture.getLayoutParams();
+        PictureParam.height =  (int)Math.round(height*.33);
 
 
         //Getting the LayoutParams of the circle and then setting it to quarter the screensize.
