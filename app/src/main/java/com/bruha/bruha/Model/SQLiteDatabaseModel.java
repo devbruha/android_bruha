@@ -53,7 +53,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String EVENT_DISTANCE = "eventDistance";
 
    // static Bitmap icon = BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.car);
-    public static final String EVENT_PICTUREE = "eventPicturee" ;
+   // public static final String EVENT_PICTUREE = "eventPicturee" ;
 
     public static final String EVENT_LATITUDE = "eventLatitude";
     public static final String EVENT_LONGITUDE = "eventLongitude";
@@ -150,7 +150,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + EVENT_LOCATION_ADDRESS + " text not null, "
             + EVENT_START_TIME + " text not null, "
             + EVENT_PICTURE + " text not null, "
-            + EVENT_PICTUREE + " text not null, "
+         //   + EVENT_PICTUREE + " text not null, "
             + EVENT_END_TIME + " text not null, "
             + EVENT_END_DATE + " text not null);";
 
@@ -494,10 +494,20 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     @Override
     public void onUpgrade(android.database.sqlite.SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        db.execSQL("DROP TABLE IF EXISTS user_info");
+      //  db.execSQL("DROP TABLE IF EXISTS user_info");
         db.execSQL("DROP TABLE IF EXISTS event_info");
+        db.execSQL(DATABASE_CREATE_EVENT_INFO);
+        db.execSQL("DROP TABLE IF EXISTS venue_info");
+        db.execSQL(DATABASE_CREATE_VENUE_INFO);
+        db.execSQL("DROP TABLE IF EXISTS outfit_info");
+        db.execSQL(DATABASE_CREATE_OUTFIT_INFO);
+        db.execSQL("DROP TABLE IF EXISTS artist_info");
+        db.execSQL(DATABASE_CREATE_ARTIST_INFO);
 
-        onCreate(db);
+       // db.execSQL("DROP TABLE IF EXISTS TABLE_EVENT_INFO");
+
+
+       // onCreate(db);
     }
 
 
@@ -532,7 +542,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             values.put("eventEndTime", events.get(i).getEventEndTime());
             values.put("eventEndDate", events.get(i).getEventEndDate());
             values.put("eventPicture", events.get(i).getEventPicture());
-            values.put("eventPicturee", getBytes(events.get(i).getEventPicturee()));
+          // values.put("eventPicturee", getBytes(events.get(i).getEventPicturee()));
 
             db.insert(TABLE_EVENT_INFO, null, values);
         }
@@ -576,7 +586,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 newEvent.setEventStartTime(cursor.getString(cursor.getColumnIndex("eventStartTime")));
                 newEvent.setEventEndTime(cursor.getString(cursor.getColumnIndex("eventEndTime")));
                 newEvent.setEventEndDate(cursor.getString(cursor.getColumnIndex("eventEndDate")));
-                newEvent.setEventPicturee(getImage(cursor.getBlob(cursor.getColumnIndex("eventPicturee"))));
+           //     newEvent.setEventPicturee(getImage(cursor.getBlob(cursor.getColumnIndex("eventPicturee"))));
 
                 mEvents.add(newEvent);
             }
@@ -641,7 +651,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     }
 
 
-
+/*
 
         // convert from bitmap to byte array
         public static byte[] getBytes(Bitmap bitmap) {
@@ -654,6 +664,8 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         public static Bitmap getImage(byte[] image) {
             return BitmapFactory.decodeByteArray(image, 0, image.length);
         }
+
+        */
 
 
 

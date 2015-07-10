@@ -46,7 +46,7 @@ public class MyTicketActivity extends ActionBarActivity {
 
        // Typeface x = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/Domine-Regular.ttf");
 
-        Typeface fnt = Typeface.createFromAsset(getAssets(),"fonts/Domine-Regular.ttf");
+     //   Typeface fnt = Typeface.createFromAsset(getAssets(),"fonts/Domine-Regular.ttf");
 
 
 

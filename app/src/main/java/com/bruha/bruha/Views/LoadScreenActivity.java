@@ -2,6 +2,7 @@ package com.bruha.bruha.Views;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -18,11 +19,6 @@ import java.util.ArrayList;
 
 public class LoadScreenActivity extends Activity {
 
-    // Our database hostname and the credentials for our showdom_android account
-    String url = "jdbc:mysql://66.147.244.109:3306/showdomc_web2"; //
-    String user = "showdomc_android";
-    String pass = "show12345!";
-
     ArrayList<Event> mEvents = new ArrayList<>();
     ArrayList<Venues> mVenues = new ArrayList<>();
     ArrayList<Organizations> mOutfits = new ArrayList<>();
@@ -33,23 +29,28 @@ public class LoadScreenActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_screen);
 
-        this.deleteDatabase("BruhaDatabase.db");
+      //  this.deleteDatabase("BruhaDatabase.db");
 
-        initialEventRetrieval();
+
+        SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
+
+        dbHelper.onUpgrade(dbHelper.getWritableDatabase(),1,1);
+
+        initialEventRetrieval(dbHelper);
 
         Intent intent = new Intent(this, SplashActivity.class);
         startActivity(intent);
     }
 
 
-    private void initialEventRetrieval() {
+    private void initialEventRetrieval(SQLiteDatabaseModel dbHelper) {
 
         // Create the local DB object
 
         //SQLiteDatabaseModel dbHelper = ((MyApplication) getApplicationContext()).getDbHelper();
-        SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
+        //SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
 
-        RetrieveEvents EList = new RetrieveEvents();
+        RetrieveEvents EList = new RetrieveEvents(this);
         ArrayList<Event> x= new ArrayList<>() ;
         try {
             x = EList.GetEventList();

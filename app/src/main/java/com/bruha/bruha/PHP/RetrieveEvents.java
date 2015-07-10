@@ -1,15 +1,21 @@
 package com.bruha.bruha.PHP;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bruha.bruha.Model.Artists;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.Venues;
+import com.bruha.bruha.R;
+import com.squareup.picasso.Picasso;
 
 
 import org.json.JSONArray;
@@ -40,6 +46,13 @@ public class RetrieveEvents {
     String response = null;
     HttpURLConnection connection;
     OutputStreamWriter request = null;
+
+    Activity activity;
+
+    public RetrieveEvents(Activity act)
+    {
+        activity=act;
+    }
 
 
 
@@ -72,7 +85,7 @@ public class RetrieveEvents {
                     reader.close();
 
                 } catch (IOException e) {
-                    Log.v("Exception",e.toString());
+                    Log.v("Exception", e.toString());
                 }
             }
         });
@@ -91,7 +104,7 @@ public class RetrieveEvents {
 
             for (int i = 0; i < x.length(); i++) {
                 JSONObject Event = x.getJSONObject(i);
-                com.bruha.bruha.Model.Event even = new Event();
+                final com.bruha.bruha.Model.Event even = new Event();
 
                 even.setEventName(Event.getString("event_name"));
                 even.setEventDate(Event.getString("evnt_start_date"));
@@ -109,22 +122,52 @@ public class RetrieveEvents {
                 even.setEventLatitude(Double.parseDouble(Event.getString("location_lat")));
                 even.setEventLongitude(Double.parseDouble(Event.getString("location_lng")));
                 even.setEventPicture(Event.getString("image_link"));
-                Bitmap bitmap = getBitmapFromURL(even.getEventPicture());
-                even.setEventPicturee(bitmap);
 
+
+                /*
+                final String urly = even.getEventPicture();
+
+                final Bitmap[] b = new Bitmap[1];
+                // Picasso.with(activity.getApplicationContext()).load(url).into(imageView);
+
+                Thread thready;
+                thready = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+
+                            b[0] = Picasso.with(activity.getApplicationContext()).load(urly).get();
+                            even.setEventPicturee(b[0]);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                thready.start();
+                //thready.join();
+
+                //  imageView.buildDrawingCache(true);
+                // Bitmap b = Bitmap.createBitmap(imageView.getDrawingCache());
+                // imageView.setDrawingCacheEnabled(false); // clear drawing cache
+               // even.setEventPicturee(b[0]);
+
+                //Bitmap bitmap = getBitmapFromURL(even.getEventPicture());
+                //even.setEventPicturee(bitmap);
+*/
 
                 mEvents.add(even);
             }
 
 
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return mEvents;
     }
 
-    public ArrayList<Venues> GetVenueList() {
+        public ArrayList<Venues> GetVenueList() {
 
         Thread thread;
 

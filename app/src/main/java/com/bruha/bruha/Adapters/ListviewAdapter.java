@@ -30,6 +30,7 @@ import com.bruha.bruha.Views.EventPageActivity;
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+import com.squareup.picasso.Picasso;
 
 
 import java.io.IOException;
@@ -226,10 +227,19 @@ public class ListviewAdapter extends BaseSwipeAdapter {
        // Bitmap bitmap = getBitmapFromURL(event.getEventPicture());
 
 
-        RelativeLayout LayoutToChange = (RelativeLayout) convertView.findViewById(R.id.LayoutToChange);
-        Drawable dr = new BitmapDrawable(event.getEventPicturee());
-        LayoutToChange.setBackgroundDrawable(dr);
+        String url = event.getEventPicture();
 
+        Picasso.with(parent.getContext()).load(url).into(holder.EventPicture);
+
+
+
+
+/*
+        Bitmap bitmap = event.getEventPicturee() ;
+
+        Drawable dr = new BitmapDrawable(bitmap);
+        LayoutToChange.setBackgroundDrawable(dr);
+*/
 
         //Setting the detailed description..
         holder.EventDName.setText(event.getEventName());
@@ -327,6 +337,13 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         ViewGroup.LayoutParams params = convertView.getLayoutParams();
         //Sets the height to 1/3 the screensize.
         params.height =  (int)Math.round(height*.33);
+
+
+        ImageView Picture = (ImageView) convertView.findViewById(R.id.ImageEventPicture);
+        ViewGroup.LayoutParams PicParam = Picture.getLayoutParams();
+        PicParam.height =  (int)Math.round(height*.33);
+
+
         //Getting the LayoutParams of the circle and then setting it to quarter the screensize.
         ViewGroup.LayoutParams circleParams = circle.getLayoutParams();
         circleParams.height =  (int)Math.round(height*.25);
@@ -406,6 +423,8 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         TextView Swipe3 = (TextView) convertView.findViewById(R.id.SwipeBarSize3);
         int yx7= (int)Math.round(height*.030);
         Swipe3.setTextSize(TypedValue.COMPLEX_UNIT_PX,yx7);
+
+
     }
 
     //A view holder that contain the things that need to be changed for every event
@@ -467,7 +486,6 @@ public class ListviewAdapter extends BaseSwipeAdapter {
     }
 
 */
-
 
 
 }

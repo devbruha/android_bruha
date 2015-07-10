@@ -51,6 +51,8 @@ public class MapsActivity extends FragmentActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     ArrayList<Event> mEvents;       //The Array that will hold the Events that we will pass around(to Adapter,the List...)
+    ArrayList<Venues> mVenues;
+    ArrayList<Organizations> mOrganizations;
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
@@ -80,6 +82,8 @@ public class MapsActivity extends FragmentActivity implements
 
     LatLng venueLocation;
     ArrayList<Event> selectedEvents = new ArrayList<>();
+    ArrayList<Venues> selectedVenues = new ArrayList<>();
+    ArrayList<Organizations> selectedOrg = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +109,7 @@ public class MapsActivity extends FragmentActivity implements
         retrieveEvents();
 
         setEventMarkers();
+        //setVenueMarkers();
         setUpperPanel();
     }
 
@@ -130,6 +135,14 @@ public class MapsActivity extends FragmentActivity implements
         }
     }
 
+    @OnClick(R.id.venueButton)
+    public void venueButton(View view)
+    {
+        setVenueMarkers();
+    }
+
+
+
     private void setUpMap() {
 
         // Setting default location to mcmaster, eventually will be set to user location
@@ -153,11 +166,203 @@ public class MapsActivity extends FragmentActivity implements
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
 
         mEvents = sqLiteUtils.getEventInfo(dbHelper);
+
+        mVenues = sqLiteUtils.getVenuesInfo(dbHelper);
+
+        mOrganizations = sqLiteUtils.getOutfitsInfo(dbHelper);
     }
+
+    @OnClick(R.id.eventButton)
+    public void eventButton(View view)
+    {
+        setEventMarkers();
+    }
+
+    @OnClick(R.id.orgButton)
+    public void OrgButton(View view)
+    {
+        setOrgMarkers();
+
+    }
+
+    private void setOrgMarkers(){
+
+        final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout)findViewById(R.id.sliding_layout_upper);
+        mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+        final SlidingUpPanelLayout mLowerLayout = (SlidingUpPanelLayout)findViewById(R.id.sliding_layout_lower);
+
+        for(int i=0;i< mOrganizations.size();i++){
+
+            double eventLat = mOrganizations.get(i).getLat();
+            double eventLng = mOrganizations.get(i).getLng();
+
+            String eventName = mOrganizations.get(i).getOrgName();
+
+            LatLng eventLocation = new LatLng(eventLat, eventLng);
+
+            Marker eventMarker = mMap.addMarker(new MarkerOptions().position(eventLocation).title(eventName));
+
+            if(MyApplication.sourceEventsID.contains(mOrganizations.get(i).getOrgId())) {
+
+                eventMarker.setVisible(false);
+            }
+            else if(MyApplication.sourceEventsID.contains("All")){
+
+                eventMarker.setVisible(true);
+            }
+            else{
+
+                eventMarker.setVisible(true);
+            }
+
+            markerMap.put(mOrganizations.get(i).getOrgId()+"",eventMarker);
+
+            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+
+                    selectedOrg.clear();
+                    selectedEvents.clear();
+                    selectedVenues.clear();
+
+                    venueLocation = marker.getPosition();
+
+                    double venueLat = venueLocation.latitude;
+                    double venueLon = venueLocation.longitude;
+
+                    for (int i = 0; i < mOrganizations.size(); i++) {
+
+                        if (mOrganizations.get(i).getLat() == venueLat &&
+                                mOrganizations.get(i).getLng() == venueLon) {
+
+                            if (!MyApplication.sourceEventsID.contains(mOrganizations.get(i).getOrgId())) {
+
+                                selectedOrg.add(mOrganizations.get(i));
+                            }
+                        }
+                    }
+
+                    SetOrgAdapter();
+
+                    mLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                    mLowerLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                    return false;
+                }
+            });
+
+            mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                @Override
+                public void onMapClick(LatLng latLng) {
+                    mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                }
+            });
+
+        }
+    }
+
+
+
+    private void setVenueMarkers(){
+
+        final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout)findViewById(R.id.sliding_layout_upper);
+        mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+        final SlidingUpPanelLayout mLowerLayout = (SlidingUpPanelLayout)findViewById(R.id.sliding_layout_lower);
+
+        for(int i=0;i< mVenues.size();i++){
+
+            double eventLat = mVenues.get(i).getLat();
+            double eventLng = mVenues.get(i).getLng();
+
+            String eventName = mVenues.get(i).getVenueName();
+
+            LatLng eventLocation = new LatLng(eventLat, eventLng);
+
+            Marker eventMarker = mMap.addMarker(new MarkerOptions().position(eventLocation).title(eventName));
+
+            if(MyApplication.sourceEventsID.contains(mVenues.get(i).getVenueId())) {
+
+                eventMarker.setVisible(false);
+            }
+            else if(MyApplication.sourceEventsID.contains("All")){
+
+                eventMarker.setVisible(true);
+            }
+            else{
+
+                eventMarker.setVisible(true);
+            }
+
+            markerMap.put(mVenues.get(i).getVenueId()+"",eventMarker);
+
+            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+
+                    selectedVenues.clear();
+                    selectedEvents.clear();
+                    selectedOrg.clear();
+
+                    venueLocation = marker.getPosition();
+
+                    double venueLat = venueLocation.latitude;
+                    double venueLon = venueLocation.longitude;
+
+                    for (int i = 0; i < mVenues.size(); i++) {
+
+                        if (mVenues.get(i).getLat() == venueLat &&
+                                mVenues.get(i).getLng() == venueLon) {
+
+                            if (!MyApplication.sourceEventsID.contains(mVenues.get(i).getVenueId())) {
+
+                                selectedVenues.add(mVenues.get(i));
+                            }
+                        }
+                    }
+
+                    SetVenAdapter();
+
+                    mLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                    mLowerLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                    return false;
+                }
+            });
+
+            mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                @Override
+                public void onMapClick(LatLng latLng) {
+                    mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                }
+            });
+
+        }
+    }
+
+
+    private void SetOrgAdapter(){
+        MapOrganizationListViewAdapter    adapteri=new MapOrganizationListViewAdapter(this, selectedOrg); //Calling the adapter ListView to help set the List
+
+        //Sets the Adapter from the class Listview Adapter
+        ListView.setAdapter(adapteri);
+
+
+    }
+
+
+
+    private void SetVenAdapter(){
+        MapVenListViewAdapter    adapteri=new MapVenListViewAdapter(this, selectedVenues); //Calling the adapter ListView to help set the List
+
+        //Sets the Adapter from the class Listview Adapter
+        ListView.setAdapter(adapteri);
+
+
+    }
+
 
     private void setEventMarkers(){
 
         final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout)findViewById(R.id.sliding_layout_upper);
+        mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
         final SlidingUpPanelLayout mLowerLayout = (SlidingUpPanelLayout)findViewById(R.id.sliding_layout_lower);
 
         for(int i=0;i< mEvents.size();i++){
@@ -191,6 +396,9 @@ public class MapsActivity extends FragmentActivity implements
                 public boolean onMarkerClick(Marker marker) {
 
                     selectedEvents.clear();
+                    selectedOrg.clear();
+                    selectedVenues.clear();
+
                     venueLocation = marker.getPosition();
 
                     double venueLat = venueLocation.latitude;

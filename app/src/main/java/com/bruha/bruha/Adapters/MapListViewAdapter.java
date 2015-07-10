@@ -21,6 +21,7 @@ import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -145,6 +146,8 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         holder.LocAdd.setText(event.getEventLocAdd());
         holder.Hours.setText(dateFormat(event.getEventDate())+" At "+TimeFormat(event.getEventStartTime()));
         //holder.Picture.setImageResource();
+
+        Picasso.with(viewGroup.getContext()).load(event.getEventPicture()).placeholder(R.drawable.car).into(holder.Picture);
 
 
 

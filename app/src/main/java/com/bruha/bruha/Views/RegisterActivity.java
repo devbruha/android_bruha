@@ -150,7 +150,7 @@ public class RegisterActivity extends ActionBarActivity {
                         // Calling the init function within PHP with the parameters passed
 
                         error="Success";
-                        RetrieveEvents Reg = new RetrieveEvents();
+                        RetrieveEvents Reg = new RetrieveEvents(this);
                         Reg.Register(username,password,email);
 
 

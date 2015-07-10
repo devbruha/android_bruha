@@ -34,15 +34,8 @@ public class LoginActivity extends ActionBarActivity {
 
     // Our database hostname and the credentials for our showdom_android account
 
-    RetrieveEvents Call = new RetrieveEvents();
+    RetrieveEvents Call = new RetrieveEvents(this);
 
-    String url = "jdbc:mysql://66.147.244.109:3306/showdomc_web2"; //
-    String user = "showdomc_android";
-    String pass = "show12345!";
-
-
-
-    private String DB_DEBUGGING = "Local Database Test";
 
     // Injecting the EditTexts using Butterknife library
 
