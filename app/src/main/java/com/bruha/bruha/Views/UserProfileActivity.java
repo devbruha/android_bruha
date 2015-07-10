@@ -1,5 +1,6 @@
 package com.bruha.bruha.Views;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -7,25 +8,37 @@ import android.util.TypedValue;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 
 import java.util.ArrayList;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class UserProfileActivity extends ActionBarActivity {
 
     ArrayList<String> UserInfo=new ArrayList<>();
+    SQLiteDatabaseModel dbHelper;
+    SQLiteUtils sqLiteUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+        ButterKnife.inject(this);
 
+
+
+        dbHelper = new SQLiteDatabaseModel(this);
+        sqLiteUtils = new SQLiteUtils();
 
         init();
 
@@ -101,12 +114,17 @@ public class UserProfileActivity extends ActionBarActivity {
     }
 
     private void init() {
-
-        SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
-        SQLiteUtils sqLiteUtils = new SQLiteUtils();
         UserInfo=sqLiteUtils.getUserInfo(dbHelper);
     }
 
+    @OnClick(R.id.logouty)
+    public void Logout(View view)
+    {
+        MyApplication.loginCheck = false;
+        dbHelper.onLogout(dbHelper.getWritableDatabase(),1,1);
+        Intent intent = new Intent(this, SplashActivity.class);
+        startActivity(intent);
+    }
 
 
 

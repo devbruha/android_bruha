@@ -512,6 +512,18 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     }
 
 
+
+    public void onLogout(android.database.sqlite.SQLiteDatabase db, int oldVersion, int newVersion) {
+
+
+        db.execSQL("DROP TABLE IF EXISTS user_info");
+        db.execSQL(DATABASE_CREATE_USER_INFO);
+
+
+        // db.execSQL(DATABASE_CREATE_USER_INFO);
+
+    }
+
     //Event List being Implemented.
 
     public void addEvents( ArrayList<Event> events){
