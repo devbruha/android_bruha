@@ -50,7 +50,7 @@ public class LoadScreenActivity extends Activity {
         //SQLiteDatabaseModel dbHelper = ((MyApplication) getApplicationContext()).getDbHelper();
         //SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
 
-        RetrieveEvents EList = new RetrieveEvents(this);
+        RetrieveEvents EList = new RetrieveEvents();
         ArrayList<Event> x= new ArrayList<>() ;
         try {
             x = EList.GetEventList();

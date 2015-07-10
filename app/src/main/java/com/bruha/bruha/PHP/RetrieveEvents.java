@@ -47,12 +47,7 @@ public class RetrieveEvents {
     HttpURLConnection connection;
     OutputStreamWriter request = null;
 
-    Activity activity;
 
-    public RetrieveEvents(Activity act)
-    {
-        activity=act;
-    }
 
 
 

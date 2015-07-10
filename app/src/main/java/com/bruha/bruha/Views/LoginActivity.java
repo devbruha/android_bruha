@@ -34,7 +34,7 @@ public class LoginActivity extends ActionBarActivity {
 
     // Our database hostname and the credentials for our showdom_android account
 
-    RetrieveEvents Call = new RetrieveEvents(this);
+    RetrieveEvents Call = new RetrieveEvents();
 
 
     // Injecting the EditTexts using Butterknife library
