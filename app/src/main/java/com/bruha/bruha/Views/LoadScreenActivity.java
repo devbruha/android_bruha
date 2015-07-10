@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.bruha.bruha.Model.Artists;
 import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.Venues;
@@ -23,13 +24,15 @@ public class LoadScreenActivity extends Activity {
     ArrayList<Venues> mVenues = new ArrayList<>();
     ArrayList<Organizations> mOutfits = new ArrayList<>();
     ArrayList<Artists> mArtists = new ArrayList<>();
+    RetrieveEvents EList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_screen);
+        EList = new RetrieveEvents();
 
-      //  this.deleteDatabase("BruhaDatabase.db");
+       // this.deleteDatabase("BruhaDatabase.db");
 
 
         SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
@@ -38,8 +41,27 @@ public class LoadScreenActivity extends Activity {
 
         initialEventRetrieval(dbHelper);
 
-        Intent intent = new Intent(this, SplashActivity.class);
-        startActivity(intent);
+       // ArrayList<Event> userEvents=Call.GetUserEventList(username);
+     //   ArrayList<String> userInfo = dbHelper.GetUserInfo(username);
+
+
+        SQLiteUtils sqLiteUtils = new SQLiteUtils();
+        ArrayList<String> userinfo= sqLiteUtils.getUserInfo(dbHelper);
+        Log.v("Size",userinfo.size()+"");
+
+        if(userinfo.size()==0) {
+            Intent intent = new Intent(this, SplashActivity.class);
+            startActivity(intent);
+        }
+
+        else{
+            ArrayList<Event> userEvents=EList.GetUserEventList(userinfo.get(0));
+            sqLiteUtils.insertUserEvents(dbHelper,userEvents);
+            MyApplication.loginCheck = true;
+            Intent intent = new Intent(this, DashboardActivity.class);
+            startActivity(intent);
+
+        }
     }
 
 

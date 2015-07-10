@@ -503,11 +503,12 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.execSQL(DATABASE_CREATE_OUTFIT_INFO);
         db.execSQL("DROP TABLE IF EXISTS artist_info");
         db.execSQL(DATABASE_CREATE_ARTIST_INFO);
+        db.execSQL("DROP TABLE IF EXISTS user_event_info");
+        db.execSQL(DATABASE_CREATE_USER_EVENT_INFO);
 
-       // db.execSQL("DROP TABLE IF EXISTS TABLE_EVENT_INFO");
 
+       // db.execSQL(DATABASE_CREATE_USER_INFO);
 
-       // onCreate(db);
     }
 
 
@@ -640,7 +641,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 User.add(location);
 
 
-                // use these strings as you want
+
 
             }
         }
@@ -649,23 +650,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
         return User;
     }
-
-
-/*
-
-        // convert from bitmap to byte array
-        public static byte[] getBytes(Bitmap bitmap) {
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
-            return stream.toByteArray();
-        }
-
-        // convert from byte array to bitmap
-        public static Bitmap getImage(byte[] image) {
-            return BitmapFactory.decodeByteArray(image, 0, image.length);
-        }
-
-        */
 
 
 
