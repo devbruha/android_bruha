@@ -2,7 +2,9 @@ package com.bruha.bruha.Views;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -57,6 +60,10 @@ public class MapsActivity extends FragmentActivity implements
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
     @InjectView(android.R.id.list) ListView ListView;
+    @InjectView(R.id.venueButton) Button VenueButton;
+    @InjectView(R.id.artistButton) Button ArtistButton;
+    @InjectView(R.id.orgButton) Button OrgButton;
+    @InjectView(R.id.eventButton) Button EventButton;
     MapListViewAdapter adapter;
 
     //private UserCustomFilters mUserCustomFilters;
@@ -91,6 +98,7 @@ public class MapsActivity extends FragmentActivity implements
         setContentView(R.layout.activity_maps);
         ButterKnife.inject(this);
 
+
         //mUserCustomFilters = ((MyApplication) getApplicationContext()).getUserCustomFilters();
 
         /*
@@ -109,7 +117,6 @@ public class MapsActivity extends FragmentActivity implements
         retrieveEvents();
 
         setEventMarkers();
-        //setVenueMarkers();
         setUpperPanel();
     }
 
@@ -138,7 +145,17 @@ public class MapsActivity extends FragmentActivity implements
     @OnClick(R.id.venueButton)
     public void venueButton(View view)
     {
+        mMap.clear();
         setVenueMarkers();
+        VenueButton.setTextColor(Color.BLUE);
+        VenueButton.setTypeface(null, Typeface.BOLD);
+
+        ArtistButton.setTypeface(null, Typeface.NORMAL);
+        OrgButton.setTypeface(null, Typeface.NORMAL);
+        EventButton.setTypeface(null, Typeface.NORMAL);
+        EventButton.setTextColor(Color.BLACK);
+        ArtistButton.setTextColor(Color.BLACK);
+        OrgButton.setTextColor(Color.BLACK);
     }
 
 
@@ -175,13 +192,38 @@ public class MapsActivity extends FragmentActivity implements
     @OnClick(R.id.eventButton)
     public void eventButton(View view)
     {
+        mMap.clear();
         setEventMarkers();
+
+        EventButton.setTextColor(Color.BLUE);
+        EventButton.setTypeface(null, Typeface.BOLD);
+
+        VenueButton.setTypeface(null, Typeface.NORMAL);
+        OrgButton.setTypeface(null, Typeface.NORMAL);
+        ArtistButton.setTypeface(null, Typeface.NORMAL);
+
+        VenueButton.setTextColor(Color.BLACK);
+        ArtistButton.setTextColor(Color.BLACK);
+        OrgButton.setTextColor(Color.BLACK);
+
     }
 
     @OnClick(R.id.orgButton)
     public void OrgButton(View view)
     {
+        mMap.clear();
         setOrgMarkers();
+        OrgButton.setTextColor(Color.BLUE);
+        OrgButton.setTypeface(null, Typeface.BOLD);
+
+        VenueButton.setTypeface(null, Typeface.NORMAL);
+        ArtistButton.setTypeface(null, Typeface.NORMAL);
+        EventButton.setTypeface(null, Typeface.NORMAL);
+
+
+        VenueButton.setTextColor(Color.BLACK);
+        ArtistButton.setTextColor(Color.BLACK);
+        EventButton.setTextColor(Color.BLACK);
 
     }
 
@@ -277,7 +319,9 @@ public class MapsActivity extends FragmentActivity implements
 
             LatLng eventLocation = new LatLng(eventLat, eventLng);
 
+
             Marker eventMarker = mMap.addMarker(new MarkerOptions().position(eventLocation).title(eventName));
+
 
             if(MyApplication.sourceEventsID.contains(mVenues.get(i).getVenueId())) {
 
