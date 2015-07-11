@@ -357,6 +357,9 @@ public class RetrieveEvents {
                 Artist.setArtistId(Integer.parseInt(mArtist.getString("Artist_id")));
                 Artist.setArtistName(mArtist.getString("Artist_name"));
                 Artist.setArtistDescription(mArtist.getString("Artist_desc"));
+                Artist.setArtistPicture(mArtist.getString("Artist_media"));
+
+
 
                 mArtists.add(Artist);
             }
@@ -450,14 +453,14 @@ public class RetrieveEvents {
                 even.setEventEndDate(Event.getString("event_end_date"));
                 even.setEventLocName(Event.getString("venue_name"));
                 even.setEventLocSt(Event.getString("venue_location"));
+                even.setEventPicture(Event.getString("image_link"));
 
 
                 mUserEvents.add(even);
-                Log.v("Event:", even.getEventName());
             }
 
 
-            Log.v("TEST:", response);
+            //Log.v("TEST:", response);
             return mUserEvents;
         } catch (JSONException e) {
             e.printStackTrace();

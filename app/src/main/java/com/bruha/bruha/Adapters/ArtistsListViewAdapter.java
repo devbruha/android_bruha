@@ -20,6 +20,7 @@ import com.bruha.bruha.Model.Artists;
 import com.bruha.bruha.R;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -121,6 +122,7 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         //holder.ArtistEventTiming.setText("30 September,2015 At 3:30:00");
 
 
+        Picasso.with(viewGroup.getContext()).load(artist.getArtistPicture()).into(holder.ArtistPicture);
 
 
         //Swipe methods being Implemented
@@ -193,6 +195,10 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         //Sets the height to 1/3 the screensize.
         ViewGroup.LayoutParams params = view.getLayoutParams();
         params.height =  (int)Math.round(height*.33);
+
+        ImageView Pic = (ImageView) view.findViewById(R.id.VenuePicture);
+        ViewGroup.LayoutParams PictureParam = Pic.getLayoutParams();
+        PictureParam.height =  (int)Math.round(height*.33);
 
 
         //Getting the LayoutParams of the circle and then setting it to quarter the screensize.

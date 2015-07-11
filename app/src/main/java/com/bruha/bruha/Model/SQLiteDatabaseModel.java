@@ -112,6 +112,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String ARTIST_REMOTE_ID = "artistID";
     public static final String ARTIST_DESCRIPTION = "artistDescription";
     public static final String ARTIST_NAME = "artistName";
+    public static final String ARTIST_PICTURE = "artistPicture";
 
     // Storing our local database name and version as strings
 
@@ -174,6 +175,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + EVENT_LOCATION_ADDRESS + " text not null, "
             + EVENT_START_TIME + " text not null, "
             + EVENT_END_TIME + " text not null, "
+            + EVENT_PICTURE + " text not null, "
             + EVENT_END_DATE + " text not null);";
 
 
@@ -203,6 +205,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + " integer primary key autoincrement, "
             + ARTIST_REMOTE_ID + " text not null, "
             + ARTIST_DESCRIPTION + " text not null, "
+            + ARTIST_PICTURE + " text not null, "
             + ARTIST_NAME + " text not null); ";
 
 
@@ -221,6 +224,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             values.put("artistID", artist.get(i).getArtistId());
             values.put("artistDescription", artist.get(i).getArtistDescription());
             values.put("artistName", artist.get(i).getArtistName());
+            values.put("artistPicture", artist.get(i).getArtistPicture());
 
             db.insert(TABLE_ARTIST_INFO, null, values);
         }
@@ -247,6 +251,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 artist.setArtistId(Integer.parseInt(cursor.getString(cursor.getColumnIndex("artistID"))));
                 artist.setArtistDescription(cursor.getString(cursor.getColumnIndex("artistDescription")));
                 artist.setArtistName(cursor.getString(cursor.getColumnIndex("artistName")));
+                artist.setArtistPicture(cursor.getString(cursor.getColumnIndex("artistPicture")));
 
                 mArtist.add(artist);
             }
@@ -415,6 +420,8 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             values.put("eventStartTime", events.get(i).getEventStartTime());
             values.put("eventEndTime", events.get(i).getEventEndTime());
             values.put("eventEndDate", events.get(i).getEventEndDate());
+            values.put("eventPicture", events.get(i).getEventPicture());
+
 
             db.insert(TABLE_USER_EVENT_INFO, null, values);
         }
@@ -458,6 +465,8 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 newEvent.setEventStartTime(cursor.getString(cursor.getColumnIndex("eventStartTime")));
                 newEvent.setEventEndTime(cursor.getString(cursor.getColumnIndex("eventEndTime")));
                 newEvent.setEventEndDate(cursor.getString(cursor.getColumnIndex("eventEndDate")));
+                newEvent.setEventPicture(cursor.getString(cursor.getColumnIndex("eventPicture")));
+
 
                 mEvents.add(newEvent);
             }
@@ -533,7 +542,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        for(int i =0; i< events.size();i++){
+        for(int i =0; i < events.size();i++){
 
             values.put("eventID", events.get(i).getEventid());
             values.put("venueID", events.get(i).getVenueid());
@@ -557,6 +566,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             values.put("eventEndTime", events.get(i).getEventEndTime());
             values.put("eventEndDate", events.get(i).getEventEndDate());
             values.put("eventPicture", events.get(i).getEventPicture());
+
           // values.put("eventPicturee", getBytes(events.get(i).getEventPicturee()));
 
             db.insert(TABLE_EVENT_INFO, null, values);
