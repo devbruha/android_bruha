@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.media.Image;
 import android.util.TypedValue;
 import android.view.Display;
@@ -109,6 +110,11 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         holder.OrganizationSunday = (TextView) convertView.findViewById(R.id.VenueSundayHour);
 
 
+        //FONT SHIT.
+        Typeface fnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Regular.ttf");
+        Typeface tfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Bold.ttf");
+        Typeface rest = Typeface.createFromAsset(mActivity.getAssets(),"fonts/OpenSans-Regular.ttf");
+
 
 
         //Setting all the text inside the view.
@@ -189,6 +195,14 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
     @Override
     public void fillValues(int i, View view) {
 
+
+        //FONT SHIT
+        Typeface domregfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Regular.ttf");
+        Typeface domboldfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Bold.ttf");
+        Typeface opensansregfnt = Typeface.createFromAsset(mActivity.getAssets(), "fonts/OpenSans-Regular.ttf");
+
+
+
         //Assigning the ImageBubble to a variable to alter iits dimensions after with.
         ImageView circle = (ImageView) view.findViewById(R.id.VenueImageBubble);
 
@@ -224,11 +238,13 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         TextView VenueName = (TextView) view.findViewById(R.id.VenueName);
         int x1= (int)Math.round(height*.030);
         VenueName.setTextSize(TypedValue.COMPLEX_UNIT_PX,x1);
+        VenueName.setTypeface(domboldfnt);
 
         //The VenueDistance being formatted.
         TextView VenueDistance = (TextView) view.findViewById(R.id.VenueDistance);
         int x2= (int)Math.round(height * .018);
         VenueDistance.setTextSize(TypedValue.COMPLEX_UNIT_PX,x2);
+        VenueDistance.setTypeface(domboldfnt);
 
         //Detailed Description being resized.
 
@@ -236,34 +252,42 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         TextView DesVenueName = (TextView) view.findViewById(R.id.DesVenueName);
         int x3= (int)Math.round(height * .030);
         DesVenueName.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
+        DesVenueName.setTypeface(domboldfnt);
 
         //The VenueDistance being formatted.
         TextView DesVenueLocName = (TextView) view.findViewById(R.id.DesVenueLocName);
         int x4= (int)Math.round(height * .0215);
         DesVenueLocName.setTextSize(TypedValue.COMPLEX_UNIT_PX,x4);
+        DesVenueLocName.setTypeface(opensansregfnt);
 
         //The VenueDistance being formatted.
         TextView DesVenueLocSt = (TextView) view.findViewById(R.id.DesVenueLocStreet);
         DesVenueLocSt.setTextSize(TypedValue.COMPLEX_UNIT_PX, x4);
+        DesVenueLocSt.setTypeface(opensansregfnt);
 
         //The VenueDistance being formatted.
         TextView DesVenueLocAdd = (TextView) view.findViewById(R.id.DesVenueLocAddress);
         DesVenueLocAdd.setTextSize(TypedValue.COMPLEX_UNIT_PX, x4);
+        DesVenueLocAdd.setTypeface(opensansregfnt);
 
         //The VenueDistance being formatted.
         TextView DesVenueHourText = (TextView) view.findViewById(R.id.VenueHourText);
         int x5= (int)Math.round(height * .0185);
         DesVenueHourText.setTextSize(TypedValue.COMPLEX_UNIT_PX,x5);
+        DesVenueHourText.setTypeface(domboldfnt);
 
         TextView DesVenueHourWeekDay = (TextView) view.findViewById(R.id.VenueMontoFriHour);
         int x6= (int)Math.round(height * .0165);
         DesVenueHourWeekDay.setTextSize(TypedValue.COMPLEX_UNIT_PX,x6);
+        DesVenueHourWeekDay.setTypeface(domregfnt);
 
         TextView DesVenueHourSaturday=(TextView) view.findViewById(R.id.VenueSaturdayHour);
         DesVenueHourSaturday.setTextSize(TypedValue.COMPLEX_UNIT_PX,x6);
+        DesVenueHourSaturday.setTypeface(domregfnt);
 
         TextView DesVenueHourSunday= (TextView) view.findViewById(R.id.VenueSundayHour);
         DesVenueHourSunday.setTextSize(TypedValue.COMPLEX_UNIT_PX,x6);
+        DesVenueHourSaturday.setTypeface(domregfnt);
 
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
         TextView Swipe1 = (TextView) view.findViewById(R.id.VenueSwipeBarSize1);

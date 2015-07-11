@@ -288,7 +288,7 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:src="@drawable/round"
-            android:alpha=".25"
+            android:alpha=".42"
             android:focusable="false"
             android:layout_weight="5"
             />
@@ -331,7 +331,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffa2d8d8"
-            android:alpha="0.55"
+            android:alpha="0.75"
             android:id="@+id/VenueDescriptionLayout"
             android:layout_alignTop="@+id/VenueImageBubble"
             android:layout_alignParentLeft="true"

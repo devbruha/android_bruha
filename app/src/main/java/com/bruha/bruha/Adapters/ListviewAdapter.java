@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -317,6 +318,12 @@ public class ListviewAdapter extends BaseSwipeAdapter {
 
     @Override
     public void fillValues(int position, View convertView) {
+
+      //  Typeface domregfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Regular.ttf");
+        Typeface domboldfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Bold.ttf");
+        Typeface opensansregfnt = Typeface.createFromAsset(mActivity.getAssets(), "fonts/OpenSans-Regular.ttf");
+
+
         //Assigning the ImageBubble to a variable to alter iits dimensions after with.
         ImageView circle = (ImageView) convertView.findViewById(R.id.VenueImageBubble);
         // Android functions to determine the screen dimensions.
@@ -345,63 +352,78 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         TextView EventName = (TextView) convertView.findViewById(R.id.TextEventName);
         int x1= (int)Math.round(height*.0290);
         EventName.setTextSize(TypedValue.COMPLEX_UNIT_PX,x1);
+        EventName.setTypeface(domboldfnt);
         //The EventDate being formatted.
         TextView EventDate = (TextView) convertView.findViewById(R.id.VenueName);
         int x2= (int)Math.round(height*.0295);
         EventDate.setTextSize(TypedValue.COMPLEX_UNIT_PX,x2);
+        EventDate.setTypeface(domboldfnt);
         //The EventPrice being formatted.
         TextView EventPrice = (TextView) convertView.findViewById(R.id.TextEventPrice);
         int x3= (int)Math.round(height*.0300);
         EventPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
+        EventPrice.setTypeface(domboldfnt);
         //The EventDistance being formatted.
         TextView EventDistance = (TextView) convertView.findViewById(R.id.VenueDistance);
         int x4= (int)Math.round(height*.020);
         EventDistance.setTextSize(TypedValue.COMPLEX_UNIT_PX,x4);
+        EventDistance.setTypeface(domboldfnt);
         //TextViews inside the Detailed view being formatted.
         //The DesEventName being Formatted.
         TextView DesEventName = (TextView) convertView.findViewById(R.id.DesVenueName);
         int y= (int)Math.round(height*.028);
         DesEventName.setTextSize(TypedValue.COMPLEX_UNIT_PX,y);
+        DesEventName.setTypeface(domboldfnt);
         //The DesEventPrice being formatted.
         TextView DesPrice = (TextView) convertView.findViewById(R.id.DesEventPrice);
         int y12= (int)Math.round(height*.028);
         DesPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX,y12);
+        DesPrice.setTypeface(domboldfnt);
         //The DesLocName being Formatted.
         TextView DesLocName = (TextView) convertView.findViewById(R.id.DesVenueLocName);
         int y1= (int)Math.round(height*.018);
         DesLocName.setTextSize(TypedValue.COMPLEX_UNIT_PX,y1);
+        DesLocName.setTypeface(opensansregfnt);
         //The DesLocSt being formatted.
         TextView DesLocSt = (TextView) convertView.findViewById(R.id.DesVenueLocStreet);
         int y2= (int)Math.round(height*.018);
         DesLocSt.setTextSize(TypedValue.COMPLEX_UNIT_PX,y2);
+        DesLocSt.setTypeface(opensansregfnt);
         //The DesLocAdd being Formatted.
         TextView DesLocAdd = (TextView) convertView.findViewById(R.id.DesVenueLocAddress);
         int y3= (int)Math.round(height*.018);
         DesLocAdd.setTextSize(TypedValue.COMPLEX_UNIT_PX,y3);
+        DesLocAdd.setTypeface(opensansregfnt);
         //The DesStartDate being formatted.
         TextView DesStartDate = (TextView) convertView.findViewById(R.id.DesEventStartDate);
         int y4= (int)Math.round(height*.014);
         DesStartDate.setTextSize(TypedValue.COMPLEX_UNIT_PX, y4);
+        DesStartDate.setTypeface(opensansregfnt);
         //The DesStartTime being formatted.
         TextView DesStartTime = (TextView) convertView.findViewById(R.id.DesEventStartTime);
         int y5= (int)Math.round(height*.014);
         DesStartTime.setTextSize(TypedValue.COMPLEX_UNIT_PX,y5);
+        DesStartTime.setTypeface(opensansregfnt);
         //The DesEndDate being formatted.
         TextView DesEndDate = (TextView) convertView.findViewById(R.id.DesEventEndDate);
         int y6= (int)Math.round(height * .014);
         DesEndDate.setTextSize(TypedValue.COMPLEX_UNIT_PX,y6);
+        DesEndDate.setTypeface(opensansregfnt);
         //The DesEndTime being formattted.
         TextView DesEndTime = (TextView) convertView.findViewById(R.id.DesEventEndTime);
         int y7= (int)Math.round(height*.014);
         DesEndTime.setTextSize(TypedValue.COMPLEX_UNIT_PX,y7);
+        DesEndTime.setTypeface(opensansregfnt);
         //The TextView saying "start" being formatted.
         TextView start = (TextView) convertView.findViewById(R.id.VenueHourText);
         int y8= (int)Math.round(height*.0127);
         start.setTextSize(TypedValue.COMPLEX_UNIT_PX,y8);
+        start.setTypeface(domboldfnt);
         //The TextView saying "end" being formatted.
         TextView end = (TextView) convertView.findViewById(R.id.PageEndText);
         int y9= (int)Math.round(height*.0127);
         end.setTextSize(TypedValue.COMPLEX_UNIT_PX,y9);
+        end.setTypeface(domboldfnt);
         //Swipe Bars being resized.
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
         TextView Swipe1 = (TextView) convertView.findViewById(R.id.SwipeBarsize1);

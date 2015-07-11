@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -74,6 +75,11 @@ public class MapArtistListViewAdapter extends BaseSwipeAdapter {
         holder.LocAdd.setText("Hamilton, ON Canada");
         holder.Hours.setText("20 September, 2015 At 8:30 PM");
         // holder.Picture.setImageResource();
+
+        //FONT SHIT.
+        Typeface fnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Regular.ttf");
+        Typeface tfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Bold.ttf");
+        Typeface rest = Typeface.createFromAsset(mActivity.getAssets(),"fonts/OpenSans-Regular.ttf");
 
 
         //Picasso.with(viewGroup.getContext()).load(artist.getArtistPicture()).into(holder.Picture);
