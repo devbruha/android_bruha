@@ -291,6 +291,7 @@ public class RetrieveEvents {
                 org.setLocId(Integer.parseInt(Organization.getString("location_id")));
                 org.setLat(Double.parseDouble(Organization.getString("location_lat")));
                 org.setLng(Double.parseDouble(Organization.getString("location_lng")));
+                org.setOrgPicture(Organization.getString("media"));
 
 
                 mOrg.add(org);

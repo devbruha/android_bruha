@@ -104,6 +104,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String OUTFIT_LATITUDE = "outfitLatitude";
     public static final String OUTFIT_LONGITUDE = "outfitLongitude";
     public static final String OUTFIT_LOCATION_NAME = "outfitLocName";
+    public static final String OUTFIT_PICTURE = "outfitPicture";
 
 
     //ARTIST INTO LOCAL DATABASE:
@@ -198,6 +199,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + OUTFIT_NAME + " text not null, "
             + OUTFIT_LATITUDE + " text not null, "
             + OUTFIT_LONGITUDE + " text not null, "
+            + OUTFIT_PICTURE + " text not null, "
             + OUTFIT_LOCATION_NAME + " text not null); ";
 
     private static final String DATABASE_CREATE_ARTIST_INFO = "create table "
@@ -283,6 +285,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             values.put("outfitLatitude", Org.get(i).getLat());
             values.put("outfitLongitude", Org.get(i).getLng());
             values.put("outfitLocName", Org.get(i).getOrgLocation());
+            values.put("outfitPicture", Org.get(i).getOrgPicture());
 
             db.insert(TABLE_OUTFIT_INFO, null, values);
         }
@@ -312,6 +315,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 Org.setLat(cursor.getDouble(cursor.getColumnIndex("outfitLatitude")));
                 Org.setLng(cursor.getDouble(cursor.getColumnIndex("outfitLongitude")));
                 Org.setOrgLocation(cursor.getString(cursor.getColumnIndex("outfitLocName")));
+                Org.setOrgPicture(cursor.getString(cursor.getColumnIndex("outfitPicture")));
 
                 mOutfit.add(Org);
             }

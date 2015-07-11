@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.graphics.Point;
+import android.media.Image;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.R;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -120,12 +122,13 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         //Detailed Description being set.
         holder.OrganizationDetailedName.setText(Outfit.getOrgName());
         holder.OrganizationLocName.setText(Outfit.getOrgLocation());
-       // holder.OrganizationLocSt.setText("Main at Longwood");
-        //holder.OrganizationLocAdd.setText("Hamilton, ON Canada");
-        //holder.OrganizationWeekDayHours.setText("Mon to Fri: 8 AM - 10 PM ");
-        //holder.OrganizationSaturday.setText("Saturday: 10 AM - 5 PM");
+        holder.OrganizationLocSt.setText(Outfit.getOrgDescription());
+        holder.OrganizationLocAdd.setText("Hamilton, ON Canada");
+       // holder.OrganizationWeekDayHours.setText("Mon to Fri: 8 AM - 10 PM ");
+       // holder.OrganizationSaturday.setText("Saturday: 10 AM - 5 PM");
         //holder.OrganizationSunday.setText("Sunday: Closed");
 
+        Picasso.with(viewGroup.getContext()).load(Outfit.getOrgPicture()).into(holder.OrganizationPicture);
 
 
 
@@ -201,6 +204,12 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         //Sets the height to 1/3 the screensize.
         ViewGroup.LayoutParams params = view.getLayoutParams();
         params.height =  (int)Math.round(height*.33);
+
+        ImageView Picture = (ImageView) view.findViewById(R.id.VenuePicture);
+        ViewGroup.LayoutParams PictureParam = Picture.getLayoutParams();
+        PictureParam.height =  (int)Math.round(height*.33);
+
+
 
 
         //Getting the LayoutParams of the circle and then setting it to quarter the screensize.

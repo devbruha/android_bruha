@@ -19,6 +19,7 @@ import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.R;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -67,15 +68,16 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
 
 
         //Changing the text in the fields everytime.
-        holder.Title.setText("The Forge");
+        holder.Title.setText(organization.getOrgName());
         holder.Price.setVisibility(View.INVISIBLE);
-        holder.LocName.setText("McMaster Innovation Park");
-        holder.LocSt.setText("Main at Longwood");
+        holder.LocName.setText(organization.getOrgLocation());
+        holder.LocSt.setText(organization.getOrgDescription());
         holder.LocAdd.setText("Hamilton, ON Canada");
         holder.Hours.setText("Mon to Friday: 8 AM - 10 PM");
         // holder.Picture.setImageResource();
 
 
+        Picasso.with(viewGroup.getContext()).load(organization.getOrgPicture()).into(holder.Picture);
 
 
 
