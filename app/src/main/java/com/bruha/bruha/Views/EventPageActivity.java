@@ -60,7 +60,7 @@ public class EventPageActivity extends ActionBarActivity {
         Point size = new Point();
         display.getSize(size);
 
-        // Storing the screen height into an int variable.
+        // Storing the screen height into an int variable..
         int height = size.y;
 
 
