@@ -193,7 +193,7 @@ public class TicketListView extends BaseAdapter {
         //holder.Picture.setImageResource(); {
 
 
-        //FONT SHIT
+        //FONT SHIT.
         Typeface fnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Regular.ttf");
         Typeface tfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Bold.ttf");
         Typeface rest = Typeface.createFromAsset(mActivity.getAssets(),"fonts/OpenSans-Regular.ttf");
