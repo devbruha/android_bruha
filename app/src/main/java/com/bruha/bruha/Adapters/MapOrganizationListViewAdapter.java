@@ -78,7 +78,7 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
         // holder.Picture.setImageResource();
 
 
-        Picasso.with(viewGroup.getContext()).load(organization.getOrgPicture()).into(holder.Picture);
+        Picasso.with(viewGroup.getContext()).load(organization.getOrgPicture()).fit().into(holder.Picture);
 
 
 

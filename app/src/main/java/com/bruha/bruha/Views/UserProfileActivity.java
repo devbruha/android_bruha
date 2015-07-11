@@ -2,6 +2,7 @@ package com.bruha.bruha.Views;
 
 import android.content.Intent;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -52,6 +53,12 @@ public class UserProfileActivity extends ActionBarActivity {
 
     private void resize()
     {
+
+        //FONT SHIT
+        Typeface domregfnt = Typeface.createFromAsset(this.getAssets(),"fonts/Domine-Regular.ttf");
+        Typeface domboldfnt = Typeface.createFromAsset(this.getAssets(),"fonts/Domine-Bold.ttf");
+        Typeface opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
+
         //The EventPage dimensions being set to fit all types of screen:
 
         // Android functions to determine the screen dimensions.
@@ -98,17 +105,29 @@ public class UserProfileActivity extends ActionBarActivity {
         int x1= (int)Math.round(height * .0485);
 
         Name.setTextSize(TypedValue.COMPLEX_UNIT_PX,x1);
-        Username.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+        Name.setTypeface(domboldfnt);
+        Username.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        Username.setTypeface(domboldfnt);
         Email.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        Age.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-        Sex.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-        Location.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+        Email.setTypeface(domboldfnt);
+        Age.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        Age.setTypeface(domboldfnt);
+        Sex.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        Sex.setTypeface(domboldfnt);
+        Location.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        Location.setTypeface(domboldfnt);
 
-        UsernameText.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-        EmailText.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-        AgeText.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-        SexText.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+
+        UsernameText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        UsernameText.setTypeface(opensansregfnt);
+        EmailText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        EmailText.setTypeface(opensansregfnt);
+        AgeText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        AgeText.setTypeface(opensansregfnt);
+        SexText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        SexText.setTypeface(opensansregfnt);
         LocationText.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+        LocationText.setTypeface(opensansregfnt);
 
 
     }

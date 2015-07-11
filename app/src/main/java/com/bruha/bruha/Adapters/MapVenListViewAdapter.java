@@ -82,7 +82,7 @@ public class MapVenListViewAdapter extends BaseSwipeAdapter {
 
 
 
-        Picasso.with(viewGroup.getContext()).load(venue.getVenuePicture()).placeholder(R.drawable.car).into(holder.Picture);
+        Picasso.with(viewGroup.getContext()).load(venue.getVenuePicture()).fit().into(holder.Picture);
 
 
 

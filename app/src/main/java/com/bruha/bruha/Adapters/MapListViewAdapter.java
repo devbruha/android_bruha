@@ -148,7 +148,7 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         holder.Hours.setText(dateFormat(event.getEventDate())+" At "+TimeFormat(event.getEventStartTime()));
         //holder.Picture.setImageResource();
 
-        Picasso.with(viewGroup.getContext()).load(event.getEventPicture()).placeholder(R.drawable.car).into(holder.Picture);
+        Picasso.with(viewGroup.getContext()).load(event.getEventPicture()).fit().into(holder.Picture);
 
 
 

@@ -17,6 +17,7 @@ import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -62,11 +63,13 @@ public class EventPageActivity extends ActionBarActivity {
         // Storing the screen height into an int variable.
         int height = size.y;
 
+
+
         //Assigning the PageEventCoverPicture to a variable to alter its dimensions after with.
         ImageView EventCoverPage = (ImageView) findViewById(R.id.PageEventCoverPicture);
         ViewGroup.LayoutParams EventCoverPageParams = EventCoverPage.getLayoutParams();
         EventCoverPageParams.height =  (int)Math.round(height*.20);
-       // Picasso.with(this.getApplicationContext()).load(mEve.getEventPicture()).into(EventCoverPage);
+       Picasso.with(this.getApplicationContext()).load(mEve.getEventPicture()).fit().into(EventCoverPage);
 
 
 
@@ -74,10 +77,10 @@ public class EventPageActivity extends ActionBarActivity {
 
         //Assigning the PageEventPicture to a variable to alter its dimensions after with.
         ImageView EventPicture = (ImageView) findViewById(R.id.PageEventPicture);
-       // Picasso.with(this.getApplicationContext()).load(mEve.getEventPicture()).into(EventPicture);
         ViewGroup.LayoutParams EventPictureParams = EventPicture.getLayoutParams();
         EventPictureParams.height =  (int)Math.round(height*.15);
         EventPictureParams.width  =  (int)Math.round(height*.15);
+        Picasso.with(this.getApplicationContext()).load(mEve.getEventPicture()).fit().into(EventPicture);
 
 
 
@@ -154,9 +157,6 @@ public class EventPageActivity extends ActionBarActivity {
 
 
     }
-
-
-
 
 
 
