@@ -14,7 +14,7 @@ public class Artists {
     private int ArtistEventId;
 
     //Artists Media data.
-    private int ArtistPicture;
+    private String ArtistPicture;
     private int ArtistIcon;
 
     //Artists Contact data.
@@ -59,11 +59,11 @@ public class Artists {
         ArtistEventId = artistEventId;
     }
 
-    public int getArtistPicture() {
+    public String getArtistPicture() {
         return ArtistPicture;
     }
 
-    public void setArtistPicture(int artistPicture) {
+    public void setArtistPicture(String artistPicture) {
         ArtistPicture = artistPicture;
     }
 

@@ -29,4 +29,6 @@ dependencies {
     compile 'com.prolificinteractive:material-calendarview:0.4.0'
     compile 'com.daimajia.swipelayout:library:1.2.0@aar'
     compile 'com.roomorama:caldroid:2.0.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
 }

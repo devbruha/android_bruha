@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.bruha.bruha.Model.Artists;
 import com.bruha.bruha.R;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -75,6 +77,8 @@ public class MapArtistListViewAdapter extends BaseSwipeAdapter {
         // holder.Picture.setImageResource();
 
 
+
+        //Picasso.with(viewGroup.getContext()).load(artist.getArtistPicture()).into(holder.Picture);
 
 
 

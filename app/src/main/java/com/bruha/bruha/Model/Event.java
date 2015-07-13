@@ -1,6 +1,7 @@
 package com.bruha.bruha.Model;
 
 import android.graphics.Bitmap;
+import android.widget.ImageView;
 
 /**
  * Created by Work on 2015-05-13.

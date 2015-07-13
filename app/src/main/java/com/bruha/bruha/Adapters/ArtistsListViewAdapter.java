@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -15,11 +16,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import com.bruha.bruha.Model.Artists;
 import com.bruha.bruha.R;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -28,16 +29,15 @@ import java.util.ArrayList;
  */
 public class ArtistsListViewAdapter extends BaseSwipeAdapter {
 
-    private Activity mActivity;
-    private ArrayList<Artists> mArtists;
-    public static int Clicks=0;
+    private Activity mActivity;             //The Activity where it is to be displayed.
+    private ArrayList<Artists> mArtists;    //The List of Artists to be displayed.
+    public static int Clicks=0;             //The number of times tapped on the screen.
 
     public ArtistsListViewAdapter(Activity activity,ArrayList<Artists> artists)
     {
         mActivity = activity;
         mArtists = artists;
     }
-
 
     @Override
     public int getSwipeLayoutResourceId(int i) {
@@ -102,9 +102,6 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         holder.DesArtistName=(TextView) convertView.findViewById(R.id.DesVenueName);
 
 
-
-
-
         //Setting all the text inside the view.
 
         //Summary being set.
@@ -121,6 +118,7 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         //holder.ArtistEventTiming.setText("30 September,2015 At 3:30:00");
 
 
+        Picasso.with(viewGroup.getContext()).load(artist.getArtistPicture()).into(holder.ArtistPicture);
 
 
         //Swipe methods being Implemented
@@ -168,16 +166,16 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
                 animator.start();
             }
         });
-
-
         return convertView;
     }
 
-
-
-
     @Override
     public void fillValues(int i, View view) {
+
+        Typeface domregfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Regular.ttf");
+        Typeface domboldfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Bold.ttf");
+        Typeface opensansregfnt = Typeface.createFromAsset(mActivity.getAssets(), "fonts/OpenSans-Regular.ttf");
+
         //Assigning the ImageBubble to a variable to alter iits dimensions after with.
         ImageView circle = (ImageView) view.findViewById(R.id.VenueImageBubble);
 
@@ -189,11 +187,13 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         // Storing the screen height into an int variable.
         int height = size.y;
 
-
         //Sets the height to 1/3 the screensize.
         ViewGroup.LayoutParams params = view.getLayoutParams();
         params.height =  (int)Math.round(height*.33);
 
+        ImageView Pic = (ImageView) view.findViewById(R.id.VenuePicture);
+        ViewGroup.LayoutParams PictureParam = Pic.getLayoutParams();
+        PictureParam.height =  (int)Math.round(height*.33);
 
         //Getting the LayoutParams of the circle and then setting it to quarter the screensize.
         ViewGroup.LayoutParams circleParams = circle.getLayoutParams();
@@ -207,11 +207,13 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         TextView VenueName = (TextView) view.findViewById(R.id.VenueName);
         int x1= (int)Math.round(height*.030);
         VenueName.setTextSize(TypedValue.COMPLEX_UNIT_PX,x1);
+        VenueName.setTypeface(domboldfnt);
 
         //The VenueDistance being formatted.
         TextView VenueDistance = (TextView) view.findViewById(R.id.VenueDistance);
         int x2= (int)Math.round(height * .018);
         VenueDistance.setTextSize(TypedValue.COMPLEX_UNIT_PX,x2);
+        VenueDistance.setTypeface(domboldfnt);
 
         //Detailed Description being resized.
 
@@ -219,34 +221,42 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         TextView DesVenueName = (TextView) view.findViewById(R.id.DesVenueName);
         int x3= (int)Math.round(height * .030);
         DesVenueName.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
+        DesVenueName.setTypeface(domboldfnt);
 
         //The VenueDistance being formatted.
         TextView DesVenueLocName = (TextView) view.findViewById(R.id.DesVenueLocName);
         int x4= (int)Math.round(height * .0215);
         DesVenueLocName.setTextSize(TypedValue.COMPLEX_UNIT_PX,x4);
+        DesVenueLocName.setTypeface(opensansregfnt);
 
         //The VenueDistance being formatted.
         TextView DesVenueLocSt = (TextView) view.findViewById(R.id.DesVenueLocStreet);
         DesVenueLocSt.setTextSize(TypedValue.COMPLEX_UNIT_PX, x4);
+        DesVenueLocSt.setTypeface(opensansregfnt);
 
         //The VenueDistance being formatted.
         TextView DesVenueLocAdd = (TextView) view.findViewById(R.id.DesVenueLocAddress);
         DesVenueLocAdd.setTextSize(TypedValue.COMPLEX_UNIT_PX, x4);
+        DesVenueLocAdd.setTypeface(opensansregfnt);
 
         //The VenueDistance being formatted.
         TextView DesVenueHourText = (TextView) view.findViewById(R.id.VenueHourText);
         int x5= (int)Math.round(height * .0185);
         DesVenueHourText.setTextSize(TypedValue.COMPLEX_UNIT_PX,x5);
+        DesVenueHourText.setTypeface(domboldfnt);
 
         TextView DesVenueHourWeekDay = (TextView) view.findViewById(R.id.VenueMontoFriHour);
         int x6= (int)Math.round(height * .0165);
         DesVenueHourWeekDay.setTextSize(TypedValue.COMPLEX_UNIT_PX,x6);
+        DesVenueHourWeekDay.setTypeface(domregfnt);
 
         TextView DesVenueHourSaturday=(TextView) view.findViewById(R.id.VenueSaturdayHour);
         DesVenueHourSaturday.setTextSize(TypedValue.COMPLEX_UNIT_PX,x6);
+        DesVenueHourSaturday.setTypeface(domregfnt);
 
         TextView DesVenueHourSunday= (TextView) view.findViewById(R.id.VenueSundayHour);
         DesVenueHourSunday.setTextSize(TypedValue.COMPLEX_UNIT_PX,x6);
+        DesVenueHourSunday.setTypeface(domregfnt);
 
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
         TextView Swipe1 = (TextView) view.findViewById(R.id.VenueSwipeBarSize1);
@@ -275,7 +285,6 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
 
     //A view holder that contain the things that need to be changed for every event
     private static class ViewHolder{
-
         //The values holding summary description of the Venue.
         ImageView ArtistPicture;
         ImageView ArtistIcon;
@@ -288,9 +297,5 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         TextView ArtistLocSt;
         TextView ArtistLocAdd;
         TextView ArtistEventTiming;
-
-
     }
-
-
 }

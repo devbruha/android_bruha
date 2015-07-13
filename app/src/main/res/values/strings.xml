@@ -24,7 +24,7 @@
 
 
     <!--
-             Register Activity Strings
+             register Activity Strings
       -->
     <string name="error_bad_register">Registration Failure</string>
 

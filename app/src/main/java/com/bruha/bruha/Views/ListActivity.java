@@ -5,23 +5,14 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.bruha.bruha.Adapters.ArtistsListViewAdapter;
-import com.bruha.bruha.Adapters.ListviewAdapter;
+import com.bruha.bruha.Adapters.EventListviewAdapter;
 import com.bruha.bruha.Adapters.OrganizationListViewAdapter;
 import com.bruha.bruha.Adapters.VenueListViewAdapter;
 import com.bruha.bruha.Model.Artists;
@@ -29,51 +20,40 @@ import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
-import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.Model.Venues;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.daimajia.swipe.util.Attributes;
-
-
-import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
 
 public class ListActivity extends FragmentActivity {
-
-    ArrayList<Event> mEvents = new ArrayList<>();       //The Array that will hold the Events that we will pass around(to Adapter,the List...
+    //The Arrays that will contain the information retrieved from the local database.
+    ArrayList<Event> mEvents = new ArrayList<>();
     ArrayList<Organizations> mOutfit = new ArrayList<>();
     ArrayList<Venues> mVenues = new ArrayList<>();
     ArrayList<Artists> mArtists = new ArrayList<>();
 
-
     //Initualiing the Filter Obects to hide and display everytime Venue,Artist,Event and Outfit Filters are applied.
     LinearLayout mQuickieListView ;
     LinearLayout linearCalendar ;
-    TextView Admission ;
-    TextView Price;
+    TextView admission;
+    TextView mPrice;
     SeekBar prce;
 
-    ArrayList<Event> Backup;         //Array Backup of the whole list,since mEvent changes when we update the adapter in filter save button.
-
-    ListviewAdapter adapter;
+    ArrayList<Event> backupEventList;         //Array backupEventList of the whole list,since mEvent changes when we update the adapter in filter save button.
+    EventListviewAdapter adapter;
 
     //Injecting Buttons using ButterKnife Library
     @InjectView(android.R.id.list) ListView mListView;
 
-    @InjectView(R.id.venueButton) Button VenueButton;
-    @InjectView(R.id.artistButton) Button ArtistButton;
-    @InjectView(R.id.orgButton) Button OrgButton;
-    @InjectView(R.id.eventButton) Button EventButton;
+    @InjectView(R.id.venueButton) Button venueButton;
+    @InjectView(R.id.artistButton) Button artistButton;
+    @InjectView(R.id.orgButton) Button orgButton;
+    @InjectView(R.id.eventButton) Button eventButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +66,10 @@ public class ListActivity extends FragmentActivity {
         if(MyApplication.sourceEvents.size() == 0) {
 
             //Creating an variable of type Listview Adapter to create the list view.
-            adapter = new ListviewAdapter(this, mEvents); //Calling the adapter ListView to help set the List
+            adapter = new EventListviewAdapter(this, mEvents); //Calling the adapter mListView to help set the List
         }
         else{
-            adapter = new ListviewAdapter(this, MyApplication.sourceEvents);
+            adapter = new EventListviewAdapter(this, MyApplication.sourceEvents);
         }
 
         setUpFilters();
@@ -98,8 +78,8 @@ public class ListActivity extends FragmentActivity {
         mQuickieListView = (LinearLayout) findViewById(R.id.quickie_listview);
         linearCalendar = (LinearLayout) findViewById(R.id.calendarView);
         prce = (SeekBar) findViewById(R.id.priceBar);
-        Price = (TextView) findViewById(R.id.priceDisplay);
-        Admission = (TextView) findViewById(R.id.admissionTextView);
+        mPrice = (TextView) findViewById(R.id.priceDisplay);
+        admission = (TextView) findViewById(R.id.admissionTextView);
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(adapter);
@@ -110,11 +90,10 @@ public class ListActivity extends FragmentActivity {
 
     private void init(){
 
-        Backup = ((MyApplication) getApplicationContext()).getBackupEventList();
-        Backup.clear();
+        backupEventList = ((MyApplication) getApplicationContext()).getBackupEventList();
+        backupEventList.clear();
 
         // Create the local DB object
-
         SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
 
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
@@ -125,83 +104,69 @@ public class ListActivity extends FragmentActivity {
 
         for(Event x:mEvents)
         {
-            Backup.add(x);
+            backupEventList.add(x);
         }
     }
 
     private void setUpFilters(){
-
         // Calling the FilterView class to set the layout for the filters
-
         FilterView filterView = new FilterView(this, adapter, null);
         filterView.init();
     }
 
-    //VenueButton Implemented to switch the ListView to show List of Venues.
+    //venueButton Implemented to switch the mListView to show List of Venues.
     @OnClick(R.id.venueButton)
-    public void VenueButton(View view) {
+    public void venueButton(View view) {
+        venueButton.setTextColor(Color.BLUE);
+        venueButton.setTypeface(null, Typeface.BOLD);
 
-        VenueButton.setTextColor(Color.BLUE);
-        VenueButton.setTypeface(null, Typeface.BOLD);
+        artistButton.setTypeface(null, Typeface.NORMAL);
+        orgButton.setTypeface(null, Typeface.NORMAL);
+        eventButton.setTypeface(null, Typeface.NORMAL);
 
-        ArtistButton.setTypeface(null, Typeface.NORMAL);
-        OrgButton.setTypeface(null, Typeface.NORMAL);
-        EventButton.setTypeface(null, Typeface.NORMAL);
-
-
-        Admission.setVisibility(View.GONE);
-        Price.setVisibility(View.GONE);
+        admission.setVisibility(View.GONE);
+        mPrice.setVisibility(View.GONE);
         prce.setVisibility(View.GONE);
         mQuickieListView.setVisibility(view.GONE);
         linearCalendar.setVisibility(view.GONE);
 
-        EventButton.setTextColor(Color.BLACK);
-        ArtistButton.setTextColor(Color.BLACK);
-        OrgButton.setTextColor(Color.BLACK);
+        eventButton.setTextColor(Color.BLACK);
+        artistButton.setTextColor(Color.BLACK);
+        orgButton.setTextColor(Color.BLACK);
 
         VenueListViewAdapter venueAdapter;
 
-
-
         //Creating an variable of type Listview Adapter to create the list view.
-
-        venueAdapter=new VenueListViewAdapter(this, mVenues); //Calling the adapter ListView to help set the List
+        venueAdapter=new VenueListViewAdapter(this, mVenues); //Calling the adapter mListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(venueAdapter);
     }
 
-    //VenueButton Implemented to switch the ListView to show List of Venues.
+    //venueButton Implemented to switch the mListView to show List of Venues.
     @OnClick(R.id.orgButton)
     public void organizationButton(View view) {
+        orgButton.setTextColor(Color.BLUE);
+        orgButton.setTypeface(null, Typeface.BOLD);
 
-        OrgButton.setTextColor(Color.BLUE);
-        OrgButton.setTypeface(null, Typeface.BOLD);
+        venueButton.setTypeface(null, Typeface.NORMAL);
+        artistButton.setTypeface(null, Typeface.NORMAL);
+        eventButton.setTypeface(null, Typeface.NORMAL);
 
-        VenueButton.setTypeface(null, Typeface.NORMAL);
-        ArtistButton.setTypeface(null, Typeface.NORMAL);
-        EventButton.setTypeface(null, Typeface.NORMAL);
-
-
-        VenueButton.setTextColor(Color.BLACK);
-        ArtistButton.setTextColor(Color.BLACK);
-        EventButton.setTextColor(Color.BLACK);
-
-
+        venueButton.setTextColor(Color.BLACK);
+        artistButton.setTextColor(Color.BLACK);
+        eventButton.setTextColor(Color.BLACK);
 
         OrganizationListViewAdapter OrgAdapter;
 
-
-        Admission.setVisibility(View.GONE);
-        Price.setVisibility(View.GONE);
+        admission.setVisibility(View.GONE);
+        mPrice.setVisibility(View.GONE);
         prce.setVisibility(View.GONE);
         mQuickieListView.setVisibility(view.GONE);
         linearCalendar.setVisibility(view.GONE);
 
-
         //Creating an variable of type Listview Adapter to create the list view.
-
-        OrgAdapter=new OrganizationListViewAdapter(this, mOutfit); //Calling the adapter ListView to help set the List
+        OrgAdapter=new OrganizationListViewAdapter(this, mOutfit); //Calling the adapter mListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(OrgAdapter);
@@ -212,16 +177,16 @@ public class ListActivity extends FragmentActivity {
 
         mListView.setAdapter(adapter);
 
-        EventButton.setTextColor(Color.BLUE);
-        EventButton.setTypeface(null, Typeface.BOLD);
+        eventButton.setTextColor(Color.BLUE);
+        eventButton.setTypeface(null, Typeface.BOLD);
 
-        VenueButton.setTypeface(null, Typeface.NORMAL);
-        OrgButton.setTypeface(null, Typeface.NORMAL);
-        ArtistButton.setTypeface(null, Typeface.NORMAL);
+        venueButton.setTypeface(null, Typeface.NORMAL);
+        orgButton.setTypeface(null, Typeface.NORMAL);
+        artistButton.setTypeface(null, Typeface.NORMAL);
 
-        VenueButton.setTextColor(Color.BLACK);
-        ArtistButton.setTextColor(Color.BLACK);
-        OrgButton.setTextColor(Color.BLACK);
+        venueButton.setTextColor(Color.BLACK);
+        artistButton.setTextColor(Color.BLACK);
+        orgButton.setTextColor(Color.BLACK);
 
         TextView Admission = (TextView) findViewById(R.id.admissionTextView);
         TextView Price = (TextView) findViewById(R.id.priceDisplay);
@@ -232,60 +197,50 @@ public class ListActivity extends FragmentActivity {
         prce.setVisibility(View.VISIBLE);
         mQuickieListView.setVisibility(view.VISIBLE);
         linearCalendar.setVisibility(view.VISIBLE);
-
-
     }
 
     @OnClick(R.id.artistButton)
     public void artistButton(View view) {
+        artistButton.setTextColor(Color.BLUE);
+        artistButton.setTypeface(null, Typeface.BOLD);
 
-        ArtistButton.setTextColor(Color.BLUE);
-        ArtistButton.setTypeface(null, Typeface.BOLD);
+        venueButton.setTypeface(null, Typeface.NORMAL);
+        orgButton.setTypeface(null, Typeface.NORMAL);
+        eventButton.setTypeface(null, Typeface.NORMAL);
 
-        VenueButton.setTypeface(null, Typeface.NORMAL);
-        OrgButton.setTypeface(null, Typeface.NORMAL);
-        EventButton.setTypeface(null, Typeface.NORMAL);
+        venueButton.setTextColor(Color.BLACK);
+        eventButton.setTextColor(Color.BLACK);
+        orgButton.setTextColor(Color.BLACK);
 
-
-        VenueButton.setTextColor(Color.BLACK);
-        EventButton.setTextColor(Color.BLACK);
-        OrgButton.setTextColor(Color.BLACK);
-
-
-
-        Admission.setVisibility(View.GONE);
-        Price.setVisibility(View.GONE);
+        admission.setVisibility(View.GONE);
+        mPrice.setVisibility(View.GONE);
         prce.setVisibility(View.GONE);
         mQuickieListView.setVisibility(view.GONE);
         linearCalendar.setVisibility(view.GONE);
 
-
-        ArtistsListViewAdapter Adapter;
-
-
+        ArtistsListViewAdapter artistsListViewAdapter;
 
         //Creating an variable of type Listview Adapter to create the list view.
-
-        Adapter=new ArtistsListViewAdapter(this, mArtists); //Calling the adapter ListView to help set the List
+        artistsListViewAdapter=new ArtistsListViewAdapter(this, mArtists); //Calling the adapter mListView to help set the List
 
 
 
         //Sets the Adapter from the class Listview Adapter.
-        mListView.setAdapter(Adapter);
+        mListView.setAdapter(artistsListViewAdapter);
     }
 
-    //Button Implementation for navigating to the Map from ListView.
+    //Button Implementation for navigating to the Map from mListView.
     @OnClick(R.id.MapButton)
-    public void StartMapActivity(View view)
+    public void startMapActivity(View view)
     {
         Intent intent=new Intent(this,MapsActivity.class);
         startActivity(intent);
         finish();
     }
 
-    //Button Implementation for navigating to the Dashboard from ListView.
+    //Button Implementation for navigating to the Dashboard from mListView.
     @OnClick(R.id.DashboardButton)
-    public void StartDashboardActivity(View view)
+    public void startDashboardActivity(View view)
     {
         Intent intent=new Intent(this,DashboardActivity.class);
         startActivity(intent);

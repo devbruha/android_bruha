@@ -14,6 +14,15 @@ public class Organizations {
     private int LocId;
     private double Lat;
     private double Lng;
+    private  String OrgPicture;
+
+    public String getOrgPicture() {
+        return OrgPicture;
+    }
+
+    public void setOrgPicture(String orgPicture) {
+        OrgPicture = orgPicture;
+    }
 
     public int getOrgId() {
         return OrgId;

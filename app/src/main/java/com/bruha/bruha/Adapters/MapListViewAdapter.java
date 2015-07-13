@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -146,6 +148,8 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         holder.Hours.setText(dateFormat(event.getEventDate())+" At "+TimeFormat(event.getEventStartTime()));
         //holder.Picture.setImageResource();
 
+        Picasso.with(viewGroup.getContext()).load(event.getEventPicture()).fit().into(holder.Picture);
+
 
 
 
@@ -225,6 +229,12 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
     @Override
     public void fillValues(int i, View view) {
 
+
+        //FONT SHIT.
+      //  Typeface domregfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Regular.ttf");
+        Typeface domboldfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Bold.ttf");
+        Typeface opensansregfnt = Typeface.createFromAsset(mActivity.getAssets(), "fonts/OpenSans-Regular.ttf");
+
         // Android functions to determine the screen dimensions.
         Display display = mActivity.getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -248,29 +258,35 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         TextView EventName = (TextView) view.findViewById(R.id.MapEventName);
         int x1= (int)Math.round(height*.0310);
         EventName.setTextSize(TypedValue.COMPLEX_UNIT_PX,x1);
+        EventName.setTypeface(domboldfnt);
 
         //The EventPrice being formatted.
         TextView EventPrice = (TextView) view.findViewById(R.id.MapEventPrice);
         int x2= (int)Math.round(height*.0310);
         EventPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX,x2);
+        EventPrice.setTypeface(domboldfnt);
 
         //The EventPrice being formatted.
         TextView EventLocName = (TextView) view.findViewById(R.id.MapEventLocName);
         int x3= (int)Math.round(height*.02175);
         EventLocName.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
+        EventLocName.setTypeface(opensansregfnt);
 
         //The EventPrice being formatted.
         TextView EventLocSt = (TextView) view.findViewById(R.id.MapEventLocSt);
         EventLocSt.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
+        EventLocSt.setTypeface(opensansregfnt);
 
         //The EventPrice being formatted.
         TextView EventLocAdd = (TextView) view.findViewById(R.id.MapEventLocAddress);
         EventLocAdd.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
+        EventLocAdd.setTypeface(opensansregfnt);
 
         //The EventDate being formatted.
         TextView EventDate = (TextView) view.findViewById(R.id.MapEventStartDateAndTime);
         int x4= (int)Math.round(height*.022);
         EventDate.setTextSize(TypedValue.COMPLEX_UNIT_PX,x4);
+        EventDate.setTypeface(domboldfnt);
 
         //Swipe Bars being resized.
 

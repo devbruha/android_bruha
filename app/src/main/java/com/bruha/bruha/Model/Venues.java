@@ -12,7 +12,7 @@ public class Venues {
     private String VenueDescription;
 
     //Venue Media data.
-    private int VenuePicture;
+    private String VenuePicture;
     private int VenueCategoryIcon;
 
     //Venue Contact data.
@@ -75,11 +75,11 @@ public class Venues {
         VenueDescription = venueDescription;
     }
 
-    public int getVenuePicture() {
+    public String getVenuePicture() {
         return VenuePicture;
     }
 
-    public void setVenuePicture(int venuePicture) {
+    public void setVenuePicture(String venuePicture) {
         VenuePicture = venuePicture;
     }
 

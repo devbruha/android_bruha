@@ -193,7 +193,7 @@ public class TicketListView extends BaseAdapter {
         //holder.Picture.setImageResource(); {
 
 
-        //FONT SHIT
+        //FONT SHIT.
         Typeface fnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Regular.ttf");
         Typeface tfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Bold.ttf");
         Typeface rest = Typeface.createFromAsset(mActivity.getAssets(),"fonts/OpenSans-Regular.ttf");
@@ -260,17 +260,17 @@ public class TicketListView extends BaseAdapter {
         TextView ttl = (TextView) convertView.findViewById(R.id.ttl);
 
         typ.setTextSize(TypedValue.COMPLEX_UNIT_PX, x3);
-        typ.setTypeface(fnt);
+        typ.setTypeface(rest);
         rem.setTextSize(TypedValue.COMPLEX_UNIT_PX, x3);
-        rem.setTypeface(fnt);
+        rem.setTypeface(rest);
         nd.setTextSize(TypedValue.COMPLEX_UNIT_PX, x3);
-        nd.setTypeface(fnt);
+        nd.setTypeface(rest);
         prce.setTextSize(TypedValue.COMPLEX_UNIT_PX, x3);
         prce.setTypeface(rest);
         quan.setTextSize(TypedValue.COMPLEX_UNIT_PX, x3);
         quan.setTypeface(rest);
         ttl.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
-        ttl.setTypeface(fnt);
+        ttl.setTypeface(rest);
 
 
 

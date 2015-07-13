@@ -143,4 +143,14 @@
         android:layout_alignStart="@+id/UserPicture"
         android:layout_marginLeft="3dp" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:id="@+id/logouty"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/usernametext"
+        android:layout_alignStart="@+id/usernametext"
+        android:alpha="0.40" />
+
 </RelativeLayout>

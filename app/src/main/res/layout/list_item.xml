@@ -408,14 +408,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_gradient"
-        android:paddingTop="25dp"
-        android:paddingBottom="25dp"
         android:id="@+id/LayoutToChange"
         >
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="150dp"
             android:id="@+id/ImageEventPicture"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
@@ -430,7 +428,7 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:src="@drawable/round"
-            android:alpha=".25"
+            android:alpha=".42"
             android:focusable="false"
             android:layout_weight="5"
             />
@@ -446,7 +444,7 @@
 
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/VenueIcon"
-            />
+            android:textColor="#ff000000" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -457,7 +455,8 @@
             android:layout_below="@+id/TextEventName"
             android:singleLine="true"
             android:textSize="20dp"
-            android:paddingBottom="8dp"/>
+            android:paddingBottom="8dp"
+            android:textColor="#ff000000" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -467,7 +466,8 @@
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/VenueName"
             android:textSize="20sp"
-            android:paddingBottom="8dp"/>
+            android:paddingBottom="8dp"
+            android:textColor="#ff000000" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -476,7 +476,8 @@
             android:id="@+id/VenueDistance"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/TextEventPrice"
-            android:textSize="12dp"/>
+            android:textSize="12dp"
+            android:textColor="#ff000000" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -493,7 +494,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffa2d8d8"
-            android:alpha="0.55"
+            android:alpha="0.75"
             android:id="@+id/DescriptionLayout"
             android:layout_alignTop="@+id/VenueImageBubble"
             android:layout_alignParentLeft="true"
@@ -509,7 +510,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:textSize="20dp"
-                android:paddingRight="5dp" />
+                android:paddingRight="5dp"
+                android:textColor="#ff000000" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -522,7 +524,7 @@
                 android:textSize="20dp"
                 android:paddingBottom="10dp"
                 android:paddingLeft="5dp"
-                />
+                android:textColor="#ff000000" />
 
 
 
@@ -533,7 +535,7 @@
                 android:id="@+id/DesVenueLocName"
                 android:layout_below="@+id/DesVenueName"
                 android:paddingLeft="5dp"
-                />
+                android:textColor="#ff000000" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -544,7 +546,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:paddingLeft="5dp"
-                />
+                android:textColor="#ff000000" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -555,7 +557,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:paddingLeft="5dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="5dp"
+                android:textColor="#ff000000" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -567,7 +570,8 @@
                 android:layout_below="@+id/DesVenueLocAddress"
                 android:layout_alignParentLeft="true"
                 android:paddingLeft="5dp"
-                android:layout_alignParentStart="true"/>
+                android:layout_alignParentStart="true"
+                android:textColor="#ff000000" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -578,7 +582,8 @@
                 android:textSize="10dp"
                 android:layout_below="@+id/VenueHourText"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"/>
+                android:layout_alignParentStart="true"
+                android:textColor="#ff000000" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -590,7 +595,8 @@
                 android:layout_below="@+id/DesEventStartDate"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="5dp"
+                android:textColor="#ff000000" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -602,7 +608,8 @@
                 android:textStyle="bold"
                 android:layout_below="@+id/DesEventStartTime"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"/>
+                android:layout_alignParentStart="true"
+                android:textColor="#ff000000" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -613,7 +620,8 @@
                 android:textSize="10dp"
                 android:layout_below="@+id/PageEndText"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"/>
+                android:layout_alignParentStart="true"
+                android:textColor="#ff000000" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -624,7 +632,8 @@
                 android:textSize="10dp"
                 android:layout_below="@+id/DesEventEndDate"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"/>
+                android:layout_alignParentStart="true"
+                android:textColor="#ff000000" />
         </RelativeLayout>
 
     </RelativeLayout>

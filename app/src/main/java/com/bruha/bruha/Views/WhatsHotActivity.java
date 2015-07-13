@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
-
-import com.bruha.bruha.Adapters.ListviewAdapter;
 import com.bruha.bruha.Adapters.MapListViewAdapter;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
@@ -16,7 +14,6 @@ import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,33 +21,31 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class WhatsHotActivity extends FragmentActivity {
-
-
     ArrayList<Date> datesSaved;
     UserCustomFilters userCustomFilters;
 
     // Creating a CaldroidFragment object
   //  private CaldroidFragment caldroidFragment;
-
     ArrayList<String> calendarSelected;
-    ArrayList<Event> mEvents = new ArrayList<>();
+
+    //The List of mEvents to be displayed when clicked on a certain date.
+    ArrayList<Event> selectedDateEvents = new ArrayList<>();
 
     // Creating a CaldroidFragment object
     private CaldroidFragment caldroidFragment;
-    ArrayList<Event> Events = new ArrayList<>();
-    MapListViewAdapter adapter;
-    ListView Change ;
 
+    //The List of events containing in the local database.
+    ArrayList<Event> mEvents = new ArrayList<>();
+    MapListViewAdapter adapter;
+    ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_whats_hot);
 
-         Change = (ListView) findViewById(R.id.ChangeList);
-
+         mListView = (ListView) findViewById(R.id.ChangeList);
         init();
-
         setCalendar();
     }
 
@@ -58,11 +53,8 @@ public class WhatsHotActivity extends FragmentActivity {
             // Create the local DB object
             SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
             SQLiteUtils sqLiteUtils = new SQLiteUtils();
-            Events = sqLiteUtils.getUserEventInfo(dbHelper);
+            mEvents = sqLiteUtils.getUserEventInfo(dbHelper);
         }
-
-
-
 
     private void setCalendar(){
 /*
@@ -139,7 +131,7 @@ public class WhatsHotActivity extends FragmentActivity {
         // Overriding the default background for current date
         caldroidFragment.setBackgroundResourceForDate(android.R.color.black, currentDate);
 
-      for(Event x: Events) {
+      for(Event x: mEvents) {
 
           Date ThisDate= currentDate;
           try {
@@ -157,22 +149,22 @@ public class WhatsHotActivity extends FragmentActivity {
             @Override
             public void onSelectDate(Date date, View view) {
 
-                mEvents.clear();
+                selectedDateEvents.clear();
 
                 final SimpleDateFormat Format = new SimpleDateFormat("yyyy-MM-dd");
                 String NewDate = Format.format(date);
 
-                for(Event x: Events)
+                for(Event x: mEvents)
                 {
                     if(x.getEventDate().equals(NewDate))
                     {
-                        mEvents.add(x);
+                        selectedDateEvents.add(x);
                     }
                 }
 
 
-                SetAdapter();
-                Change.setAdapter(adapter);
+                setAdapter();
+                mListView.setAdapter(adapter);
 
             }
         };
@@ -181,9 +173,7 @@ public class WhatsHotActivity extends FragmentActivity {
         caldroidFragment.setCaldroidListener(listener);
     }
 
-    private void SetAdapter() {
-        adapter = new MapListViewAdapter(this,mEvents);
+    private void setAdapter() {
+        adapter = new MapListViewAdapter(this, selectedDateEvents);
     }
-
-
 }

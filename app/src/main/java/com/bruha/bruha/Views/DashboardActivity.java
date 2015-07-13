@@ -191,7 +191,7 @@ public class DashboardActivity extends ActionBarActivity {
 
     }
 
-    //OnClickListener for "Explore" that leads to the ListView Activity.
+    //OnClickListener for "Explore" that leads to the mListView Activity.
     @OnClick(R.id.ExploreButton)
     public void startExploreActivity(View view){
         Intent intent = new Intent(this, ListActivity.class);

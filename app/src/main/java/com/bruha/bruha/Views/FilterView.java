@@ -14,7 +14,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.bruha.bruha.Adapters.CategoryAdapter;
-import com.bruha.bruha.Adapters.ListviewAdapter;
+import com.bruha.bruha.Adapters.EventListviewAdapter;
 import com.bruha.bruha.Adapters.QuickieAdapter;
 import com.bruha.bruha.Model.Items;
 import com.bruha.bruha.Model.MyApplication;
@@ -22,7 +22,6 @@ import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.Processing.FilterGen;
 import com.bruha.bruha.Processing.FilterOut;
 import com.bruha.bruha.R;
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
@@ -33,7 +32,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Thomas on 5/25/2015.
@@ -55,10 +53,10 @@ public class FilterView {
 
     // Casting the passed activity as a Fragment activity
     private FragmentActivity mActivity;
-    private ListviewAdapter mAdapter;
+    private EventListviewAdapter mAdapter;
     HashMap<String, Marker> markerMap = new HashMap<>();
 
-    public FilterView(FragmentActivity activity, ListviewAdapter adapter, HashMap markerHashMap){
+    public FilterView(FragmentActivity activity, EventListviewAdapter adapter, HashMap markerHashMap){
 
         mActivity = activity;
         mAdapter = adapter;
@@ -92,7 +90,7 @@ public class FilterView {
 
         setCategoryList();
 
-        //Admission price is added to userCustomFilters within its function
+        //admission price is added to userCustomFilters within its function
 
         setAdmissionPrice();
     }
@@ -114,7 +112,7 @@ public class FilterView {
 
         setCategoryList();
 
-        //Admission price is added to userCustomFilters within its function
+        //admission price is added to userCustomFilters within its function
 
         setAdmissionPrice();
     }
@@ -365,10 +363,10 @@ public class FilterView {
         else if(userCustomFilters.getAdmissionPriceFilter() == 0){
 
             mSeekBar.setProgress(userCustomFilters.getAdmissionPriceFilter()-1);
-            seekBarValue.setText("Free Events");
+            seekBarValue.setText("Free mEvents");
         }
         else {
-            seekBarValue.setText("No Price Filter");
+            seekBarValue.setText("No mPrice Filter");
         }
 
         // Setting a listener for the seek bar changing values
@@ -380,10 +378,10 @@ public class FilterView {
                 // If the progress bar is 0 set the text to free, otherwise to progress value
 
                 if (progress == 0) {
-                    seekBarValue.setText("No Price Filter");
+                    seekBarValue.setText("No mPrice Filter");
                 }
                 else if(progress == 1){
-                    seekBarValue.setText("Free Events");
+                    seekBarValue.setText("Free mEvents");
                 }
                 else {
                     seekBarValue.setText(String.valueOf(progress-1) + " $");

@@ -7,22 +7,15 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-
-
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.MyApplication;
-import com.bruha.bruha.PHP.RetrieveEvents;
+import com.bruha.bruha.PHP.RetrievePHP;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
-
 import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -31,31 +24,14 @@ import butterknife.OnClick;
 //TODO Fix the error checked regarding the query injection
 
 public class LoginActivity extends ActionBarActivity {
-
-    // Our database hostname and the credentials for our showdom_android account
-
-    RetrieveEvents Call = new RetrieveEvents();
-
-    String url = "jdbc:mysql://66.147.244.109:3306/showdomc_web2"; //
-    String user = "showdomc_android";
-    String pass = "show12345!";
-
-
-
-    private String DB_DEBUGGING = "Local Database Test";
+    //Initialzing the PHP call used to retrieving Data to be stored into the local database.
+    RetrievePHP retrievePHP = new RetrievePHP();
 
     // Injecting the EditTexts using Butterknife library
-
     @InjectView(R.id.loginUsernameEditText) EditText mLoginUsernameEditText;
     @InjectView(R.id.loginPasswordEditText) EditText mLoginPasswordEditText;
 
-    // Injecting the Buttons using Butterknife library
-
-    @InjectView(R.id.loginButton) Button mLoginButton;
-    @InjectView(R.id.continueNotLoggedButton) Button mNoLoginButton;
-
     // Create the local DB object
-
     SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
 
     @Override
@@ -64,12 +40,10 @@ public class LoginActivity extends ActionBarActivity {
         setContentView(R.layout.activity_login);
 
         // using ButterKnife.inject to allow the InjectViews to take effect
-
         ButterKnife.inject(this);
     }
 
     // A function to call the AlertDialogFragment Activity
-
     private void alertUserAboutError(String errorTitle, String errorMessage) {
 
         AlertDialogFragment dialog = new AlertDialogFragment().newInstance( errorTitle,errorMessage );
@@ -77,9 +51,7 @@ public class LoginActivity extends ActionBarActivity {
     }
 
     // A function used to check whether users are connected to the internet
-
     private boolean isNetworkAvailable() {
-
         ConnectivityManager manager = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -93,12 +65,10 @@ public class LoginActivity extends ActionBarActivity {
 
             isAvailable = true;
         }
-
         return isAvailable;
     }
 
     // A function used to check whether users are entering a valid username
-
     private boolean isValidUsername(String username){
 
         boolean isAvailable = false;
@@ -106,10 +76,8 @@ public class LoginActivity extends ActionBarActivity {
         int length = username.length();
 
         // Ensure the proper length and legal characters to prevent query injecting
-
         if( length >= 6 && length <= 20 ){
             if( username.matches("^[a-zA-Z0-9_]*$")){
-
                 isAvailable = true;
             }
         }
@@ -118,7 +86,6 @@ public class LoginActivity extends ActionBarActivity {
     }
 
     // A function used to check whether users are entering a valid password
-
     private boolean isValidPassword(String password){
 
         boolean isAvailable = false;
@@ -133,15 +100,11 @@ public class LoginActivity extends ActionBarActivity {
                 isAvailable = true;
             }
         }
-
         return isAvailable;
     }
 
-    // A function to run the previous check aswell as to call the PHP class to run the
-    // queries
-
+    // A function to run the previous check aswell as to call the PHP class to run the queries
     private String isValidAccountInformation(String username, String password){
-
         String error;
 
         if(isNetworkAvailable()) {
@@ -152,7 +115,7 @@ public class LoginActivity extends ActionBarActivity {
 
                     // Calling the init function within PHP with the parameters passed
 
-                    error= Call.login(username,password);
+                    error= retrievePHP.login(username,password);
                 }
                 // If password is invalid, error string is updated
 
@@ -171,7 +134,6 @@ public class LoginActivity extends ActionBarActivity {
         else{
             error = "connectionInvalid";
         }
-
         return error;
     }
 
@@ -179,18 +141,15 @@ public class LoginActivity extends ActionBarActivity {
     public void loginAccount(View view){
 
         // Retrieving the entered information and converting to string
-
         String username = mLoginUsernameEditText.getText().toString();
         String password = mLoginPasswordEditText.getText().toString();
 
         // Importing ressources in order to reference stored string values
-
         Resources res = getResources();
 
         String response = isValidAccountInformation(username, password);
 
         // A message is displayed to the user corresponding to the response received
-
         switch(response){
 
             case "connectionInvalid":
@@ -226,36 +185,13 @@ public class LoginActivity extends ActionBarActivity {
             case "Success":
 
 
-
-
-
-
-                ArrayList<Event> userEvents=Call.GetUserEventList(username);
-                ArrayList<String> userInfo = Call.GetUserInfo(username);
-
-
+                //Storing the information of the user and his uploaded events into the local database.
+                ArrayList<Event> userEvents= retrievePHP.getUserEventList(username);
+                ArrayList<String> userInfo = retrievePHP.getUserInfo(username);
                 SQLiteUtils sqLiteUtils = new SQLiteUtils();
                 sqLiteUtils.insertUserEvents(dbHelper,userEvents);
                 sqLiteUtils.insertNewUser(dbHelper, userInfo);
 
-
-
-               /*
-               // Storing the user_info value into a list
-
-                List<String> user_info = sqlu.loginDatabasePush(username);
-                ArrayList<Event> userEvents = sqlu.userEvents();
-
-                // Passing the newly created list and SQLite DB to next class to perform the
-                // insertion into the local DB
-
-                SQLiteUtils sqLiteUtils = new SQLiteUtils();
-
-                sqLiteUtils.insertNewUser(dbHelper, user_info);
-                sqLiteUtils.getUserInfo(dbHelper);
-
-                sqLiteUtils.insertUserEvents(dbHelper,userEvents);
-                */
 
                 // Alerting user of successfull login
                 alertUserAboutError(
