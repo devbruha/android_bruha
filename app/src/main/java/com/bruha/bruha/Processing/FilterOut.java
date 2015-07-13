@@ -1,20 +1,16 @@
 package com.bruha.bruha.Processing;
 
 import android.app.Activity;
-import android.content.pm.ActivityInfo;
-import android.util.Log;
 import android.widget.ListView;
 
-import com.bruha.bruha.Adapters.ListviewAdapter;
+import com.bruha.bruha.Adapters.EventListviewAdapter;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.UserCustomFilters;
-import com.bruha.bruha.R;
 import com.google.android.gms.maps.model.Marker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Filter;
 
 /**
  * Created by Thomas on 6/12/2015.
@@ -39,7 +35,7 @@ public class FilterOut {
         customFilters = ((MyApplication) mActivity.getApplicationContext()).getUserCustomFilters();
     }
 
-    public void filterList(ListviewAdapter adapter){
+    public void filterList(EventListviewAdapter adapter){
 
         // Retrieves the shared variables events and filteredEvents, events contains all events and filterd
         // events contains the filtered

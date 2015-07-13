@@ -1,8 +1,6 @@
 package com.bruha.bruha.Processing;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
+
 
 import com.bruha.bruha.Model.Artists;
 import com.bruha.bruha.Model.Event;
@@ -21,9 +19,7 @@ public class SQLiteUtils {
     private String DB_DEBUGGING = "Local Database Test";
 
     public void insertNewUser( SQLiteDatabaseModel dbHelper, List<String> user_info){
-
         // Attempting to insert these values into the local DB
-
         dbHelper.addUser(user_info.get(0), user_info.get(1), user_info.get(2), user_info.get(3),user_info.get(4),user_info.get(5));
     }
 
@@ -49,7 +45,6 @@ public class SQLiteUtils {
         return dbhelper.retrieveEventInfo();
     }
 
-
     public ArrayList<Event> getUserEventInfo(SQLiteDatabaseModel dbhelper){
 
         return dbhelper.retrieveUserEventInfo();
@@ -59,8 +54,6 @@ public class SQLiteUtils {
 
         return dbhelper.retrieveVenuesInfo();
     }
-
-
 
     public void insertVenues(SQLiteDatabaseModel dbHelper, ArrayList<Venues> ven){
 
@@ -79,7 +72,6 @@ public class SQLiteUtils {
         return dbhelper.retrieveOutfitInfo();
     }
 
-
     public void insertArtist(SQLiteDatabaseModel dbHelper, ArrayList<Artists> artist){
 
         dbHelper.addArtists(artist);
@@ -90,6 +82,4 @@ public class SQLiteUtils {
 
         return dbhelper.retrieveArtistInfo();
     }
-
-
 }

@@ -2,18 +2,9 @@ package com.bruha.bruha.Model;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
-
-import com.bruha.bruha.R;
-
-import java.io.ByteArrayOutputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -23,10 +14,8 @@ import java.util.ArrayList;
 public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
     // User Info Table Stuff
-
     public static final String TABLE_USER_INFO = "user_info";
     public static final String USER_INFO_ID = "_id";
-
     public static final String USER_INFO_USERNAME = "username";
     public static final String USER_INFO_NAME = "name";
     public static final String USER_INFO_BIRTHDATE = "birthdate";
@@ -35,9 +24,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String USER_INFO_LOCATION = "location";
 
     // Events Info Table Stuff
-
     public static final String TABLE_USER_EVENT_INFO = "user_event_info";
-
     public static final String TABLE_EVENT_INFO = "event_info";
     public static final String EVENT_LOCAL_ID = "_id";
     public static final String EVENT_REMOTE_ID = "eventID";
@@ -45,16 +32,11 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String EVENT_ORGANIZATION_ID = "orgID";
     public static final String EVENT_LOCATION_ID = "locID";
     public static final String EVENT_DESCRIPTION = "eventDescription";
-
     public static final String EVENT_NAME = "eventName";
     public static final String EVENT_ICON = "eventIcon";
     public static final String EVENT_DATE = "eventDate";
     public static final String EVENT_PRICE = "eventPrice";
     public static final String EVENT_DISTANCE = "eventDistance";
-
-   // static Bitmap icon = BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.car);
-   // public static final String EVENT_PICTUREE = "eventPicturee" ;
-
     public static final String EVENT_LATITUDE = "eventLatitude";
     public static final String EVENT_LONGITUDE = "eventLongitude";
     public static final String EVENT_PICTURE = "eventPicture";
@@ -65,12 +47,8 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String EVENT_END_TIME = "eventEndTime";
     public static final String EVENT_END_DATE = "eventEndDate";
 
-
-
     // VENUES Info Table Stuff
-
    // public static final String TABLE_USER_VENUES_INFO = "user_venue_info";
-
     public static final String TABLE_VENUES_INFO = "venue_info";
     public static final String VENUES_LOCAL_ID = "_id";
     public static final String VENUES_REMOTE_ID = "venueID";
@@ -80,19 +58,15 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String VENUE_LATITUDE = "venueLatitude";
     public static final String VENUE_LONGITUDE = "venueLongitude";
     public static final String VENUE_LOCATION_NAME = "venueLocName";
-   // public static final String VENUE_LOCATION_STREET = "venueLocStreet";
-    // public static final String VENUE_LOCATION_ADDRESS = "venueLocAddress";
+    //public static final String VENUE_LOCATION_STREET = "venueLocStreet";
+    //public static final String VENUE_LOCATION_ADDRESS = "venueLocAddress";
     //public static final String VENUE_START_TIME = "eventStartTime";
-   // public static final String VENUE_END_TIME = "eventEndTime";
-   // public static final String VENUE_END_DATE = "eventEndDate";
-    //  public static final String VENUE_ICON = "venueIcon";
-    // public static final String VENUE_DATE = "eventDate";
-     public static final String VENUE_PICTURE = "venuePicture";
-    // public static final String VENUE_DISTANCE = "eventDistance"
-
-
-
-
+    //public static final String VENUE_END_TIME = "eventEndTime";
+    //public static final String VENUE_END_DATE = "eventEndDate";
+    //public static final String VENUE_ICON = "venueIcon";
+    //public static final String VENUE_DATE = "eventDate";
+    public static final String VENUE_PICTURE = "venuePicture";
+    //public static final String VENUE_DISTANCE = "eventDistance"
 
 
     //OUTFITS INTO LOCAL DATABASE:
@@ -106,7 +80,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String OUTFIT_LOCATION_NAME = "outfitLocName";
     public static final String OUTFIT_PICTURE = "outfitPicture";
 
-
     //ARTIST INTO LOCAL DATABASE:
     public static final String TABLE_ARTIST_INFO = "artist_info";
     public static final String ARTIST_LOCAL_ID = "_id";
@@ -116,12 +89,10 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String ARTIST_PICTURE = "artistPicture";
 
     // Storing our local database name and version as strings
-
     private static final String DATABASE_NAME="BruhaDatabase.db";
     private static final int DATABASE_VERSION = 1;
 
     // SQL to create DB
-
     private static final String DATABASE_CREATE_USER_INFO = "create table "
             + TABLE_USER_INFO + "(" + USER_INFO_ID
             + " integer primary key autoincrement, "
@@ -179,7 +150,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + EVENT_PICTURE + " text not null, "
             + EVENT_END_DATE + " text not null);";
 
-
     private static final String DATABASE_CREATE_VENUE_INFO = "create table "
             + TABLE_VENUES_INFO + "(" + VENUES_LOCAL_ID
             + " integer primary key autoincrement, "
@@ -211,18 +181,13 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + ARTIST_NAME + " text not null); ";
 
 
-
-
-
-    //ARTIST LOCAL DATABASE SHIT
-
+    //ADDING THE LIST OF ARTISTS INTO THE LOCAL DATABASE TABLE.
     public void addArtists( ArrayList<Artists> artist){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         for(int i =0; i< artist.size();i++){
-
             values.put("artistID", artist.get(i).getArtistId());
             values.put("artistDescription", artist.get(i).getArtistDescription());
             values.put("artistName", artist.get(i).getArtistName());
@@ -232,24 +197,20 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         }
     }
 
-
-
+    //RETRIEVING THE LIST OF ARTISTS FROM THE LOCAL DATABASE TABLE.
     public ArrayList<Artists> retrieveArtistInfo(){
 
         ArrayList<Artists> mArtist = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
-
         Cursor cursor = db.query(TABLE_ARTIST_INFO, null, null, null, null, null, null);
 
         if(cursor != null)
         {
             while(cursor.moveToNext()){
-
                 Artists artist = new Artists();
 
                 int id = cursor.getInt(cursor.getColumnIndex("_id"));
-
                 artist.setArtistId(Integer.parseInt(cursor.getString(cursor.getColumnIndex("artistID"))));
                 artist.setArtistDescription(cursor.getString(cursor.getColumnIndex("artistDescription")));
                 artist.setArtistName(cursor.getString(cursor.getColumnIndex("artistName")));
@@ -258,27 +219,17 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 mArtist.add(artist);
             }
         }
-
         cursor.close();
-
         return mArtist;
     }
 
-
-
-
-
-
-
-    //OUTFIT LOCAL DATABASE SHIT
-
+    //ADDING THE LIST OF OUTFITS INTO THE LOCAL DATABASE TABLE.
     public void addOutfits( ArrayList<Organizations> Org){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         for(int i =0; i< Org.size();i++){
-
             values.put("outfitID", Org.get(i).getOrgId());
             values.put("outfitDescription", Org.get(i).getOrgDescription());
             values.put("outfitName", Org.get(i).getOrgName());
@@ -291,8 +242,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         }
     }
 
-
-
+    //RETRIEVING THE LIST OF OUTFITS FROM THE LOCAL DATABASE TABLE.
     public ArrayList<Organizations> retrieveOutfitInfo(){
 
         ArrayList<Organizations> mOutfit = new ArrayList<>();
@@ -326,19 +276,13 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         return mOutfit;
     }
 
-
-
-
-
-    //VENUES LOCAL DATABASE SHIT
-
+    //ADDING THE LIST OF VENUES INTO THE LOCAL DATABASE TABLE.
     public void addVenues( ArrayList<Venues> venue){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         for(int i =0; i< venue.size();i++){
-
             values.put("venueID", venue.get(i).getVenueId());
             values.put("venueDescription", venue.get(i).getVenueDescription());
             values.put("venueName", venue.get(i).getVenueName());
@@ -360,6 +304,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         }
     }
 
+    //RETRIEVING THE LIST OF VENUES INTO THE LOCAL DATABASE TABLE.
     public ArrayList<Venues> retrieveVenuesInfo(){
 
         ArrayList<Venues> mVenues = new ArrayList<>();
@@ -371,11 +316,9 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         if(cursor != null)
         {
             while(cursor.moveToNext()){
-
                 Venues newVen = new Venues();
 
                 //int id = cursor.getInt(cursor.getColumnIndex("_id"));
-
                 newVen.setVenueId(Integer.parseInt(cursor.getString(cursor.getColumnIndex("venueID"))));
                 newVen.setVenueDescription(cursor.getString(cursor.getColumnIndex("venueDescription")));
                 newVen.setVenueName(cursor.getString(cursor.getColumnIndex("venueName")));
@@ -393,31 +336,25 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         return mVenues;
     }
 
-
-    //MyUpload, User's Event Info Pages.
-
+    //ADDING THE LIST OF EVENTS UPLOADED BY THE USER INTO THE LOCAL DATABASE TABLE.
     public void addUserEvents( ArrayList<Event> events){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         for(int i =0; i< events.size();i++){
-
             values.put("eventID", events.get(i).getEventid());
             values.put("venueID", events.get(i).getVenueid());
             //values.put("orgID", events.get(i).getOrganizationid());
             values.put("locID", events.get(i).getLocationID());
             values.put("eventDescription", events.get(i).getEventDescription());
-
             values.put("eventName", events.get(i).getEventName());
             values.put("eventIcon", events.get(i).getEventIcon());
             values.put("eventDate", events.get(i).getEventDate());
             values.put("eventPrice", events.get(i).getEventPrice());
             values.put("eventDistance", events.get(i).getEventDistance());
-
             values.put("eventLatitude", events.get(i).getEventLatitude());
             values.put("eventLongitude", events.get(i).getEventLongitude());
-
             values.put("eventLocName", events.get(i).getEventLocName());
             values.put("eventLocStreet", events.get(i).getEventLocSt());
             values.put("eventLocAddress", events.get(i).getEventLocAdd());
@@ -426,12 +363,11 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             values.put("eventEndDate", events.get(i).getEventEndDate());
             values.put("eventPicture", events.get(i).getEventPicture());
 
-
             db.insert(TABLE_USER_EVENT_INFO, null, values);
         }
     }
 
-
+    //RETIEVING THE LIST OF EVENTS UPLOADED BY THE USER INTO THE LOCAL DATABASE TABLE.
     public ArrayList<Event> retrieveUserEventInfo(){
 
         ArrayList<Event> mEvents = new ArrayList<>();
@@ -447,22 +383,18 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 Event newEvent = new Event();
 
                 //int id = cursor.getInt(cursor.getColumnIndex("_id"));
-
                 newEvent.setEventid(cursor.getString(cursor.getColumnIndex("eventID")));
                 newEvent.setVenueid(cursor.getString(cursor.getColumnIndex("venueID")));
                 //String orgID = cursor.getString(cursor.getColumnIndex("orgID"));
                 newEvent.setLocationID(cursor.getString(cursor.getColumnIndex("locID")));
                 newEvent.setEventDescription(cursor.getString(cursor.getColumnIndex("eventDescription")));
-
                 newEvent.setEventName(cursor.getString(cursor.getColumnIndex("eventName")));
                 newEvent.setEventid(cursor.getString(cursor.getColumnIndex("eventName")));
                 newEvent.setEventDate(cursor.getString(cursor.getColumnIndex("eventDate")));
                 newEvent.setEventPrice(cursor.getDouble(cursor.getColumnIndex("eventPrice")));
                 newEvent.setEventDistance(cursor.getDouble(cursor.getColumnIndex("eventDistance")));
-
                 newEvent.setEventLatitude(cursor.getDouble(cursor.getColumnIndex("eventLatitude")));
                 newEvent.setEventLongitude(cursor.getDouble(cursor.getColumnIndex("eventLongitude")));
-
                 newEvent.setEventLocName(cursor.getString(cursor.getColumnIndex("eventLocName")));
                 newEvent.setEventLocSt(cursor.getString(cursor.getColumnIndex("eventLocStreet")));
                 newEvent.setEventLocAdd(cursor.getString(cursor.getColumnIndex("eventLocAddress")));
@@ -471,32 +403,22 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 newEvent.setEventEndDate(cursor.getString(cursor.getColumnIndex("eventEndDate")));
                 newEvent.setEventPicture(cursor.getString(cursor.getColumnIndex("eventPicture")));
 
-
                 mEvents.add(newEvent);
             }
         }
-
         cursor.close();
-
         return mEvents;
     }
 
-
-
-
+    //Creating the Database.
     public SQLiteDatabaseModel(Context context) {
-
         // Creation of the DB
-
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
     }
 
     @Override
     public void onCreate(android.database.sqlite.SQLiteDatabase db) {
-
-        // Attempting to create a table named "user_info" and event info with 5 columns
-
+        //EXCECUTING THE COMMAND TO CREATE THE TABLES.
         db.execSQL(DATABASE_CREATE_USER_INFO);
         db.execSQL(DATABASE_CREATE_EVENT_INFO);
         db.execSQL(DATABASE_CREATE_USER_EVENT_INFO);
@@ -506,6 +428,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
     }
 
+    //MANUALLY DELETING SELECTED TABLES WHEN APP IS OPENED.
     @Override
     public void onUpgrade(android.database.sqlite.SQLiteDatabase db, int oldVersion, int newVersion) {
 
@@ -526,43 +449,33 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
     }
 
-
-
+    //DROPING THE INFORMATION CONTANED ABOUT THE USER WHEN LOGGED IN.
     public void onLogout(android.database.sqlite.SQLiteDatabase db, int oldVersion, int newVersion) {
-
-
         db.execSQL("DROP TABLE IF EXISTS user_info");
         db.execSQL(DATABASE_CREATE_USER_INFO);
-
-
-        // db.execSQL(DATABASE_CREATE_USER_INFO);
-
+        db.execSQL("DROP TABLE IF EXISTS user_event_info");
+        db.execSQL(DATABASE_CREATE_USER_EVENT_INFO);
     }
 
-    //Event List being Implemented.
-
+    //ADDING THE LIST OF EVENTS INTO THE LOCAL DATABASE TABLE.
     public void addEvents( ArrayList<Event> events){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         for(int i =0; i < events.size();i++){
-
             values.put("eventID", events.get(i).getEventid());
             values.put("venueID", events.get(i).getVenueid());
             //values.put("orgID", events.get(i).getOrganizationid());
             values.put("locID", events.get(i).getLocationID());
             values.put("eventDescription", events.get(i).getEventDescription());
-
             values.put("eventName", events.get(i).getEventName());
             values.put("eventIcon", events.get(i).getEventIcon());
             values.put("eventDate", events.get(i).getEventDate());
             values.put("eventPrice", events.get(i).getEventPrice());
             values.put("eventDistance", events.get(i).getEventDistance());
-
             values.put("eventLatitude", events.get(i).getEventLatitude());
             values.put("eventLongitude", events.get(i).getEventLongitude());
-
             values.put("eventLocName", events.get(i).getEventLocName());
             values.put("eventLocStreet", events.get(i).getEventLocSt());
             values.put("eventLocAddress", events.get(i).getEventLocAdd());
@@ -570,13 +483,13 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             values.put("eventEndTime", events.get(i).getEventEndTime());
             values.put("eventEndDate", events.get(i).getEventEndDate());
             values.put("eventPicture", events.get(i).getEventPicture());
-
           // values.put("eventPicturee", getBytes(events.get(i).getEventPicturee()));
 
             db.insert(TABLE_EVENT_INFO, null, values);
         }
     }
 
+    //RETRIEVED THE LIST OF EVENTS FROM THE LOCAL DATABASE TABLE.
     public ArrayList<Event> retrieveEventInfo(){
 
         ArrayList<Event> mEvents = new ArrayList<>();
@@ -588,9 +501,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         if(cursor != null)
         {
             while(cursor.moveToNext()){
-
                 Event newEvent = new Event();
-
                 //int id = cursor.getInt(cursor.getColumnIndex("_id"));
 
                 newEvent.setEventid(cursor.getString(cursor.getColumnIndex("eventID")));
@@ -598,16 +509,13 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 //String orgID = cursor.getString(cursor.getColumnIndex("orgID"));
                 newEvent.setLocationID(cursor.getString(cursor.getColumnIndex("locID")));
                 newEvent.setEventDescription(cursor.getString(cursor.getColumnIndex("eventDescription")));
-
                 newEvent.setEventName(cursor.getString(cursor.getColumnIndex("eventName")));
                 newEvent.setEventid(cursor.getString(cursor.getColumnIndex("eventName")));
                 newEvent.setEventDate(cursor.getString(cursor.getColumnIndex("eventDate")));
                 newEvent.setEventPrice(cursor.getDouble(cursor.getColumnIndex("eventPrice")));
                 newEvent.setEventDistance(cursor.getDouble(cursor.getColumnIndex("eventDistance")));
-
                 newEvent.setEventLatitude(cursor.getDouble(cursor.getColumnIndex("eventLatitude")));
                 newEvent.setEventLongitude(cursor.getDouble(cursor.getColumnIndex("eventLongitude")));
-
                 newEvent.setEventPicture(cursor.getString(cursor.getColumnIndex("eventPicture")));
                 newEvent.setEventLocName(cursor.getString(cursor.getColumnIndex("eventLocName")));
                 newEvent.setEventLocSt(cursor.getString(cursor.getColumnIndex("eventLocStreet")));
@@ -615,17 +523,16 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 newEvent.setEventStartTime(cursor.getString(cursor.getColumnIndex("eventStartTime")));
                 newEvent.setEventEndTime(cursor.getString(cursor.getColumnIndex("eventEndTime")));
                 newEvent.setEventEndDate(cursor.getString(cursor.getColumnIndex("eventEndDate")));
-           //     newEvent.setEventPicturee(getImage(cursor.getBlob(cursor.getColumnIndex("eventPicturee"))));
+                //newEvent.setEventPicturee(getImage(cursor.getBlob(cursor.getColumnIndex("eventPicturee"))));
 
                 mEvents.add(newEvent);
             }
         }
-
         cursor.close();
-
         return mEvents;
     }
 
+    //ADDING THE INFO OF THE USER INTO THE LOCAL DATABASE TABLE.
     public void addUser( String username, String name, String birthdate, String gender,String email,String loc){
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -641,6 +548,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.insert(TABLE_USER_INFO, null, values);
     }
 
+    //GETTING THE INFO OF THE USER FROM THE LOCAL DATABASE TABLE.
     public ArrayList<String> retrieveUserInfo(){
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -660,17 +568,13 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 String email = cursor.getString(cursor.getColumnIndex("email"));
                 String location = cursor.getString(cursor.getColumnIndex("location"));
 
-
+                //ADDING THE RETIEVED INFO INTO THE ARRAY TO BE RETURNED.
                 User.add(username);
                 User.add(name);
                 User.add(DOB);
                 User.add(gender);
                 User.add(email);
                 User.add(location);
-
-
-
-
             }
         }
 
@@ -678,7 +582,4 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
         return User;
     }
-
-
-
 }

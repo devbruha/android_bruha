@@ -1,6 +1,5 @@
 package com.bruha.bruha.Views;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -16,18 +15,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.bruha.bruha.Adapters.ListviewAdapter;
-import com.bruha.bruha.Adapters.MapArtistListViewAdapter;
 import com.bruha.bruha.Adapters.MapListViewAdapter;
 import com.bruha.bruha.Adapters.MapOrganizationListViewAdapter;
 import com.bruha.bruha.Adapters.MapVenListViewAdapter;
-import com.bruha.bruha.Model.Artists;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
-import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.Model.Venues;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
@@ -41,10 +35,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
 import butterknife.InjectView;
 
 import butterknife.ButterKnife;
@@ -53,23 +46,23 @@ import butterknife.OnClick;
 public class MapsActivity extends FragmentActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
-    ArrayList<Event> mEvents;       //The Array that will hold the Events that we will pass around(to Adapter,the List...)
+    //The arrays that are used to store the information of mEvents/Artist/Venues/Outfits
+    ArrayList<Event> mEvents;
     ArrayList<Venues> mVenues;
     ArrayList<Organizations> mOrganizations;
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
-    @InjectView(android.R.id.list) ListView ListView;
-    @InjectView(R.id.venueButton) Button VenueButton;
-    @InjectView(R.id.artistButton) Button ArtistButton;
-    @InjectView(R.id.orgButton) Button OrgButton;
-    @InjectView(R.id.eventButton) Button EventButton;
+    @InjectView(android.R.id.list) ListView mListView;
+    @InjectView(R.id.venueButton) Button venueButton;
+    @InjectView(R.id.artistButton) Button artistButton;
+    @InjectView(R.id.orgButton) Button orgButton;
+    @InjectView(R.id.eventButton) Button eventButton;
     MapListViewAdapter adapter;
 
     //private UserCustomFilters mUserCustomFilters;
 
     protected static final String TAG = "basic-location-sample";
-
     /**
      * Provides the entry point to Google Play services.
      */
@@ -79,15 +72,15 @@ public class MapsActivity extends FragmentActivity implements
      * Represents a geographical location.
      */
     protected Location mLastLocation;
-
     protected String mLatitudeText;
     protected String mLongitudeText;
 
     HashMap<String, Marker> markerMap = new HashMap<>();
 
     // Variables for the marker clicks one for lat/lng storing and one for the applicable events
-
     LatLng venueLocation;
+
+    //The arrays that are used to store the selected mEvents/Artist/Venues/Outfits when clicked on a certain marker.
     ArrayList<Event> selectedEvents = new ArrayList<>();
     ArrayList<Venues> selectedVenues = new ArrayList<>();
     ArrayList<Organizations> selectedOrg = new ArrayList<>();
@@ -102,20 +95,18 @@ public class MapsActivity extends FragmentActivity implements
         //mUserCustomFilters = ((MyApplication) getApplicationContext()).getUserCustomFilters();
 
         /*
-        adapter=new MapListViewAdapter(this, selectedEvents); //Calling the adapter ListView to help set the List
+        adapter=new MapListViewAdapter(this, selectedEvents); //Calling the adapter mListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter
-        ListView.setAdapter(adapter);
+        mListView.setAdapter(adapter);
 
 */
         // Map and Filter setup
 
         buildGoogleApiClient();
-
         setUpMapIfNeeded();
         setUpFilters();
         retrieveEvents();
-
         setEventMarkers();
         setUpperPanel();
     }
@@ -127,7 +118,6 @@ public class MapsActivity extends FragmentActivity implements
     }
 
     // Function to ensure a map has not already been instantiated
-
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
@@ -141,24 +131,6 @@ public class MapsActivity extends FragmentActivity implements
             }
         }
     }
-
-    @OnClick(R.id.venueButton)
-    public void venueButton(View view)
-    {
-        mMap.clear();
-        setVenueMarkers();
-        VenueButton.setTextColor(Color.BLUE);
-        VenueButton.setTypeface(null, Typeface.BOLD);
-
-        ArtistButton.setTypeface(null, Typeface.NORMAL);
-        OrgButton.setTypeface(null, Typeface.NORMAL);
-        EventButton.setTypeface(null, Typeface.NORMAL);
-        EventButton.setTextColor(Color.BLACK);
-        ArtistButton.setTextColor(Color.BLACK);
-        OrgButton.setTextColor(Color.BLACK);
-    }
-
-
 
     private void setUpMap() {
 
@@ -174,59 +146,20 @@ public class MapsActivity extends FragmentActivity implements
         }
     }
 
+    //The method that gets the information of Event/Artist/Venue/Outfits from the local database and stores them to the arrays.
     private void retrieveEvents(){
 
         // Create the local DB object
-
         SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
-
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
 
+        //Gets the information and sets them to the defined arrays.
         mEvents = sqLiteUtils.getEventInfo(dbHelper);
-
         mVenues = sqLiteUtils.getVenuesInfo(dbHelper);
-
         mOrganizations = sqLiteUtils.getOutfitsInfo(dbHelper);
     }
 
-    @OnClick(R.id.eventButton)
-    public void eventButton(View view)
-    {
-        mMap.clear();
-        setEventMarkers();
-
-        EventButton.setTextColor(Color.BLUE);
-        EventButton.setTypeface(null, Typeface.BOLD);
-
-        VenueButton.setTypeface(null, Typeface.NORMAL);
-        OrgButton.setTypeface(null, Typeface.NORMAL);
-        ArtistButton.setTypeface(null, Typeface.NORMAL);
-
-        VenueButton.setTextColor(Color.BLACK);
-        ArtistButton.setTextColor(Color.BLACK);
-        OrgButton.setTextColor(Color.BLACK);
-
-    }
-
-    @OnClick(R.id.orgButton)
-    public void OrgButton(View view)
-    {
-        mMap.clear();
-        setOrgMarkers();
-        OrgButton.setTextColor(Color.BLUE);
-        OrgButton.setTypeface(null, Typeface.BOLD);
-
-        VenueButton.setTypeface(null, Typeface.NORMAL);
-        ArtistButton.setTypeface(null, Typeface.NORMAL);
-        EventButton.setTypeface(null, Typeface.NORMAL);
-
-
-        VenueButton.setTextColor(Color.BLACK);
-        ArtistButton.setTextColor(Color.BLACK);
-        EventButton.setTextColor(Color.BLACK);
-
-    }
-
+    //Sets the Markers for the Outfits and calls the Adapter to set the mListView to the OutfitListView Adapter.
     private void setOrgMarkers(){
 
         final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout)findViewById(R.id.sliding_layout_upper);
@@ -284,7 +217,7 @@ public class MapsActivity extends FragmentActivity implements
                         }
                     }
 
-                    SetOrgAdapter();
+                    setOrgAdapter();
 
                     mLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
                     mLowerLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
@@ -302,8 +235,7 @@ public class MapsActivity extends FragmentActivity implements
         }
     }
 
-
-
+    //Sets the Markers for the Venues and Calls the Adapter to set the VenueListView Adapter
     private void setVenueMarkers(){
 
         final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout)findViewById(R.id.sliding_layout_upper);
@@ -363,7 +295,7 @@ public class MapsActivity extends FragmentActivity implements
                         }
                     }
 
-                    SetVenAdapter();
+                    setVenAdapter(); //Sets the Adapter of the mListView to the respective Venue's Adapter.
 
                     mLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
                     mLowerLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
@@ -381,28 +313,23 @@ public class MapsActivity extends FragmentActivity implements
         }
     }
 
-
-    private void SetOrgAdapter(){
-        MapOrganizationListViewAdapter    adapteri=new MapOrganizationListViewAdapter(this, selectedOrg); //Calling the adapter ListView to help set the List
-
+    //Sets the Adapter of the Outfit mListView.
+    private void setOrgAdapter(){
+        MapOrganizationListViewAdapter orgAdapter=new MapOrganizationListViewAdapter(this, selectedOrg); //Calling the adapter mListView to help set the List
         //Sets the Adapter from the class Listview Adapter
-        ListView.setAdapter(adapteri);
+        mListView.setAdapter(orgAdapter);
 
 
     }
 
-
-
-    private void SetVenAdapter(){
-        MapVenListViewAdapter    adapteri=new MapVenListViewAdapter(this, selectedVenues); //Calling the adapter ListView to help set the List
-
+    //Sets the Adapter of the Venue mListView.
+    private void setVenAdapter(){
+        MapVenListViewAdapter mapAdapter=new MapVenListViewAdapter(this, selectedVenues); //Calling the adapter mListView to help set the List
         //Sets the Adapter from the class Listview Adapter
-        ListView.setAdapter(adapteri);
-
-
+        mListView.setAdapter(mapAdapter);
     }
 
-
+    //Sets the Markers for the mEvents and Calls the Adapter to set the EventListView Adapter.
     private void setEventMarkers(){
 
         final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout)findViewById(R.id.sliding_layout_upper);
@@ -460,7 +387,7 @@ public class MapsActivity extends FragmentActivity implements
                         }
                     }
 
-                    SetAdapter();
+                    setEventAdapter(); //Calling the funtion to set the Adapter for the List.
 
                     mLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
                     mLowerLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
@@ -478,25 +405,20 @@ public class MapsActivity extends FragmentActivity implements
         }
     }
 
-    private void SetAdapter() {
-
-        adapter=new MapListViewAdapter(this, selectedEvents); //Calling the adapter ListView to help set the List
-
+    //Sets the Adapter of the Event mListView.
+    private void setEventAdapter() {
+        adapter=new MapListViewAdapter(this, selectedEvents); //Calling the adapter mListView to help set the List
         //Sets the Adapter from the class Listview Adapter
-        ListView.setAdapter(adapter);
+        mListView.setAdapter(adapter);
     }
 
     private void setUpperPanel(){
-
         // Storing the sliding panel into mLayout
-
         LinearLayout mLayout = (LinearLayout)findViewById(R.id.dragViewUpper);
-
         SlidingUpPanelLayout mSlidingPanel = (SlidingUpPanelLayout)findViewById(R.id.sliding_layout_upper);
-
         mSlidingPanel.setTouchEnabled(false);
 
-        Log.v("Status bar height", getStatusBarHeight() + "");
+       /// Log.v("Status bar height", getStatusBarHeight() + "");
 
         // Android functions to determine the screen dimensions
 
@@ -508,20 +430,16 @@ public class MapsActivity extends FragmentActivity implements
         int height = size.y;
 
         // Taking the status bar height into account for height calculations
-
         int workingHeight = height - getStatusBarHeight();
 
         // Retrieves the current parameters of the layout and storing them in variable params
-
         ViewGroup.LayoutParams params = mLayout.getLayoutParams();
 
         // Re-setting the height parameter to .35 the max screen height (status bar included)
-
         params.height =  (int)Math.round(workingHeight*.35);
     }
 
     // A function to determine the height of the status bar present in android devices
-
     public int getStatusBarHeight() {
         int result = 0;
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
@@ -557,9 +475,7 @@ public class MapsActivity extends FragmentActivity implements
     }
 
     private void setUpFilters(){
-
-        // Calling the FilterView class to set the layout for the filters
-
+        // Calling the FilterView class to set the layout for the filter.
         FilterView filterView = new FilterView(this, null, markerMap);
         filterView.init();
     }
@@ -612,5 +528,57 @@ public class MapsActivity extends FragmentActivity implements
         startActivity(intent);
         finish();
     }
+
+    @OnClick(R.id.orgButton)
+    public void orgButton(View view)
+    {
+        mMap.clear();
+        setOrgMarkers();
+        orgButton.setTextColor(Color.BLUE);
+        orgButton.setTypeface(null, Typeface.BOLD);
+
+        venueButton.setTypeface(null, Typeface.NORMAL);
+        artistButton.setTypeface(null, Typeface.NORMAL);
+        eventButton.setTypeface(null, Typeface.NORMAL);
+
+        venueButton.setTextColor(Color.BLACK);
+        artistButton.setTextColor(Color.BLACK);
+        eventButton.setTextColor(Color.BLACK);
+    }
+
+    @OnClick(R.id.eventButton)
+    public void eventButton(View view)
+    {
+        mMap.clear();
+        setEventMarkers();
+
+        eventButton.setTextColor(Color.BLUE);
+        eventButton.setTypeface(null, Typeface.BOLD);
+
+        venueButton.setTypeface(null, Typeface.NORMAL);
+        orgButton.setTypeface(null, Typeface.NORMAL);
+        artistButton.setTypeface(null, Typeface.NORMAL);
+
+        venueButton.setTextColor(Color.BLACK);
+        artistButton.setTextColor(Color.BLACK);
+        orgButton.setTextColor(Color.BLACK);
+    }
+
+    @OnClick(R.id.venueButton)
+    public void venueButton(View view)
+    {
+        mMap.clear();
+        setVenueMarkers();
+        venueButton.setTextColor(Color.BLUE);
+        venueButton.setTypeface(null, Typeface.BOLD);
+
+        artistButton.setTypeface(null, Typeface.NORMAL);
+        orgButton.setTypeface(null, Typeface.NORMAL);
+        eventButton.setTypeface(null, Typeface.NORMAL);
+        eventButton.setTextColor(Color.BLACK);
+        artistButton.setTextColor(Color.BLACK);
+        orgButton.setTextColor(Color.BLACK);
+    }
+
 
 }

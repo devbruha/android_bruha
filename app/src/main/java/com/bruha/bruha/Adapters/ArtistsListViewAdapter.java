@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import com.bruha.bruha.Model.Artists;
 import com.bruha.bruha.R;
 import com.daimajia.swipe.SwipeLayout;
@@ -30,16 +29,15 @@ import java.util.ArrayList;
  */
 public class ArtistsListViewAdapter extends BaseSwipeAdapter {
 
-    private Activity mActivity;
-    private ArrayList<Artists> mArtists;
-    public static int Clicks=0;
+    private Activity mActivity;             //The Activity where it is to be displayed.
+    private ArrayList<Artists> mArtists;    //The List of Artists to be displayed.
+    public static int Clicks=0;             //The number of times tapped on the screen.
 
     public ArtistsListViewAdapter(Activity activity,ArrayList<Artists> artists)
     {
         mActivity = activity;
         mArtists = artists;
     }
-
 
     @Override
     public int getSwipeLayoutResourceId(int i) {
@@ -102,11 +100,6 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         holder.ArtistLocAdd = (TextView) convertView.findViewById(R.id.DesVenueLocAddress);
         holder.ArtistEventTiming= (TextView) convertView.findViewById(R.id.VenueMontoFriHour);
         holder.DesArtistName=(TextView) convertView.findViewById(R.id.DesVenueName);
-
-
-
-
-
 
 
         //Setting all the text inside the view.
@@ -173,13 +166,8 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
                 animator.start();
             }
         });
-
-
         return convertView;
     }
-
-
-
 
     @Override
     public void fillValues(int i, View view) {
@@ -187,7 +175,6 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         Typeface domregfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Regular.ttf");
         Typeface domboldfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Bold.ttf");
         Typeface opensansregfnt = Typeface.createFromAsset(mActivity.getAssets(), "fonts/OpenSans-Regular.ttf");
-
 
         //Assigning the ImageBubble to a variable to alter iits dimensions after with.
         ImageView circle = (ImageView) view.findViewById(R.id.VenueImageBubble);
@@ -200,7 +187,6 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         // Storing the screen height into an int variable.
         int height = size.y;
 
-
         //Sets the height to 1/3 the screensize.
         ViewGroup.LayoutParams params = view.getLayoutParams();
         params.height =  (int)Math.round(height*.33);
@@ -208,7 +194,6 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         ImageView Pic = (ImageView) view.findViewById(R.id.VenuePicture);
         ViewGroup.LayoutParams PictureParam = Pic.getLayoutParams();
         PictureParam.height =  (int)Math.round(height*.33);
-
 
         //Getting the LayoutParams of the circle and then setting it to quarter the screensize.
         ViewGroup.LayoutParams circleParams = circle.getLayoutParams();
@@ -300,7 +285,6 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
 
     //A view holder that contain the things that need to be changed for every event
     private static class ViewHolder{
-
         //The values holding summary description of the Venue.
         ImageView ArtistPicture;
         ImageView ArtistIcon;
@@ -313,9 +297,5 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         TextView ArtistLocSt;
         TextView ArtistLocAdd;
         TextView ArtistEventTiming;
-
-
     }
-
-
 }

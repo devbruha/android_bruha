@@ -7,26 +7,20 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Display;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
-
 import java.util.ArrayList;
-
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class UserProfileActivity extends ActionBarActivity {
-
-    ArrayList<String> UserInfo=new ArrayList<>();
+    ArrayList<String> userInfo=new ArrayList<>();
     SQLiteDatabaseModel dbHelper;
     SQLiteUtils sqLiteUtils;
 
@@ -36,26 +30,17 @@ public class UserProfileActivity extends ActionBarActivity {
         setContentView(R.layout.activity_user_profile);
         ButterKnife.inject(this);
 
-
-
         dbHelper = new SQLiteDatabaseModel(this);
         sqLiteUtils = new SQLiteUtils();
 
-        init();
-
-        resize();
-
-
-
+        init(); // Initializes the array to contain the information to be displayed.(User Info)
+        setPage(); //Setting up the page.
     }
 
-
-
-    private void resize()
+    //Resizes the page, sets the fonts, sets the text.
+    private void setPage()
     {
-
         //FONT SHIT
-        Typeface domregfnt = Typeface.createFromAsset(this.getAssets(),"fonts/Domine-Regular.ttf");
         Typeface domboldfnt = Typeface.createFromAsset(this.getAssets(),"fonts/Domine-Bold.ttf");
         Typeface opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
 
@@ -69,82 +54,77 @@ public class UserProfileActivity extends ActionBarActivity {
         // Storing the screen height into an int variable.
         int height = size.y;
 
+        //Assigning the UserPicture to a variable to alter its dimensions after with.
+        ImageView userPicture = (ImageView) findViewById(R.id.UserPicture);
+        ViewGroup.LayoutParams userPictureLayoutParams = userPicture.getLayoutParams();
+        userPictureLayoutParams.height =  (int)Math.round(height*.25);
+        userPictureLayoutParams.width  =  (int)Math.round(height*.25);
 
-        //Assigning the PageEventPicture to a variable to alter its dimensions after with.
-        ImageView UserPicture = (ImageView) findViewById(R.id.UserPicture);
-        ViewGroup.LayoutParams EventPictureParams = UserPicture.getLayoutParams();
-        EventPictureParams.height =  (int)Math.round(height*.25);
-        EventPictureParams.width  =  (int)Math.round(height*.25);
+        //Resizing the Box containing the information to a certain size.
+        ImageView infoBox = (ImageView) findViewById(R.id.InfoBox);
+        ViewGroup.LayoutParams infoBoxLayoutParams = infoBox.getLayoutParams();
+        infoBoxLayoutParams.height = (int)Math.round(height*.40);
+        infoBoxLayoutParams.width = (int)Math.round(height*.50);
 
+        //Resizing, changing font and setting the text of the following.
 
-        ImageView Info = (ImageView) findViewById(R.id.InfoBox);
-        ViewGroup.LayoutParams InfoParam = Info.getLayoutParams();
-        InfoParam.height = (int)Math.round(height*.40);
-        InfoParam.width = (int)Math.round(height*.50);
+        TextView name = (TextView) findViewById(R.id.Name);
+        name.setText(userInfo.get(1));
+        TextView username = (TextView) findViewById(R.id.username);
+        TextView email = (TextView) findViewById(R.id.email);
+        TextView age = (TextView) findViewById(R.id.age);
+        TextView sex = (TextView) findViewById(R.id.sex);
+        TextView location = (TextView) findViewById(R.id.location);
 
-        TextView Name = (TextView) findViewById(R.id.Name);
-        Name.setText(UserInfo.get(1));
-        TextView Username = (TextView) findViewById(R.id.username);
-        TextView Email = (TextView) findViewById(R.id.email);
-        TextView Age = (TextView) findViewById(R.id.age);
-        TextView Sex = (TextView) findViewById(R.id.sex);
-        TextView Location = (TextView) findViewById(R.id.location);
-
-        TextView UsernameText = (TextView) findViewById(R.id.usernametext);
-        UsernameText.setText(UserInfo.get(0));
-        TextView EmailText = (TextView) findViewById(R.id.emailtext);
-        EmailText.setText(UserInfo.get(4));
-        TextView AgeText = (TextView) findViewById(R.id.agetext);
-        AgeText.setText(UserInfo.get(2));
-        TextView SexText = (TextView) findViewById(R.id.sextext);
-        SexText.setText(UserInfo.get(3));
-        TextView LocationText = (TextView) findViewById(R.id.locationtext);
-        LocationText.setText(UserInfo.get(5));
+        TextView usernameText = (TextView) findViewById(R.id.usernametext);
+        usernameText.setText(userInfo.get(0));
+        TextView emailText = (TextView) findViewById(R.id.emailtext);
+        emailText.setText(userInfo.get(4));
+        TextView ageText = (TextView) findViewById(R.id.agetext);
+        ageText.setText(userInfo.get(2));
+        TextView sexText = (TextView) findViewById(R.id.sextext);
+        sexText.setText(userInfo.get(3));
+        TextView locationText = (TextView) findViewById(R.id.locationtext);
+        locationText.setText(userInfo.get(5));
 
         int x= (int)Math.round(height * .0275);
         int x1= (int)Math.round(height * .0485);
 
-        Name.setTextSize(TypedValue.COMPLEX_UNIT_PX,x1);
-        Name.setTypeface(domboldfnt);
-        Username.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        Username.setTypeface(domboldfnt);
-        Email.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        Email.setTypeface(domboldfnt);
-        Age.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        Age.setTypeface(domboldfnt);
-        Sex.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        Sex.setTypeface(domboldfnt);
-        Location.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        Location.setTypeface(domboldfnt);
+        name.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
+        name.setTypeface(domboldfnt);
+        username.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        username.setTypeface(domboldfnt);
+        email.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        email.setTypeface(domboldfnt);
+        age.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        age.setTypeface(domboldfnt);
+        sex.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        sex.setTypeface(domboldfnt);
+        location.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        location.setTypeface(domboldfnt);
 
-
-        UsernameText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        UsernameText.setTypeface(opensansregfnt);
-        EmailText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        EmailText.setTypeface(opensansregfnt);
-        AgeText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        AgeText.setTypeface(opensansregfnt);
-        SexText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        SexText.setTypeface(opensansregfnt);
-        LocationText.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-        LocationText.setTypeface(opensansregfnt);
-
-
+        usernameText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        usernameText.setTypeface(opensansregfnt);
+        emailText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        emailText.setTypeface(opensansregfnt);
+        ageText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        ageText.setTypeface(opensansregfnt);
+        sexText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        sexText.setTypeface(opensansregfnt);
+        locationText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        locationText.setTypeface(opensansregfnt);
     }
 
     private void init() {
-        UserInfo=sqLiteUtils.getUserInfo(dbHelper);
+        userInfo =sqLiteUtils.getUserInfo(dbHelper);
     }
 
     @OnClick(R.id.logouty)
-    public void Logout(View view)
+    public void logout(View view)
     {
         MyApplication.loginCheck = false;
         dbHelper.onLogout(dbHelper.getWritableDatabase(),1,1);
         Intent intent = new Intent(this, SplashActivity.class);
         startActivity(intent);
     }
-
-
-
 }

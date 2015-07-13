@@ -5,14 +5,8 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -23,8 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
@@ -32,29 +24,21 @@ import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.squareup.picasso.Picasso;
-
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 /**
  * Created by Work on 2015-05-12.
  */
-public class ListviewAdapter extends BaseSwipeAdapter {
+public class EventListviewAdapter extends BaseSwipeAdapter {
     private Activity mActivity;
     private ArrayList<Event> mEvents;
     public static int Clicks=0;
 
     //the Constructor for the class.
-    public ListviewAdapter(Activity activity, ArrayList<Event> events) {
+    public EventListviewAdapter(Activity activity, ArrayList<Event> events) {
         mActivity = activity;
         mEvents = events;
     }
-
 
     public String TimeFormat(String Time)
     {
@@ -73,7 +57,6 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         return time;
 
     }
-
 
     //Method to Format the Date that will be displayed.
     public String dateFormat(String Date)
@@ -225,14 +208,7 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         holder.EventPrice.setText(freeEventCheck(event.getEventPrice()));
 
 
-
-
-
-        String url = event.getEventPicture();
-
-        Picasso.with(parent.getContext()).load(url).into(holder.EventPicture);
-
-
+        Picasso.with(parent.getContext()).load(event.getEventPicture()).into(holder.EventPicture);
 
         //Setting the detailed description..
         holder.EventDName.setText(event.getEventName());
@@ -253,7 +229,6 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         swipeLayout.addSwipeListener(new SimpleSwipeListener() {
 
         });
-
 
 
         //Implements the Button 'Buy Ticket' that appears after swipe right,Shows Button Highlight for half a second when clicked.
@@ -437,8 +412,6 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         TextView Swipe3 = (TextView) convertView.findViewById(R.id.SwipeBarSize3);
         int yx7= (int)Math.round(height*.030);
         Swipe3.setTextSize(TypedValue.COMPLEX_UNIT_PX,yx7);
-
-
     }
 
     //A view holder that contain the things that need to be changed for every event
@@ -462,44 +435,4 @@ public class ListviewAdapter extends BaseSwipeAdapter {
         TextView EventEndTime;
         //No need for Name,Price and Start Date for event as it is already given in first batch above
     }
-
-
-
-    /*
-
-    public Bitmap getBitmapFromURL(final String s){
-
-        final Bitmap[] myBitmap = new Bitmap[1];
-
-        Thread thread = new Thread(new Runnable(){
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL(s);
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    connection.setDoInput(true);
-                    connection.connect();
-                    InputStream input = connection.getInputStream();
-                    myBitmap[0] = BitmapFactory.decodeStream(input);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    myBitmap[0] = null;
-                }
-            }
-        });
-
-        thread.start();
-
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return myBitmap[0];
-    }
-
-*/
-
-
 }

@@ -1,30 +1,16 @@
 package com.bruha.bruha.PHP;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
-import android.widget.ImageView;
-import android.widget.Toast;
 
+import android.util.Log;
 import com.bruha.bruha.Model.Artists;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.Venues;
-import com.bruha.bruha.R;
-import com.squareup.picasso.Picasso;
-
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -34,24 +20,23 @@ import java.util.ArrayList;
 /**
  * Created by Work on 2015-06-23.
  */
-public class RetrieveEvents {
+public class RetrievePHP {
+
+    //List of Arrays used to store respective information that is returned by each method called.
     ArrayList<Event> mEvents = new ArrayList<>();
     ArrayList<Venues> mVenues = new ArrayList<>();
     ArrayList<Organizations> mOrg = new ArrayList<>();
     ArrayList<Artists> mArtists = new ArrayList<>();
     ArrayList<Event> mUserEvents = new ArrayList<>();
 
-    //UserEvents Stuff.
+    //Variables used when connecting to a network.
     URL url = null;
     String response = null;
     HttpURLConnection connection;
     OutputStreamWriter request = null;
 
-
-
-
-
-    public ArrayList<Event> GetEventList() {
+    //Gets the List of Events uploaded in the Database.
+    public ArrayList<Event> getEventList() {
 
         Thread thread;
 
@@ -96,7 +81,6 @@ public class RetrieveEvents {
         try {
             JSONArray x = new JSONArray(response);
 
-
             for (int i = 0; i < x.length(); i++) {
                 JSONObject Event = x.getJSONObject(i);
                 final com.bruha.bruha.Model.Event even = new Event();
@@ -118,39 +102,6 @@ public class RetrieveEvents {
                 even.setEventLongitude(Double.parseDouble(Event.getString("location_lng")));
                 even.setEventPicture(Event.getString("image_link"));
 
-
-                /*
-                final String urly = even.getEventPicture();
-
-                final Bitmap[] b = new Bitmap[1];
-                // Picasso.with(activity.getApplicationContext()).load(url).into(imageView);
-
-                Thread thready;
-                thready = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        try {
-
-                            b[0] = Picasso.with(activity.getApplicationContext()).load(urly).get();
-                            even.setEventPicturee(b[0]);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                thready.start();
-                //thready.join();
-
-                //  imageView.buildDrawingCache(true);
-                // Bitmap b = Bitmap.createBitmap(imageView.getDrawingCache());
-                // imageView.setDrawingCacheEnabled(false); // clear drawing cache
-               // even.setEventPicturee(b[0]);
-
-                //Bitmap bitmap = getBitmapFromURL(even.getEventPicture());
-                //even.setEventPicturee(bitmap);
-*/
-
                 mEvents.add(even);
             }
 
@@ -162,7 +113,8 @@ public class RetrieveEvents {
         return mEvents;
     }
 
-        public ArrayList<Venues> GetVenueList() {
+    //Gets the List of Venues uploaded in the Database.
+        public ArrayList<Venues> getVenueList() {
 
         Thread thread;
 
@@ -171,7 +123,6 @@ public class RetrieveEvents {
             public void run() {
 
                 try {
-
                     url = new URL("http://bruha.com/mobile_php/VenueList.php");
                     connection = (HttpURLConnection) url.openConnection();
 
@@ -183,9 +134,7 @@ public class RetrieveEvents {
                         sb.append(line + "\n");
                     }
                     // Response from server after login process will be stored in response variable.
-
                     // in this case the response is the echo from the php script (i.e = 1) if successful
-
                     response = sb.toString();
                     isr.close();
                     reader.close();
@@ -207,12 +156,11 @@ public class RetrieveEvents {
         try {
             JSONArray x = new JSONArray(response);
 
-
             for (int i = 0; i < x.length(); i++) {
                 JSONObject Venue = x.getJSONObject(i);
                 com.bruha.bruha.Model.Venues ven = new Venues();
 
-//                            ven.setVenueId(Integer.parseInt(Venue.getString("venue_id")));
+                //ven.setVenueId(Integer.parseInt(Venue.getString("venue_id")));
                 ven.setVenueName(Venue.getString("venue_name"));
                 ven.setVenueDescription(Venue.getString("venue_desc"));
                 ven.setVenueLocation(Venue.getString("venue_location"));
@@ -220,21 +168,16 @@ public class RetrieveEvents {
                 ven.setLng(Double.parseDouble(Venue.getString("location_lng")));
                 ven.setVenuePicture(Venue.getString("media"));
 
-
                 mVenues.add(ven);
             }
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return mVenues;
     }
 
-
-
-    public ArrayList<Organizations> GetOrgList() {
+    //Gets the List of Outfits uploaded in the Database.
+    public ArrayList<Organizations> getOrgList() {
 
         Thread thread;
 
@@ -243,7 +186,6 @@ public class RetrieveEvents {
             public void run() {
 
                 try {
-
                     url = new URL("http://bruha.com/mobile_php/OrganizationList.php");
                     connection = (HttpURLConnection) url.openConnection();
 
@@ -279,7 +221,6 @@ public class RetrieveEvents {
         try {
             JSONArray x = new JSONArray(response);
 
-
             for (int i = 0; i < x.length(); i++) {
                 JSONObject Organization = x.getJSONObject(i);
                 com.bruha.bruha.Model.Organizations org = new Organizations();
@@ -293,19 +234,16 @@ public class RetrieveEvents {
                 org.setLng(Double.parseDouble(Organization.getString("location_lng")));
                 org.setOrgPicture(Organization.getString("media"));
 
-
                 mOrg.add(org);
             }
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return mOrg;
     }
 
-    public ArrayList<Artists> GetArtistList() {
+    //Gets the List of Artists uploaded in the Database.
+    public ArrayList<Artists> getArtistList() {
 
         Thread thread;
 
@@ -314,7 +252,6 @@ public class RetrieveEvents {
             public void run() {
 
                 try {
-
                     url = new URL("http://bruha.com/mobile_php/ArtistList.php");
                     connection = (HttpURLConnection) url.openConnection();
 
@@ -326,7 +263,6 @@ public class RetrieveEvents {
                         sb.append(line + "\n");
                     }
                     // Response from server after login process will be stored in response variable.
-
                     // in this case the response is the echo from the php script (i.e = 1) if successful
 
                     response = sb.toString();
@@ -346,10 +282,8 @@ public class RetrieveEvents {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         try {
             JSONArray x = new JSONArray(response);
-
 
             for (int i = 0; i < x.length(); i++) {
                 JSONObject mArtist = x.getJSONObject(i);
@@ -360,22 +294,16 @@ public class RetrieveEvents {
                 Artist.setArtistDescription(mArtist.getString("Artist_desc"));
                 Artist.setArtistPicture(mArtist.getString("Artist_media"));
 
-
-
                 mArtists.add(Artist);
             }
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return mArtists;
     }
 
-    public ArrayList<Event> GetUserEventList(String user) {
-
-
+    //Gets the List of Events that the user uploaded.
+    public ArrayList<Event> getUserEventList(String user) {
         final String parameters = "username=" + user;
 
         Thread thread;
@@ -385,11 +313,8 @@ public class RetrieveEvents {
             public void run() {
 
                 try {
-
                     // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-
                     // alot of boiler plate stuff
-
                     url = new URL("http://bruha.com/mobile_php/UserEventList.php?" + parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -408,17 +333,14 @@ public class RetrieveEvents {
                         sb.append(line + "\n");
                     }
                     // Response from server after login process will be stored in response variable.
-
                     // in this case the response is the echo from the php script (i.e = 1) if successful
-
                     response = sb.toString();
-                    Log.v("response",response);
+                 //   Log.v("response",response);
                     // You can perform UI operations here
                     isr.close();
                     reader.close();
-
                 } catch (IOException e) {
-                    // Error
+                    Log.v("Exception",e+"");
                 }
             }
         });
@@ -433,7 +355,6 @@ public class RetrieveEvents {
 
         try {
             JSONArray x = new JSONArray(response);
-
 
             for (int i = 0; i < x.length(); i++) {
                 JSONObject Event = x.getJSONObject(i);
@@ -456,27 +377,22 @@ public class RetrieveEvents {
                 even.setEventLocSt(Event.getString("venue_location"));
                 even.setEventPicture(Event.getString("image_link"));
 
-
                 mUserEvents.add(even);
             }
-
-
             //Log.v("TEST:", response);
             return mUserEvents;
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return mUserEvents;
     }
 
+    //The method to login.
     public String login(String mUsername, String mPassword)
     {
-
         // creates parameters for the DB call to attach to the "initial" URL
         // to attach more paramenters its of the form:
         // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
-
         final String parameters = "username="+mUsername+"&password="+mPassword;
 
         Thread thread;
@@ -487,11 +403,8 @@ public class RetrieveEvents {
 
                 try
                 {
-
                     // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-
                     // alot of boiler plate stuff
-
                     url = new URL("http://bruha.com/mobile_php/Login.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -511,18 +424,15 @@ public class RetrieveEvents {
                         sb.append(line + "\n");
                     }
                     // Response from server after login process will be stored in response variable.
-
                     // in this case the response is the echo from the php script (i.e = 1) if successful
-
                     response = sb.toString();
                     // You can perform UI operations here
                     isr.close();
                     reader.close();
-
                 }
                 catch(IOException e)
                 {
-                    // Error
+                   e.printStackTrace();
                 }
             }
         });
@@ -534,17 +444,6 @@ public class RetrieveEvents {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-
-
-        Log.v("Response",response);
-
-
-        // toasting the response from the server, gg
-
-
-        Log.v("The response is:", response);
-        Log.v("Is:", "This");
 
         double x = Double.parseDouble(response);
         int y= (int) x;
@@ -558,19 +457,14 @@ public class RetrieveEvents {
         else{ error="badCredentials"; }
 
         return error;
-
-
     }
 
-    public void Register(String mUsername, String mPassword,String mEmail)
+    //The method to register an account.
+    public void register(String mUsername, String mPassword, String mEmail)
     {
-
         // creates parameters for the DB call to attach to the "initial" URL
         // to attach more paramenters its of the form:
         // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
-
-
-
         final String parameters = "user_id="+mUsername+"&password="+mPassword+"&email="+mEmail;
 
         Thread thread;
@@ -605,18 +499,15 @@ public class RetrieveEvents {
                         sb.append(line + "\n");
                     }
                     // Response from server after login process will be stored in response variable.
-
                     // in this case the response is the echo from the php script (i.e = 1) if successful
-
                     response = sb.toString();
                     // You can perform UI operations here
                     isr.close();
                     reader.close();
-
                 }
                 catch(IOException e)
                 {
-                    // Error
+                    e.printStackTrace();
                 }
             }
         });
@@ -628,20 +519,10 @@ public class RetrieveEvents {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-
-
-        Log.v("The response is:", response);
-        Log.v("Is:","This");
-
-
-
-
     }
 
-    public ArrayList<String> GetUserInfo(String user) {
-
-
+    //Returns a String array containing information about the User.
+    public ArrayList<String> getUserInfo(String user) {
         ArrayList<String> UserInfo = new ArrayList<>();
 
         final String parameters = "username=" + user;
@@ -653,11 +534,8 @@ public class RetrieveEvents {
             public void run() {
 
                 try {
-
                     // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-
                     // alot of boiler plate stuff
-
                     url = new URL("http://bruha.com/mobile_php/UserInfo.php?" + parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -676,14 +554,11 @@ public class RetrieveEvents {
                         sb.append(line + "\n");
                     }
                     // Response from server after login process will be stored in response variable.
-
                     // in this case the response is the echo from the php script (i.e = 1) if successful
-
                     response = sb.toString();
                     // You can perform UI operations here
                     isr.close();
                     reader.close();
-
                 } catch (IOException e) {
                     // Error
                 }
@@ -691,7 +566,6 @@ public class RetrieveEvents {
         });
 
         thread.start();
-
         try {
             thread.join();
         } catch (InterruptedException e) {
@@ -700,7 +574,6 @@ public class RetrieveEvents {
 
         try {
             JSONArray x = new JSONArray(response);
-
 
             for (int i = 0; i < x.length(); i++) {
                 JSONObject User = x.getJSONObject(i);
@@ -716,42 +589,7 @@ public class RetrieveEvents {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
          return UserInfo;
     }
-
-
-    public Bitmap getBitmapFromURL(final String s){
-
-        final Bitmap[] myBitmap = new Bitmap[1];
-
-        Thread thread = new Thread(new Runnable(){
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL(s);
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    connection.setDoInput(true);
-                    connection.connect();
-                    InputStream input = connection.getInputStream();
-                    myBitmap[0] = BitmapFactory.decodeStream(input);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    myBitmap[0] = null;
-                }
-            }
-        });
-
-        thread.start();
-
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return myBitmap[0];
-    }
-
 }
 
