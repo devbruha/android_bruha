@@ -46,7 +46,8 @@
                     android:layout_height="match_parent"
                     android:id="@+id/map"
                     tools:context="com.bruha.bruha.Views.MapsActivity"
-                    android:name="com.google.android.gms.maps.SupportMapFragment"/>
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_marginBottom="30dp" />
 
                 <Button
                     style="?android:attr/buttonStyleSmall"

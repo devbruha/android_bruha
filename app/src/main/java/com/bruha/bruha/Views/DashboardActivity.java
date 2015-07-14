@@ -3,18 +3,15 @@ package com.bruha.bruha.Views;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.R;
@@ -26,11 +23,12 @@ import butterknife.OnClick;
 
 public class DashboardActivity extends ActionBarActivity {
 
-    @InjectView(R.id.UploadButton) TextView MyUploadButton;
-    @InjectView(R.id.TicketButton) TextView MyTicketButton;
-    @InjectView(R.id.ProfileButton) TextView ProfileButton;
-    @InjectView(R.id.HotButton) TextView HotButton;
-    @InjectView(R.id.AddictionButton) TextView AddictionButton;
+    @InjectView(R.id.UploadButton) TextView myUploadButton;
+    @InjectView(R.id.TicketButton) TextView myTicketButton;
+    @InjectView(R.id.ProfileButton) TextView profileButton;
+    @InjectView(R.id.HotButton) TextView hotButton;
+    @InjectView(R.id.AddictionButton) TextView addictionButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,17 +37,18 @@ public class DashboardActivity extends ActionBarActivity {
         ButterKnife.inject(this);
 
 
+
         // The condition for the if statement is determined by the static varaible "loginCheck" found
         // in the MyApplication class, by default the variable is set to false but on successful login
         // it gets set to true
 
-        //The MyUploadButton's implementation.
+        //The myUploadButton's implementation.
 
         if(MyApplication.loginCheck == true)
         {
 
             //MyUpload Button's Implementation.
-            MyUploadButton.setOnClickListener(new View.OnClickListener() {
+            myUploadButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     startUploadActivity(v);
@@ -57,7 +56,7 @@ public class DashboardActivity extends ActionBarActivity {
             });
 
             //MyTicket Button's Implementation.
-            MyTicketButton.setOnClickListener(new View.OnClickListener() {
+            myTicketButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     startTicketAcitivity(v);
@@ -65,7 +64,7 @@ public class DashboardActivity extends ActionBarActivity {
             });
 
             //Profile Button's Implementation
-            ProfileButton.setOnClickListener(new View.OnClickListener() {
+            profileButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     startProfileActivity(v);
@@ -73,7 +72,7 @@ public class DashboardActivity extends ActionBarActivity {
             });
 
             //Profile Button's Implementation
-            HotButton.setOnClickListener(new View.OnClickListener() {
+            hotButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     startHotActivity(v);
@@ -81,7 +80,7 @@ public class DashboardActivity extends ActionBarActivity {
             });
 
             //Profile Button's Implementation
-            AddictionButton.setOnClickListener(new View.OnClickListener() {
+            addictionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     startAddictionAcitivty(v);
@@ -91,49 +90,50 @@ public class DashboardActivity extends ActionBarActivity {
         else {
 
             //UploadButton's Implementation.
-            MyUploadButton.setTextColor(Color.WHITE);
-            MyUploadButton.setOnClickListener(new View.OnClickListener() {
+            myUploadButton.setTextColor(Color.WHITE);
+            myUploadButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    Toast.makeText(getApplicationContext(),"You Gotta Login First!!",Toast.LENGTH_LONG).show();
+                public void onClick(final View v) {
+                    showDialog();
                 }
             });
 
             //TicketButton's Implementation.
-            MyTicketButton.setTextColor(Color.WHITE);
-            MyTicketButton.setOnClickListener(new View.OnClickListener() {
+            myTicketButton.setTextColor(Color.WHITE);
+            myTicketButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getApplicationContext(),"You Gotta Login First!!",Toast.LENGTH_LONG).show();
+                    showDialog();
                 }
             });
 
 
             //WhatsHot's Implementation
             //Profile Button's Implementation
-            HotButton.setTextColor(Color.WHITE);
-            HotButton.setOnClickListener(new View.OnClickListener() {
+            hotButton.setTextColor(Color.WHITE);
+            hotButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getApplicationContext(),"You Gotta Login First!!",Toast.LENGTH_LONG).show();
+                    showDialog();
                 }
             });
 
             //Profile Button's Implementation
-            ProfileButton.setTextColor(Color.WHITE);
-            ProfileButton.setOnClickListener(new View.OnClickListener() {
+            profileButton.setTextColor(Color.WHITE);
+            profileButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getApplicationContext(), "You Gotta Login First!!", Toast.LENGTH_LONG).show();
+                    // Toast.makeText(getApplicationContext(), "You Gotta Login First!!", Toast.LENGTH_LONG).show();
+                    showDialog();
                 }
             });
 
 
-            AddictionButton.setTextColor(Color.WHITE);
-            AddictionButton.setOnClickListener(new View.OnClickListener() {
+            addictionButton.setTextColor(Color.WHITE);
+            addictionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getApplicationContext(),"You Gotta Login First!!", Toast.LENGTH_LONG).show();
+                    showDialog();
                 }
             });
         }
@@ -175,7 +175,6 @@ public class DashboardActivity extends ActionBarActivity {
         });
 
     }
-
 
     //The OnClickListeners for the DashBoard Buttons:
 
@@ -220,7 +219,6 @@ public class DashboardActivity extends ActionBarActivity {
     }
 
     //OnClickListener for "Explore" that leads to the Upload Activity.
-
     public void startUploadActivity(View view){
         Intent intent = new Intent(this, MyUploadsActivity.class);
         startActivity(intent);
@@ -233,7 +231,43 @@ public class DashboardActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    public void showDialog()
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Add the buttons
+        builder.setMessage("Oopse! You are not logged in!");
+        builder.setCancelable(true);
+        builder.setPositiveButton("Cancel!", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        builder.setNegativeButton("Sign in!", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                startLoginActivity(new View(getApplicationContext()));
+            }
+        });
+        builder.setNeutralButton("Sign up!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startRegisterActivity(new View(getApplicationContext()));
+            }
+        });
 
+        AlertDialog dialog = builder.create();
+        dialog.show();
 
+    }
 
+    public void startRegisterActivity(View view)
+    {
+        Intent intent = new Intent(this,RegisterActivity.class);
+        startActivity(intent);
+    }
+
+    public  void startLoginActivity(View view)
+    {
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
+    }
 }

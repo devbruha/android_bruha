@@ -370,6 +370,8 @@ public class MapsActivity extends FragmentActivity implements
                     selectedOrg.clear();
                     selectedVenues.clear();
 
+                    marker.showInfoWindow();
+
                     venueLocation = marker.getPosition();
 
                     double venueLat = venueLocation.latitude;
