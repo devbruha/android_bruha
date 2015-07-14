@@ -6,112 +6,112 @@ package com.bruha.bruha.Model;
 public class Artists {
 
     //Artists main Database data.
-    private int ArtistId;
-    private String ArtistName;
-    private String ArtistDescription;
+    private int artistId;
+    private String artistName;
+    private String artistDescription;
 
     //Artists Event Data.
-    private int ArtistEventId;
+    private int artistEventId;
 
     //Artists Media data.
-    private String ArtistPicture;
-    private int ArtistIcon;
+    private String artistPicture;
+    private int artistIcon;
 
     //Artists Contact data.
-    private String ContactName;
-    private String ContactPhoneNumber;
-    private String ContactEmail;
-    private String ContactWebsite;
-    private String ContactAddress;
+    private String contactName;
+    private String contactPhoneNumber;
+    private String contactEmail;
+    private String contactWebsite;
+    private String contactAddress;
 
 
     //The getters and setters for Aritists variables defined above.
 
     public int getArtistId() {
-        return ArtistId;
+        return artistId;
     }
 
     public void setArtistId(int artistId) {
-        ArtistId = artistId;
+        this.artistId = artistId;
     }
 
     public String getArtistName() {
-        return ArtistName;
+        return artistName;
     }
 
     public void setArtistName(String artistName) {
-        ArtistName = artistName;
+        this.artistName = artistName;
     }
 
     public String getArtistDescription() {
-        return ArtistDescription;
+        return artistDescription;
     }
 
     public void setArtistDescription(String artistDescription) {
-        ArtistDescription = artistDescription;
+        this.artistDescription = artistDescription;
     }
 
     public int getArtistEventId() {
-        return ArtistEventId;
+        return artistEventId;
     }
 
     public void setArtistEventId(int artistEventId) {
-        ArtistEventId = artistEventId;
+        this.artistEventId = artistEventId;
     }
 
     public String getArtistPicture() {
-        return ArtistPicture;
+        return artistPicture;
     }
 
     public void setArtistPicture(String artistPicture) {
-        ArtistPicture = artistPicture;
+        this.artistPicture = artistPicture;
     }
 
     public int getArtistIcon() {
-        return ArtistIcon;
+        return artistIcon;
     }
 
     public void setArtistIcon(int artistIcon) {
-        ArtistIcon = artistIcon;
+        this.artistIcon = artistIcon;
     }
 
     public String getContactName() {
-        return ContactName;
+        return contactName;
     }
 
     public void setContactName(String contactName) {
-        ContactName = contactName;
+        this.contactName = contactName;
     }
 
     public String getContactPhoneNumber() {
-        return ContactPhoneNumber;
+        return contactPhoneNumber;
     }
 
     public void setContactPhoneNumber(String contactPhoneNumber) {
-        ContactPhoneNumber = contactPhoneNumber;
+        this.contactPhoneNumber = contactPhoneNumber;
     }
 
     public String getContactEmail() {
-        return ContactEmail;
+        return contactEmail;
     }
 
     public void setContactEmail(String contactEmail) {
-        ContactEmail = contactEmail;
+        this.contactEmail = contactEmail;
     }
 
     public String getContactWebsite() {
-        return ContactWebsite;
+        return contactWebsite;
     }
 
     public void setContactWebsite(String contactWebsite) {
-        ContactWebsite = contactWebsite;
+        this.contactWebsite = contactWebsite;
     }
 
     public String getContactAddress() {
-        return ContactAddress;
+        return contactAddress;
     }
 
     public void setContactAddress(String contactAddress) {
-        ContactAddress = contactAddress;
+        this.contactAddress = contactAddress;
     }
 }
