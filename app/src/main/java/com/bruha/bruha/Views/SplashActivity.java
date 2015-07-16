@@ -65,7 +65,7 @@ public class SplashActivity extends Activity {
             int resId = 0;
             switch (position) {
                 case 0:
-                    resId = R.layout.activity_splash; //Set which Layout to be Displayed on Load.
+                    resId = R.layout.splash_bruha; //Set which Layout to be Displayed on Load.
                     break;
                 case 1:
                     resId = R.layout.splash_discover; //The first Layout to be shown when swiped.

@@ -2,7 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_gradient"
+                android:background="@drawable/concretebackground"
                 tools:context=".SplashActivity">
 
     <!-- The Swipe code to swipe between different layouts. -->
@@ -11,17 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome to Bruha!"
-        android:id="@+id/welcomeTextView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:singleLine="false"
-        android:textSize="24dp"
-        android:textColor="#ffffff"/>
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -49,10 +38,11 @@
             android:id="@+id/loginButton"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:background="@android:color/transparent"
+            android:background="#ff5030b0"
             android:textColor="#ffffff"
             android:text="Login"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:alpha="0.75" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -62,10 +52,11 @@
             android:id="@+id/registerButton"
             android:layout_above="@+id/loginButton"
             android:layout_centerHorizontal="true"
-            android:background="@android:color/transparent"
+            android:background="#ff5030b0"
             android:textColor="#ffffff"
 
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:alpha="0.75" />
     </TableRow>
 
 </RelativeLayout>
