@@ -86,6 +86,17 @@ public class ListActivity extends FragmentActivity {
 
         //Swipe stuff
         adapter.setMode(Attributes.Mode.Single);
+
+
+        //Setting the Event Button to tell user where we are
+        eventButton.setTextColor(Color.BLUE);
+        eventButton.setTypeface(null, Typeface.BOLD);
+        venueButton.setTypeface(null, Typeface.NORMAL);
+        orgButton.setTypeface(null, Typeface.NORMAL);
+        artistButton.setTypeface(null, Typeface.NORMAL);
+        venueButton.setTextColor(Color.BLACK);
+        artistButton.setTextColor(Color.BLACK);
+        orgButton.setTextColor(Color.BLACK);
     }
 
     private void init(){

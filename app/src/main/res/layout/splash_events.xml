@@ -73,8 +73,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:id="@+id/imageView105"
-                                android:src="@drawable/art" />
+                                android:id="@+id/imageart" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -85,9 +84,10 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="Tour"
+                                android:text="Art"
                                 android:id="@+id/textView105"
                                 android:textColor="#ffffff"
+                                android:gravity="center_vertical"
                                 android:textSize="27sp"/>
                         </LinearLayout>
                     </LinearLayout>
@@ -113,8 +113,8 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:id="@+id/imageView106"
-                                android:src="@drawable/ceremony" />
+                                android:id="@+id/imageceremony"
+                                 />
                         </LinearLayout>
 
                         <LinearLayout
@@ -125,8 +125,9 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="Tour"
+                                android:text="Ceremony"
                                 android:id="@+id/textView106"
+                                android:gravity="center_vertical"
                                 android:textColor="#ffffff"
                                 android:textSize="27sp"/>
                         </LinearLayout>
@@ -153,8 +154,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:id="@+id/imageView110"
-                                android:src="@drawable/comedy" />
+                                android:id="@+id/imagecomedy" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -166,6 +166,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="Comedy"
+                                android:gravity="center_vertical"
                                 android:id="@+id/textView300"
                                 android:textColor="#ffffff"
                                 android:textSize="27sp"/>
@@ -192,8 +193,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:id="@+id/imageView111"
-                                android:src="@drawable/festivels" />
+                                android:id="@+id/imagefestival" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -205,6 +205,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="Festivals"
+                                android:gravity="center_vertical"
                                 android:id="@+id/textView301"
                                 android:textColor="#ffffff"
                                 android:textSize="27sp"/>
@@ -231,8 +232,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:id="@+id/imageView112"
-                                android:src="@drawable/foodsdrinks" />
+                                android:id="@+id/imagefood" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -245,6 +245,7 @@
                                 android:layout_height="match_parent"
                                 android:text="Food &amp; Drink"
                                 android:id="@+id/textView302"
+                                android:gravity="center_vertical"
                                 android:textColor="#ffffff"
                                 android:textSize="23sp"/>
                         </LinearLayout>
@@ -270,8 +271,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:id="@+id/imageView113"
-                                android:src="@drawable/party" />
+                                android:id="@+id/imageparty" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -284,6 +284,7 @@
                                 android:layout_height="match_parent"
                                 android:text="Party"
                                 android:id="@+id/textView303"
+                                android:gravity="center_vertical"
                                 android:textColor="#ffffff"
                                 android:textSize="27sp"/>
                         </LinearLayout>
@@ -310,8 +311,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:id="@+id/imageView114"
-                                android:src="@drawable/political" />
+                                android:id="@+id/imagepolitical" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -323,6 +323,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="Political"
+                                android:gravity="center_vertical"
                                 android:id="@+id/textView304"
                                 android:textColor="#ffffff"
                                 android:textSize="27sp"/>
@@ -349,8 +350,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:id="@+id/imageView115"
-                                android:src="@drawable/social" />
+                                android:id="@+id/imagesocial" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -362,6 +362,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="Social"
+                                android:gravity="center_vertical"
                                 android:id="@+id/textView305"
                                 android:textColor="#ffffff"
                                 android:textSize="27sp"/>
@@ -388,8 +389,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:id="@+id/imageView116"
-                                android:src="@drawable/tech" />
+                                android:id="@+id/imagetech" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -402,6 +402,7 @@
                                 android:layout_height="match_parent"
                                 android:text="Tech"
                                 android:id="@+id/textView306"
+                                android:gravity="center_vertical"
                                 android:textColor="#ffffff"
                                 android:textSize="27sp"/>
                         </LinearLayout>
@@ -440,8 +441,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:id="@+id/imageView5"
-                                android:src="@drawable/business" />
+                                android:id="@+id/imagebusiness" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -454,6 +454,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="Business"
+                                android:gravity="center_vertical"
                                 android:id="@+id/textView12"
                                 android:textColor="#ffffff"
                                 android:textSize="27sp"/>
@@ -482,8 +483,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:id="@+id/imageView6"
-                                android:src="@drawable/club" />
+                                android:id="@+id/imageclub" />
                         </LinearLayout>
 
                             <LinearLayout
@@ -496,6 +496,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:text="Club"
+                                    android:gravity="center_vertical"
                                     android:id="@+id/textView14"
                                     android:textColor="#ffffff"
                                     android:textSize="27sp"/>
@@ -525,8 +526,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:id="@+id/imageView7"
-                                android:src="@drawable/fashion" />
+                                android:id="@+id/imagefashion" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -538,6 +538,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="Fashion"
+                                android:gravity="center_vertical"
                                 android:id="@+id/textView134"
                                 android:textColor="#ffffff"
                                 android:textSize="27sp"/>
@@ -565,8 +566,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:id="@+id/imageView8"
-                                android:src="@drawable/film" />
+                                android:id="@+id/imagefilm" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -578,6 +578,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="Film"
+                                android:gravity="center_vertical"
                                 android:id="@+id/textView144"
                                 android:textColor="#ffffff"
                                 android:textSize="27sp"/>
@@ -605,8 +606,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:id="@+id/imageView9"
-                                android:src="@drawable/music" />
+                                android:id="@+id/imagemusic" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -619,6 +619,7 @@
                                 android:layout_height="match_parent"
                                 android:text="Music"
                                 android:id="@+id/textView114"
+                                android:gravity="center_vertical"
                                 android:textColor="#ffffff"
                                 android:textSize="27sp"/>
                         </LinearLayout>
@@ -645,8 +646,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:id="@+id/imageView2"
-                                android:src="@drawable/performingarts" />
+                                android:id="@+id/imageperforming" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -659,6 +659,7 @@
                                 android:layout_height="match_parent"
                                 android:text="Performing Arts"
                                 android:id="@+id/textView308"
+                                android:gravity="center_vertical"
                                 android:textColor="#ffffff"
                                 android:textSize="20sp"/>
                         </LinearLayout>
@@ -686,8 +687,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:id="@+id/imageView124"
-                                android:src="@drawable/school" />
+                                android:id="@+id/imageschool" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -699,6 +699,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="School"
+                                android:gravity="center_vertical"
                                 android:id="@+id/textView101"
                                 android:textColor="#ffffff"
                                 android:textSize="27sp"/>
@@ -726,8 +727,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:id="@+id/imageView19"
-                                android:src="@drawable/sports" />
+                                android:id="@+id/imagesports" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -741,6 +741,7 @@
                                 android:text="Sports"
                                 android:id="@+id/textView102"
                                 android:textColor="#ffffff"
+                                android:gravity="center_vertical"
                                 android:textSize="27sp"/>
                         </LinearLayout>
                     </LinearLayout>
@@ -765,8 +766,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:id="@+id/imageView91"
-                                android:src="@drawable/tour" />
+                                android:id="@+id/imagetour" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -780,6 +780,7 @@
                                 android:text="Tour"
                                 android:id="@+id/textView103"
                                 android:textColor="#ffffff"
+                                android:gravity="center_vertical"
                                 android:textSize="27sp"/>
                         </LinearLayout>
                     </LinearLayout>

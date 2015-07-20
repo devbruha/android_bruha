@@ -27,46 +27,95 @@
             android:layout_weight="0.25"
             android:gravity="center">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:weightSum="8"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Events"
-                    android:textSize="30sp"
-                    android:textColor="#ffffff"
-                    android:id="@+id/textView"
-                    android:layout_centerInParent="true"
-                    android:textStyle="bold"
-                    />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Discover Events"
-                    android:id="@+id/textView6"
-                    android:layout_below="@+id/textView"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="#ffffff"
-                    android:alpha="0.60"
-                    />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="You Can Discover"
-                    android:gravity="center_horizontal"
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:textSize="25sp"
-                    android:id="@+id/textView9"
-                    android:background="@android:color/black"/>
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="You Can Discover"
+                        android:gravity="center_horizontal"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:textSize="25sp"
+                        android:id="@+id/textView9"
+                        android:background="@android:color/black"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_weight="2"
+                    android:weightSum="8"
+                    android:layout_height="match_parent">
 
 
-            </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_weight="5"
+                        android:weightSum="2"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:id="@+id/imageView2" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:id="@+id/imageevent" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_weight="3"
+                        android:layout_height="match_parent">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="Discover Events"
+                                android:id="@+id/discoverEventDes"
+                                android:layout_below="@+id/discoverEvent"
+                                android:textColor="#ffffff"
+                                android:alpha="0.60"
+                                android:layout_marginLeft="10dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Events"
+                                android:layout_centerVertical="true"
+                                android:textSize="30sp"
+                                android:textColor="#ffffff"
+                                android:id="@+id/discoverEvent"
+                                android:textStyle="bold"
+                                android:layout_marginLeft="10dp" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
 
 
         </TableRow>
@@ -77,39 +126,170 @@
             android:layout_weight="0.25"
             >
 
-
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:weightSum="8"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Locate Venues"
-                    android:id="@+id/textView5"
-                    android:layout_below="@+id/textView1"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="#ffffff"
-                    android:alpha="0.60"
-                    />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="7"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:weightSum="8"
+                    android:layout_height="match_parent">
 
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_weight="5"
+                        android:weightSum="2"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:id="@+id/imageView4" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:id="@+id/imagevenue" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_weight="3"
+                        android:layout_height="match_parent">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="Locate Venues"
+                                android:id="@+id/discoverVenuesDes"
+                                android:layout_below="@+id/discoverVenues"
+                                android:textColor="#ffffff"
+                                android:alpha="0.60"
+                                android:layout_marginLeft="10dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Venues"
+                                android:layout_centerVertical="true"
+                                android:textSize="30sp"
+                                android:textColor="#ffffff"
+                                android:id="@+id/discoverVenues"
+                                android:textStyle="bold"
+                                android:layout_marginLeft="10dp" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:weightSum="8"
+                android:layout_height="match_parent">
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Venues"
-                    android:textSize="30sp"
-                    android:textColor="#ffffff"
-                    android:id="@+id/textView1"
-                    android:layout_centerInParent="true"
-                    android:textStyle="bold"
-                    />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="7"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:weightSum="8"
+                    android:layout_height="match_parent">
 
 
-            </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_weight="5"
+                        android:weightSum="2"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:id="@+id/imageView6" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:id="@+id/imageartist" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_weight="3"
+                        android:layout_height="match_parent">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="Recognize Artists"
+                                android:id="@+id/discoverArtistDes"
+                                android:layout_below="@+id/discoverArtist"
+                                android:textColor="#ffffff"
+                                android:alpha="0.60"
+                                android:layout_marginLeft="10dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Artists"
+                                android:layout_centerVertical="true"
+                                android:textSize="30sp"
+                                android:textColor="#ffffff"
+                                android:id="@+id/discoverArtist"
+                                android:textStyle="bold"
+                                android:layout_marginLeft="10dp" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
 
 
         </TableRow>
@@ -120,75 +300,85 @@
             android:layout_weight="0.25"
             android:gravity="center">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:weightSum="8"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Artists"
-                    android:textSize="30sp"
-                    android:textColor="#ffffff"
-                    android:id="@+id/textView2"
-                    android:textStyle="bold"
-                    android:layout_centerInParent="true"
-                    />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Recognize Artists"
-                    android:id="@+id/textView7"
-                    android:layout_below="@+id/textView2"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="#ffffff"
-                    android:alpha="0.60"
-                    />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="7"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:weightSum="8"
+                    android:layout_height="match_parent">
 
 
-        </TableRow>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_weight="5"
+                        android:weightSum="2"
+                        android:layout_height="match_parent">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.25"
-            android:gravity="center">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:id="@+id/imageView8" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:id="@+id/imageoutfit" />
+                    </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Outfits"
-                    android:textSize="30sp"
-                    android:textColor="#ffffff"
-                    android:id="@+id/textView3"
-                    android:textStyle="bold"
-                    android:layout_centerInParent="true"
-                    />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_weight="3"
+                        android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Discover Events"
-                    android:id="@+id/textView8"
-                    android:layout_below="@+id/textView3"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="#ffffff"
-                    android:alpha="0.60"
-                    />
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="Find Local Outfits"
+                                android:id="@+id/discoverOutfitsDes"
+                                android:layout_below="@+id/discoverOutfits"
+                                android:textColor="#ffffff"
+                                android:alpha="0.60"
+                                android:layout_marginLeft="10dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Outfits"
+                                android:layout_centerVertical="true"
+                                android:textSize="30sp"
+                                android:textColor="#ffffff"
+                                android:id="@+id/discoverOutfits"
+                                android:textStyle="bold"
+                                android:layout_marginLeft="10dp" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
 
 
-
-            </RelativeLayout>
-
+            </LinearLayout>
 
         </TableRow>
 
