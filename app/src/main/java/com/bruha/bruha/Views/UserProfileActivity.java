@@ -123,8 +123,11 @@ public class UserProfileActivity extends ActionBarActivity {
     public void logout(View view)
     {
         MyApplication.loginCheck = false;
-        dbHelper.onLogout(dbHelper.getWritableDatabase(),1,1);
+        dbHelper.onLogout(dbHelper.getWritableDatabase(), 1, 1);
         Intent intent = new Intent(this, SplashActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        finish();
+
     }
 }

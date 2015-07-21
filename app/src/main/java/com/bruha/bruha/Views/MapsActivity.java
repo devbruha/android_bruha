@@ -1,9 +1,13 @@
 package com.bruha.bruha.Views;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -12,8 +16,10 @@ import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.bruha.bruha.Adapters.MapListViewAdapter;
 import com.bruha.bruha.Adapters.MapOrganizationListViewAdapter;
@@ -25,6 +31,8 @@ import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.Venues;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
+import com.caverock.androidsvg.SVG;
+import com.caverock.androidsvg.SVGParseException;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -43,6 +51,7 @@ import butterknife.InjectView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+
 public class MapsActivity extends FragmentActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
@@ -54,11 +63,26 @@ public class MapsActivity extends FragmentActivity implements
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
     @InjectView(android.R.id.list) ListView mListView;
-    @InjectView(R.id.venueButton) Button venueButton;
-    @InjectView(R.id.artistButton) Button artistButton;
-    @InjectView(R.id.orgButton) Button orgButton;
-    @InjectView(R.id.eventButton) Button eventButton;
     MapListViewAdapter adapter;
+
+    //Filter stuff:
+    //The Linear layout to be set OnCLickListener to and background changing.
+    @InjectView(R.id.venueButton) LinearLayout venueButton;
+    @InjectView(R.id.artistButton) LinearLayout artistButton;
+    @InjectView(R.id.eventButton) LinearLayout eventButton;
+    @InjectView(R.id.outfitButton) LinearLayout orgButton;
+
+    //The Image Views to set and Change for the Filters
+    @InjectView(R.id.eventButtonImage) ImageView eventImage;
+    @InjectView(R.id.venueButtonImage) ImageView venueImage;
+    @InjectView(R.id.artistButtonImage) ImageView artistImage;
+    @InjectView(R.id.outfitButtonImage) ImageView outfitImage;
+
+    //The TextViews to be RESIZED(HELLO,RESIZE EM!!) and Changed.
+    @InjectView(R.id.filtereventtext) TextView eventText;
+    @InjectView(R.id.filtervenuetext) TextView venueText;
+    @InjectView(R.id.filterartisttext) TextView artistText;
+    @InjectView(R.id.filteroutfittext) TextView outfitText;
 
     //private UserCustomFilters mUserCustomFilters;
 
@@ -109,7 +133,29 @@ public class MapsActivity extends FragmentActivity implements
         retrieveEvents();
         setEventMarkers();
         setUpperPanel();
+
+        if(MyApplication.filterTracker.equals("Event"))
+        {
+            eventButton(null);
+        }
+
+        else if(MyApplication.filterTracker.equals("Venue"))
+        {
+            venueButton(null);
+        }
+
+        else if(MyApplication.filterTracker.equals("Outfit"))
+        {
+            orgButton(null);
+        }
+
+        else{
+
+        }
+
     }
+
+
 
     @Override
     protected void onResume() {
@@ -531,56 +577,89 @@ public class MapsActivity extends FragmentActivity implements
         finish();
     }
 
-    @OnClick(R.id.orgButton)
+    @OnClick(R.id.outfitButton)
     public void orgButton(View view)
     {
+
+        MyApplication.filterTracker = "Outfit";
         mMap.clear();
         setOrgMarkers();
-        orgButton.setTextColor(Color.BLUE);
-        orgButton.setTypeface(null, Typeface.BOLD);
+        //Changing shit:
+        orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
+        artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
+        eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
+        venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
 
-        venueButton.setTypeface(null, Typeface.NORMAL);
-        artistButton.setTypeface(null, Typeface.NORMAL);
-        eventButton.setTypeface(null, Typeface.NORMAL);
+        eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventwhite, 50));
+        venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venuewhite, 50));
+        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistwhite, 50));
+        outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitorange, 50));
 
-        venueButton.setTextColor(Color.BLACK);
-        artistButton.setTextColor(Color.BLACK);
-        eventButton.setTextColor(Color.BLACK);
+        outfitText.setTextColor(Color.parseColor("#FFFFBB33"));
+        venueText.setTextColor(Color.parseColor("#ffffff"));
+        eventText.setTextColor(Color.parseColor("#ffffff"));
+        artistText.setTextColor(Color.parseColor("#ffffff"));
     }
 
     @OnClick(R.id.eventButton)
     public void eventButton(View view)
     {
+        MyApplication.filterTracker = "Event";
         mMap.clear();
         setEventMarkers();
 
-        eventButton.setTextColor(Color.BLUE);
-        eventButton.setTypeface(null, Typeface.BOLD);
+        //Changing shit:
+        eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
+        artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
+        venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
+        orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
 
-        venueButton.setTypeface(null, Typeface.NORMAL);
-        orgButton.setTypeface(null, Typeface.NORMAL);
-        artistButton.setTypeface(null, Typeface.NORMAL);
+        eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventorange, 50));
+        venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venuewhite, 50));
+        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistwhite, 50));
+        outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
 
-        venueButton.setTextColor(Color.BLACK);
-        artistButton.setTextColor(Color.BLACK);
-        orgButton.setTextColor(Color.BLACK);
+        eventText.setTextColor(Color.parseColor("#FFFFBB33"));
+        venueText.setTextColor(Color.parseColor("#ffffff"));
+        outfitText.setTextColor(Color.parseColor("#ffffff"));
+        artistText.setTextColor(Color.parseColor("#ffffff"));
     }
 
     @OnClick(R.id.venueButton)
     public void venueButton(View view)
     {
+        MyApplication.filterTracker = "Venue";
         mMap.clear();
         setVenueMarkers();
-        venueButton.setTextColor(Color.BLUE);
-        venueButton.setTypeface(null, Typeface.BOLD);
+        //Changing shit:
+        venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
+        artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
+        eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
+        orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
 
-        artistButton.setTypeface(null, Typeface.NORMAL);
-        orgButton.setTypeface(null, Typeface.NORMAL);
-        eventButton.setTypeface(null, Typeface.NORMAL);
-        eventButton.setTextColor(Color.BLACK);
-        artistButton.setTextColor(Color.BLACK);
-        orgButton.setTextColor(Color.BLACK);
+        eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventwhite, 50));
+        venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venueorange, 50));
+        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistwhite, 50));
+        outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
     }
 
+    //SVG SHIT:
+    public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
+        try {
+            size = (int)(size*res.getDisplayMetrics().density);
+            SVG svg = SVG.getFromResource(getApplicationContext(), resource);
 
+            Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bmp);
+            svg.renderToCanvas(canvas);
+
+            BitmapDrawable drawable = new BitmapDrawable(res, bmp);
+
+
+            return drawable;
+        }catch(SVGParseException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

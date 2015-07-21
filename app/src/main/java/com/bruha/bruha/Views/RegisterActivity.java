@@ -1,5 +1,8 @@
 package com.bruha.bruha.Views;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -9,6 +12,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import com.bruha.bruha.PHP.RetrievePHP;
 import com.bruha.bruha.R;
@@ -22,6 +26,12 @@ public class RegisterActivity extends ActionBarActivity {
     @InjectView(R.id.registerPasswordEditText) EditText mRegisterPasswordEditText;
     @InjectView(R.id.registerEmailEditText) EditText mRegisterEmailEditText;
 
+    //Injevting the Buttons:
+    @InjectView(R.id.createAccountButton) Button registerButton;
+    @InjectView(R.id.continueNotRegisteredButton) Button noRegisterButton;
+    @InjectView(R.id.registerLoginButton) Button loginButton;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +39,65 @@ public class RegisterActivity extends ActionBarActivity {
 
         // using ButterKnife.inject to allow the InjectViews to take effect
         ButterKnife.inject(this);
+
+
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(registerButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        registerButton.setAlpha(1f);
+                        createAccount(null);
+                    }
+                });
+                animator.start();
+            }
+        });
+
+        noRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(noRegisterButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        noRegisterButton.setAlpha(1f);
+                        proceedWithoutAccount(null);
+                    }
+                });
+                animator.start();
+            }
+        });
+
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(loginButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        loginButton.setAlpha(1f);
+                        startLoginActivity(null);
+                    }
+                });
+                animator.start();
+            }
+        });
+
+
     }
+
+   private void startLoginActivity(View view)
+   {
+       Intent intent = new Intent(this,LoginActivity.class);
+       startActivity(intent);
+       finish();
+   }
+
 
     // A function to call the AlertDialogFragment Activity
     private void alertUserAboutError(String errorTitle, String errorMessage) {
@@ -150,7 +218,6 @@ public class RegisterActivity extends ActionBarActivity {
 
     // Setting the listeners for the choice the user is to make on button click
 
-    @OnClick(R.id.createAccountButton)
     public void createAccount(View view){
 
         // Retrieving the entered information and converting to string.

@@ -9,6 +9,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -72,6 +73,8 @@ public class FilterView {
         datesSaved = ((MyApplication) mActivity.getApplicationContext()).getSavedDates();
 
         quickieSaved = ((MyApplication) mActivity.getApplicationContext()).getSavedQuickie();
+
+
     }
 
     public void init(){
@@ -95,27 +98,7 @@ public class FilterView {
         setAdmissionPrice();
     }
 
-    public void initArtist()
-    {
 
-        setPanel();
-
-        // Setting and storing the quickie filters.
-
-        setQuickieList();
-
-        // Simultaneously setting calendar and updating the user custom filters
-
-       // setCalendar();
-
-        // Simultaneously setting the category lists and updating the user custom filters
-
-        setCategoryList();
-
-        //admission price is added to userCustomFilters within its function
-
-        setAdmissionPrice();
-    }
 
     private void setPanel(){
 
@@ -132,10 +115,6 @@ public class FilterView {
 
         // Creating buttons for all the buttons on the sliding panel handle
 
-        Button eventButton = (Button)mActivity.findViewById(R.id.eventButton);
-        Button venueButton = (Button)mActivity.findViewById(R.id.venueButton);
-        Button artistButton = (Button)mActivity.findViewById(R.id.artistButton);
-        Button orgButton = (Button)mActivity.findViewById(R.id.orgButton);
 
         // Finding the handle layout
 

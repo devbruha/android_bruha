@@ -1,5 +1,8 @@
 package com.bruha.bruha.Views;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -8,7 +11,10 @@ import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.PHP.RetrievePHP;
@@ -31,6 +37,11 @@ public class LoginActivity extends ActionBarActivity {
     @InjectView(R.id.loginUsernameEditText) EditText mLoginUsernameEditText;
     @InjectView(R.id.loginPasswordEditText) EditText mLoginPasswordEditText;
 
+    @InjectView(R.id.loginButton) Button loginButton;
+    @InjectView(R.id.continueNotLoggedButton) Button noLoginButton;
+    @InjectView(R.id.loginRegisterButton) Button registerButton;
+
+
     // Create the local DB object
     SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
 
@@ -41,6 +52,60 @@ public class LoginActivity extends ActionBarActivity {
 
         // using ButterKnife.inject to allow the InjectViews to take effect
         ButterKnife.inject(this);
+
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(loginButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        loginButton.setAlpha(1f);
+                        loginAccount(null);
+                    }
+                });
+                animator.start();
+            }
+        });
+
+        noLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(noLoginButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        noLoginButton.setAlpha(1f);
+                        proceedWithoutAccount(null);
+                    }
+                });
+                animator.start();
+            }
+        });
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(registerButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        registerButton.setAlpha(1f);
+                        startRegisterActivity(null);
+                    }
+                });
+                animator.start();
+            }
+        });
+
+    }
+
+    private void startRegisterActivity(View view)
+    {
+        Intent intent = new Intent(this,RegisterActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     // A function to call the AlertDialogFragment Activity
@@ -137,7 +202,7 @@ public class LoginActivity extends ActionBarActivity {
         return error;
     }
 
-    @OnClick(R.id.loginButton)
+
     public void loginAccount(View view){
 
         // Retrieving the entered information and converting to string
@@ -204,7 +269,9 @@ public class LoginActivity extends ActionBarActivity {
 
                 // Start the next activity right here
                 Intent intent = new Intent(this, DashboardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                finish();
 
                 break;
 
@@ -215,7 +282,7 @@ public class LoginActivity extends ActionBarActivity {
         }
     }
 
-    @OnClick(R.id.continueNotLoggedButton)
+
     public void proceedWithoutAccount(View view){
 
         Intent intent = new Intent(this, DashboardActivity.class);

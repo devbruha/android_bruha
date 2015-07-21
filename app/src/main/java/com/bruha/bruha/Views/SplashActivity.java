@@ -1,5 +1,8 @@
 package com.bruha.bruha.Views;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bruha.bruha.R;
 import com.caverock.androidsvg.SVG;
@@ -52,22 +56,60 @@ public class SplashActivity extends Activity {
         pager.setCurrentItem(0);                                 //The first page to be displayed in the
 
 
-        LinearLayout loginButton = (LinearLayout) findViewById(R.id.splashloginButton);
-        LinearLayout registerButton = (LinearLayout) findViewById(R.id.splashregisterButton);
+        final LinearLayout loginButton = (LinearLayout) findViewById(R.id.splashloginButton);
+        final LinearLayout registerButton = (LinearLayout) findViewById(R.id.splashregisterButton);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startLoginActivity(v);
+            public void onClick(final View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(loginButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        loginButton.setAlpha(1f);
+                        startLoginActivity(null);
+                    }
+                });
+                animator.start();
             }
         });
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startRegisterActivity(v);
+            public void onClick(final View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(registerButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        registerButton.setAlpha(1f);
+                        startRegisterActivity(null);
+                    }
+                });
+                animator.start();
             }
         });
+
+        resize();
+    }
+
+    private void resize()
+    {
+        // Android functions to determine the screen dimensions.
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        // Storing the screen height into an int variable..
+        int height = size.y;
+
+        int x= (int)Math.round(height * .045);
+
+        TextView loginText = (TextView) findViewById(R.id.splashLoginText);
+        TextView registerText = (TextView) findViewById(R.id.splashRegisterText);
+        loginText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        registerText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+
+
     }
 
     public void startLoginActivity(View view)
@@ -81,6 +123,7 @@ public class SplashActivity extends Activity {
     {
         Intent intent = new Intent(this,RegisterActivity.class);
         startActivity(intent);
+
     }
 
     public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
@@ -121,22 +164,7 @@ public class SplashActivity extends Activity {
     }
 
 
-   /*
-    //Button to proceed to the Login page.
-    @OnClick(R.id.loginButton)
-    public void login(View view){
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
 
-
-    //Button to proceed to register Activity.
-    @OnClick(R.id.registerButton)
-    public void register(View view){
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
-    }
-    */
 
     //Button to skip the logging in process.
     @OnClick(R.id.noLoginButton)

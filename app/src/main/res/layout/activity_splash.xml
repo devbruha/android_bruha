@@ -134,7 +134,7 @@
                                 android:layout_height="match_parent"
                                 android:text=" Login"
                                 android:gravity="center_vertical"
-                                android:id="@+id/textView"
+                                android:id="@+id/splashLoginText"
                                 android:textColor="#ffffff"
                                 android:textSize="28sp"
                                 android:textStyle="bold" />
@@ -171,7 +171,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="  Register"
-                                android:id="@+id/textView2"
+                                android:id="@+id/splashRegisterText"
                                 android:gravity="center_vertical"
                                 android:textSize="25sp"
                                 android:textColor="#ffffff"
