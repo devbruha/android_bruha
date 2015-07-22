@@ -24,6 +24,8 @@ public class MyApplication extends Application{
 
     public static boolean loginCheck = false;
 
+    public static String filterTracker = "Event";
+
     public static ArrayList<Event> sourceEvents= new ArrayList<>();
     public static ArrayList<String> sourceEventsID= new ArrayList<>();
 

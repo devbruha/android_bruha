@@ -6,129 +6,129 @@ package com.bruha.bruha.Model;
 public class Venues {
 
     //Venue main Database data.
-    private int VenueId;
-    private String VenueName;
-    private String VenueLocation;
-    private String VenueDescription;
+    private int venueId;
+    private String venueName;
+    private String venueLocation;
+    private String venueDescription;
 
     //Venue Media data.
-    private String VenuePicture;
-    private int VenueCategoryIcon;
+    private String venuePicture;
+    private int venueCategoryIcon;
 
     //Venue Contact data.
-    private String ContactName;
-    private String ContactPhoneNumber;
-    private String ContactEmail;
-    private String ContactWebsite;
-    private String ContactAddress;
+    private String contactName;
+    private String contactPhoneNumber;
+    private String contactEmail;
+    private String contactWebsite;
+    private String contactAddress;
 
     //Venue Location
-    private double Lat;
-    private double Lng;
+    private double lat;
+    private double lng;
 
     public double getLat() {
-        return Lat;
+        return lat;
     }
 
     public void setLat(double lat) {
-        Lat = lat;
+        this.lat = lat;
     }
 
     public double getLng() {
-        return Lng;
+        return lng;
     }
 
     public void setLng(double lng) {
-        Lng = lng;
+        this.lng = lng;
     }
     //All the Getters and Setters:
 
     public int getVenueId() {
-        return VenueId;
+        return venueId;
     }
 
     public void setVenueId(int venueId) {
-        VenueId = venueId;
+        this.venueId = venueId;
     }
 
     public String getVenueName() {
-        return VenueName;
+        return venueName;
     }
 
     public void setVenueName(String venueName) {
-        VenueName = venueName;
+        this.venueName = venueName;
     }
 
     public String getVenueLocation() {
-        return VenueLocation;
+        return venueLocation;
     }
 
     public void setVenueLocation(String venueLocation) {
-        VenueLocation = venueLocation;
+        this.venueLocation = venueLocation;
     }
 
     public String getVenueDescription() {
-        return VenueDescription;
+        return venueDescription;
     }
 
     public void setVenueDescription(String venueDescription) {
-        VenueDescription = venueDescription;
+        this.venueDescription = venueDescription;
     }
 
     public String getVenuePicture() {
-        return VenuePicture;
+        return venuePicture;
     }
 
     public void setVenuePicture(String venuePicture) {
-        VenuePicture = venuePicture;
+        this.venuePicture = venuePicture;
     }
 
     public int getVenueCategoryIcon() {
-        return VenueCategoryIcon;
+        return venueCategoryIcon;
     }
 
     public void setVenueCategoryIcon(int venueCategoryIcon) {
-        VenueCategoryIcon = venueCategoryIcon;
+        this.venueCategoryIcon = venueCategoryIcon;
     }
 
     public String getContactName() {
-        return ContactName;
+        return contactName;
     }
 
     public void setContactName(String contactName) {
-        ContactName = contactName;
+        this.contactName = contactName;
     }
 
     public String getContactPhoneNumber() {
-        return ContactPhoneNumber;
+        return contactPhoneNumber;
     }
 
     public void setContactPhoneNumber(String contactPhoneNumber) {
-        ContactPhoneNumber = contactPhoneNumber;
+        this.contactPhoneNumber = contactPhoneNumber;
     }
 
     public String getContactEmail() {
-        return ContactEmail;
+        return contactEmail;
     }
 
     public void setContactEmail(String contactEmail) {
-        ContactEmail = contactEmail;
+        this.contactEmail = contactEmail;
     }
 
     public String getContactWebsite() {
-        return ContactWebsite;
+        return contactWebsite;
     }
 
     public void setContactWebsite(String contactWebsite) {
-        ContactWebsite = contactWebsite;
+        this.contactWebsite = contactWebsite;
     }
 
     public String getContactAddress() {
-        return ContactAddress;
+        return contactAddress;
     }
 
     public void setContactAddress(String contactAddress) {
-        ContactAddress = contactAddress;
+        this.contactAddress = contactAddress;
     }
 
 

@@ -141,6 +141,7 @@
     <orderEntry type="library" exported="" name="caldroid-2.0.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-plus-7.3.0" level="project" />
     <orderEntry type="library" exported="" name="hirondelle-date4j-1.5.1" level="project" />
+    <orderEntry type="library" exported="" name="androidsvg-1.2.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-wearable-7.3.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-appstate-7.3.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-games-7.3.0" level="project" />

@@ -18,53 +18,239 @@
             android:layout_width="match_parent"
             android:layout_height="68dp"
             android:id="@+id/handleLayout"
-            android:weightSum="1"
+            android:weightSum="4"
             android:orientation="horizontal"
-            android:background="@android:color/transparent"
+            android:background="#ff252525"
             android:clickable="true"
-            android:baselineAligned="false">
 
-            <Button
-                android:id="@+id/eventButton"
-                android:layout_width="wrap_content"
+            android:baselineAligned="false"
+            android:alpha="0.60">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:clickable="true"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:textSize="14sp"
-                android:layout_weight="0.25"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:text="Events"
-                />
+                android:background="@drawable/border"
+                android:id="@+id/eventButton">
 
-            <Button
-                android:id="@+id/venueButton"
-                android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:weightSum="4"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+
+
+
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_marginTop="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/eventButtonImage" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:layout_height="match_parent">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Events"
+                            android:textSize="10sp"
+                            android:layout_marginBottom="3dp"
+                            android:textColor="#ffffff"
+                            android:id="@+id/filtereventtext" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:clickable="true"
                 android:layout_height="match_parent"
-                android:textSize="14sp"
-                android:layout_weight="0.25"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:text="Venues"/>
+                android:background="@drawable/border"
+                android:id="@+id/venueButton">
 
-            <Button
-                android:id="@+id/artistButton"
-                android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:weightSum="4"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+
+
+
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="3dp"
+                            android:id="@+id/venueButtonImage" />
+
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:layout_height="match_parent">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Venues"
+                            android:textSize="10sp"
+                            android:layout_marginBottom="3dp"
+                            android:textColor="#ffffff"
+                            android:id="@+id/filtervenuetext" />
+
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:clickable="true"
                 android:layout_height="match_parent"
-                android:textSize="14sp"
-                android:layout_weight="0.25"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:text="Artists"/>
+                android:background="@drawable/border"
+                android:id="@+id/artistButton">
 
-            <Button
-                android:id="@+id/orgButton"
-                android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:weightSum="4"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+
+
+
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="3dp"
+                            android:layout_height="match_parent"
+                            android:id="@+id/artistButtonImage" />
+
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:layout_height="match_parent">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Artists"
+                            android:textColor="#ffffff"
+                            android:textSize="10sp"
+                            android:id="@+id/filterartisttext" />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:clickable="true"
                 android:layout_height="match_parent"
-                android:textSize="14sp"
-                android:layout_weight="0.25"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:text="Organizations"/>
+                android:background="@drawable/border"
+                android:id="@+id/outfitButton">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:weightSum="4"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+
+
+
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="3dp"
+                            android:id="@+id/outfitButtonImage" />
+
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:layout_height="match_parent">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Outfits"
+                            android:textSize="10sp"
+                            android:textColor="#ffffff"
+                            android:id="@+id/filteroutfittext" />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
 
     </RelativeLayout>

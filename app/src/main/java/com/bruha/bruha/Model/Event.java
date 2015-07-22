@@ -1,49 +1,34 @@
 package com.bruha.bruha.Model;
 
-import android.graphics.Bitmap;
-import android.widget.ImageView;
-
 /**
  * Created by Work on 2015-05-13.
  */
 public class Event {
-
     //All the variables the Event Summary holds.
-    private int EventIcon;
-    private String EventName;
-    private String EventDate;
-    private double EventPrice;
-    private double EventDistance;
-    private String EventPicture;
+    private int eventIcon;
+    private String eventName;
+    private String eventDate;
+    private double eventPrice;
+    private double eventDistance;
+    private String eventPicture;
 
     //ALL the variables for the lat/lng of event
-
     private double eventLatitude;
     private double eventLongitude;
 
     //All the variables the Event Detailed Description holds.
-    private String EventLocName;
-    private String EventLocSt;
-    private String EventLocAdd;
-    private String EventStartTime;
-    private String EventEndDate;
-    private String EventEndTime;
+    private String eventLocName;
+    private String eventLocSt;
+    private String eventLocAdd;
+    private String eventStartTime;
+    private String eventEndDate;
+    private String eventEndTime;
 
     //SQL variables and eventpage
-    private String EventDescription;
-    private String Eventid;
-    private String Venueid;
-    private String LocationID;
-
-    public Bitmap getEventPicturee() {
-        return EventPicturee;
-    }
-
-    public void setEventPicturee(Bitmap eventPicturee) {
-        EventPicturee = eventPicturee;
-    }
-
-    private Bitmap EventPicturee;
+    private String eventDescription;
+    private String eventid;
+    private String venueid;
+    private String locationID;
 
     //Default Constructor for Event.
     public Event()
@@ -54,51 +39,51 @@ public class Event {
 
     //Getters and Setters for the Detailed Description of event.
     public String getEventLocName() {
-        return EventLocName;
+        return eventLocName;
     }
 
     public void setEventLocName(String eventLocName) {
-        EventLocName = eventLocName;
+        this.eventLocName = eventLocName;
     }
 
     public String getEventLocSt() {
-        return EventLocSt;
+        return eventLocSt;
     }
 
     public void setEventLocSt(String eventLocSt) {
-        EventLocSt = eventLocSt;
+        this.eventLocSt = eventLocSt;
     }
 
     public String getEventLocAdd() {
-        return EventLocAdd;
+        return eventLocAdd;
     }
 
     public void setEventLocAdd(String eventLocAdd) {
-        EventLocAdd = eventLocAdd;
+        this.eventLocAdd = eventLocAdd;
     }
 
     public String getEventStartTime() {
-        return EventStartTime;
+        return eventStartTime;
     }
 
     public void setEventStartTime(String eventStartTime) {
-        EventStartTime = eventStartTime;
+        this.eventStartTime = eventStartTime;
     }
 
     public String getEventEndDate() {
-        return EventEndDate;
+        return eventEndDate;
     }
 
     public void setEventEndDate(String eventEndDate) {
-        EventEndDate = eventEndDate;
+        this.eventEndDate = eventEndDate;
     }
 
     public String getEventEndTime() {
-        return EventEndTime;
+        return eventEndTime;
     }
 
     public void setEventEndTime(String eventEndTime) {
-        EventEndTime = eventEndTime;
+        this.eventEndTime = eventEndTime;
     }
 
      //Getters and Setters for lat/lng
@@ -122,77 +107,77 @@ public class Event {
     //Getters and Setters for the Summary Description of event.
 
     public String getEventPicture() {
-        return EventPicture;
+        return eventPicture;
     }
 
     public void setEventPicture(String eventPicture) {
-        EventPicture = eventPicture;
+        this.eventPicture = eventPicture;
     }
 
     public int getEventIcon() {
-        return EventIcon;
+        return eventIcon;
     }
 
     public void setEventIcon(int eventIcon) {
-        EventIcon = eventIcon;
+        this.eventIcon = eventIcon;
     }
 
     public String getEventName() {
-        return EventName;
+        return eventName;
     }
 
     public void setEventName(String eventName) {
-        EventName = eventName;
+        this.eventName = eventName;
     }
 
     public String getEventDate() {
-        return EventDate;
+        return eventDate;
     }
 
     public void setEventDate(String eventDate) {
-        EventDate = eventDate;
+        this.eventDate = eventDate;
     }
 
     public double getEventPrice() {
-        return EventPrice;
+        return eventPrice;
     }
 
     public void setEventPrice(double eventPrice) {
-        EventPrice = eventPrice;
+        this.eventPrice = eventPrice;
     }
 
     public double getEventDistance() {
-        return EventDistance;
+        return eventDistance;
     }
 
     public void setEventDistance(double eventDistance) {
-        EventDistance = eventDistance;
+        this.eventDistance = eventDistance;
     }
 
     //Event Page getter and setters.
-    public String getEventDescription() { return EventDescription; }
+    public String getEventDescription() { return eventDescription; }
 
-    public void setEventDescription(String eventDescription) { EventDescription = eventDescription; }
+    public void setEventDescription(String eventDescription) { this.eventDescription = eventDescription; }
 
-    public String getVenueid() { return Venueid; }
+    public String getVenueid() { return venueid; }
 
     public void setVenueid(String venueid) {
-        Venueid = venueid;
+        this.venueid = venueid;
     }
 
     public String getEventid() {
-        return Eventid;
+        return eventid;
     }
 
     public void setEventid(String eventid) {
-        Eventid = eventid;
+        this.eventid = eventid;
     }
 
     public String getLocationID() {
-        return LocationID;
+        return locationID;
     }
 
     public void setLocationID(String locationID) {
-        LocationID = locationID;
+        this.locationID = locationID;
     }
 }

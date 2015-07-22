@@ -46,7 +46,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/map"
                     tools:context="com.bruha.bruha.Views.MapsActivity"
-                    android:name="com.google.android.gms.maps.SupportMapFragment"/>
+                    android:name="com.google.android.gms.maps.SupportMapFragment" />
 
                 <Button
                     style="?android:attr/buttonStyleSmall"
@@ -61,11 +61,11 @@
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="List View"
                     android:id="@+id/listButton"
                     android:layout_gravity="right|top"
                     android:layout_marginRight="60dp"
-                    android:layout_marginTop="10dp" />
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/list" />
 
                 <!-- Transparent View to fix the map bug -->
                 <View

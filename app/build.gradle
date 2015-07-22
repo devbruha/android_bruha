@@ -18,6 +18,8 @@ android {
         }
     }
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
+
+
 }
 
 dependencies {
@@ -31,4 +33,5 @@ dependencies {
     compile 'com.roomorama:caldroid:2.0.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile files('libs/androidsvg-1.2.0.jar')
 }

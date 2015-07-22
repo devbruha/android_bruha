@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
-                android:weightSum="1"
+                android:weightSum="0.9"
                 >
 
                 <TableRow
@@ -57,53 +57,249 @@
                 android:layout_weight="0.10"
                 >
 
-                    <TextView
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
+                        android:weightSum="6"
                         android:layout_height="match_parent"
-                        android:text="Music"
-                        android:id="@+id/textView11"
-                        android:textColor="#ffffff"
-                        android:gravity="center_horizontal"
-                        android:textSize="27sp"/>
+                        android:layout_marginLeft="5dp">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imageart" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Art"
+                                android:id="@+id/textView105"
+                                android:textColor="#ffffff"
+                                android:gravity="center_vertical"
+                                android:textSize="22sp"
+                                android:layout_marginLeft="3dp" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </TableRow>
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.10"
                     >
-                    <TextView
+
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
+                        android:weightSum="6"
                         android:layout_height="match_parent"
-                        android:text="Film"
-                        android:id="@+id/textView13"
-                        android:textColor="#ffffff"
-                        android:gravity="center_horizontal"
-                        android:textSize="27sp"/>
+                        android:layout_marginLeft="5dp">
 
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imageceremony"
+                                 />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Ceremony"
+                                android:id="@+id/textView106"
+                                android:gravity="center_vertical"
+                                android:textColor="#ffffff"
+                                android:textSize="22sp"
+                                android:layout_marginLeft="3dp" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </TableRow>
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.10"
                     >
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:weightSum="6"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imagecomedy" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Comedy"
+                                android:gravity="center_vertical"
+                                android:id="@+id/textView300"
+                                android:textColor="#ffffff"
+                                android:textSize="22sp"
+                                android:layout_marginLeft="3dp" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </TableRow>
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.10"
                     >
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:weightSum="6"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imagefestival" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Festivals"
+                                android:gravity="center_vertical"
+                                android:id="@+id/textView301"
+                                android:textColor="#ffffff"
+                                android:textSize="22sp"
+                                android:layout_marginLeft="3dp" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </TableRow>
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.10"
                     >
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:weightSum="6"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imagefood" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Food &amp; Drink"
+                                android:id="@+id/textView302"
+                                android:gravity="center_vertical"
+                                android:textColor="#ffffff"
+                                android:textSize="19sp"
+                                android:layout_marginLeft="3dp" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </TableRow>
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.10"
                     >
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:weightSum="6"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imageparty" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Party"
+                                android:id="@+id/textView303"
+                                android:gravity="center_vertical"
+                                android:textColor="#ffffff"
+                                android:textSize="22sp"
+                                android:layout_marginLeft="3dp" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </TableRow>
 
                 <TableRow
@@ -111,25 +307,125 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.10"
                     >
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:weightSum="6"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imagepolitical" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Political"
+                                android:gravity="center_vertical"
+                                android:id="@+id/textView304"
+                                android:textColor="#ffffff"
+                                android:textSize="22sp"
+                                android:layout_marginLeft="3dp" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </TableRow>
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.10"
                     >
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:weightSum="6"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imagesocial" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Social"
+                                android:gravity="center_vertical"
+                                android:id="@+id/textView305"
+                                android:textColor="#ffffff"
+                                android:textSize="22sp"
+                                android:layout_marginLeft="3dp" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </TableRow>
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.10"
                     >
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:weightSum="6"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imagetech" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Tech"
+                                android:id="@+id/textView306"
+                                android:gravity="center_vertical"
+                                android:textColor="#ffffff"
+                                android:textSize="22sp"
+                                android:layout_marginLeft="3dp" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </TableRow>
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.10"
-                    >
-                </TableRow>
+
 
 
             </LinearLayout>
@@ -146,79 +442,378 @@
                     android:layout_weight="0.10"
                     >
 
-                    <TextView
+
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Comedy"
-                        android:id="@+id/textView12"
-                        android:textColor="#ffffff"
-                        android:gravity="center_horizontal"
-                        android:textSize="27sp"/>
+                        android:weightSum="6"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imagebusiness" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Business"
+                                android:gravity="center_vertical"
+                                android:id="@+id/textView12"
+                                android:textColor="#ffffff"
+                                android:textSize="22sp"
+                                android:layout_marginLeft="3dp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.10"
+                    >
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:weightSum="6"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imageclub" />
+                        </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="Club"
+                                    android:gravity="center_vertical"
+                                    android:id="@+id/textView14"
+                                    android:textColor="#ffffff"
+                                    android:textSize="22sp"
+                                    android:layout_marginLeft="3dp" />
+
+
+                            </LinearLayout>
+                    </LinearLayout>
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.10"
+                    >
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:weightSum="6"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_weight="5"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imagefashion" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Fashion"
+                                android:gravity="center_vertical"
+                                android:id="@+id/textView134"
+                                android:textColor="#ffffff"
+                                android:textSize="22sp"
+                                android:layout_marginLeft="3dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.10"
+                    >
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:weightSum="6"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_weight="5"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imagefilm" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Film"
+                                android:gravity="center_vertical"
+                                android:id="@+id/textView144"
+                                android:textColor="#ffffff"
+                                android:textSize="22sp"
+                                android:layout_marginLeft="3dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.10"
+                    >
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:weightSum="6"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imagemusic" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Music"
+                                android:id="@+id/textView114"
+                                android:gravity="center_vertical"
+                                android:textColor="#ffffff"
+                                android:textSize="22sp"
+                                android:layout_marginLeft="3dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.10"
+                    >
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:weightSum="6"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imageperforming" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Performing Arts"
+                                android:id="@+id/textView308"
+                                android:gravity="center_vertical"
+                                android:textColor="#ffffff"
+                                android:textSize="19sp"
+                                android:layout_marginLeft="3dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.10"
+                    >
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:weightSum="6"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imageschool" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="School"
+                                android:gravity="center_vertical"
+                                android:id="@+id/textView101"
+                                android:textColor="#ffffff"
+                                android:textSize="22sp"
+                                android:layout_marginLeft="3dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.10"
+                    >
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:weightSum="6"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imagesports" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Sports"
+                                android:id="@+id/textView102"
+                                android:textColor="#ffffff"
+                                android:gravity="center_vertical"
+                                android:textSize="22sp"
+                                android:layout_marginLeft="3dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.10"
+                    >
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:weightSum="6"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imagetour" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Tour"
+                                android:id="@+id/textView103"
+                                android:textColor="#ffffff"
+                                android:gravity="center_vertical"
+                                android:textSize="22sp"
+                                android:layout_marginLeft="3dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
 
                 </TableRow>
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.10"
-                    >
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Academic"
-                        android:id="@+id/textView14"
-                        android:textColor="#ffffff"
-                        android:gravity="center_horizontal"
-                        android:textSize="27sp"/>
-                </TableRow>
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.10"
-                    >
-                </TableRow>
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.10"
-                    >
-                </TableRow>
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.10"
-                    >
-                </TableRow>
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.10"
-                    >
-                </TableRow>
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.10"
-                    >
-                </TableRow>
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.10"
-                    >
-                </TableRow>
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.10"
-                    >
-                </TableRow>
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.10"
-                    >
-                </TableRow>
             </LinearLayout>
 
         </LinearLayout>

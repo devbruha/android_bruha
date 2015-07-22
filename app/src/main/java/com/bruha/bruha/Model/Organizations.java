@@ -7,76 +7,76 @@ public class Organizations {
 
 
     //
-    private int OrgId;
-    private String OrgName;
-    private String OrgLocation;
-    private String OrgDescription;
-    private int LocId;
-    private double Lat;
-    private double Lng;
-    private  String OrgPicture;
+    private int orgId;
+    private String orgName;
+    private String orgLocation;
+    private String orgDescription;
+    private int locId;
+    private double lat;
+    private double lng;
+    private  String orgPicture;
 
     public String getOrgPicture() {
-        return OrgPicture;
+        return orgPicture;
     }
 
     public void setOrgPicture(String orgPicture) {
-        OrgPicture = orgPicture;
+        this.orgPicture = orgPicture;
     }
 
     public int getOrgId() {
-        return OrgId;
+        return orgId;
     }
 
     public void setOrgId(int orgId) {
-        OrgId = orgId;
+        this.orgId = orgId;
     }
 
     public String getOrgName() {
-        return OrgName;
+        return orgName;
     }
 
     public void setOrgName(String orgName) {
-        OrgName = orgName;
+        this.orgName = orgName;
     }
 
     public String getOrgLocation() {
-        return OrgLocation;
+        return orgLocation;
     }
 
     public void setOrgLocation(String orgLocation) {
-        OrgLocation = orgLocation;
+        this.orgLocation = orgLocation;
     }
 
     public String getOrgDescription() {
-        return OrgDescription;
+        return orgDescription;
     }
 
     public void setOrgDescription(String orgDescription) {
-        OrgDescription = orgDescription;
+        this.orgDescription = orgDescription;
     }
 
     public int getLocId() {
-        return LocId;
+        return locId;
     }
 
     public void setLocId(int locId) {
-        LocId = locId;
+        this.locId = locId;
     }
 
     public double getLat() {
-        return Lat;
+        return lat;
     }
 
     public void setLat(double lat) {
-        Lat = lat;
+        this.lat = lat;
     }
 
     public double getLng() {
-        return Lng;
+        return lng;
     }
 
     public void setLng(double lng) {
-        Lng = lng;
+        this.lng = lng;
     }
 }
