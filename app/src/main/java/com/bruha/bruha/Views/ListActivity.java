@@ -8,11 +8,14 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -91,6 +94,23 @@ public class ListActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list2);
         ButterKnife.inject(this);                   //Injecting all the objects to be imported from above.
+
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        // Storing the screen height into an int variable..
+        int height = size.y;
+
+        //Assigning the PageEventCoverPicture to a variable to alter its dimensions after with.
+        ViewGroup.LayoutParams dudeButtonLayoutParams = dudeButton.getLayoutParams();
+        dudeButtonLayoutParams.height =  (int)Math.round(height*.07);
+        dudeButtonLayoutParams.width =  (int)Math.round(height*.07);
+
+        ViewGroup.LayoutParams mapButtonLayoutParams = mapButton.getLayoutParams();
+        mapButtonLayoutParams.height =  (int)Math.round(height*.07);
+        mapButtonLayoutParams.width =  (int)Math.round(height*.07);
 
         init();
 

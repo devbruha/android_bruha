@@ -19,6 +19,7 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -58,6 +59,7 @@ public class SplashActivity extends Activity {
 
         final LinearLayout loginButton = (LinearLayout) findViewById(R.id.splashloginButton);
         final LinearLayout registerButton = (LinearLayout) findViewById(R.id.splashregisterButton);
+        final Button skipButton = (Button) findViewById(R.id.noLoginButton);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +85,21 @@ public class SplashActivity extends Activity {
                     public void onAnimationEnd(Animator animation) {
                         registerButton.setAlpha(1f);
                         startRegisterActivity(null);
+                    }
+                });
+                animator.start();
+            }
+        });
+
+        skipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(skipButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        skipButton.setAlpha(1f);
+                        noLogin(v);
                     }
                 });
                 animator.start();
@@ -167,7 +184,6 @@ public class SplashActivity extends Activity {
 
 
     //Button to skip the logging in process.
-    @OnClick(R.id.noLoginButton)
     public void noLogin(View view){
         Intent intent = new Intent(this, DashboardActivity.class);
         startActivity(intent);
@@ -233,23 +249,11 @@ public class SplashActivity extends Activity {
 
 
         if(resId==R.layout.splash_bruha) {
-            ImageView im = (ImageView) view.findViewById(R.id.svgimage2);
+            ImageView im = (ImageView) view.findViewById(R.id.splashImage);
             // Android functions to determine the screen dimensions.
-            im.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 300));
+            im.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.splash, 300));
 
 
-            //Resizing the Text
-            TextView bruhatext1 = (TextView) view.findViewById(R.id.bruhatext1);
-            TextView bruhatext2 = (TextView) view.findViewById(R.id.bruhatext2);
-            TextView bruhatext3 = (TextView) view.findViewById(R.id.bruhatext3);
-            TextView bruhatext4 = (TextView) view.findViewById(R.id.bruhatext4);
-            TextView bruhatext5 = (TextView) view.findViewById(R.id.bruhatext5);
-            int x= (int)Math.round(height*.175);
-            bruhatext1.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            bruhatext2.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            bruhatext3.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            bruhatext4.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            bruhatext5.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
         }
 
         if(resId==R.layout.splash_addicted)
@@ -345,6 +349,54 @@ public class SplashActivity extends Activity {
             sport.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.sports, 50));
             tech.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.tech, 50));
             tour.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.tour, 50));
+
+
+
+            //TextBoxes being resized:
+            TextView text1 = (TextView) findViewById(R.id.seventtext1);
+            TextView text2 = (TextView) findViewById(R.id.seventtext2);
+            TextView text3 = (TextView) findViewById(R.id.seventtext3);
+            TextView text4 = (TextView) findViewById(R.id.seventtext4);
+            TextView text5 = (TextView) findViewById(R.id.seventtext5);
+            TextView text6 = (TextView) findViewById(R.id.seventtext6);
+            TextView text7 = (TextView) findViewById(R.id.seventtext7);
+            TextView text8 = (TextView) findViewById(R.id.seventtext8);
+            TextView text9 = (TextView) findViewById(R.id.seventtext9);
+            TextView text10 = (TextView) findViewById(R.id.seventtext10);
+            TextView text11 = (TextView) findViewById(R.id.seventtext11);
+            TextView text12 = (TextView) findViewById(R.id.seventtext12);
+            TextView text13 = (TextView) findViewById(R.id.seventtext13);
+            TextView text14 = (TextView) findViewById(R.id.seventtext14);
+            TextView text15 = (TextView) findViewById(R.id.seventtext15);
+            TextView text16 = (TextView) findViewById(R.id.seventtext16);
+            TextView text17 = (TextView) findViewById(R.id.seventtext17);
+            TextView text18 = (TextView) findViewById(R.id.seventtext18);
+
+
+            int x= (int)Math.round(height * .03);
+            text1.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+            text2.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+            text3.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+            text4.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+            text5.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+            text6.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+            text7.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+            text8.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+            text9.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+            text10.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+            text11.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+            text12.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+            text13.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+            text14.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+            text15.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+            text16.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+            text17.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+            text18.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+
+
+
+
+
         }
     }
 }

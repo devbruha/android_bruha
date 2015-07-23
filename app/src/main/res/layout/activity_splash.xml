@@ -28,36 +28,51 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_weight="6"
-                android:weightSum="2"
+                android:weightSum="3"
                 android:layout_height="match_parent">
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:weightSum="3">
 
-                    <RelativeLayout
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
 
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=" Skip "
-                            android:id="@+id/noLoginButton"
-                            android:textSize="18sp"
-                            android:textColor="#ffffff"
-                            android:background="#53ffffff"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginRight="5sp"/>
-                    </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text=" Skip "
+                                android:id="@+id/noLoginButton"
+                                android:textSize="18sp"
+                                android:textColor="#ffffff"
+                                android:background="#53ffffff"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="10dp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"></LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:layout_height="match_parent"></LinearLayout>
 
             </LinearLayout>

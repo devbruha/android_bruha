@@ -3,98 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="45dp"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    android:weightSum="10">
+    android:orientation="vertical">
 
 
-    <LinearLayout
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:layout_weight="5"
-        android:alpha="0.8"
-        android:orientation="vertical">
-
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/svgimage2"
-            android:layout_weight="4"/>
-            <!-- android:src="@drawable/bruhalrg" -->
-
-    </LinearLayout>
-
-    <LinearLayout
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="6"
-        android:weightSum="5">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/bruhatext1"
-            android:layout_weight="1"
-            android:textStyle="bold"
-            android:alpha="0.75"
-            android:gravity="center"
-            android:textColor="#ff5030b0"
-            android:text="B"
-            android:textSize="120sp"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/bruhatext2"
-            android:textStyle="bold"
-            android:alpha="0.75"
-            android:gravity="center"
-            android:textColor="#ff5030b0"
-            android:text="R"
-            android:textSize="120sp"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textColor="#d1ffbd25"
-            android:text="Ü"
-            android:textSize="120sp"
-            android:id="@+id/bruhatext3" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textStyle="bold"
-            android:alpha="0.75"
-            android:gravity="center"
-            android:textColor="#ff5030b0"
-            android:layout_weight="1"
-            android:text="H"
-            android:textSize="120sp"
-            android:id="@+id/bruhatext4" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textStyle="bold"
-            android:alpha="0.75"
-            android:gravity="center"
-            android:textColor="#ff5030b0"
-            android:layout_weight="1"
-            android:text="A"
-            android:textSize="120sp"
-            android:id="@+id/bruhatext5" />
-
-    </LinearLayout>
-
+        android:id="@+id/splashImage" />
 </LinearLayout>
 

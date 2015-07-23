@@ -24,14 +24,14 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile files('libs/androidsvg-1.2.0.jar')
+    compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.jakewharton:butterknife:6.1.0'
-    compile 'com.google.android.gms:play-services:7.3.0'
+    compile 'com.google.android.gms:play-services:7.5.0'
     compile 'com.sothree.slidinguppanel:library:3.0.0'
     compile 'com.prolificinteractive:material-calendarview:0.4.0'
     compile 'com.daimajia.swipelayout:library:1.2.0@aar'
     compile 'com.roomorama:caldroid:2.0.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
-    compile files('libs/androidsvg-1.2.0.jar')
 }
