@@ -1,6 +1,7 @@
 package com.bruha.bruha.Model;
 
 import android.app.Application;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,6 +26,8 @@ public class MyApplication extends Application{
     public static boolean loginCheck = false;
 
     public static String filterTracker = "Event";
+
+    public static ViewGroup.LayoutParams listIconParam;
 
     public static ArrayList<Event> sourceEvents= new ArrayList<>();
     public static ArrayList<String> sourceEventsID= new ArrayList<>();

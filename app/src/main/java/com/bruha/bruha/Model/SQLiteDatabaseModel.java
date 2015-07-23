@@ -230,7 +230,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
 
         for(int i =0; i< Org.size();i++){
-            values.put("outfitID", Org.get(i).getOrgId());
+            values.put("outfitID", Org.get(i).getOrgId()+"");
             values.put("outfitDescription", Org.get(i).getOrgDescription());
             values.put("outfitName", Org.get(i).getOrgName());
             values.put("outfitLatitude", Org.get(i).getLat());
@@ -283,7 +283,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
 
         for(int i =0; i< venue.size();i++){
-            values.put("venueID", venue.get(i).getVenueId());
+            values.put("venueID", venue.get(i).getVenueId()+"");
             values.put("venueDescription", venue.get(i).getVenueDescription());
             values.put("venueName", venue.get(i).getVenueName());
             values.put("venueLatitude", venue.get(i).getLat());

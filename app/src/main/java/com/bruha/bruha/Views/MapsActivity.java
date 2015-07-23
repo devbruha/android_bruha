@@ -1,5 +1,8 @@
 package com.bruha.bruha.Views;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -84,6 +87,10 @@ public class MapsActivity extends FragmentActivity implements
     @InjectView(R.id.filterartisttext) TextView artistText;
     @InjectView(R.id.filteroutfittext) TextView outfitText;
 
+    //Icon Buttons
+    @InjectView(R.id.listButton) ImageView listButton;
+    @InjectView(R.id.dudeButton) ImageView dudeButton;
+
     //private UserCustomFilters mUserCustomFilters;
 
     protected static final String TAG = "basic-location-sample";
@@ -115,6 +122,23 @@ public class MapsActivity extends FragmentActivity implements
         setContentView(R.layout.activity_maps);
         ButterKnife.inject(this);
 
+
+        //Resizing the Image Icons:
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        // Storing the screen height into an int variable..
+        int height = size.y;
+
+        //Assigning the PageEventCoverPicture to a variable to alter its dimensions after with.
+        ViewGroup.LayoutParams dudeButtonLayoutParams = dudeButton.getLayoutParams();
+        dudeButtonLayoutParams.height =  (int)Math.round(height*.07);
+        dudeButtonLayoutParams.width =  (int)Math.round(height*.07);
+
+        ViewGroup.LayoutParams mapButtonLayoutParams = listButton.getLayoutParams();
+        mapButtonLayoutParams.height =  (int)Math.round(height*.07);
+        mapButtonLayoutParams.width =  (int)Math.round(height*.07);
 
         //mUserCustomFilters = ((MyApplication) getApplicationContext()).getUserCustomFilters();
 
@@ -153,9 +177,47 @@ public class MapsActivity extends FragmentActivity implements
 
         }
 
+        setImages();
     }
 
 
+    private void setImages()
+    {
+        dudeButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 30));
+        listButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.listicon, 30));
+
+
+        dudeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(dudeButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        dudeButton.setAlpha(1f);
+                        startDashboardActivity(v);
+                    }
+                });
+                animator.start();
+            }
+        });
+
+        listButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(listButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        listButton.setAlpha(1f);
+                        startListViewActivity(v);
+                    }
+                });
+                animator.start();
+            }
+        });
+
+    }
 
     @Override
     protected void onResume() {
@@ -561,7 +623,7 @@ public class MapsActivity extends FragmentActivity implements
         mGoogleApiClient.connect();
     }
 
-    @OnClick(R.id.dudeButton)
+
     public void startDashboardActivity(View view){
 
         Intent intent = new Intent(this, DashboardActivity.class);
@@ -569,7 +631,7 @@ public class MapsActivity extends FragmentActivity implements
         finish();
     }
 
-    @OnClick(R.id.listButton)
+
     public void startListViewActivity(View view){
 
         Intent intent = new Intent(this, ListActivity.class);

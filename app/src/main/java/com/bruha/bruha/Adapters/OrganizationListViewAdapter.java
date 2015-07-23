@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.media.Image;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.R;
+import com.bruha.bruha.Views.ShowOnMapActivity;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.squareup.picasso.Picasso;
@@ -157,8 +159,10 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
                         PreviewLayout.setAlpha(1f);
-                        //Intent intent = new Intent(mActivity, DashboardActivity.class);
-                        // mActivity.startActivity(intent);
+                        Intent intent = new Intent(mActivity, ShowOnMapActivity.class);
+                        intent.putExtra("Id",Outfit.getOrgId()+"");
+                        intent.putExtra("Type","Outfit");
+                        mActivity.startActivity(intent);
                     }
                 });
                 animator.start();

@@ -41,6 +41,7 @@ public class DashboardActivity extends ActionBarActivity {
     @InjectView(R.id.profileButton) LinearLayout profileButton;
     @InjectView(R.id.hotButton) LinearLayout hotButton;
     @InjectView(R.id.addictionButton) LinearLayout addictionButton;
+    @InjectView(R.id.exploreButton) LinearLayout exploreButton;
 
     //The Buttons
     @InjectView(R.id.UploadButton) TextView myUploadText;
@@ -54,6 +55,8 @@ public class DashboardActivity extends ActionBarActivity {
     @InjectView(R.id.dashboardMyTicketImage) ImageView myTicketImage;
     @InjectView(R.id.dashboardMyAddictionImage) ImageView myAddictionImage;
     @InjectView(R.id.dashboardDudeButtonImage) ImageView dudeButton;
+    @InjectView(R.id.dashboardMyUploadImage) ImageView myUploadImage;
+    @InjectView(R.id.dashboardExploreImage) ImageView exploreImage;
 
 
     @Override
@@ -62,6 +65,21 @@ public class DashboardActivity extends ActionBarActivity {
         setContentView(R.layout.activity_dashboard);
         ButterKnife.inject(this);
 
+
+        exploreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(exploreButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        exploreButton.setAlpha(1f);
+                        startExploreActivity(v);
+                    }
+                });
+                animator.start();
+            }
+        });
 
 
         // The condition for the if statement is determined by the static varaible "loginCheck" found
@@ -76,47 +94,87 @@ public class DashboardActivity extends ActionBarActivity {
             //MyUpload Button's Implementation.
             myUploadButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    startUploadActivity(v);
+                public void onClick(final View v) {
+                    ObjectAnimator animator = ObjectAnimator.ofFloat(myUploadButton, "alpha", 1f, 0.5f);
+                    animator.setDuration(100);
+                    animator.addListener(new AnimatorListenerAdapter() {
+                        public void onAnimationEnd(Animator animation) {
+                            myUploadButton.setAlpha(1f);
+                            startUploadActivity(v);
+                        }
+                    });
+                    animator.start();
                 }
             });
 
             //MyTicket Button's Implementation.
             myTicketButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    startTicketAcitivity(v);
+                public void onClick(final View v) {
+                    ObjectAnimator animator = ObjectAnimator.ofFloat(myTicketButton, "alpha", 1f, 0.5f);
+                    animator.setDuration(100);
+                    animator.addListener(new AnimatorListenerAdapter() {
+                        public void onAnimationEnd(Animator animation) {
+                            myTicketButton.setAlpha(1f);
+                            startTicketAcitivity(v);
+                        }
+                    });
+                    animator.start();
                 }
             });
 
             //Profile Button's Implementation
             profileButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    startProfileActivity(v);
+                public void onClick(final View v) {
+                    ObjectAnimator animator = ObjectAnimator.ofFloat(profileButton, "alpha", 1f, 0.5f);
+                    animator.setDuration(100);
+                    animator.addListener(new AnimatorListenerAdapter() {
+                        public void onAnimationEnd(Animator animation) {
+                            profileButton.setAlpha(1f);
+                            startProfileActivity(v);
+                        }
+                    });
+                    animator.start();
                 }
             });
 
             //Profile Button's Implementation
             hotButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    startHotActivity(v);
+                public void onClick(final View v) {
+                    ObjectAnimator animator = ObjectAnimator.ofFloat(hotButton, "alpha", 1f, 0.5f);
+                    animator.setDuration(100);
+                    animator.addListener(new AnimatorListenerAdapter() {
+                        public void onAnimationEnd(Animator animation) {
+                            hotButton.setAlpha(1f);
+                            startHotActivity(v);
+                        }
+                    });
+                    animator.start();
                 }
             });
 
             //Profile Button's Implementation
             addictionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    startAddictionAcitivty(v);
+                public void onClick(final View v) {
+                    ObjectAnimator animator = ObjectAnimator.ofFloat(addictionButton, "alpha", 1f, 0.5f);
+                    animator.setDuration(100);
+                    animator.addListener(new AnimatorListenerAdapter() {
+                        public void onAnimationEnd(Animator animation) {
+                            addictionButton.setAlpha(1f);
+                            startAddictionAcitivty(v);
+                        }
+                    });
+                    animator.start();
                 }
             });
         }
         else {
 
             //UploadButton's Implementation.
-            myUploadText.setTextColor(Color.WHITE);
+            myUploadButton.setAlpha((float) 0.25);
             myUploadButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
@@ -125,7 +183,7 @@ public class DashboardActivity extends ActionBarActivity {
             });
 
             //TicketButton's Implementation.
-            myTicketText.setTextColor(Color.WHITE);
+            myTicketButton.setAlpha((float) 0.25);
             myTicketButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -136,7 +194,7 @@ public class DashboardActivity extends ActionBarActivity {
 
             //WhatsHot's Implementation
             //Profile Button's Implementation
-            hotText.setTextColor(Color.WHITE);
+            hotButton.setAlpha((float) 0.25);
             hotButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -145,7 +203,7 @@ public class DashboardActivity extends ActionBarActivity {
             });
 
             //Profile Button's Implementation
-            profileText.setTextColor(Color.WHITE);
+            profileButton.setAlpha((float) 0.25);
             profileButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -155,7 +213,7 @@ public class DashboardActivity extends ActionBarActivity {
             });
 
 
-            addictionText.setTextColor(Color.WHITE);
+            addictionButton.setAlpha((float) 0.25);
             addictionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -187,6 +245,8 @@ public class DashboardActivity extends ActionBarActivity {
 
         setImages();
         resize();
+
+        MyApplication.listIconParam = dudeButton.getLayoutParams();
     }
 
     private void resize()
@@ -214,7 +274,8 @@ public class DashboardActivity extends ActionBarActivity {
         dudeButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 30));
         myAddictionImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.myaddictions, 60));
         myTicketImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.tickets, 60));
-
+        myUploadImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.myupload, 60));
+        exploreImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.explore, 60));
     }
 
     //The OnClickListeners for the DashBoard Buttons:
@@ -232,7 +293,6 @@ public class DashboardActivity extends ActionBarActivity {
     }
 
     //OnClickListener for "Explore" that leads to the mListView Activity.
-    @OnClick(R.id.exploreButton)
     public void startExploreActivity(View view){
         Intent intent = new Intent(this, ListActivity.class);
         startActivity(intent);
@@ -270,7 +330,6 @@ public class DashboardActivity extends ActionBarActivity {
     public void startProfileActivity(View view){
         Intent intent = new Intent(this, UserProfileActivity.class);
         startActivity(intent);
-        finish();
     }
 
     public void showDialog()
