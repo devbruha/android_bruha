@@ -14,6 +14,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -217,6 +218,8 @@ public class ListActivity extends FragmentActivity {
         mVenues= sqLiteUtils.getVenuesInfo(dbHelper);
         mOutfit= sqLiteUtils.getOutfitsInfo(dbHelper);
         mArtists= sqLiteUtils.getArtistInfo(dbHelper);
+
+        Log.v("ThisSize", mEvents.size()+"");
 
         for(Event x:mEvents)
         {

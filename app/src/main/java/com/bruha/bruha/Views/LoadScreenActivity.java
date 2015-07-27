@@ -80,6 +80,8 @@ public class LoadScreenActivity extends Activity {
             e.printStackTrace();
         }
 
+        Log.v("HeyThisSize",events.size()+"");
+
         //The call to get the list of Venues.
         ArrayList<Venues> venues= new ArrayList<>() ;
         try {

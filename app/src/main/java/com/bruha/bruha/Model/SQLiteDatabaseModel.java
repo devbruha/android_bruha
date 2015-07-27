@@ -29,14 +29,10 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String EVENT_LOCAL_ID = "_id";
     public static final String EVENT_REMOTE_ID = "eventID";
     public static final String EVENT_VENUE_ID = "venueID";
-    public static final String EVENT_ORGANIZATION_ID = "orgID";
-    public static final String EVENT_LOCATION_ID = "locID";
     public static final String EVENT_DESCRIPTION = "eventDescription";
     public static final String EVENT_NAME = "eventName";
-    public static final String EVENT_ICON = "eventIcon";
     public static final String EVENT_DATE = "eventDate";
     public static final String EVENT_PRICE = "eventPrice";
-    public static final String EVENT_DISTANCE = "eventDistance";
     public static final String EVENT_LATITUDE = "eventLatitude";
     public static final String EVENT_LONGITUDE = "eventLongitude";
     public static final String EVENT_PICTURE = "eventPicture";
@@ -108,14 +104,10 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + " integer primary key autoincrement, "
             + EVENT_REMOTE_ID + " text not null, "
             + EVENT_VENUE_ID + " text not null, "
-            //+ EVENT_ORGANIZATION_ID + " text not null, "
-            + EVENT_LOCATION_ID + " text not null, "
             + EVENT_DESCRIPTION + " text not null, "
             + EVENT_NAME + " text not null, "
-            + EVENT_ICON + " text not null, "
             + EVENT_DATE + " text not null, "
             + EVENT_PRICE + " text not null, "
-            + EVENT_DISTANCE + " text not null, "
             + EVENT_LATITUDE + " text not null, "
             + EVENT_LONGITUDE + " text not null, "
             + EVENT_LOCATION_NAME + " text not null, "
@@ -123,7 +115,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + EVENT_LOCATION_ADDRESS + " text not null, "
             + EVENT_START_TIME + " text not null, "
             + EVENT_PICTURE + " text not null, "
-         //   + EVENT_PICTUREE + " text not null, "
             + EVENT_END_TIME + " text not null, "
             + EVENT_END_DATE + " text not null);";
 
@@ -132,14 +123,10 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + " integer primary key autoincrement, "
             + EVENT_REMOTE_ID + " text not null, "
             + EVENT_VENUE_ID + " text not null, "
-            //+ EVENT_ORGANIZATION_ID + " text not null, "
-            + EVENT_LOCATION_ID + " text not null, "
             + EVENT_DESCRIPTION + " text not null, "
             + EVENT_NAME + " text not null, "
-            + EVENT_ICON + " text not null, "
             + EVENT_DATE + " text not null, "
             + EVENT_PRICE + " text not null, "
-            + EVENT_DISTANCE + " text not null, "
             + EVENT_LATITUDE + " text not null, "
             + EVENT_LONGITUDE + " text not null, "
             + EVENT_LOCATION_NAME + " text not null, "
@@ -466,14 +453,10 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         for(int i =0; i < events.size();i++){
             values.put("eventID", events.get(i).getEventid());
             values.put("venueID", events.get(i).getVenueid());
-            //values.put("orgID", events.get(i).getOrganizationid());
-            values.put("locID", events.get(i).getLocationID());
             values.put("eventDescription", events.get(i).getEventDescription());
             values.put("eventName", events.get(i).getEventName());
-            values.put("eventIcon", events.get(i).getEventIcon());
             values.put("eventDate", events.get(i).getEventDate());
             values.put("eventPrice", events.get(i).getEventPrice());
-            values.put("eventDistance", events.get(i).getEventDistance());
             values.put("eventLatitude", events.get(i).getEventLatitude());
             values.put("eventLongitude", events.get(i).getEventLongitude());
             values.put("eventLocName", events.get(i).getEventLocName());
@@ -483,7 +466,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             values.put("eventEndTime", events.get(i).getEventEndTime());
             values.put("eventEndDate", events.get(i).getEventEndDate());
             values.put("eventPicture", events.get(i).getEventPicture());
-          // values.put("eventPicturee", getBytes(events.get(i).getEventPicturee()));
+
 
             db.insert(TABLE_EVENT_INFO, null, values);
         }
@@ -506,14 +489,10 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
                 newEvent.setEventid(cursor.getString(cursor.getColumnIndex("eventID")));
                 newEvent.setVenueid(cursor.getString(cursor.getColumnIndex("venueID")));
-                //String orgID = cursor.getString(cursor.getColumnIndex("orgID"));
-                newEvent.setLocationID(cursor.getString(cursor.getColumnIndex("locID")));
                 newEvent.setEventDescription(cursor.getString(cursor.getColumnIndex("eventDescription")));
                 newEvent.setEventName(cursor.getString(cursor.getColumnIndex("eventName")));
-                newEvent.setEventid(cursor.getString(cursor.getColumnIndex("eventName")));
                 newEvent.setEventDate(cursor.getString(cursor.getColumnIndex("eventDate")));
                 newEvent.setEventPrice(cursor.getDouble(cursor.getColumnIndex("eventPrice")));
-                newEvent.setEventDistance(cursor.getDouble(cursor.getColumnIndex("eventDistance")));
                 newEvent.setEventLatitude(cursor.getDouble(cursor.getColumnIndex("eventLatitude")));
                 newEvent.setEventLongitude(cursor.getDouble(cursor.getColumnIndex("eventLongitude")));
                 newEvent.setEventPicture(cursor.getString(cursor.getColumnIndex("eventPicture")));
@@ -523,7 +502,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 newEvent.setEventStartTime(cursor.getString(cursor.getColumnIndex("eventStartTime")));
                 newEvent.setEventEndTime(cursor.getString(cursor.getColumnIndex("eventEndTime")));
                 newEvent.setEventEndDate(cursor.getString(cursor.getColumnIndex("eventEndDate")));
-                //newEvent.setEventPicturee(getImage(cursor.getBlob(cursor.getColumnIndex("eventPicturee"))));
 
                 mEvents.add(newEvent);
             }
