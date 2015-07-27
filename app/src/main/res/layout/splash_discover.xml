@@ -354,7 +354,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text="Find Local Outfits"
+                                android:text="Find Local Organizations"
                                 android:id="@+id/discoverOutfitsDes"
                                 android:layout_below="@+id/discoverOutfits"
                                 android:textColor="#ffffff"
@@ -364,7 +364,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Outfits"
+                                android:text="Organizations"
                                 android:layout_centerVertical="true"
                                 android:textSize="30sp"
                                 android:textColor="#ffffff"

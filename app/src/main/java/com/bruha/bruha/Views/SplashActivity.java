@@ -10,6 +10,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -34,10 +35,14 @@ import butterknife.OnClick;
 
 public class SplashActivity extends Activity {
 
+    Typeface opensansregfnt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+         opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
 
 
 
@@ -111,6 +116,7 @@ public class SplashActivity extends Activity {
 
     private void resize()
     {
+
         // Android functions to determine the screen dimensions.
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -125,6 +131,8 @@ public class SplashActivity extends Activity {
         TextView registerText = (TextView) findViewById(R.id.splashRegisterText);
         loginText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         registerText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        loginText.setTypeface(opensansregfnt);
+        registerText.setTypeface(opensansregfnt);
 
 
     }
@@ -261,6 +269,12 @@ public class SplashActivity extends Activity {
             ImageView im = (ImageView) view.findViewById(R.id.addictedimage);
             // Android functions to determine the screen dimensions.
             im.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.myaddictions, 300));
+
+
+            int x= (int)Math.round(height * .018);
+            TextView text = (TextView) findViewById(R.id.splashaddictedtext);
+            text.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+            text.setTypeface(opensansregfnt);
         }
 
         if(resId==R.layout.splash_tickets)
@@ -296,15 +310,24 @@ public class SplashActivity extends Activity {
             TextView outfitDestext = (TextView) view.findViewById(R.id.discoverOutfitsDes);
 
             int x= (int)Math.round(height * .05);
+            int x2= (int)Math.round(height * .04);
             int x1= (int)Math.round(height*.02);
-            eventtext.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            venuetext.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            artisttext.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            outfittext.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            eventDestext.setTextSize(TypedValue.COMPLEX_UNIT_PX,x1);
-            venueDestext.setTextSize(TypedValue.COMPLEX_UNIT_PX,x1);
-            artistDestext.setTextSize(TypedValue.COMPLEX_UNIT_PX,x1);
-            outfitDestext.setTextSize(TypedValue.COMPLEX_UNIT_PX,x1);
+            eventtext.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+            eventtext.setTypeface(opensansregfnt);
+            venuetext.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+            venuetext.setTypeface(opensansregfnt);
+            artisttext.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+            artisttext.setTypeface(opensansregfnt);
+            outfittext.setTextSize(TypedValue.COMPLEX_UNIT_PX, x2);
+            outfittext.setTypeface(opensansregfnt);
+            eventDestext.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
+            eventDestext.setTypeface(opensansregfnt);
+            venueDestext.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
+            venueDestext.setTypeface(opensansregfnt);
+            artistDestext.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
+            artistDestext.setTypeface(opensansregfnt);
+            outfitDestext.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
+            outfitDestext.setTypeface(opensansregfnt);
         }
 
 
@@ -375,28 +398,41 @@ public class SplashActivity extends Activity {
 
             int x= (int)Math.round(height * .03);
             text1.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            text2.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            text3.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            text4.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            text5.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            text6.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            text7.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            text8.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            text9.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            text10.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            text11.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            text12.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            text13.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            text14.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            text15.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            text16.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            text17.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-            text18.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-
-
-
-
-
+            text1.setTypeface(opensansregfnt);
+            text2.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+            text2.setTypeface(opensansregfnt);
+            text3.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+            text3.setTypeface(opensansregfnt);
+            text4.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+            text4.setTypeface(opensansregfnt);
+            text5.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+            text5.setTypeface(opensansregfnt);
+            text6.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+            text6.setTypeface(opensansregfnt);
+            text7.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+            text7.setTypeface(opensansregfnt);
+            text8.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+            text8.setTypeface(opensansregfnt);
+            text9.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+            text9.setTypeface(opensansregfnt);
+            text10.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+            text10.setTypeface(opensansregfnt);
+            text11.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+            text11.setTypeface(opensansregfnt);
+            text12.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+            text12.setTypeface(opensansregfnt);
+            text13.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+            text13.setTypeface(opensansregfnt);
+            text14.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+            text14.setTypeface(opensansregfnt);
+            text15.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+            text15.setTypeface(opensansregfnt);
+            text16.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+            text16.setTypeface(opensansregfnt);
+            text17.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+            text17.setTypeface(opensansregfnt);
+            text18.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+            text18.setTypeface(opensansregfnt);
         }
     }
 }

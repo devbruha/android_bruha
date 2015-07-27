@@ -51,14 +51,15 @@
                             <Button
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text=" Skip "
+                                android:text="SKIP"
                                 android:id="@+id/noLoginButton"
                                 android:textSize="18sp"
-                                android:textColor="#ffffff"
-                                android:background="#53ffffff"
+                                android:textColor="#ff030303"
+                                android:background="@drawable/borderorange"
                                 android:layout_alignParentRight="true"
                                 android:layout_marginRight="10dp"
-                                android:layout_marginTop="10dp" />
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="12dp" />
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -152,7 +153,7 @@
                                 android:id="@+id/splashLoginText"
                                 android:textColor="#ffffff"
                                 android:textSize="28sp"
-                                android:textStyle="bold" />
+                                android:textStyle="normal" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -190,7 +191,7 @@
                                 android:gravity="center_vertical"
                                 android:textSize="25sp"
                                 android:textColor="#ffffff"
-                                android:textStyle="bold" />
+                                android:textStyle="normal" />
                         </LinearLayout>
                     </LinearLayout>
 

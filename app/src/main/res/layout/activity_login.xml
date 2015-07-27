@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -8,75 +8,121 @@
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:background="@drawable/concretebackground"
                 tools:context="com.bruha.bruha.Views.LoginActivity"
+                android:orientation="vertical"
+                android:weightSum="2"
                 android:clickable="true">
+
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_vertical|center_horizontal"
-        android:id="@+id/linearLayout">
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Enter Your Username"
-            android:id="@+id/loginUsernameTextView"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:id="@+id/loginUsernameEditText"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Enter Your Password"
-            android:id="@+id/loginPasswordTextView"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:id="@+id/loginPasswordEditText"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Login"
-            android:id="@+id/loginButton"
-            android:background="#ff5030b0"
-            android:textColor="#ffffff"
-            android:layout_marginTop="5dp" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Continue Without Logging In"
-            android:id="@+id/continueNotLoggedButton"
-            android:singleLine="true"
-            android:background="#ff5030b0"
-            android:textColor="#ffffff"
-            android:layout_marginTop="10dp" />
-
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/loginbruhaface" />
     </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Register!"
-        android:id="@+id/loginRegisterButton"
-        android:background="#ff5030b0"
-        android:textColor="#ffffff"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:weightSum="3"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/linearLayout"
-        android:layout_centerHorizontal="true" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</RelativeLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Enter Your Username"
+                android:id="@+id/loginUsernameTextView"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/loginUsernameEditText"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Enter Your Password"
+                android:id="@+id/loginPasswordTextView"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/loginPasswordEditText"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_weight="2"
+            android:layout_height="match_parent">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SKIP"
+                    android:id="@+id/continueNotLoggedButton"
+                    android:layout_centerVertical="true"
+                    android:singleLine="true"
+                    android:background="#ff5030b0"
+                    android:textColor="#ffffff"
+                    />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="LOGIN!"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/loginButton"
+                    android:background="#ff5030b0"
+                    android:textColor="#ffffff"
+                    />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Register"
+                    android:id="@+id/loginRegisterButton"
+                    android:background="#ff5030b0"
+                    android:textColor="#ffffff"
+                    android:layout_marginTop="10dp"
+                    android:singleLine="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

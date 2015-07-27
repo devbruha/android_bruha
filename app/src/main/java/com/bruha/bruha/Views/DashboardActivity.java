@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -251,6 +252,10 @@ public class DashboardActivity extends ActionBarActivity {
 
     private void resize()
     {
+
+        Typeface opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
+
+
         // Android functions to determine the screen dimensions.
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -261,12 +266,17 @@ public class DashboardActivity extends ActionBarActivity {
 
         int x= (int)Math.round(height*.025);
         exploreText.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+        exploreText.setTypeface(opensansregfnt);
         hotText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        myTicketText.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-        myUploadText.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-        profileText.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
+        hotText.setTypeface(opensansregfnt);
+        myTicketText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        myTicketText.setTypeface(opensansregfnt);
+        myUploadText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        myUploadText.setTypeface(opensansregfnt);
+        profileText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        profileText.setTypeface(opensansregfnt);
         addictionText.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
-
+        addictionText.setTypeface(opensansregfnt);
     }
 
     private void setImages()

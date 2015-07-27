@@ -6,6 +6,9 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
@@ -14,8 +17,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+
 import com.bruha.bruha.PHP.RetrievePHP;
 import com.bruha.bruha.R;
+import com.caverock.androidsvg.SVG;
+import com.caverock.androidsvg.SVGParseException;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -39,6 +47,10 @@ public class RegisterActivity extends ActionBarActivity {
 
         // using ButterKnife.inject to allow the InjectViews to take effect
         ButterKnife.inject(this);
+
+        //Setting the bruha face inside the Layout.
+        ImageView im = (ImageView) findViewById(R.id.registerbruhaface);
+        im.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhapurpleface, 100));
 
 
 
@@ -292,4 +304,25 @@ public class RegisterActivity extends ActionBarActivity {
         startActivity(intent);
 
     }
+
+    public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
+        try {
+            size = (int)(size*res.getDisplayMetrics().density);
+            SVG svg = SVG.getFromResource(getApplicationContext(), resource);
+
+            Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bmp);
+            svg.renderToCanvas(canvas);
+
+            BitmapDrawable drawable = new BitmapDrawable(res, bmp);
+
+
+            return drawable;
+        }catch(SVGParseException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }

@@ -172,9 +172,10 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
                         MoreInfoLay.setAlpha(1f);
-                        //Intent intent = new Intent(mActivity, EventPageActivity.class);
-                        // intent.putExtra("EventId", event.getEventid());
-                        // mActivity.startActivity(intent);
+                        Intent intent = new Intent(mActivity, EventPageActivity.class);
+                        intent.putExtra("Id",Venue.getVenueId()+"");
+                        intent.putExtra("Type","Venue");
+                        mActivity.startActivity(intent);
                     }
                 });
                 animator.start();
