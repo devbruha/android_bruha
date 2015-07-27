@@ -1,5 +1,6 @@
 package com.bruha.bruha.Views;
 
+import android.content.pm.ActivityInfo;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
@@ -43,6 +44,7 @@ public class WhatsHotActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_whats_hot);
+
 
          mListView = (ListView) findViewById(R.id.ChangeList);
         init();

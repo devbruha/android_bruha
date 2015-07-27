@@ -1,6 +1,7 @@
 package com.bruha.bruha.Views;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 

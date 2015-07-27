@@ -5,19 +5,26 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Point;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.TypedValue;
+import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bruha.bruha.PHP.RetrievePHP;
 import com.bruha.bruha.R;
@@ -33,6 +40,9 @@ public class RegisterActivity extends ActionBarActivity {
     @InjectView(R.id.registerUsernameEditText) EditText mRegisterUsernameEditText;
     @InjectView(R.id.registerPasswordEditText) EditText mRegisterPasswordEditText;
     @InjectView(R.id.registerEmailEditText) EditText mRegisterEmailEditText;
+    @InjectView(R.id.registerEmailTextView) TextView mRegisterEmailTextView;
+    @InjectView(R.id.registerUsernameTextView) TextView mRegisterUsernameTextView;
+    @InjectView(R.id.registerPasswordTextView) TextView mRegisterPasswordTextView;
 
     //Injevting the Buttons:
     @InjectView(R.id.createAccountButton) Button registerButton;
@@ -100,8 +110,67 @@ public class RegisterActivity extends ActionBarActivity {
             }
         });
 
+    resize();
+    }
+
+
+
+    private void resize()
+    {
+        // Android functions to determine the screen dimensions.
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        // Storing the screen height into an int variable..
+        int height = size.y;
+
+        Typeface opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
+
+        mRegisterEmailEditText.setTypeface(opensansregfnt);
+        mRegisterEmailTextView.setTypeface(opensansregfnt);
+        mRegisterPasswordEditText.setTypeface(opensansregfnt);
+        mRegisterPasswordTextView.setTypeface(opensansregfnt);
+        mRegisterUsernameEditText.setTypeface(opensansregfnt);
+        mRegisterUsernameTextView.setTypeface(opensansregfnt);
+
+        int x= (int)Math.round(height * .018);
+        int x1= (int)Math.round(height * .028);
+        mRegisterEmailEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
+        mRegisterEmailTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        mRegisterPasswordEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
+        mRegisterPasswordTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        mRegisterUsernameEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
+        mRegisterUsernameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+
+
+        ViewGroup.LayoutParams mRegisterUsernameEditTextLayoutParams = mRegisterUsernameEditText.getLayoutParams();
+        ViewGroup.LayoutParams mRegisterPasswordEditTextLayoutParams = mRegisterPasswordEditText.getLayoutParams();
+        ViewGroup.LayoutParams mRegisterEmailEditTextLayoutParams = mRegisterEmailEditText.getLayoutParams();
+        mRegisterUsernameEditTextLayoutParams.height =  (int)Math.round(height*.07);
+        mRegisterUsernameEditTextLayoutParams.height =  (int)Math.round(height*.07);
+        mRegisterPasswordEditTextLayoutParams.height =  (int)Math.round(height*.07);
+        mRegisterPasswordEditTextLayoutParams.width  = (int) Math.round(height*.30);
+        mRegisterEmailEditTextLayoutParams.width  = (int) Math.round(height*.30);
+        mRegisterEmailEditTextLayoutParams.width  = (int) Math.round(height*.30);
+
+        ViewGroup.LayoutParams loginButtonLayoutParams = loginButton.getLayoutParams();
+        ViewGroup.LayoutParams noLoginButtonLayoutParams = noRegisterButton.getLayoutParams();
+        ViewGroup.LayoutParams registerButtonLayoutParams = registerButton.getLayoutParams();
+        loginButtonLayoutParams.height =  (int)Math.round(height*.07);
+        noLoginButtonLayoutParams.height =  (int)Math.round(height*.07);
+        registerButtonLayoutParams.height =  (int)Math.round(height*.07);
+        loginButtonLayoutParams.width  = (int) Math.round(height*.135);
+        noLoginButtonLayoutParams.width  = (int) Math.round(height*.135);
+        registerButtonLayoutParams.width  = (int) Math.round(height*.135);
+
+        loginButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        registerButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        noRegisterButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
 
     }
+
+
 
    private void startLoginActivity(View view)
    {
@@ -109,6 +178,8 @@ public class RegisterActivity extends ActionBarActivity {
        startActivity(intent);
        finish();
    }
+
+
 
 
     // A function to call the AlertDialogFragment Activity

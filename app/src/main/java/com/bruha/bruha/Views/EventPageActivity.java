@@ -1,6 +1,7 @@
 package com.bruha.bruha.Views;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Point;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -51,6 +52,7 @@ public class EventPageActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_page);
+
 
         init(); //Calling to initialized Array selectedDateEvents to loop through to find the Event to be displayed.
 

@@ -54,6 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
+                android:singleLine="true"
                 android:ems="10"
                 android:id="@+id/registerUsernameEditText"/>
 
@@ -69,6 +70,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
                 android:ems="10"
+                android:singleLine="true"
                 android:id="@+id/registerPasswordEditText"/>
 
             <TextView
@@ -83,6 +85,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
                 android:ems="10"
+                android:singleLine="true"
                 android:id="@+id/registerEmailEditText"/>
         </LinearLayout>
 

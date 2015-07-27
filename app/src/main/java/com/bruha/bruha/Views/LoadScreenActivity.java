@@ -2,6 +2,7 @@ package com.bruha.bruha.Views;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import com.bruha.bruha.Model.Artists;
@@ -30,6 +31,8 @@ public class LoadScreenActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_screen);
+
+
 
         reteievedInfo = new RetrievePHP(); // Initializing the class.
 

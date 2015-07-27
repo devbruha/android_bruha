@@ -1,8 +1,16 @@
 package com.bruha.bruha.Views;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -15,14 +23,19 @@ import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
+import com.caverock.androidsvg.SVG;
+import com.caverock.androidsvg.SVGParseException;
+
 import java.util.ArrayList;
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class UserProfileActivity extends ActionBarActivity {
     ArrayList<String> userInfo=new ArrayList<>();
     SQLiteDatabaseModel dbHelper;
     SQLiteUtils sqLiteUtils;
+    @InjectView(R.id.userprofileDashboardImage) ImageView dudeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +43,46 @@ public class UserProfileActivity extends ActionBarActivity {
         setContentView(R.layout.activity_user_profile);
         ButterKnife.inject(this);
 
+
+
         dbHelper = new SQLiteDatabaseModel(this);
         sqLiteUtils = new SQLiteUtils();
 
         init(); // Initializes the array to contain the information to be displayed.(User Info)
         setPage(); //Setting up the page.
+        resizeButton();
     }
+
+   private void resizeButton() {
+       Display display = getWindowManager().getDefaultDisplay();
+       Point size = new Point();
+       display.getSize(size);
+
+       // Storing the screen height into an int variable..
+       int height = size.y;
+       //Assigning the PageEventCoverPicture to a variable to alter its dimensions after with.
+       ViewGroup.LayoutParams dudeButtonLayoutParams = dudeButton.getLayoutParams();
+       dudeButtonLayoutParams.height = (int) Math.round(height * .07);
+       dudeButtonLayoutParams.width = (int) Math.round(height * .07);
+       //Setting the Button Image
+       dudeButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 30));
+
+       dudeButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(final View v) {
+               ObjectAnimator animator = ObjectAnimator.ofFloat(dudeButton, "alpha", 1f, 0.5f);
+               animator.setDuration(100);
+               animator.addListener(new AnimatorListenerAdapter() {
+                   public void onAnimationEnd(Animator animation) {
+                       dudeButton.setAlpha(1f);
+                       startDashboardActivity(v);
+                   }
+               });
+               animator.start();
+           }
+       });
+   }
+
 
     //Resizes the page, sets the fonts, sets the text.
     private void setPage()
@@ -129,5 +176,33 @@ public class UserProfileActivity extends ActionBarActivity {
         startActivity(intent);
         finish();
 
+    }
+
+    @OnClick(R.id.userprofileDashboardImage)
+    public void startDashboardActivity(View view)
+    {
+        Intent intent = new Intent(this,DashboardActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    //SVG SHIT:
+    public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
+        try {
+            size = (int)(size*res.getDisplayMetrics().density);
+            SVG svg = SVG.getFromResource(getApplicationContext(), resource);
+
+            Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bmp);
+            svg.renderToCanvas(canvas);
+
+            BitmapDrawable drawable = new BitmapDrawable(res, bmp);
+
+
+            return drawable;
+        }catch(SVGParseException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

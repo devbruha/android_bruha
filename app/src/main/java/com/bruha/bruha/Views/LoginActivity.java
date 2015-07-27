@@ -5,18 +5,25 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Point;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bruha.bruha.Model.Event;
@@ -43,6 +50,8 @@ public class LoginActivity extends ActionBarActivity {
     // Injecting the EditTexts using Butterknife library
     @InjectView(R.id.loginUsernameEditText) EditText mLoginUsernameEditText;
     @InjectView(R.id.loginPasswordEditText) EditText mLoginPasswordEditText;
+    @InjectView(R.id.loginUsernameTextView) TextView mLoginUsernameTextView;
+    @InjectView(R.id.loginPasswordTextView) TextView mLoginPasswordTextView;
 
     @InjectView(R.id.loginButton) Button loginButton;
     @InjectView(R.id.continueNotLoggedButton) Button noLoginButton;
@@ -56,7 +65,6 @@ public class LoginActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         // using ButterKnife.inject to allow the InjectViews to take effect
         ButterKnife.inject(this);
 
@@ -113,6 +121,56 @@ public class LoginActivity extends ActionBarActivity {
                 animator.start();
             }
         });
+
+        resize();
+    }
+
+    private void resize()
+    {
+        // Android functions to determine the screen dimensions.
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        // Storing the screen height into an int variable..
+        int height = size.y;
+
+        Typeface  opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
+
+        mLoginUsernameTextView.setTypeface(opensansregfnt);
+        mLoginUsernameEditText.setTypeface(opensansregfnt);
+        mLoginPasswordTextView.setTypeface(opensansregfnt);
+        mLoginPasswordEditText.setTypeface(opensansregfnt);
+
+        int x= (int)Math.round(height * .018);
+        int x1= (int)Math.round(height * .028);
+        mLoginPasswordEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
+        mLoginUsernameEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
+        mLoginUsernameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        mLoginPasswordTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+
+
+        ViewGroup.LayoutParams mLoginUsernameEditTextLayoutParams = mLoginUsernameEditText.getLayoutParams();
+        ViewGroup.LayoutParams mLoginPasswordEditTextLayoutParams = mLoginPasswordEditText.getLayoutParams();
+        mLoginPasswordEditTextLayoutParams.height =  (int)Math.round(height*.07);
+        mLoginUsernameEditTextLayoutParams.height =  (int)Math.round(height*.07);
+        mLoginPasswordEditTextLayoutParams.width  = (int) Math.round(height*.30);
+        mLoginUsernameEditTextLayoutParams.width  = (int) Math.round(height*.30);
+
+        ViewGroup.LayoutParams loginButtonLayoutParams = loginButton.getLayoutParams();
+        ViewGroup.LayoutParams noLoginButtonLayoutParams = noLoginButton.getLayoutParams();
+        ViewGroup.LayoutParams registerButtonLayoutParams = registerButton.getLayoutParams();
+        loginButtonLayoutParams.height =  (int)Math.round(height*.07);
+        noLoginButtonLayoutParams.height =  (int)Math.round(height*.07);
+        registerButtonLayoutParams.height =  (int)Math.round(height*.07);
+        loginButtonLayoutParams.width  = (int) Math.round(height*.135);
+        noLoginButtonLayoutParams.width  = (int) Math.round(height*.135);
+        registerButtonLayoutParams.width  = (int) Math.round(height*.135);
+
+        loginButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        registerButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        noLoginButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+
 
     }
 

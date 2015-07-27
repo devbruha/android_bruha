@@ -1,6 +1,7 @@
 package com.bruha.bruha.Model;
 
 import android.app.Application;
+import android.os.Bundle;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -70,4 +71,7 @@ public class MyApplication extends Application{
 
         return selectedEventList;
     }
+
+
+
 }

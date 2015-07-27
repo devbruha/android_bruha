@@ -53,6 +53,7 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
                 android:inputType="textMultiLine"
                 android:ems="10"
                 android:id="@+id/loginUsernameEditText"/>
@@ -68,6 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
+                android:singleLine="true"
                 android:ems="10"
                 android:id="@+id/loginPasswordEditText"/>
 
