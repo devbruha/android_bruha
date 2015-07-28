@@ -1,18 +1,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="10dp"
     tools:context="com.bruha.bruha.Views.UserProfileActivity"
-    android:background="#ffbb1f74"
+    android:background="@drawable/grey_gradient"
     android:id="@+id/UserRelLayout">
 
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:id="@+id/UserPicture"
+        android:layout_marginTop="10dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:background="#ff55ff84" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/userprofileDashboardImage"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="3dp"
+        android:layout_alignParentStart="true"
+         />
 
     <ImageView
         android:layout_width="280dp"
@@ -20,8 +29,7 @@
         android:id="@+id/InfoBox"
         android:layout_below="@+id/UserPicture"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:background="#c5ff488e" />
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -152,5 +160,6 @@
         android:layout_alignLeft="@+id/usernametext"
         android:layout_alignStart="@+id/usernametext"
         android:alpha="0.40" />
+
 
 </RelativeLayout>

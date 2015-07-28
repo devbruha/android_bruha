@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.R;
+import com.bruha.bruha.Views.EventPageActivity;
 import com.bruha.bruha.Views.ShowOnMapActivity;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
@@ -180,9 +181,10 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
                         MoreInfoLay.setAlpha(1f);
-                        //Intent intent = new Intent(mActivity, EventPageActivity.class);
-                        // intent.putExtra("EventId", event.getEventid());
-                        // mActivity.startActivity(intent);
+                        Intent intent = new Intent(mActivity, EventPageActivity.class);
+                        intent.putExtra("Id",Outfit.getOrgId()+"");
+                        intent.putExtra("Type","Outfit");
+                        mActivity.startActivity(intent);
                     }
                 });
                 animator.start();
@@ -192,8 +194,6 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
 
         return convertView;
     }
-
-
 
 
     @Override

@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -13,6 +14,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -84,7 +87,6 @@ public class ListActivity extends FragmentActivity {
     @InjectView(R.id.filtervenuetext) TextView venueText;
     @InjectView(R.id.filterartisttext) TextView artistText;
     @InjectView(R.id.filteroutfittext) TextView outfitText;
-
     @InjectView(R.id.DashboardButton) ImageView dudeButton;
     @InjectView(R.id.MapButton) ImageView mapButton;
 
@@ -94,6 +96,7 @@ public class ListActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list2);
         ButterKnife.inject(this);                   //Injecting all the objects to be imported from above.
+
 
 
         Display display = getWindowManager().getDefaultDisplay();
@@ -111,6 +114,10 @@ public class ListActivity extends FragmentActivity {
         ViewGroup.LayoutParams mapButtonLayoutParams = mapButton.getLayoutParams();
         mapButtonLayoutParams.height =  (int)Math.round(height*.07);
         mapButtonLayoutParams.width =  (int)Math.round(height*.07);
+
+
+
+
 
         init();
 
@@ -198,8 +205,6 @@ public class ListActivity extends FragmentActivity {
         });
     }
 
-
-
     private void init(){
 
         backupEventList = ((MyApplication) getApplicationContext()).getBackupEventList();
@@ -213,6 +218,8 @@ public class ListActivity extends FragmentActivity {
         mVenues= sqLiteUtils.getVenuesInfo(dbHelper);
         mOutfit= sqLiteUtils.getOutfitsInfo(dbHelper);
         mArtists= sqLiteUtils.getArtistInfo(dbHelper);
+
+        Log.v("ThisSize", mEvents.size()+"");
 
         for(Event x:mEvents)
         {

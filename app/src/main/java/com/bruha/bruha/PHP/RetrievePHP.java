@@ -85,22 +85,22 @@ public class RetrievePHP {
                 JSONObject Event = x.getJSONObject(i);
                 final com.bruha.bruha.Model.Event even = new Event();
 
+                even.setEventid(Event.getString("event_id"));
                 even.setEventName(Event.getString("event_name"));
+                even.setVenueid(Event.getString("venue_id"));
+                even.setEventDescription(Event.getString("event_desc"));
                 even.setEventDate(Event.getString("evnt_start_date"));
                 even.setEventEndDate(Event.getString("event_end_date"));
                 even.setEventStartTime(Event.getString("event_start_time"));
                 even.setEventEndTime(Event.getString("event_end_time"));
                 even.setEventPrice(Double.parseDouble(Event.getString("Admission_price")));
-                even.setEventid(Event.getString("event_id"));
-                even.setEventDescription(Event.getString("event_desc"));
-                even.setVenueid(Event.getString("venue_id"));
-                even.setLocationID(Event.getString("location_id"));
                 even.setEventLocName(Event.getString("venue_name"));
-                even.setEventLocSt(Event.getString("venue_location"));
-                even.setEventLocAdd(Event.getString("location_city"));
+                even.setEventLocSt(Event.getString("street_no") + Event.getString("street_name"));
+                even.setEventLocAdd(Event.getString("location_city") + ", " + Event.getString("country"));
                 even.setEventLatitude(Double.parseDouble(Event.getString("location_lat")));
                 even.setEventLongitude(Double.parseDouble(Event.getString("location_lng")));
                 even.setEventPicture(Event.getString("image_link"));
+
 
                 mEvents.add(even);
             }

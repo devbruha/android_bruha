@@ -1,5 +1,6 @@
 package com.bruha.bruha.Views;
 
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.widget.ListView;
@@ -19,7 +20,6 @@ public class MyTicketActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_ticket);
-
 
 
         ListView List = (ListView) findViewById(R.id.ticketList);

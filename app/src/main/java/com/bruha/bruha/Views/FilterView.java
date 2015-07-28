@@ -77,6 +77,9 @@ public class FilterView {
 
     }
 
+
+
+
     public void init(){
 
         setPanel();

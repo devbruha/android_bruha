@@ -284,7 +284,8 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                     public void onAnimationEnd(Animator animation) {
                         MoreInfoLay.setAlpha(1f);
                         Intent intent = new Intent(mActivity, EventPageActivity.class);
-                        intent.putExtra("EventId",event.getEventid());
+                        intent.putExtra("Id",event.getEventid());
+                        intent.putExtra("Type","Event");
                         mActivity.startActivity(intent);
                     }
                 });

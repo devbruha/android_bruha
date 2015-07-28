@@ -1,16 +1,34 @@
 package com.bruha.bruha.Views;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.Display;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import com.bruha.bruha.Adapters.EventListviewAdapter;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
+import com.caverock.androidsvg.SVG;
+import com.caverock.androidsvg.SVGParseException;
+
 import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 public class MyUploadsActivity extends ActionBarActivity {
 
@@ -19,6 +37,8 @@ public class MyUploadsActivity extends ActionBarActivity {
 
     //Injecting Views using ButterKnife Library
     @InjectView(android.R.id.list) ListView mListView;
+    @InjectView(R.id.myuploadDashboardImage) ImageView dudeButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +53,41 @@ public class MyUploadsActivity extends ActionBarActivity {
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(adapter);
+
+        resize();
     }
+
+    private void resize()
+    {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        // Storing the screen height into an int variable..
+        int height = size.y;
+        //Assigning the PageEventCoverPicture to a variable to alter its dimensions after with.
+        ViewGroup.LayoutParams dudeButtonLayoutParams = dudeButton.getLayoutParams();
+        dudeButtonLayoutParams.height =  (int)Math.round(height*.07);
+        dudeButtonLayoutParams.width =  (int)Math.round(height*.07);
+        //Setting the Button Image
+        dudeButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 30));
+
+        dudeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(dudeButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        dudeButton.setAlpha(1f);
+                        startDashboardActivity(v);
+                    }
+                });
+                animator.start();
+            }
+        });
+    }
+
 
     private void init(){
         // Create the local DB object
@@ -42,5 +96,33 @@ public class MyUploadsActivity extends ActionBarActivity {
 
         //Reteieve the events to display.
         mEvents = sqLiteUtils.getUserEventInfo(dbHelper);
+    }
+
+    //SVG SHIT:
+    public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
+        try {
+            size = (int)(size*res.getDisplayMetrics().density);
+            SVG svg = SVG.getFromResource(getApplicationContext(), resource);
+
+            Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bmp);
+            svg.renderToCanvas(canvas);
+
+            BitmapDrawable drawable = new BitmapDrawable(res, bmp);
+
+
+            return drawable;
+        }catch(SVGParseException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @OnClick(R.id.myuploadDashboardImage)
+    public void startDashboardActivity(View view)
+    {
+        Intent intent = new Intent(this,DashboardActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
