@@ -3,6 +3,8 @@ package com.bruha.bruha.Views;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
@@ -167,6 +169,14 @@ public class UserProfileActivity extends ActionBarActivity {
     }
 
     @OnClick(R.id.logouty)
+    public void onClickListenerLogout(View view)
+    {
+        logoutDialog();
+    }
+
+
+
+
     public void logout(View view)
     {
         MyApplication.loginCheck = false;
@@ -205,4 +215,27 @@ public class UserProfileActivity extends ActionBarActivity {
         }
         return null;
     }
+
+
+
+    public void logoutDialog()
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Add the buttons
+        builder.setMessage("Are you sure you want to log out?!");
+        builder.setCancelable(true);
+        builder.setPositiveButton("Cancel!", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        builder.setNegativeButton("Yes!", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                logout(null);
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
 }

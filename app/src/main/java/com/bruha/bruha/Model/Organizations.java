@@ -7,14 +7,25 @@ public class Organizations {
 
 
     //
-    private int orgId;
+    private String orgId;
     private String orgName;
     private String orgLocation;
     private String orgDescription;
+    private String orgSt;
     private int locId;
     private double lat;
     private double lng;
     private  String orgPicture;
+
+
+    public String getOrgSt() {
+        return orgSt;
+    }
+
+    public void setOrgSt(String orgSt) {
+        this.orgSt = orgSt;
+    }
+
 
     public String getOrgPicture() {
         return orgPicture;
@@ -24,11 +35,11 @@ public class Organizations {
         this.orgPicture = orgPicture;
     }
 
-    public int getOrgId() {
+    public String getOrgId() {
         return orgId;
     }
 
-    public void setOrgId(int orgId) {
+    public void setOrgId(String orgId) {
         this.orgId = orgId;
     }
 

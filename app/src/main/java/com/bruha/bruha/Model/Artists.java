@@ -6,7 +6,7 @@ package com.bruha.bruha.Model;
 public class Artists {
 
     //Artists main Database data.
-    private int artistId;
+    private String artistId;
     private String artistName;
     private String artistDescription;
 
@@ -27,11 +27,11 @@ public class Artists {
 
     //The getters and setters for Aritists variables defined above.
 
-    public int getArtistId() {
+    public String getArtistId() {
         return artistId;
     }
 
-    public void setArtistId(int artistId) {
+    public void setArtistId(String artistId) {
         this.artistId = artistId;
     }
 

@@ -123,19 +123,15 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         //Setting all the text inside the view.
 
         //Summary being set.
-      //  holder.OrganizationPicture.setImageResource();
-      // holder.OrganizationIcon.setImageResource();
         holder.OrganizationName.setText(Outfit.getOrgName());
       //  holder.OrganizationDistance.setText("1.2 km");
 
         //Detailed Description being set.
         holder.OrganizationDetailedName.setText(Outfit.getOrgName());
-        holder.OrganizationLocName.setText(Outfit.getOrgLocation());
-        holder.OrganizationLocSt.setText(Outfit.getOrgDescription());
-        holder.OrganizationLocAdd.setText("Hamilton, ON Canada");
-       // holder.OrganizationWeekDayHours.setText("Mon to Fri: 8 AM - 10 PM ");
-       // holder.OrganizationSaturday.setText("Saturday: 10 AM - 5 PM");
-        //holder.OrganizationSunday.setText("Sunday: Closed");
+        holder.OrganizationLocName.setText(Outfit.getOrgName());
+        holder.OrganizationLocSt.setText(Outfit.getOrgSt());
+        holder.OrganizationLocAdd.setText(Outfit.getOrgLocation());
+
 
         Picasso.with(viewGroup.getContext()).load(Outfit.getOrgPicture()).into(holder.OrganizationPicture);
 
@@ -161,7 +157,7 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
                     public void onAnimationEnd(Animator animation) {
                         PreviewLayout.setAlpha(1f);
                         Intent intent = new Intent(mActivity, ShowOnMapActivity.class);
-                        intent.putExtra("Id",Outfit.getOrgId()+"");
+                        intent.putExtra("Id",Outfit.getOrgId());
                         intent.putExtra("Type","Outfit");
                         mActivity.startActivity(intent);
                     }
@@ -182,7 +178,7 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
                     public void onAnimationEnd(Animator animation) {
                         MoreInfoLay.setAlpha(1f);
                         Intent intent = new Intent(mActivity, EventPageActivity.class);
-                        intent.putExtra("Id",Outfit.getOrgId()+"");
+                        intent.putExtra("Id",Outfit.getOrgId());
                         intent.putExtra("Type","Outfit");
                         mActivity.startActivity(intent);
                     }

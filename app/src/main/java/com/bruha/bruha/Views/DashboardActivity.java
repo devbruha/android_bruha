@@ -111,6 +111,7 @@ public class DashboardActivity extends ActionBarActivity {
             });
 
             //MyTicket Button's Implementation.
+            myTicketButton.setAlpha((float) 0.25);
             myTicketButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
@@ -118,8 +119,8 @@ public class DashboardActivity extends ActionBarActivity {
                     animator.setDuration(100);
                     animator.addListener(new AnimatorListenerAdapter() {
                         public void onAnimationEnd(Animator animation) {
-                            myTicketButton.setAlpha(1f);
-                            startTicketAcitivity(v);
+                            myTicketButton.setAlpha(.25f);
+                            ticketDialog();
                         }
                     });
                     animator.start();
@@ -190,7 +191,7 @@ public class DashboardActivity extends ActionBarActivity {
             myTicketButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showDialog();
+                    ticketDialog();
                 }
             });
 
@@ -342,6 +343,22 @@ public class DashboardActivity extends ActionBarActivity {
     public void startProfileActivity(View view){
         Intent intent = new Intent(this, UserProfileActivity.class);
         startActivity(intent);
+    }
+
+
+    public void ticketDialog()
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Add the buttons
+        builder.setMessage("This page is currently in development,Sorry!");
+        builder.setCancelable(true);
+        builder.setPositiveButton("Cancel!", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     public void showDialog()

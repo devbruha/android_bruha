@@ -9,7 +9,7 @@
               android:elevation="50dp"
               android:background="@android:color/transparent">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="68dp"
         android:visibility="visible"
@@ -254,7 +254,7 @@
             </LinearLayout>
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -267,7 +267,8 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!-- Quickie Filters -->
+
+            <!-- Category Filters -->
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -275,14 +276,12 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingTop="10dp"
-                android:id="@+id/quickie"
-                android:layout_alignParentEnd="false"
-                android:layout_alignParentBottom="false"
-                android:layout_alignParentTop="true">
+                android:id="@+id/category"
+                >
 
-                <!-- Linear layout which acts as list view -->
+                <!-- Linearlaout which acts as listview -->
                 <LinearLayout
-                    android:id="@+id/quickie_listview"
+                    android:id="@+id/category_listview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />
@@ -297,13 +296,15 @@
                 android:orientation="vertical"
                 android:id="@+id/calendarView"
                 android:paddingTop="10dp"
-                android:layout_below="@+id/quickie"
+                android:layout_below="@+id/category"
                 android:layout_gravity="center"
                 android:gravity="center_vertical">
 
             </LinearLayout>
 
-            <!-- Category Filters -->
+
+
+            <!-- Quickie Filters -->
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -311,17 +312,20 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingTop="10dp"
-                android:id="@+id/category"
-                android:layout_below="@+id/calendarView">
+                android:layout_below="@+id/calendarView"
+                android:id="@+id/quickie"
+                >
 
-                <!-- Linearlaout which acts as listview -->
+                <!-- Linear layout which acts as list view -->
                 <LinearLayout
-                    android:id="@+id/category_listview"
+                    android:id="@+id/quickie_listview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />
 
             </ScrollView>
+
+
 
             <!-- Admission Price -->
 
