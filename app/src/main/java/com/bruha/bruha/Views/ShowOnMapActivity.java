@@ -61,7 +61,7 @@ public class ShowOnMapActivity extends FragmentActivity {
         {
             //Finding out and storing the event that is to be displayed.
             for (Venues x : mVenues) {
-                if (x.getVenueId()== Integer.parseInt(id)) {
+                if (x.getVenueId().equals(id)) {
                     venue = x;
                 }
             }
@@ -71,7 +71,7 @@ public class ShowOnMapActivity extends FragmentActivity {
         {
             //Finding out and storing the event that is to be displayed.
             for (Organizations x : mOutfit) {
-                if (x.getOrgId()== Integer.parseInt(id)) {
+                if (x.getOrgId().equals(id)) {
                     outfit = x;
                 }
             }
@@ -81,7 +81,7 @@ public class ShowOnMapActivity extends FragmentActivity {
         {
             //Finding out and storing the event that is to be displayed.
             for (Artists x : mArtists) {
-                if (x.getArtistId()== Integer.parseInt(id)) {
+                if (x.getArtistId().equals(id)) {
                     artist = x;
                 }
             }

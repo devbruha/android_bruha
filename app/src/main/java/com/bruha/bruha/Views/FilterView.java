@@ -78,15 +78,13 @@ public class FilterView {
     }
 
 
-
-
     public void init(){
 
         setPanel();
 
         // Setting and storing the quickie filters.
 
-        setQuickieList();
+      //  setQuickieList();              //NO QUICKIE LIST FOR THE BETA VERSION!!
 
         // Simultaneously setting calendar and updating the user custom filters
 
@@ -100,7 +98,6 @@ public class FilterView {
 
         setAdmissionPrice();
     }
-
 
 
     private void setPanel(){
@@ -165,8 +162,6 @@ public class FilterView {
         }
         return result;
     }
-
-
 
     private void setQuickieList(){
 

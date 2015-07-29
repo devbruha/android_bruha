@@ -118,10 +118,10 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
        // holder.VenueDistance.setText();
 
         //Detailed Description being set.
-        holder.VenueDesName.setText(Venue.getVenueName());
-        holder.VenueLocName.setText(Venue.getVenueLocation());
-       // holder.VenueLocSt.setText();
-       // holder.VenueLocAdd.setText();
+        holder.VenueDesName.setText(Venue.getVenueDescription());
+        holder.VenueLocName.setText(Venue.getVenueName());
+        holder.VenueLocSt.setText(Venue.getVenueSt());
+        holder.VenueLocAdd.setText(Venue.getVenueLocation());
        // holder.VenueHourWeekDay.setText();
        // holder.VenueHourSaturday.setText();
        // holder.VenueHourSunday.setText();
@@ -152,7 +152,7 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
                     public void onAnimationEnd(Animator animation) {
                         PreviewLayout.setAlpha(1f);
                         Intent intent = new Intent(mActivity, ShowOnMapActivity.class);
-                        intent.putExtra("Id",Venue.getVenueId()+"");
+                        intent.putExtra("Id",Venue.getVenueId());
                         intent.putExtra("Type","Venue");
                         mActivity.startActivity(intent);
                     }
@@ -173,7 +173,7 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
                     public void onAnimationEnd(Animator animation) {
                         MoreInfoLay.setAlpha(1f);
                         Intent intent = new Intent(mActivity, EventPageActivity.class);
-                        intent.putExtra("Id",Venue.getVenueId()+"");
+                        intent.putExtra("Id",Venue.getVenueId());
                         intent.putExtra("Type","Venue");
                         mActivity.startActivity(intent);
                     }

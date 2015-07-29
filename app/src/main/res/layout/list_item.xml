@@ -488,7 +488,8 @@
             android:layout_alignLeft="@+id/VenueDistance"
             android:layout_alignStart="@+id/VenueDistance"
             android:layout_marginTop="10dp"
-            android:paddingBottom="8dp"/>
+            android:paddingBottom="8dp"
+            android:visibility="invisible" />
 
         <RelativeLayout
             android:layout_width="match_parent"

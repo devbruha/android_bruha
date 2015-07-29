@@ -321,20 +321,21 @@ public class LoginActivity extends ActionBarActivity {
                 break;
 
             case "Success":
+                // Alerting user of successfull login
+                alertUserAboutError(
+                        res.getString(R.string.success_title_login),
+                        res.getString(R.string.success_message_login));
 
 
                 //Storing the information of the user and his uploaded events into the local database.
                 ArrayList<Event> userEvents= retrievePHP.getUserEventList(username);
                 ArrayList<String> userInfo = retrievePHP.getUserInfo(username);
                 SQLiteUtils sqLiteUtils = new SQLiteUtils();
-                sqLiteUtils.insertUserEvents(dbHelper,userEvents);
+                sqLiteUtils.insertUserEvents(dbHelper, userEvents);
                 sqLiteUtils.insertNewUser(dbHelper, userInfo);
 
 
-                // Alerting user of successfull login
-                alertUserAboutError(
-                        res.getString(R.string.success_title_login),
-                        res.getString(R.string.success_message_login));
+
 
                 // Updating the shared variable login check to true on successful login
 

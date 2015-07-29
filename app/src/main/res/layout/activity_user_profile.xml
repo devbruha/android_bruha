@@ -44,7 +44,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:text="Username:"
         android:id="@+id/username"
         android:layout_below="@+id/Name"
@@ -147,19 +147,21 @@
         android:text="1600 Main St. West, Hamilton"
         android:id="@+id/locationtext"
         android:layout_alignBottom="@+id/location"
-        android:layout_alignLeft="@+id/UserPicture"
-        android:layout_alignStart="@+id/UserPicture"
+        android:layout_toRightOf="@+id/location"
+        android:layout_toEndOf="@+id/location"
         android:layout_marginLeft="3dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Logout"
+        android:textColor="#ffffff"
         android:id="@+id/logouty"
+        android:background="#ff5030b0"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/usernametext"
-        android:layout_alignStart="@+id/usernametext"
-        android:alpha="0.40" />
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+         />
 
 
 </RelativeLayout>

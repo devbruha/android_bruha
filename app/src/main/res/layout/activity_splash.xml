@@ -54,7 +54,7 @@
                                 android:text="SKIP"
                                 android:id="@+id/noLoginButton"
                                 android:textSize="18sp"
-                                android:textColor="#ff030303"
+                                android:textColor="#f8181aab"
                                 android:background="@drawable/borderorange"
                                 android:layout_alignParentRight="true"
                                 android:layout_marginRight="10dp"

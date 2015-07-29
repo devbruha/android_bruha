@@ -1,8 +1,13 @@
 package com.bruha.bruha.Views;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import com.bruha.bruha.Model.Artists;
@@ -32,38 +37,43 @@ public class LoadScreenActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_screen);
 
-
-
-        reteievedInfo = new RetrievePHP(); // Initializing the class.
-
-       // this.deleteDatabase("BruhaDatabase.db");
-
-        //Initializing the local database.
-        SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
-
-        //Calling the method that removes selected tables off the database and creates new ones.
-        dbHelper.onUpgrade(dbHelper.getWritableDatabase(),1,1);
-
-        initialEventRetrieval(dbHelper);
-
-       // ArrayList<Event> userEvents=retrievePHP.getUserEventList(username);
-     //   ArrayList<String> userInfo = dbHelper.getUserInfo(username);
-
-        SQLiteUtils sqLiteUtils = new SQLiteUtils();
-        ArrayList<String> userinfo= sqLiteUtils.getUserInfo(dbHelper);
-        Log.v("Size",userinfo.size()+"");
-
-        //Checks to see if the user is already logged in, if not,go to splash screen. Else navigate to Dashboard.
-        if(userinfo.size()==0) {
-            Intent intent = new Intent(this, SplashActivity.class);
-            startActivity(intent);
+        if(!isNetworkAvailable())
+        {
+            Dialog();
         }
-        else{
-            ArrayList<Event> userEvents= reteievedInfo.getUserEventList(userinfo.get(0));
-            sqLiteUtils.insertUserEvents(dbHelper,userEvents);
-            MyApplication.loginCheck = true;
-            Intent intent = new Intent(this, DashboardActivity.class);
-            startActivity(intent);
+
+        else {
+
+            reteievedInfo = new RetrievePHP(); // Initializing the class.
+
+            // this.deleteDatabase("BruhaDatabase.db");
+
+            //Initializing the local database.
+            SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
+
+            //Calling the method that removes selected tables off the database and creates new ones.
+            dbHelper.onUpgrade(dbHelper.getWritableDatabase(), 1, 1);
+
+            initialEventRetrieval(dbHelper);
+
+            // ArrayList<Event> userEvents=retrievePHP.getUserEventList(username);
+            //   ArrayList<String> userInfo = dbHelper.getUserInfo(username);
+
+            SQLiteUtils sqLiteUtils = new SQLiteUtils();
+            ArrayList<String> userinfo = sqLiteUtils.getUserInfo(dbHelper);
+            Log.v("Size", userinfo.size() + "");
+
+            //Checks to see if the user is already logged in, if not,go to splash screen. Else navigate to Dashboard.
+            if (userinfo.size() == 0) {
+                Intent intent = new Intent(this, SplashActivity.class);
+                startActivity(intent);
+            } else {
+                ArrayList<Event> userEvents = reteievedInfo.getUserEventList(userinfo.get(0));
+                sqLiteUtils.insertUserEvents(dbHelper, userEvents);
+                MyApplication.loginCheck = true;
+                Intent intent = new Intent(this, DashboardActivity.class);
+                startActivity(intent);
+            }
         }
     }
 
@@ -120,4 +130,39 @@ public class LoadScreenActivity extends Activity {
         sqLiteUtils.insertArtist(dbHelper, mArtists);
 
     }
+
+
+    // A function used to check whether users are connected to the internet
+    private boolean isNetworkAvailable() {
+        ConnectivityManager manager = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+        // boolean variable initialized to false, set true if there is a connection
+
+        boolean isAvailable = false;
+
+        if(networkInfo != null && networkInfo.isConnected()){
+
+            isAvailable = true;
+        }
+        return isAvailable;
+    }
+
+    private void Dialog()
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Add the buttons
+        builder.setMessage("You need an internet connection for this app!");
+        builder.setCancelable(true);
+        builder.setPositiveButton("Okay!", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                finish();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
 }

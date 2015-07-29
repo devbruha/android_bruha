@@ -6,8 +6,9 @@ package com.bruha.bruha.Model;
 public class Venues {
 
     //Venue main Database data.
-    private int venueId;
+    private String venueId;
     private String venueName;
+    private String venueSt;
     private String venueLocation;
     private String venueDescription;
 
@@ -43,11 +44,11 @@ public class Venues {
     }
     //All the Getters and Setters:
 
-    public int getVenueId() {
+    public String getVenueId() {
         return venueId;
     }
 
-    public void setVenueId(int venueId) {
+    public void setVenueId(String venueId) {
         this.venueId = venueId;
     }
 
@@ -105,6 +106,14 @@ public class Venues {
 
     public void setContactPhoneNumber(String contactPhoneNumber) {
         this.contactPhoneNumber = contactPhoneNumber;
+    }
+
+    public String getVenueSt() {
+        return venueSt;
+    }
+
+    public void setVenueSt(String venueSt) {
+        this.venueSt = venueSt;
     }
 
     public String getContactEmail() {

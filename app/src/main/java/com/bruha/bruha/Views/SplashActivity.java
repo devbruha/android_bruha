@@ -75,7 +75,7 @@ public class SplashActivity extends Activity {
                 animator.setDuration(100);
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
-                        loginButton.setAlpha(1f);
+                        loginButton.setAlpha(.75f);
                         startLoginActivity(null);
                     }
                 });
@@ -90,7 +90,7 @@ public class SplashActivity extends Activity {
                 animator.setDuration(100);
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
-                        registerButton.setAlpha(1f);
+                        registerButton.setAlpha(.75f);
                         startRegisterActivity(null);
                     }
                 });

@@ -95,7 +95,7 @@ public class RetrievePHP {
                 even.setEventEndTime(Event.getString("event_end_time"));
                 even.setEventPrice(Double.parseDouble(Event.getString("Admission_price")));
                 even.setEventLocName(Event.getString("venue_name"));
-                even.setEventLocSt(Event.getString("street_no") + Event.getString("street_name"));
+                even.setEventLocSt(Event.getString("street_no") +" "+ Event.getString("street_name"));
                 even.setEventLocAdd(Event.getString("location_city") + ", " + Event.getString("country"));
                 even.setEventLatitude(Double.parseDouble(Event.getString("location_lat")));
                 even.setEventLongitude(Double.parseDouble(Event.getString("location_lng")));
@@ -160,10 +160,11 @@ public class RetrievePHP {
                 JSONObject Venue = x.getJSONObject(i);
                 com.bruha.bruha.Model.Venues ven = new Venues();
 
-                ven.setVenueId(Integer.parseInt(Venue.getString("venue_id")));
+                ven.setVenueId(Venue.getString("venue_id"));
                 ven.setVenueName(Venue.getString("venue_name"));
                 ven.setVenueDescription(Venue.getString("venue_desc"));
-                ven.setVenueLocation(Venue.getString("venue_location"));
+                ven.setVenueSt(Venue.getString("street_no") + " " + Venue.getString("street_name") + ", " + Venue.getString("postal_code"));
+                ven.setVenueLocation(Venue.getString("location_city") + ", " + Venue.getString("country"));
                 ven.setLat(Double.parseDouble(Venue.getString("location_lat")));
                 ven.setLng(Double.parseDouble(Venue.getString("location_lng")));
                 ven.setVenuePicture(Venue.getString("media"));
@@ -225,11 +226,11 @@ public class RetrievePHP {
                 JSONObject Organization = x.getJSONObject(i);
                 com.bruha.bruha.Model.Organizations org = new Organizations();
 
-                org.setOrgId(Integer.parseInt(Organization.getString("organization_id")));
+                org.setOrgId(Organization.getString("organization_id"));
                 org.setOrgName(Organization.getString("organization_name"));
                 org.setOrgDescription(Organization.getString("organization_desc"));
-                org.setOrgLocation(Organization.getString("organization_location"));
-                org.setLocId(Integer.parseInt(Organization.getString("location_id")));
+                org.setOrgSt(Organization.getString("street_no") + " " + Organization.getString("street_name") + ", " + Organization.getString("postal_code"));
+                org.setOrgLocation(Organization.getString("location_city")+", "+Organization.getString("country"));
                 org.setLat(Double.parseDouble(Organization.getString("location_lat")));
                 org.setLng(Double.parseDouble(Organization.getString("location_lng")));
                 org.setOrgPicture(Organization.getString("media"));
@@ -289,7 +290,7 @@ public class RetrievePHP {
                 JSONObject mArtist = x.getJSONObject(i);
                 com.bruha.bruha.Model.Artists Artist = new Artists();
 
-                Artist.setArtistId(Integer.parseInt(mArtist.getString("Artist_id")));
+                Artist.setArtistId(mArtist.getString("Artist_id"));
                 Artist.setArtistName(mArtist.getString("Artist_name"));
                 Artist.setArtistDescription(mArtist.getString("Artist_desc"));
                 Artist.setArtistPicture(mArtist.getString("Artist_media"));
@@ -354,29 +355,31 @@ public class RetrievePHP {
         }
 
         try {
+            Log.v("Response",response);
             JSONArray x = new JSONArray(response);
 
             for (int i = 0; i < x.length(); i++) {
                 JSONObject Event = x.getJSONObject(i);
                 com.bruha.bruha.Model.Event even = new Event();
 
-                even.setEventName(Event.getString("event_name"));
                 even.setEventid(Event.getString("event_id"));
+                even.setEventName(Event.getString("event_name"));
                 even.setVenueid(Event.getString("venue_id"));
-                even.setLocationID(Event.getString("location_id"));
                 even.setEventDescription(Event.getString("event_desc"));
-                even.setEventPrice(Double.parseDouble(Event.getString("Admission_price")));
-                even.setEventLocAdd(Event.getString("location_city"));
-                even.setEventLatitude(Double.parseDouble(Event.getString("location_lat")));
-                even.setEventLongitude(Double.parseDouble(Event.getString("location_lng")));
+                even.setEventDate(Event.getString("evnt_start_date"));
+                even.setEventEndDate(Event.getString("event_end_date"));
                 even.setEventStartTime(Event.getString("event_start_time"));
                 even.setEventEndTime(Event.getString("event_end_time"));
-                even.setEventDate(Event.getString("event_start_date"));
-                even.setEventEndDate(Event.getString("event_end_date"));
+                even.setEventPrice(Double.parseDouble(Event.getString("Admission_price")));
                 even.setEventLocName(Event.getString("venue_name"));
-                even.setEventLocSt(Event.getString("venue_location"));
+                even.setEventLocSt(Event.getString("street_no") +" "+ Event.getString("street_name"));
+                even.setEventLocAdd(Event.getString("location_city") + ", " + Event.getString("country"));
+                even.setEventLatitude(Double.parseDouble(Event.getString("location_lat")));
+                even.setEventLongitude(Double.parseDouble(Event.getString("location_lng")));
                 even.setEventPicture(Event.getString("image_link"));
 
+
+                Log.v("UserEventName",even.getEventName());
                 mUserEvents.add(even);
             }
             //Log.v("TEST:", response);

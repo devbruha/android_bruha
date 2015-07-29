@@ -48,21 +48,15 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String TABLE_VENUES_INFO = "venue_info";
     public static final String VENUES_LOCAL_ID = "_id";
     public static final String VENUES_REMOTE_ID = "venueID";
-    public static final String VENUE_LOCATION_ID = "locID";
+    public static final String VENUE_STREET = "venueSt";
     public static final String VENUE_DESCRIPTION = "venueDescription";
     public static final String VENUE_NAME = "venueName";
     public static final String VENUE_LATITUDE = "venueLatitude";
     public static final String VENUE_LONGITUDE = "venueLongitude";
     public static final String VENUE_LOCATION_NAME = "venueLocName";
-    //public static final String VENUE_LOCATION_STREET = "venueLocStreet";
-    //public static final String VENUE_LOCATION_ADDRESS = "venueLocAddress";
-    //public static final String VENUE_START_TIME = "eventStartTime";
-    //public static final String VENUE_END_TIME = "eventEndTime";
-    //public static final String VENUE_END_DATE = "eventEndDate";
-    //public static final String VENUE_ICON = "venueIcon";
-    //public static final String VENUE_DATE = "eventDate";
+
     public static final String VENUE_PICTURE = "venuePicture";
-    //public static final String VENUE_DISTANCE = "eventDistance"
+
 
 
     //OUTFITS INTO LOCAL DATABASE:
@@ -74,6 +68,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String OUTFIT_LATITUDE = "outfitLatitude";
     public static final String OUTFIT_LONGITUDE = "outfitLongitude";
     public static final String OUTFIT_LOCATION_NAME = "outfitLocName";
+    public static final String OUTFIT_STREET = "outfitSt";
     public static final String OUTFIT_PICTURE = "outfitPicture";
 
     //ARTIST INTO LOCAL DATABASE:
@@ -145,6 +140,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + VENUE_NAME + " text not null, "
             + VENUE_LATITUDE + " text not null, "
             + VENUE_PICTURE + " text not null, "
+            + VENUE_STREET + " text not null, "
             + VENUE_LONGITUDE + " text not null, "
             + VENUE_LOCATION_NAME + " text not null); ";
 
@@ -156,6 +152,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + OUTFIT_NAME + " text not null, "
             + OUTFIT_LATITUDE + " text not null, "
             + OUTFIT_LONGITUDE + " text not null, "
+            + OUTFIT_STREET + " text not null, "
             + OUTFIT_PICTURE + " text not null, "
             + OUTFIT_LOCATION_NAME + " text not null); ";
 
@@ -198,7 +195,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 Artists artist = new Artists();
 
                 int id = cursor.getInt(cursor.getColumnIndex("_id"));
-                artist.setArtistId(Integer.parseInt(cursor.getString(cursor.getColumnIndex("artistID"))));
+                artist.setArtistId(cursor.getString(cursor.getColumnIndex("artistID")));
                 artist.setArtistDescription(cursor.getString(cursor.getColumnIndex("artistDescription")));
                 artist.setArtistName(cursor.getString(cursor.getColumnIndex("artistName")));
                 artist.setArtistPicture(cursor.getString(cursor.getColumnIndex("artistPicture")));
@@ -217,13 +214,14 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
 
         for(int i =0; i< Org.size();i++){
-            values.put("outfitID", Org.get(i).getOrgId()+"");
+            values.put("outfitID", Org.get(i).getOrgId());
             values.put("outfitDescription", Org.get(i).getOrgDescription());
             values.put("outfitName", Org.get(i).getOrgName());
             values.put("outfitLatitude", Org.get(i).getLat());
             values.put("outfitLongitude", Org.get(i).getLng());
             values.put("outfitLocName", Org.get(i).getOrgLocation());
             values.put("outfitPicture", Org.get(i).getOrgPicture());
+            values.put("outfitSt", Org.get(i).getOrgSt());
 
             db.insert(TABLE_OUTFIT_INFO, null, values);
         }
@@ -246,13 +244,14 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
                 int id = cursor.getInt(cursor.getColumnIndex("_id"));
 
-                Org.setOrgId(Integer.parseInt(cursor.getString(cursor.getColumnIndex("outfitID"))));
+                Org.setOrgId(cursor.getString(cursor.getColumnIndex("outfitID")));
                 Org.setOrgDescription(cursor.getString(cursor.getColumnIndex("outfitDescription")));
                 Org.setOrgName(cursor.getString(cursor.getColumnIndex("outfitName")));
                 Org.setLat(cursor.getDouble(cursor.getColumnIndex("outfitLatitude")));
                 Org.setLng(cursor.getDouble(cursor.getColumnIndex("outfitLongitude")));
                 Org.setOrgLocation(cursor.getString(cursor.getColumnIndex("outfitLocName")));
                 Org.setOrgPicture(cursor.getString(cursor.getColumnIndex("outfitPicture")));
+                Org.setOrgSt(cursor.getString(cursor.getColumnIndex("outfitSt")));
 
                 mOutfit.add(Org);
             }
@@ -270,22 +269,15 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
 
         for(int i =0; i< venue.size();i++){
-            values.put("venueID", venue.get(i).getVenueId()+"");
+            values.put("venueID", venue.get(i).getVenueId());
             values.put("venueDescription", venue.get(i).getVenueDescription());
             values.put("venueName", venue.get(i).getVenueName());
             values.put("venueLatitude", venue.get(i).getLat());
             values.put("venueLongitude", venue.get(i).getLng());
             values.put("venueLocName", venue.get(i).getVenueLocation());
-            //values.put("eventIcon", venue.get(i).getEventIcon());
-            // values.put("eventDate", venue.get(i).getEventDate());
             values.put("venuePicture", venue.get(i).getVenuePicture());
-            //values.put("eventDistance", venue.get(i).getEventDistance());
-            // values.put("locID", venue.get(i).getLocationID());
-            //values.put("eventLocStreet", venue.get(i).getEventLocSt());
-            //values.put("eventLocAddress", venue.get(i).getEventLocAdd());
-            //values.put("eventStartTime", venue.get(i).getEventStartTime());
-            //values.put("eventEndTime", venue.get(i).getEventEndTime());
-            //values.put("eventEndDate", venue.get(i).getEventEndDate());
+            values.put("venueSt", venue.get(i).getVenueSt());
+
 
             db.insert(TABLE_VENUES_INFO, null, values);
         }
@@ -306,13 +298,14 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 Venues newVen = new Venues();
 
                 //int id = cursor.getInt(cursor.getColumnIndex("_id"));
-                newVen.setVenueId(Integer.parseInt(cursor.getString(cursor.getColumnIndex("venueID"))));
+                newVen.setVenueId(cursor.getString(cursor.getColumnIndex("venueID")));
                 newVen.setVenueDescription(cursor.getString(cursor.getColumnIndex("venueDescription")));
                 newVen.setVenueName(cursor.getString(cursor.getColumnIndex("venueName")));
                 newVen.setLat(cursor.getDouble(cursor.getColumnIndex("venueLatitude")));
                 newVen.setLng(cursor.getDouble(cursor.getColumnIndex("venueLongitude")));
                 newVen.setVenueLocation(cursor.getString(cursor.getColumnIndex("venueLocName")));
                 newVen.setVenuePicture(cursor.getString(cursor.getColumnIndex("venuePicture")));
+                newVen.setVenueSt(cursor.getString(cursor.getColumnIndex("venueSt")));
 
                 mVenues.add(newVen);
             }
@@ -332,11 +325,8 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         for(int i =0; i< events.size();i++){
             values.put("eventID", events.get(i).getEventid());
             values.put("venueID", events.get(i).getVenueid());
-            //values.put("orgID", events.get(i).getOrganizationid());
-            values.put("locID", events.get(i).getLocationID());
             values.put("eventDescription", events.get(i).getEventDescription());
             values.put("eventName", events.get(i).getEventName());
-            values.put("eventIcon", events.get(i).getEventIcon());
             values.put("eventDate", events.get(i).getEventDate());
             values.put("eventPrice", events.get(i).getEventPrice());
             values.put("eventDistance", events.get(i).getEventDistance());
@@ -372,14 +362,11 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 //int id = cursor.getInt(cursor.getColumnIndex("_id"));
                 newEvent.setEventid(cursor.getString(cursor.getColumnIndex("eventID")));
                 newEvent.setVenueid(cursor.getString(cursor.getColumnIndex("venueID")));
-                //String orgID = cursor.getString(cursor.getColumnIndex("orgID"));
-                newEvent.setLocationID(cursor.getString(cursor.getColumnIndex("locID")));
                 newEvent.setEventDescription(cursor.getString(cursor.getColumnIndex("eventDescription")));
                 newEvent.setEventName(cursor.getString(cursor.getColumnIndex("eventName")));
                 newEvent.setEventid(cursor.getString(cursor.getColumnIndex("eventName")));
                 newEvent.setEventDate(cursor.getString(cursor.getColumnIndex("eventDate")));
                 newEvent.setEventPrice(cursor.getDouble(cursor.getColumnIndex("eventPrice")));
-                newEvent.setEventDistance(cursor.getDouble(cursor.getColumnIndex("eventDistance")));
                 newEvent.setEventLatitude(cursor.getDouble(cursor.getColumnIndex("eventLatitude")));
                 newEvent.setEventLongitude(cursor.getDouble(cursor.getColumnIndex("eventLongitude")));
                 newEvent.setEventLocName(cursor.getString(cursor.getColumnIndex("eventLocName")));
