@@ -4,13 +4,11 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -18,14 +16,11 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bruha.bruha.Adapters.ArtistsListViewAdapter;
 import com.bruha.bruha.Adapters.EventListviewAdapter;
@@ -42,7 +37,6 @@ import com.bruha.bruha.R;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 import com.daimajia.swipe.util.Attributes;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import butterknife.ButterKnife;
@@ -58,7 +52,13 @@ public class ListActivity extends FragmentActivity {
     ArrayList<Artists> mArtists = new ArrayList<>();
 
     //Initualiing the Filter Obects to hide and display everytime Venue,Artist,Event and Outfit Filters are applied.
-    LinearLayout mQuickieListView ;
+    LinearLayout mEventCategoryListView;
+    LinearLayout mVenueCategoryListView;
+    LinearLayout mArtistCategoryListView;
+    LinearLayout mOrganizationCategoryListView;
+
+
+
     LinearLayout linearCalendar ;
     TextView admission;
     TextView mPrice;
@@ -97,8 +97,6 @@ public class ListActivity extends FragmentActivity {
         setContentView(R.layout.activity_list2);
         ButterKnife.inject(this);                   //Injecting all the objects to be imported from above.
 
-
-
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -115,10 +113,6 @@ public class ListActivity extends FragmentActivity {
         mapButtonLayoutParams.height =  (int)Math.round(height*.07);
         mapButtonLayoutParams.width =  (int)Math.round(height*.07);
 
-
-
-
-
         init();
 
         if(MyApplication.sourceEvents.size() == 0) {
@@ -133,7 +127,12 @@ public class ListActivity extends FragmentActivity {
         setUpFilters();
 
         //Setting the Filters to the Filter Item once they have been declared and set in the view,later to be altered with.
-        mQuickieListView = (LinearLayout) findViewById(R.id.quickie_listview);
+
+        mEventCategoryListView = (LinearLayout) findViewById(R.id.event_category_listview);
+        mVenueCategoryListView = (LinearLayout) findViewById(R.id.venue_category_listview);
+        mArtistCategoryListView = (LinearLayout) findViewById(R.id.artist_category_listview);
+        mOrganizationCategoryListView = (LinearLayout) findViewById(R.id.organization_category_listview);
+
         linearCalendar = (LinearLayout) findViewById(R.id.calendarView);
         prce = (SeekBar) findViewById(R.id.priceBar);
         mPrice = (TextView) findViewById(R.id.priceDisplay);
@@ -168,8 +167,8 @@ public class ListActivity extends FragmentActivity {
 
     }
 
-    private void setButtons()
-    {
+    private void setButtons() {
+
         dudeButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 30));
         mapButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.mapicon, 30));
 
@@ -249,11 +248,15 @@ public class ListActivity extends FragmentActivity {
         venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venueorange, 50));
         artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistwhite, 50));
         outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
+        
+        mVenueCategoryListView.setVisibility(view.VISIBLE);
 
         admission.setVisibility(View.GONE);
         mPrice.setVisibility(View.GONE);
         prce.setVisibility(View.GONE);
-        mQuickieListView.setVisibility(view.GONE);
+        mEventCategoryListView.setVisibility(view.GONE);
+        mArtistCategoryListView.setVisibility(view.GONE);
+        mOrganizationCategoryListView.setVisibility(view.GONE);
         linearCalendar.setVisibility(view.GONE);
 
 
@@ -280,10 +283,14 @@ public class ListActivity extends FragmentActivity {
 
         OrganizationListViewAdapter OrgAdapter;
 
+        mOrganizationCategoryListView.setVisibility(view.VISIBLE);
+
         admission.setVisibility(View.GONE);
         mPrice.setVisibility(View.GONE);
         prce.setVisibility(View.GONE);
-        mQuickieListView.setVisibility(view.GONE);
+        mVenueCategoryListView.setVisibility(view.GONE);
+        mEventCategoryListView.setVisibility(view.GONE);
+        mArtistCategoryListView.setVisibility(view.GONE);
         linearCalendar.setVisibility(view.GONE);
 
         //Creating an variable of type Listview Adapter to create the list view.
@@ -323,7 +330,10 @@ public class ListActivity extends FragmentActivity {
         Admission.setVisibility(View.VISIBLE);
         Price.setVisibility(View.VISIBLE);
         prce.setVisibility(View.VISIBLE);
-        mQuickieListView.setVisibility(view.VISIBLE);
+        mVenueCategoryListView.setVisibility(view.GONE);
+        mEventCategoryListView.setVisibility(view.VISIBLE);
+        mArtistCategoryListView.setVisibility(view.GONE);
+        mOrganizationCategoryListView.setVisibility(view.GONE);
         linearCalendar.setVisibility(view.VISIBLE);
 
 
@@ -365,7 +375,10 @@ public class ListActivity extends FragmentActivity {
         admission.setVisibility(View.GONE);
         mPrice.setVisibility(View.GONE);
         prce.setVisibility(View.GONE);
-        mQuickieListView.setVisibility(view.GONE);
+        mEventCategoryListView.setVisibility(view.GONE);
+        mArtistCategoryListView.setVisibility(view.VISIBLE);
+        mOrganizationCategoryListView.setVisibility(view.GONE);
+        mVenueCategoryListView.setVisibility(view.GONE);
         linearCalendar.setVisibility(view.GONE);
 
         ArtistsListViewAdapter artistsListViewAdapter;

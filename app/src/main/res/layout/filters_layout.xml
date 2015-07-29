@@ -268,7 +268,7 @@
             android:orientation="vertical">
 
 
-            <!-- Category Filters -->
+            <!-- Event Category Filters -->
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -276,12 +276,75 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingTop="10dp"
-                android:id="@+id/category"
+                android:id="@+id/event_category"
                 >
 
-                <!-- Linearlaout which acts as listview -->
+                <!-- Linearlayout which acts as listview -->
                 <LinearLayout
-                    android:id="@+id/category_listview"
+                    android:id="@+id/event_category_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+            </ScrollView>
+
+            <!-- Venue Category Filters -->
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp"
+                android:layout_below="@+id/event_category"
+                android:id="@+id/venue_category"
+                >
+
+                <!-- Linear layout which acts as list view -->
+                <LinearLayout
+                    android:id="@+id/venue_category_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+            </ScrollView>
+
+            <!-- Artist Filters -->
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp"
+                android:layout_below="@+id/venue_category"
+                android:id="@+id/artist_category"
+                >
+
+                <!-- Linear layout which acts as list view -->
+                <LinearLayout
+                    android:id="@+id/artist_category_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+            </ScrollView>
+
+            <!-- Organization Filters -->
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp"
+                android:layout_below="@+id/artist_category"
+                android:id="@+id/organization_category"
+                >
+
+                <!-- Linear layout which acts as list view -->
+                <LinearLayout
+                    android:id="@+id/organization_category_listview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />
@@ -296,36 +359,11 @@
                 android:orientation="vertical"
                 android:id="@+id/calendarView"
                 android:paddingTop="10dp"
-                android:layout_below="@+id/category"
+                android:layout_below="@+id/organization_category"
                 android:layout_gravity="center"
                 android:gravity="center_vertical">
 
             </LinearLayout>
-
-
-
-            <!-- Quickie Filters -->
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="10dp"
-                android:layout_below="@+id/calendarView"
-                android:id="@+id/quickie"
-                >
-
-                <!-- Linear layout which acts as list view -->
-                <LinearLayout
-                    android:id="@+id/quickie_listview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-
-            </ScrollView>
-
-
 
             <!-- Admission Price -->
 

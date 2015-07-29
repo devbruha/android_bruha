@@ -33,6 +33,8 @@ public class MyApplication extends Application{
     public static ArrayList<Event> sourceEvents= new ArrayList<>();
     public static ArrayList<String> sourceEventsID= new ArrayList<>();
 
+    public static ArrayList<ArrayList<Items>> mainList = new ArrayList<>();
+
     UserCustomFilters userCustomFilters = new UserCustomFilters();
 
     ArrayList<String> savedQuickie = new ArrayList<>();

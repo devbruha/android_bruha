@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -30,7 +29,7 @@ public class LoadScreenActivity extends Activity {
     ArrayList<Organizations> mOutfits = new ArrayList<>();
     ArrayList<Artists> mArtists = new ArrayList<>();
 
-    RetrievePHP reteievedInfo; //Initialzing the class that contains the calls to the PHP Database.
+    RetrievePHP retrievedInfo; //Initialzing the class that contains the calls to the PHP Database.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +43,9 @@ public class LoadScreenActivity extends Activity {
 
         else {
 
-            reteievedInfo = new RetrievePHP(); // Initializing the class.
+            retrievedInfo = new RetrievePHP(); // Initializing the class.
+
+            retrievedInfo.getCategoryList();
 
             // this.deleteDatabase("BruhaDatabase.db");
 
@@ -68,7 +69,7 @@ public class LoadScreenActivity extends Activity {
                 Intent intent = new Intent(this, SplashActivity.class);
                 startActivity(intent);
             } else {
-                ArrayList<Event> userEvents = reteievedInfo.getUserEventList(userinfo.get(0));
+                ArrayList<Event> userEvents = retrievedInfo.getUserEventList(userinfo.get(0));
                 sqLiteUtils.insertUserEvents(dbHelper, userEvents);
                 MyApplication.loginCheck = true;
                 Intent intent = new Intent(this, DashboardActivity.class);
@@ -85,7 +86,7 @@ public class LoadScreenActivity extends Activity {
         //The call to get the list of mEvents.
         ArrayList<Event> events = new ArrayList<>() ;
         try {
-            events = reteievedInfo.getEventList();
+            events = retrievedInfo.getEventList();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -95,7 +96,7 @@ public class LoadScreenActivity extends Activity {
         //The call to get the list of Venues.
         ArrayList<Venues> venues= new ArrayList<>() ;
         try {
-            venues = reteievedInfo.getVenueList();
+            venues = retrievedInfo.getVenueList();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -103,7 +104,7 @@ public class LoadScreenActivity extends Activity {
         //The call to get the list of Outfits.
         ArrayList<Organizations> outfits= new ArrayList<>() ;
         try {
-            outfits = reteievedInfo.getOrgList();
+            outfits = retrievedInfo.getOrgList();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -111,7 +112,7 @@ public class LoadScreenActivity extends Activity {
         //The call to get the list of Artists.
         ArrayList<Artists> artists= new ArrayList<>() ;
         try {
-            artists = reteievedInfo.getArtistList();
+            artists = retrievedInfo.getArtistList();
         } catch (Exception e) {
             e.printStackTrace();
         }

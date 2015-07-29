@@ -8,8 +8,6 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -92,7 +90,13 @@ public class FilterView {
 
         // Simultaneously setting the category lists and updating the user custom filters
 
-        setCategoryList();
+        setEventCategoryList();
+
+        setVenueCategoryList();
+
+        setArtistCategoryList();
+
+        setOrganizationCategoryList();
 
         //admission price is added to userCustomFilters within its function
 
@@ -163,11 +167,29 @@ public class FilterView {
         return result;
     }
 
-    private void setQuickieList(){
+    private void setEventCategoryList(){
+
+        // Storing the quickie layout into mCategoryListview
+
+        LinearLayout mCategoryListView = (LinearLayout)mActivity.findViewById(R.id.event_category_listview);
+
+        // Calling the FilterGen class to set the populate the list of the filters
+
+        FilterGen catGen = new FilterGen();
+        ArrayList<Items> mainList = catGen.initCategory();
+
+        // calling and setting the "adapter" to set the list items
+
+        CategoryAdapter adapter = new CategoryAdapter(mActivity, mCategoryListView, MyApplication.mainList.get(0));
+
+        adapter.set();
+    }
+
+    private void setVenueCategoryList(){
 
         // Storing the quickie layout into mQuickieListview
 
-        LinearLayout mQuickieListView = (LinearLayout)mActivity.findViewById(R.id.quickie_listview);
+        LinearLayout mVenueListView = (LinearLayout)mActivity.findViewById(R.id.venue_category_listview);
 
         // Calling the FilterGen class to set the populate the list of the filters
 
@@ -176,7 +198,41 @@ public class FilterView {
 
         // calling and setting the "adapter" to set the list items
 
-        QuickieAdapter adapter = new QuickieAdapter(mActivity, mQuickieListView, mainList);
+        QuickieAdapter adapter = new QuickieAdapter(mActivity, mVenueListView, MyApplication.mainList.get(1));
+        adapter.set();
+    }
+
+    private void setArtistCategoryList(){
+
+        // Storing the quickie layout into mQuickieListview
+
+        LinearLayout mArtistListView = (LinearLayout)mActivity.findViewById(R.id.artist_category_listview);
+
+        // Calling the FilterGen class to set the populate the list of the filters
+
+        FilterGen quickieGen = new FilterGen();
+        ArrayList<Items> mainList = quickieGen.initRecommended();
+
+        // calling and setting the "adapter" to set the list items
+
+        QuickieAdapter adapter = new QuickieAdapter(mActivity, mArtistListView, MyApplication.mainList.get(2));
+        adapter.set();
+    }
+
+    private void setOrganizationCategoryList(){
+
+        // Storing the quickie layout into mQuickieListview
+
+        LinearLayout mOrganizationListView = (LinearLayout)mActivity.findViewById(R.id.organization_category_listview);
+
+        // Calling the FilterGen class to set the populate the list of the filters
+
+        FilterGen quickieGen = new FilterGen();
+        ArrayList<Items> mainList = quickieGen.initRecommended();
+
+        // calling and setting the "adapter" to set the list items
+
+        QuickieAdapter adapter = new QuickieAdapter(mActivity, mOrganizationListView, MyApplication.mainList.get(3));
         adapter.set();
     }
 
@@ -305,24 +361,6 @@ public class FilterView {
 
         // Setting the listener to the calendar
         caldroidFragment.setCaldroidListener(listener);
-    }
-
-    private void setCategoryList(){
-
-        // Storing the quickie layout into mCategoryListview
-
-        LinearLayout mCategoryListView = (LinearLayout)mActivity.findViewById(R.id.category_listview);
-
-        // Calling the FilterGen class to set the populate the list of the filters
-
-        FilterGen catGen = new FilterGen();
-        ArrayList<Items> mainList = catGen.initCategory();
-
-        // calling and setting the "adapter" to set the list items
-
-        CategoryAdapter adapter = new CategoryAdapter(mActivity, mCategoryListView, mainList);
-
-        adapter.set();
     }
 
     private void setAdmissionPrice(){

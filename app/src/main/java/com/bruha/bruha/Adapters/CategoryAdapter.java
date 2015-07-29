@@ -191,6 +191,8 @@ public class CategoryAdapter {
 
                                 mUserCategorySelected.put(catName, primaryCategory);
                             }
+
+                            Log.v("filter test", mUserCategorySelected.keySet()+"");
                         }
                         else{
 
@@ -296,6 +298,8 @@ public class CategoryAdapter {
 
                         mUserCategorySelected.put(catName, categoryArrayList);
                     }
+
+                    Log.v("subCatTest", mUserCategorySelected.get(catName)+"");
                 }
             });
 

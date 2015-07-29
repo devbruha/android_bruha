@@ -4,6 +4,8 @@ package com.bruha.bruha.PHP;
 import android.util.Log;
 import com.bruha.bruha.Model.Artists;
 import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.Items;
+import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.Venues;
 import org.json.JSONArray;
@@ -16,6 +18,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by Work on 2015-06-23.
@@ -29,11 +32,158 @@ public class RetrievePHP {
     ArrayList<Artists> mArtists = new ArrayList<>();
     ArrayList<Event> mUserEvents = new ArrayList<>();
 
+    ArrayList<Items.SubCategory.ItemList> itemSub = new ArrayList<>();
+
+    ArrayList<Items>eventMainList = new ArrayList<Items>();
+    ArrayList<Items>venueMainList = new ArrayList<Items>();
+    ArrayList<Items>artistMainList = new ArrayList<Items>();
+    ArrayList<Items>organizationMainList = new ArrayList<Items>();
+
+    ArrayList<Items.SubCategory>eventArrayList = new ArrayList<>();
+    ArrayList<Items.SubCategory> venueArrayList = new ArrayList<Items.SubCategory>();
+    ArrayList<Items.SubCategory> artistArrayList = new ArrayList<Items.SubCategory>();
+    ArrayList<Items.SubCategory> organizationArrayList = new ArrayList<Items.SubCategory>();
+
     //Variables used when connecting to a network.
     URL url = null;
     String response = null;
     HttpURLConnection connection;
     OutputStreamWriter request = null;
+
+    //Gets the List of Events uploaded in the Database.
+    public void getCategoryList() {
+
+        Thread thread;
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+
+                    url = new URL("http://bruha.com/mobile_php/CategoryList.php");
+                    connection = (HttpURLConnection) url.openConnection();
+
+                    String line = "";
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader reader = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    // Response from server after login process will be stored in response variable.
+
+                    // in this case the response is the echo from the php script (i.e = 1) if successful
+
+                    response = sb.toString();
+                    isr.close();
+                    reader.close();
+
+                } catch (IOException e) {
+                    Log.v("Exception", e.toString());
+                }
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Get event cats
+
+        try {
+            JSONObject x = new JSONObject(response);
+
+            JSONObject eventCat  = x.getJSONObject("event_cat");
+
+            eventMainList.add(new Items("Event Categories", eventArrayList));
+
+            Iterator<String> iter = eventCat.keys();
+            String primCatName;
+
+            while( iter.hasNext() ){
+
+                itemSub.clear();
+
+                primCatName = iter.next();
+
+                JSONArray subCatList = eventCat.getJSONArray(primCatName);
+
+                for( int i = 0; i<subCatList.length(); i++){
+
+                    itemSub.add(new Items.SubCategory.ItemList(subCatList.getString(i)));
+                }
+
+                eventArrayList.add(new Items.SubCategory(primCatName, new ArrayList<Items.SubCategory.ItemList>(itemSub)));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Get venue cats
+
+        try {
+            JSONObject x = new JSONObject(response);
+
+            JSONArray venueCat  = x.getJSONArray("venue_cat");
+
+            venueMainList.add(new Items("Venue Categories", venueArrayList));
+
+            for(int i = 0; i< venueCat.length(); i++){
+
+                venueArrayList.add(new Items.SubCategory(venueCat.getString(i), null));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Get artist cats
+
+        try {
+            JSONObject x = new JSONObject(response);
+
+            JSONArray artistCat  = x.getJSONArray("artist_cat");
+
+            artistMainList.add(new Items("Artist Categories", artistArrayList));
+
+            for(int i = 0; i< artistCat.length(); i++){
+
+                artistArrayList.add(new Items.SubCategory(artistCat.getString(i), null));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Get organization cats
+
+        try {
+            JSONObject x = new JSONObject(response);
+
+            JSONArray organizationCat  = x.getJSONArray("organization_cat");
+
+            organizationMainList.add(new Items("Organization Categories", organizationArrayList));
+
+            for(int i = 0; i< organizationCat.length(); i++){
+
+                organizationArrayList.add(new Items.SubCategory(organizationCat.getString(i), null));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        MyApplication.mainList.add(eventMainList);
+        MyApplication.mainList.add(venueMainList);
+        MyApplication.mainList.add(artistMainList);
+        MyApplication.mainList.add(organizationMainList);
+    }
 
     //Gets the List of Events uploaded in the Database.
     public ArrayList<Event> getEventList() {
