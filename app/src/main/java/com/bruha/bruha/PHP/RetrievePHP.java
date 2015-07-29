@@ -243,13 +243,34 @@ public class RetrievePHP {
                 even.setEventEndDate(Event.getString("event_end_date"));
                 even.setEventStartTime(Event.getString("event_start_time"));
                 even.setEventEndTime(Event.getString("event_end_time"));
-                even.setEventPrice(Double.parseDouble(Event.getString("Admission_price")));
+
+                if (!Event.getString("Admission_price").equals("null")){
+
+                    even.setEventPrice(Double.parseDouble(Event.getString("Admission_price")));
+                }
+                else{
+
+                    even.setEventPrice(0.0);
+                }
+
+                Log.v("Admission test", even.getEventPrice()+"");
+
                 even.setEventLocName(Event.getString("venue_name"));
-                even.setEventLocSt(Event.getString("street_no") +" "+ Event.getString("street_name"));
+                even.setEventLocSt(Event.getString("street_no") + " " + Event.getString("street_name"));
                 even.setEventLocAdd(Event.getString("location_city") + ", " + Event.getString("country"));
                 even.setEventLatitude(Double.parseDouble(Event.getString("location_lat")));
                 even.setEventLongitude(Double.parseDouble(Event.getString("location_lng")));
-                even.setEventPicture(Event.getString("image_link"));
+
+                if (!Event.getString("image_link").equals("null")){
+
+                    even.setEventPicture(Event.getString("image_link"));
+                }
+                else{
+
+                    even.setEventPicture("http://bruha.com/WorkingWebsite/assets/uploads/Events/Concrete_Android-Lrg.jpg");
+                }
+
+                Log.v("url test", even.getEventPicture()+"");
 
 
                 mEvents.add(even);
@@ -258,8 +279,12 @@ public class RetrievePHP {
 
 
         } catch (JSONException e) {
+
+            Log.v("WHYYYYY","WHYYYYYYY");
             e.printStackTrace();
         }
+
+        Log.v("Event Size", mEvents.size()+"");
         return mEvents;
     }
 
@@ -380,7 +405,7 @@ public class RetrievePHP {
                 org.setOrgName(Organization.getString("organization_name"));
                 org.setOrgDescription(Organization.getString("organization_desc"));
                 org.setOrgSt(Organization.getString("street_no") + " " + Organization.getString("street_name") + ", " + Organization.getString("postal_code"));
-                org.setOrgLocation(Organization.getString("location_city")+", "+Organization.getString("country"));
+                org.setOrgLocation(Organization.getString("location_city") + ", " + Organization.getString("country"));
                 org.setLat(Double.parseDouble(Organization.getString("location_lat")));
                 org.setLng(Double.parseDouble(Organization.getString("location_lng")));
                 org.setOrgPicture(Organization.getString("media"));
@@ -520,19 +545,33 @@ public class RetrievePHP {
                 even.setEventEndDate(Event.getString("event_end_date"));
                 even.setEventStartTime(Event.getString("event_start_time"));
                 even.setEventEndTime(Event.getString("event_end_time"));
-                even.setEventPrice(Double.parseDouble(Event.getString("Admission_price")));
+                if (Event.getString("Admission_price") != null){
+
+                    even.setEventPrice(Double.parseDouble(Event.getString("Admission_price")));
+                }
+                else{
+
+                    even.setEventPrice(0.0);
+                }
                 even.setEventLocName(Event.getString("venue_name"));
                 even.setEventLocSt(Event.getString("street_no") +" "+ Event.getString("street_name"));
                 even.setEventLocAdd(Event.getString("location_city") + ", " + Event.getString("country"));
                 even.setEventLatitude(Double.parseDouble(Event.getString("location_lat")));
                 even.setEventLongitude(Double.parseDouble(Event.getString("location_lng")));
-                even.setEventPicture(Event.getString("image_link"));
+                if (Event.getString("image_link") != null){
+
+                    even.setEventPicture(Event.getString("image_link"));
+                }
+                else{
+
+                    even.setEventPicture("http://bruha.com/WorkingWebsite/assets/uploads/Events/Concrete_Android-Lrg.jpg");
+                }
 
 
                 Log.v("UserEventName",even.getEventName());
                 mUserEvents.add(even);
             }
-            //Log.v("TEST:", response);
+            Log.v("TEST:", response);
             return mUserEvents;
         } catch (JSONException e) {
             e.printStackTrace();
