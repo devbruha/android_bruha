@@ -18,16 +18,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.bruha.bruha.Adapters.ArtistsListViewAdapter;
 import com.bruha.bruha.Adapters.EventListviewAdapter;
 import com.bruha.bruha.Adapters.OrganizationListViewAdapter;
 import com.bruha.bruha.Adapters.VenueListViewAdapter;
+import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.Event;
-import com.bruha.bruha.Model.MyApplication;
+import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
+import com.bruha.bruha.Model.Venue;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.caverock.androidsvg.SVG;
@@ -42,10 +43,26 @@ import butterknife.OnClick;
 
 public class myAddictions extends ActionBarActivity {
 
+    //Event's Addictions shit
     ArrayList<Event> mEvents = new ArrayList<>(); //The Array that will hold the mEvents that we will pass around(to Adapter,the List...
     ArrayList<Event> addictedEvents = new ArrayList<>();
     ArrayList<String> eventID = new ArrayList<>();
     EventListviewAdapter adapter;                      //Initialzing the Adapter for the ListView.
+
+    //Venue's Addictions shit
+    ArrayList<Venue> mVenues = new ArrayList<>(); //The Array that will hold the mEvents that we will pass around(to Adapter,the List...
+    ArrayList<Venue> addictedVenues = new ArrayList<>();
+    ArrayList<String> venueID = new ArrayList<>();
+
+    //Artist's Addictions shit
+    ArrayList<Artist> mArtist = new ArrayList<>(); //The Array that will hold the mEvents that we will pass around(to Adapter,the List...
+    ArrayList<Artist> addictedArtists = new ArrayList<>();
+    ArrayList<String> artistID = new ArrayList<>();
+
+    //Organization's Addictions shit
+    ArrayList<Organizations> mOrg = new ArrayList<>(); //The Array that will hold the mEvents that we will pass around(to Adapter,the List...
+    ArrayList<Organizations> addictedOrg = new ArrayList<>();
+    ArrayList<String> orgID = new ArrayList<>();
 
     //Injecting Views using ButterKnife Library
     @InjectView(android.R.id.list) ListView mListView;
@@ -166,9 +183,15 @@ public class myAddictions extends ActionBarActivity {
         SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
 
-        //Reteieve the events to display.
+        //Reteieve the Lists to display.
         mEvents = sqLiteUtils.getEventInfo(dbHelper);
         eventID = sqLiteUtils.getEventAddictions(dbHelper);
+        mVenues = sqLiteUtils.getVenuesInfo(dbHelper);
+        venueID = sqLiteUtils.getVenueAddictions(dbHelper);
+        mArtist = sqLiteUtils.getArtistInfo(dbHelper);
+        artistID = sqLiteUtils.getArtistAddictions(dbHelper);
+        mOrg = sqLiteUtils.getOutfitsInfo(dbHelper);
+        orgID = sqLiteUtils.getOrgAddictions(dbHelper);
 
         for(String Id:eventID)
         {
@@ -182,15 +205,50 @@ public class myAddictions extends ActionBarActivity {
 
         }
 
+        for(String Id:venueID)
+        {
+            for(int i =0 ; i<mVenues.size();i++)
+            {
+                if(Id.equals(mVenues.get(i).getVenueId()))
+                {
+                    addictedVenues.add(mVenues.get(i));
+                }
+            }
+
+        }
+
+        for(String Id:artistID)
+        {
+            for(int i =0 ; i<mArtist.size();i++)
+            {
+                if(Id.equals(mArtist.get(i).getArtistId()))
+                {
+                    addictedArtists.add(mArtist.get(i));
+                }
+            }
+
+        }
+
+        for(String Id:orgID)
+        {
+            for(int i =0 ; i<mOrg.size();i++)
+            {
+                if(Id.equals(mOrg.get(i).getOrgId()))
+                {
+                    addictedOrg.add(mOrg.get(i));
+                }
+            }
+
+        }
+
     }
 
 
 
-    //venueButton Implemented to switch the mListView to show List of Venues.
+    //venueButton Implemented to switch the mListView to show List of Venue.
     @OnClick(R.id.venueButton)
     public void venueButton(View view) {
 
-     //   MyApplication.filterTracker = "Venue";
 
         //Changing shit:
         venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
@@ -204,13 +262,13 @@ public class myAddictions extends ActionBarActivity {
         outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
 
 
-       // VenueListViewAdapter venueAdapter;
+        VenueListViewAdapter venueAdapter;
 
         //Creating an variable of type Listview Adapter to create the list view.
-      //  venueAdapter=new VenueListViewAdapter(this, mVenues); //Calling the adapter mListView to help set the List
+       venueAdapter=new VenueListViewAdapter(this, addictedVenues); //Calling the adapter mListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter
-       // mListView.setAdapter(venueAdapter);
+        mListView.setAdapter(venueAdapter);
 
         venueText.setTextColor(Color.parseColor("#FFFFBB33"));
         eventText.setTextColor(Color.parseColor("#ffffff"));
@@ -218,31 +276,19 @@ public class myAddictions extends ActionBarActivity {
         artistText.setTextColor(Color.parseColor("#ffffff"));
     }
 
-    //venueButton Implemented to switch the mListView to show List of Venues.
+    //venueButton Implemented to switch the mListView to show List of Venue.
     @OnClick(R.id.outfitButton)
     public void organizationButton(View view) {
 
-        /*
-        MyApplication.filterTracker = "Outfit";
-
         OrganizationListViewAdapter OrgAdapter;
 
-        mOrganizationCategoryListView.setVisibility(view.VISIBLE);
-
-        admission.setVisibility(View.GONE);
-        mPrice.setVisibility(View.GONE);
-        prce.setVisibility(View.GONE);
-        mVenueCategoryListView.setVisibility(view.GONE);
-        mEventCategoryListView.setVisibility(view.GONE);
-        mArtistCategoryListView.setVisibility(view.GONE);
-        linearCalendar.setVisibility(view.GONE);
 
         //Creating an variable of type Listview Adapter to create the list view.
-        OrgAdapter=new OrganizationListViewAdapter(this, mOutfit); //Calling the adapter mListView to help set the List
+        OrgAdapter=new OrganizationListViewAdapter(this, addictedOrg); //Calling the adapter mListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(OrgAdapter);
-        */
+
 
         //Changing shit:
         orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
@@ -264,25 +310,8 @@ public class myAddictions extends ActionBarActivity {
     @OnClick(R.id.eventButton)
     public void eventButton(View view) {
 
-        /*
-        MyApplication.filterTracker = "Event";
         mListView.setAdapter(adapter);
 
-
-        TextView Admission = (TextView) findViewById(R.id.admissionTextView);
-        TextView Price = (TextView) findViewById(R.id.priceDisplay);
-        SeekBar prce = (SeekBar) findViewById(R.id.priceBar);
-
-        Admission.setVisibility(View.VISIBLE);
-        Price.setVisibility(View.VISIBLE);
-        prce.setVisibility(View.VISIBLE);
-        mVenueCategoryListView.setVisibility(view.GONE);
-        mEventCategoryListView.setVisibility(view.VISIBLE);
-        mArtistCategoryListView.setVisibility(view.GONE);
-        mOrganizationCategoryListView.setVisibility(view.GONE);
-        linearCalendar.setVisibility(view.VISIBLE);
-
-        */
 
         //Changing shit:
         eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
@@ -299,14 +328,11 @@ public class myAddictions extends ActionBarActivity {
         venueText.setTextColor(Color.parseColor("#ffffff"));
         outfitText.setTextColor(Color.parseColor("#ffffff"));
         artistText.setTextColor(Color.parseColor("#ffffff"));
-
-
     }
 
     @OnClick(R.id.artistButton)
     public void artistButton(View view) {
 
-       // MyApplication.filterTracker = "Artist";
 
         //Changing shit:
         artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
@@ -319,26 +345,16 @@ public class myAddictions extends ActionBarActivity {
         artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistorange, 50));
         outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
 
-        /*
-        admission.setVisibility(View.GONE);
-        mPrice.setVisibility(View.GONE);
-        prce.setVisibility(View.GONE);
-        mEventCategoryListView.setVisibility(view.GONE);
-        mArtistCategoryListView.setVisibility(view.VISIBLE);
-        mOrganizationCategoryListView.setVisibility(view.GONE);
-        mVenueCategoryListView.setVisibility(view.GONE);
-        linearCalendar.setVisibility(view.GONE);
-        *
 
-       // ArtistsListViewAdapter artistsListViewAdapter;
+       ArtistsListViewAdapter artistsListViewAdapter;
 
-        /*
+
         //Creating an variable of type Listview Adapter to create the list view.
-        artistsListViewAdapter=new ArtistsListViewAdapter(this, mArtists); //Calling the adapter mListView to help set the List
+        artistsListViewAdapter=new ArtistsListViewAdapter(this, addictedArtists); //Calling the adapter mListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter.
         mListView.setAdapter(artistsListViewAdapter);
-        */
+
 
         artistText.setTextColor(Color.parseColor("#FFFFBB33"));
         venueText.setTextColor(Color.parseColor("#ffffff"));

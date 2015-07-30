@@ -4,13 +4,11 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.support.v4.app.FragmentActivity;
@@ -19,7 +17,6 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -33,7 +30,7 @@ import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
-import com.bruha.bruha.Model.Venues;
+import com.bruha.bruha.Model.Venue;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.caverock.androidsvg.SVG;
@@ -60,9 +57,9 @@ import butterknife.OnClick;
 public class MapsActivity extends FragmentActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
-    //The arrays that are used to store the information of mEvents/Artist/Venues/Outfits
+    //The arrays that are used to store the information of mEvents/Artist/Venue/Outfits
     ArrayList<Event> mEvents;
-    ArrayList<Venues> mVenues;
+    ArrayList<Venue> mVenues;
     ArrayList<Organizations> mOrganizations;
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
@@ -125,9 +122,9 @@ public class MapsActivity extends FragmentActivity implements
     // Variables for the marker clicks one for lat/lng storing and one for the applicable events
     LatLng venueLocation;
 
-    //The arrays that are used to store the selected mEvents/Artist/Venues/Outfits when clicked on a certain marker.
+    //The arrays that are used to store the selected mEvents/Artist/Venue/Outfits when clicked on a certain marker.
     ArrayList<Event> selectedEvents = new ArrayList<>();
-    ArrayList<Venues> selectedVenues = new ArrayList<>();
+    ArrayList<Venue> selectedVenues = new ArrayList<>();
     ArrayList<Organizations> selectedOrg = new ArrayList<>();
 
     @Override
@@ -369,7 +366,7 @@ public class MapsActivity extends FragmentActivity implements
         }
     }
 
-    //Sets the Markers for the Venues and Calls the Adapter to set the VenueListView Adapter
+    //Sets the Markers for the Venue and Calls the Adapter to set the VenueListView Adapter
     private void setVenueMarkers(){
 
         final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout)findViewById(R.id.sliding_layout_upper);

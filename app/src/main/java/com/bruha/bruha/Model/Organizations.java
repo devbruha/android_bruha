@@ -5,8 +5,6 @@ package com.bruha.bruha.Model;
  */
 public class Organizations {
 
-
-    //
     private String orgId;
     private String orgName;
     private String orgLocation;
@@ -15,8 +13,8 @@ public class Organizations {
     private int locId;
     private double lat;
     private double lng;
-    private  String orgPicture;
-
+    private String orgPicture;
+    private String orgPrimaryCategory;
 
     public String getOrgSt() {
         return orgSt;
@@ -25,7 +23,6 @@ public class Organizations {
     public void setOrgSt(String orgSt) {
         this.orgSt = orgSt;
     }
-
 
     public String getOrgPicture() {
         return orgPicture;
@@ -89,5 +86,13 @@ public class Organizations {
 
     public void setLng(double lng) {
         this.lng = lng;
+    }
+
+    public String getOrgPrimaryCategory() {
+        return orgPrimaryCategory;
+    }
+
+    public void setOrgPrimaryCategory(String orgPrimaryCategory) {
+        this.orgPrimaryCategory = orgPrimaryCategory;
     }
 }

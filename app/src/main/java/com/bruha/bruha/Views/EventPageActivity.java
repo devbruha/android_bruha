@@ -1,7 +1,6 @@
 package com.bruha.bruha.Views;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.graphics.Point;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -11,29 +10,25 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bruha.bruha.Model.Artists;
+import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
-import com.bruha.bruha.Model.Venues;
+import com.bruha.bruha.Model.Venue;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class EventPageActivity extends ActionBarActivity {
 
     ArrayList<Event> mEvents= new ArrayList<>();
-    ArrayList<Venues> mVenues = new ArrayList<>();
-    ArrayList<Artists> mArtists = new ArrayList<>();
+    ArrayList<Venue> mVenues = new ArrayList<>();
+    ArrayList<Artist> mArtists = new ArrayList<>();
     ArrayList<Organizations> mOutfit = new ArrayList<>();
     Event event;
-    Venues venue;
-    Artists artist;
+    Venue venue;
+    Artist artist;
     Organizations outfit;
     String type;
 
@@ -73,7 +68,7 @@ public class EventPageActivity extends ActionBarActivity {
         else if(type.equals("Venue"))
         {
             //Finding out and storing the event that is to be displayed.
-            for (Venues x : mVenues) {
+            for (Venue x : mVenues) {
                 if (x.getVenueId().equals(id)) {
                     venue = x;
                 }
@@ -93,7 +88,7 @@ public class EventPageActivity extends ActionBarActivity {
         else
         {
             //Finding out and storing the event that is to be displayed.
-            for (Artists x : mArtists) {
+            for (Artist x : mArtists) {
                 if (x.getArtistId().equals(id)) {
                     artist = x;
                 }

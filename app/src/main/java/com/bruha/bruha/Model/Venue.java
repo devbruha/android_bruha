@@ -3,7 +3,7 @@ package com.bruha.bruha.Model;
 /**
  * Created by Work on 2015-06-09.
  */
-public class Venues {
+public class Venue {
 
     //Venue main Database data.
     private String venueId;
@@ -15,6 +15,8 @@ public class Venues {
     //Venue Media data.
     private String venuePicture;
     private int venueCategoryIcon;
+
+    private String venuePrimaryCategory;
 
     //Venue Contact data.
     private String contactName;
@@ -140,7 +142,11 @@ public class Venues {
         this.contactAddress = contactAddress;
     }
 
+    public String getVenuePrimaryCategory() {
+        return venuePrimaryCategory;
+    }
 
-
-
+    public void setVenuePrimaryCategory(String venuePrimaryCategory) {
+        this.venuePrimaryCategory = venuePrimaryCategory;
+    }
 }

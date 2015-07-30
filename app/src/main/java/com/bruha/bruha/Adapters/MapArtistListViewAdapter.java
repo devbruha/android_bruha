@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.graphics.Point;
-import android.graphics.Typeface;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -16,11 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.bruha.bruha.Model.Artists;
+import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.R;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -29,9 +27,9 @@ import java.util.ArrayList;
  */
 public class MapArtistListViewAdapter extends BaseSwipeAdapter {
     private Activity mActivity;
-    private ArrayList<Artists> mArtists;
+    private ArrayList<Artist> mArtists;
 
-    public MapArtistListViewAdapter(Activity activity,ArrayList<Artists> artists)
+    public MapArtistListViewAdapter(Activity activity,ArrayList<Artist> artists)
     {
         mActivity=activity;
         mArtists=artists;
@@ -62,7 +60,7 @@ public class MapArtistListViewAdapter extends BaseSwipeAdapter {
         holder.Hours= (TextView) convertView.findViewById(R.id.MapEventStartDateAndTime);
 
         //Initializing each item to the required type
-        final Artists artist = mArtists.get(position);
+        final Artist artist = mArtists.get(position);
 
 
 

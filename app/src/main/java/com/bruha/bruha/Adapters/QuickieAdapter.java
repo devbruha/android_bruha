@@ -1,6 +1,7 @@
 package com.bruha.bruha.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -158,7 +159,7 @@ public class QuickieAdapter {
 
                         isSecondViewClick = true;
 
-                        mSubItemName.setBackgroundResource(android.R.color.holo_blue_bright);
+                        mSubItemName.setBackgroundColor(Color.parseColor("#e95f5f5f"));
 
                         if(!quickieFilters.contains(catName)){
 

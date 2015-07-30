@@ -29,6 +29,24 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String ADDICTIONS_ID = "_id";
     public static final String ADDICTIONS_EVENTID = "eventID";
 
+    //Addictions Venue
+    public static final String TABLE_ADDICTIONS_VENUES = "addictionsVenue";
+    public static final String ADDICTIONS_VENUES_ID = "_id";
+    public static final String ADDICTIONS_VENUES_VENUEID = "venueID";
+
+
+    //Addictions Artist
+    public static final String TABLE_ADDICTIONS_ARTISTS = "addictionsArtist";
+    public static final String ADDICTIONS_ARTISTS_ID = "_id";
+    public static final String ADDICTIONS_ARTISTS_ARTISTID = "artistID";
+
+
+    //Addictions Org
+    public static final String TABLE_ADDICTIONS_ORG = "addictionsOrg";
+    public static final String ADDICTIONS_ORG_ID = "_id";
+    public static final String ADDICTIONS_ORG_ORGID = "orgID";
+
+
     // Events Info Table Stuff
     public static final String TABLE_USER_EVENT_INFO = "user_event_info";
     public static final String TABLE_EVENT_INFO = "event_info";
@@ -102,10 +120,27 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
     //SQL addictions stuff
     // SQL to create DB
+
+    //Addictions shit
     private static final String DATABASE_CREATE_ADDICTIONS = "create table "
             + TABLE_ADDICTIONS + "(" + ADDICTIONS_ID
             + " integer primary key autoincrement, "
             + ADDICTIONS_EVENTID + " text not null);";
+
+    private static final String DATABASE_CREATE_ADDICTIONS_VENUES = "create table "
+            + TABLE_ADDICTIONS_VENUES + "(" + ADDICTIONS_VENUES_ID
+            + " integer primary key autoincrement, "
+            + ADDICTIONS_VENUES_VENUEID + " text not null);";
+
+    private static final String DATABASE_CREATE_ADDICTIONS_ARTISTS = "create table "
+            + TABLE_ADDICTIONS_ARTISTS + "(" + ADDICTIONS_ARTISTS_ID
+            + " integer primary key autoincrement, "
+            + ADDICTIONS_ARTISTS_ARTISTID + " text not null);";
+
+    private static final String DATABASE_CREATE_ADDICTIONS_ORG = "create table "
+            + TABLE_ADDICTIONS_ORG + "(" + ADDICTIONS_ORG_ID
+            + " integer primary key autoincrement, "
+            + ADDICTIONS_ORG_ORGID + " text not null);";
 
 
     private static final String DATABASE_CREATE_EVENT_INFO = "create table "
@@ -180,7 +215,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
 
     //ADDING THE LIST OF ARTISTS INTO THE LOCAL DATABASE TABLE.
-    public void addArtists( ArrayList<Artists> artist){
+    public void addArtists( ArrayList<Artist> artist){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -196,9 +231,9 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     }
 
     //RETRIEVING THE LIST OF ARTISTS FROM THE LOCAL DATABASE TABLE.
-    public ArrayList<Artists> retrieveArtistInfo(){
+    public ArrayList<Artist> retrieveArtistInfo(){
 
-        ArrayList<Artists> mArtist = new ArrayList<>();
+        ArrayList<Artist> mArtist = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_ARTIST_INFO, null, null, null, null, null, null);
@@ -206,7 +241,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         if(cursor != null)
         {
             while(cursor.moveToNext()){
-                Artists artist = new Artists();
+                Artist artist = new Artist();
 
                 int id = cursor.getInt(cursor.getColumnIndex("_id"));
                 artist.setArtistId(cursor.getString(cursor.getColumnIndex("artistID")));
@@ -277,7 +312,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     }
 
     //ADDING THE LIST OF VENUES INTO THE LOCAL DATABASE TABLE.
-    public void addVenues( ArrayList<Venues> venue){
+    public void addVenues( ArrayList<Venue> venue){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -298,9 +333,9 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     }
 
     //RETRIEVING THE LIST OF VENUES INTO THE LOCAL DATABASE TABLE.
-    public ArrayList<Venues> retrieveVenuesInfo(){
+    public ArrayList<Venue> retrieveVenuesInfo(){
 
-        ArrayList<Venues> mVenues = new ArrayList<>();
+        ArrayList<Venue> mVenues = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -309,7 +344,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         if(cursor != null)
         {
             while(cursor.moveToNext()){
-                Venues newVen = new Venues();
+                Venue newVen = new Venue();
 
                 //int id = cursor.getInt(cursor.getColumnIndex("_id"));
                 newVen.setVenueId(cursor.getString(cursor.getColumnIndex("venueID")));
@@ -409,6 +444,9 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.execSQL(DATABASE_CREATE_EVENT_INFO);
         db.execSQL(DATABASE_CREATE_USER_EVENT_INFO);
         db.execSQL(DATABASE_CREATE_ADDICTIONS);
+        db.execSQL(DATABASE_CREATE_ADDICTIONS_ARTISTS);
+        db.execSQL(DATABASE_CREATE_ADDICTIONS_ORG);
+        db.execSQL(DATABASE_CREATE_ADDICTIONS_VENUES);
         db.execSQL(DATABASE_CREATE_VENUE_INFO);
         db.execSQL(DATABASE_CREATE_OUTFIT_INFO);
         db.execSQL(DATABASE_CREATE_ARTIST_INFO);
@@ -432,8 +470,14 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.execSQL(DATABASE_CREATE_USER_EVENT_INFO);
         db.execSQL("DROP TABLE IF EXISTS addictions");
         db.execSQL(DATABASE_CREATE_ADDICTIONS);
+        db.execSQL("DROP TABLE IF EXISTS addictionsVenue");
+        db.execSQL(DATABASE_CREATE_ADDICTIONS_VENUES);
+        db.execSQL("DROP TABLE IF EXISTS addictionsOrg");
+        db.execSQL(DATABASE_CREATE_ADDICTIONS_ORG);
+        db.execSQL("DROP TABLE IF EXISTS addictionsArtist");
+        db.execSQL(DATABASE_CREATE_ADDICTIONS_ARTISTS);
 
-       // db.execSQL(DATABASE_CREATE_USER_INFO);
+
     }
 
     //DROPING THE INFORMATION CONTANED ABOUT THE USER WHEN LOGGED IN.
@@ -444,6 +488,12 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.execSQL(DATABASE_CREATE_USER_EVENT_INFO);
         db.execSQL("DROP TABLE IF EXISTS addictions");
         db.execSQL(DATABASE_CREATE_ADDICTIONS);
+        db.execSQL("DROP TABLE IF EXISTS addictions_venues");
+        db.execSQL(DATABASE_CREATE_ADDICTIONS_VENUES);
+        db.execSQL("DROP TABLE IF EXISTS addictions_org");
+        db.execSQL(DATABASE_CREATE_ADDICTIONS_ORG);
+        db.execSQL("DROP TABLE IF EXISTS addictions_artists");
+        db.execSQL(DATABASE_CREATE_ADDICTIONS_ARTISTS);
     }
 
     //ADDING THE LIST OF EVENTS INTO THE LOCAL DATABASE TABLE.
@@ -590,6 +640,87 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         return eventsAddiction;
     }
 
+    //GETTING THE INFO OF THE USER FROM THE LOCAL DATABASE TABLE.
+    public ArrayList<String> retrieveVenuesAddictedInfo(){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<String> venuesAddiction=new ArrayList<>();
+
+        Cursor cursor = db.query(TABLE_ADDICTIONS_VENUES, null, null, null, null, null, null);
+
+        if(cursor != null)
+        {
+            while(cursor.moveToNext()){
+
+
+                String eventID = cursor.getString(cursor.getColumnIndex("venueID"));
+
+
+                //ADDING THE RETIEVED INFO INTO THE ARRAY TO BE RETURNED.
+                venuesAddiction.add(eventID);
+
+            }
+        }
+
+        cursor.close();
+
+        return venuesAddiction;
+    }
+
+    //GETTING THE INFO OF THE USER FROM THE LOCAL DATABASE TABLE.
+    public ArrayList<String> retrieveArtistAddictedInfo(){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<String> eventsArtistAddiction=new ArrayList<>();
+
+        Cursor cursor = db.query(TABLE_ADDICTIONS_ARTISTS, null, null, null, null, null, null);
+
+        if(cursor != null)
+        {
+            while(cursor.moveToNext()){
+
+
+                String artistID = cursor.getString(cursor.getColumnIndex("artistID"));
+
+
+                //ADDING THE RETIEVED INFO INTO THE ARRAY TO BE RETURNED.
+                eventsArtistAddiction.add(artistID);
+
+            }
+        }
+
+        cursor.close();
+
+        return eventsArtistAddiction;
+    }
+
+    //GETTING THE INFO OF THE USER FROM THE LOCAL DATABASE TABLE.
+    public ArrayList<String> retrieveOrgAddictedInfo(){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<String> eventsOrgAddiction=new ArrayList<>();
+
+        Cursor cursor = db.query(TABLE_ADDICTIONS_ORG, null, null, null, null, null, null);
+
+        if(cursor != null)
+        {
+            while(cursor.moveToNext()){
+
+
+                String orgID = cursor.getString(cursor.getColumnIndex("orgID"));
+
+
+                //ADDING THE RETIEVED INFO INTO THE ARRAY TO BE RETURNED.
+                eventsOrgAddiction.add(orgID);
+
+            }
+        }
+
+        cursor.close();
+
+        return eventsOrgAddiction;
+    }
+
 
     //ADDING THE INFO OF THE USER INTO THE LOCAL DATABASE TABLE.
     public void addAddiction( ArrayList<String> eventID){
@@ -600,6 +731,42 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         for(int i =0; i< eventID.size();i++) {
             values.put("eventID", eventID.get(i));
             db.insert(TABLE_ADDICTIONS, null, values);
+        }
+    }
+
+    //ADDING THE INFO OF THE USER INTO THE LOCAL DATABASE TABLE.
+    public void addVenueAddiction( ArrayList<String> venueID){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        for(int i =0; i< venueID.size();i++) {
+            values.put("venueID", venueID.get(i));
+            db.insert(TABLE_ADDICTIONS_VENUES, null, values);
+        }
+    }
+
+    //ADDING THE INFO OF THE USER INTO THE LOCAL DATABASE TABLE.
+    public void addArtistAddiction( ArrayList<String> artistID){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        for(int i =0; i< artistID.size();i++) {
+            values.put("artistID", artistID.get(i));
+            db.insert(TABLE_ADDICTIONS_ARTISTS, null, values);
+        }
+    }
+
+    //ADDING THE INFO OF THE USER INTO THE LOCAL DATABASE TABLE.
+    public void addOrgAddiction( ArrayList<String> orgID){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        for(int i =0; i< orgID.size();i++) {
+            values.put("orgID", orgID.get(i));
+            db.insert(TABLE_ADDICTIONS_ORG, null, values);
         }
     }
 

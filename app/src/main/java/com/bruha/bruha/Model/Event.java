@@ -1,5 +1,7 @@
 package com.bruha.bruha.Model;
 
+import java.util.ArrayList;
+
 /**
  * Created by Work on 2015-05-13.
  */
@@ -23,6 +25,11 @@ public class Event {
     private String eventStartTime;
     private String eventEndDate;
     private String eventEndTime;
+
+    // Variables for event categories
+
+    private String eventPrimaryCategory;
+    private ArrayList<String> eventSubCategories = new ArrayList<>();
 
     //SQL variables and eventpage
     private String eventDescription;
@@ -86,7 +93,7 @@ public class Event {
         this.eventEndTime = eventEndTime;
     }
 
-     //Getters and Setters for lat/lng
+    //Getters and Setters for lat/lng
 
     public double getEventLatitude() {
         return eventLatitude;
@@ -171,6 +178,22 @@ public class Event {
 
     public void setEventid(String eventid) {
         this.eventid = eventid;
+    }
+
+    public String getEventPrimaryCategory() {
+        return eventPrimaryCategory;
+    }
+
+    public void setEventPrimaryCategory(String eventPrimaryCategory) {
+        this.eventPrimaryCategory = eventPrimaryCategory;
+    }
+
+    public ArrayList<String> getEventSubCategories() {
+        return eventSubCategories;
+    }
+
+    public void setEventSubCategories(ArrayList<String> eventSubCategories) {
+        this.eventSubCategories = eventSubCategories;
     }
 
     public String getLocationID() {

@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import com.bruha.bruha.Model.Artists;
+import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.R;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
@@ -30,10 +30,10 @@ import java.util.ArrayList;
 public class ArtistsListViewAdapter extends BaseSwipeAdapter {
 
     private Activity mActivity;             //The Activity where it is to be displayed.
-    private ArrayList<Artists> mArtists;    //The List of Artists to be displayed.
+    private ArrayList<Artist> mArtists;    //The List of Artist to be displayed.
     public static int Clicks=0;             //The number of times tapped on the screen.
 
-    public ArtistsListViewAdapter(Activity activity,ArrayList<Artists> artists)
+    public ArtistsListViewAdapter(Activity activity,ArrayList<Artist> artists)
     {
         mActivity = activity;
         mArtists = artists;
@@ -94,7 +94,7 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         });
 
         //Initializing each item to the required type
-        final Artists artist = mArtists.get(position);
+        final Artist artist = mArtists.get(position);
 
         //Summary Description of the Venue.
         holder.ArtistPicture= (ImageView) convertView.findViewById(R.id.VenuePicture);
