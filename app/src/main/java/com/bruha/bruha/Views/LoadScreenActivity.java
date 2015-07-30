@@ -117,6 +117,11 @@ public class LoadScreenActivity extends Activity {
             e.printStackTrace();
         }
 
+       // retrievedInfo.addicted("TestAccount","1");
+
+
+
+
         //Setting the arrays to hold the retrieved arrays, can remove this later on.
         mArtists= artists;
         mOutfits = outfits;
