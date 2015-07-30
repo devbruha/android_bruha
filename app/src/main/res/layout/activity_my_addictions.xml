@@ -6,6 +6,29 @@
     tools:context="com.bruha.bruha.Views.MyUploadsActivity"
     android:background="#db010101">
 
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        xmlns:sothree="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/sliding_layout_lower"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        sothree:umanoPanelHeight="68dp"
+        sothree:umanoDragView="@+id/dragView"
+        sothree:umanoOverlay="true"
+        sothree:umanoFadeColor="@android:color/transparent"
+        android:background="@android:color/transparent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:minHeight="100dp">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,5 +47,17 @@
         android:layout_marginTop="5dp"
         android:alpha="0.4" />
 
+            </RelativeLayout>
+
+        </FrameLayout>
+
+        <!-- SLIDING LAYOUT -->
+
+
+        <include android:id="@+id/mapFilterLayout" layout="@layout/filters_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
 </RelativeLayout>

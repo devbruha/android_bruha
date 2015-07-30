@@ -200,7 +200,7 @@ public class MapsActivity extends FragmentActivity implements
         }
 
         else{
-
+            eventButton(null);
         }
 
         setImages();
