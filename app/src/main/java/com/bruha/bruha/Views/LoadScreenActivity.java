@@ -28,6 +28,7 @@ public class LoadScreenActivity extends Activity {
     ArrayList<Venues> mVenues = new ArrayList<>();
     ArrayList<Organizations> mOutfits = new ArrayList<>();
     ArrayList<Artists> mArtists = new ArrayList<>();
+    ArrayList<String> mAddictionList = new ArrayList<>();
 
     RetrievePHP retrievedInfo; //Initialzing the class that contains the calls to the PHP Database.
 
@@ -71,6 +72,8 @@ public class LoadScreenActivity extends Activity {
             } else {
                 ArrayList<Event> userEvents = retrievedInfo.getUserEventList(userinfo.get(0));
                 sqLiteUtils.insertUserEvents(dbHelper, userEvents);
+                ArrayList<String> addictedEvents = retrievedInfo.getAddictedList(userinfo.get(0));
+                sqLiteUtils.insertEventAddictions(dbHelper,addictedEvents);
                 MyApplication.loginCheck = true;
                 Intent intent = new Intent(this, DashboardActivity.class);
                 startActivity(intent);
@@ -117,7 +120,6 @@ public class LoadScreenActivity extends Activity {
             e.printStackTrace();
         }
 
-       // retrievedInfo.addicted("TestAccount","1");
 
 
 

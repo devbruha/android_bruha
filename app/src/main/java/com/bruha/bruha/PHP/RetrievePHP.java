@@ -31,6 +31,7 @@ public class RetrievePHP {
     ArrayList<Organizations> mOrg = new ArrayList<>();
     ArrayList<Artists> mArtists = new ArrayList<>();
     ArrayList<Event> mUserEvents = new ArrayList<>();
+    ArrayList<String> mAddictedEvents = new ArrayList<>();
 
     ArrayList<Items.SubCategory.ItemList> itemSub = new ArrayList<>();
 
@@ -786,12 +787,12 @@ public class RetrievePHP {
 
     //Addicted Stuff
     //The method to register an account.
-    public void addicted(String mUsername, String eventid)
+    public void eventAddiction(String mUsername, String eventid)
     {
         // creates parameters for the DB call to attach to the "initial" URL
         // to attach more paramenters its of the form:
         // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
-        final String parameters = "user_id="+mUsername+"&password="+eventid;
+        final String parameters = "user_id="+mUsername+"&event_id="+eventid;
 
         Thread thread;
 
@@ -806,7 +807,7 @@ public class RetrievePHP {
 
                     // alot of boiler plate stuff
 
-                    url = new URL("http://bruha.com/mobile_php/Addictions.php?"+parameters);
+                    url = new URL("http://bruha.com/mobile_php/EventAddictions.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -846,6 +847,71 @@ public class RetrievePHP {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    //Gets the List of Events that the user uploaded.
+    public ArrayList<String> getAddictedList(String user) {
+        final String parameters = "username=" + user;
+
+        Thread thread;
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
+                    // alot of boiler plate stuff
+                    url = new URL("http://bruha.com/mobile_php/getUserAddiction.php?" + parameters);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setDoOutput(true);
+                    connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    connection.setRequestMethod("POST");
+
+                    request = new OutputStreamWriter(connection.getOutputStream());
+                    request.write(parameters);
+                    request.flush();
+                    request.close();
+                    String line = "";
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader reader = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    // Response from server after login process will be stored in response variable.
+                    // in this case the response is the echo from the php script (i.e = 1) if successful
+                    response = sb.toString();
+                    //   Log.v("response",response);
+                    // You can perform UI operations here
+                    isr.close();
+                    reader.close();
+                } catch (IOException e) {
+                    Log.v("Exception", e + "");
+                }
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            JSONArray x = new JSONArray(response);
+
+            for (int i = 0; i < x.length(); i++) {
+                JSONObject Event = x.getJSONObject(i);
+                mAddictedEvents.add(Event.getString("event_id"));
+            }
+            return mAddictedEvents;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return mAddictedEvents;
     }
 
 }
