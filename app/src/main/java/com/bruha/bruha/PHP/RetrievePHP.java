@@ -284,7 +284,7 @@ public class RetrievePHP {
             e.printStackTrace();
         }
 
-        Log.v("Event Size", mEvents.size()+"");
+    //    Log.v("Event Size", mEvents.size()+"");
         return mEvents;
     }
 
@@ -541,7 +541,7 @@ public class RetrievePHP {
                 even.setEventName(Event.getString("event_name"));
                 even.setVenueid(Event.getString("venue_id"));
                 even.setEventDescription(Event.getString("event_desc"));
-                even.setEventDate(Event.getString("evnt_start_date"));
+                even.setEventDate(Event.getString("event_start_date"));
                 even.setEventEndDate(Event.getString("event_end_date"));
                 even.setEventStartTime(Event.getString("event_start_time"));
                 even.setEventEndTime(Event.getString("event_end_time"));

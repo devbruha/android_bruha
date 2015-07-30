@@ -118,9 +118,16 @@ public class ListActivity extends FragmentActivity {
         if(MyApplication.sourceEvents.size() == 0) {
 
             //Creating an variable of type Listview Adapter to create the list view.
+            for(int i=0;i<mEvents.size();i++) {
+                Log.v("Names", mEvents.get(i).getEventName());
+            }
             adapter = new EventListviewAdapter(this, mEvents); //Calling the adapter mListView to help set the List
         }
         else{
+            ArrayList<Event> Back = MyApplication.sourceEvents;
+            for(int i=0;i<Back.size();i++) {
+                Log.v("BackNames", Back.get(i).getEventName());
+            }
             adapter = new EventListviewAdapter(this, MyApplication.sourceEvents);
         }
 
@@ -142,7 +149,7 @@ public class ListActivity extends FragmentActivity {
         mListView.setAdapter(adapter);
 
         //Swipe stuff
-        adapter.setMode(Attributes.Mode.Single);
+       // adapter.setMode(Attributes.Mode.Single);
 
         setButtons();
 
@@ -204,7 +211,7 @@ public class ListActivity extends FragmentActivity {
         });
     }
 
-    private void init(){
+    private void init() {
 
         backupEventList = ((MyApplication) getApplicationContext()).getBackupEventList();
         backupEventList.clear();
@@ -214,11 +221,17 @@ public class ListActivity extends FragmentActivity {
 
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
         mEvents = sqLiteUtils.getEventInfo(dbHelper);
-        mVenues= sqLiteUtils.getVenuesInfo(dbHelper);
-        mOutfit= sqLiteUtils.getOutfitsInfo(dbHelper);
-        mArtists= sqLiteUtils.getArtistInfo(dbHelper);
+        mVenues = sqLiteUtils.getVenuesInfo(dbHelper);
+        mOutfit = sqLiteUtils.getOutfitsInfo(dbHelper);
+        mArtists = sqLiteUtils.getArtistInfo(dbHelper);
 
-        Log.v("ThisSize", mEvents.size()+"");
+
+        Log.v("This",mEvents.size()+"");
+        for (int i = 0; i < mEvents.size(); i++)
+        {
+            Log.v("Name",mEvents.get(i).getEventName());
+        }
+
 
         for(Event x:mEvents)
         {

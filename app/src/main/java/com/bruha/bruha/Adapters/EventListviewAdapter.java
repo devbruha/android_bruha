@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -39,6 +40,9 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
     public EventListviewAdapter(Activity activity, ArrayList<Event> events) {
         mActivity = activity;
         mEvents = events;
+        for(int i=0;i<mEvents.size();i++) {
+            Log.v("Bilaaal", mEvents.get(i).getEventName());
+        }
     }
 
     public String TimeFormat(String Time)
@@ -131,12 +135,17 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         return R.id.swipe;
     }
 
+
+
     @Override
     public View generateView(int position, ViewGroup parent) {
+
+
+
         //Inflates the view to be used
         final View convertView = LayoutInflater.from(mActivity).inflate(R.layout.list_item, parent, false);
 
-        LinearLayout MoreInfoLay= (LinearLayout) convertView.findViewById(R.id.MoreInfoLayout);
+      //  LinearLayout MoreInfoLay= (LinearLayout) convertView.findViewById(R.id.MoreInfoLayout);
 
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
 
@@ -188,7 +197,11 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         holder.EventDistance= (TextView) convertView.findViewById(R.id.VenueDistance);
 
         //Initializing each item to the required type
+
+
         final Event event = mEvents.get(position);
+
+
 
         //Detailed Description of the events.
         holder.EventDName=(TextView) convertView.findViewById(R.id.DesVenueName);
@@ -207,6 +220,8 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         holder.EventName.setText(event.getEventName());
         holder.EventDate.setText(dateFormat(event.getEventDate()));
         holder.EventPrice.setText(freeEventCheck(event.getEventPrice()));
+
+        Log.v("EventName", event.getEventName());
 
 
         Picasso.with(parent.getContext()).load(event.getEventPicture()).into(holder.EventPicture);
@@ -297,6 +312,8 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
 
     @Override
     public void fillValues(int position, View convertView) {
+
+
 
       //  Typeface domregfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Regular.ttf");
         Typeface domboldfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Bold.ttf");

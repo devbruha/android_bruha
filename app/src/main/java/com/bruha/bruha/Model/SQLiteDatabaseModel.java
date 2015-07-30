@@ -329,7 +329,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             values.put("eventName", events.get(i).getEventName());
             values.put("eventDate", events.get(i).getEventDate());
             values.put("eventPrice", events.get(i).getEventPrice());
-            values.put("eventDistance", events.get(i).getEventDistance());
             values.put("eventLatitude", events.get(i).getEventLatitude());
             values.put("eventLongitude", events.get(i).getEventLongitude());
             values.put("eventLocName", events.get(i).getEventLocName());
@@ -364,7 +363,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 newEvent.setVenueid(cursor.getString(cursor.getColumnIndex("venueID")));
                 newEvent.setEventDescription(cursor.getString(cursor.getColumnIndex("eventDescription")));
                 newEvent.setEventName(cursor.getString(cursor.getColumnIndex("eventName")));
-                newEvent.setEventid(cursor.getString(cursor.getColumnIndex("eventName")));
                 newEvent.setEventDate(cursor.getString(cursor.getColumnIndex("eventDate")));
                 newEvent.setEventPrice(cursor.getDouble(cursor.getColumnIndex("eventPrice")));
                 newEvent.setEventLatitude(cursor.getDouble(cursor.getColumnIndex("eventLatitude")));
