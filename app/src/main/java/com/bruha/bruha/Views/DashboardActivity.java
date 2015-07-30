@@ -314,7 +314,7 @@ public class DashboardActivity extends ActionBarActivity {
     //OnClickListener for "Explore" that leads to the Addiction Activity.
     @OnClick(R.id.addictionButton)
     public void startAddictionAcitivty(View view){
-        Intent intent = new Intent(this, UserProfileActivity.class);
+        Intent intent = new Intent(this, myAddictions.class);
         startActivity(intent);
     }
 
