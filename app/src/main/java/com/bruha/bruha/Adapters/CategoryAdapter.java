@@ -4,6 +4,7 @@ package com.bruha.bruha.Adapters;
  * Created by Thomas on 5/22/2015.
  */
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -178,7 +179,7 @@ public class CategoryAdapter {
                             mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_down_float);
                             mLinearScrollThird.setVisibility(View.VISIBLE);
 
-                            mLinearSecondArrow.setBackgroundResource(android.R.color.holo_blue_dark);
+                            mLinearSecondArrow.setBackgroundColor(Color.parseColor("#491c2295"));
 
                             // Each key of the hashmap shall be the primary category(s) selected
                             // this is only if it does not already exist in the categories variable
@@ -224,7 +225,7 @@ public class CategoryAdapter {
                 mLinearScrollThird.setVisibility(View.VISIBLE);
                 mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_down_float);
 
-                mLinearSecondArrow.setBackgroundResource(android.R.color.holo_blue_dark);
+                mLinearSecondArrow.setBackgroundColor(Color.parseColor("#491c2295"));
             }
             else{
 
@@ -279,7 +280,7 @@ public class CategoryAdapter {
 
                         isThirdViewClick = true;
 
-                        mSubCategoryName.setBackgroundResource(android.R.color.holo_blue_bright);
+                        mSubCategoryName.setBackgroundColor(Color.parseColor("#e95f5f5f"));
                         categoryArrayList.add(subCategoryName);
 
                         // Putting the subcategory into the corresponding primary category arrayList

@@ -9,12 +9,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
-import com.bruha.bruha.Model.Artists;
+
+import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
-import com.bruha.bruha.Model.Venues;
+import com.bruha.bruha.Model.Venue;
 import com.bruha.bruha.PHP.RetrievePHP;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
@@ -23,11 +24,11 @@ import java.util.ArrayList;
 
 public class LoadScreenActivity extends Activity {
 
-    //The arrays that are used to store the information of mEvents/Venues/Outfits/Artists.
+    //The arrays that are used to store the information of mEvents/Venue/Outfits/Artist.
     ArrayList<Event> mEvents = new ArrayList<>();
-    ArrayList<Venues> mVenues = new ArrayList<>();
+    ArrayList<Venue> mVenues = new ArrayList<>();
     ArrayList<Organizations> mOutfits = new ArrayList<>();
-    ArrayList<Artists> mArtists = new ArrayList<>();
+    ArrayList<Artist> mArtists = new ArrayList<>();
     ArrayList<String> mAddictionList = new ArrayList<>();
 
     RetrievePHP retrievedInfo; //Initialzing the class that contains the calls to the PHP Database.
@@ -72,8 +73,18 @@ public class LoadScreenActivity extends Activity {
             } else {
                 ArrayList<Event> userEvents = retrievedInfo.getUserEventList(userinfo.get(0));
                 sqLiteUtils.insertUserEvents(dbHelper, userEvents);
+
+                //Addiction stuff
                 ArrayList<String> addictedEvents = retrievedInfo.getAddictedList(userinfo.get(0));
-                sqLiteUtils.insertEventAddictions(dbHelper,addictedEvents);
+                sqLiteUtils.insertEventAddictions(dbHelper, addictedEvents);
+                ArrayList<String> addictedVenues = retrievedInfo.getAddictedVenueList(userinfo.get(0));
+                ArrayList<String> addictedArtists = retrievedInfo.getAddictedArtistList(userinfo.get(0));
+                ArrayList<String> addictedOrganizations = retrievedInfo.getAddictedOrgList(userinfo.get(0));
+                sqLiteUtils.insertVenueAddictions(dbHelper, addictedVenues);
+                sqLiteUtils.insertArtistAddictions(dbHelper, addictedArtists);
+                sqLiteUtils.insertOrgAddictions(dbHelper,addictedOrganizations);
+
+
                 MyApplication.loginCheck = true;
                 Intent intent = new Intent(this, DashboardActivity.class);
                 startActivity(intent);
@@ -96,8 +107,8 @@ public class LoadScreenActivity extends Activity {
 
         Log.v("HeyThisSize",events.size()+"");
 
-        //The call to get the list of Venues.
-        ArrayList<Venues> venues= new ArrayList<>() ;
+        //The call to get the list of Venue.
+        ArrayList<Venue> venues= new ArrayList<>() ;
         try {
             venues = retrievedInfo.getVenueList();
         } catch (Exception e) {
@@ -112,14 +123,13 @@ public class LoadScreenActivity extends Activity {
             e.printStackTrace();
         }
 
-        //The call to get the list of Artists.
-        ArrayList<Artists> artists= new ArrayList<>() ;
+        //The call to get the list of Artist.
+        ArrayList<Artist> artists= new ArrayList<>() ;
         try {
             artists = retrievedInfo.getArtistList();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
 
 

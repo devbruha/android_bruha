@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Typeface;
-import android.media.Image;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -19,7 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.bruha.bruha.Model.Venues;
+import com.bruha.bruha.Model.Venue;
 import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
 import com.bruha.bruha.Views.ShowOnMapActivity;
@@ -35,10 +34,10 @@ import java.util.ArrayList;
 public class VenueListViewAdapter extends BaseSwipeAdapter {
 
     private Activity mActivity;
-    private ArrayList<Venues> mVenue;
+    private ArrayList<Venue> mVenue;
     public static int Clicks=0;
 
-    public VenueListViewAdapter(Activity activity,ArrayList<Venues> venues)
+    public VenueListViewAdapter(Activity activity,ArrayList<Venue> venues)
     {
         mActivity=activity;
         mVenue=venues;
@@ -102,7 +101,7 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         });
 
         //Initializing each item to the required type
-        final Venues Venue = mVenue.get(position);
+        final Venue Venue = mVenue.get(position);
 
         //Summary Description of the Venue.
         holder.VenuePicture= (ImageView) convertView.findViewById(R.id.VenuePicture);
@@ -129,7 +128,7 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         // holder.VenueDistance.setText();
 
         //Detailed Description being set.
-        holder.VenueDesName.setText(Venue.getVenueDescription());
+        holder.VenueDesName.setText(Venue.getVenueName());
         holder.VenueLocName.setText(Venue.getVenueName());
         holder.VenueLocSt.setText(Venue.getVenueSt());
         holder.VenueLocAdd.setText(Venue.getVenueLocation());

@@ -3,21 +3,23 @@ package com.bruha.bruha.Model;
 /**
  * Created by Work on 2015-06-11.
  */
-public class Artists {
+public class Artist {
 
-    //Artists main Database data.
+    //Artist main Database data.
     private String artistId;
     private String artistName;
     private String artistDescription;
 
-    //Artists Event Data.
+    //Artist Event Data.
     private int artistEventId;
 
-    //Artists Media data.
+    //Artist Media data.
     private String artistPicture;
     private int artistIcon;
 
-    //Artists Contact data.
+    private String artistPrimaryCategory;
+
+    //Artist Contact data.
     private String contactName;
     private String contactPhoneNumber;
     private String contactEmail;
@@ -113,5 +115,13 @@ public class Artists {
 
     public void setContactAddress(String contactAddress) {
         this.contactAddress = contactAddress;
+    }
+
+    public String getArtistPrimaryCategory() {
+        return artistPrimaryCategory;
+    }
+
+    public void setArtistPrimaryCategory(String artistPrimaryCategory) {
+        this.artistPrimaryCategory = artistPrimaryCategory;
     }
 }

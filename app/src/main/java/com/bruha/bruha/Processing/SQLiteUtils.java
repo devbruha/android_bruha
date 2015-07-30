@@ -2,11 +2,11 @@ package com.bruha.bruha.Processing;
 
 
 
-import com.bruha.bruha.Model.Artists;
+import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
-import com.bruha.bruha.Model.Venues;
+import com.bruha.bruha.Model.Venue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,12 +50,12 @@ public class SQLiteUtils {
         return dbhelper.retrieveUserEventInfo();
     }
 
-    public ArrayList<Venues> getVenuesInfo(SQLiteDatabaseModel dbhelper){
+    public ArrayList<Venue> getVenuesInfo(SQLiteDatabaseModel dbhelper){
 
         return dbhelper.retrieveVenuesInfo();
     }
 
-    public void insertVenues(SQLiteDatabaseModel dbHelper, ArrayList<Venues> ven){
+    public void insertVenues(SQLiteDatabaseModel dbHelper, ArrayList<Venue> ven){
 
         dbHelper.addVenues(ven);
 
@@ -72,13 +72,13 @@ public class SQLiteUtils {
         return dbhelper.retrieveOutfitInfo();
     }
 
-    public void insertArtist(SQLiteDatabaseModel dbHelper, ArrayList<Artists> artist){
+    public void insertArtist(SQLiteDatabaseModel dbHelper, ArrayList<Artist> artist){
 
         dbHelper.addArtists(artist);
 
     }
 
-    public ArrayList<Artists> getArtistInfo(SQLiteDatabaseModel dbhelper){
+    public ArrayList<Artist> getArtistInfo(SQLiteDatabaseModel dbhelper){
 
         return dbhelper.retrieveArtistInfo();
     }
@@ -92,6 +92,39 @@ public class SQLiteUtils {
     public ArrayList<String> getEventAddictions(SQLiteDatabaseModel dbhelper){
 
         return dbhelper.retrieveAddictedInfo();
+    }
+
+    public void insertVenueAddictions(SQLiteDatabaseModel dbHelper, ArrayList<String> venueId){
+
+        dbHelper.addVenueAddiction(venueId);
+
+    }
+
+    public ArrayList<String> getVenueAddictions(SQLiteDatabaseModel dbhelper){
+
+        return dbhelper.retrieveVenuesAddictedInfo();
+    }
+
+    public void insertArtistAddictions(SQLiteDatabaseModel dbHelper, ArrayList<String> artists){
+
+        dbHelper.addArtistAddiction(artists);
+
+    }
+
+    public ArrayList<String> getArtistAddictions(SQLiteDatabaseModel dbhelper){
+
+        return dbhelper.retrieveArtistAddictedInfo();
+    }
+
+    public void insertOrgAddictions(SQLiteDatabaseModel dbHelper, ArrayList<String> org){
+
+        dbHelper.addOrgAddiction(org);
+
+    }
+
+    public ArrayList<String> getOrgAddictions(SQLiteDatabaseModel dbhelper){
+
+        return dbhelper.retrieveOrgAddictedInfo();
     }
 
 }

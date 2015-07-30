@@ -26,17 +26,16 @@ import com.bruha.bruha.Adapters.ArtistsListViewAdapter;
 import com.bruha.bruha.Adapters.EventListviewAdapter;
 import com.bruha.bruha.Adapters.OrganizationListViewAdapter;
 import com.bruha.bruha.Adapters.VenueListViewAdapter;
-import com.bruha.bruha.Model.Artists;
+import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
-import com.bruha.bruha.Model.Venues;
+import com.bruha.bruha.Model.Venue;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
-import com.daimajia.swipe.util.Attributes;
 
 import java.util.ArrayList;
 import butterknife.ButterKnife;
@@ -48,8 +47,8 @@ public class ListActivity extends FragmentActivity {
     //The Arrays that will contain the information retrieved from the local database.
     ArrayList<Event> mEvents = new ArrayList<>();
     ArrayList<Organizations> mOutfit = new ArrayList<>();
-    ArrayList<Venues> mVenues = new ArrayList<>();
-    ArrayList<Artists> mArtists = new ArrayList<>();
+    ArrayList<Venue> mVenues = new ArrayList<>();
+    ArrayList<Artist> mArtists = new ArrayList<>();
 
     //Initualiing the Filter Obects to hide and display everytime Venue,Artist,Event and Outfit Filters are applied.
     LinearLayout mEventCategoryListView;
@@ -118,16 +117,9 @@ public class ListActivity extends FragmentActivity {
         if(MyApplication.sourceEvents.size() == 0) {
 
             //Creating an variable of type Listview Adapter to create the list view.
-            for(int i=0;i<mEvents.size();i++) {
-                Log.v("Names", mEvents.get(i).getEventName());
-            }
             adapter = new EventListviewAdapter(this, mEvents); //Calling the adapter mListView to help set the List
         }
         else{
-            ArrayList<Event> Back = MyApplication.sourceEvents;
-            for(int i=0;i<Back.size();i++) {
-                Log.v("BackNames", Back.get(i).getEventName());
-            }
             adapter = new EventListviewAdapter(this, MyApplication.sourceEvents);
         }
 
@@ -245,7 +237,7 @@ public class ListActivity extends FragmentActivity {
         filterView.init();
     }
 
-    //venueButton Implemented to switch the mListView to show List of Venues.
+    //venueButton Implemented to switch the mListView to show List of Venue.
     @OnClick(R.id.venueButton)
     public void venueButton(View view) {
 
@@ -288,7 +280,7 @@ public class ListActivity extends FragmentActivity {
         artistText.setTextColor(Color.parseColor("#ffffff"));
     }
 
-    //venueButton Implemented to switch the mListView to show List of Venues.
+    //venueButton Implemented to switch the mListView to show List of Venue.
     @OnClick(R.id.outfitButton)
     public void organizationButton(View view) {
 
@@ -445,21 +437,4 @@ public class ListActivity extends FragmentActivity {
         return null;
     }
 
-    public Bitmap svgToBitmap(Resources res, int resource, int size) {
-        try {
-            size = (int)(size*res.getDisplayMetrics().density);
-            SVG svg = SVG.getFromResource(getApplicationContext(), resource);
-
-            Bitmap bmp;
-            bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(bmp);
-            svg.renderToCanvas(canvas);
-
-
-            return bmp;
-        } catch (SVGParseException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 }

@@ -2,12 +2,14 @@ package com.bruha.bruha.PHP;
 
 
 import android.util.Log;
-import com.bruha.bruha.Model.Artists;
+
+import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.Items;
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.Organizations;
-import com.bruha.bruha.Model.Venues;
+import com.bruha.bruha.Model.Venue;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,11 +29,14 @@ public class RetrievePHP {
 
     //List of Arrays used to store respective information that is returned by each method called.
     ArrayList<Event> mEvents = new ArrayList<>();
-    ArrayList<Venues> mVenues = new ArrayList<>();
+    ArrayList<Venue> mVenues = new ArrayList<>();
     ArrayList<Organizations> mOrg = new ArrayList<>();
-    ArrayList<Artists> mArtists = new ArrayList<>();
+    ArrayList<Artist> mArtists = new ArrayList<>();
     ArrayList<Event> mUserEvents = new ArrayList<>();
     ArrayList<String> mAddictedEvents = new ArrayList<>();
+    ArrayList<String> mAddictedVenues = new ArrayList<>();
+    ArrayList<String> mAddictedArtist = new ArrayList<>();
+    ArrayList<String> mAddictedOrg = new ArrayList<>();
 
     ArrayList<Items.SubCategory.ItemList> itemSub = new ArrayList<>();
 
@@ -254,7 +259,7 @@ public class RetrievePHP {
                     even.setEventPrice(0.0);
                 }
 
-                Log.v("Admission test", even.getEventPrice()+"");
+                Log.v("Admission test", even.getEventPrice() + "");
 
                 even.setEventLocName(Event.getString("venue_name"));
                 even.setEventLocSt(Event.getString("street_no") + " " + Event.getString("street_name"));
@@ -271,26 +276,32 @@ public class RetrievePHP {
                     even.setEventPicture("http://bruha.com/WorkingWebsite/assets/uploads/Events/Concrete_Android-Lrg.jpg");
                 }
 
-                Log.v("url test", even.getEventPicture()+"");
+                even.setEventPrimaryCategory((Event.getString("primary_category")));
+                //even.setEventSubCategories((ArrayList) (Event.get("sub_category")));
 
+                JSONArray evenSubJSON = ((JSONArray)Event.get("sub_category"));
+
+                ArrayList<String> evenSubArrayList = new ArrayList<>();
+
+                for(int j=0; j<evenSubJSON.length();j++){
+
+                    evenSubArrayList.add(evenSubJSON.getString(j));
+                }
+
+                even.setEventSubCategories(evenSubArrayList);
 
                 mEvents.add(even);
             }
 
-
-
         } catch (JSONException e) {
 
-            Log.v("WHYYYYY","WHYYYYYYY");
             e.printStackTrace();
         }
-
-    //    Log.v("Event Size", mEvents.size()+"");
         return mEvents;
     }
 
-    //Gets the List of Venues uploaded in the Database.
-        public ArrayList<Venues> getVenueList() {
+    //Gets the List of Venue uploaded in the Database.
+        public ArrayList<Venue> getVenueList() {
 
         Thread thread;
 
@@ -334,7 +345,7 @@ public class RetrievePHP {
 
             for (int i = 0; i < x.length(); i++) {
                 JSONObject Venue = x.getJSONObject(i);
-                com.bruha.bruha.Model.Venues ven = new Venues();
+                com.bruha.bruha.Model.Venue ven = new Venue();
 
                 ven.setVenueId(Venue.getString("venue_id"));
                 ven.setVenueName(Venue.getString("venue_name"));
@@ -344,6 +355,7 @@ public class RetrievePHP {
                 ven.setLat(Double.parseDouble(Venue.getString("location_lat")));
                 ven.setLng(Double.parseDouble(Venue.getString("location_lng")));
                 ven.setVenuePicture(Venue.getString("media"));
+                ven.setVenuePrimaryCategory(Venue.getString("primary_category"));
 
                 mVenues.add(ven);
             }
@@ -410,6 +422,7 @@ public class RetrievePHP {
                 org.setLat(Double.parseDouble(Organization.getString("location_lat")));
                 org.setLng(Double.parseDouble(Organization.getString("location_lng")));
                 org.setOrgPicture(Organization.getString("media"));
+                org.setOrgPrimaryCategory(Organization.getString("primary_category"));
 
                 mOrg.add(org);
             }
@@ -419,8 +432,8 @@ public class RetrievePHP {
         return mOrg;
     }
 
-    //Gets the List of Artists uploaded in the Database.
-    public ArrayList<Artists> getArtistList() {
+    //Gets the List of Artist uploaded in the Database.
+    public ArrayList<Artist> getArtistList() {
 
         Thread thread;
 
@@ -464,12 +477,13 @@ public class RetrievePHP {
 
             for (int i = 0; i < x.length(); i++) {
                 JSONObject mArtist = x.getJSONObject(i);
-                com.bruha.bruha.Model.Artists Artist = new Artists();
+                Artist Artist = new Artist();
 
                 Artist.setArtistId(mArtist.getString("Artist_id"));
                 Artist.setArtistName(mArtist.getString("Artist_name"));
                 Artist.setArtistDescription(mArtist.getString("Artist_desc"));
                 Artist.setArtistPicture(mArtist.getString("Artist_media"));
+                Artist.setArtistPrimaryCategory(mArtist.getString("primary_category"));
 
                 mArtists.add(Artist);
             }
@@ -849,6 +863,198 @@ public class RetrievePHP {
         }
     }
 
+    //Addicted Stuff
+    //The method to register an account.
+    public void venueAddiction(String mUsername, String venueid)
+    {
+        // creates parameters for the DB call to attach to the "initial" URL
+        // to attach more paramenters its of the form:
+        // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
+        final String parameters = "user_id="+mUsername+"&venue_id="+venueid;
+
+        Thread thread;
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try
+                {
+
+                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
+
+                    // alot of boiler plate stuff
+
+                    url = new URL("http://bruha.com/mobile_php/VenueAddictions.php?"+parameters);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setDoOutput(true);
+                    connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    connection.setRequestMethod("POST");
+
+                    request = new OutputStreamWriter(connection.getOutputStream());
+                    request.write(parameters);
+                    request.flush();
+                    request.close();
+                    String line = "";
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader reader = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null)
+                    {
+                        sb.append(line + "\n");
+                    }
+                    // Response from server after login process will be stored in response variable.
+                    // in this case the response is the echo from the php script (i.e = 1) if successful
+                    response = sb.toString();
+                    Log.v("ResponseAddicted",response);
+                    // You can perform UI operations here
+                    isr.close();
+                    reader.close();
+                }
+                catch(IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Addicted Stuff
+    //The method to register an account.
+    public void artistAddiction(String mUsername, String artistid)
+    {
+        // creates parameters for the DB call to attach to the "initial" URL
+        // to attach more paramenters its of the form:
+        // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
+        final String parameters = "user_id="+mUsername+"&artist_id="+artistid;
+
+        Thread thread;
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try
+                {
+
+                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
+
+                    // alot of boiler plate stuff
+
+                    url = new URL("http://bruha.com/mobile_php/ArtistAddictions.php?"+parameters);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setDoOutput(true);
+                    connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    connection.setRequestMethod("POST");
+
+                    request = new OutputStreamWriter(connection.getOutputStream());
+                    request.write(parameters);
+                    request.flush();
+                    request.close();
+                    String line = "";
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader reader = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null)
+                    {
+                        sb.append(line + "\n");
+                    }
+                    // Response from server after login process will be stored in response variable.
+                    // in this case the response is the echo from the php script (i.e = 1) if successful
+                    response = sb.toString();
+                    Log.v("ResponseAddicted",response);
+                    // You can perform UI operations here
+                    isr.close();
+                    reader.close();
+                }
+                catch(IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Addicted Stuff
+    //The method to register an account.
+    public void organizationAddiction(String mUsername, String orgid)
+    {
+        // creates parameters for the DB call to attach to the "initial" URL
+        // to attach more paramenters its of the form:
+        // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
+        final String parameters = "user_id="+mUsername+"&organization_id="+orgid;
+
+        Thread thread;
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try
+                {
+
+                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
+
+                    // alot of boiler plate stuff
+
+                    url = new URL("http://bruha.com/mobile_php/OrgAddictions.php?"+parameters);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setDoOutput(true);
+                    connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    connection.setRequestMethod("POST");
+
+                    request = new OutputStreamWriter(connection.getOutputStream());
+                    request.write(parameters);
+                    request.flush();
+                    request.close();
+                    String line = "";
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader reader = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null)
+                    {
+                        sb.append(line + "\n");
+                    }
+                    // Response from server after login process will be stored in response variable.
+                    // in this case the response is the echo from the php script (i.e = 1) if successful
+                    response = sb.toString();
+                    Log.v("ResponseAddicted",response);
+                    // You can perform UI operations here
+                    isr.close();
+                    reader.close();
+                }
+                catch(IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     //Gets the List of Events that the user uploaded.
     public ArrayList<String> getAddictedList(String user) {
         final String parameters = "username=" + user;
@@ -912,6 +1118,201 @@ public class RetrievePHP {
             e.printStackTrace();
         }
         return mAddictedEvents;
+    }
+
+    //Gets the List of Events that the user uploaded.
+    public ArrayList<String> getAddictedVenueList(String user) {
+        final String parameters = "username=" + user;
+
+        Thread thread;
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
+                    // alot of boiler plate stuff
+                    url = new URL("http://bruha.com/mobile_php/getVenueAddictions.php?" + parameters);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setDoOutput(true);
+                    connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    connection.setRequestMethod("POST");
+
+                    request = new OutputStreamWriter(connection.getOutputStream());
+                    request.write(parameters);
+                    request.flush();
+                    request.close();
+                    String line = "";
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader reader = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    // Response from server after login process will be stored in response variable.
+                    // in this case the response is the echo from the php script (i.e = 1) if successful
+                    response = sb.toString();
+                    //   Log.v("response",response);
+                    // You can perform UI operations here
+                    isr.close();
+                    reader.close();
+                } catch (IOException e) {
+                    Log.v("Exception", e + "");
+                }
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            JSONArray x = new JSONArray(response);
+
+            for (int i = 0; i < x.length(); i++) {
+                JSONObject Event = x.getJSONObject(i);
+                mAddictedVenues.add(Event.getString("venue_id"));
+            }
+            return mAddictedVenues;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return mAddictedVenues;
+    }
+
+    //Gets the List of Events that the user uploaded.
+    public ArrayList<String> getAddictedArtistList(String user) {
+        final String parameters = "username=" + user;
+
+        Thread thread;
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
+                    // alot of boiler plate stuff
+                    url = new URL("http://bruha.com/mobile_php/getArtistAddictions.php?" + parameters);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setDoOutput(true);
+                    connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    connection.setRequestMethod("POST");
+
+                    request = new OutputStreamWriter(connection.getOutputStream());
+                    request.write(parameters);
+                    request.flush();
+                    request.close();
+                    String line = "";
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader reader = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    // Response from server after login process will be stored in response variable.
+                    // in this case the response is the echo from the php script (i.e = 1) if successful
+                    response = sb.toString();
+                    //   Log.v("response",response);
+                    // You can perform UI operations here
+                    isr.close();
+                    reader.close();
+                } catch (IOException e) {
+                    Log.v("Exception", e + "");
+                }
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            JSONArray x = new JSONArray(response);
+
+            for (int i = 0; i < x.length(); i++) {
+                JSONObject Event = x.getJSONObject(i);
+                mAddictedArtist.add(Event.getString("artist_id"));
+            }
+            return mAddictedArtist;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return mAddictedArtist;
+    }
+
+    //Gets the List of Events that the user uploaded.
+    public ArrayList<String> getAddictedOrgList(String user) {
+        final String parameters = "username=" + user;
+
+        Thread thread;
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
+                    // alot of boiler plate stuff
+                    url = new URL("http://bruha.com/mobile_php/getOrgAddictions.php?" + parameters);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setDoOutput(true);
+                    connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    connection.setRequestMethod("POST");
+
+                    request = new OutputStreamWriter(connection.getOutputStream());
+                    request.write(parameters);
+                    request.flush();
+                    request.close();
+                    String line = "";
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader reader = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    // Response from server after login process will be stored in response variable.
+                    // in this case the response is the echo from the php script (i.e = 1) if successful
+                    response = sb.toString();
+                    //   Log.v("response",response);
+                    // You can perform UI operations here
+                    isr.close();
+                    reader.close();
+                } catch (IOException e) {
+                    Log.v("Exception", e + "");
+                }
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            JSONArray x = new JSONArray(response);
+
+            for (int i = 0; i < x.length(); i++) {
+                JSONObject Event = x.getJSONObject(i);
+                mAddictedOrg.add(Event.getString("organization_id"));
+            }
+            return mAddictedOrg;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return mAddictedOrg;
     }
 
 }

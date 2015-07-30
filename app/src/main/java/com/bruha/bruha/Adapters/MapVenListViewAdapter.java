@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.util.TypedValue;
@@ -17,9 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.bruha.bruha.Model.Venues;
+import com.bruha.bruha.Model.Venue;
 import com.bruha.bruha.R;
-import com.bruha.bruha.Views.EventPageActivity;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.squareup.picasso.Picasso;
@@ -31,9 +29,9 @@ import java.util.ArrayList;
  */
 public class MapVenListViewAdapter extends BaseSwipeAdapter {
     private Activity mActivity;
-    private ArrayList<Venues> mVenues;
+    private ArrayList<Venue> mVenues;
 
-    public MapVenListViewAdapter(Activity activity,ArrayList<Venues> venue)
+    public MapVenListViewAdapter(Activity activity,ArrayList<Venue> venue)
     {
         mActivity=activity;
         mVenues=venue;
@@ -64,7 +62,7 @@ public class MapVenListViewAdapter extends BaseSwipeAdapter {
         holder.Hours= (TextView) convertView.findViewById(R.id.MapEventStartDateAndTime);
 
         //Initializing each item to the required type
-        final Venues venue = mVenues.get(position);
+        final Venue venue = mVenues.get(position);
 
 
 
