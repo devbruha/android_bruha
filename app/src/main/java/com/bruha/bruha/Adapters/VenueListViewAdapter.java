@@ -55,6 +55,17 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         //Inflates the view to be used
         final View convertView = LayoutInflater.from(mActivity).inflate(R.layout.venue_item, viewGroup, false);
 
+
+
+        return convertView;
+    }
+
+
+    //Use for resizing everything like in the Event ListViewAdapter.
+    @Override
+    public void fillValues(int position, final View convertView) {
+
+        //Test:
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
 
         convertView.setTag(holder); //sets the tag
@@ -112,24 +123,24 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         //Setting all the text inside the view.
 
         //Summary being set.
-      //  holder.VenuePicture.setImageResource();
-       // holder.VenueIcon.setImageResource();
+        //  holder.VenuePicture.setImageResource();
+        // holder.VenueIcon.setImageResource();
         holder.VenueName.setText(Venue.getVenueName());
-       // holder.VenueDistance.setText();
+        // holder.VenueDistance.setText();
 
         //Detailed Description being set.
         holder.VenueDesName.setText(Venue.getVenueDescription());
         holder.VenueLocName.setText(Venue.getVenueName());
         holder.VenueLocSt.setText(Venue.getVenueSt());
         holder.VenueLocAdd.setText(Venue.getVenueLocation());
-       // holder.VenueHourWeekDay.setText();
-       // holder.VenueHourSaturday.setText();
-       // holder.VenueHourSunday.setText();
+        // holder.VenueHourWeekDay.setText();
+        // holder.VenueHourSaturday.setText();
+        // holder.VenueHourSunday.setText();
 
 
         String url = Venue.getVenuePicture();
 
-        Picasso.with(viewGroup.getContext()).load(url).into(holder.VenuePicture);
+        Picasso.with(convertView.getContext()).load(url).into(holder.VenuePicture);
 
 
 
@@ -185,15 +196,6 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
 
 
 
-
-        return convertView;
-    }
-
-
-    //Use for resizing everything like in the Event ListViewAdapter.
-    @Override
-    public void fillValues(int i, View view) {
-
         //FONT SHIT
         Typeface domregfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Regular.ttf");
         Typeface domboldfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Bold.ttf");
@@ -201,7 +203,7 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
 
 
         //Assigning the ImageBubble to a variable to alter iits dimensions after with.
-        ImageView circle = (ImageView) view.findViewById(R.id.VenueImageBubble);
+        ImageView circle = (ImageView) convertView.findViewById(R.id.VenueImageBubble);
 
         // Android functions to determine the screen dimensions.
         Display display = mActivity.getWindowManager().getDefaultDisplay();
@@ -213,11 +215,11 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
 
 
         //Sets the height to 1/3 the screensize.
-        ViewGroup.LayoutParams params = view.getLayoutParams();
+        ViewGroup.LayoutParams params = convertView.getLayoutParams();
         params.height =  (int)Math.round(height*.33);
 
 
-        ImageView Picture = (ImageView) view.findViewById(R.id.VenuePicture);
+        ImageView Picture = (ImageView) convertView.findViewById(R.id.VenuePicture);
         ViewGroup.LayoutParams PictureParam = Picture.getLayoutParams();
         PictureParam.height =  (int)Math.round(height*.33);
 
@@ -231,13 +233,13 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         //Summary being resized.
 
         //The VenueName being Formatted.
-        TextView VenueName = (TextView) view.findViewById(R.id.VenueName);
+        TextView VenueName = (TextView) convertView.findViewById(R.id.VenueName);
         int x1= (int)Math.round(height*.030);
         VenueName.setTextSize(TypedValue.COMPLEX_UNIT_PX,x1);
         VenueName.setTypeface(domboldfnt);
 
         //The VenueDistance being formatted.
-        TextView VenueDistance = (TextView) view.findViewById(R.id.VenueDistance);
+        TextView VenueDistance = (TextView) convertView.findViewById(R.id.VenueDistance);
         int x2= (int)Math.round(height * .018);
         VenueDistance.setTextSize(TypedValue.COMPLEX_UNIT_PX,x2);
         VenueDistance.setTypeface(domboldfnt);
@@ -245,54 +247,54 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         //Detailed Description being resized.
 
         //The VenueDistance being formatted.
-        TextView DesVenueName = (TextView) view.findViewById(R.id.DesVenueName);
+        TextView DesVenueName = (TextView) convertView.findViewById(R.id.DesVenueName);
         int x3= (int)Math.round(height * .030);
         DesVenueName.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
         DesVenueName.setTypeface(domboldfnt);
 
         //The VenueDistance being formatted.
-        TextView DesVenueLocName = (TextView) view.findViewById(R.id.DesVenueLocName);
+        TextView DesVenueLocName = (TextView) convertView.findViewById(R.id.DesVenueLocName);
         int x4= (int)Math.round(height * .0215);
         DesVenueLocName.setTextSize(TypedValue.COMPLEX_UNIT_PX,x4);
         DesVenueLocName.setTypeface(opensansregfnt);
 
         //The VenueDistance being formatted.
-        TextView DesVenueLocSt = (TextView) view.findViewById(R.id.DesVenueLocStreet);
+        TextView DesVenueLocSt = (TextView) convertView.findViewById(R.id.DesVenueLocStreet);
         DesVenueLocSt.setTextSize(TypedValue.COMPLEX_UNIT_PX, x4);
         DesVenueLocSt.setTypeface(opensansregfnt);
 
         //The VenueDistance being formatted.
-        TextView DesVenueLocAdd = (TextView) view.findViewById(R.id.DesVenueLocAddress);
+        TextView DesVenueLocAdd = (TextView) convertView.findViewById(R.id.DesVenueLocAddress);
         DesVenueLocAdd.setTextSize(TypedValue.COMPLEX_UNIT_PX, x4);
         DesVenueLocAdd.setTypeface(opensansregfnt);
 
         //The VenueDistance being formatted.
-        TextView DesVenueHourText = (TextView) view.findViewById(R.id.VenueHourText);
+        TextView DesVenueHourText = (TextView) convertView.findViewById(R.id.VenueHourText);
         int x5= (int)Math.round(height * .0185);
         DesVenueHourText.setTextSize(TypedValue.COMPLEX_UNIT_PX,x5);
         DesVenueHourText.setTypeface(domboldfnt);
 
-        TextView DesVenueHourWeekDay = (TextView) view.findViewById(R.id.VenueMontoFriHour);
+        TextView DesVenueHourWeekDay = (TextView) convertView.findViewById(R.id.VenueMontoFriHour);
         int x6= (int)Math.round(height * .0165);
         DesVenueHourWeekDay.setTextSize(TypedValue.COMPLEX_UNIT_PX,x6);
         DesVenueHourWeekDay.setTypeface(domregfnt);
 
-        TextView DesVenueHourSaturday=(TextView) view.findViewById(R.id.VenueSaturdayHour);
+        TextView DesVenueHourSaturday=(TextView) convertView.findViewById(R.id.VenueSaturdayHour);
         DesVenueHourSaturday.setTextSize(TypedValue.COMPLEX_UNIT_PX,x6);
         DesVenueHourSaturday.setTypeface(domregfnt);
 
 
-        TextView DesVenueHourSunday= (TextView) view.findViewById(R.id.VenueSundayHour);
+        TextView DesVenueHourSunday= (TextView) convertView.findViewById(R.id.VenueSundayHour);
         DesVenueHourSunday.setTextSize(TypedValue.COMPLEX_UNIT_PX,x6);
         DesVenueHourSunday.setTypeface(domregfnt);
 
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
-        TextView Swipe1 = (TextView) view.findViewById(R.id.VenueSwipeBarSize1);
+        TextView Swipe1 = (TextView) convertView.findViewById(R.id.VenueSwipeBarSize1);
         int x7= (int)Math.round(height*.030);
         Swipe1.setTextSize(TypedValue.COMPLEX_UNIT_PX,x7);
 
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
-        TextView Swipe2 = (TextView) view.findViewById(R.id.VenueSwipeBarSize2);
+        TextView Swipe2 = (TextView) convertView.findViewById(R.id.VenueSwipeBarSize2);
         Swipe2.setTextSize(TypedValue.COMPLEX_UNIT_PX,x7);
 
 

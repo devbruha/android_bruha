@@ -140,12 +140,10 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
     @Override
     public View generateView(int position, ViewGroup parent) {
 
-
-
         //Inflates the view to be used
         final View convertView = LayoutInflater.from(mActivity).inflate(R.layout.list_item, parent, false);
 
-      //  LinearLayout MoreInfoLay= (LinearLayout) convertView.findViewById(R.id.MoreInfoLayout);
+        /*
 
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
 
@@ -307,11 +305,178 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                 animator.start();
             }
         });
+
+        */
         return convertView;
     }
 
     @Override
-    public void fillValues(int position, View convertView) {
+    public void fillValues(int position, final View convertView) {
+
+
+        //Test:
+        ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Assigning the Relative Layout that contains the detailed description.
+                RelativeLayout layout = (RelativeLayout) v.findViewById(R.id.DescriptionLayout);
+
+                //Assigning the summary description stuff that will hide and reappear depending on the clicks.
+                ImageView Bubble = (ImageView) v.findViewById(R.id.VenueImageBubble);
+                TextView EventName = (TextView) v.findViewById(R.id.TextEventName);
+                TextView EventDate = (TextView) v.findViewById(R.id.VenueName);
+                TextView EventPrice = (TextView) v.findViewById(R.id.TextEventPrice);
+                TextView EventDistance = (TextView) v.findViewById(R.id.VenueDistance);
+
+                if (Clicks % 2 == 0) {
+                    //Popping the detailed description into view.
+                    layout.setVisibility(View.VISIBLE);
+                    //Hiding the summary Description from view to display the detailed description.
+                    Bubble.setVisibility(View.INVISIBLE);
+                    EventName.setVisibility(View.INVISIBLE);
+                    EventDate.setVisibility(View.INVISIBLE);
+                    EventPrice.setVisibility(View.INVISIBLE);
+                    EventDistance.setVisibility(View.INVISIBLE);
+                } else {
+                    //Hiding the detailed description upon the 2nd click.
+                    layout.setVisibility(View.INVISIBLE);
+                    //Displaying the summary description back upon the 2nd click.
+                    Bubble.setVisibility(View.VISIBLE);
+                    EventName.setVisibility(View.VISIBLE);
+                    EventDate.setVisibility(View.VISIBLE);
+                    EventPrice.setVisibility(View.VISIBLE);
+                    EventDistance.setVisibility(View.VISIBLE);
+                }
+                Clicks++; //Adds to the number of times the user has tapped on an item.
+            }
+        });
+
+        convertView.setTag(holder); //sets the tag
+
+        //Summary Description of the events.
+        holder.EventPicture= (ImageView) convertView.findViewById(R.id.ImageEventPicture);
+        holder.EventIcon = (ImageView) convertView.findViewById(R.id.VenueIcon);
+        holder.EventName = (TextView) convertView.findViewById(R.id.TextEventName);
+        holder.EventDate = (TextView) convertView.findViewById(R.id.VenueName);
+        holder.EventPrice= (TextView) convertView.findViewById(R.id.TextEventPrice);
+        holder.EventDistance= (TextView) convertView.findViewById(R.id.VenueDistance);
+
+        //Initializing each item to the required type
+
+
+        final Event event = mEvents.get(position);
+
+
+
+        //Detailed Description of the events.
+        holder.EventDName=(TextView) convertView.findViewById(R.id.DesVenueName);
+        holder.EventDPrice= (TextView) convertView.findViewById(R.id.DesEventPrice);
+        holder.EventLocName=(TextView) convertView.findViewById(R.id.DesVenueLocName);
+        holder.EventLocSt=(TextView) convertView.findViewById(R.id.DesVenueLocStreet);
+        holder.EventLocAdd=(TextView) convertView.findViewById(R.id.DesVenueLocAddress);
+        holder.EventStartDate=(TextView) convertView.findViewById(R.id.DesEventStartDate);
+        holder.EventStartTime=(TextView) convertView.findViewById(R.id.DesEventStartTime);
+        holder.EventEndDate = (TextView) convertView.findViewById(R.id.DesEventEndDate);
+        holder.EventEndTime= (TextView) convertView.findViewById(R.id.DesEventEndTime);
+        //Setting the text boxes to the information retrieved from the arrays of events
+
+        //Setting the summary description
+        holder.EventDistance.setText(event.getEventDistance() + "km");
+        holder.EventName.setText(event.getEventName());
+        holder.EventDate.setText(dateFormat(event.getEventDate()));
+        holder.EventPrice.setText(freeEventCheck(event.getEventPrice()));
+
+        Log.v("EventName", event.getEventName());
+
+
+        Picasso.with(convertView.getContext()).load(event.getEventPicture()).into(holder.EventPicture);
+
+        //Setting the detailed description..
+        holder.EventDName.setText(event.getEventName());
+        holder.EventDPrice.setText("$"+event.getEventPrice());
+        holder.EventLocName.setText(event.getEventLocName());
+        holder.EventLocSt.setText(event.getEventLocSt());
+        holder.EventLocAdd.setText(event.getEventLocAdd());
+        holder.EventStartDate.setText(dateFormat(event.getEventDate()));
+        holder.EventStartTime.setText(TimeFormat(event.getEventStartTime()));
+        holder.EventEndDate.setText(dateFormat(event.getEventEndDate()));
+        holder.EventEndTime.setText(TimeFormat(event.getEventEndTime()));
+
+        //Swipe methods being Implemented
+        SwipeLayout swipeLayout = (SwipeLayout)convertView.findViewById(getSwipeLayoutResourceId(position));
+        swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
+        swipeLayout.addDrag(SwipeLayout.DragEdge.Left, convertView.findViewById(R.id.bottom_wrapper));
+        swipeLayout.addDrag(SwipeLayout.DragEdge.Right, convertView.findViewById(R.id.mLinear));
+        swipeLayout.addSwipeListener(new SimpleSwipeListener() {
+
+        });
+
+
+        //Implements the Button 'Buy Ticket' that appears after swipe right,Shows Button Highlight for half a second when clicked.
+        TableRow GoBuyTicketPage = (TableRow) convertView.findViewById(R.id.BuyTicketRow);
+        GoBuyTicketPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final LinearLayout BuyTicketLayout= (LinearLayout) convertView.findViewById(R.id.BuyTicketLayout);
+                ObjectAnimator animator = ObjectAnimator.ofFloat(BuyTicketLayout, "alpha", 1f, 0.5f);
+                animator.setDuration(500);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        BuyTicketLayout.setAlpha(1f);
+                        //Intent intent = new Intent(mActivity, DashboardActivity.class);
+                        //mActivity.startActivity(intent);
+                    }
+                });
+                animator.start();
+            }
+        });
+
+        //Implements the Button 'Preview' that appears after swipe right,Shows Button Highlight for half a second when clicked.
+        TableRow GoPreviewPage  = (TableRow) convertView.findViewById(R.id.PreviewRow);
+        GoPreviewPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final LinearLayout PreviewLayout= (LinearLayout) convertView.findViewById(R.id.PreviewLayout);
+                ObjectAnimator animator = ObjectAnimator.ofFloat(PreviewLayout, "alpha", 1f, 0.5f);
+                animator.setDuration(500);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        PreviewLayout.setAlpha(1f);
+                        Intent intent = new Intent(mActivity, ShowOnMapActivity.class);
+                        intent.putExtra("Id",event.getEventid());
+                        intent.putExtra("Type","Event");
+                        mActivity.startActivity(intent);
+                    }
+                });
+                animator.start();
+            }
+        });
+
+        //Implements the Button 'More Info' that appears after swipe right,Shows Button Highlight for half a second when clicked.
+        TableRow GoMoreInfoPage = (TableRow) convertView.findViewById(R.id.MoreInfoRow);
+        GoMoreInfoPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final LinearLayout MoreInfoLay= (LinearLayout) convertView.findViewById(R.id.MoreInfoLayout);
+                ObjectAnimator animator = ObjectAnimator.ofFloat(MoreInfoLay, "alpha", 1f, 0.5f);
+                animator.setDuration(500);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        MoreInfoLay.setAlpha(1f);
+                        Intent intent = new Intent(mActivity, EventPageActivity.class);
+                        intent.putExtra("Id",event.getEventid());
+                        intent.putExtra("Type","Event");
+                        mActivity.startActivity(intent);
+                    }
+                });
+                animator.start();
+            }
+        });
+
+        //End of Test
 
 
 
