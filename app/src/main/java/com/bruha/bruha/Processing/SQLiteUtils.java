@@ -82,4 +82,16 @@ public class SQLiteUtils {
 
         return dbhelper.retrieveArtistInfo();
     }
+
+    public void insertEventAddictions(SQLiteDatabaseModel dbHelper, ArrayList<String> events){
+
+        dbHelper.addAddiction(events);
+
+    }
+
+    public ArrayList<String> getEventAddictions(SQLiteDatabaseModel dbhelper){
+
+        return dbhelper.retrieveAddictedInfo();
+    }
+
 }

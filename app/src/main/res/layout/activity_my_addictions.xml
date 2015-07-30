@@ -1,0 +1,28 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bruha.bruha.Views.MyUploadsActivity"
+    android:background="#db010101">
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@android:id/list"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:drawSelectorOnTop="false"
+        android:dividerHeight="3dp"/>
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/myaddictionsDashboardImage"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="5dp"
+        android:alpha="0.4" />
+
+
+</RelativeLayout>

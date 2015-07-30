@@ -23,6 +23,12 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String USER_INFO_EMAIL = "email";
     public static final String USER_INFO_LOCATION = "location";
 
+
+    //Addictions
+    public static final String TABLE_ADDICTIONS = "addictions";
+    public static final String ADDICTIONS_ID = "_id";
+    public static final String ADDICTIONS_EVENTID = "eventID";
+
     // Events Info Table Stuff
     public static final String TABLE_USER_EVENT_INFO = "user_event_info";
     public static final String TABLE_EVENT_INFO = "event_info";
@@ -54,7 +60,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String VENUE_LATITUDE = "venueLatitude";
     public static final String VENUE_LONGITUDE = "venueLongitude";
     public static final String VENUE_LOCATION_NAME = "venueLocName";
-
     public static final String VENUE_PICTURE = "venuePicture";
 
 
@@ -93,6 +98,15 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + USER_INFO_GENDER + " text not null, "
             + USER_INFO_EMAIL + " text not null, "
             + USER_INFO_LOCATION + " text not null);";
+
+
+    //SQL addictions stuff
+    // SQL to create DB
+    private static final String DATABASE_CREATE_ADDICTIONS = "create table "
+            + TABLE_ADDICTIONS + "(" + ADDICTIONS_ID
+            + " integer primary key autoincrement, "
+            + ADDICTIONS_EVENTID + " text not null);";
+
 
     private static final String DATABASE_CREATE_EVENT_INFO = "create table "
             + TABLE_EVENT_INFO + "(" + EVENT_LOCAL_ID
@@ -329,7 +343,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             values.put("eventName", events.get(i).getEventName());
             values.put("eventDate", events.get(i).getEventDate());
             values.put("eventPrice", events.get(i).getEventPrice());
-            values.put("eventDistance", events.get(i).getEventDistance());
             values.put("eventLatitude", events.get(i).getEventLatitude());
             values.put("eventLongitude", events.get(i).getEventLongitude());
             values.put("eventLocName", events.get(i).getEventLocName());
@@ -364,7 +377,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 newEvent.setVenueid(cursor.getString(cursor.getColumnIndex("venueID")));
                 newEvent.setEventDescription(cursor.getString(cursor.getColumnIndex("eventDescription")));
                 newEvent.setEventName(cursor.getString(cursor.getColumnIndex("eventName")));
-                newEvent.setEventid(cursor.getString(cursor.getColumnIndex("eventName")));
                 newEvent.setEventDate(cursor.getString(cursor.getColumnIndex("eventDate")));
                 newEvent.setEventPrice(cursor.getDouble(cursor.getColumnIndex("eventPrice")));
                 newEvent.setEventLatitude(cursor.getDouble(cursor.getColumnIndex("eventLatitude")));
@@ -396,6 +408,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.execSQL(DATABASE_CREATE_USER_INFO);
         db.execSQL(DATABASE_CREATE_EVENT_INFO);
         db.execSQL(DATABASE_CREATE_USER_EVENT_INFO);
+        db.execSQL(DATABASE_CREATE_ADDICTIONS);
         db.execSQL(DATABASE_CREATE_VENUE_INFO);
         db.execSQL(DATABASE_CREATE_OUTFIT_INFO);
         db.execSQL(DATABASE_CREATE_ARTIST_INFO);
@@ -417,10 +430,10 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.execSQL(DATABASE_CREATE_ARTIST_INFO);
         db.execSQL("DROP TABLE IF EXISTS user_event_info");
         db.execSQL(DATABASE_CREATE_USER_EVENT_INFO);
-
+        db.execSQL("DROP TABLE IF EXISTS addictions");
+        db.execSQL(DATABASE_CREATE_ADDICTIONS);
 
        // db.execSQL(DATABASE_CREATE_USER_INFO);
-
     }
 
     //DROPING THE INFORMATION CONTANED ABOUT THE USER WHEN LOGGED IN.
@@ -429,6 +442,8 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.execSQL(DATABASE_CREATE_USER_INFO);
         db.execSQL("DROP TABLE IF EXISTS user_event_info");
         db.execSQL(DATABASE_CREATE_USER_EVENT_INFO);
+        db.execSQL("DROP TABLE IF EXISTS addictions");
+        db.execSQL(DATABASE_CREATE_ADDICTIONS);
     }
 
     //ADDING THE LIST OF EVENTS INTO THE LOCAL DATABASE TABLE.
@@ -547,4 +562,45 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
         return User;
     }
+
+    //GETTING THE INFO OF THE USER FROM THE LOCAL DATABASE TABLE.
+    public ArrayList<String> retrieveAddictedInfo(){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<String> eventsAddiction=new ArrayList<>();
+
+        Cursor cursor = db.query(TABLE_ADDICTIONS, null, null, null, null, null, null);
+
+        if(cursor != null)
+        {
+            while(cursor.moveToNext()){
+
+
+                String eventID = cursor.getString(cursor.getColumnIndex("eventID"));
+
+
+                //ADDING THE RETIEVED INFO INTO THE ARRAY TO BE RETURNED.
+                eventsAddiction.add(eventID);
+
+            }
+        }
+
+        cursor.close();
+
+        return eventsAddiction;
+    }
+
+
+    //ADDING THE INFO OF THE USER INTO THE LOCAL DATABASE TABLE.
+    public void addAddiction( ArrayList<String> eventID){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        for(int i =0; i< eventID.size();i++) {
+            values.put("eventID", eventID.get(i));
+            db.insert(TABLE_ADDICTIONS, null, values);
+        }
+    }
+
 }

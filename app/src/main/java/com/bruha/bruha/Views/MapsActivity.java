@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bruha.bruha.Adapters.MapListViewAdapter;
@@ -68,6 +69,18 @@ public class MapsActivity extends FragmentActivity implements
 
     @InjectView(android.R.id.list) ListView mListView;
     MapListViewAdapter adapter;
+
+
+    //The filter things to change everytime
+    LinearLayout linearCalendar ;
+    TextView admission;
+    TextView mPrice;
+    SeekBar prce;
+    //Initualiing the Filter Obects to hide and display everytime Venue,Artist,Event and Outfit Filters are applied.
+    LinearLayout mEventCategoryListView;
+    LinearLayout mVenueCategoryListView;
+    LinearLayout mArtistCategoryListView;
+    LinearLayout mOrganizationCategoryListView;
 
     //Filter stuff:
     //The Linear layout to be set OnCLickListener to and background changing.
@@ -122,6 +135,18 @@ public class MapsActivity extends FragmentActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         ButterKnife.inject(this);
+
+
+        //Setting the filter stuff:
+        linearCalendar = (LinearLayout) findViewById(R.id.calendarView);
+        prce = (SeekBar) findViewById(R.id.priceBar);
+        mPrice = (TextView) findViewById(R.id.priceDisplay);
+        admission = (TextView) findViewById(R.id.admissionTextView);
+        mEventCategoryListView = (LinearLayout) findViewById(R.id.event_category_listview);
+        mVenueCategoryListView = (LinearLayout) findViewById(R.id.venue_category_listview);
+        mArtistCategoryListView = (LinearLayout) findViewById(R.id.artist_category_listview);
+        mOrganizationCategoryListView = (LinearLayout) findViewById(R.id.organization_category_listview);
+
 
 
         //Resizing the Image Icons:
@@ -658,6 +683,15 @@ public class MapsActivity extends FragmentActivity implements
         artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistwhite, 50));
         outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitorange, 50));
 
+        admission.setVisibility(View.GONE);
+        mPrice.setVisibility(View.GONE);
+        prce.setVisibility(View.GONE);
+        mVenueCategoryListView.setVisibility(view.GONE);
+        mEventCategoryListView.setVisibility(view.GONE);
+        mArtistCategoryListView.setVisibility(view.GONE);
+        mOrganizationCategoryListView.setVisibility(view.VISIBLE);
+        linearCalendar.setVisibility(view.GONE);
+
         outfitText.setTextColor(Color.parseColor("#FFFFBB33"));
         venueText.setTextColor(Color.parseColor("#ffffff"));
         eventText.setTextColor(Color.parseColor("#ffffff"));
@@ -686,6 +720,19 @@ public class MapsActivity extends FragmentActivity implements
         venueText.setTextColor(Color.parseColor("#ffffff"));
         outfitText.setTextColor(Color.parseColor("#ffffff"));
         artistText.setTextColor(Color.parseColor("#ffffff"));
+
+        TextView Admission = (TextView) findViewById(R.id.admissionTextView);
+        TextView Price = (TextView) findViewById(R.id.priceDisplay);
+        SeekBar prce = (SeekBar) findViewById(R.id.priceBar);
+
+        Admission.setVisibility(View.VISIBLE);
+        Price.setVisibility(View.VISIBLE);
+        prce.setVisibility(View.VISIBLE);
+        mVenueCategoryListView.setVisibility(view.GONE);
+        mEventCategoryListView.setVisibility(view.VISIBLE);
+        mArtistCategoryListView.setVisibility(view.GONE);
+        mOrganizationCategoryListView.setVisibility(view.GONE);
+        linearCalendar.setVisibility(view.VISIBLE);
     }
 
     @OnClick(R.id.venueButton)
@@ -704,6 +751,27 @@ public class MapsActivity extends FragmentActivity implements
         venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venueorange, 50));
         artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistwhite, 50));
         outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
+
+        mVenueCategoryListView.setVisibility(view.VISIBLE);
+
+        admission.setVisibility(View.GONE);
+        mPrice.setVisibility(View.GONE);
+        prce.setVisibility(View.GONE);
+        mEventCategoryListView.setVisibility(view.GONE);
+        mArtistCategoryListView.setVisibility(view.GONE);
+        mOrganizationCategoryListView.setVisibility(view.GONE);
+        linearCalendar.setVisibility(view.GONE);
+
+        venueText.setTextColor(Color.parseColor("#FFFFBB33"));
+        outfitText.setTextColor(Color.parseColor("#ffffff"));
+        eventText.setTextColor(Color.parseColor("#ffffff"));
+        artistText.setTextColor(Color.parseColor("#ffffff"));
+    }
+
+    @OnClick(R.id.artistButton)
+    public void artistButton(View view)
+    {
+        Toast.makeText(getApplicationContext(),"Still under development,sorry!",Toast.LENGTH_LONG).show();
     }
 
     //SVG SHIT:
