@@ -49,7 +49,7 @@ public class MyUploadsActivity extends ActionBarActivity {
         init();
 
         //Creating an variable of type Listview Adapter to create the list view.
-        adapter=new EventListviewAdapter(this, mEvents); //Calling the adapter mListView to help set the List
+        adapter=new EventListviewAdapter(this, mEvents,null); //Calling the adapter mListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(adapter);

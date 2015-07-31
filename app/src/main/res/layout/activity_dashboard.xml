@@ -256,6 +256,10 @@
                 android:layout_weight="3"
                 android:layout_height="match_parent">
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/dashboardcalendarImage" />
             </LinearLayout>
             <LinearLayout
                 android:orientation="vertical"
@@ -353,6 +357,11 @@
                 android:layout_weight="3"
                 android:layout_height="match_parent">
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/dashboardprofileImage"
+                    android:focusableInTouchMode="false" />
             </LinearLayout>
             <LinearLayout
                 android:orientation="vertical"

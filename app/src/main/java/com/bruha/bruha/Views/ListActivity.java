@@ -50,6 +50,14 @@ public class ListActivity extends FragmentActivity {
     ArrayList<Venue> mVenues = new ArrayList<>();
     ArrayList<Artist> mArtists = new ArrayList<>();
 
+
+
+    ArrayList<String> addictEventId = new ArrayList<>();
+    ArrayList<String> addictVenueId = new ArrayList<>();
+    ArrayList<String> addictArtistId = new ArrayList<>();
+    ArrayList<String> addictOutfitId = new ArrayList<>();
+
+
     //Initualiing the Filter Obects to hide and display everytime Venue,Artist,Event and Outfit Filters are applied.
     LinearLayout mEventCategoryListView;
     LinearLayout mVenueCategoryListView;
@@ -117,10 +125,10 @@ public class ListActivity extends FragmentActivity {
         if(MyApplication.sourceEvents.size() == 0) {
 
             //Creating an variable of type Listview Adapter to create the list view.
-            adapter = new EventListviewAdapter(this, mEvents); //Calling the adapter mListView to help set the List
+            adapter = new EventListviewAdapter(this, mEvents,addictEventId); //Calling the adapter mListView to help set the List
         }
         else{
-            adapter = new EventListviewAdapter(this, MyApplication.sourceEvents);
+            adapter = new EventListviewAdapter(this, MyApplication.sourceEvents,addictEventId);
         }
 
         setUpFilters();
@@ -218,17 +226,17 @@ public class ListActivity extends FragmentActivity {
         mArtists = sqLiteUtils.getArtistInfo(dbHelper);
 
 
-        Log.v("This",mEvents.size()+"");
-        for (int i = 0; i < mEvents.size(); i++)
-        {
-            Log.v("Name",mEvents.get(i).getEventName());
-        }
-
+        addictEventId = sqLiteUtils.getEventAddictions(dbHelper);
+        addictVenueId = sqLiteUtils.getVenueAddictions(dbHelper);
+        addictOutfitId = sqLiteUtils.getOrgAddictions(dbHelper);
+        addictArtistId = sqLiteUtils.getArtistAddictions(dbHelper);
 
         for(Event x:mEvents)
         {
             backupEventList.add(x);
         }
+
+
     }
 
     private void setUpFilters(){

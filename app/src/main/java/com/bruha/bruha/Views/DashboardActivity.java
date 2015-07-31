@@ -59,6 +59,8 @@ public class DashboardActivity extends ActionBarActivity {
     @InjectView(R.id.dashboardDudeButtonImage) ImageView dudeButton;
     @InjectView(R.id.dashboardMyUploadImage) ImageView myUploadImage;
     @InjectView(R.id.dashboardExploreImage) ImageView exploreImage;
+    @InjectView(R.id.dashboardprofileImage) ImageView profileImage;
+    @InjectView(R.id.dashboardcalendarImage) ImageView calendarImage;
 
 
     @Override
@@ -289,6 +291,8 @@ public class DashboardActivity extends ActionBarActivity {
         myTicketImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.tickets, 60));
         myUploadImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.myupload, 60));
         exploreImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.explore, 60));
+        profileImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.profile, 60));
+        calendarImage.setImageDrawable(svgToBitmapDrawable(getResources(),R.raw.calendar, 50));
     }
 
     //The OnClickListeners for the DashBoard Buttons:

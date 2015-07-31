@@ -100,7 +100,7 @@ public class myAddictions extends ActionBarActivity {
         setUpFilters();
 
         //Creating an variable of type Listview Adapter to create the list view.
-        adapter=new EventListviewAdapter(this, addictedEvents); //Calling the adapter mListView to help set the List
+        adapter=new EventListviewAdapter(this, addictedEvents, null); //Calling the adapter mListView to help set the List
 
 
         //Sets the Adapter from the class Listview Adapter

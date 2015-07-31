@@ -13,6 +13,7 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -35,14 +36,13 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
     private Activity mActivity;
     private ArrayList<Event> mEvents;
     public static int Clicks=0;
+    private ArrayList<String> addictedEventsID;
 
     //the Constructor for the class.
-    public EventListviewAdapter(Activity activity, ArrayList<Event> events) {
+    public EventListviewAdapter(Activity activity, ArrayList<Event> events, ArrayList<String> addictevent) {
         mActivity = activity;
         mEvents = events;
-        for(int i=0;i<mEvents.size();i++) {
-            Log.v("Bilaaal", mEvents.get(i).getEventName());
-        }
+        addictedEventsID = addictevent;
     }
 
     public String TimeFormat(String Time)
@@ -312,9 +312,8 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
 
     @Override
     public void fillValues(int position, final View convertView) {
+        //Setting all the variables and words for each ROW:
 
-
-        //Test:
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
 
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -365,11 +364,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         holder.EventDistance= (TextView) convertView.findViewById(R.id.VenueDistance);
 
         //Initializing each item to the required type
-
-
         final Event event = mEvents.get(position);
-
-
 
         //Detailed Description of the events.
         holder.EventDName=(TextView) convertView.findViewById(R.id.DesVenueName);
@@ -388,8 +383,6 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         holder.EventName.setText(event.getEventName());
         holder.EventDate.setText(dateFormat(event.getEventDate()));
         holder.EventPrice.setText(freeEventCheck(event.getEventPrice()));
-
-        Log.v("EventName", event.getEventName());
 
 
         Picasso.with(convertView.getContext()).load(event.getEventPicture()).into(holder.EventPicture);
@@ -411,7 +404,6 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         swipeLayout.addDrag(SwipeLayout.DragEdge.Left, convertView.findViewById(R.id.bottom_wrapper));
         swipeLayout.addDrag(SwipeLayout.DragEdge.Right, convertView.findViewById(R.id.mLinear));
         swipeLayout.addSwipeListener(new SimpleSwipeListener() {
-
         });
 
 
@@ -598,6 +590,29 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         TextView Swipe3 = (TextView) convertView.findViewById(R.id.SwipeBarSize3);
         int yx7= (int)Math.round(height*.030);
         Swipe3.setTextSize(TypedValue.COMPLEX_UNIT_PX,yx7);
+
+
+
+        //MyAddictions stuff:
+        boolean addicted = false;
+
+        if(addictedEventsID!=null) {
+
+            for (String ID : addictedEventsID) {
+                if (ID.equals(event.getEventid())) {
+                    addicted = true;
+                }
+            }
+
+            Button likeText = (Button) convertView.findViewById(R.id.likeButton);
+
+            if (addicted == true) {
+                likeText.setText("Unlike");
+            } else {
+                likeText.setText("Like this!");
+            }
+
+        }
     }
 
     //A view holder that contain the things that need to be changed for every event
@@ -620,5 +635,6 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         TextView EventEndDate;
         TextView EventEndTime;
         //No need for Name,Price and Start Date for event as it is already given in first batch above
+
     }
 }
