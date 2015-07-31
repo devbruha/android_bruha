@@ -16,6 +16,7 @@ import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.Venue;
+import com.bruha.bruha.PHP.RetrieveMyPHP;
 import com.bruha.bruha.PHP.RetrievePHP;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
@@ -24,14 +25,8 @@ import java.util.ArrayList;
 
 public class LoadScreenActivity extends Activity {
 
-    //The arrays that are used to store the information of mEvents/Venue/Outfits/Artist.
-    ArrayList<Event> mEvents = new ArrayList<>();
-    ArrayList<Venue> mVenues = new ArrayList<>();
-    ArrayList<Organizations> mOutfits = new ArrayList<>();
-    ArrayList<Artist> mArtists = new ArrayList<>();
-    ArrayList<String> mAddictionList = new ArrayList<>();
-
     RetrievePHP retrievedInfo; //Initialzing the class that contains the calls to the PHP Database.
+    RetrieveMyPHP retrieveMyPHP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +41,7 @@ public class LoadScreenActivity extends Activity {
         else {
 
             retrievedInfo = new RetrievePHP(); // Initializing the class.
+            retrieveMyPHP = new RetrieveMyPHP();
 
             retrievedInfo.getCategoryList();
 
@@ -64,26 +60,25 @@ public class LoadScreenActivity extends Activity {
 
             SQLiteUtils sqLiteUtils = new SQLiteUtils();
             ArrayList<String> userinfo = sqLiteUtils.getUserInfo(dbHelper);
-            Log.v("Size", userinfo.size() + "");
+            //Log.v("Size", userinfo.size() + "");
 
             //Checks to see if the user is already logged in, if not,go to splash screen. Else navigate to Dashboard.
             if (userinfo.size() == 0) {
                 Intent intent = new Intent(this, SplashActivity.class);
                 startActivity(intent);
             } else {
-                ArrayList<Event> userEvents = retrievedInfo.getUserEventList(userinfo.get(0));
+                ArrayList<Event> userEvents = retrieveMyPHP.getUserEventList(userinfo.get(0));
                 sqLiteUtils.insertUserEvents(dbHelper, userEvents);
 
                 //Addiction stuff
-                ArrayList<String> addictedEvents = retrievedInfo.getAddictedList(userinfo.get(0));
+                ArrayList<String> addictedEvents = retrieveMyPHP.getAddictedList(userinfo.get(0));
+                ArrayList<String> addictedVenues = retrieveMyPHP.getAddictedVenueList(userinfo.get(0));
+                ArrayList<String> addictedArtists = retrieveMyPHP.getAddictedArtistList(userinfo.get(0));
+                ArrayList<String> addictedOrganizations = retrieveMyPHP.getAddictedOrgList(userinfo.get(0));
                 sqLiteUtils.insertEventAddictions(dbHelper, addictedEvents);
-                ArrayList<String> addictedVenues = retrievedInfo.getAddictedVenueList(userinfo.get(0));
-                ArrayList<String> addictedArtists = retrievedInfo.getAddictedArtistList(userinfo.get(0));
-                ArrayList<String> addictedOrganizations = retrievedInfo.getAddictedOrgList(userinfo.get(0));
                 sqLiteUtils.insertVenueAddictions(dbHelper, addictedVenues);
                 sqLiteUtils.insertArtistAddictions(dbHelper, addictedArtists);
                 sqLiteUtils.insertOrgAddictions(dbHelper,addictedOrganizations);
-
 
                 MyApplication.loginCheck = true;
                 Intent intent = new Intent(this, DashboardActivity.class);
@@ -105,7 +100,7 @@ public class LoadScreenActivity extends Activity {
             e.printStackTrace();
         }
 
-        Log.v("HeyThisSize",events.size()+"");
+       // Log.v("HeyThisSize",events.size()+"");
 
         //The call to get the list of Venue.
         ArrayList<Venue> venues= new ArrayList<>() ;
@@ -134,21 +129,15 @@ public class LoadScreenActivity extends Activity {
 
 
 
-        //Setting the arrays to hold the retrieved arrays, can remove this later on.
-        mArtists= artists;
-        mOutfits = outfits;
-        mVenues = venues;
-        mEvents = events;
 
         //Setting the local database.
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
-        sqLiteUtils.insertEvents(dbHelper, mEvents);
-        sqLiteUtils.insertVenues(dbHelper, mVenues);
-        sqLiteUtils.insertOrganizations(dbHelper, mOutfits);
-        sqLiteUtils.insertArtist(dbHelper, mArtists);
+        sqLiteUtils.insertEvents(dbHelper, events);
+        sqLiteUtils.insertVenues(dbHelper, venues);
+        sqLiteUtils.insertOrganizations(dbHelper, outfits);
+        sqLiteUtils.insertArtist(dbHelper, artists);
 
     }
-
 
     // A function used to check whether users are connected to the internet
     private boolean isNetworkAvailable() {
@@ -182,5 +171,4 @@ public class LoadScreenActivity extends Activity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-
 }

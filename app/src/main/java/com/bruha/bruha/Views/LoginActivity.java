@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.MyApplication;
+import com.bruha.bruha.PHP.RetrieveMyPHP;
 import com.bruha.bruha.PHP.RetrievePHP;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.SQLiteUtils;
@@ -46,6 +47,7 @@ import butterknife.OnClick;
 public class LoginActivity extends ActionBarActivity {
     //Initialzing the PHP call used to retrieving Data to be stored into the local database.
     RetrievePHP retrievePHP = new RetrievePHP();
+    RetrieveMyPHP retrieveMyPHP = new RetrieveMyPHP();
 
     // Injecting the EditTexts using Butterknife library
     @InjectView(R.id.loginUsernameEditText) EditText mLoginUsernameEditText;
@@ -328,13 +330,11 @@ public class LoginActivity extends ActionBarActivity {
 
 
                 //Storing the information of the user and his uploaded events into the local database.
-                ArrayList<Event> userEvents= retrievePHP.getUserEventList(username);
-                ArrayList<String> userInfo = retrievePHP.getUserInfo(username);
+                ArrayList<Event> userEvents= retrieveMyPHP.getUserEventList(username);
+                ArrayList<String> userInfo = retrieveMyPHP.getUserInfo(username);
                 SQLiteUtils sqLiteUtils = new SQLiteUtils();
                 sqLiteUtils.insertUserEvents(dbHelper, userEvents);
                 sqLiteUtils.insertNewUser(dbHelper, userInfo);
-
-
 
 
                 // Updating the shared variable login check to true on successful login

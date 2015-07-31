@@ -19,7 +19,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.SQLiteDatabaseModel;
+import com.bruha.bruha.PHP.RetrieveMyPHP;
+import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
 import com.bruha.bruha.Views.ShowOnMapActivity;
@@ -37,12 +42,14 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
     private ArrayList<Event> mEvents;
     public static int Clicks=0;
     private ArrayList<String> addictedEventsID;
+    RetrieveMyPHP retrieveMyPHP;
 
     //the Constructor for the class.
     public EventListviewAdapter(Activity activity, ArrayList<Event> events, ArrayList<String> addictevent) {
         mActivity = activity;
         mEvents = events;
         addictedEventsID = addictevent;
+        retrieveMyPHP = new RetrieveMyPHP();
     }
 
     public String TimeFormat(String Time)
@@ -604,13 +611,44 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                 }
             }
 
-            Button likeText = (Button) convertView.findViewById(R.id.likeButton);
+            final Button likeText = (Button) convertView.findViewById(R.id.likeButton);
+
 
             if (addicted == true) {
-                likeText.setText("Unlike");
-            } else {
-                likeText.setText("Like this!");
+                likeText.setText("Unlike!");
             }
+            else {
+                likeText.setText("Like!");
+                likeText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(mActivity.getApplicationContext(), "Yeahh", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+
+
+
+
+                /*
+                                // Create the local DB object
+                                SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(mActivity);
+                                SQLiteUtils sqLiteUtils = new SQLiteUtils();
+                                ArrayList<String> UserInfo = sqLiteUtils.getUserInfo(dbHelper);
+                                if(UserInfo.size() !=0)
+                                {
+
+                                    Log.v("Name",UserInfo.get(0));
+                                    //retrieveMyPHP.eventAddiction(UserInfo.get(0), event.getEventid());
+                                    //Toast.makeText(mActivity.getApplicationContext(),"You are Addicted!",Toast.LENGTH_SHORT).show();
+                                }
+                                */
+
+
+
+
+
 
         }
     }

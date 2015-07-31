@@ -294,11 +294,11 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.execSQL(DATABASE_CREATE_USER_EVENT_INFO);
         db.execSQL("DROP TABLE IF EXISTS addictions");
         db.execSQL(DATABASE_CREATE_ADDICTIONS);
-        db.execSQL("DROP TABLE IF EXISTS addictions_venues");
+        db.execSQL("DROP TABLE IF EXISTS addictionsVenue");
         db.execSQL(DATABASE_CREATE_ADDICTIONS_VENUES);
-        db.execSQL("DROP TABLE IF EXISTS addictions_org");
+        db.execSQL("DROP TABLE IF EXISTS addictionsOrg");
         db.execSQL(DATABASE_CREATE_ADDICTIONS_ORG);
-        db.execSQL("DROP TABLE IF EXISTS addictions_artists");
+        db.execSQL("DROP TABLE IF EXISTS addictionsArtist");
         db.execSQL(DATABASE_CREATE_ADDICTIONS_ARTISTS);
     }
 
