@@ -214,7 +214,7 @@ public class ListActivity extends FragmentActivity {
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
         mEvents = sqLiteUtils.getEventInfo(dbHelper);
         mVenues = sqLiteUtils.getVenuesInfo(dbHelper);
-        mOutfit = sqLiteUtils.getOutfitsInfo(dbHelper);
+        mOutfit = sqLiteUtils.getOrganizationsInfo(dbHelper);
         mArtists = sqLiteUtils.getArtistInfo(dbHelper);
 
 

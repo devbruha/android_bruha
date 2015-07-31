@@ -144,7 +144,7 @@ public class LoadScreenActivity extends Activity {
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
         sqLiteUtils.insertEvents(dbHelper, mEvents);
         sqLiteUtils.insertVenues(dbHelper, mVenues);
-        sqLiteUtils.insertOutfits(dbHelper, mOutfits);
+        sqLiteUtils.insertOrganizations(dbHelper, mOutfits);
         sqLiteUtils.insertArtist(dbHelper, mArtists);
 
     }

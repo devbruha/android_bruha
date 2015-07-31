@@ -287,7 +287,7 @@ public class MapsActivity extends FragmentActivity implements
         //Gets the information and sets them to the defined arrays.
         mEvents = sqLiteUtils.getEventInfo(dbHelper);
         mVenues = sqLiteUtils.getVenuesInfo(dbHelper);
-        mOrganizations = sqLiteUtils.getOutfitsInfo(dbHelper);
+        mOrganizations = sqLiteUtils.getOrganizationsInfo(dbHelper);
     }
 
     //Sets the Markers for the Outfits and calls the Adapter to set the mListView to the OutfitListView Adapter.

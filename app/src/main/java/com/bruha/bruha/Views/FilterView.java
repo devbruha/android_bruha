@@ -15,10 +15,8 @@ import android.widget.TextView;
 import com.bruha.bruha.Adapters.CategoryAdapter;
 import com.bruha.bruha.Adapters.EventListviewAdapter;
 import com.bruha.bruha.Adapters.QuickieAdapter;
-import com.bruha.bruha.Model.Items;
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.UserCustomFilters;
-import com.bruha.bruha.Processing.FilterGen;
 import com.bruha.bruha.Processing.FilterOut;
 import com.bruha.bruha.R;
 import com.google.android.gms.maps.model.Marker;
@@ -173,11 +171,6 @@ public class FilterView {
 
         LinearLayout mCategoryListView = (LinearLayout)mActivity.findViewById(R.id.event_category_listview);
 
-        // Calling the FilterGen class to set the populate the list of the filters
-
-        FilterGen catGen = new FilterGen();
-        ArrayList<Items> mainList = catGen.initCategory();
-
         // calling and setting the "adapter" to set the list items
 
         CategoryAdapter adapter = new CategoryAdapter(mActivity, mCategoryListView, MyApplication.mainList.get(0));
@@ -191,11 +184,6 @@ public class FilterView {
 
         LinearLayout mVenueListView = (LinearLayout)mActivity.findViewById(R.id.venue_category_listview);
 
-        // Calling the FilterGen class to set the populate the list of the filters
-
-        FilterGen quickieGen = new FilterGen();
-        ArrayList<Items> mainList = quickieGen.initRecommended();
-
         // calling and setting the "adapter" to set the list items
 
         QuickieAdapter adapter = new QuickieAdapter(mActivity, mVenueListView, MyApplication.mainList.get(1));
@@ -208,11 +196,6 @@ public class FilterView {
 
         LinearLayout mArtistListView = (LinearLayout)mActivity.findViewById(R.id.artist_category_listview);
 
-        // Calling the FilterGen class to set the populate the list of the filters
-
-        FilterGen quickieGen = new FilterGen();
-        ArrayList<Items> mainList = quickieGen.initRecommended();
-
         // calling and setting the "adapter" to set the list items
 
         QuickieAdapter adapter = new QuickieAdapter(mActivity, mArtistListView, MyApplication.mainList.get(2));
@@ -224,11 +207,6 @@ public class FilterView {
         // Storing the quickie layout into mQuickieListview
 
         LinearLayout mOrganizationListView = (LinearLayout)mActivity.findViewById(R.id.organization_category_listview);
-
-        // Calling the FilterGen class to set the populate the list of the filters
-
-        FilterGen quickieGen = new FilterGen();
-        ArrayList<Items> mainList = quickieGen.initRecommended();
 
         // calling and setting the "adapter" to set the list items
 

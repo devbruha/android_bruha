@@ -277,7 +277,6 @@ public class RetrievePHP {
                 }
 
                 even.setEventPrimaryCategory((Event.getString("primary_category")));
-                //even.setEventSubCategories((ArrayList) (Event.get("sub_category")));
 
                 JSONArray evenSubJSON = ((JSONArray)Event.get("sub_category"));
 
@@ -301,7 +300,7 @@ public class RetrievePHP {
     }
 
     //Gets the List of Venue uploaded in the Database.
-        public ArrayList<Venue> getVenueList() {
+    public ArrayList<Venue> getVenueList() {
 
         Thread thread;
 
@@ -560,6 +559,7 @@ public class RetrievePHP {
                 even.setEventEndDate(Event.getString("event_end_date"));
                 even.setEventStartTime(Event.getString("event_start_time"));
                 even.setEventEndTime(Event.getString("event_end_time"));
+
                 if (Event.getString("Admission_price") != null){
 
                     even.setEventPrice(Double.parseDouble(Event.getString("Admission_price")));
@@ -582,12 +582,26 @@ public class RetrievePHP {
                     even.setEventPicture("http://bruha.com/WorkingWebsite/assets/uploads/Events/Concrete_Android-Lrg.jpg");
                 }
 
+                even.setEventPrimaryCategory((Event.getString("primary_category")));
+
+                JSONArray evenSubJSON = ((JSONArray)Event.get("sub_category"));
+
+                ArrayList<String> evenSubArrayList = new ArrayList<>();
+
+                for(int j=0; j<evenSubJSON.length();j++){
+
+                    evenSubArrayList.add(evenSubJSON.getString(j));
+                }
+
+                even.setEventSubCategories(evenSubArrayList);
+
 
                 Log.v("UserEventName",even.getEventName());
                 mUserEvents.add(even);
             }
-            Log.v("TEST:", response);
+
             return mUserEvents;
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -595,8 +609,8 @@ public class RetrievePHP {
     }
 
     //The method to login.
-    public String login(String mUsername, String mPassword)
-    {
+    public String login(String mUsername, String mPassword) {
+
         // creates parameters for the DB call to attach to the "initial" URL
         // to attach more paramenters its of the form:
         // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
@@ -667,8 +681,8 @@ public class RetrievePHP {
     }
 
     //The method to register an account.
-    public void register(String mUsername, String mPassword, String mEmail)
-    {
+    public void register(String mUsername, String mPassword, String mEmail) {
+
         // creates parameters for the DB call to attach to the "initial" URL
         // to attach more paramenters its of the form:
         // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
@@ -801,8 +815,8 @@ public class RetrievePHP {
 
     //Addicted Stuff
     //The method to register an account.
-    public void eventAddiction(String mUsername, String eventid)
-    {
+    public void eventAddiction(String mUsername, String eventid) {
+
         // creates parameters for the DB call to attach to the "initial" URL
         // to attach more paramenters its of the form:
         // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
@@ -865,8 +879,8 @@ public class RetrievePHP {
 
     //Addicted Stuff
     //The method to register an account.
-    public void venueAddiction(String mUsername, String venueid)
-    {
+    public void venueAddiction(String mUsername, String venueid) {
+
         // creates parameters for the DB call to attach to the "initial" URL
         // to attach more paramenters its of the form:
         // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
@@ -929,8 +943,8 @@ public class RetrievePHP {
 
     //Addicted Stuff
     //The method to register an account.
-    public void artistAddiction(String mUsername, String artistid)
-    {
+    public void artistAddiction(String mUsername, String artistid) {
+
         // creates parameters for the DB call to attach to the "initial" URL
         // to attach more paramenters its of the form:
         // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
@@ -993,8 +1007,8 @@ public class RetrievePHP {
 
     //Addicted Stuff
     //The method to register an account.
-    public void organizationAddiction(String mUsername, String orgid)
-    {
+    public void organizationAddiction(String mUsername, String orgid) {
+
         // creates parameters for the DB call to attach to the "initial" URL
         // to attach more paramenters its of the form:
         // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
@@ -1316,4 +1330,3 @@ public class RetrievePHP {
     }
 
 }
-

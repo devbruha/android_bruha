@@ -190,7 +190,7 @@ public class myAddictions extends ActionBarActivity {
         venueID = sqLiteUtils.getVenueAddictions(dbHelper);
         mArtist = sqLiteUtils.getArtistInfo(dbHelper);
         artistID = sqLiteUtils.getArtistAddictions(dbHelper);
-        mOrg = sqLiteUtils.getOutfitsInfo(dbHelper);
+        mOrg = sqLiteUtils.getOrganizationsInfo(dbHelper);
         orgID = sqLiteUtils.getOrgAddictions(dbHelper);
 
         for(String Id:eventID)

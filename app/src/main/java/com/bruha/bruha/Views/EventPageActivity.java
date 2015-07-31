@@ -234,7 +234,7 @@ public class EventPageActivity extends ActionBarActivity {
         //Assigns the array containing the list of events.
         mEvents = sqLiteUtils.getEventInfo(dbHelper);
         mVenues= sqLiteUtils.getVenuesInfo(dbHelper);
-        mOutfit= sqLiteUtils.getOutfitsInfo(dbHelper);
+        mOutfit= sqLiteUtils.getOrganizationsInfo(dbHelper);
         mArtists= sqLiteUtils.getArtistInfo(dbHelper);
     }
 }
