@@ -69,11 +69,14 @@ public class LoadScreenActivity extends Activity {
                 ArrayList<Event> userEvents = retrieveMyPHP.getUserEventList(userinfo.get(0));
                 sqLiteUtils.insertUserEvents(dbHelper, userEvents);
 
+                MyApplication.userName = userinfo.get(0);
+
                 //Addiction stuff
                 ArrayList<String> addictedEvents = retrieveMyPHP.getAddictedList(userinfo.get(0));
                 ArrayList<String> addictedVenues = retrieveMyPHP.getAddictedVenueList(userinfo.get(0));
                 ArrayList<String> addictedArtists = retrieveMyPHP.getAddictedArtistList(userinfo.get(0));
                 ArrayList<String> addictedOrganizations = retrieveMyPHP.getAddictedOrgList(userinfo.get(0));
+             //   retrieveMyPHP.deleteEventAddiction("TestAccount","0");
                 sqLiteUtils.insertEventAddictions(dbHelper, addictedEvents);
                 sqLiteUtils.insertVenueAddictions(dbHelper, addictedVenues);
                 sqLiteUtils.insertArtistAddictions(dbHelper, addictedArtists);

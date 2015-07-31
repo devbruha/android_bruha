@@ -26,6 +26,8 @@ public class MyApplication extends Application{
 
     public static boolean loginCheck = false;
 
+    public static String userName = "false";
+
     public static String filterTracker = "Event";
 
     public static ViewGroup.LayoutParams listIconParam;

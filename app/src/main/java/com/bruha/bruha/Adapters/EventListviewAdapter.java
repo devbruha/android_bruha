@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.RetrieveMyPHP;
 import com.bruha.bruha.Processing.SQLiteUtils;
@@ -628,18 +629,10 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                 likeText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // Create the local DB object
-                        SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(mActivity);
-                        SQLiteUtils sqLiteUtils = new SQLiteUtils();
-                        ArrayList<String> UserInfo = sqLiteUtils.getUserInfo(dbHelper);
-                        if(UserInfo.size() !=0)
-                        {
-
-                          //  Log.v("Name",UserInfo.get(0));
-                            retrieveMyPHP.eventAddiction(UserInfo.get(0), event.getEventid());
+                            retrieveMyPHP.eventAddiction(MyApplication.userName, event.getEventid());
                             Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
                         }
-                    }
+
                 });
             }
 

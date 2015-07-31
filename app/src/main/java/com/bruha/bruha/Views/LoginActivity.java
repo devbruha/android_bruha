@@ -337,6 +337,7 @@ public class LoginActivity extends ActionBarActivity {
 
 
                 // Updating the shared variable login check to true on successful login
+                MyApplication.userName = userInfo.get(0);
 
                 MyApplication.loginCheck = true;
 
