@@ -1,4 +1,4 @@
-package com.bruha.bruha.PHP;
+package com.bruha.bruha.Processing;
 
 
 import android.util.Log;
@@ -72,7 +72,7 @@ public class RetrieveMyPHP {
                     isr.close();
                     reader.close();
                 } catch (IOException e) {
-                    Log.v("Exception",e+"");
+                    Log.v("Exception", e + "");
                 }
             }
         });
@@ -86,7 +86,7 @@ public class RetrieveMyPHP {
         }
 
         try {
-            Log.v("Response",response);
+            Log.v("Response", response);
             JSONArray x = new JSONArray(response);
 
             for (int i = 0; i < x.length(); i++) {

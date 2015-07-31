@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -24,12 +23,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.MyApplication;
-import com.bruha.bruha.PHP.RetrieveMyPHP;
-import com.bruha.bruha.PHP.RetrievePHP;
+import com.bruha.bruha.Processing.CredentialsPHP;
+import com.bruha.bruha.Processing.RetrieveMyPHP;
+import com.bruha.bruha.Processing.RetrievePHP;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
@@ -39,7 +38,6 @@ import com.caverock.androidsvg.SVGParseException;
 import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnClick;
 
 //TODO Continue with the attempted insertions into the local DB
 //TODO Fix the error checked regarding the query injection
@@ -48,6 +46,7 @@ public class LoginActivity extends ActionBarActivity {
     //Initialzing the PHP call used to retrieving Data to be stored into the local database.
     RetrievePHP retrievePHP = new RetrievePHP();
     RetrieveMyPHP retrieveMyPHP = new RetrieveMyPHP();
+    CredentialsPHP credentialsPHP = new CredentialsPHP();
 
     // Injecting the EditTexts using Butterknife library
     @InjectView(R.id.loginUsernameEditText) EditText mLoginUsernameEditText;
@@ -255,7 +254,7 @@ public class LoginActivity extends ActionBarActivity {
 
                     // Calling the init function within PHP with the parameters passed
 
-                    error= retrievePHP.login(username,password);
+                    error= credentialsPHP.login(username,password);
                 }
                 // If password is invalid, error string is updated
 

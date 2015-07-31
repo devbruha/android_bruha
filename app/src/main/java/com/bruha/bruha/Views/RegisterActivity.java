@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -26,7 +25,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bruha.bruha.PHP.RetrievePHP;
+import com.bruha.bruha.Processing.CredentialsPHP;
+import com.bruha.bruha.Processing.RetrievePHP;
 import com.bruha.bruha.R;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
@@ -266,10 +266,8 @@ public class RegisterActivity extends ActionBarActivity {
                         // Calling the init function within PHP with the parameters passed
 
                         error="Success";
-                        RetrievePHP retrievePHP = new RetrievePHP();
-                        retrievePHP.register(username, password, email);
-
-
+                        CredentialsPHP credentialsPHP = new CredentialsPHP();
+                        credentialsPHP.register(username, password, email);
 
                     }
                     // If email is invalid, error string is updated

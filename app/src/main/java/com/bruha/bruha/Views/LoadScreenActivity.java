@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.Event;
@@ -16,8 +15,8 @@ import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.Venue;
-import com.bruha.bruha.PHP.RetrieveMyPHP;
-import com.bruha.bruha.PHP.RetrievePHP;
+import com.bruha.bruha.Processing.RetrieveMyPHP;
+import com.bruha.bruha.Processing.RetrievePHP;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 

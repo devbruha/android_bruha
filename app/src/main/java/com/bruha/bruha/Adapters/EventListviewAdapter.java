@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
-import com.bruha.bruha.PHP.RetrieveMyPHP;
+import com.bruha.bruha.Processing.RetrieveMyPHP;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
@@ -616,39 +616,32 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
 
             if (addicted == true) {
                 likeText.setText("Unlike!");
+                likeText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(mActivity.getApplicationContext(),"Not Implemented",Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
             else {
                 likeText.setText("Like!");
                 likeText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(mActivity.getApplicationContext(), "Yeahh", Toast.LENGTH_SHORT).show();
+                        // Create the local DB object
+                        SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(mActivity);
+                        SQLiteUtils sqLiteUtils = new SQLiteUtils();
+                        ArrayList<String> UserInfo = sqLiteUtils.getUserInfo(dbHelper);
+                        if(UserInfo.size() !=0)
+                        {
+
+                          //  Log.v("Name",UserInfo.get(0));
+                            retrieveMyPHP.eventAddiction(UserInfo.get(0), event.getEventid());
+                            Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }
-
-
-
-
-
-                /*
-                                // Create the local DB object
-                                SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(mActivity);
-                                SQLiteUtils sqLiteUtils = new SQLiteUtils();
-                                ArrayList<String> UserInfo = sqLiteUtils.getUserInfo(dbHelper);
-                                if(UserInfo.size() !=0)
-                                {
-
-                                    Log.v("Name",UserInfo.get(0));
-                                    //retrieveMyPHP.eventAddiction(UserInfo.get(0), event.getEventid());
-                                    //Toast.makeText(mActivity.getApplicationContext(),"You are Addicted!",Toast.LENGTH_SHORT).show();
-                                }
-                                */
-
-
-
-
-
 
         }
     }
