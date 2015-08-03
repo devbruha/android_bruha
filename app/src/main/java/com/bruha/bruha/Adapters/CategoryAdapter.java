@@ -5,6 +5,7 @@ package com.bruha.bruha.Adapters;
  */
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,9 @@ import android.widget.Toast;
 import com.bruha.bruha.Model.Items;
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.UserCustomFilters;
+import com.bruha.bruha.Processing.FilterOut;
 import com.bruha.bruha.R;
+import com.google.android.gms.maps.model.Marker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,11 +31,16 @@ import java.util.Map;
  */
 public class CategoryAdapter {
 
-    private Context mContext;
+    FilterOut filtering;
+
+    private FragmentActivity mActivity;
     private LinearLayout mLinearListView;
     private ArrayList<Items> mMainList;
 
     UserCustomFilters mUserCustomFilter;
+
+    private EventListviewAdapter mAdapter;
+    HashMap<String, Marker> markerMap = new HashMap<>();
 
     // Creating a hashmap to store the current categories selected by the user
     // the hashmap shall contain string ArrayLists for each primary category selected
@@ -49,13 +57,18 @@ public class CategoryAdapter {
 
     // Constructor for the adapter, takes a context, linear layout and "super" list
 
-    public CategoryAdapter(Context context, LinearLayout linearListView, ArrayList<Items> mainList){
+    public CategoryAdapter(FragmentActivity activity, LinearLayout linearListView, ArrayList<Items> mainList,EventListviewAdapter adapter, HashMap markerHashMap){
 
-        this.mContext = context;
+        this.mActivity = activity;
         this.mLinearListView = linearListView;
         this.mMainList = mainList;
 
-        this.mUserCustomFilter = ((MyApplication) mContext.getApplicationContext()).getUserCustomFilters();
+        filtering = new FilterOut(mActivity);
+
+        mAdapter = adapter;
+        markerMap = markerHashMap;
+
+        this.mUserCustomFilter = ((MyApplication) mActivity.getApplicationContext()).getUserCustomFilters();
     }
 
     public Map<String, ArrayList<String>> set(){
@@ -79,7 +92,7 @@ public class CategoryAdapter {
             //Inflating the first level
 
             LayoutInflater inflater = null;
-            inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View mLinearView = inflater.inflate(R.layout.row_first, null);
 
             final TextView mProductName = (TextView) mLinearView.findViewById(R.id.textViewName);
@@ -143,7 +156,7 @@ public class CategoryAdapter {
             // Each child (primary category) gets inflated as a row item (row second)
 
             LayoutInflater inflater2 = null;
-            inflater2 = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater2 = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View mLinearView2 = inflater2.inflate(R.layout.row_second, null);
 
             final TextView mSubItemName = (TextView) mLinearView2.findViewById(R.id.textViewTitle);
@@ -162,6 +175,8 @@ public class CategoryAdapter {
                 public void onClick(View v) {
 
                     // Setting the isSecondViewClick variable dependant if the category is already stored in the filter
+
+                    //Log.v("Filterid test", mSubItemName.getTag()+"");
 
                     if(mUserCustomFilter.getCategoryFilter().containsKey(catName)){
 
@@ -193,11 +208,11 @@ public class CategoryAdapter {
                                 mUserCategorySelected.put(catName, primaryCategory);
                             }
 
-                            Log.v("filter test", mUserCategorySelected.keySet()+"");
+                            //Log.v("filter test", mUserCategorySelected.keySet()+"");
                         }
                         else{
 
-                            Toast toast = Toast.makeText(mContext, "While filtering please select only up to 3 primary categories!", Toast.LENGTH_SHORT);
+                            Toast toast = Toast.makeText(mActivity, "While filtering please select only up to 3 primary categories!", Toast.LENGTH_SHORT);
                             toast.show();
                         }
                     }
@@ -213,6 +228,16 @@ public class CategoryAdapter {
                     }
 
                     mUserCustomFilter.setCategoryFilter(mUserCategorySelected);
+
+                    if(mAdapter != null) {
+
+                        filtering.filterList(mAdapter);
+                    }
+
+                    if(markerMap!= null){
+                        filtering.filterMap(markerMap);
+                    }
+
                 }
             });
 
@@ -234,6 +259,8 @@ public class CategoryAdapter {
             }
 
             // Sets the title of the child level (primary category)
+
+            //final String catName = mMainList.get(firstLevelNumber).getmSubCategoryList().get(j).getpSubCatName();
 
             mSubItemName.setText(catName);
 
@@ -259,7 +286,7 @@ public class CategoryAdapter {
             // Inflates each sub category as a super sub level list item
 
             LayoutInflater inflater3 = null;
-            inflater3 = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater3 = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View mLinearView3 = inflater3.inflate(R.layout.row_third, null);
 
             final LinearLayout childChildLayout = (LinearLayout)mLinearView3.findViewById(R.id.childChildItem);
@@ -269,12 +296,16 @@ public class CategoryAdapter {
             // Retrieving the name for the selected subcategory
 
             final String subCategoryName = mMainList.get(firstLevelNumber).getmSubCategoryList().get(secondLevelNumber).getmItemListArray().get(k).getItemName();
+            final String subCategoryID = MyApplication.mainList.get(4).get(firstLevelNumber).getmSubCategoryList().get(secondLevelNumber).getmItemListArray().get(k).getItemName();
 
             childChildLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     ArrayList<String> categoryArrayList = mUserCategorySelected.get(catName);
+
+                    Log.v("Tagtest", mSubCategoryName.getTag() + "");
+
 
                     if (isThirdViewClick == false) {
 
@@ -300,11 +331,14 @@ public class CategoryAdapter {
                         mUserCategorySelected.put(catName, categoryArrayList);
                     }
 
-                    Log.v("subCatTest", mUserCategorySelected.get(catName)+"");
+                    Log.v("subCatTest", mUserCategorySelected.get(catName) + "");
                 }
             });
 
             mSubCategoryName.setText(subCategoryName);
+            mSubCategoryName.setTag(subCategoryID);
+
+
 
             mLinearScrollThird.addView(mLinearView3);
         }

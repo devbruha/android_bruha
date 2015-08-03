@@ -173,7 +173,7 @@ public class FilterView {
 
         // calling and setting the "adapter" to set the list items
 
-        CategoryAdapter adapter = new CategoryAdapter(mActivity, mCategoryListView, MyApplication.mainList.get(0));
+        CategoryAdapter adapter = new CategoryAdapter(mActivity, mCategoryListView, MyApplication.mainList.get(0),mAdapter,markerMap);
 
         adapter.set();
     }

@@ -34,13 +34,16 @@ public class RetrievePHP {
     ArrayList<Artist> mArtists = new ArrayList<>();
 
     ArrayList<Items.SubCategory.ItemList> itemSub = new ArrayList<>();
+    ArrayList<Items.SubCategory.ItemList> itemSubID = new ArrayList<>();
 
     ArrayList<Items>eventMainList = new ArrayList<Items>();
+    ArrayList<Items>eventMainListID = new ArrayList<Items>();
     ArrayList<Items>venueMainList = new ArrayList<Items>();
     ArrayList<Items>artistMainList = new ArrayList<Items>();
     ArrayList<Items>organizationMainList = new ArrayList<Items>();
 
     ArrayList<Items.SubCategory>eventArrayList = new ArrayList<>();
+    ArrayList<Items.SubCategory>eventArrayListID = new ArrayList<>();
     ArrayList<Items.SubCategory> venueArrayList = new ArrayList<Items.SubCategory>();
     ArrayList<Items.SubCategory> artistArrayList = new ArrayList<Items.SubCategory>();
     ArrayList<Items.SubCategory> organizationArrayList = new ArrayList<Items.SubCategory>();
@@ -102,6 +105,7 @@ public class RetrievePHP {
             JSONObject eventCat  = x.getJSONObject("event_cat");
 
             eventMainList.add(new Items("Event Categories", eventArrayList));
+            eventMainListID.add(new Items("Event Categories", eventArrayListID));
 
             Iterator<String> iter = eventCat.keys();
             String primCatName;
@@ -109,17 +113,29 @@ public class RetrievePHP {
             while( iter.hasNext() ){
 
                 itemSub.clear();
+                itemSubID.clear();
 
                 primCatName = iter.next();
 
                 JSONArray subCatList = eventCat.getJSONArray(primCatName);
+                JSONArray subCatIDJSON = subCatList.getJSONArray(subCatList.length()-1);
 
-                for( int i = 0; i<subCatList.length(); i++){
+                Log.v("JSON", subCatIDJSON+"");
+
+                // -1 to the max cause of the last item that holds the array of ID's
+
+                for( int i = 0; i<subCatList.length()-1; i++){
 
                     itemSub.add(new Items.SubCategory.ItemList(subCatList.getString(i)));
+                    itemSubID.add(new Items.SubCategory.ItemList(subCatIDJSON.getString(i)));
                 }
 
+                //Log.v("JSON", itemSubID.+"");
+
+                //for(int i=0 ; i< )
+
                 eventArrayList.add(new Items.SubCategory(primCatName, new ArrayList<Items.SubCategory.ItemList>(itemSub)));
+                eventArrayListID.add(new Items.SubCategory(primCatName, new ArrayList<Items.SubCategory.ItemList>(itemSubID)));
             }
 
         } catch (JSONException e) {
@@ -184,6 +200,7 @@ public class RetrievePHP {
         MyApplication.mainList.add(venueMainList);
         MyApplication.mainList.add(artistMainList);
         MyApplication.mainList.add(organizationMainList);
+        MyApplication.mainList.add(eventMainListID);
     }
 
     //Gets the List of Events uploaded in the Database.

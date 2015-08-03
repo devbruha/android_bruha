@@ -70,6 +70,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
     public static final String TABLE_EVENT_SUB_CATEGORY = "event_sub_categories";
     public static final String EVENT_SUB_CATEGORY = "eventSubCategory";
+    public static final String EVENT_SUB_CATEGORY_ID = "eventSubCategoryID";
 
     // User Event SubCategory Table
 
@@ -171,6 +172,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + TABLE_EVENT_SUB_CATEGORY + "(" + EVENT_LOCAL_ID
             + " integer primary key autoincrement, "
             + EVENT_REMOTE_ID + " text not null, "
+            + EVENT_SUB_CATEGORY_ID + " text not null, "
             + EVENT_SUB_CATEGORY + " text not null);";
 
     private static final String DATABASE_CREATE_USER_EVENT_INFO = "create table "
@@ -197,6 +199,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + TABLE_USER_EVENT_SUB_CATEGORY + "(" + EVENT_LOCAL_ID
             + " integer primary key autoincrement, "
             + EVENT_REMOTE_ID + " text not null, "
+            + EVENT_SUB_CATEGORY_ID + " text not null, "
             + EVENT_SUB_CATEGORY + " text not null);";
 
     private static final String DATABASE_CREATE_VENUE_INFO = "create table "

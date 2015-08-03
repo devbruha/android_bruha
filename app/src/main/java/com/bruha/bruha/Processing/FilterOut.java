@@ -1,6 +1,7 @@
 package com.bruha.bruha.Processing;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.bruha.bruha.Adapters.EventListviewAdapter;
@@ -63,6 +64,39 @@ public class FilterOut {
             }
         }
 
+        // If the category filter is non null, filter off all events that dont have date...
+
+        if(customFilters.getCategoryFilter().size() != 0) {
+
+            for (int i = tempList.size(); i > 0; i--) {
+
+                // If the item's primary category is NOT contained in the filter, remove said item
+
+                if (!customFilters.getCategoryFilter().containsKey(tempList.get(i - 1).getEventPrimaryCategory())) {
+
+                    tempListID.add(tempList.get(i - 1).getEventid());
+                    tempList.remove(i - 1);
+                    /*
+
+                    for(String key: customFilters.getCategoryFilter().keySet()){
+
+                        for(int j = 0; j<customFilters.getCategoryFilter().get(key).size()-1; j++){
+
+                            if(!tempList.get(i-1).getEventSubCategories().contains(customFilters.getCategoryFilter().get(key).get(j))){
+
+                                tempListID.add(tempList.get(i - 1).getEventid());
+                                tempList.remove(i - 1);
+                            }
+                        }
+                    }
+                    */
+
+                }
+
+            }
+
+        }
+
         // If event price > admission filter, filter event off
 
         if(customFilters.getAdmissionPriceFilter() != -1) {
@@ -78,7 +112,8 @@ public class FilterOut {
         }
 
         if(customFilters.getDateFilter().size() == 0 &&
-                customFilters.getAdmissionPriceFilter() == -1) {
+                customFilters.getAdmissionPriceFilter() == -1 &&
+                customFilters.getCategoryFilter().size() == 0) {
 
             tempListID.clear();
             tempListID.add("All");
@@ -123,6 +158,26 @@ public class FilterOut {
             }
         }
 
+        // If the category filter is non null, filter off all events that dont have date...
+
+        if(customFilters.getCategoryFilter().size() != 0) {
+
+            //Log.v("FilterTest", customFilters.getCategoryFilter().keySet()+"");
+
+            for (int i = tempList.size(); i > 0; i--) {
+
+                // If the item's primary category is NOT contained in the filter, remove said item
+
+                //Log.v("FilterTest", tempList.get(i - 1).getEventPrimaryCategory());
+
+                if (!customFilters.getCategoryFilter().containsKey(tempList.get(i - 1).getEventPrimaryCategory())) {
+
+                    tempListID.add(tempList.get(i-1).getEventid());
+                    tempList.remove(i - 1);
+                }
+            }
+        }
+
         // If event price > admission filter, filter event off
 
         if(customFilters.getAdmissionPriceFilter() != -1) {
@@ -142,7 +197,8 @@ public class FilterOut {
         }
 
         if(customFilters.getDateFilter().size() == 0 &&
-                customFilters.getAdmissionPriceFilter() == -1) {
+                customFilters.getAdmissionPriceFilter() == -1 &&
+                customFilters.getCategoryFilter().size() == 0) {
 
             for(String key : markerMap.keySet()){
                 markerMap.get(key).setVisible(true);
