@@ -80,7 +80,7 @@ public class FilterOut {
 
                     for(String key: customFilters.getCategoryFilter().keySet()){
 
-                        for(int j = 0; j<customFilters.getCategoryFilter().get(key).size()-1; j++){
+                        for(int j = 0; j<customFilters.getCategoryFilter().get(key).size(); j++){
 
                             if(!tempList.get(i-1).getEventSubCategories().contains(customFilters.getCategoryFilter().get(key).get(j))){
 

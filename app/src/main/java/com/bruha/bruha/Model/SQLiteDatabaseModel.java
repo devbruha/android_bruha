@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
 import java.util.ArrayList;
 
 
@@ -312,6 +314,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        ContentValues subCatValues = new ContentValues();
 
         for(int i =0; i < events.size();i++){
             values.put("eventID", events.get(i).getEventid());
@@ -319,6 +322,16 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             values.put("eventDescription", events.get(i).getEventDescription());
             values.put("eventName", events.get(i).getEventName());
             values.put("eventPrimaryCategory", events.get(i).getEventPrimaryCategory());
+
+            for(int j= 0; j< events.get(i).getEventSubCategories().size(); j++){
+
+                subCatValues.put("eventID",events.get(i).getEventid());
+                subCatValues.put("eventSubCategoryID", events.get(i).getEventSubCategoriesID().get(j));
+                subCatValues.put("eventSubCategory", events.get(i).getEventSubCategories().get(j));
+
+                db.insert(TABLE_EVENT_SUB_CATEGORY, null, subCatValues);
+            }
+
             values.put("eventDate", events.get(i).getEventDate());
             values.put("eventPrice", events.get(i).getEventPrice());
             values.put("eventLatitude", events.get(i).getEventLatitude());
@@ -331,7 +344,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             values.put("eventEndDate", events.get(i).getEventEndDate());
             values.put("eventPicture", events.get(i).getEventPicture());
 
-
             db.insert(TABLE_EVENT_INFO, null, values);
         }
     }
@@ -340,6 +352,8 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public ArrayList<Event> retrieveEventInfo(){
 
         ArrayList<Event> mEvents = new ArrayList<>();
+        ArrayList<String> eventSubCatID = new ArrayList<>();
+        ArrayList<String> eventSubCat = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -348,14 +362,32 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         if(cursor != null)
         {
             while(cursor.moveToNext()){
+
                 Event newEvent = new Event();
-                //int id = cursor.getInt(cursor.getColumnIndex("_id"));
+
+                eventSubCatID.clear();
+                eventSubCat.clear();
+
+                String whereClause = "eventID = '"+cursor.getString(cursor.getColumnIndex("eventID"))+"'";
+
+                Cursor subCursor = db.query(TABLE_EVENT_SUB_CATEGORY,null,whereClause,null,null,null,null);
+
+                if(subCursor != null){
+
+                    while(subCursor.moveToNext()){
+
+                        eventSubCatID.add(subCursor.getString(subCursor.getColumnIndex("eventSubCategoryID")));
+                        eventSubCat.add(subCursor.getString(subCursor.getColumnIndex("eventSubCategory")));
+                    }
+                }
 
                 newEvent.setEventid(cursor.getString(cursor.getColumnIndex("eventID")));
                 newEvent.setVenueid(cursor.getString(cursor.getColumnIndex("venueID")));
                 newEvent.setEventDescription(cursor.getString(cursor.getColumnIndex("eventDescription")));
                 newEvent.setEventName(cursor.getString(cursor.getColumnIndex("eventName")));
                 newEvent.setEventPrimaryCategory(cursor.getString(cursor.getColumnIndex("eventPrimaryCategory")));
+                newEvent.setEventSubCategoriesID(eventSubCatID);
+                newEvent.setEventSubCategories(eventSubCat);
                 newEvent.setEventDate(cursor.getString(cursor.getColumnIndex("eventDate")));
                 newEvent.setEventPrice(cursor.getDouble(cursor.getColumnIndex("eventPrice")));
                 newEvent.setEventLatitude(cursor.getDouble(cursor.getColumnIndex("eventLatitude")));
@@ -743,6 +775,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        ContentValues subCatValues = new ContentValues();
 
         for(int i =0; i< events.size();i++){
             values.put("eventID", events.get(i).getEventid());
@@ -750,6 +783,19 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             values.put("eventDescription", events.get(i).getEventDescription());
             values.put("eventName", events.get(i).getEventName());
             values.put("eventPrimaryCategory", events.get(i).getEventPrimaryCategory());
+
+            //Log.v("LocalTest", events.get(i).getEventSubCategories() + "");
+            //Log.v("LocalTest", events.get(i).getEventSubCategoriesID() + "");
+
+            for(int j= 0; j< events.get(i).getEventSubCategories().size(); j++){
+
+                subCatValues.put("eventID",events.get(i).getEventid());
+                subCatValues.put("eventSubCategory", events.get(i).getEventSubCategories().get(j));
+                subCatValues.put("eventSubCategoryID", events.get(i).getEventSubCategoriesID().get(j));
+
+                db.insert(TABLE_USER_EVENT_SUB_CATEGORY, null, subCatValues);
+            }
+
             values.put("eventDate", events.get(i).getEventDate());
             values.put("eventPrice", events.get(i).getEventPrice());
             values.put("eventLatitude", events.get(i).getEventLatitude());
@@ -770,6 +816,8 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public ArrayList<Event> retrieveUserEventInfo(){
 
         ArrayList<Event> mEvents = new ArrayList<>();
+        ArrayList<String> eventSubCatID = new ArrayList<>();
+        ArrayList<String> eventSubCat = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -781,12 +829,29 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
                 Event newEvent = new Event();
 
-                //int id = cursor.getInt(cursor.getColumnIndex("_id"));
+                String whereClause = "eventID = '"+cursor.getString(cursor.getColumnIndex("eventID"))+"'";
+
+                Cursor subCursor = db.query(TABLE_EVENT_SUB_CATEGORY,null,whereClause,null,null,null,null);
+
+                if(subCursor != null){
+
+                    eventSubCatID.clear();
+                    eventSubCat.clear();
+
+                    while(subCursor.moveToNext()){
+
+                        eventSubCatID.add(subCursor.getString(subCursor.getColumnIndex("eventSubCategoryID")));
+                        eventSubCat.add(subCursor.getString(subCursor.getColumnIndex("eventSubCategory")));
+                    }
+                }
+
                 newEvent.setEventid(cursor.getString(cursor.getColumnIndex("eventID")));
                 newEvent.setVenueid(cursor.getString(cursor.getColumnIndex("venueID")));
                 newEvent.setEventDescription(cursor.getString(cursor.getColumnIndex("eventDescription")));
                 newEvent.setEventName(cursor.getString(cursor.getColumnIndex("eventName")));
                 newEvent.setEventPrimaryCategory(cursor.getString(cursor.getColumnIndex("eventPrimaryCategory")));
+                newEvent.setEventSubCategoriesID(eventSubCatID);
+                newEvent.setEventSubCategories(eventSubCat);
                 newEvent.setEventDate(cursor.getString(cursor.getColumnIndex("eventDate")));
                 newEvent.setEventPrice(cursor.getDouble(cursor.getColumnIndex("eventPrice")));
                 newEvent.setEventLatitude(cursor.getDouble(cursor.getColumnIndex("eventLatitude")));
@@ -802,6 +867,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 mEvents.add(newEvent);
             }
         }
+
         cursor.close();
         return mEvents;
     }

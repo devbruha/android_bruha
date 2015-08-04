@@ -291,15 +291,19 @@ public class RetrievePHP {
                 even.setEventPrimaryCategory((Event.getString("primary_category")));
 
                 JSONArray evenSubJSON = ((JSONArray)Event.get("sub_category"));
+                JSONArray evenSubIDJSON = ((JSONArray)Event.get("sub_category_id"));
 
                 ArrayList<String> evenSubArrayList = new ArrayList<>();
+                ArrayList<String> evenSubIDArrayList = new ArrayList<>();
 
                 for(int j=0; j<evenSubJSON.length();j++){
 
                     evenSubArrayList.add(evenSubJSON.getString(j));
+                    evenSubIDArrayList.add(evenSubIDJSON.getString(j));
                 }
 
                 even.setEventSubCategories(evenSubArrayList);
+                even.setEventSubCategoriesID(evenSubIDArrayList);
 
                 mEvents.add(even);
             }
