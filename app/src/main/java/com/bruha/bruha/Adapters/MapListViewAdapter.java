@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.R;
@@ -173,9 +174,8 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
                 animator.setDuration(500);
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
-                        BuyTicketLayout.setAlpha(1f);
-                        //Intent intent = new Intent(mActivity, DashboardActivity.class);
-                        //mActivity.startActivity(intent);
+                        BuyTicketLayout.setAlpha(.25f);
+                        Toast.makeText(mActivity.getApplicationContext(), "Still under development,sorry!", Toast.LENGTH_SHORT).show();
                     }
                 });
                 animator.start();

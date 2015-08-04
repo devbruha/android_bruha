@@ -425,9 +425,8 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                 animator.setDuration(500);
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
-                        BuyTicketLayout.setAlpha(1f);
-                        //Intent intent = new Intent(mActivity, DashboardActivity.class);
-                        //mActivity.startActivity(intent);
+                        BuyTicketLayout.setAlpha(.25f);
+                        Toast.makeText(mActivity.getApplicationContext(),"Still under development,sorry!",Toast.LENGTH_SHORT).show();
                     }
                 });
                 animator.start();
