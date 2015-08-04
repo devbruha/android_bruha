@@ -11,12 +11,17 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.bruha.bruha.Model.Artist;
+import com.bruha.bruha.Model.MyApplication;
+import com.bruha.bruha.Processing.RetrieveMyPHP;
 import com.bruha.bruha.R;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
@@ -32,11 +37,15 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
     private Activity mActivity;             //The Activity where it is to be displayed.
     private ArrayList<Artist> mArtists;    //The List of Artist to be displayed.
     public static int Clicks=0;             //The number of times tapped on the screen.
+    RetrieveMyPHP retrieveMyPHP;
+    ArrayList<String> addictArtistID;
 
-    public ArtistsListViewAdapter(Activity activity,ArrayList<Artist> artists)
+    public ArtistsListViewAdapter(Activity activity,ArrayList<Artist> artists, ArrayList<String> artistID)
     {
         mActivity = activity;
         mArtists = artists;
+        addictArtistID = artistID;
+        retrieveMyPHP = new RetrieveMyPHP();
     }
 
     @Override
@@ -269,6 +278,48 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
         TextView Swipe2 = (TextView) convertView.findViewById(R.id.VenueSwipeBarSize2);
         Swipe2.setTextSize(TypedValue.COMPLEX_UNIT_PX,x7);
+
+
+        //MyAddictions stuff:
+        boolean addicted = false;
+
+        if(addictArtistID!=null) {
+
+            for (String ID : addictArtistID) {
+                if (ID.equals(artist.getArtistId())) {
+                    addicted = true;
+                }
+            }
+
+            final Button likeText = (Button) convertView.findViewById(R.id.likeVenButton);
+
+
+            if (addicted == true) {
+                likeText.setText("Unlike!");
+                likeText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        retrieveMyPHP.deleteArtistAddiction(MyApplication.userName, artist.getArtistId());
+                        Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
+                        likeText.setText("Like!");
+                    }
+                });
+            }
+            else {
+                likeText.setText("Like!");
+                likeText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        retrieveMyPHP.artistAddiction(MyApplication.userName, artist.getArtistId());
+                        Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
+                        likeText.setText("Unlike!");
+                    }
+
+                });
+            }
+
+        }
+
     }
 
     @Override

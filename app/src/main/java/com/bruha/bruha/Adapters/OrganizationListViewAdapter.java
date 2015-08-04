@@ -13,13 +13,17 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.Organizations;
+import com.bruha.bruha.Processing.RetrieveMyPHP;
 import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
 import com.bruha.bruha.Views.ShowOnMapActivity;
@@ -39,11 +43,15 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
     private Activity mActivity;
     private ArrayList<Organizations> mOrganizations;
     public static int Clicks=0;
+    ArrayList<String> addictOrgID;
+    RetrieveMyPHP retrieveMyPHP;
 
-    public OrganizationListViewAdapter(Activity activity,ArrayList<Organizations> organizations)
+    public OrganizationListViewAdapter(Activity activity,ArrayList<Organizations> organizations,ArrayList<String> orgID)
     {
         mActivity=activity;
         mOrganizations=organizations;
+        addictOrgID = orgID;
+        retrieveMyPHP = new RetrieveMyPHP();
     }
 
 
@@ -300,6 +308,47 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
         TextView Swipe2 = (TextView) convertView.findViewById(R.id.VenueSwipeBarSize2);
         Swipe2.setTextSize(TypedValue.COMPLEX_UNIT_PX,x7);
+
+
+        //MyAddictions stuff:
+        boolean addicted = false;
+
+        if(addictOrgID!=null) {
+
+            for (String ID : addictOrgID) {
+                if (ID.equals(Outfit.getOrgId())) {
+                    addicted = true;
+                }
+            }
+
+            final Button likeText = (Button) convertView.findViewById(R.id.likeVenButton);
+
+
+            if (addicted == true) {
+                likeText.setText("Unlike!");
+                likeText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        retrieveMyPHP.deleteOrgAddiction(MyApplication.userName, Outfit.getOrgId());
+                        Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
+                        likeText.setText("Like!");
+                    }
+                });
+            }
+            else {
+                likeText.setText("Like!");
+                likeText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        retrieveMyPHP.organizationAddiction(MyApplication.userName, Outfit.getOrgId());
+                        Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
+                        likeText.setText("Unlike!");
+                    }
+
+                });
+            }
+
+        }
 
     }
 

@@ -620,7 +620,9 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                 likeText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(mActivity.getApplicationContext(),"Not Implemented",Toast.LENGTH_SHORT).show();
+                        retrieveMyPHP.deleteEventAddiction(MyApplication.userName, event.getEventid());
+                                Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
+                        likeText.setText("Like!");
                     }
                 });
             }
@@ -631,6 +633,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                     public void onClick(View v) {
                             retrieveMyPHP.eventAddiction(MyApplication.userName, event.getEventid());
                             Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
+                        likeText.setText("Unlike!");
                         }
 
                 });

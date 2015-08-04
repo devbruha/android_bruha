@@ -19,13 +19,13 @@
 
         <Button
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Like!"
             android:textStyle="bold"
             android:background="#66ddff00"
             android:textColor="#ffffff"
-            android:id="@+id/button"/>
+            android:id="@+id/likeVenButton"/>
 
 
     </LinearLayout>
