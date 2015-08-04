@@ -67,7 +67,14 @@ public class LoadScreenActivity extends Activity {
                 startActivity(intent);
             } else {
                 ArrayList<Event> userEvents = retrieveMyPHP.getUserEventList(userinfo.get(0));
+                ArrayList<Venue> userVenues = retrieveMyPHP.getUserVenueList(userinfo.get(0));
+                ArrayList<Artist> userArtist = retrieveMyPHP.getUserArtistList(userinfo.get(0));
+                ArrayList<Organizations> userOrg = retrieveMyPHP.getUserOrgList(userinfo.get(0));
                 sqLiteUtils.insertUserEvents(dbHelper, userEvents);
+                sqLiteUtils.insertUserVenues(dbHelper, userVenues);
+                sqLiteUtils.insertUserArtist(dbHelper, userArtist);
+                sqLiteUtils.insertUserOrganization(dbHelper, userOrg);
+
 
                 MyApplication.userName = userinfo.get(0);
 

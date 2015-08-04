@@ -428,7 +428,7 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:src="@drawable/round"
-            android:alpha=".42"
+            android:alpha=".50"
             android:focusable="false"
             android:layout_weight="5"
             />
@@ -472,12 +472,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1km"
+            android:text="Swipe"
             android:id="@+id/VenueDistance"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/TextEventPrice"
             android:textSize="12dp"
-            android:textColor="#ff000000" />
+            android:textColor="#ff000000"
+            android:layout_marginTop="3dp" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -635,7 +636,26 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:textColor="#ff000000" />
+
         </RelativeLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/swipeyright"
+            android:layout_marginLeft="3dp"
+            android:layout_below="@+id/TextEventPrice"
+            android:layout_toRightOf="@+id/VenueDistance"
+            android:src="@drawable/calendar_next_arrow" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/swipeyleft"
+            android:layout_marginRight="3dp"
+            android:layout_below="@+id/TextEventPrice"
+            android:layout_toLeftOf="@+id/VenueDistance"
+            android:src="@drawable/calendar_prev_arrow" />
 
     </RelativeLayout>
 

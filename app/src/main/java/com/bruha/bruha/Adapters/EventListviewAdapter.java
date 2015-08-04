@@ -387,7 +387,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         //Setting the text boxes to the information retrieved from the arrays of events
 
         //Setting the summary description
-        holder.EventDistance.setText(event.getEventDistance() + "km");
+       // holder.EventDistance.setText(event.getEventDistance() + "km");
         holder.EventName.setText(event.getEventName());
         holder.EventDate.setText(dateFormat(event.getEventDate()));
         holder.EventPrice.setText(freeEventCheck(event.getEventPrice()));
