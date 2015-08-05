@@ -233,44 +233,74 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         });
 
 
-        //MyAddictions stuff:
-        boolean addicted = false;
 
-        if(addictedEventsID!=null) {
+        if(MyApplication.loginCheck==true) {
 
-            for (String ID : addictedEventsID) {
-                if (ID.equals(event.getEventid())) {
-                    addicted = true;
+            if(mActivity.getLocalClassName().equals("Views.WhatsHotActivity"))
+            {
+                final Button likeText = (Button) convertView.findViewById(R.id.likeButton);
+                likeText.setText("Dont click me!");
+                likeText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(mActivity.getApplicationContext(),"Dude, seriously, stahp!! -.-",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+
+            else {
+
+                //MyAddictions stuff:
+                boolean addicted = false;
+
+                if (addictedEventsID != null) {
+
+                    for (String ID : addictedEventsID) {
+                        if (ID.equals(event.getEventid())) {
+                            addicted = true;
+                        }
+                    }
+
+                    final Button likeText = (Button) convertView.findViewById(R.id.likeButton);
+
+
+                    if (addicted == true) {
+                        likeText.setText("Unlike!");
+                        likeText.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                retrieveMyPHP.deleteEventAddiction(MyApplication.userName, event.getEventid());
+                                Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
+                                likeText.setText("Like!");
+                            }
+                        });
+                    } else {
+                        likeText.setText("Like!");
+                        likeText.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                retrieveMyPHP.eventAddiction(MyApplication.userName, event.getEventid());
+                                Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
+                                likeText.setText("Unlike!");
+                            }
+
+                        });
+                    }
+
                 }
             }
+        }
 
+        else{
             final Button likeText = (Button) convertView.findViewById(R.id.likeButton);
 
-
-            if (addicted == true) {
-                likeText.setText("Unlike!");
-                likeText.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        retrieveMyPHP.deleteEventAddiction(MyApplication.userName, event.getEventid());
-                        Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
-                        likeText.setText("Like!");
-                    }
-                });
-            }
-            else {
-                likeText.setText("Like!");
-                likeText.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        retrieveMyPHP.eventAddiction(MyApplication.userName, event.getEventid());
-                        Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
-                        likeText.setText("Unlike!");
-                    }
-
-                });
-            }
-
+            likeText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mActivity.getApplicationContext(),"You gotta log in for this!!",Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
 

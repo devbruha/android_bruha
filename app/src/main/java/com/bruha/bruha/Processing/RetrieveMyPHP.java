@@ -33,6 +33,8 @@ public class RetrieveMyPHP {
     ArrayList<String> mAddictedArtist = new ArrayList<>();
     ArrayList<String> mAddictedOrg = new ArrayList<>();
 
+    String display = "";
+
 
     //Variables used when connecting to a network.
     URL url = null;
@@ -159,7 +161,8 @@ public class RetrieveMyPHP {
     }
 
     //The method to delete an addicted event.
-    public void deleteUserEvent(String mUsername, String eventid) {
+    public String deleteUserEvent(String mUsername, String eventid) {
+
 
         // creates parameters for the DB call to attach to the "initial" URL
         // to attach more paramenters its of the form:
@@ -200,11 +203,14 @@ public class RetrieveMyPHP {
                     // Response from server after login process will be stored in response variable.
                     // in this case the response is the echo from the php script (i.e = 1) if successful
                     response = sb.toString();
-                    Log.v("ResponseEventDelete",response);
+                    display = response;
+
                     // You can perform UI operations here
                     isr.close();
                     reader.close();
+
                 }
+
                 catch(IOException e)
                 {
                     e.printStackTrace();
@@ -219,11 +225,12 @@ public class RetrieveMyPHP {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return display;
     }
 
 
     //The method to delete an addicted venue.
-    public void deleteUserVenue(String mUsername, String venueid) {
+    public String deleteUserVenue(String mUsername, String venueid) {
 
         // creates parameters for the DB call to attach to the "initial" URL
         // to attach more paramenters its of the form:
@@ -264,7 +271,7 @@ public class RetrieveMyPHP {
                     // Response from server after login process will be stored in response variable.
                     // in this case the response is the echo from the php script (i.e = 1) if successful
                     response = sb.toString();
-                    Log.v("ResponseVenueDelete",response);
+                    display = response;
                     // You can perform UI operations here
                     isr.close();
                     reader.close();
@@ -283,10 +290,11 @@ public class RetrieveMyPHP {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return display;
     }
 
     //The method to delete an addicted artist.
-    public void deleteUserArtist(String mUsername, String artistid) {
+    public String deleteUserArtist(String mUsername, String artistid) {
 
         // creates parameters for the DB call to attach to the "initial" URL
         // to attach more paramenters its of the form:
@@ -327,7 +335,7 @@ public class RetrieveMyPHP {
                     // Response from server after login process will be stored in response variable.
                     // in this case the response is the echo from the php script (i.e = 1) if successful
                     response = sb.toString();
-                    Log.v("ResponseArtistDelete",response);
+                    display = response;
                     // You can perform UI operations here
                     isr.close();
                     reader.close();
@@ -346,11 +354,12 @@ public class RetrieveMyPHP {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return display;
     }
 
 
     //The method to delete an addicted event.
-    public void deleteUserOrg(String mUsername, String organizationid) {
+    public String deleteUserOrg(String mUsername, String organizationid) {
 
         // creates parameters for the DB call to attach to the "initial" URL
         // to attach more paramenters its of the form:
@@ -391,7 +400,7 @@ public class RetrieveMyPHP {
                     // Response from server after login process will be stored in response variable.
                     // in this case the response is the echo from the php script (i.e = 1) if successful
                     response = sb.toString();
-                    Log.v("ResponseOrgDelete",response);
+                    display = response;
                     // You can perform UI operations here
                     isr.close();
                     reader.close();
@@ -410,6 +419,7 @@ public class RetrieveMyPHP {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return display;
     }
 
     //Gets the List of Events that the user uploaded.

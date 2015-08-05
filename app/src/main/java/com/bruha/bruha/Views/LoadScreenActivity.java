@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.Event;
@@ -22,15 +23,20 @@ import com.bruha.bruha.R;
 
 import java.util.ArrayList;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class LoadScreenActivity extends Activity {
 
     RetrievePHP retrievedInfo; //Initialzing the class that contains the calls to the PHP Database.
     RetrieveMyPHP retrieveMyPHP;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_screen);
+        ;
 
         if(!isNetworkAvailable())
         {
@@ -74,6 +80,7 @@ public class LoadScreenActivity extends Activity {
                 sqLiteUtils.insertUserVenues(dbHelper, userVenues);
                 sqLiteUtils.insertUserArtist(dbHelper, userArtist);
                 sqLiteUtils.insertUserOrganization(dbHelper, userOrg);
+
 
 
 

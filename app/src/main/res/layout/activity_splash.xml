@@ -94,10 +94,97 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_weight="3"
+                    android:weightSum="10"
                     android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"></LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"></LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:id="@+id/splashlay1">
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:id="@+id/splashlay2"
+                        >
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:id="@+id/splashlay3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                        android:layout_weight="1"
+                    android:layout_height="match_parent"
+                        android:id="@+id/splashlay4">
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                        android:layout_weight="1"
+                    android:layout_height="match_parent"
+                        android:id="@+id/splashlay5">
+
+                    </LinearLayout>
+                    <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                        android:layout_weight="1"
+                    android:layout_height="match_parent">
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                    android:orientation="vertical"
+                        android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    </LinearLayout>
+
+
+
+
+
 
                 </LinearLayout>
 

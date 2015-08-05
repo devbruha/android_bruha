@@ -148,47 +148,58 @@ public class MapVenListViewAdapter extends BaseSwipeAdapter {
         });
 
 
-        //MyAddictions stuff:
-        boolean addicted = false;
+        if(MyApplication.loginCheck==true) {
+            //MyAddictions stuff:
+            boolean addicted = false;
 
-        if(addictedVenueID!=null) {
+            if (addictedVenueID != null) {
 
-            for (String ID : addictedVenueID) {
-                if (ID.equals(venue.getVenueId())) {
-                    addicted = true;
+                for (String ID : addictedVenueID) {
+                    if (ID.equals(venue.getVenueId())) {
+                        addicted = true;
+                    }
                 }
-            }
 
-            final Button likeText = (Button) convertView.findViewById(R.id.likeVenButton);
+                final Button likeText = (Button) convertView.findViewById(R.id.likeVenButton);
 
 
-            if (addicted == true) {
-                likeText.setText("Unlike!");
-                likeText.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        retrieveMyPHP.deleteVenueAddiction(MyApplication.userName, venue.getVenueId());
-                        Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
-                        likeText.setText("Like!");
-                    }
-                });
-            }
-            else {
-                likeText.setText("Like!");
-                likeText.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        retrieveMyPHP.venueAddiction(MyApplication.userName, venue.getVenueId());
-                        Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
-                        likeText.setText("Unlike!");
-                    }
+                if (addicted == true) {
+                    likeText.setText("Unlike!");
+                    likeText.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            retrieveMyPHP.deleteVenueAddiction(MyApplication.userName, venue.getVenueId());
+                            Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
+                            likeText.setText("Like!");
+                        }
+                    });
+                } else {
+                    likeText.setText("Like!");
+                    likeText.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            retrieveMyPHP.venueAddiction(MyApplication.userName, venue.getVenueId());
+                            Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
+                            likeText.setText("Unlike!");
+                        }
 
-                });
+                    });
+                }
+
             }
 
         }
 
+        else{
+            final Button likeText = (Button) convertView.findViewById(R.id.likeVenButton);
 
+            likeText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mActivity.getApplicationContext(),"You gotta log in for this!!",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
         return convertView;
     }

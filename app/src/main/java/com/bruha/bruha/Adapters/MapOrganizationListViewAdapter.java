@@ -65,18 +65,16 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
 
 
         //Obtaining References to the Image/Text to change inside the layout.
-        holder.Picture=(ImageView) convertView.findViewById(R.id.MapEventPicture);
-        holder.Title= (TextView) convertView.findViewById(R.id.MapEventName);
-        holder.Price= (TextView) convertView.findViewById(R.id.MapEventPrice);
-        holder.LocName= (TextView) convertView.findViewById(R.id.MapEventLocName);
-        holder.LocSt= (TextView) convertView.findViewById(R.id.MapEventLocSt);
-        holder.LocAdd= (TextView) convertView.findViewById(R.id.MapEventLocAddress);
-        holder.Hours= (TextView) convertView.findViewById(R.id.MapEventStartDateAndTime);
+        holder.Picture = (ImageView) convertView.findViewById(R.id.MapEventPicture);
+        holder.Title = (TextView) convertView.findViewById(R.id.MapEventName);
+        holder.Price = (TextView) convertView.findViewById(R.id.MapEventPrice);
+        holder.LocName = (TextView) convertView.findViewById(R.id.MapEventLocName);
+        holder.LocSt = (TextView) convertView.findViewById(R.id.MapEventLocSt);
+        holder.LocAdd = (TextView) convertView.findViewById(R.id.MapEventLocAddress);
+        holder.Hours = (TextView) convertView.findViewById(R.id.MapEventStartDateAndTime);
 
         //Initializing each item to the required type
         final Organizations organization = mOrganization.get(position);
-
-
 
 
         //Changing the text in the fields everytime.
@@ -92,30 +90,27 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
         Picasso.with(viewGroup.getContext()).load(organization.getOrgPicture()).fit().into(holder.Picture);
 
 
-
         //Swipe methods being Implemented
-        SwipeLayout swipeLayout = (SwipeLayout)convertView.findViewById(getSwipeLayoutResourceId(position));
+        SwipeLayout swipeLayout = (SwipeLayout) convertView.findViewById(getSwipeLayoutResourceId(position));
         swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         swipeLayout.addDrag(SwipeLayout.DragEdge.Left, convertView.findViewById(R.id.left_wrapper_mapven));
         swipeLayout.addDrag(SwipeLayout.DragEdge.Right, convertView.findViewById(R.id.MapvenRightSwipeLayout));
 
 
-
-
         //Implements the Button 'Preview' that appears after swipe right,Shows Button Highlight for half a second when clicked.
-        TableRow GoPreviewPage  = (TableRow) convertView.findViewById(R.id.venMapPreview);
+        TableRow GoPreviewPage = (TableRow) convertView.findViewById(R.id.venMapPreview);
         GoPreviewPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final LinearLayout PreviewLayout= (LinearLayout) convertView.findViewById(R.id.venMapPreviewLayout);
+                final LinearLayout PreviewLayout = (LinearLayout) convertView.findViewById(R.id.venMapPreviewLayout);
                 ObjectAnimator animator = ObjectAnimator.ofFloat(PreviewLayout, "alpha", 1f, 0.5f);
                 animator.setDuration(500);
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
                         PreviewLayout.setAlpha(1f);
                         Intent intent = new Intent(mActivity, ShowOnMapActivity.class);
-                        intent.putExtra("Id",organization.getOrgId());
-                        intent.putExtra("Type","Outfit");
+                        intent.putExtra("Id", organization.getOrgId());
+                        intent.putExtra("Type", "Outfit");
                         mActivity.startActivity(intent);
                     }
                 });
@@ -135,8 +130,8 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
                     public void onAnimationEnd(Animator animation) {
                         MoreInfoLay.setAlpha(1f);
                         Intent intent = new Intent(mActivity, EventPageActivity.class);
-                        intent.putExtra("Id",organization.getOrgId());
-                        intent.putExtra("Type","Outfit");
+                        intent.putExtra("Id", organization.getOrgId());
+                        intent.putExtra("Type", "Outfit");
                         mActivity.startActivity(intent);
                     }
                 });
@@ -144,10 +139,12 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
             }
         });
 
+        if(MyApplication.loginCheck==true) {
+
         //MyAddictions stuff:
         boolean addicted = false;
 
-        if(addictOrgID!=null) {
+        if (addictOrgID != null) {
 
             for (String ID : addictOrgID) {
                 if (ID.equals(organization.getOrgId())) {
@@ -168,8 +165,7 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
                         likeText.setText("Like!");
                     }
                 });
-            }
-            else {
+            } else {
                 likeText.setText("Like!");
                 likeText.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -183,7 +179,19 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
             }
 
         }
+    }
 
+
+        else{
+            final Button likeText = (Button) convertView.findViewById(R.id.likeVenButton);
+
+            likeText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mActivity.getApplicationContext(),"You gotta log in for this!!",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
 
         return convertView;
