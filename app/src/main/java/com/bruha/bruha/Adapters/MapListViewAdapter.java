@@ -13,6 +13,7 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
@@ -20,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.MyApplication;
+import com.bruha.bruha.Processing.RetrieveMyPHP;
 import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
 import com.bruha.bruha.Views.ShowOnMapActivity;
@@ -37,11 +40,15 @@ import java.util.ArrayList;
 public class MapListViewAdapter extends BaseSwipeAdapter {
     private Activity mActivity;
     private ArrayList<Event> mEvent;
+    private ArrayList<String> addictedEventsID;
+    RetrieveMyPHP retrieveMyPHP;
 
-    public MapListViewAdapter(Activity activity,ArrayList<Event> event)
+    public MapListViewAdapter(Activity activity,ArrayList<Event> event,ArrayList<String> addictevent)
     {
         mActivity=activity;
         mEvent=event;
+        addictedEventsID = addictevent;
+        retrieveMyPHP = new RetrieveMyPHP();
     }
 
 
@@ -224,6 +231,47 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
                 animator.start();
             }
         });
+
+
+        //MyAddictions stuff:
+        boolean addicted = false;
+
+        if(addictedEventsID!=null) {
+
+            for (String ID : addictedEventsID) {
+                if (ID.equals(event.getEventid())) {
+                    addicted = true;
+                }
+            }
+
+            final Button likeText = (Button) convertView.findViewById(R.id.likeButton);
+
+
+            if (addicted == true) {
+                likeText.setText("Unlike!");
+                likeText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        retrieveMyPHP.deleteEventAddiction(MyApplication.userName, event.getEventid());
+                        Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
+                        likeText.setText("Like!");
+                    }
+                });
+            }
+            else {
+                likeText.setText("Like!");
+                likeText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        retrieveMyPHP.eventAddiction(MyApplication.userName, event.getEventid());
+                        Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
+                        likeText.setText("Unlike!");
+                    }
+
+                });
+            }
+
+        }
 
 
         return convertView;

@@ -25,7 +25,7 @@
             android:textStyle="bold"
             android:background="#66ddff00"
             android:textColor="#ffffff"
-            android:id="@+id/button"/>
+            android:id="@+id/likeVenButton"/>
 
 
     </LinearLayout>

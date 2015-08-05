@@ -38,6 +38,7 @@ public class WhatsHotActivity extends FragmentActivity {
     //The List of events containing in the local database.
     ArrayList<Event> mEvents = new ArrayList<>();
     ArrayList<Event> addictionEvents = new ArrayList<>();
+    ArrayList<String> addictEID;
     MapListViewAdapter adapter;
     ListView mListView;
 
@@ -57,7 +58,7 @@ public class WhatsHotActivity extends FragmentActivity {
             SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
             SQLiteUtils sqLiteUtils = new SQLiteUtils();
             mEvents = sqLiteUtils.getUserEventInfo(dbHelper);
-            ArrayList<String> addictEID= sqLiteUtils.getEventAddictions(dbHelper);
+            addictEID= sqLiteUtils.getEventAddictions(dbHelper);
             ArrayList<Event> eventList = sqLiteUtils.getEventInfo(dbHelper);
 
         for(String Id:addictEID)
@@ -211,6 +212,6 @@ public class WhatsHotActivity extends FragmentActivity {
     }
 
     private void setAdapter() {
-        adapter = new MapListViewAdapter(this, selectedDateEvents);
+        adapter = new MapListViewAdapter(this, selectedDateEvents,addictEID);
     }
 }
