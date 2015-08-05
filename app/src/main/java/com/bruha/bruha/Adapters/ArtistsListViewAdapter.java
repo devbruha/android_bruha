@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.util.TypedValue;
@@ -23,6 +24,7 @@ import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Processing.RetrieveMyPHP;
 import com.bruha.bruha.R;
+import com.bruha.bruha.Views.EventPageActivity;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.squareup.picasso.Picasso;
@@ -81,6 +83,8 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
                 ImageView Bubble = (ImageView) v.findViewById(R.id.VenueImageBubble);
                 TextView OrganizationName = (TextView) v.findViewById(R.id.VenueName);
                 TextView OrganizationDistance = (TextView) v.findViewById(R.id.VenueDistance);
+                ImageView swipeRicon = (ImageView) v.findViewById(R.id.swipeyright);
+                ImageView swipeLicon = (ImageView) v.findViewById(R.id.swipeyleft);
 
                 if (Clicks % 2 == 0) {
                     //Popping the detailed description into view.
@@ -89,6 +93,8 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
                     Bubble.setVisibility(View.INVISIBLE);
                     OrganizationName.setVisibility(View.INVISIBLE);
                     OrganizationDistance.setVisibility(View.INVISIBLE);
+                    swipeLicon.setVisibility(View.INVISIBLE);
+                    swipeRicon.setVisibility(View.INVISIBLE);
                 }
                 else{
                     //Hiding the detailed description upon the 2nd click.
@@ -97,6 +103,8 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
                     Bubble.setVisibility(View.VISIBLE);
                     OrganizationName.setVisibility(View.VISIBLE);
                     OrganizationDistance.setVisibility(View.VISIBLE);
+                    swipeLicon.setVisibility(View.VISIBLE);
+                    swipeRicon.setVisibility(View.VISIBLE);
                 }
                 Clicks++; //Adds to the number of times the user has tapped on an item.
             }
@@ -144,20 +152,21 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         swipeLayout.addDrag(SwipeLayout.DragEdge.Left, convertView.findViewById(R.id.Venue_Left_wrapper));
         swipeLayout.addDrag(SwipeLayout.DragEdge.Right, convertView.findViewById(R.id.VenueRightSwipeLayout));
 
+        final LinearLayout PreviewLayout= (LinearLayout) convertView.findViewById(R.id.VenuePreviewLayout);
+        PreviewLayout.setAlpha(.25f);
 
         //Implements the Button 'Preview' that appears after swipe right,Shows Button Highlight for half a second when clicked.
         TableRow GoPreviewPage  = (TableRow) convertView.findViewById(R.id.VenuePreviewRow);
         GoPreviewPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final LinearLayout PreviewLayout= (LinearLayout) convertView.findViewById(R.id.VenuePreviewLayout);
+
                 ObjectAnimator animator = ObjectAnimator.ofFloat(PreviewLayout, "alpha", 1f, 0.5f);
                 animator.setDuration(500);
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
-                        PreviewLayout.setAlpha(1f);
-                        //Intent intent = new Intent(mActivity, DashboardActivity.class);
-                        // mActivity.startActivity(intent);
+                        PreviewLayout.setAlpha(.25f);
+                        Toast.makeText(mActivity.getApplicationContext(),"Still under development!",Toast.LENGTH_SHORT).show();
                     }
                 });
                 animator.start();
@@ -175,9 +184,10 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
                         MoreInfoLay.setAlpha(1f);
-                        //Intent intent = new Intent(mActivity, EventPageActivity.class);
-                        // intent.putExtra("EventId", event.getEventid());
-                        // mActivity.startActivity(intent);
+                        Intent intent = new Intent(mActivity, EventPageActivity.class);
+                        intent.putExtra("Id",artist.getArtistId());
+                        intent.putExtra("Type","Artist");
+                        mActivity.startActivity(intent);
                     }
                 });
                 animator.start();

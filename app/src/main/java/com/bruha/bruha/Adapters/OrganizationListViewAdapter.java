@@ -92,6 +92,8 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
                 ImageView Bubble = (ImageView) v.findViewById(R.id.VenueImageBubble);
                 TextView OrganizationName = (TextView) v.findViewById(R.id.VenueName);
                 TextView OrganizationDistance = (TextView) v.findViewById(R.id.VenueDistance);
+                ImageView swipeRicon = (ImageView) v.findViewById(R.id.swipeyright);
+                ImageView swipeLicon = (ImageView) v.findViewById(R.id.swipeyleft);
 
                 if (Clicks % 2 == 0) {
                     //Popping the detailed description into view.
@@ -100,6 +102,8 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
                     Bubble.setVisibility(View.INVISIBLE);
                     OrganizationName.setVisibility(View.INVISIBLE);
                     OrganizationDistance.setVisibility(View.INVISIBLE);
+                    swipeLicon.setVisibility(View.INVISIBLE);
+                    swipeRicon.setVisibility(View.INVISIBLE);
                 }
                 else{
                     //Hiding the detailed description upon the 2nd click.
@@ -108,6 +112,8 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
                     Bubble.setVisibility(View.VISIBLE);
                     OrganizationName.setVisibility(View.VISIBLE);
                     OrganizationDistance.setVisibility(View.VISIBLE);
+                    swipeLicon.setVisibility(View.VISIBLE);
+                    swipeRicon.setVisibility(View.VISIBLE);
                 }
                 Clicks++; //Adds to the number of times the user has tapped on an item.
             }

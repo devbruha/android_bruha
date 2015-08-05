@@ -333,6 +333,8 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
 
                 //Assigning the summary description stuff that will hide and reappear depending on the clicks.
                 ImageView Bubble = (ImageView) v.findViewById(R.id.VenueImageBubble);
+                ImageView swipeRicon = (ImageView) v.findViewById(R.id.swipeyright);
+                ImageView swipeLicon = (ImageView) v.findViewById(R.id.swipeyleft);
                 TextView EventName = (TextView) v.findViewById(R.id.TextEventName);
                 TextView EventDate = (TextView) v.findViewById(R.id.VenueName);
                 TextView EventPrice = (TextView) v.findViewById(R.id.TextEventPrice);
@@ -347,6 +349,8 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                     EventDate.setVisibility(View.INVISIBLE);
                     EventPrice.setVisibility(View.INVISIBLE);
                     EventDistance.setVisibility(View.INVISIBLE);
+                    swipeLicon.setVisibility(View.INVISIBLE);
+                    swipeRicon.setVisibility(View.INVISIBLE);
                 } else {
                     //Hiding the detailed description upon the 2nd click.
                     layout.setVisibility(View.INVISIBLE);
@@ -356,6 +360,8 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                     EventDate.setVisibility(View.VISIBLE);
                     EventPrice.setVisibility(View.VISIBLE);
                     EventDistance.setVisibility(View.VISIBLE);
+                    swipeLicon.setVisibility(View.VISIBLE);
+                    swipeRicon.setVisibility(View.VISIBLE);
                 }
                 Clicks++; //Adds to the number of times the user has tapped on an item.
             }

@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
+import com.bruha.bruha.Views.ShowOnMapActivity;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.squareup.picasso.Picasso;
@@ -193,8 +194,10 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
                         PreviewLayout.setAlpha(1f);
-                        //Intent intent = new Intent(mActivity, DashboardActivity.class);
-                        // mActivity.startActivity(intent);
+                        Intent intent = new Intent(mActivity, ShowOnMapActivity.class);
+                        intent.putExtra("Id",event.getEventid());
+                        intent.putExtra("Type","Event");
+                        mActivity.startActivity(intent);
                     }
                 });
                 animator.start();
@@ -213,7 +216,8 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
                     public void onAnimationEnd(Animator animation) {
                         MoreInfoLay.setAlpha(1f);
                         Intent intent = new Intent(mActivity, EventPageActivity.class);
-                        intent.putExtra("EventId", event.getEventid());
+                        intent.putExtra("Id",event.getEventid());
+                        intent.putExtra("Type","Event");
                         mActivity.startActivity(intent);
                     }
                 });

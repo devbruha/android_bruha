@@ -1,6 +1,6 @@
 package com.bruha.bruha.Views;
 
-import android.content.pm.ActivityInfo;
+
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
@@ -37,6 +37,7 @@ public class WhatsHotActivity extends FragmentActivity {
 
     //The List of events containing in the local database.
     ArrayList<Event> mEvents = new ArrayList<>();
+    ArrayList<Event> addictionEvents = new ArrayList<>();
     MapListViewAdapter adapter;
     ListView mListView;
 
@@ -56,6 +57,20 @@ public class WhatsHotActivity extends FragmentActivity {
             SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
             SQLiteUtils sqLiteUtils = new SQLiteUtils();
             mEvents = sqLiteUtils.getUserEventInfo(dbHelper);
+            ArrayList<String> addictEID= sqLiteUtils.getEventAddictions(dbHelper);
+            ArrayList<Event> eventList = sqLiteUtils.getEventInfo(dbHelper);
+
+        for(String Id:addictEID)
+        {
+            for(int i =0 ; i<eventList.size();i++)
+            {
+                if(Id.equals(eventList.get(i).getEventid()))
+                {
+                    addictionEvents.add(eventList.get(i));
+                }
+            }
+
+        }
         }
 
     private void setCalendar(){
@@ -145,6 +160,19 @@ public class WhatsHotActivity extends FragmentActivity {
 
       }
 
+        for(Event x: addictionEvents) {
+
+            Date ThisDate= currentDate;
+            try {
+                ThisDate = formatter.parse(x.getEventDate());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_orange_dark,ThisDate);
+
+        }
+
+
         // Setup listener for date onClick
         final CaldroidListener listener = new CaldroidListener() {
 
@@ -164,6 +192,13 @@ public class WhatsHotActivity extends FragmentActivity {
                     }
                 }
 
+                for(Event x: addictionEvents)
+                {
+                    if(x.getEventDate().equals(NewDate))
+                    {
+                        selectedDateEvents.add(x);
+                    }
+                }
 
                 setAdapter();
                 mListView.setAdapter(adapter);

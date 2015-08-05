@@ -6,9 +6,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Display;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.Event;
@@ -175,12 +177,16 @@ public class EventPageActivity extends ActionBarActivity {
         TextView PageMapSpace = (TextView) findViewById(R.id.PageMapSpace);
         ViewGroup.LayoutParams PageMapSpaceParams = PageMapSpace.getLayoutParams();
         PageMapSpaceParams.height= (int)Math.round(height * .2);
-        int x6= (int)Math.round(height * .10);
+        int x6= (int)Math.round(height * .07);
         PageMapSpace.setTextSize(TypedValue.COMPLEX_UNIT_PX, x6);
     }
 
     private void settext()
     {
+        TextView PageStart = (TextView) findViewById(R.id.VenueHourText);
+        TextView PageEnd = (TextView) findViewById(R.id.PageEndText);
+        TextView PageAddress = (TextView) findViewById(R.id.PageAddressText);
+        TextView PageMapSpace = (TextView) findViewById(R.id.PageMapSpace);
 
 
         if(type.equals("Event"))
@@ -193,6 +199,12 @@ public class EventPageActivity extends ActionBarActivity {
             PageAddressLoc.setText(event.getEventLocName()+ ", "+ event.getEventLocSt()+", "+ event.getEventLocAdd());
             Picasso.with(this.getApplicationContext()).load(event.getEventPicture()).fit().into(EventPicture);
             Picasso.with(this.getApplicationContext()).load(event.getEventPicture()).fit().into(EventCoverPage);
+            PageMapSpace.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startEventPreview();
+                }
+            });
 
         }
 
@@ -200,11 +212,19 @@ public class EventPageActivity extends ActionBarActivity {
         {
             Picasso.with(this.getApplicationContext()).load(outfit.getOrgPicture()).fit().into(EventPicture);
             Picasso.with(this.getApplicationContext()).load(outfit.getOrgPicture()).fit().into(EventCoverPage);
+            PageStart.setVisibility(View.INVISIBLE);
+            PageEnd.setVisibility(View.INVISIBLE);
             EventName.setText(outfit.getOrgName());
+            PageStartDateandTime.setText("");
+            PageEndDateandTime.setText("");
             PageEventDescription.setText(outfit.getOrgDescription());
-            // PageStartDateandTime.setText(event.getEventDate() + " At " + event.getEventStartTime());
-            // PageEndDateandTime.setText(event.getEventEndDate() + " At " + event.getEventEndTime());
-            PageAddressLoc.setText(outfit.getOrgLocation());
+            PageAddressLoc.setText(outfit.getOrgSt()+", "+outfit.getOrgLocation());
+            PageMapSpace.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                startOrgPreview();
+                }
+            });
 
         }
 
@@ -213,15 +233,39 @@ public class EventPageActivity extends ActionBarActivity {
             Picasso.with(this.getApplicationContext()).load(venue.getVenuePicture()).fit().into(EventPicture);
             Picasso.with(this.getApplicationContext()).load(venue.getVenuePicture()).fit().into(EventCoverPage);
             EventName.setText(venue.getVenueName());
+            PageStart.setVisibility(View.INVISIBLE);
+            PageEnd.setVisibility(View.INVISIBLE);
             PageEventDescription.setText(venue.getVenueDescription());
-           // PageStartDateandTime.setText(event.getEventDate() + " At " + event.getEventStartTime());
-           // PageEndDateandTime.setText(event.getEventEndDate() + " At " + event.getEventEndTime());
-            PageAddressLoc.setText(venue.getVenueLocation());
+            PageStartDateandTime.setText("");
+            PageEndDateandTime.setText("");
+            PageAddressLoc.setText(venue.getVenueSt()+", "+venue.getVenueLocation());
+            PageMapSpace.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                startVenPreview();
+
+                }
+            });
+
         }
 
         else {
-
-
+            Picasso.with(this.getApplicationContext()).load(artist.getArtistPicture()).fit().into(EventPicture);
+            Picasso.with(this.getApplicationContext()).load(artist.getArtistPicture()).fit().into(EventCoverPage);
+            EventName.setText(artist.getArtistName());
+            PageStart.setVisibility(View.INVISIBLE);
+            PageEnd.setVisibility(View.INVISIBLE);
+            PageAddress.setVisibility(View.INVISIBLE);
+            PageEventDescription.setText(artist.getArtistDescription());
+            PageStartDateandTime.setText("");
+            PageEndDateandTime.setText("");
+            PageAddressLoc.setText("");
+            PageMapSpace.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(),"Still under development,Sorry!",Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
     }
@@ -237,4 +281,29 @@ public class EventPageActivity extends ActionBarActivity {
         mOutfit= sqLiteUtils.getOrganizationsInfo(dbHelper);
         mArtists= sqLiteUtils.getArtistInfo(dbHelper);
     }
+
+    public void startVenPreview()
+    {
+        Intent intent = new Intent(this, ShowOnMapActivity.class);
+        intent.putExtra("Id",venue.getVenueId());
+        intent.putExtra("Type","Venue");
+        startActivity(intent);
+    }
+
+    public void startEventPreview()
+    {
+        Intent intent = new Intent(this, ShowOnMapActivity.class);
+        intent.putExtra("Id",event.getEventid());
+        intent.putExtra("Type","Event");
+        startActivity(intent);
+    }
+
+    public void startOrgPreview()
+    {
+        Intent intent = new Intent(this, ShowOnMapActivity.class);
+        intent.putExtra("Id",outfit.getOrgId());
+        intent.putExtra("Type","Outfit");
+        startActivity(intent);
+    }
+
 }

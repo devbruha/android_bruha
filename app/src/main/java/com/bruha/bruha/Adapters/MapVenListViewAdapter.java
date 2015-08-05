@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.util.TypedValue;
@@ -18,6 +19,8 @@ import android.widget.TextView;
 
 import com.bruha.bruha.Model.Venue;
 import com.bruha.bruha.R;
+import com.bruha.bruha.Views.EventPageActivity;
+import com.bruha.bruha.Views.ShowOnMapActivity;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.squareup.picasso.Picasso;
@@ -105,8 +108,10 @@ public class MapVenListViewAdapter extends BaseSwipeAdapter {
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
                         PreviewLayout.setAlpha(1f);
-                        //Intent intent = new Intent(mActivity, DashboardActivity.class);
-                        // mActivity.startActivity(intent);
+                        Intent intent = new Intent(mActivity, ShowOnMapActivity.class);
+                        intent.putExtra("Id",venue.getVenueId());
+                        intent.putExtra("Type","Venue");
+                        mActivity.startActivity(intent);
                     }
                 });
                 animator.start();
@@ -124,9 +129,10 @@ public class MapVenListViewAdapter extends BaseSwipeAdapter {
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
                         MoreInfoLay.setAlpha(1f);
-                      //  Intent intent = new Intent(mActivity, EventPageActivity.class);
-                      //  intent.putExtra("EventId", event.getEventid());
-                       // mActivity.startActivity(intent);
+                        Intent intent = new Intent(mActivity, EventPageActivity.class);
+                        intent.putExtra("Id",venue.getVenueId());
+                        intent.putExtra("Type","Venue");
+                        mActivity.startActivity(intent);
                     }
                 });
                 animator.start();
