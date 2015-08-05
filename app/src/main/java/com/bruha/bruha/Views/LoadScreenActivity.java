@@ -76,6 +76,7 @@ public class LoadScreenActivity extends Activity {
                 sqLiteUtils.insertUserOrganization(dbHelper, userOrg);
 
 
+
                 MyApplication.userName = userinfo.get(0);
 
                 //Addiction stuff

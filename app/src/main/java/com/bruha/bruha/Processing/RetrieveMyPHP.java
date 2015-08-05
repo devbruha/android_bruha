@@ -158,7 +158,259 @@ public class RetrieveMyPHP {
         return mUserEvents;
     }
 
+    //The method to delete an addicted event.
+    public void deleteUserEvent(String mUsername, String eventid) {
 
+        // creates parameters for the DB call to attach to the "initial" URL
+        // to attach more paramenters its of the form:
+        // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
+        final String parameters = "user_id="+mUsername+"&event_id="+eventid;
+
+        Thread thread;
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try
+                {
+
+                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
+
+                    // alot of boiler plate stuff
+
+                    url = new URL("http://bruha.com/mobile_php/deleteUserEvent.php?"+parameters);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setDoOutput(true);
+                    connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    connection.setRequestMethod("POST");
+
+                    request = new OutputStreamWriter(connection.getOutputStream());
+                    request.write(parameters);
+                    request.flush();
+                    request.close();
+                    String line = "";
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader reader = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null)
+                    {
+                        sb.append(line + "\n");
+                    }
+                    // Response from server after login process will be stored in response variable.
+                    // in this case the response is the echo from the php script (i.e = 1) if successful
+                    response = sb.toString();
+                    Log.v("ResponseEventDelete",response);
+                    // You can perform UI operations here
+                    isr.close();
+                    reader.close();
+                }
+                catch(IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    //The method to delete an addicted venue.
+    public void deleteUserVenue(String mUsername, String venueid) {
+
+        // creates parameters for the DB call to attach to the "initial" URL
+        // to attach more paramenters its of the form:
+        // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
+        final String parameters = "user_id="+mUsername+"&venue_id="+venueid;
+
+        Thread thread;
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try
+                {
+
+                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
+
+                    // alot of boiler plate stuff
+
+                    url = new URL("http://bruha.com/mobile_php/deleteUserVenue.php?"+parameters);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setDoOutput(true);
+                    connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    connection.setRequestMethod("POST");
+
+                    request = new OutputStreamWriter(connection.getOutputStream());
+                    request.write(parameters);
+                    request.flush();
+                    request.close();
+                    String line = "";
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader reader = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null)
+                    {
+                        sb.append(line + "\n");
+                    }
+                    // Response from server after login process will be stored in response variable.
+                    // in this case the response is the echo from the php script (i.e = 1) if successful
+                    response = sb.toString();
+                    Log.v("ResponseVenueDelete",response);
+                    // You can perform UI operations here
+                    isr.close();
+                    reader.close();
+                }
+                catch(IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //The method to delete an addicted artist.
+    public void deleteUserArtist(String mUsername, String artistid) {
+
+        // creates parameters for the DB call to attach to the "initial" URL
+        // to attach more paramenters its of the form:
+        // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
+        final String parameters = "user_id="+mUsername+"&artist_id="+artistid;
+
+        Thread thread;
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try
+                {
+
+                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
+
+                    // alot of boiler plate stuff
+
+                    url = new URL("http://bruha.com/mobile_php/deleteUserArtist.php?"+parameters);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setDoOutput(true);
+                    connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    connection.setRequestMethod("POST");
+
+                    request = new OutputStreamWriter(connection.getOutputStream());
+                    request.write(parameters);
+                    request.flush();
+                    request.close();
+                    String line = "";
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader reader = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null)
+                    {
+                        sb.append(line + "\n");
+                    }
+                    // Response from server after login process will be stored in response variable.
+                    // in this case the response is the echo from the php script (i.e = 1) if successful
+                    response = sb.toString();
+                    Log.v("ResponseArtistDelete",response);
+                    // You can perform UI operations here
+                    isr.close();
+                    reader.close();
+                }
+                catch(IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    //The method to delete an addicted event.
+    public void deleteUserOrg(String mUsername, String organizationid) {
+
+        // creates parameters for the DB call to attach to the "initial" URL
+        // to attach more paramenters its of the form:
+        // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
+        final String parameters = "user_id="+mUsername+"&organization_id="+organizationid;
+
+        Thread thread;
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try
+                {
+
+                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
+
+                    // alot of boiler plate stuff
+
+                    url = new URL("http://bruha.com/mobile_php/deleteUserOrg.php?"+parameters);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setDoOutput(true);
+                    connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    connection.setRequestMethod("POST");
+
+                    request = new OutputStreamWriter(connection.getOutputStream());
+                    request.write(parameters);
+                    request.flush();
+                    request.close();
+                    String line = "";
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader reader = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null)
+                    {
+                        sb.append(line + "\n");
+                    }
+                    // Response from server after login process will be stored in response variable.
+                    // in this case the response is the echo from the php script (i.e = 1) if successful
+                    response = sb.toString();
+                    Log.v("ResponseOrgDelete",response);
+                    // You can perform UI operations here
+                    isr.close();
+                    reader.close();
+                }
+                catch(IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     //Gets the List of Events that the user uploaded.
     public ArrayList<Venue> getUserVenueList(String user) {
