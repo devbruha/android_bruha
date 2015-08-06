@@ -16,6 +16,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
@@ -68,8 +69,6 @@ public class DashboardActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         ButterKnife.inject(this);
-
-
 
         exploreButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -423,5 +422,18 @@ public class DashboardActivity extends ActionBarActivity {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+
+        Log.v("Resumetest", "HI");
+
+        if(ListActivity.instance != null) {
+            try {
+                ListActivity.instance.finish();
+            } catch (Exception e) {}
+        }
     }
 }

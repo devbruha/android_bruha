@@ -352,8 +352,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public ArrayList<Event> retrieveEventInfo(){
 
         ArrayList<Event> mEvents = new ArrayList<>();
-        ArrayList<String> eventSubCatID = new ArrayList<>();
-        ArrayList<String> eventSubCat = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -365,8 +363,8 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
                 Event newEvent = new Event();
 
-                eventSubCatID.clear();
-                eventSubCat.clear();
+                ArrayList<String> eventSubCatID = new ArrayList<>();
+                ArrayList<String> eventSubCat = new ArrayList<>();
 
                 String whereClause = "eventID = '"+cursor.getString(cursor.getColumnIndex("eventID"))+"'";
 
@@ -399,6 +397,10 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 newEvent.setEventStartTime(cursor.getString(cursor.getColumnIndex("eventStartTime")));
                 newEvent.setEventEndTime(cursor.getString(cursor.getColumnIndex("eventEndTime")));
                 newEvent.setEventEndDate(cursor.getString(cursor.getColumnIndex("eventEndDate")));
+
+                Log.v("DB cAT", newEvent.getEventName() + "");
+                Log.v("DB cAT", newEvent.getEventSubCategories() + "");
+                Log.v("DB cAT", newEvent.getEventSubCategoriesID() + "");
 
                 mEvents.add(newEvent);
             }
@@ -816,8 +818,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public ArrayList<Event> retrieveUserEventInfo(){
 
         ArrayList<Event> mEvents = new ArrayList<>();
-        ArrayList<String> eventSubCatID = new ArrayList<>();
-        ArrayList<String> eventSubCat = new ArrayList<>();
+
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -833,10 +834,10 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
                 Cursor subCursor = db.query(TABLE_EVENT_SUB_CATEGORY,null,whereClause,null,null,null,null);
 
-                if(subCursor != null){
+                ArrayList<String> eventSubCatID = new ArrayList<>();
+                ArrayList<String> eventSubCat = new ArrayList<>();
 
-                    eventSubCatID.clear();
-                    eventSubCat.clear();
+                if(subCursor != null){
 
                     while(subCursor.moveToNext()){
 

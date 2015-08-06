@@ -39,6 +39,8 @@ public class CategoryAdapter {
 
     UserCustomFilters mUserCustomFilter;
 
+    ArrayList<String> subCatID = new ArrayList<>();
+
     private EventListviewAdapter mAdapter;
     HashMap<String, Marker> markerMap = new HashMap<>();
 
@@ -178,11 +180,10 @@ public class CategoryAdapter {
 
                     //Log.v("Filterid test", mSubItemName.getTag()+"");
 
-                    if(mUserCustomFilter.getCategoryFilter().containsKey(catName)){
+                    if (mUserCustomFilter.getCategoryFilter().containsKey(catName)) {
 
                         isSecondViewClick = true;
-                    }
-                    else{
+                    } else {
 
                         isSecondViewClick = false;
                     }
@@ -192,6 +193,7 @@ public class CategoryAdapter {
                         if (mUserCustomFilter.getCategoryFilter().size() < 3) {
 
                             mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_down_float);
+
                             mLinearScrollThird.setVisibility(View.VISIBLE);
 
                             mLinearSecondArrow.setBackgroundColor(Color.parseColor("#491c2295"));
@@ -203,23 +205,26 @@ public class CategoryAdapter {
                             if (!mUserCustomFilter.getCategoryFilter().containsKey(catName)) {
 
                                 ArrayList<String> primaryCategory = new ArrayList<>();
-                                primaryCategory.add(catName);
+                                //primaryCategory.add(catName);
 
                                 mUserCategorySelected.put(catName, primaryCategory);
                             }
 
-                            //Log.v("filter test", mUserCategorySelected.keySet()+"");
-                        }
-                        else{
+                        } else {
 
                             Toast toast = Toast.makeText(mActivity, "While filtering please select only up to 3 primary categories!", Toast.LENGTH_SHORT);
                             toast.show();
                         }
-                    }
-                    else {
+                    } else {
                         mLinearSecondArrow.setBackgroundResource(android.R.color.holo_orange_light);
 
                         mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_up_float);
+
+                        for(int i = 0; i<mLinearScrollThird.getChildCount(); i++){
+
+                            ((LinearLayout)mLinearScrollThird.getChildAt(i)).getChildAt(0).setBackgroundResource(android.R.color.black);
+                        }
+
                         mLinearScrollThird.setVisibility(View.GONE);
 
                         // Removing the key if the primary category is de-selected
@@ -229,12 +234,12 @@ public class CategoryAdapter {
 
                     mUserCustomFilter.setCategoryFilter(mUserCategorySelected);
 
-                    if(mAdapter != null) {
+                    if (mAdapter != null) {
 
                         filtering.filterList(mAdapter);
                     }
 
-                    if(markerMap!= null){
+                    if (markerMap != null) {
                         filtering.filterMap(markerMap);
                     }
 
@@ -293,18 +298,30 @@ public class CategoryAdapter {
 
             final TextView mSubCategoryName = (TextView) mLinearView3.findViewById(R.id.textViewItemName);
 
+            //Log.v("parent", mSubCategoryName.getParent()+"");
+
             // Retrieving the name for the selected subcategory
 
             final String subCategoryName = mMainList.get(firstLevelNumber).getmSubCategoryList().get(secondLevelNumber).getmItemListArray().get(k).getItemName();
             final String subCategoryID = MyApplication.mainList.get(4).get(firstLevelNumber).getmSubCategoryList().get(secondLevelNumber).getmItemListArray().get(k).getItemName();
 
+            mSubCategoryName.setText(subCategoryName);
+            mSubCategoryName.setTag(subCategoryID);
+
             childChildLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
+                    //ArrayList<String> categoryArrayList = mUserCategorySelected.get(catName);
                     ArrayList<String> categoryArrayList = mUserCategorySelected.get(catName);
 
-                    Log.v("Tagtest", mSubCategoryName.getTag() + "");
+                    if (mUserCustomFilter.getCategoryFilter().get(catName).contains(mSubCategoryName.getTag() + "")) {
+
+                        isThirdViewClick = true;
+                    } else {
+
+                        isThirdViewClick = false;
+                    }
 
 
                     if (isThirdViewClick == false) {
@@ -312,32 +329,56 @@ public class CategoryAdapter {
                         isThirdViewClick = true;
 
                         mSubCategoryName.setBackgroundColor(Color.parseColor("#e95f5f5f"));
-                        categoryArrayList.add(subCategoryName);
+                        categoryArrayList.add(mSubCategoryName.getTag() + "");
+
 
                         // Putting the subcategory into the corresponding primary category arrayList
 
                         mUserCategorySelected.put(catName, categoryArrayList);
+                        Log.v("Cat Test", mUserCategorySelected.size() + "");
 
+                        for (String key : mUserCategorySelected.keySet()) {
 
+                            Log.v("Cat Test", key);
+
+                            for (int a = 0; a < mUserCategorySelected.get(key).size(); a++) {
+
+                                Log.v("Cat Test", mUserCategorySelected.get(key).get(a));
+                            }
+                        }
                     } else {
 
                         isThirdViewClick = false;
 
                         mSubCategoryName.setBackgroundResource(android.R.color.background_dark);
-                        categoryArrayList.remove(subCategoryName);
+                        categoryArrayList.remove(mSubCategoryName.getTag() + "");
 
                         // Removing the subcategory from the ArrayList if deselected
 
                         mUserCategorySelected.put(catName, categoryArrayList);
+                        Log.v("Cat Test", mUserCategorySelected.size() + "");
+
+                        for (String key : mUserCategorySelected.keySet()) {
+
+                            //Log.v("Cat Test", key);
+
+                            for (int a = 0; a < mUserCategorySelected.get(key).size(); a++) {
+
+                                Log.v("Cat Test", mUserCategorySelected.get(key).get(a));
+                            }
+                        }
                     }
 
-                    Log.v("subCatTest", mUserCategorySelected.get(catName) + "");
+                    if (mAdapter != null) {
+
+                        filtering.filterList(mAdapter);
+                    }
+
+                    if (markerMap != null) {
+                        filtering.filterMap(markerMap);
+                    }
                 }
             });
-
-            mSubCategoryName.setText(subCategoryName);
-            mSubCategoryName.setTag(subCategoryID);
-
 
 
             mLinearScrollThird.addView(mLinearView3);

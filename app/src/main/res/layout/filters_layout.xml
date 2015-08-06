@@ -295,7 +295,7 @@
                 android:layout_height="match_parent"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:paddingTop="10dp"
+
                 android:layout_below="@+id/event_category"
                 android:id="@+id/venue_category"
                 >
@@ -316,7 +316,7 @@
                 android:layout_height="match_parent"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:paddingTop="10dp"
+
                 android:layout_below="@+id/venue_category"
                 android:id="@+id/artist_category"
                 >
@@ -337,7 +337,7 @@
                 android:layout_height="match_parent"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:paddingTop="10dp"
+
                 android:layout_below="@+id/artist_category"
                 android:id="@+id/organization_category"
                 >

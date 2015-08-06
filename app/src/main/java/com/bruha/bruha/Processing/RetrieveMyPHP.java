@@ -115,6 +115,7 @@ public class RetrieveMyPHP {
                 even.setEventLocAdd(Event.getString("location_city") + ", " + Event.getString("country"));
                 even.setEventLatitude(Double.parseDouble(Event.getString("location_lat")));
                 even.setEventLongitude(Double.parseDouble(Event.getString("location_lng")));
+
                 if (Event.getString("image_link") != null){
 
                     even.setEventPicture("http://bruha.com/WorkingWebsite/"+Event.getString("image_link"));

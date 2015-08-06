@@ -1,6 +1,7 @@
 package com.bruha.bruha.Processing;
 
 import android.app.Activity;
+import android.text.BoringLayout;
 import android.util.Log;
 import android.widget.ListView;
 
@@ -76,25 +77,50 @@ public class FilterOut {
 
                     tempListID.add(tempList.get(i - 1).getEventid());
                     tempList.remove(i - 1);
-                    /*
+                }
 
+                else{
+
+                    ArrayList<Event> tempEvent = new ArrayList<>();
+                    ArrayList<String> tempEventID = new ArrayList<>();
+
+                    outerloop:
                     for(String key: customFilters.getCategoryFilter().keySet()){
 
-                        for(int j = 0; j<customFilters.getCategoryFilter().get(key).size(); j++){
+                        if(customFilters.getCategoryFilter().get(key).size() != 0) {
 
-                            if(!tempList.get(i-1).getEventSubCategories().contains(customFilters.getCategoryFilter().get(key).get(j))){
+                            for (int j = 0; j < tempList.get(i - 1).getEventSubCategories().size(); j++) {
 
-                                tempListID.add(tempList.get(i - 1).getEventid());
-                                tempList.remove(i - 1);
+                                if (customFilters.getCategoryFilter().get(key).contains(tempList.get(i - 1).getEventSubCategoriesID().get(j))) {
+
+                                    if(!tempEvent.contains(tempList.get(i-1))){
+
+                                        tempEvent.add(tempList.get(i-1));
+                                        tempEventID.add(tempList.get(i-1).getEventid());
+                                    }
+                                }
+                            }
+                        }
+                        else{
+
+                            if( key.equals(tempList.get(i - 1).getEventPrimaryCategory()) ){
+
+                                if(!tempEvent.contains(tempList.get(i-1))){
+
+                                    tempEvent.add(tempList.get(i-1));
+                                    tempEventID.add(tempList.get(i-1).getEventid());
+                                }
                             }
                         }
                     }
-                    */
 
+                    if(!tempEvent.contains(tempList.get(i-1))){
+
+                        tempListID.add(tempList.get(i - 1).getEventid());
+                        tempList.remove(i - 1);
+                    }
                 }
-
             }
-
         }
 
         // If event price > admission filter, filter event off
@@ -162,18 +188,62 @@ public class FilterOut {
 
         if(customFilters.getCategoryFilter().size() != 0) {
 
-            //Log.v("FilterTest", customFilters.getCategoryFilter().keySet()+"");
-
             for (int i = tempList.size(); i > 0; i--) {
 
                 // If the item's primary category is NOT contained in the filter, remove said item
 
-                //Log.v("FilterTest", tempList.get(i - 1).getEventPrimaryCategory());
-
                 if (!customFilters.getCategoryFilter().containsKey(tempList.get(i - 1).getEventPrimaryCategory())) {
 
-                    tempListID.add(tempList.get(i-1).getEventid());
+                    tempListID.add(tempList.get(i - 1).getEventid());
+                    markerMap.get(tempList.get(i-1).getEventid()).setVisible(false);
                     tempList.remove(i - 1);
+                }
+
+                else{
+
+                    ArrayList<Event> tempEvent = new ArrayList<>();
+                    ArrayList<String> tempEventID = new ArrayList<>();
+
+                    outerloop:
+                    for(String key: customFilters.getCategoryFilter().keySet()){
+
+                        if(customFilters.getCategoryFilter().get(key).size() != 0) {
+
+                            for (int j = 0; j < tempList.get(i - 1).getEventSubCategories().size(); j++) {
+
+                                if (customFilters.getCategoryFilter().get(key).contains(tempList.get(i - 1).getEventSubCategoriesID().get(j))) {
+
+                                    if(!tempEvent.contains(tempList.get(i-1))){
+
+                                        tempEvent.add(tempList.get(i-1));
+                                        tempEventID.add(tempList.get(i-1).getEventid());
+                                    }
+                                }
+                            }
+                        }
+                        else{
+
+                            if( key.equals(tempList.get(i-1).getEventPrimaryCategory()) ){
+
+                                if(!tempEvent.contains(tempList.get(i-1))){
+
+                                    tempEvent.add(tempList.get(i-1));
+                                    tempEventID.add(tempList.get(i-1).getEventid());
+                                }
+                            }
+                        }
+                    }
+
+                    if(!tempEvent.contains(tempList.get(i-1))){
+
+                        tempListID.add(tempList.get(i - 1).getEventid());
+                        markerMap.get(tempList.get(i-1).getEventid()).setVisible(false);
+                        tempList.remove(i - 1);
+                    }
+                    else{
+
+                        markerMap.get(tempList.get(i-1).getEventid()).setVisible(true);
+                    }
                 }
             }
         }
@@ -210,5 +280,20 @@ public class FilterOut {
         MyApplication.sourceEvents = new ArrayList<>(tempList);
         MyApplication.sourceEventsID = new ArrayList<>(tempListID);
 
+    }
+
+    private Boolean subCatCheck(){
+
+        Boolean subContain = false;
+
+        for(String key: customFilters.getCategoryFilter().keySet()){
+
+            if(customFilters.getCategoryFilter().get(key).size() != 0){
+
+                subContain = true;
+            }
+        }
+
+        return subContain;
     }
 }

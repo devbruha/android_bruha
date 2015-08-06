@@ -120,8 +120,6 @@ public class RetrievePHP {
                 JSONArray subCatList = eventCat.getJSONArray(primCatName);
                 JSONArray subCatIDJSON = subCatList.getJSONArray(subCatList.length()-1);
 
-                Log.v("JSON", subCatIDJSON+"");
-
                 // -1 to the max cause of the last item that holds the array of ID's
 
                 for( int i = 0; i<subCatList.length()-1; i++){
@@ -129,10 +127,6 @@ public class RetrievePHP {
                     itemSub.add(new Items.SubCategory.ItemList(subCatList.getString(i)));
                     itemSubID.add(new Items.SubCategory.ItemList(subCatIDJSON.getString(i)));
                 }
-
-                //Log.v("JSON", itemSubID.+"");
-
-                //for(int i=0 ; i< )
 
                 eventArrayList.add(new Items.SubCategory(primCatName, new ArrayList<Items.SubCategory.ItemList>(itemSub)));
                 eventArrayListID.add(new Items.SubCategory(primCatName, new ArrayList<Items.SubCategory.ItemList>(itemSubID)));
@@ -270,8 +264,6 @@ public class RetrievePHP {
 
                     even.setEventPrice(0.0);
                 }
-
-                Log.v("Admission test", even.getEventPrice() + "");
 
                 even.setEventLocName(Event.getString("venue_name"));
                 even.setEventLocSt(Event.getString("street_no") + " " + Event.getString("street_name"));

@@ -50,7 +50,7 @@ public class ListActivity extends FragmentActivity {
     ArrayList<Venue> mVenues = new ArrayList<>();
     ArrayList<Artist> mArtists = new ArrayList<>();
 
-
+    public static ListActivity instance = null;
 
     ArrayList<String> addictEventId = new ArrayList<>();
     ArrayList<String> addictVenueId = new ArrayList<>();
@@ -101,6 +101,7 @@ public class ListActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        instance = this;
         setContentView(R.layout.activity_list2);
         ButterKnife.inject(this);                   //Injecting all the objects to be imported from above.
 
@@ -445,4 +446,10 @@ public class ListActivity extends FragmentActivity {
         return null;
     }
 
+
+    @Override
+    public void finish() {
+        super.finish();
+        instance = null;
+    }
 }
