@@ -413,6 +413,6 @@ public class FilterView {
 
     public void collapseLists(){
 
-        eventCategoryAdapter.collapseLists();
+        //eventCategoryAdapter.collapseLists();
     }
 }

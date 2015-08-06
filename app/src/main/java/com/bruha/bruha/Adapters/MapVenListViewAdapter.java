@@ -149,7 +149,7 @@ public class MapVenListViewAdapter extends BaseSwipeAdapter {
 
 
         if(MyApplication.loginCheck==true) {
-            //MyAddictions stuff:
+            //myAddictions stuff:
             boolean addicted = false;
 
             if (addictedVenueID != null) {

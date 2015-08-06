@@ -236,7 +236,7 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
 
         if(MyApplication.loginCheck==true) {
 
-            if(mActivity.getLocalClassName().equals("Views.WhatsHotActivity"))
+            if(mActivity.getLocalClassName().equals("Views.CalendarActivity"))
             {
                 final Button likeText = (Button) convertView.findViewById(R.id.likeButton);
                 likeText.setText("Dont click me!");
@@ -251,7 +251,7 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
 
             else {
 
-                //MyAddictions stuff:
+                //myAddictions stuff:
                 boolean addicted = false;
 
                 if (addictedEventsID != null) {

@@ -324,7 +324,7 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
 
             else {
 
-        //MyAddictions stuff:
+        //myAddictions stuff:
         boolean addicted = false;
 
         if (addictedVenueID != null) {

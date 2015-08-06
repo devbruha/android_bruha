@@ -460,7 +460,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
 
 
             else {
-                //MyAddictions stuff:
+                //myAddictions stuff:
                 boolean addicted = false;
 
                 if (addictedEventsID != null) {

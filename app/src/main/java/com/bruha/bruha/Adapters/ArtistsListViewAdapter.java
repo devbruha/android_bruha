@@ -304,7 +304,7 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
                 });
             } else {
 
-                //MyAddictions stuff:
+                //myAddictions stuff:
                 boolean addicted = false;
 
                 if (addictArtistID != null) {

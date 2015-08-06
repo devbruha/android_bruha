@@ -337,12 +337,22 @@ public class LoginActivity extends ActionBarActivity {
                 ArrayList<Venue> userVenues = retrieveMyPHP.getUserVenueList(username);
                 ArrayList<Artist> userArtist = retrieveMyPHP.getUserArtistList(username);
                 ArrayList<Organizations> userOrg = retrieveMyPHP.getUserOrgList(username);
+                //Addiction stuff
+                ArrayList<String> addictedEvents = retrieveMyPHP.getAddictedList(username);
+                ArrayList<String> addictedVenues = retrieveMyPHP.getAddictedVenueList(username);
+                ArrayList<String> addictedArtists = retrieveMyPHP.getAddictedArtistList(username);
+                ArrayList<String> addictedOrganizations = retrieveMyPHP.getAddictedOrgList(username);
                 SQLiteUtils sqLiteUtils = new SQLiteUtils();
                 sqLiteUtils.insertUserEvents(dbHelper, userEvents);
                 sqLiteUtils.insertUserVenues(dbHelper, userVenues);
                 sqLiteUtils.insertUserArtist(dbHelper, userArtist);
                 sqLiteUtils.insertUserOrganization(dbHelper, userOrg);
                 sqLiteUtils.insertNewUser(dbHelper, userInfo);
+                sqLiteUtils.insertEventAddictions(dbHelper, addictedEvents);
+                sqLiteUtils.insertVenueAddictions(dbHelper, addictedVenues);
+                sqLiteUtils.insertArtistAddictions(dbHelper, addictedArtists);
+                sqLiteUtils.insertOrgAddictions(dbHelper, addictedOrganizations);
+
 
 
                 // Updating the shared variable login check to true on successful login

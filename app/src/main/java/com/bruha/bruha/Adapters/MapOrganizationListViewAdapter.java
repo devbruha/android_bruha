@@ -141,7 +141,7 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
 
         if(MyApplication.loginCheck==true) {
 
-        //MyAddictions stuff:
+        //myAddictions stuff:
         boolean addicted = false;
 
         if (addictOrgID != null) {

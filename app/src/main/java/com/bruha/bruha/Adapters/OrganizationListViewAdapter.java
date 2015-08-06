@@ -329,7 +329,7 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
                 });
             } else {
 
-                //MyAddictions stuff:
+                //myAddictions stuff:
                 boolean addicted = false;
 
                 if (addictOrgID != null) {

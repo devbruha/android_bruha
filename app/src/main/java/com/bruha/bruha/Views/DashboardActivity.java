@@ -6,11 +6,9 @@ import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
@@ -20,7 +18,6 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -331,7 +328,7 @@ public class DashboardActivity extends ActionBarActivity {
     //OnClickListener for "Explore" that leads to the Hot Activity.
     @OnClick(R.id.hotButton)
     public void startHotActivity(View view){
-        Intent intent = new Intent(this, WhatsHotActivity.class);
+        Intent intent = new Intent(this, CalendarActivity.class);
         startActivity(intent);
     }
 
