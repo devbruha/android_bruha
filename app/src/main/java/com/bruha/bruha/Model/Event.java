@@ -31,6 +31,8 @@ public class Event {
     private String eventPrimaryCategory;
     private ArrayList<String> eventSubCategories = new ArrayList<>();
 
+    private ArrayList<String> eventSubCategoriesID = new ArrayList<>();
+
     //SQL variables and eventpage
     private String eventDescription;
     private String eventid;
@@ -194,6 +196,14 @@ public class Event {
 
     public void setEventSubCategories(ArrayList<String> eventSubCategories) {
         this.eventSubCategories = eventSubCategories;
+    }
+
+    public ArrayList<String> getEventSubCategoriesID() {
+        return eventSubCategoriesID;
+    }
+
+    public void setEventSubCategoriesID(ArrayList<String> eventSubCategoriesID) {
+        this.eventSubCategoriesID = eventSubCategoriesID;
     }
 
     public String getLocationID() {

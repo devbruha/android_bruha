@@ -50,7 +50,7 @@ public class ListActivity extends FragmentActivity {
     ArrayList<Venue> mVenues = new ArrayList<>();
     ArrayList<Artist> mArtists = new ArrayList<>();
 
-
+    public static ListActivity instance = null;
 
     ArrayList<String> addictEventId = new ArrayList<>();
     ArrayList<String> addictVenueId = new ArrayList<>();
@@ -64,7 +64,7 @@ public class ListActivity extends FragmentActivity {
     LinearLayout mArtistCategoryListView;
     LinearLayout mOrganizationCategoryListView;
 
-
+    FilterView filterView;
 
     LinearLayout linearCalendar ;
     TextView admission;
@@ -101,6 +101,7 @@ public class ListActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        instance = this;
         setContentView(R.layout.activity_list2);
         ButterKnife.inject(this);                   //Injecting all the objects to be imported from above.
 
@@ -241,8 +242,9 @@ public class ListActivity extends FragmentActivity {
 
     private void setUpFilters(){
         // Calling the FilterView class to set the layout for the filters
-        FilterView filterView = new FilterView(this, adapter, null);
+        filterView = new FilterView(this, adapter, null);
         filterView.init();
+
     }
 
     //venueButton Implemented to switch the mListView to show List of Venue.
@@ -445,4 +447,12 @@ public class ListActivity extends FragmentActivity {
         return null;
     }
 
+
+    @Override
+    public void finish() {
+
+        filterView.collapseLists();
+        super.finish();
+        instance = null;
+    }
 }

@@ -13,6 +13,8 @@ public class UserCustomFilters {
     private ArrayList<String> QuickieFilter = new ArrayList<>();
     private ArrayList<String> DateFilter = new ArrayList<>();
 
+    private ArrayList<String> SubCategoryIDFilter = new ArrayList<>();
+
     private ArrayList<Date> nonFormattedDateFilter = new ArrayList<>();
     private Map<String, ArrayList<String>> CategoryFilter = new HashMap<>();
     private int AdmissionPriceFilter = -1;
@@ -58,5 +60,12 @@ public class UserCustomFilters {
         this.nonFormattedDateFilter = nonFormattedDateFilter;
     }
 
+    public ArrayList<String> getSubCategoryIDFilter() {
+        return SubCategoryIDFilter;
+    }
+
+    public void setSubCategoryIDFilter(ArrayList<String> subCategoryIDFilter) {
+        SubCategoryIDFilter = subCategoryIDFilter;
+    }
 
 }
