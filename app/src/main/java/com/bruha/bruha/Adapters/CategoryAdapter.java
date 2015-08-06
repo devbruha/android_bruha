@@ -39,8 +39,6 @@ public class CategoryAdapter {
 
     UserCustomFilters mUserCustomFilter;
 
-    ArrayList<String> subCatID = new ArrayList<>();
-
     private EventListviewAdapter mAdapter;
     HashMap<String, Marker> markerMap = new HashMap<>();
 
@@ -48,6 +46,8 @@ public class CategoryAdapter {
     // the hashmap shall contain string ArrayLists for each primary category selected
     // each string arrayList shall contain the primary category as its first index, then
     // each other index will represent the subcategory(s) selected
+
+    private RelativeLayout mLinearFirstArrow;
 
     private Map<String, ArrayList<String>> mUserCategorySelected = new HashMap<>();
 
@@ -98,7 +98,7 @@ public class CategoryAdapter {
             View mLinearView = inflater.inflate(R.layout.row_first, null);
 
             final TextView mProductName = (TextView) mLinearView.findViewById(R.id.textViewName);
-            final RelativeLayout mLinearFirstArrow=(RelativeLayout)mLinearView.findViewById(R.id.linearFirst);
+            mLinearFirstArrow =(RelativeLayout)mLinearView.findViewById(R.id.linearFirst);
             final ImageView mImageArrowFirst=(ImageView)mLinearView.findViewById(R.id.imageFirstArrow);
             final LinearLayout mLinearScrollSecond=(LinearLayout)mLinearView.findViewById(R.id.linear_scroll);
 
@@ -117,11 +117,14 @@ public class CategoryAdapter {
                     // lower level rather than close it
 
                     if (isFirstViewClick == false) {
+
+                        mLinearFirstArrow.setTag("Open");
                         isFirstViewClick = true;
                         mImageArrowFirst.setBackgroundResource(android.R.drawable.arrow_down_float);
                         mLinearScrollSecond.setVisibility(View.VISIBLE);
 
                     } else {
+                        mLinearFirstArrow.setTag("Closed");
                         isFirstViewClick = false;
                         mImageArrowFirst.setBackgroundResource(android.R.drawable.arrow_up_float);
                         mLinearScrollSecond.setVisibility(View.GONE);
@@ -401,6 +404,14 @@ public class CategoryAdapter {
         {
             linLayout.setVisibility(View.VISIBLE);
             image.setBackgroundResource(android.R.drawable.arrow_down_float);
+        }
+    }
+
+    public void collapseLists(){
+
+        if(mLinearFirstArrow.getTag().equals("Open")){
+
+            mLinearFirstArrow.performClick();
         }
     }
 }

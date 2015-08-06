@@ -53,6 +53,8 @@ public class FilterView {
     private EventListviewAdapter mAdapter;
     HashMap<String, Marker> markerMap = new HashMap<>();
 
+    CategoryAdapter eventCategoryAdapter;
+
     public FilterView(FragmentActivity activity, EventListviewAdapter adapter, HashMap markerHashMap){
 
         mActivity = activity;
@@ -173,9 +175,10 @@ public class FilterView {
 
         // calling and setting the "adapter" to set the list items
 
-        CategoryAdapter adapter = new CategoryAdapter(mActivity, mCategoryListView, MyApplication.mainList.get(0),mAdapter,markerMap);
+        eventCategoryAdapter = new CategoryAdapter(mActivity, mCategoryListView, MyApplication.mainList.get(0),mAdapter,markerMap);
 
-        adapter.set();
+        eventCategoryAdapter.set();
+
     }
 
     private void setVenueCategoryList(){
@@ -408,4 +411,8 @@ public class FilterView {
         });
     }
 
+    public void collapseLists(){
+
+        eventCategoryAdapter.collapseLists();
+    }
 }

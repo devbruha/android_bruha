@@ -64,7 +64,7 @@ public class ListActivity extends FragmentActivity {
     LinearLayout mArtistCategoryListView;
     LinearLayout mOrganizationCategoryListView;
 
-
+    FilterView filterView;
 
     LinearLayout linearCalendar ;
     TextView admission;
@@ -242,8 +242,9 @@ public class ListActivity extends FragmentActivity {
 
     private void setUpFilters(){
         // Calling the FilterView class to set the layout for the filters
-        FilterView filterView = new FilterView(this, adapter, null);
+        filterView = new FilterView(this, adapter, null);
         filterView.init();
+
     }
 
     //venueButton Implemented to switch the mListView to show List of Venue.
@@ -449,6 +450,8 @@ public class ListActivity extends FragmentActivity {
 
     @Override
     public void finish() {
+
+        filterView.collapseLists();
         super.finish();
         instance = null;
     }
