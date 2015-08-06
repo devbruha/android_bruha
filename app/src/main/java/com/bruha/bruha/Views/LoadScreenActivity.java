@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.Event;
@@ -22,15 +23,20 @@ import com.bruha.bruha.R;
 
 import java.util.ArrayList;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class LoadScreenActivity extends Activity {
 
     RetrievePHP retrievedInfo; //Initialzing the class that contains the calls to the PHP Database.
     RetrieveMyPHP retrieveMyPHP;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_screen);
+        ;
 
         if(!isNetworkAvailable())
         {
@@ -67,7 +73,16 @@ public class LoadScreenActivity extends Activity {
                 startActivity(intent);
             } else {
                 ArrayList<Event> userEvents = retrieveMyPHP.getUserEventList(userinfo.get(0));
+                ArrayList<Venue> userVenues = retrieveMyPHP.getUserVenueList(userinfo.get(0));
+                ArrayList<Artist> userArtist = retrieveMyPHP.getUserArtistList(userinfo.get(0));
+                ArrayList<Organizations> userOrg = retrieveMyPHP.getUserOrgList(userinfo.get(0));
                 sqLiteUtils.insertUserEvents(dbHelper, userEvents);
+                sqLiteUtils.insertUserVenues(dbHelper, userVenues);
+                sqLiteUtils.insertUserArtist(dbHelper, userArtist);
+                sqLiteUtils.insertUserOrganization(dbHelper, userOrg);
+
+
+
 
                 MyApplication.userName = userinfo.get(0);
 
@@ -76,7 +91,6 @@ public class LoadScreenActivity extends Activity {
                 ArrayList<String> addictedVenues = retrieveMyPHP.getAddictedVenueList(userinfo.get(0));
                 ArrayList<String> addictedArtists = retrieveMyPHP.getAddictedArtistList(userinfo.get(0));
                 ArrayList<String> addictedOrganizations = retrieveMyPHP.getAddictedOrgList(userinfo.get(0));
-             //   retrieveMyPHP.deleteEventAddiction("TestAccount","0");
                 sqLiteUtils.insertEventAddictions(dbHelper, addictedEvents);
                 sqLiteUtils.insertVenueAddictions(dbHelper, addictedVenues);
                 sqLiteUtils.insertArtistAddictions(dbHelper, addictedArtists);

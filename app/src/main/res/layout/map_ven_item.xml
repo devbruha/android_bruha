@@ -25,7 +25,7 @@
             android:textStyle="bold"
             android:background="#66ddff00"
             android:textColor="#ffffff"
-            android:id="@+id/button"/>
+            android:id="@+id/likeVenButton"/>
 
 
     </LinearLayout>
@@ -62,9 +62,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="P"
+                    android:text="S"
                     android:gravity="center_horizontal"
-                    android:id="@+id/MapTextView12"/>
+                    android:id="@+id/textView30"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -72,9 +72,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="R"
+                    android:text="H"
                     android:gravity="center_horizontal"
-                    android:id="@+id/MapTextView13"/>
+                    android:id="@+id/textView31"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -82,41 +82,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="E"
+                    android:text="O"
                     android:gravity="center_horizontal"
-                    android:id="@+id/MapTextView14"/>
-
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="V"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/MapTextView15"/>
-
-
-
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="I"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/MapTextView16"
-                    />
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="E"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/MapTextView17"/>
+                    android:id="@+id/textView32"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -126,7 +94,79 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="W"
                     android:gravity="center_horizontal"
-                    android:id="@+id/MapTextView18"/>
+                    android:id="@+id/textView33"/>
+
+
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text=" "
+                    android:gravity="center_horizontal"
+                    android:id="@+id/textView34"
+                    />
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="O"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/textView35"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="N"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/textView36"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text=" "
+                    android:gravity="center_horizontal"
+                    android:id="@+id/textView362"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="M"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/textView368"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="A"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/textView367"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="P"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/textView366"/>
 
                 <TextView
                     android:textColor="#cf075a52"
@@ -356,7 +396,40 @@
             android:textColor="#ffffff"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="invisible" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Swipe"
+            android:id="@+id/textView"
+            android:layout_below="@+id/MapEventPicture"
+            android:layout_centerHorizontal="true"
+            android:textColor="#ffffff"
+            android:layout_marginTop="11dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/swipeyright"
+            android:layout_below="@+id/MapEventPicture"
+            android:layout_toRightOf="@+id/textView"
+            android:layout_toEndOf="@+id/textView"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="3dp"
+            android:src="@drawable/calendar_next_arrow" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/swipeyleft"
+            android:layout_below="@+id/MapEventPicture"
+            android:layout_toLeftOf="@+id/textView"
+            android:layout_toStartOf="@+id/textView"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/calendar_prev_arrow" />
 
     </RelativeLayout>
 

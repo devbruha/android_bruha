@@ -76,7 +76,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String TABLE_USER_EVENT_SUB_CATEGORY = "user_event_sub_categories";
 
     // VENUES Info Table Stuff
-   // public static final String TABLE_USER_VENUES_INFO = "user_venue_info";
+    public static final String TABLE_USER_VENUES_INFO = "user_venue_info";
     public static final String TABLE_VENUES_INFO = "venue_info";
     public static final String VENUES_LOCAL_ID = "_id";
     public static final String VENUES_REMOTE_ID = "venueID";
@@ -89,6 +89,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String VENUE_PICTURE = "venuePicture";
 
     //OUTFITS INTO LOCAL DATABASE:
+    public static final String TABLE_USER_OUTFIT_INFO = "user_outfit_info";
     public static final String TABLE_OUTFIT_INFO = "outfit_info";
     public static final String OUTFIT_LOCAL_ID = "_id";
     public static final String OUTFIT_REMOTE_ID = "outfitID";
@@ -101,6 +102,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String OUTFIT_PICTURE = "outfitPicture";
 
     //ARTIST INTO LOCAL DATABASE:
+    public static final String TABLE_USER_ARTIST_INFO = "user_artist_info";
     public static final String TABLE_ARTIST_INFO = "artist_info";
     public static final String ARTIST_LOCAL_ID = "_id";
     public static final String ARTIST_REMOTE_ID = "artistID";
@@ -193,6 +195,8 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + EVENT_PICTURE + " text not null, "
             + EVENT_END_DATE + " text not null);";
 
+
+
     private static final String DATABASE_CREATE_USER_EVENT_SUB_CATEGORY = "create table "
             + TABLE_USER_EVENT_SUB_CATEGORY + "(" + EVENT_LOCAL_ID
             + " integer primary key autoincrement, "
@@ -210,6 +214,31 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + VENUE_STREET + " text not null, "
             + VENUE_LONGITUDE + " text not null, "
             + VENUE_LOCATION_NAME + " text not null); ";
+
+    private static final String DATABASE_CREATE_USER_VENUE_INFO = "create table "
+            + TABLE_USER_VENUES_INFO + "(" + VENUES_LOCAL_ID
+            + " integer primary key autoincrement, "
+            + VENUES_REMOTE_ID + " text not null, "
+            + VENUE_DESCRIPTION + " text not null, "
+            + VENUE_NAME + " text not null, "
+            + VENUE_LATITUDE + " text not null, "
+            + VENUE_PICTURE + " text not null, "
+            + VENUE_STREET + " text not null, "
+            + VENUE_LONGITUDE + " text not null, "
+            + VENUE_LOCATION_NAME + " text not null); ";
+
+
+    private static final String DATABASE_CREATE_USER_OUTFIT_INFO = "create table "
+            + TABLE_USER_OUTFIT_INFO + "(" + OUTFIT_LOCAL_ID
+            + " integer primary key autoincrement, "
+            + OUTFIT_REMOTE_ID + " text not null, "
+            + OUTFIT_DESCRIPTION + " text not null, "
+            + OUTFIT_NAME + " text not null, "
+            + OUTFIT_LATITUDE + " text not null, "
+            + OUTFIT_LONGITUDE + " text not null, "
+            + OUTFIT_STREET + " text not null, "
+            + OUTFIT_PICTURE + " text not null, "
+            + OUTFIT_LOCATION_NAME + " text not null); ";
 
     private static final String DATABASE_CREATE_OUTFIT_INFO = "create table "
             + TABLE_OUTFIT_INFO + "(" + OUTFIT_LOCAL_ID
@@ -231,6 +260,14 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + ARTIST_PICTURE + " text not null, "
             + ARTIST_NAME + " text not null); ";
 
+    private static final String DATABASE_CREATE_USER_ARTIST_INFO = "create table "
+            + TABLE_USER_ARTIST_INFO + "(" + ARTIST_LOCAL_ID
+            + " integer primary key autoincrement, "
+            + ARTIST_REMOTE_ID + " text not null, "
+            + ARTIST_DESCRIPTION + " text not null, "
+            + ARTIST_PICTURE + " text not null, "
+            + ARTIST_NAME + " text not null); ";
+
     //Creating the Database.
     public SQLiteDatabaseModel(Context context) {
         // Creation of the DB
@@ -246,6 +283,9 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.execSQL(DATABASE_CREATE_EVENT_INFO);
         db.execSQL(DATABASE_CREATE_EVENT_SUB_CATEGORY);
         db.execSQL(DATABASE_CREATE_USER_EVENT_INFO);
+        db.execSQL(DATABASE_CREATE_USER_VENUE_INFO);
+        db.execSQL(DATABASE_CREATE_USER_ARTIST_INFO);
+        db.execSQL(DATABASE_CREATE_USER_OUTFIT_INFO);
         db.execSQL(DATABASE_CREATE_USER_EVENT_SUB_CATEGORY);
         db.execSQL(DATABASE_CREATE_ADDICTIONS);
         db.execSQL(DATABASE_CREATE_ADDICTIONS_ARTISTS);
@@ -274,6 +314,12 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.execSQL(DATABASE_CREATE_ARTIST_INFO);
         db.execSQL("DROP TABLE IF EXISTS user_event_info");
         db.execSQL(DATABASE_CREATE_USER_EVENT_INFO);
+        db.execSQL("DROP TABLE IF EXISTS user_venue_info");
+        db.execSQL(DATABASE_CREATE_USER_VENUE_INFO);
+        db.execSQL("DROP TABLE IF EXISTS user_artist_info");
+        db.execSQL(DATABASE_CREATE_USER_ARTIST_INFO);
+        db.execSQL("DROP TABLE IF EXISTS user_outfit_info");
+        db.execSQL(DATABASE_CREATE_USER_OUTFIT_INFO);
         db.execSQL("DROP TABLE IF EXISTS user_event_sub_categories");
         db.execSQL(DATABASE_CREATE_USER_EVENT_SUB_CATEGORY);
         db.execSQL("DROP TABLE IF EXISTS addictions");
@@ -292,6 +338,12 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.execSQL(DATABASE_CREATE_USER_INFO);
         db.execSQL("DROP TABLE IF EXISTS user_event_info");
         db.execSQL(DATABASE_CREATE_USER_EVENT_INFO);
+        db.execSQL("DROP TABLE IF EXISTS user_venue_info");
+        db.execSQL(DATABASE_CREATE_USER_VENUE_INFO);
+        db.execSQL("DROP TABLE IF EXISTS user_artist_info");
+        db.execSQL(DATABASE_CREATE_USER_ARTIST_INFO);
+        db.execSQL("DROP TABLE IF EXISTS outfit_info");
+        db.execSQL(DATABASE_CREATE_OUTFIT_INFO);
         db.execSQL("DROP TABLE IF EXISTS addictions");
         db.execSQL(DATABASE_CREATE_ADDICTIONS);
         db.execSQL("DROP TABLE IF EXISTS addictionsVenue");
@@ -801,6 +853,159 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         }
         cursor.close();
         return mEvents;
+    }
+
+
+    //ADDING THE LIST OF USER VENUES INTO THE LOCAL DATABASE TABLE.
+    public void addUserVenues( ArrayList<Venue> venue){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        for(int i =0; i< venue.size();i++){
+            values.put("venueID", venue.get(i).getVenueId());
+            values.put("venueDescription", venue.get(i).getVenueDescription());
+            values.put("venueName", venue.get(i).getVenueName());
+            values.put("venueLatitude", venue.get(i).getLat());
+            values.put("venueLongitude", venue.get(i).getLng());
+            values.put("venueLocName", venue.get(i).getVenueLocation());
+            values.put("venuePicture", venue.get(i).getVenuePicture());
+            values.put("venueSt", venue.get(i).getVenueSt());
+
+
+            db.insert(TABLE_USER_VENUES_INFO, null, values);
+        }
+    }
+
+    //RETRIEVING THE LIST OF USER VENUES INTO THE LOCAL DATABASE TABLE.
+    public ArrayList<Venue> retrieveUserVenuesInfo(){
+
+        ArrayList<Venue> mVenues = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_USER_VENUES_INFO, null, null, null, null, null, null);
+
+        if(cursor != null)
+        {
+            while(cursor.moveToNext()){
+                Venue newVen = new Venue();
+
+                //int id = cursor.getInt(cursor.getColumnIndex("_id"));
+                newVen.setVenueId(cursor.getString(cursor.getColumnIndex("venueID")));
+                newVen.setVenueDescription(cursor.getString(cursor.getColumnIndex("venueDescription")));
+                newVen.setVenueName(cursor.getString(cursor.getColumnIndex("venueName")));
+                newVen.setLat(cursor.getDouble(cursor.getColumnIndex("venueLatitude")));
+                newVen.setLng(cursor.getDouble(cursor.getColumnIndex("venueLongitude")));
+                newVen.setVenueLocation(cursor.getString(cursor.getColumnIndex("venueLocName")));
+                newVen.setVenuePicture(cursor.getString(cursor.getColumnIndex("venuePicture")));
+                newVen.setVenueSt(cursor.getString(cursor.getColumnIndex("venueSt")));
+
+                mVenues.add(newVen);
+            }
+        }
+
+        cursor.close();
+
+        return mVenues;
+    }
+
+    //ADDING THE LIST OF ARTISTS INTO THE LOCAL DATABASE TABLE.
+    public void addUserArtists( ArrayList<Artist> artist){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        for(int i =0; i< artist.size();i++){
+            values.put("artistID", artist.get(i).getArtistId());
+            values.put("artistDescription", artist.get(i).getArtistDescription());
+            values.put("artistName", artist.get(i).getArtistName());
+            values.put("artistPicture", artist.get(i).getArtistPicture());
+
+            db.insert(TABLE_USER_ARTIST_INFO, null, values);
+        }
+    }
+
+    //RETRIEVING THE LIST OF ARTISTS FROM THE LOCAL DATABASE TABLE.
+    public ArrayList<Artist> retrieveUserArtistInfo(){
+
+        ArrayList<Artist> mArtist = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_USER_ARTIST_INFO, null, null, null, null, null, null);
+
+        if(cursor != null)
+        {
+            while(cursor.moveToNext()){
+                Artist artist = new Artist();
+
+                int id = cursor.getInt(cursor.getColumnIndex("_id"));
+                artist.setArtistId(cursor.getString(cursor.getColumnIndex("artistID")));
+                artist.setArtistDescription(cursor.getString(cursor.getColumnIndex("artistDescription")));
+                artist.setArtistName(cursor.getString(cursor.getColumnIndex("artistName")));
+                artist.setArtistPicture(cursor.getString(cursor.getColumnIndex("artistPicture")));
+
+                mArtist.add(artist);
+            }
+        }
+        cursor.close();
+        return mArtist;
+    }
+
+
+    //ADDING THE LIST OF OUTFITS INTO THE LOCAL DATABASE TABLE.
+    public void addUserOrganizations(ArrayList<Organizations> Org){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        for(int i =0; i< Org.size();i++){
+            values.put("outfitID", Org.get(i).getOrgId());
+            values.put("outfitDescription", Org.get(i).getOrgDescription());
+            values.put("outfitName", Org.get(i).getOrgName());
+            values.put("outfitLatitude", Org.get(i).getLat());
+            values.put("outfitLongitude", Org.get(i).getLng());
+            values.put("outfitLocName", Org.get(i).getOrgLocation());
+            values.put("outfitPicture", Org.get(i).getOrgPicture());
+            values.put("outfitSt", Org.get(i).getOrgSt());
+
+            db.insert(TABLE_USER_OUTFIT_INFO, null, values);
+        }
+    }
+
+    //RETRIEVING THE LIST OF OUTFITS FROM THE LOCAL DATABASE TABLE.
+    public ArrayList<Organizations> retrieveUserOrganizationInfo(){
+
+        ArrayList<Organizations> mOutfit = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_USER_OUTFIT_INFO, null, null, null, null, null, null);
+
+        if(cursor != null)
+        {
+            while(cursor.moveToNext()){
+
+                Organizations Org = new Organizations();
+
+                int id = cursor.getInt(cursor.getColumnIndex("_id"));
+
+                Org.setOrgId(cursor.getString(cursor.getColumnIndex("outfitID")));
+                Org.setOrgDescription(cursor.getString(cursor.getColumnIndex("outfitDescription")));
+                Org.setOrgName(cursor.getString(cursor.getColumnIndex("outfitName")));
+                Org.setLat(cursor.getDouble(cursor.getColumnIndex("outfitLatitude")));
+                Org.setLng(cursor.getDouble(cursor.getColumnIndex("outfitLongitude")));
+                Org.setOrgLocation(cursor.getString(cursor.getColumnIndex("outfitLocName")));
+                Org.setOrgPicture(cursor.getString(cursor.getColumnIndex("outfitPicture")));
+                Org.setOrgSt(cursor.getString(cursor.getColumnIndex("outfitSt")));
+
+                mOutfit.add(Org);
+            }
+        }
+
+        cursor.close();
+
+        return mOutfit;
     }
 
 }

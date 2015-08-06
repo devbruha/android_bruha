@@ -277,7 +277,7 @@ public class ListActivity extends FragmentActivity {
         VenueListViewAdapter venueAdapter;
 
         //Creating an variable of type Listview Adapter to create the list view.
-        venueAdapter=new VenueListViewAdapter(this, mVenues); //Calling the adapter mListView to help set the List
+        venueAdapter=new VenueListViewAdapter(this, mVenues,addictVenueId); //Calling the adapter mListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(venueAdapter);
@@ -307,7 +307,7 @@ public class ListActivity extends FragmentActivity {
         linearCalendar.setVisibility(view.GONE);
 
         //Creating an variable of type Listview Adapter to create the list view.
-        OrgAdapter=new OrganizationListViewAdapter(this, mOutfit); //Calling the adapter mListView to help set the List
+        OrgAdapter=new OrganizationListViewAdapter(this, mOutfit,addictOutfitId); //Calling the adapter mListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(OrgAdapter);
@@ -397,7 +397,7 @@ public class ListActivity extends FragmentActivity {
         ArtistsListViewAdapter artistsListViewAdapter;
 
         //Creating an variable of type Listview Adapter to create the list view.
-        artistsListViewAdapter=new ArtistsListViewAdapter(this, mArtists); //Calling the adapter mListView to help set the List
+        artistsListViewAdapter=new ArtistsListViewAdapter(this, mArtists,addictArtistId); //Calling the adapter mListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter.
         mListView.setAdapter(artistsListViewAdapter);

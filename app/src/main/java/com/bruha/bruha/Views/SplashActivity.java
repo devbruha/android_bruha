@@ -32,24 +32,29 @@ import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class SplashActivity extends Activity {
 
     Typeface opensansregfnt;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        // using ButterKnife.inject to allow the InjectViews to take effect.
+        ButterKnife.inject(this);
+
 
 
          opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
 
 
 
-        // using ButterKnife.inject to allow the InjectViews to take effect.
-        ButterKnife.inject(this);
 
         //Setting SVG image
         ImageView loginimage = (ImageView) findViewById(R.id.logindude);
@@ -62,6 +67,9 @@ public class SplashActivity extends Activity {
         ViewPager pager = (ViewPager) findViewById(R.id.pager); //The Layout where the new Layout will be displayed.
         pager.setAdapter(adapter);                              //Setting the Adapter of the layout to adapter.
         pager.setCurrentItem(0);                                 //The first page to be displayed in the
+
+
+
 
 
         final LinearLayout loginButton = (LinearLayout) findViewById(R.id.splashloginButton);
@@ -262,8 +270,6 @@ public class SplashActivity extends Activity {
             ImageView im = (ImageView) view.findViewById(R.id.splashImage);
             // Android functions to determine the screen dimensions.
             im.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.splash, 300));
-
-
         }
 
         if(resId==R.layout.splash_addicted)
@@ -277,6 +283,7 @@ public class SplashActivity extends Activity {
             TextView text = (TextView) findViewById(R.id.splashaddictedtext);
             text.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
             text.setTypeface(opensansregfnt);
+
         }
 
         if(resId==R.layout.splash_tickets)
@@ -284,6 +291,7 @@ public class SplashActivity extends Activity {
             ImageView im = (ImageView) view.findViewById(R.id.ticketimage);
             // Android functions to determine the screen dimensions.
             im.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.tickets, 300));
+
         }
 
         if(resId==R.layout.splash_discover)
@@ -398,7 +406,7 @@ public class SplashActivity extends Activity {
             TextView text18 = (TextView) findViewById(R.id.seventtext18);
 
 
-            int x= (int)Math.round(height * .03);
+            int x = (int) Math.round(height * .03);
             text1.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
             text1.setTypeface(opensansregfnt);
             text2.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
@@ -435,6 +443,7 @@ public class SplashActivity extends Activity {
             text17.setTypeface(opensansregfnt);
             text18.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
             text18.setTypeface(opensansregfnt);
+
         }
     }
 }

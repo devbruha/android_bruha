@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Point;
 import android.util.TypedValue;
 import android.view.Display;
@@ -14,9 +15,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.R;
+import com.bruha.bruha.Views.EventPageActivity;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 
@@ -88,20 +91,21 @@ public class MapArtistListViewAdapter extends BaseSwipeAdapter {
 
 
 
+        final LinearLayout PreviewLayout= (LinearLayout) convertView.findViewById(R.id.venMapPreviewLayout);
+        PreviewLayout.setVisibility(View.INVISIBLE);
 
         //Implements the Button 'Preview' that appears after swipe right,Shows Button Highlight for half a second when clicked.
         TableRow GoPreviewPage  = (TableRow) convertView.findViewById(R.id.venMapPreview);
         GoPreviewPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final LinearLayout PreviewLayout= (LinearLayout) convertView.findViewById(R.id.venMapPreviewLayout);
                 ObjectAnimator animator = ObjectAnimator.ofFloat(PreviewLayout, "alpha", 1f, 0.5f);
                 animator.setDuration(500);
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
                         PreviewLayout.setAlpha(1f);
-                        //Intent intent = new Intent(mActivity, DashboardActivity.class);
-                        // mActivity.startActivity(intent);
+                        PreviewLayout.setAlpha(.25f);
+                        Toast.makeText(mActivity.getApplicationContext(), "Still under development!", Toast.LENGTH_SHORT).show();
                     }
                 });
                 animator.start();
@@ -119,9 +123,10 @@ public class MapArtistListViewAdapter extends BaseSwipeAdapter {
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
                         MoreInfoLay.setAlpha(1f);
-                        //  Intent intent = new Intent(mActivity, EventPageActivity.class);
-                        //  intent.putExtra("EventId", event.getEventid());
-                        // mActivity.startActivity(intent);
+                        Intent intent = new Intent(mActivity, EventPageActivity.class);
+                        intent.putExtra("Id",artist.getArtistId());
+                        intent.putExtra("Type","Artist");
+                        mActivity.startActivity(intent);
                     }
                 });
                 animator.start();

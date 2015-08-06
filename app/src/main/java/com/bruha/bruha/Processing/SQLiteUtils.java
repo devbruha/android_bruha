@@ -123,4 +123,34 @@ public class SQLiteUtils {
         return dbhelper.retrieveUserEventInfo();
     }
 
+    public void insertUserVenues(SQLiteDatabaseModel dbHelper, ArrayList<Venue> venues){
+
+        dbHelper.addUserVenues(venues);
+    }
+
+    public ArrayList<Venue> getUserVenueInfo(SQLiteDatabaseModel dbhelper){
+
+        return dbhelper.retrieveUserVenuesInfo();
+    }
+
+    public void insertUserArtist(SQLiteDatabaseModel dbHelper, ArrayList<Artist> artists){
+
+        dbHelper.addUserArtists(artists);
+    }
+
+    public ArrayList<Artist> getUserArtistInfo(SQLiteDatabaseModel dbhelper){
+
+        return dbhelper.retrieveUserArtistInfo();
+    }
+
+    public void insertUserOrganization(SQLiteDatabaseModel dbHelper, ArrayList<Organizations> organ){
+
+        dbHelper.addUserOrganizations(organ);
+    }
+
+    public ArrayList<Organizations> getUserOrganizationInfo(SQLiteDatabaseModel dbhelper){
+
+        return dbhelper.retrieveUserOrganizationInfo();
+    }
+
 }

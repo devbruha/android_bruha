@@ -55,7 +55,8 @@
                 android:layout_height="match_parent"
                 android:background="#e2643faa"
                 android:gravity="center"
-                android:id="@+id/BuyTicketLayout">
+                android:id="@+id/BuyTicketLayout"
+                android:alpha="0.25">
 
                 <TextView
                     android:textStyle="bold"
@@ -201,7 +202,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="P"
+                    android:text="S"
                     android:gravity="center_horizontal"
                     android:id="@+id/textView30"/>
 
@@ -211,7 +212,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="R"
+                    android:text="H"
                     android:gravity="center_horizontal"
                     android:id="@+id/textView31"/>
 
@@ -221,7 +222,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="E"
+                    android:text="O"
                     android:gravity="center_horizontal"
                     android:id="@+id/textView32"/>
 
@@ -231,7 +232,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="V"
+                    android:text="W"
                     android:gravity="center_horizontal"
                     android:id="@+id/textView33"/>
 
@@ -243,7 +244,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="I"
+                    android:text=" "
                     android:gravity="center_horizontal"
                     android:id="@+id/textView34"
                     />
@@ -253,7 +254,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="E"
+                    android:text="O"
                     android:gravity="center_horizontal"
                     android:id="@+id/textView35"/>
 
@@ -263,9 +264,49 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="W"
+                    android:text="N"
                     android:gravity="center_horizontal"
                     android:id="@+id/textView36"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text=" "
+                    android:gravity="center_horizontal"
+                    android:id="@+id/textView362"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="M"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/textView368"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="A"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/textView367"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="P"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/textView366"/>
 
                 <TextView
                     android:textColor="#cf075a52"
@@ -428,7 +469,7 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:src="@drawable/round"
-            android:alpha=".42"
+            android:alpha=".50"
             android:focusable="false"
             android:layout_weight="5"
             />
@@ -472,12 +513,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1km"
+            android:text="Swipe"
             android:id="@+id/VenueDistance"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/TextEventPrice"
             android:textSize="12dp"
-            android:textColor="#ff000000" />
+            android:textColor="#ff000000"
+            android:layout_marginTop="3dp" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -494,8 +536,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#cd9768cf"
-            android:alpha="0.95"
+            android:background="#ffa2d8d8"
+            android:alpha="0.75"
             android:id="@+id/DescriptionLayout"
             android:layout_alignTop="@+id/VenueImageBubble"
             android:layout_alignParentLeft="true"
@@ -635,7 +677,26 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:textColor="#ff000000" />
+
         </RelativeLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/swipeyright"
+            android:layout_marginLeft="3dp"
+            android:layout_below="@+id/TextEventPrice"
+            android:layout_toRightOf="@+id/VenueDistance"
+            android:src="@drawable/calendar_next_arrow" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/swipeyleft"
+            android:layout_marginRight="3dp"
+            android:layout_below="@+id/TextEventPrice"
+            android:layout_toLeftOf="@+id/VenueDistance"
+            android:src="@drawable/calendar_prev_arrow" />
 
     </RelativeLayout>
 

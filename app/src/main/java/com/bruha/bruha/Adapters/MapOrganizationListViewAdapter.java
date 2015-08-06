@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.util.TypedValue;
@@ -11,13 +12,19 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.Organizations;
+import com.bruha.bruha.Processing.RetrieveMyPHP;
 import com.bruha.bruha.R;
+import com.bruha.bruha.Views.EventPageActivity;
+import com.bruha.bruha.Views.ShowOnMapActivity;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.squareup.picasso.Picasso;
@@ -31,11 +38,15 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
 
     private Activity mActivity;
     private ArrayList<Organizations> mOrganization;
+    ArrayList<String> addictOrgID;
+    RetrieveMyPHP retrieveMyPHP;
 
-    public MapOrganizationListViewAdapter(Activity activity,ArrayList<Organizations> organization)
+    public MapOrganizationListViewAdapter(Activity activity,ArrayList<Organizations> organization,ArrayList<String> orgID)
     {
         mActivity=activity;
         mOrganization=organization;
+        addictOrgID = orgID;
+        retrieveMyPHP = new RetrieveMyPHP();
     }
 
     @Override
@@ -54,18 +65,16 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
 
 
         //Obtaining References to the Image/Text to change inside the layout.
-        holder.Picture=(ImageView) convertView.findViewById(R.id.MapEventPicture);
-        holder.Title= (TextView) convertView.findViewById(R.id.MapEventName);
-        holder.Price= (TextView) convertView.findViewById(R.id.MapEventPrice);
-        holder.LocName= (TextView) convertView.findViewById(R.id.MapEventLocName);
-        holder.LocSt= (TextView) convertView.findViewById(R.id.MapEventLocSt);
-        holder.LocAdd= (TextView) convertView.findViewById(R.id.MapEventLocAddress);
-        holder.Hours= (TextView) convertView.findViewById(R.id.MapEventStartDateAndTime);
+        holder.Picture = (ImageView) convertView.findViewById(R.id.MapEventPicture);
+        holder.Title = (TextView) convertView.findViewById(R.id.MapEventName);
+        holder.Price = (TextView) convertView.findViewById(R.id.MapEventPrice);
+        holder.LocName = (TextView) convertView.findViewById(R.id.MapEventLocName);
+        holder.LocSt = (TextView) convertView.findViewById(R.id.MapEventLocSt);
+        holder.LocAdd = (TextView) convertView.findViewById(R.id.MapEventLocAddress);
+        holder.Hours = (TextView) convertView.findViewById(R.id.MapEventStartDateAndTime);
 
         //Initializing each item to the required type
         final Organizations organization = mOrganization.get(position);
-
-
 
 
         //Changing the text in the fields everytime.
@@ -81,29 +90,28 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
         Picasso.with(viewGroup.getContext()).load(organization.getOrgPicture()).fit().into(holder.Picture);
 
 
-
         //Swipe methods being Implemented
-        SwipeLayout swipeLayout = (SwipeLayout)convertView.findViewById(getSwipeLayoutResourceId(position));
+        SwipeLayout swipeLayout = (SwipeLayout) convertView.findViewById(getSwipeLayoutResourceId(position));
         swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         swipeLayout.addDrag(SwipeLayout.DragEdge.Left, convertView.findViewById(R.id.left_wrapper_mapven));
         swipeLayout.addDrag(SwipeLayout.DragEdge.Right, convertView.findViewById(R.id.MapvenRightSwipeLayout));
 
 
-
-
         //Implements the Button 'Preview' that appears after swipe right,Shows Button Highlight for half a second when clicked.
-        TableRow GoPreviewPage  = (TableRow) convertView.findViewById(R.id.venMapPreview);
+        TableRow GoPreviewPage = (TableRow) convertView.findViewById(R.id.venMapPreview);
         GoPreviewPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final LinearLayout PreviewLayout= (LinearLayout) convertView.findViewById(R.id.venMapPreviewLayout);
+                final LinearLayout PreviewLayout = (LinearLayout) convertView.findViewById(R.id.venMapPreviewLayout);
                 ObjectAnimator animator = ObjectAnimator.ofFloat(PreviewLayout, "alpha", 1f, 0.5f);
                 animator.setDuration(500);
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
                         PreviewLayout.setAlpha(1f);
-                        //Intent intent = new Intent(mActivity, DashboardActivity.class);
-                        // mActivity.startActivity(intent);
+                        Intent intent = new Intent(mActivity, ShowOnMapActivity.class);
+                        intent.putExtra("Id", organization.getOrgId());
+                        intent.putExtra("Type", "Outfit");
+                        mActivity.startActivity(intent);
                     }
                 });
                 animator.start();
@@ -121,14 +129,69 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
                         MoreInfoLay.setAlpha(1f);
-                        //  Intent intent = new Intent(mActivity, EventPageActivity.class);
-                        //  intent.putExtra("EventId", event.getEventid());
-                        // mActivity.startActivity(intent);
+                        Intent intent = new Intent(mActivity, EventPageActivity.class);
+                        intent.putExtra("Id", organization.getOrgId());
+                        intent.putExtra("Type", "Outfit");
+                        mActivity.startActivity(intent);
                     }
                 });
                 animator.start();
             }
         });
+
+        if(MyApplication.loginCheck==true) {
+
+        //MyAddictions stuff:
+        boolean addicted = false;
+
+        if (addictOrgID != null) {
+
+            for (String ID : addictOrgID) {
+                if (ID.equals(organization.getOrgId())) {
+                    addicted = true;
+                }
+            }
+
+            final Button likeText = (Button) convertView.findViewById(R.id.likeVenButton);
+
+
+            if (addicted == true) {
+                likeText.setText("Unlike!");
+                likeText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        retrieveMyPHP.deleteOrgAddiction(MyApplication.userName, organization.getOrgId());
+                        Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
+                        likeText.setText("Like!");
+                    }
+                });
+            } else {
+                likeText.setText("Like!");
+                likeText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        retrieveMyPHP.organizationAddiction(MyApplication.userName, organization.getOrgId());
+                        Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
+                        likeText.setText("Unlike!");
+                    }
+
+                });
+            }
+
+        }
+    }
+
+
+        else{
+            final Button likeText = (Button) convertView.findViewById(R.id.likeVenButton);
+
+            likeText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mActivity.getApplicationContext(),"You gotta log in for this!!",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
 
         return convertView;

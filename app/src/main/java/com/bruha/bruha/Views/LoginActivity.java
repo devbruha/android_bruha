@@ -24,8 +24,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.MyApplication;
+import com.bruha.bruha.Model.Organizations;
+import com.bruha.bruha.Model.Venue;
 import com.bruha.bruha.Processing.CredentialsPHP;
 import com.bruha.bruha.Processing.RetrieveMyPHP;
 import com.bruha.bruha.Processing.RetrievePHP;
@@ -331,8 +334,14 @@ public class LoginActivity extends ActionBarActivity {
                 //Storing the information of the user and his uploaded events into the local database.
                 ArrayList<Event> userEvents= retrieveMyPHP.getUserEventList(username);
                 ArrayList<String> userInfo = retrieveMyPHP.getUserInfo(username);
+                ArrayList<Venue> userVenues = retrieveMyPHP.getUserVenueList(username);
+                ArrayList<Artist> userArtist = retrieveMyPHP.getUserArtistList(username);
+                ArrayList<Organizations> userOrg = retrieveMyPHP.getUserOrgList(username);
                 SQLiteUtils sqLiteUtils = new SQLiteUtils();
                 sqLiteUtils.insertUserEvents(dbHelper, userEvents);
+                sqLiteUtils.insertUserVenues(dbHelper, userVenues);
+                sqLiteUtils.insertUserArtist(dbHelper, userArtist);
+                sqLiteUtils.insertUserOrganization(dbHelper, userOrg);
                 sqLiteUtils.insertNewUser(dbHelper, userInfo);
 
 

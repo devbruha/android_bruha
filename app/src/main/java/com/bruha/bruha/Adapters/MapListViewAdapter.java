@@ -13,14 +13,19 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.MyApplication;
+import com.bruha.bruha.Processing.RetrieveMyPHP;
 import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
+import com.bruha.bruha.Views.ShowOnMapActivity;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.squareup.picasso.Picasso;
@@ -35,11 +40,15 @@ import java.util.ArrayList;
 public class MapListViewAdapter extends BaseSwipeAdapter {
     private Activity mActivity;
     private ArrayList<Event> mEvent;
+    private ArrayList<String> addictedEventsID;
+    RetrieveMyPHP retrieveMyPHP;
 
-    public MapListViewAdapter(Activity activity,ArrayList<Event> event)
+    public MapListViewAdapter(Activity activity,ArrayList<Event> event,ArrayList<String> addictevent)
     {
         mActivity=activity;
         mEvent=event;
+        addictedEventsID = addictevent;
+        retrieveMyPHP = new RetrieveMyPHP();
     }
 
 
@@ -173,9 +182,8 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
                 animator.setDuration(500);
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
-                        BuyTicketLayout.setAlpha(1f);
-                        //Intent intent = new Intent(mActivity, DashboardActivity.class);
-                        //mActivity.startActivity(intent);
+                        BuyTicketLayout.setAlpha(.25f);
+                        Toast.makeText(mActivity.getApplicationContext(), "Still under development,sorry!", Toast.LENGTH_SHORT).show();
                     }
                 });
                 animator.start();
@@ -193,8 +201,10 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
                         PreviewLayout.setAlpha(1f);
-                        //Intent intent = new Intent(mActivity, DashboardActivity.class);
-                        // mActivity.startActivity(intent);
+                        Intent intent = new Intent(mActivity, ShowOnMapActivity.class);
+                        intent.putExtra("Id",event.getEventid());
+                        intent.putExtra("Type","Event");
+                        mActivity.startActivity(intent);
                     }
                 });
                 animator.start();
@@ -213,13 +223,85 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
                     public void onAnimationEnd(Animator animation) {
                         MoreInfoLay.setAlpha(1f);
                         Intent intent = new Intent(mActivity, EventPageActivity.class);
-                        intent.putExtra("EventId", event.getEventid());
+                        intent.putExtra("Id",event.getEventid());
+                        intent.putExtra("Type","Event");
                         mActivity.startActivity(intent);
                     }
                 });
                 animator.start();
             }
         });
+
+
+
+        if(MyApplication.loginCheck==true) {
+
+            if(mActivity.getLocalClassName().equals("Views.WhatsHotActivity"))
+            {
+                final Button likeText = (Button) convertView.findViewById(R.id.likeButton);
+                likeText.setText("Dont click me!");
+                likeText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(mActivity.getApplicationContext(),"Dude, seriously, stahp!! -.-",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+
+            else {
+
+                //MyAddictions stuff:
+                boolean addicted = false;
+
+                if (addictedEventsID != null) {
+
+                    for (String ID : addictedEventsID) {
+                        if (ID.equals(event.getEventid())) {
+                            addicted = true;
+                        }
+                    }
+
+                    final Button likeText = (Button) convertView.findViewById(R.id.likeButton);
+
+
+                    if (addicted == true) {
+                        likeText.setText("Unlike!");
+                        likeText.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                retrieveMyPHP.deleteEventAddiction(MyApplication.userName, event.getEventid());
+                                Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
+                                likeText.setText("Like!");
+                            }
+                        });
+                    } else {
+                        likeText.setText("Like!");
+                        likeText.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                retrieveMyPHP.eventAddiction(MyApplication.userName, event.getEventid());
+                                Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
+                                likeText.setText("Unlike!");
+                            }
+
+                        });
+                    }
+
+                }
+            }
+        }
+
+        else{
+            final Button likeText = (Button) convertView.findViewById(R.id.likeButton);
+
+            likeText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mActivity.getApplicationContext(),"You gotta log in for this!!",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
 
         return convertView;
