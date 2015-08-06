@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.MyApplication;
+import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.RetrieveMyPHP;
 import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
@@ -41,6 +42,7 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
     public static int Clicks=0;             //The number of times tapped on the screen.
     RetrieveMyPHP retrieveMyPHP;
     ArrayList<String> addictArtistID;
+    SQLiteDatabaseModel dbHelper;
 
     public ArtistsListViewAdapter(Activity activity,ArrayList<Artist> artists, ArrayList<String> artistID)
     {
@@ -48,6 +50,7 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         mArtists = artists;
         addictArtistID = artistID;
         retrieveMyPHP = new RetrieveMyPHP();
+        dbHelper = new SQLiteDatabaseModel(mActivity);
     }
 
     @Override
@@ -66,7 +69,7 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
     }
 
     @Override
-    public void fillValues(int position, final View convertView) {
+    public void fillValues(final int position, final View convertView) {
 
         //Test
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
@@ -324,8 +327,24 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
                             @Override
                             public void onClick(View v) {
                                 retrieveMyPHP.deleteArtistAddiction(MyApplication.userName, artist.getArtistId());
+                                dbHelper.deleteArtistAddiction(dbHelper.getWritableDatabase(),artist.getArtistId());
                                 Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
                                 likeText.setText("Like!");
+
+                                for(int i=0;i<addictArtistID.size();i++)
+                                {
+                                    if(addictArtistID.get(i).equals(artist.getArtistId()))
+                                    {
+                                        addictArtistID.remove(i);
+                                        break;
+                                    }
+                                }
+
+                                if(mActivity.getLocalClassName().equals("Views.myAddictions"))
+                                { mArtists.remove(position);}
+
+                                notifyDataSetChanged();
+
                             }
                         });
                     } else {

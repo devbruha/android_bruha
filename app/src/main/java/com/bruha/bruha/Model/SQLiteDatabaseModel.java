@@ -302,6 +302,23 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
     }
 
+    //Deleting Addictions
+    public void deleteEventAddiction(android.database.sqlite.SQLiteDatabase db,String id) {
+        db.execSQL("delete from "+TABLE_ADDICTIONS+" where eventID='"+id+"'");
+    }
+
+    public void deleteVenueAddiction(android.database.sqlite.SQLiteDatabase db,String id) {
+        db.execSQL("delete from "+TABLE_ADDICTIONS_VENUES+" where venueID='"+id+"'");
+    }
+
+    public void deleteArtistAddiction(android.database.sqlite.SQLiteDatabase db,String id) {
+        db.execSQL("delete from "+TABLE_ADDICTIONS_ARTISTS+" where artistID='"+id+"'");
+    }
+
+    public void deleteOrgAddiction(android.database.sqlite.SQLiteDatabase db,String id) {
+        db.execSQL("delete from "+TABLE_ADDICTIONS_ORG+" where orgID='"+id+"'");
+    }
+
     //MANUALLY DELETING SELECTED TABLES WHEN APP IS OPENED.
     @Override
     public void onUpgrade(android.database.sqlite.SQLiteDatabase db, int oldVersion, int newVersion) {

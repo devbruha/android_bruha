@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.Organizations;
+import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.RetrieveMyPHP;
 import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
@@ -45,6 +46,7 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
     public static int Clicks=0;
     ArrayList<String> addictOrgID;
     RetrieveMyPHP retrieveMyPHP;
+    SQLiteDatabaseModel dbHelper;
 
     public OrganizationListViewAdapter(Activity activity,ArrayList<Organizations> organizations,ArrayList<String> orgID)
     {
@@ -52,6 +54,7 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         mOrganizations=organizations;
         addictOrgID = orgID;
         retrieveMyPHP = new RetrieveMyPHP();
+        dbHelper = new SQLiteDatabaseModel(mActivity);
     }
 
 
@@ -73,7 +76,7 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
 
 
     @Override
-    public void fillValues(int position, final View convertView) {
+    public void fillValues(final int position, final View convertView) {
 
         //Test
 
@@ -349,8 +352,25 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
                             @Override
                             public void onClick(View v) {
                                 retrieveMyPHP.deleteOrgAddiction(MyApplication.userName, Outfit.getOrgId());
+                                dbHelper.deleteOrgAddiction(dbHelper.getWritableDatabase(),Outfit.getOrgId());
                                 Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
                                 likeText.setText("Like!");
+
+
+                                for(int i=0;i<addictOrgID.size();i++)
+                                {
+                                    if(addictOrgID.get(i).equals(Outfit.getOrgId()))
+                                    {
+                                        addictOrgID.remove(i);
+                                        break;
+                                    }
+                                }
+
+                                if(mActivity.getLocalClassName().equals("Views.myAddictions"))
+                                { mOrganizations.remove(position);}
+
+                                notifyDataSetChanged();
+
                             }
                         });
                     } else {

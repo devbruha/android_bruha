@@ -44,6 +44,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
     public static int Clicks=0;
     private ArrayList<String> addictedEventsID;
     RetrieveMyPHP retrieveMyPHP;
+    SQLiteDatabaseModel dbHelper;
 
     //the Constructor for the class.
     public EventListviewAdapter(Activity activity, ArrayList<Event> events, ArrayList<String> addictevent) {
@@ -51,6 +52,8 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         mEvents = events;
         addictedEventsID = addictevent;
         retrieveMyPHP = new RetrieveMyPHP();
+        dbHelper = new SQLiteDatabaseModel(mActivity);
+
     }
 
     public String TimeFormat(String Time)
@@ -156,7 +159,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
     }
 
     @Override
-    public void fillValues(int position, final View convertView) {
+    public void fillValues(final int position, final View convertView) {
         //Setting all the variables and words for each ROW:
 
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
@@ -480,8 +483,24 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                             @Override
                             public void onClick(View v) {
                                 retrieveMyPHP.deleteEventAddiction(MyApplication.userName, event.getEventid());
+                                dbHelper.deleteEventAddiction(dbHelper.getWritableDatabase(), event.getEventid());
                                 Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
                                 likeText.setText("Like!");
+
+
+                                for(int i=0;i<addictedEventsID.size();i++)
+                                {
+                                    if(addictedEventsID.get(i).equals(event.getEventid()))
+                                    {
+                                        addictedEventsID.remove(i);
+                                        break;
+                                    }
+                                }
+
+                                if(mActivity.getLocalClassName().equals("Views.myAddictions"))
+                                { mEvents.remove(position);}
+
+                                notifyDataSetChanged();
                             }
                         });
                     } else {

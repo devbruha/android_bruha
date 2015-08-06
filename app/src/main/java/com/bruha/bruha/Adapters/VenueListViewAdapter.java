@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bruha.bruha.Model.MyApplication;
+import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.Venue;
 import com.bruha.bruha.Processing.RetrieveMyPHP;
 import com.bruha.bruha.R;
@@ -42,12 +43,14 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
     public static int Clicks = 0;
     private ArrayList<String> addictedVenueID;
     RetrieveMyPHP retrieveMyPHP;
+    SQLiteDatabaseModel dbHelper;
 
     public VenueListViewAdapter(Activity activity, ArrayList<Venue> venues, ArrayList<String> addictVenue) {
         mActivity = activity;
         mVenue = venues;
         addictedVenueID = addictVenue;
         retrieveMyPHP = new RetrieveMyPHP();
+        dbHelper = new SQLiteDatabaseModel(mActivity);
     }
 
     @Override
@@ -68,7 +71,7 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
 
     //Use for resizing everything like in the Event ListViewAdapter.
     @Override
-    public void fillValues(int position, final View convertView) {
+    public void fillValues(final int position, final View convertView) {
 
         //Test:
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
@@ -344,8 +347,25 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
                     @Override
                     public void onClick(View v) {
                         retrieveMyPHP.deleteVenueAddiction(MyApplication.userName, Venue.getVenueId());
+                        dbHelper.deleteVenueAddiction(dbHelper.getWritableDatabase(),Venue.getVenueId());
                         Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
                         likeText.setText("Like!");
+
+
+                        for(int i=0;i<addictedVenueID.size();i++)
+                        {
+                            if(addictedVenueID.get(i).equals(Venue.getVenueId()))
+                            {
+                                addictedVenueID.remove(i);
+                                break;
+                            }
+                        }
+
+                        if(mActivity.getLocalClassName().equals("Views.myAddictions"))
+                        { mVenue.remove(position);}
+
+                        notifyDataSetChanged();
+
                     }
                 });
             } else {
