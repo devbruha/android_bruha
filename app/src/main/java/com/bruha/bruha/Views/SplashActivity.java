@@ -39,7 +39,8 @@ public class SplashActivity extends Activity {
 
     Typeface opensansregfnt;
 
-
+    BitmapDrawable selected;
+    BitmapDrawable unselected;
 
 
     @Override
@@ -49,6 +50,9 @@ public class SplashActivity extends Activity {
         // using ButterKnife.inject to allow the InjectViews to take effect.
         ButterKnife.inject(this);
 
+
+        selected = svgToBitmapDrawable(getResources(), R.raw.selected, 10);
+        unselected=svgToBitmapDrawable(getResources(), R.raw.notselected, 10);
 
 
          opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
@@ -270,6 +274,19 @@ public class SplashActivity extends Activity {
             ImageView im = (ImageView) view.findViewById(R.id.splashImage);
             // Android functions to determine the screen dimensions.
             im.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.splash, 300));
+
+
+            ImageView im1 = (ImageView) view.findViewById(R.id.imageView31);
+            ImageView im2 = (ImageView) view.findViewById(R.id.imageView32);
+            ImageView im3 = (ImageView) view.findViewById(R.id.imageView3);
+            ImageView im4 = (ImageView) view.findViewById(R.id.imageView33);
+            ImageView im5 = (ImageView) view.findViewById(R.id.imageView34);
+            im1.setImageDrawable(selected);
+            im2.setImageDrawable(unselected);
+            im3.setImageDrawable(unselected);
+            im4.setImageDrawable(unselected);
+            im5.setImageDrawable(unselected);
+
         }
 
         if(resId==R.layout.splash_addicted)
@@ -284,6 +301,17 @@ public class SplashActivity extends Activity {
             text.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
             text.setTypeface(opensansregfnt);
 
+            ImageView im1 = (ImageView) view.findViewById(R.id.imageView31);
+            ImageView im2 = (ImageView) view.findViewById(R.id.imageView32);
+            ImageView im3 = (ImageView) view.findViewById(R.id.imageView3);
+            ImageView im4 = (ImageView) view.findViewById(R.id.imageView33);
+            ImageView im5 = (ImageView) view.findViewById(R.id.imageView34);
+            im1.setImageDrawable(unselected);
+            im2.setImageDrawable(unselected);
+            im3.setImageDrawable(unselected);
+            im4.setImageDrawable(unselected);
+            im5.setImageDrawable(selected);
+
         }
 
         if(resId==R.layout.splash_tickets)
@@ -291,6 +319,17 @@ public class SplashActivity extends Activity {
             ImageView im = (ImageView) view.findViewById(R.id.ticketimage);
             // Android functions to determine the screen dimensions.
             im.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.tickets, 300));
+
+            ImageView im1 = (ImageView) view.findViewById(R.id.imageView31);
+            ImageView im2 = (ImageView) view.findViewById(R.id.imageView32);
+            ImageView im3 = (ImageView) view.findViewById(R.id.imageView3);
+            ImageView im4 = (ImageView) view.findViewById(R.id.imageView33);
+            ImageView im5 = (ImageView) view.findViewById(R.id.imageView34);
+            im1.setImageDrawable(unselected);
+            im2.setImageDrawable(unselected);
+            im3.setImageDrawable(selected);
+            im4.setImageDrawable(unselected);
+            im5.setImageDrawable(unselected);
 
         }
 
@@ -306,6 +345,16 @@ public class SplashActivity extends Activity {
             artist.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistwhite, 70));
             outfit.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 70));
 
+            ImageView im1 = (ImageView) view.findViewById(R.id.imageView31);
+            ImageView im2 = (ImageView) view.findViewById(R.id.imageView32);
+            ImageView im3 = (ImageView) view.findViewById(R.id.imageView3);
+            ImageView im4 = (ImageView) view.findViewById(R.id.imageView33);
+            ImageView im5 = (ImageView) view.findViewById(R.id.imageView34);
+            im1.setImageDrawable(unselected);
+            im2.setImageDrawable(selected);
+            im3.setImageDrawable(unselected);
+            im4.setImageDrawable(unselected);
+            im5.setImageDrawable(unselected);
 
 
             //TextResizing
@@ -444,6 +493,17 @@ public class SplashActivity extends Activity {
             text18.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
             text18.setTypeface(opensansregfnt);
 
+
+            ImageView im1 = (ImageView) view.findViewById(R.id.imageView31);
+            ImageView im2 = (ImageView) view.findViewById(R.id.imageView32);
+            ImageView im3 = (ImageView) view.findViewById(R.id.imageView3);
+            ImageView im4 = (ImageView) view.findViewById(R.id.imageView33);
+            ImageView im5 = (ImageView) view.findViewById(R.id.imageView34);
+            im1.setImageDrawable(unselected);
+            im2.setImageDrawable(unselected);
+            im3.setImageDrawable(unselected);
+            im4.setImageDrawable(selected);
+            im5.setImageDrawable(unselected);
         }
     }
 }

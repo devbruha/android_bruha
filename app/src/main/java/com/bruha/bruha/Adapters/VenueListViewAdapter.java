@@ -319,7 +319,11 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
                     @Override
                     public void onClick(View v) {
                       String x = retrieveMyPHP.deleteUserVenue(MyApplication.userName,Venue.getVenueId());
+                        dbHelper.deleteUserVenue(dbHelper.getWritableDatabase(),Venue.getVenueId());
                         Toast.makeText(mActivity.getApplicationContext(),x,Toast.LENGTH_SHORT).show();
+
+                        mVenue.remove(position);
+                        notifyDataSetChanged();
                     }
                 });
             }
@@ -376,6 +380,11 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
                         retrieveMyPHP.venueAddiction(MyApplication.userName, Venue.getVenueId());
                         Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
                         likeText.setText("Unlike!");
+
+                        addictedVenueID.add(Venue.getVenueId());
+                        dbHelper.insertVenueAddiction(dbHelper.getWritableDatabase(),Venue.getVenueId());
+                        notifyDataSetChanged();
+
                     }
 
                 });
