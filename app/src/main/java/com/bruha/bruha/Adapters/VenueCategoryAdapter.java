@@ -3,6 +3,7 @@ package com.bruha.bruha.Adapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -35,6 +36,10 @@ public class VenueCategoryAdapter {
 
     UserCustomFilters mUserCustomFilter = MyApplication.userFilters;
 
+    ArrayList<UserCustomFilters> filterArray = new ArrayList<>();
+
+    UserCustomFilters tempFilters =  new UserCustomFilters();
+
     // boolean variables representing the upper and lower levels being selected
 
     boolean isFirstViewClick=false;
@@ -52,6 +57,17 @@ public class VenueCategoryAdapter {
         this.mMainList = mainList;
 
         filtering = new FilterOut(mActivity);
+
+        filterArray.add(mUserCustomFilter);
+        tempFilters = filterArray.get(0);
+
+        Log.v("TempFilter", tempFilters.getVenueFilter().size()+"");
+        Log.v("mUserFilter", mUserCustomFilter.getVenueFilter().size()+"");
+
+        tempFilters.getVenueFilter().clear();
+
+        Log.v("TempFilter", tempFilters.getVenueFilter().size()+"");
+        Log.v("mUserFilter", mUserCustomFilter.getVenueFilter().size()+"");
 
         mAdapter = adapter;
         markerMap = markerHashMap;
