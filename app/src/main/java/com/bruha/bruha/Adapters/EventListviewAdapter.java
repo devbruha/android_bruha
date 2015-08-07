@@ -53,7 +53,6 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         addictedEventsID = addictevent;
         retrieveMyPHP = new RetrieveMyPHP();
         dbHelper = new SQLiteDatabaseModel(mActivity);
-
     }
 
     public String TimeFormat(String Time)

@@ -21,12 +21,14 @@ import android.widget.Toast;
 
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.Organizations;
+import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.RetrieveMyPHP;
 import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
 import com.bruha.bruha.Views.ShowOnMapActivity;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -40,6 +42,7 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
     private ArrayList<Organizations> mOrganization;
     ArrayList<String> addictOrgID;
     RetrieveMyPHP retrieveMyPHP;
+    SQLiteDatabaseModel dbHelper;
 
     public MapOrganizationListViewAdapter(Activity activity,ArrayList<Organizations> organization,ArrayList<String> orgID)
     {
@@ -47,6 +50,7 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
         mOrganization=organization;
         addictOrgID = orgID;
         retrieveMyPHP = new RetrieveMyPHP();
+        dbHelper = new SQLiteDatabaseModel(mActivity);
     }
 
     @Override
@@ -56,7 +60,7 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
 
     //Generates the view,look at ListViewAdapter when implementing this.
     @Override
-    public View generateView(int position, ViewGroup viewGroup) {
+    public View generateView(final int position, ViewGroup viewGroup) {
         final View convertView = LayoutInflater.from(mActivity).inflate(R.layout.map_ven_item, viewGroup, false);
 
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
@@ -161,8 +165,25 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
                     @Override
                     public void onClick(View v) {
                         retrieveMyPHP.deleteOrgAddiction(MyApplication.userName, organization.getOrgId());
+                        dbHelper.deleteOrgAddiction(dbHelper.getWritableDatabase(),organization.getOrgId());
                         Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
                         likeText.setText("Like!");
+
+                        for(int i=0;i<addictOrgID.size();i++)
+                        {
+                            if(addictOrgID.get(i).equals(organization.getOrgId()))
+                            {
+                                addictOrgID.remove(i);
+                                break;
+                            }
+                        }
+
+                        if(mActivity.getLocalClassName().equals("Views.myAddictions"))
+                        {mOrganization.remove(position);}
+
+                        final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout)mActivity.findViewById(R.id.sliding_layout_upper);
+                        mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                        notifyDataSetChanged();
                     }
                 });
             } else {
@@ -173,6 +194,13 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
                         retrieveMyPHP.organizationAddiction(MyApplication.userName, organization.getOrgId());
                         Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
                         likeText.setText("Unlike!");
+
+                        addictOrgID.add(organization.getOrgId());
+                        dbHelper.insertOrgAddiction(dbHelper.getWritableDatabase(),organization.getOrgId());
+
+                        final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout)mActivity.findViewById(R.id.sliding_layout_upper);
+                        mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                        notifyDataSetChanged();
                     }
 
                 });

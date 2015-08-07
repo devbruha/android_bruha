@@ -22,12 +22,14 @@ import android.widget.Toast;
 
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.MyApplication;
+import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.RetrieveMyPHP;
 import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
 import com.bruha.bruha.Views.ShowOnMapActivity;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -42,6 +44,7 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
     private ArrayList<Event> mEvent;
     private ArrayList<String> addictedEventsID;
     RetrieveMyPHP retrieveMyPHP;
+    SQLiteDatabaseModel dbHelper;
 
     public MapListViewAdapter(Activity activity,ArrayList<Event> event,ArrayList<String> addictevent)
     {
@@ -49,6 +52,7 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         mEvent=event;
         addictedEventsID = addictevent;
         retrieveMyPHP = new RetrieveMyPHP();
+        dbHelper = new SQLiteDatabaseModel(mActivity);
     }
 
 
@@ -127,7 +131,7 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
 
     //Generates the view,look at ListViewAdapter when implementing this.
     @Override
-    public View generateView(int position, ViewGroup viewGroup) {
+    public View generateView(final int position, ViewGroup viewGroup) {
         final View convertView = LayoutInflater.from(mActivity).inflate(R.layout.map_item, viewGroup, false);
 
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
@@ -271,8 +275,27 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
                             @Override
                             public void onClick(View v) {
                                 retrieveMyPHP.deleteEventAddiction(MyApplication.userName, event.getEventid());
+                                dbHelper.deleteEventAddiction(dbHelper.getWritableDatabase(), event.getEventid());
                                 Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
                                 likeText.setText("Like!");
+
+
+                                for(int i=0;i<addictedEventsID.size();i++)
+                                {
+                                    if(addictedEventsID.get(i).equals(event.getEventid()))
+                                    {
+                                        addictedEventsID.remove(i);
+                                        break;
+                                    }
+                                }
+
+                                if(mActivity.getLocalClassName().equals("Views.myAddictions"))
+                                { mEvent.remove(position);}
+
+                                final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout)mActivity.findViewById(R.id.sliding_layout_upper);
+                                mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                                notifyDataSetChanged();
+
                             }
                         });
                     } else {
@@ -283,6 +306,12 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
                                 retrieveMyPHP.eventAddiction(MyApplication.userName, event.getEventid());
                                 Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
                                 likeText.setText("Unlike!");
+
+                                addictedEventsID.add(event.getEventid());
+                                dbHelper.insertEventAddiction(dbHelper.getWritableDatabase(), event.getEventid());
+                                final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout)mActivity.findViewById(R.id.sliding_layout_upper);
+                                mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                                notifyDataSetChanged();
                             }
 
                         });

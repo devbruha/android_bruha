@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bruha.bruha.Model.MyApplication;
+import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.Venue;
 import com.bruha.bruha.Processing.RetrieveMyPHP;
 import com.bruha.bruha.R;
@@ -27,6 +28,7 @@ import com.bruha.bruha.Views.EventPageActivity;
 import com.bruha.bruha.Views.ShowOnMapActivity;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -39,6 +41,7 @@ public class MapVenListViewAdapter extends BaseSwipeAdapter {
     private ArrayList<Venue> mVenues;
     private ArrayList<String> addictedVenueID;
     RetrieveMyPHP retrieveMyPHP;
+    SQLiteDatabaseModel dbHelper;
 
     public MapVenListViewAdapter(Activity activity,ArrayList<Venue> venue,ArrayList<String> addictVenue)
     {
@@ -46,6 +49,7 @@ public class MapVenListViewAdapter extends BaseSwipeAdapter {
         mVenues=venue;
         addictedVenueID = addictVenue;
         retrieveMyPHP = new RetrieveMyPHP();
+        dbHelper=new SQLiteDatabaseModel(mActivity);
     }
 
     @Override
@@ -55,7 +59,7 @@ public class MapVenListViewAdapter extends BaseSwipeAdapter {
 
     //Generates the view,look at ListViewAdapter when implementing this.
     @Override
-    public View generateView(int position, ViewGroup viewGroup) {
+    public View generateView(final int position, ViewGroup viewGroup) {
         final View convertView = LayoutInflater.from(mActivity).inflate(R.layout.map_ven_item, viewGroup, false);
 
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
@@ -169,8 +173,24 @@ public class MapVenListViewAdapter extends BaseSwipeAdapter {
                         @Override
                         public void onClick(View v) {
                             retrieveMyPHP.deleteVenueAddiction(MyApplication.userName, venue.getVenueId());
+                            dbHelper.deleteVenueAddiction(dbHelper.getWritableDatabase(),venue.getVenueId());
                             Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
                             likeText.setText("Like!");
+
+
+                            for(int i=0;i<addictedVenueID.size();i++)
+                            {
+                                if(addictedVenueID.get(i).equals(venue.getVenueId()))
+                                {
+                                    addictedVenueID.remove(i);
+                                    break;
+                                }
+                            }
+
+                            if(mActivity.getLocalClassName().equals("Views.myAddictions")) { mVenues.remove(position);}
+                            final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout)mActivity.findViewById(R.id.sliding_layout_upper);
+                            mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                            notifyDataSetChanged();
                         }
                     });
                 } else {
@@ -181,6 +201,13 @@ public class MapVenListViewAdapter extends BaseSwipeAdapter {
                             retrieveMyPHP.venueAddiction(MyApplication.userName, venue.getVenueId());
                             Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
                             likeText.setText("Unlike!");
+
+                            addictedVenueID.add(venue.getVenueId());
+                            dbHelper.insertVenueAddiction(dbHelper.getWritableDatabase(), venue.getVenueId());
+
+                            final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout)mActivity.findViewById(R.id.sliding_layout_upper);
+                            mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                            notifyDataSetChanged();
                         }
 
                     });
