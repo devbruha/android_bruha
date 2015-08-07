@@ -53,6 +53,11 @@ public class ArtistCategoryAdapter {
 
         filtering = new FilterOut(mActivity);
 
+        for(int i = 0; i< mUserCustomFilter.getArtistFilter().size(); i++){
+
+            artistFilters.add(mUserCustomFilter.getArtistFilter().get(i));
+        }
+
         mAdapter = adapter;
         markerMap = markerHashMap;
     }

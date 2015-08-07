@@ -53,6 +53,11 @@ public class OrganizationCategoryAdapter {
 
         filtering = new FilterOut(mActivity);
 
+        for(int i = 0; i< mUserCustomFilter.getOrganizationFilter().size(); i++){
+
+            organizationFilters.add(mUserCustomFilter.getOrganizationFilter().get(i));
+        }
+
         mAdapter = adapter;
         markerMap = markerHashMap;
     }

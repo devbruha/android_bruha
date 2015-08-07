@@ -36,10 +36,6 @@ public class VenueCategoryAdapter {
 
     UserCustomFilters mUserCustomFilter = MyApplication.userFilters;
 
-    ArrayList<UserCustomFilters> filterArray = new ArrayList<>();
-
-    UserCustomFilters tempFilters =  new UserCustomFilters();
-
     // boolean variables representing the upper and lower levels being selected
 
     boolean isFirstViewClick=false;
@@ -58,16 +54,10 @@ public class VenueCategoryAdapter {
 
         filtering = new FilterOut(mActivity);
 
-        filterArray.add(mUserCustomFilter);
-        tempFilters = filterArray.get(0);
+        for(int i = 0; i< mUserCustomFilter.getVenueFilter().size(); i++){
 
-        Log.v("TempFilter", tempFilters.getVenueFilter().size()+"");
-        Log.v("mUserFilter", mUserCustomFilter.getVenueFilter().size()+"");
-
-        tempFilters.getVenueFilter().clear();
-
-        Log.v("TempFilter", tempFilters.getVenueFilter().size()+"");
-        Log.v("mUserFilter", mUserCustomFilter.getVenueFilter().size()+"");
+            venueFilters.add(mUserCustomFilter.getVenueFilter().get(i));
+        }
 
         mAdapter = adapter;
         markerMap = markerHashMap;
@@ -116,8 +106,8 @@ public class VenueCategoryAdapter {
                         isFirstViewClick = true;
                         mImageArrowFirst.setBackgroundResource(android.R.drawable.arrow_down_float);
                         mLinearScrollSecond.setVisibility(View.VISIBLE);
-                    }
-                    else {
+
+                    } else {
 
                         isFirstViewClick = false;
                         mImageArrowFirst.setBackgroundResource(android.R.drawable.arrow_up_float);
@@ -164,15 +154,17 @@ public class VenueCategoryAdapter {
 
             final String catName = mMainList.get(firstLevelNumber).getmSubCategoryList().get(j).getpSubCatName();
 
+            mSubItemName.setText(catName);
+            mSubItemName.setTag(catName);
+
             childChildLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    if(mUserCustomFilter.getVenueFilter().contains(catName)){
+                    if (mUserCustomFilter.getVenueFilter().contains(catName)) {
 
                         isSecondViewClick = true;
-                    }
-                    else{
+                    } else {
 
                         isSecondViewClick = false;
                     }
@@ -186,12 +178,11 @@ public class VenueCategoryAdapter {
 
                         mSubItemName.setBackgroundColor(Color.parseColor("#e95f5f5f"));
 
-                        if(!venueFilters.contains(catName)){
+                        if (!venueFilters.contains(catName)) {
 
                             venueFilters.add(catName);
                         }
-                    }
-                    else {
+                    } else {
 
                         isSecondViewClick = false;
 
@@ -215,11 +206,9 @@ public class VenueCategoryAdapter {
 
             if(mUserCustomFilter.getVenueFilter().contains(catName)){
 
-                // simulating clicks if appropriate
                 mSubItemName.setBackgroundColor(Color.parseColor("#e95f5f5f"));
-            }
 
-            mSubItemName.setText(catName);
+            }
 
             mLinearScrollSecond.addView(mLinearView2);
 
@@ -244,6 +233,7 @@ public class VenueCategoryAdapter {
             linLayout.setVisibility(View.VISIBLE);
             image.setBackgroundResource(android.R.drawable.arrow_down_float);
         }
+
     }
 
 }

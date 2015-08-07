@@ -16,14 +16,40 @@ public class UserCustomFilters {
     private ArrayList<String> SubCategoryIDFilter = new ArrayList<>();
 
     private ArrayList<Date> nonFormattedDateFilter = new ArrayList<>();
+
     private Map<String, ArrayList<String>> CategoryFilter = new HashMap<>();
-
     private ArrayList<String> VenueFilter = new ArrayList<>();
-
     private ArrayList<String> ArtistFilter = new ArrayList<>();
     private ArrayList<String> OrganizationFilter = new ArrayList<>();
 
     private int AdmissionPriceFilter = -1;
+
+    public UserCustomFilters(){
+
+    }
+
+    public UserCustomFilters(UserCustomFilters originalFilter){
+
+        for(String key: originalFilter.getCategoryFilter().keySet()){
+
+            this.CategoryFilter.put(key,originalFilter.getCategoryFilter().get(key));
+        }
+
+        for(int i = 0; i<originalFilter.getVenueFilter().size();i++){
+
+            this.VenueFilter.add(originalFilter.getVenueFilter().get(i));
+        }
+
+        for(int i = 0; i<originalFilter.getArtistFilter().size();i++){
+
+            this.ArtistFilter.add(originalFilter.getArtistFilter().get(i));
+        }
+
+        for(int i = 0; i<originalFilter.getOrganizationFilter().size();i++){
+
+            this.OrganizationFilter.add(originalFilter.getOrganizationFilter().get(i));
+        }
+    }
 
 
     public ArrayList<String> getQuickieFilter() {

@@ -257,10 +257,10 @@ public class ListActivity extends FragmentActivity {
         backupVenueList.clear();
 
         backupArtistList = MyApplication.backupArtistList;
-        backupEventList.clear();
+        backupArtistList.clear();
 
         backupOrganizationList = MyApplication.backupOrganizationList;
-        backupEventList.clear();
+        backupOrganizationList.clear();
 
         // Create the local DB object
         SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
