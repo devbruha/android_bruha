@@ -1,6 +1,7 @@
 package com.bruha.bruha.Processing;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.bruha.bruha.Adapters.EventListviewAdapter;
@@ -25,7 +26,7 @@ public class FilterOut {
 
     Activity mActivity;
 
-    UserCustomFilters customFilters = MyApplication.userEventFilters;
+    UserCustomFilters customFilters = MyApplication.userFilters;
 
     ArrayList<Event> events = new ArrayList<>();
     ArrayList<Venue> venues = new ArrayList<>();
@@ -306,58 +307,23 @@ public class FilterOut {
 
         // If the category filter is non null, filter off all events that dont have date...
 
-        if(customFilters.getCategoryFilter().size() != 0) {
+        // If the category filter is non null, filter off all events that dont have date...
 
-            for (int i = tempEventList.size(); i > 0; i--) {
+        if(customFilters.getVenueFilter().size() != 0) {
+
+            Log.v("VenueFilterTest", customFilters.getVenueFilter().size()+"");
+            Log.v("VenueFilterTest", tempVenueList.size()+"");
+
+            for (int i = tempVenueList.size(); i > 0; i--) {
+
+                Log.v("VenueFilterTest", tempVenueList.get(i-1).getVenueName()+"");
 
                 // If the item's primary category is NOT contained in the filter, remove said item
 
-                if (!customFilters.getCategoryFilter().containsKey(tempEventList.get(i - 1).getEventPrimaryCategory())) {
+                if (!customFilters.getVenueFilter().contains(tempVenueList.get(i - 1).getVenuePrimaryCategory())) {
 
-                    tempEventListID.add(tempEventList.get(i - 1).getEventid());
-                    tempEventList.remove(i - 1);
-                }
-
-                else{
-
-                    ArrayList<Event> tempEvent = new ArrayList<>();
-                    ArrayList<String> tempEventID = new ArrayList<>();
-
-                    outerloop:
-                    for(String key: customFilters.getCategoryFilter().keySet()){
-
-                        if(customFilters.getCategoryFilter().get(key).size() != 0) {
-
-                            for (int j = 0; j < tempEventList.get(i - 1).getEventSubCategories().size(); j++) {
-
-                                if (customFilters.getCategoryFilter().get(key).contains(tempEventList.get(i - 1).getEventSubCategoriesID().get(j))) {
-
-                                    if(!tempEvent.contains(tempEventList.get(i-1))){
-
-                                        tempEvent.add(tempEventList.get(i-1));
-                                        tempEventID.add(tempEventList.get(i-1).getEventid());
-                                    }
-                                }
-                            }
-                        }
-                        else{
-
-                            if( key.equals(tempEventList.get(i - 1).getEventPrimaryCategory()) ){
-
-                                if(!tempEvent.contains(tempEventList.get(i-1))){
-
-                                    tempEvent.add(tempEventList.get(i-1));
-                                    tempEventID.add(tempEventList.get(i-1).getEventid());
-                                }
-                            }
-                        }
-                    }
-
-                    if(!tempEvent.contains(tempEventList.get(i-1))){
-
-                        tempEventListID.add(tempEventList.get(i - 1).getEventid());
-                        tempEventList.remove(i - 1);
-                    }
+                    tempVenueListID.add(tempVenueList.get(i - 1).getVenueId());
+                    tempVenueList.remove(i - 1);
                 }
             }
         }

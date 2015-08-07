@@ -85,6 +85,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String VENUES_REMOTE_ID = "venueID";
     public static final String VENUE_STREET = "venueSt";
     public static final String VENUE_DESCRIPTION = "venueDescription";
+    public static final String VENUE_PRIMARY_CATEGORY = "venuePrimaryCategory";
     public static final String VENUE_NAME = "venueName";
     public static final String VENUE_LATITUDE = "venueLatitude";
     public static final String VENUE_LONGITUDE = "venueLongitude";
@@ -97,6 +98,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String OUTFIT_LOCAL_ID = "_id";
     public static final String OUTFIT_REMOTE_ID = "outfitID";
     public static final String OUTFIT_DESCRIPTION = "outfitDescription";
+    public static final String OUTFIT_PRIMARY_CATEGORY = "outfitPrimaryCategory";
     public static final String OUTFIT_NAME = "outfitName";
     public static final String OUTFIT_LATITUDE = "outfitLatitude";
     public static final String OUTFIT_LONGITUDE = "outfitLongitude";
@@ -110,6 +112,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String ARTIST_LOCAL_ID = "_id";
     public static final String ARTIST_REMOTE_ID = "artistID";
     public static final String ARTIST_DESCRIPTION = "artistDescription";
+    public static final String ARTIST_PRIMARY_CATEGORY = "artistPrimaryCategory";
     public static final String ARTIST_NAME = "artistName";
     public static final String ARTIST_PICTURE = "artistPicture";
 
@@ -213,6 +216,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + " integer primary key autoincrement, "
             + VENUES_REMOTE_ID + " text not null, "
             + VENUE_DESCRIPTION + " text not null, "
+            + VENUE_PRIMARY_CATEGORY + " text not null, "
             + VENUE_NAME + " text not null, "
             + VENUE_LATITUDE + " text not null, "
             + VENUE_PICTURE + " text not null, "
@@ -225,6 +229,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + " integer primary key autoincrement, "
             + VENUES_REMOTE_ID + " text not null, "
             + VENUE_DESCRIPTION + " text not null, "
+            + VENUE_PRIMARY_CATEGORY + " text not null, "
             + VENUE_NAME + " text not null, "
             + VENUE_LATITUDE + " text not null, "
             + VENUE_PICTURE + " text not null, "
@@ -238,6 +243,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + " integer primary key autoincrement, "
             + OUTFIT_REMOTE_ID + " text not null, "
             + OUTFIT_DESCRIPTION + " text not null, "
+            + OUTFIT_PRIMARY_CATEGORY + " text not null, "
             + OUTFIT_NAME + " text not null, "
             + OUTFIT_LATITUDE + " text not null, "
             + OUTFIT_LONGITUDE + " text not null, "
@@ -250,6 +256,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + " integer primary key autoincrement, "
             + OUTFIT_REMOTE_ID + " text not null, "
             + OUTFIT_DESCRIPTION + " text not null, "
+            + OUTFIT_PRIMARY_CATEGORY + " text not null, "
             + OUTFIT_NAME + " text not null, "
             + OUTFIT_LATITUDE + " text not null, "
             + OUTFIT_LONGITUDE + " text not null, "
@@ -262,6 +269,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + " integer primary key autoincrement, "
             + ARTIST_REMOTE_ID + " text not null, "
             + ARTIST_DESCRIPTION + " text not null, "
+            + ARTIST_PRIMARY_CATEGORY + " text not null, "
             + ARTIST_PICTURE + " text not null, "
             + ARTIST_NAME + " text not null); ";
 
@@ -270,6 +278,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + " integer primary key autoincrement, "
             + ARTIST_REMOTE_ID + " text not null, "
             + ARTIST_DESCRIPTION + " text not null, "
+            + ARTIST_PRIMARY_CATEGORY + " text not null, "
             + ARTIST_PICTURE + " text not null, "
             + ARTIST_NAME + " text not null); ";
 
@@ -487,13 +496,13 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         for(int i =0; i< venue.size();i++){
             values.put("venueID", venue.get(i).getVenueId());
             values.put("venueDescription", venue.get(i).getVenueDescription());
+            values.put("venuePrimaryCategory", venue.get(i).getVenuePrimaryCategory());
             values.put("venueName", venue.get(i).getVenueName());
             values.put("venueLatitude", venue.get(i).getLat());
             values.put("venueLongitude", venue.get(i).getLng());
             values.put("venueLocName", venue.get(i).getVenueLocation());
             values.put("venuePicture", venue.get(i).getVenuePicture());
             values.put("venueSt", venue.get(i).getVenueSt());
-
 
             db.insert(TABLE_VENUES_INFO, null, values);
         }
@@ -516,6 +525,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 //int id = cursor.getInt(cursor.getColumnIndex("_id"));
                 newVen.setVenueId(cursor.getString(cursor.getColumnIndex("venueID")));
                 newVen.setVenueDescription(cursor.getString(cursor.getColumnIndex("venueDescription")));
+                newVen.setVenuePrimaryCategory(cursor.getString(cursor.getColumnIndex("venuePrimaryCategory")));
                 newVen.setVenueName(cursor.getString(cursor.getColumnIndex("venueName")));
                 newVen.setLat(cursor.getDouble(cursor.getColumnIndex("venueLatitude")));
                 newVen.setLng(cursor.getDouble(cursor.getColumnIndex("venueLongitude")));
@@ -541,6 +551,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         for(int i =0; i< artist.size();i++){
             values.put("artistID", artist.get(i).getArtistId());
             values.put("artistDescription", artist.get(i).getArtistDescription());
+            values.put("artistPrimaryCategory", artist.get(i).getArtistPrimaryCategory());
             values.put("artistName", artist.get(i).getArtistName());
             values.put("artistPicture", artist.get(i).getArtistPicture());
 
@@ -564,6 +575,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 int id = cursor.getInt(cursor.getColumnIndex("_id"));
                 artist.setArtistId(cursor.getString(cursor.getColumnIndex("artistID")));
                 artist.setArtistDescription(cursor.getString(cursor.getColumnIndex("artistDescription")));
+                artist.setArtistPrimaryCategory(cursor.getString(cursor.getColumnIndex("artistPrimaryCategory")));
                 artist.setArtistName(cursor.getString(cursor.getColumnIndex("artistName")));
                 artist.setArtistPicture(cursor.getString(cursor.getColumnIndex("artistPicture")));
 
@@ -583,6 +595,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         for(int i =0; i< Org.size();i++){
             values.put("outfitID", Org.get(i).getOrgId());
             values.put("outfitDescription", Org.get(i).getOrgDescription());
+            values.put("outfitPrimaryCategory", Org.get(i).getOrgPrimaryCategory());
             values.put("outfitName", Org.get(i).getOrgName());
             values.put("outfitLatitude", Org.get(i).getLat());
             values.put("outfitLongitude", Org.get(i).getLng());
@@ -613,6 +626,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
                 Org.setOrgId(cursor.getString(cursor.getColumnIndex("outfitID")));
                 Org.setOrgDescription(cursor.getString(cursor.getColumnIndex("outfitDescription")));
+                Org.setOrgPrimaryCategory(cursor.getString(cursor.getColumnIndex("outfitPrimaryCategory")));
                 Org.setOrgName(cursor.getString(cursor.getColumnIndex("outfitName")));
                 Org.setLat(cursor.getDouble(cursor.getColumnIndex("outfitLatitude")));
                 Org.setLng(cursor.getDouble(cursor.getColumnIndex("outfitLongitude")));
@@ -952,6 +966,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         for(int i =0; i< venue.size();i++){
             values.put("venueID", venue.get(i).getVenueId());
             values.put("venueDescription", venue.get(i).getVenueDescription());
+            values.put("venuePrimaryCategory", venue.get(i).getVenuePrimaryCategory());
             values.put("venueName", venue.get(i).getVenueName());
             values.put("venueLatitude", venue.get(i).getLat());
             values.put("venueLongitude", venue.get(i).getLng());
@@ -981,6 +996,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 //int id = cursor.getInt(cursor.getColumnIndex("_id"));
                 newVen.setVenueId(cursor.getString(cursor.getColumnIndex("venueID")));
                 newVen.setVenueDescription(cursor.getString(cursor.getColumnIndex("venueDescription")));
+                newVen.setVenuePrimaryCategory(cursor.getString(cursor.getColumnIndex("venuePrimaryCategory")));
                 newVen.setVenueName(cursor.getString(cursor.getColumnIndex("venueName")));
                 newVen.setLat(cursor.getDouble(cursor.getColumnIndex("venueLatitude")));
                 newVen.setLng(cursor.getDouble(cursor.getColumnIndex("venueLongitude")));
@@ -1006,6 +1022,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         for(int i =0; i< artist.size();i++){
             values.put("artistID", artist.get(i).getArtistId());
             values.put("artistDescription", artist.get(i).getArtistDescription());
+            values.put("artistPrimaryCategory", artist.get(i).getArtistPrimaryCategory());
             values.put("artistName", artist.get(i).getArtistName());
             values.put("artistPicture", artist.get(i).getArtistPicture());
 
@@ -1029,6 +1046,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 int id = cursor.getInt(cursor.getColumnIndex("_id"));
                 artist.setArtistId(cursor.getString(cursor.getColumnIndex("artistID")));
                 artist.setArtistDescription(cursor.getString(cursor.getColumnIndex("artistDescription")));
+                artist.setArtistPrimaryCategory(cursor.getString(cursor.getColumnIndex("artistPrimaryCategory")));
                 artist.setArtistName(cursor.getString(cursor.getColumnIndex("artistName")));
                 artist.setArtistPicture(cursor.getString(cursor.getColumnIndex("artistPicture")));
 
@@ -1049,6 +1067,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         for(int i =0; i< Org.size();i++){
             values.put("outfitID", Org.get(i).getOrgId());
             values.put("outfitDescription", Org.get(i).getOrgDescription());
+            values.put("outfitPrimaryCategory", Org.get(i).getOrgPrimaryCategory());
             values.put("outfitName", Org.get(i).getOrgName());
             values.put("outfitLatitude", Org.get(i).getLat());
             values.put("outfitLongitude", Org.get(i).getLng());
@@ -1079,6 +1098,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
                 Org.setOrgId(cursor.getString(cursor.getColumnIndex("outfitID")));
                 Org.setOrgDescription(cursor.getString(cursor.getColumnIndex("outfitDescription")));
+                Org.setOrgPrimaryCategory(cursor.getString(cursor.getColumnIndex("outfitPrimaryCategory")));
                 Org.setOrgName(cursor.getString(cursor.getColumnIndex("outfitName")));
                 Org.setLat(cursor.getDouble(cursor.getColumnIndex("outfitLatitude")));
                 Org.setLng(cursor.getDouble(cursor.getColumnIndex("outfitLongitude")));

@@ -100,7 +100,7 @@ public class myAddictions extends ActionBarActivity {
         setUpFilters();
 
         //Creating an variable of type Listview Adapter to create the list view.
-        adapter=new EventListviewAdapter(this, addictedEvents, eventID); //Calling the adapter mListView to help set the List
+        adapter=new EventListviewAdapter(this, addictedEvents, eventID); //Calling the eventAdapter mListView to help set the List
 
 
         //Sets the Adapter from the class Listview Adapter
@@ -114,7 +114,7 @@ public class myAddictions extends ActionBarActivity {
 
     private void setUpFilters(){
         // Calling the FilterView class to set the layout for the filters
-        FilterView filterView = new FilterView(this, adapter, null);
+        FilterView filterView = new FilterView(this, adapter,null,null,null, null);
         filterView.init();
         SlidingUpPanelLayout slidepanel = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout_lower);
         slidepanel.setTouchEnabled(false);
@@ -265,7 +265,7 @@ public class myAddictions extends ActionBarActivity {
         VenueListViewAdapter venueAdapter;
 
         //Creating an variable of type Listview Adapter to create the list view.
-       venueAdapter=new VenueListViewAdapter(this, addictedVenues,venueID); //Calling the adapter mListView to help set the List
+       venueAdapter=new VenueListViewAdapter(this, addictedVenues,venueID); //Calling the eventAdapter mListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(venueAdapter);
@@ -284,7 +284,7 @@ public class myAddictions extends ActionBarActivity {
 
 
         //Creating an variable of type Listview Adapter to create the list view.
-        OrgAdapter=new OrganizationListViewAdapter(this, addictedOrg,orgID); //Calling the adapter mListView to help set the List
+        OrgAdapter=new OrganizationListViewAdapter(this, addictedOrg,orgID); //Calling the eventAdapter mListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(OrgAdapter);
@@ -350,7 +350,7 @@ public class myAddictions extends ActionBarActivity {
 
 
         //Creating an variable of type Listview Adapter to create the list view.
-        artistsListViewAdapter=new ArtistsListViewAdapter(this, addictedArtists,artistID); //Calling the adapter mListView to help set the List
+        artistsListViewAdapter=new ArtistsListViewAdapter(this, addictedArtists,artistID); //Calling the eventAdapter mListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter.
         mListView.setAdapter(artistsListViewAdapter);

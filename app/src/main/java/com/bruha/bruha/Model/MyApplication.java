@@ -45,7 +45,7 @@ public class MyApplication extends Application{
 
     public static ArrayList<ArrayList<Items>> mainList = new ArrayList<>();
 
-    public static UserCustomFilters userEventFilters = new UserCustomFilters();
+    public static UserCustomFilters userFilters = new UserCustomFilters();
 
     ArrayList<String> savedQuickie = new ArrayList<>();
 

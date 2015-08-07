@@ -39,7 +39,7 @@ public class CategoryAdapter {
 
     int count = 0;
 
-    UserCustomFilters mEventFilter = MyApplication.userEventFilters;
+    UserCustomFilters mEventFilter = MyApplication.userFilters;
 
     private EventListviewAdapter mAdapter;
     HashMap<String, Marker> markerMap = new HashMap<>();

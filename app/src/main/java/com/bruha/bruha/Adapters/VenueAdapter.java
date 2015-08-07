@@ -2,6 +2,7 @@ package com.bruha.bruha.Adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,35 +13,48 @@ import android.widget.TextView;
 import com.bruha.bruha.Model.Items;
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.UserCustomFilters;
+import com.bruha.bruha.Processing.FilterOut;
 import com.bruha.bruha.R;
+import com.google.android.gms.maps.model.Marker;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Thomas on 5/22/2015.
  */
 public class VenueAdapter {
 
-    private Context mContext;
+    FilterOut filtering;
+
+    private FragmentActivity mActivity;
     private LinearLayout mLinearListView;
     private ArrayList<Items> mMainList;
 
     ArrayList<String> venueFilters = new ArrayList<>();
 
-    UserCustomFilters mUserCustomFilter = MyApplication.userEventFilters;
+    UserCustomFilters mUserCustomFilter = MyApplication.userFilters;
 
     // boolean variables representing the upper and lower levels being selected
 
     boolean isFirstViewClick=false;
     boolean isSecondViewClick=false;
 
+    private VenueListViewAdapter mAdapter;
+    HashMap<String, Marker> markerMap = new HashMap<>();
+
     // Constructor for the adapter, takes a context, linear layout and "super" list
 
-    public VenueAdapter(Context context, LinearLayout linearListView, ArrayList<Items> mainList){
+    public VenueAdapter(FragmentActivity context, LinearLayout linearListView, ArrayList<Items> mainList, VenueListViewAdapter adapter, HashMap markerHashMap){
 
-        this.mContext = context;
+        this.mActivity = context;
         this.mLinearListView = linearListView;
         this.mMainList = mainList;
+
+        filtering = new FilterOut(mActivity);
+
+        mAdapter = adapter;
+        markerMap = markerHashMap;
     }
 
     public void set(){
@@ -59,7 +73,7 @@ public class VenueAdapter {
             //Inflating the first level
 
             LayoutInflater inflater = null;
-            inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View mLinearView = inflater.inflate(R.layout.row_first, null);
 
             final TextView mProductName = (TextView) mLinearView.findViewById(R.id.textViewName);
@@ -125,7 +139,7 @@ public class VenueAdapter {
             // Each child (primary category) gets inflated as a row item (row second)
 
             LayoutInflater inflater2 = null;
-            inflater2 = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater2 = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View mLinearView2 = inflater2.inflate(R.layout.row_third, null);
 
             final LinearLayout childChildLayout = (LinearLayout)mLinearView2.findViewById(R.id.childChildItem);
@@ -171,6 +185,15 @@ public class VenueAdapter {
                     }
 
                     mUserCustomFilter.setVenueFilter(venueFilters);
+
+                    if (mAdapter != null) {
+
+                        filtering.filterVenueList(mAdapter);
+                    }
+
+                    if (markerMap != null) {
+                        //filtering.filterEventMap(markerMap);
+                    }
                 }
             });
 

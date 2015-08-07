@@ -169,10 +169,10 @@ public class MapsActivity extends FragmentActivity implements
         //mUserCustomFilters = ((MyApplication) getApplicationContext()).getUserCustomFilters();
 
         /*
-        adapter=new MapListViewAdapter(this, selectedEvents); //Calling the adapter mListView to help set the List
+        eventAdapter=new MapListViewAdapter(this, selectedEvents); //Calling the eventAdapter mListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter
-        mListView.setAdapter(adapter);
+        mListView.setAdapter(eventAdapter);
 
 */
         // Map and Filter setup
@@ -452,7 +452,7 @@ public class MapsActivity extends FragmentActivity implements
 
     //Sets the Adapter of the Outfit mListView.
     private void setOrgAdapter(){
-        MapOrganizationListViewAdapter orgAdapter=new MapOrganizationListViewAdapter(this, selectedOrg,orgaddictID); //Calling the adapter mListView to help set the List
+        MapOrganizationListViewAdapter orgAdapter=new MapOrganizationListViewAdapter(this, selectedOrg,orgaddictID); //Calling the eventAdapter mListView to help set the List
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(orgAdapter);
 
@@ -461,7 +461,7 @@ public class MapsActivity extends FragmentActivity implements
 
     //Sets the Adapter of the Venue mListView.
     private void setVenAdapter(){
-        MapVenListViewAdapter mapAdapter=new MapVenListViewAdapter(this, selectedVenues,venueaddictID); //Calling the adapter mListView to help set the List
+        MapVenListViewAdapter mapAdapter=new MapVenListViewAdapter(this, selectedVenues,venueaddictID); //Calling the eventAdapter mListView to help set the List
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(mapAdapter);
     }
@@ -546,7 +546,7 @@ public class MapsActivity extends FragmentActivity implements
 
     //Sets the Adapter of the Event mListView.
     private void setEventAdapter() {
-        adapter=new MapListViewAdapter(this, selectedEvents,eventaddictID); //Calling the adapter mListView to help set the List
+        adapter=new MapListViewAdapter(this, selectedEvents,eventaddictID); //Calling the eventAdapter mListView to help set the List
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(adapter);
     }
@@ -615,7 +615,7 @@ public class MapsActivity extends FragmentActivity implements
 
     private void setUpFilters(){
         // Calling the FilterView class to set the layout for the filter.
-        FilterView filterView = new FilterView(this, null, markerMap);
+        FilterView filterView = new FilterView(this, null,null,null,null, markerMap);
         filterView.init();
     }
 

@@ -12,9 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.bruha.bruha.Adapters.ArtistsListViewAdapter;
 import com.bruha.bruha.Adapters.CategoryAdapter;
 import com.bruha.bruha.Adapters.EventListviewAdapter;
+import com.bruha.bruha.Adapters.OrganizationListViewAdapter;
 import com.bruha.bruha.Adapters.VenueAdapter;
+import com.bruha.bruha.Adapters.VenueListViewAdapter;
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.Processing.FilterOut;
@@ -39,7 +42,7 @@ public class FilterView {
 
     // Creating a UserCustomFilters object to store user filters
 
-    UserCustomFilters userCustomFilters = MyApplication.userEventFilters;
+    UserCustomFilters userCustomFilters = MyApplication.userFilters;
 
     // Creating a CaldroidFragment object
     private CaldroidFragment caldroidFragment;
@@ -50,15 +53,30 @@ public class FilterView {
 
     // Casting the passed activity as a Fragment activity
     private FragmentActivity mActivity;
-    private EventListviewAdapter mAdapter;
+
+    private EventListviewAdapter mEventAdapter;
+    private VenueListViewAdapter mVenueAdapter;
+    private ArtistsListViewAdapter mArtistAdapter;
+    private OrganizationListViewAdapter mOrganizationAdapter;
+
     HashMap<String, Marker> markerMap = new HashMap<>();
 
     CategoryAdapter eventCategoryAdapter;
 
-    public FilterView(FragmentActivity activity, EventListviewAdapter adapter, HashMap markerHashMap){
+    public FilterView(FragmentActivity activity,
+                      EventListviewAdapter eventAdapter,
+                      VenueListViewAdapter venueAdapter,
+                      ArtistsListViewAdapter artistAdapter,
+                      OrganizationListViewAdapter organizationAdapter,
+                      HashMap markerHashMap){
 
         mActivity = activity;
-        mAdapter = adapter;
+
+        mEventAdapter = eventAdapter;
+        mVenueAdapter = venueAdapter;
+        mArtistAdapter = artistAdapter;
+        mOrganizationAdapter = organizationAdapter;
+
         markerMap = markerHashMap;
 
         filtering = new FilterOut(activity);
@@ -70,7 +88,6 @@ public class FilterView {
 
         quickieSaved = ((MyApplication) mActivity.getApplicationContext()).getSavedQuickie();
     }
-
 
     public void init(){
 
@@ -94,7 +111,7 @@ public class FilterView {
 
         setOrganizationCategoryList();
 
-        //admission price is added to userEventFilters within its function
+        //admission price is added to userFilters within its function
 
         setAdmissionPrice();
     }
@@ -169,9 +186,9 @@ public class FilterView {
 
         LinearLayout mCategoryListView = (LinearLayout)mActivity.findViewById(R.id.event_category_listview);
 
-        // calling and setting the "adapter" to set the list items
+        // calling and setting the "eventAdapter" to set the list items
 
-        eventCategoryAdapter = new CategoryAdapter(mActivity, mCategoryListView, MyApplication.mainList.get(0),mAdapter,markerMap);
+        eventCategoryAdapter = new CategoryAdapter(mActivity, mCategoryListView, MyApplication.mainList.get(0), mEventAdapter,markerMap);
 
         eventCategoryAdapter.set();
 
@@ -183,9 +200,9 @@ public class FilterView {
 
         LinearLayout mVenueListView = (LinearLayout)mActivity.findViewById(R.id.venue_category_listview);
 
-        // calling and setting the "adapter" to set the list items
+        // calling and setting the "eventAdapter" to set the list items
 
-        VenueAdapter adapter = new VenueAdapter(mActivity, mVenueListView, MyApplication.mainList.get(1));
+        VenueAdapter adapter = new VenueAdapter(mActivity, mVenueListView, MyApplication.mainList.get(1), mVenueAdapter, null);
         adapter.set();
     }
 
@@ -195,9 +212,9 @@ public class FilterView {
 
         LinearLayout mArtistListView = (LinearLayout)mActivity.findViewById(R.id.artist_category_listview);
 
-        // calling and setting the "adapter" to set the list items
+        // calling and setting the "eventAdapter" to set the list items
 
-        VenueAdapter adapter = new VenueAdapter(mActivity, mArtistListView, MyApplication.mainList.get(2));
+        VenueAdapter adapter = new VenueAdapter(mActivity, mArtistListView, MyApplication.mainList.get(2),null,null);
         adapter.set();
     }
 
@@ -207,9 +224,9 @@ public class FilterView {
 
         LinearLayout mOrganizationListView = (LinearLayout)mActivity.findViewById(R.id.organization_category_listview);
 
-        // calling and setting the "adapter" to set the list items
+        // calling and setting the "eventAdapter" to set the list items
 
-        VenueAdapter adapter = new VenueAdapter(mActivity, mOrganizationListView, MyApplication.mainList.get(3));
+        VenueAdapter adapter = new VenueAdapter(mActivity, mOrganizationListView, MyApplication.mainList.get(3),null,null);
         adapter.set();
     }
 
@@ -320,12 +337,12 @@ public class FilterView {
 
                 userCustomFilters.setNonFormattedDateFilter(datesSaved);
 
-                // Checking to ensure adapter is non null, i.e if this is being used in the list activity
+                // Checking to ensure eventAdapter is non null, i.e if this is being used in the list activity
                 // going to have to pass in a map type object to apply changes to map activity
 
-                if(mAdapter != null) {
+                if(mEventAdapter != null) {
 
-                    filtering.filterEventList(mAdapter);
+                    filtering.filterEventList(mEventAdapter);
                 }
 
                 if(markerMap!= null){
@@ -379,15 +396,15 @@ public class FilterView {
                     seekBarValue.setText(String.valueOf(progress-1) + " $");
                 }
 
-                // As the seekBar is changed we shall update the userEventFilters aswell
+                // As the seekBar is changed we shall update the userFilters aswell
 
                 Log.v("progress test", progress+"");
 
                 userCustomFilters.setAdmissionPriceFilter(progress - 1);
 
-                if(mAdapter != null) {
+                if(mEventAdapter != null) {
 
-                    filtering.filterEventList(mAdapter);
+                    filtering.filterEventList(mEventAdapter);
                 }
 
                 if(markerMap!= null){
