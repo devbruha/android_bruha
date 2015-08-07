@@ -37,8 +37,6 @@ public class EventCategoryAdapter {
     private LinearLayout mLinearListView;
     private ArrayList<Items> mMainList;
 
-    int count = 0;
-
     UserCustomFilters mEventFilter = MyApplication.userFilters;
 
     private EventListviewAdapter mAdapter;
@@ -48,8 +46,6 @@ public class EventCategoryAdapter {
     // the hashmap shall contain string ArrayLists for each primary category selected
     // each string arrayList shall contain the primary category as its first index, then
     // each other index will represent the subcategory(s) selected
-
-    private RelativeLayout mLinearFirstArrow;
 
     private Map<String, ArrayList<String>> mUserCategorySelected = new HashMap<>();
 
@@ -68,6 +64,11 @@ public class EventCategoryAdapter {
         this.mMainList = mainList;
 
         filtering = new FilterOut(mActivity);
+
+        for(String key: mEventFilter.getCategoryFilter().keySet()){
+
+            mUserCategorySelected.put(key, mEventFilter.getCategoryFilter().get(key));
+        }
 
         mAdapter = adapter;
         markerMap = markerHashMap;
@@ -120,26 +121,11 @@ public class EventCategoryAdapter {
 
                     if (isFirstViewClick == false) {
 
-                        count++;
-
                         isFirstViewClick = true;
                         mImageArrowFirst.setBackgroundResource(android.R.drawable.arrow_down_float);
                         mLinearScrollSecond.setVisibility(View.VISIBLE);
 
-                        for(int i = 0; i<mLinearScrollSecond.getChildCount(); i++){
-
-                            Log.v("FilterTest", mEventFilter.getCategoryFilter().keySet()+"");
-                            Log.v("FilterTest", ((RelativeLayout)((LinearLayout) mLinearScrollSecond.getChildAt(i)).getChildAt(0)).getTag()+"");
-
-                            //((RelativeLayout)((LinearLayout) mLinearScrollSecond.getChildAt(i)).getChildAt(0)).performClick();
-
-                            if(!mEventFilter.getCategoryFilter().containsKey(((RelativeLayout)((LinearLayout) mLinearScrollSecond.getChildAt(i)).getChildAt(0)).getTag()+"")  ){
-
-                                ((RelativeLayout)((LinearLayout) mLinearScrollSecond.getChildAt(i)).getChildAt(0)).performClick();
-                            }
-                        }
-                    }
-                    else {
+                    } else {
 
                         isFirstViewClick = false;
                         mImageArrowFirst.setBackgroundResource(android.R.drawable.arrow_up_float);
@@ -152,9 +138,7 @@ public class EventCategoryAdapter {
 
                 // If there are selected categories from previous activity, simulate click the first level
 
-                //mLinearFirstArrow.performClick();
-
-
+                mLinearFirstArrow.performClick();
             }
 
             // Setting the title of the parent item (in this case categories)
@@ -199,8 +183,6 @@ public class EventCategoryAdapter {
 
                     // Setting the isSecondViewClick variable dependant if the category is already stored in the filter
 
-                    //Log.v("Filterid test", mSubItemName.getTag()+"");
-
                     if (mEventFilter.getCategoryFilter().containsKey(catName)) {
 
                         isSecondViewClick = true;
@@ -241,9 +223,9 @@ public class EventCategoryAdapter {
 
                         mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_up_float);
 
-                        for(int i = 0; i<mLinearScrollThird.getChildCount(); i++){
+                        for (int i = 0; i < mLinearScrollThird.getChildCount(); i++) {
 
-                            ((LinearLayout)mLinearScrollThird.getChildAt(i)).getChildAt(0).setBackgroundResource(android.R.color.black);
+                            ((LinearLayout) mLinearScrollThird.getChildAt(i)).getChildAt(0).setBackgroundResource(android.R.color.black);
                         }
 
                         mLinearScrollThird.setVisibility(View.GONE);
@@ -274,14 +256,10 @@ public class EventCategoryAdapter {
 
             if(mEventFilter.getCategoryFilter().containsKey(catName)){
 
-                mLinearScrollThird.setVisibility(View.GONE);
-                mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_up_float);
+                mLinearScrollThird.setVisibility(View.VISIBLE);
+                mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_down_float);
 
-                //mLinearSecondArrow.performClick();
-                //mLinearScrollThird.setVisibility(View.VISIBLE);
-                //mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_down_float);
-
-                //mLinearSecondArrow.setBackgroundColor(Color.parseColor("#491c2295"));
+                mLinearSecondArrow.setBackgroundColor(Color.parseColor("#491c2295"));
             }
             else{
 
@@ -291,8 +269,6 @@ public class EventCategoryAdapter {
 
 
             // Sets the title of the child level (primary category)
-
-            //final String catName = mMainList.get(firstLevelNumber).getmSubCategoryList().get(j).getpSubCatName();
 
             mSubItemName.setText(catName);
             mLinearSecondArrow.setTag(catName);
@@ -326,8 +302,6 @@ public class EventCategoryAdapter {
 
             final TextView mSubCategoryName = (TextView) mLinearView3.findViewById(R.id.textViewItemName);
 
-            //Log.v("parent", mSubCategoryName.getParent()+"");
-
             // Retrieving the name for the selected subcategory
 
             final String subCategoryName = mMainList.get(firstLevelNumber).getmSubCategoryList().get(secondLevelNumber).getmItemListArray().get(k).getItemName();
@@ -340,7 +314,6 @@ public class EventCategoryAdapter {
                 @Override
                 public void onClick(View v) {
 
-                    //ArrayList<String> categoryArrayList = mUserCategorySelected.get(catName);
                     ArrayList<String> categoryArrayList = mUserCategorySelected.get(catName);
 
                     if (mEventFilter.getCategoryFilter().get(catName).contains(mSubCategoryName.getTag() + "")) {
@@ -363,17 +336,7 @@ public class EventCategoryAdapter {
                         // Putting the subcategory into the corresponding primary category arrayList
 
                         mUserCategorySelected.put(catName, categoryArrayList);
-                        Log.v("Cat Test", mUserCategorySelected.size() + "");
 
-                        for (String key : mUserCategorySelected.keySet()) {
-
-                            Log.v("Cat Test", key);
-
-                            for (int a = 0; a < mUserCategorySelected.get(key).size(); a++) {
-
-                                Log.v("Cat Test", mUserCategorySelected.get(key).get(a));
-                            }
-                        }
                     } else {
 
                         isThirdViewClick = false;
@@ -384,17 +347,7 @@ public class EventCategoryAdapter {
                         // Removing the subcategory from the ArrayList if deselected
 
                         mUserCategorySelected.put(catName, categoryArrayList);
-                        Log.v("Cat Test", mUserCategorySelected.size() + "");
 
-                        for (String key : mUserCategorySelected.keySet()) {
-
-                            //Log.v("Cat Test", key);
-
-                            for (int a = 0; a < mUserCategorySelected.get(key).size(); a++) {
-
-                                Log.v("Cat Test", mUserCategorySelected.get(key).get(a));
-                            }
-                        }
                     }
 
                     if (mAdapter != null) {
@@ -408,6 +361,15 @@ public class EventCategoryAdapter {
                 }
             });
 
+            for(String key: mEventFilter.getCategoryFilter().keySet()) {
+
+                if (mEventFilter.getCategoryFilter().get(key).contains(subCategoryID)) {
+
+                    // simulating clicks if appropriate
+                    mSubCategoryName.setBackgroundColor(Color.parseColor("#e95f5f5f"));
+                }
+            }
+
 
             mLinearScrollThird.addView(mLinearView3);
         }
@@ -417,13 +379,6 @@ public class EventCategoryAdapter {
 
     private void isMenuOpen(boolean viewClick, ImageView image, LinearLayout linLayout){
 
-
-        // If no click, set the lower level lin layout to invisible
-        linLayout.setVisibility(View.GONE);
-
-        // update the arrow icon for an UNselected item
-        image.setBackgroundResource(android.R.drawable.arrow_up_float);
-        /*
         if(viewClick==false)
         {
             // If no click, set the lower level lin layout to invisible
@@ -436,15 +391,6 @@ public class EventCategoryAdapter {
         {
             linLayout.setVisibility(View.VISIBLE);
             image.setBackgroundResource(android.R.drawable.arrow_down_float);
-        }
-        */
-    }
-
-    public void collapseLists(){
-
-        if(mLinearFirstArrow.getTag().equals("Open")){
-
-            mLinearFirstArrow.performClick();
         }
     }
 }
