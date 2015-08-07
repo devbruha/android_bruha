@@ -319,13 +319,11 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
                     @Override
                     public void onClick(View v) {
                       String x = retrieveMyPHP.deleteUserVenue(MyApplication.userName,Venue.getVenueId());
+                        dbHelper.deleteUserVenue(dbHelper.getWritableDatabase(),Venue.getVenueId());
                         Toast.makeText(mActivity.getApplicationContext(),x,Toast.LENGTH_SHORT).show();
 
-                        if(x.equals("Venue Deleted!")) {
-                            dbHelper.deleteUserVenue(dbHelper.getWritableDatabase(), Venue.getVenueId());
-                            mVenue.remove(position);
-                            notifyDataSetChanged();
-                        }
+                        mVenue.remove(position);
+                        notifyDataSetChanged();
                     }
                 });
             }

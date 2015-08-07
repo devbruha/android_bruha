@@ -112,7 +112,7 @@ public class RetrieveMyPHP {
                 even.setEventStartTime(Event.getString("event_start_time"));
                 even.setEventEndTime(Event.getString("event_end_time"));
 
-                if (Event.getString("Admission_price") != null){
+                if (!Event.getString("Admission_price").equals("null")){
 
                     even.setEventPrice(Double.parseDouble(Event.getString("Admission_price")));
                 }

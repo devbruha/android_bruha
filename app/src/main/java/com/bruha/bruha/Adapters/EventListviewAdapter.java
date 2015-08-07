@@ -53,6 +53,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         addictedEventsID = addictevent;
         retrieveMyPHP = new RetrieveMyPHP();
         dbHelper = new SQLiteDatabaseModel(mActivity);
+
     }
 
     public String TimeFormat(String Time)
@@ -455,13 +456,11 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                     @Override
                     public void onClick(View v) {
                       String x=  retrieveMyPHP.deleteUserEvent(MyApplication.userName,event.getEventid());
+                        dbHelper.deleteUserEvent(dbHelper.getWritableDatabase(),event.getEventid());
                         Toast.makeText(mActivity.getApplicationContext(),x,Toast.LENGTH_SHORT).show();
 
-                        if(x.equals("Event Deleted!")) {
-                            dbHelper.deleteUserEvent(dbHelper.getWritableDatabase(), event.getEventid());
-                            mEvents.remove(position);
-                            notifyDataSetChanged();
-                        }
+                        mEvents.remove(position);
+                        notifyDataSetChanged();
                     }
                 });
             }
