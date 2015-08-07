@@ -1,13 +1,10 @@
 package com.bruha.bruha.Model;
 
 import android.app.Application;
-import android.os.Bundle;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 // This is a class that shall be used to store global variables for the application
 // In this context, that pretty much means filters...
@@ -18,8 +15,10 @@ import java.util.Map;
 
 public class MyApplication extends Application{
 
-    ArrayList<Event> backupEventList = new ArrayList<>();
-    ArrayList<Event> selectedEventList = new ArrayList<>();
+    public static ArrayList<Event> backupEventList = new ArrayList<>();
+    public static ArrayList<Venue> backupVenueList = new ArrayList<>();
+    public static ArrayList<Artist> backupArtistList = new ArrayList<>();
+    public static ArrayList<Organizations> backupOrganizationList = new ArrayList<>();
 
     // Variable to represent whether the user is logged in or not, static so that it can be called
     // from any other class and updated.
@@ -35,9 +34,18 @@ public class MyApplication extends Application{
     public static ArrayList<Event> sourceEvents= new ArrayList<>();
     public static ArrayList<String> sourceEventsID= new ArrayList<>();
 
+    public static ArrayList<Venue> sourceVenues= new ArrayList<>();
+    public static ArrayList<String> sourceVenuesID= new ArrayList<>();
+
+    public static ArrayList<Artist> sourceArtists= new ArrayList<>();
+    public static ArrayList<String> sourceArtistsID= new ArrayList<>();
+
+    public static ArrayList<Organizations> sourceOrganizations= new ArrayList<>();
+    public static ArrayList<String> sourceOrganizationsID= new ArrayList<>();
+
     public static ArrayList<ArrayList<Items>> mainList = new ArrayList<>();
 
-    UserCustomFilters userCustomFilters = new UserCustomFilters();
+    public static UserCustomFilters userFilters = new UserCustomFilters();
 
     ArrayList<String> savedQuickie = new ArrayList<>();
 
@@ -60,22 +68,4 @@ public class MyApplication extends Application{
 
         return savedQuickie;
     }
-
-    public UserCustomFilters getUserCustomFilters(){
-
-        return userCustomFilters;
-    }
-
-    public ArrayList<Event> getBackupEventList(){
-
-        return backupEventList;
-    }
-
-    public ArrayList<Event> getSelectedEventList(){
-
-        return selectedEventList;
-    }
-
-
-
 }

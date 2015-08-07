@@ -63,9 +63,9 @@ public class SplashActivity extends Activity {
 
 
         //Code to execute the swipe code.
-        MyPagerAdapter adapter = new MyPagerAdapter();          //Making variable adapter of class MyPageAdapter defined below.
+        MyPagerAdapter adapter = new MyPagerAdapter();          //Making variable eventAdapter of class MyPageAdapter defined below.
         ViewPager pager = (ViewPager) findViewById(R.id.pager); //The Layout where the new Layout will be displayed.
-        pager.setAdapter(adapter);                              //Setting the Adapter of the layout to adapter.
+        pager.setAdapter(adapter);                              //Setting the Adapter of the layout to eventAdapter.
         pager.setCurrentItem(0);                                 //The first page to be displayed in the
 
 

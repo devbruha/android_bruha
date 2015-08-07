@@ -112,7 +112,7 @@ public class RetrieveMyPHP {
                 even.setEventStartTime(Event.getString("event_start_time"));
                 even.setEventEndTime(Event.getString("event_end_time"));
 
-                if (Event.getString("Admission_price") != null){
+                if (!Event.getString("Admission_price").equals("null")){
 
                     even.setEventPrice(Double.parseDouble(Event.getString("Admission_price")));
                 }
@@ -126,7 +126,7 @@ public class RetrieveMyPHP {
                 even.setEventLatitude(Double.parseDouble(Event.getString("location_lat")));
                 even.setEventLongitude(Double.parseDouble(Event.getString("location_lng")));
 
-                if (Event.getString("image_link") != null){
+                if (!Event.getString("image_link").equals("null")){
 
                     even.setEventPicture("http://bruha.com/WorkingWebsite/"+Event.getString("image_link"));
                 }

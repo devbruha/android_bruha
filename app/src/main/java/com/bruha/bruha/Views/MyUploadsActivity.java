@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -85,7 +84,7 @@ public class MyUploadsActivity extends ActionBarActivity {
         setUpFilters();
 
         //Creating an variable of type Listview Adapter to create the list view.
-        adapter=new EventListviewAdapter(this, mEvents,null); //Calling the adapter mListView to help set the List
+        adapter=new EventListviewAdapter(this, mEvents,null); //Calling the eventAdapter mListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(adapter);
@@ -97,7 +96,7 @@ public class MyUploadsActivity extends ActionBarActivity {
 
     private void setUpFilters(){
         // Calling the FilterView class to set the layout for the filters
-        FilterView filterView = new FilterView(this, adapter, null);
+        FilterView filterView = new FilterView(this, adapter,null,null,null, null);
         filterView.init();
         SlidingUpPanelLayout slidepanel = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout_lower);
         slidepanel.setTouchEnabled(false);
@@ -168,7 +167,7 @@ public class MyUploadsActivity extends ActionBarActivity {
         VenueListViewAdapter venueAdapter;
 
         //Creating an variable of type Listview Adapter to create the list view.
-        venueAdapter=new VenueListViewAdapter(this, mVenues,null); //Calling the adapter mListView to help set the List
+        venueAdapter=new VenueListViewAdapter(this, mVenues,null); //Calling the eventAdapter mListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(venueAdapter);
@@ -187,7 +186,7 @@ public class MyUploadsActivity extends ActionBarActivity {
 
 
         //Creating an variable of type Listview Adapter to create the list view.
-        OrgAdapter=new OrganizationListViewAdapter(this, mOrg,null); //Calling the adapter mListView to help set the List
+        OrgAdapter=new OrganizationListViewAdapter(this, mOrg,null); //Calling the eventAdapter mListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(OrgAdapter);
@@ -253,7 +252,7 @@ public class MyUploadsActivity extends ActionBarActivity {
 
 
         //Creating an variable of type Listview Adapter to create the list view.
-        artistsListViewAdapter=new ArtistsListViewAdapter(this, mArtist,null); //Calling the adapter mListView to help set the List
+        artistsListViewAdapter=new ArtistsListViewAdapter(this, mArtist,null); //Calling the eventAdapter mListView to help set the List
 
         //Sets the Adapter from the class Listview Adapter.
         mListView.setAdapter(artistsListViewAdapter);

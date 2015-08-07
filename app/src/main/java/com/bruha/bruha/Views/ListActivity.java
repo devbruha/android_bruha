@@ -12,7 +12,6 @@ import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +45,7 @@ import butterknife.OnClick;
 public class ListActivity extends FragmentActivity {
     //The Arrays that will contain the information retrieved from the local database.
     ArrayList<Event> mEvents = new ArrayList<>();
-    ArrayList<Organizations> mOutfit = new ArrayList<>();
+    ArrayList<Organizations> mOrganizations = new ArrayList<>();
     ArrayList<Venue> mVenues = new ArrayList<>();
     ArrayList<Artist> mArtists = new ArrayList<>();
 
@@ -71,8 +70,15 @@ public class ListActivity extends FragmentActivity {
     TextView mPrice;
     SeekBar prce;
 
-    ArrayList<Event> backupEventList;         //Array backupEventList of the whole list,since mEvent changes when we update the adapter in filter save button.
-    EventListviewAdapter adapter;
+    ArrayList<Event> backupEventList;         //Array backupEventList of the whole list,since mEvent changes when we update the eventAdapter in filter save button.
+    ArrayList<Venue> backupVenueList;         //Array backupEventList of the whole list,since mEvent changes when we update the eventAdapter in filter save button.
+    ArrayList<Artist> backupArtistList;         //Array backupEventList of the whole list,since mEvent changes when we update the eventAdapter in filter save button.
+    ArrayList<Organizations> backupOrganizationList;         //Array backupEventList of the whole list,since mEvent changes when we update the eventAdapter in filter save button.
+
+    EventListviewAdapter eventAdapter;
+    VenueListViewAdapter venueAdapter;
+    OrganizationListViewAdapter organizationAdapter;
+    ArtistsListViewAdapter artistAdapter;
 
     //Injecting Buttons using ButterKnife Library
     @InjectView(android.R.id.list) ListView mListView;
@@ -126,10 +132,40 @@ public class ListActivity extends FragmentActivity {
         if(MyApplication.sourceEvents.size() == 0) {
 
             //Creating an variable of type Listview Adapter to create the list view.
-            adapter = new EventListviewAdapter(this, mEvents,addictEventId); //Calling the adapter mListView to help set the List
+            eventAdapter = new EventListviewAdapter(this, mEvents,addictEventId); //Calling the eventAdapter mListView to help set the List
         }
         else{
-            adapter = new EventListviewAdapter(this, MyApplication.sourceEvents,addictEventId);
+            eventAdapter = new EventListviewAdapter(this, MyApplication.sourceEvents,addictEventId);
+        }
+
+        if(MyApplication.sourceVenues.size() == 0) {
+
+            //Creating an variable of type Listview Adapter to create the list view.
+            venueAdapter=new VenueListViewAdapter(this, mVenues,addictVenueId); //Calling the eventAdapter mListView to help set the List
+        }
+        else{
+            //Creating an variable of type Listview Adapter to create the list view.
+            venueAdapter=new VenueListViewAdapter(this, MyApplication.sourceVenues,addictVenueId); //Calling the eventAdapter mListView to help set the List
+        }
+
+        if(MyApplication.sourceArtists.size() == 0) {
+
+            //Creating an variable of type Listview Adapter to create the list view.
+            artistAdapter =new ArtistsListViewAdapter(this, mArtists,addictArtistId); //Calling the eventAdapter mListView to help set the List
+        }
+        else{
+            //Creating an variable of type Listview Adapter to create the list view.
+            artistAdapter =new ArtistsListViewAdapter(this, MyApplication.sourceArtists,addictArtistId); //Calling the eventAdapter mListView to help set the List
+        }
+
+        if(MyApplication.sourceOrganizations.size() == 0) {
+
+            //Creating an variable of type Listview Adapter to create the list view.
+            organizationAdapter =new OrganizationListViewAdapter(this, mOrganizations,addictOutfitId); //Calling the eventAdapter mListView to help set the List
+        }
+        else{
+            //Creating an variable of type Listview Adapter to create the list view.
+            organizationAdapter =new OrganizationListViewAdapter(this, MyApplication.sourceOrganizations,addictOutfitId); //Calling the eventAdapter mListView to help set the List
         }
 
         setUpFilters();
@@ -147,10 +183,10 @@ public class ListActivity extends FragmentActivity {
         admission = (TextView) findViewById(R.id.admissionTextView);
 
         //Sets the Adapter from the class Listview Adapter
-        mListView.setAdapter(adapter);
+        mListView.setAdapter(eventAdapter);
 
         //Swipe stuff
-       // adapter.setMode(Attributes.Mode.Single);
+       // eventAdapter.setMode(Attributes.Mode.Single);
 
         setButtons();
 
@@ -214,7 +250,16 @@ public class ListActivity extends FragmentActivity {
 
     private void init() {
 
-        backupEventList = ((MyApplication) getApplicationContext()).getBackupEventList();
+        backupEventList = MyApplication.backupEventList;
+        backupEventList.clear();
+
+        backupVenueList = MyApplication.backupVenueList;
+        backupVenueList.clear();
+
+        backupArtistList = MyApplication.backupArtistList;
+        backupEventList.clear();
+
+        backupOrganizationList = MyApplication.backupOrganizationList;
         backupEventList.clear();
 
         // Create the local DB object
@@ -223,28 +268,38 @@ public class ListActivity extends FragmentActivity {
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
         mEvents = sqLiteUtils.getEventInfo(dbHelper);
         mVenues = sqLiteUtils.getVenuesInfo(dbHelper);
-        mOutfit = sqLiteUtils.getOrganizationsInfo(dbHelper);
+        mOrganizations = sqLiteUtils.getOrganizationsInfo(dbHelper);
         mArtists = sqLiteUtils.getArtistInfo(dbHelper);
-
 
         addictEventId = sqLiteUtils.getEventAddictions(dbHelper);
         addictVenueId = sqLiteUtils.getVenueAddictions(dbHelper);
         addictOutfitId = sqLiteUtils.getOrgAddictions(dbHelper);
         addictArtistId = sqLiteUtils.getArtistAddictions(dbHelper);
 
-        for(Event x:mEvents)
-        {
+        for(Event x:mEvents){
+
             backupEventList.add(x);
         }
 
+        for(Venue x:mVenues){
 
+            backupVenueList.add(x);
+        }
+
+        for(Artist x:mArtists){
+
+            backupArtistList.add(x);
+        }
+        for(Organizations x:mOrganizations){
+
+            backupOrganizationList.add(x);
+        }
     }
 
     private void setUpFilters(){
         // Calling the FilterView class to set the layout for the filters
-        filterView = new FilterView(this, adapter, null);
+        filterView = new FilterView(this, eventAdapter,venueAdapter, artistAdapter, organizationAdapter, null);
         filterView.init();
-
     }
 
     //venueButton Implemented to switch the mListView to show List of Venue.
@@ -274,13 +329,6 @@ public class ListActivity extends FragmentActivity {
         mOrganizationCategoryListView.setVisibility(view.GONE);
         linearCalendar.setVisibility(view.GONE);
 
-
-
-        VenueListViewAdapter venueAdapter;
-
-        //Creating an variable of type Listview Adapter to create the list view.
-        venueAdapter=new VenueListViewAdapter(this, mVenues,addictVenueId); //Calling the adapter mListView to help set the List
-
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(venueAdapter);
 
@@ -296,8 +344,6 @@ public class ListActivity extends FragmentActivity {
 
         MyApplication.filterTracker = "Outfit";
 
-        OrganizationListViewAdapter OrgAdapter;
-
         mOrganizationCategoryListView.setVisibility(view.VISIBLE);
 
         admission.setVisibility(View.GONE);
@@ -308,11 +354,8 @@ public class ListActivity extends FragmentActivity {
         mArtistCategoryListView.setVisibility(view.GONE);
         linearCalendar.setVisibility(view.GONE);
 
-        //Creating an variable of type Listview Adapter to create the list view.
-        OrgAdapter=new OrganizationListViewAdapter(this, mOutfit,addictOutfitId); //Calling the adapter mListView to help set the List
-
         //Sets the Adapter from the class Listview Adapter
-        mListView.setAdapter(OrgAdapter);
+        mListView.setAdapter(organizationAdapter);
 
         //Changing shit:
         orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
@@ -335,7 +378,7 @@ public class ListActivity extends FragmentActivity {
     public void eventButton(View view) {
 
         MyApplication.filterTracker = "Event";
-        mListView.setAdapter(adapter);
+        mListView.setAdapter(eventAdapter);
 
 
         TextView Admission = (TextView) findViewById(R.id.admissionTextView);
@@ -396,13 +439,8 @@ public class ListActivity extends FragmentActivity {
         mVenueCategoryListView.setVisibility(view.GONE);
         linearCalendar.setVisibility(view.GONE);
 
-        ArtistsListViewAdapter artistsListViewAdapter;
-
-        //Creating an variable of type Listview Adapter to create the list view.
-        artistsListViewAdapter=new ArtistsListViewAdapter(this, mArtists,addictArtistId); //Calling the adapter mListView to help set the List
-
         //Sets the Adapter from the class Listview Adapter.
-        mListView.setAdapter(artistsListViewAdapter);
+        mListView.setAdapter(artistAdapter);
 
         artistText.setTextColor(Color.parseColor("#FFFFBB33"));
         venueText.setTextColor(Color.parseColor("#ffffff"));
@@ -445,14 +483,5 @@ public class ListActivity extends FragmentActivity {
             e.printStackTrace();
         }
         return null;
-    }
-
-
-    @Override
-    public void finish() {
-
-        filterView.collapseLists();
-        super.finish();
-        instance = null;
     }
 }

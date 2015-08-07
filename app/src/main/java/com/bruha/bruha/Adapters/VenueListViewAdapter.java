@@ -401,7 +401,9 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
 
 
 
-
+    public ArrayList<Venue> getData() {
+        return mVenue;
+    }
 
 
     @Override

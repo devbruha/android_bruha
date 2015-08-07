@@ -357,6 +357,7 @@ public class RetrievePHP {
                 ven.setVenueId(Venue.getString("venue_id"));
                 ven.setVenueName(Venue.getString("venue_name"));
                 ven.setVenueDescription(Venue.getString("venue_desc"));
+                ven.setVenuePrimaryCategory((Venue.getString("primary_category")));
                 ven.setVenueSt(Venue.getString("street_no") + " " + Venue.getString("street_name") + ", " + Venue.getString("postal_code"));
                 ven.setVenueLocation(Venue.getString("location_city") + ", " + Venue.getString("country"));
                 ven.setLat(Double.parseDouble(Venue.getString("location_lat")));
@@ -424,6 +425,7 @@ public class RetrievePHP {
                 org.setOrgId(Organization.getString("organization_id"));
                 org.setOrgName(Organization.getString("organization_name"));
                 org.setOrgDescription(Organization.getString("organization_desc"));
+                org.setOrgPrimaryCategory((Organization.getString("primary_category")));
                 org.setOrgSt(Organization.getString("street_no") + " " + Organization.getString("street_name") + ", " + Organization.getString("postal_code"));
                 org.setOrgLocation(Organization.getString("location_city") + ", " + Organization.getString("country"));
                 org.setLat(Double.parseDouble(Organization.getString("location_lat")));
@@ -489,6 +491,7 @@ public class RetrievePHP {
                 Artist.setArtistId(mArtist.getString("Artist_id"));
                 Artist.setArtistName(mArtist.getString("Artist_name"));
                 Artist.setArtistDescription(mArtist.getString("Artist_desc"));
+                Artist.setArtistPrimaryCategory((mArtist.getString("primary_category")));
                 Artist.setArtistPicture("http://bruha.com/WorkingWebsite/"+mArtist.getString("Artist_media"));
                 Artist.setArtistPrimaryCategory(mArtist.getString("primary_category"));
 

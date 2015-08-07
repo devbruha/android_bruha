@@ -377,6 +377,10 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
 
     }
 
+    public ArrayList<Artist> getData() {
+        return mArtists;
+    }
+
     @Override
     public int getCount() {
         return mArtists.size();  //Returns length of the array of Events

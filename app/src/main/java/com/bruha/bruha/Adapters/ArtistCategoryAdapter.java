@@ -2,50 +2,59 @@ package com.bruha.bruha.Adapters;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bruha.bruha.Model.Items;
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.UserCustomFilters;
+import com.bruha.bruha.Processing.FilterOut;
 import com.bruha.bruha.R;
+import com.google.android.gms.maps.model.Marker;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by Thomas on 5/22/2015.
  */
-public class QuickieAdapter {
+public class ArtistCategoryAdapter {
 
-    private Context mContext;
+    FilterOut filtering;
+
+    private FragmentActivity mActivity;
     private LinearLayout mLinearListView;
     private ArrayList<Items> mMainList;
 
-    ArrayList<String> quickieFilters = new ArrayList<>();
+    ArrayList<String> artistFilters = new ArrayList<>();
 
-    UserCustomFilters mUserCustomFilter;
+    UserCustomFilters mUserCustomFilter = MyApplication.userFilters;
 
     // boolean variables representing the upper and lower levels being selected
 
     boolean isFirstViewClick=false;
     boolean isSecondViewClick=false;
 
+    private ArtistsListViewAdapter mAdapter;
+    HashMap<String, Marker> markerMap = new HashMap<>();
+
     // Constructor for the adapter, takes a context, linear layout and "super" list
 
-    public QuickieAdapter(Context context, LinearLayout linearListView, ArrayList<Items> mainList){
+    public ArtistCategoryAdapter(FragmentActivity context, LinearLayout linearListView, ArrayList<Items> mainList, ArtistsListViewAdapter adapter, HashMap markerHashMap){
 
-        this.mContext = context;
+        this.mActivity = context;
         this.mLinearListView = linearListView;
         this.mMainList = mainList;
 
-        mUserCustomFilter = ((MyApplication) mContext.getApplicationContext()).getUserCustomFilters();
+        filtering = new FilterOut(mActivity);
+
+        mAdapter = adapter;
+        markerMap = markerHashMap;
     }
 
     public void set(){
@@ -64,7 +73,7 @@ public class QuickieAdapter {
             //Inflating the first level
 
             LayoutInflater inflater = null;
-            inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View mLinearView = inflater.inflate(R.layout.row_first, null);
 
             final TextView mProductName = (TextView) mLinearView.findViewById(R.id.textViewName);
@@ -103,7 +112,7 @@ public class QuickieAdapter {
 
             // If there are selected categories from previous activity, simulate click the first level
 
-            if(!mUserCustomFilter.getQuickieFilter().isEmpty()){
+            if(!mUserCustomFilter.getArtistFilter().isEmpty()){
 
                 mLinearFirstArrow.performClick();
             }
@@ -130,7 +139,7 @@ public class QuickieAdapter {
             // Each child (primary category) gets inflated as a row item (row second)
 
             LayoutInflater inflater2 = null;
-            inflater2 = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater2 = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View mLinearView2 = inflater2.inflate(R.layout.row_third, null);
 
             final LinearLayout childChildLayout = (LinearLayout)mLinearView2.findViewById(R.id.childChildItem);
@@ -143,7 +152,7 @@ public class QuickieAdapter {
                 @Override
                 public void onClick(View v) {
 
-                    if(mUserCustomFilter.getQuickieFilter().contains(catName)){
+                    if(mUserCustomFilter.getArtistFilter().contains(catName)){
 
                         isSecondViewClick = true;
                     }
@@ -161,9 +170,9 @@ public class QuickieAdapter {
 
                         mSubItemName.setBackgroundColor(Color.parseColor("#e95f5f5f"));
 
-                        if(!quickieFilters.contains(catName)){
+                        if(!artistFilters.contains(catName)){
 
-                            quickieFilters.add(catName);
+                            artistFilters.add(catName);
                         }
                     }
                     else {
@@ -172,17 +181,26 @@ public class QuickieAdapter {
 
                         mSubItemName.setBackgroundResource(android.R.color.background_dark);
 
-                        quickieFilters.remove(catName);
+                        artistFilters.remove(catName);
                     }
 
-                    mUserCustomFilter.setQuickieFilter(quickieFilters);
+                    mUserCustomFilter.setArtistFilter(artistFilters);
+
+                    if (mAdapter != null) {
+
+                        filtering.filterArtistList(mAdapter);
+                    }
+
+                    if (markerMap != null) {
+                        //filtering.filterEventMap(markerMap);
+                    }
                 }
             });
 
-            if(mUserCustomFilter.getQuickieFilter().contains(catName)){
+            if(mUserCustomFilter.getArtistFilter().contains(catName)){
 
                 // simulating clicks if appropriate
-                mSubItemName.setBackgroundResource(android.R.color.holo_blue_bright);
+                mSubItemName.setBackgroundColor(Color.parseColor("#e95f5f5f"));
             }
 
             mSubItemName.setText(catName);
