@@ -327,7 +327,12 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
                     @Override
                     public void onClick(View v) {
                         String x = retrieveMyPHP.deleteUserOrg(MyApplication.userName, Outfit.getOrgId());
+                        dbHelper.deleteUserOrg(dbHelper.getWritableDatabase(),Outfit.getOrgId());
                         Toast.makeText(mActivity.getApplicationContext(), x, Toast.LENGTH_SHORT).show();
+
+                        mOrganizations.remove(position);
+                        notifyDataSetChanged();
+
                     }
                 });
             } else {
@@ -381,6 +386,10 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
                                 retrieveMyPHP.organizationAddiction(MyApplication.userName, Outfit.getOrgId());
                                 Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
                                 likeText.setText("Unlike!");
+
+                                addictOrgID.add(Outfit.getOrgId());
+                                dbHelper.insertOrgAddiction(dbHelper.getWritableDatabase(),Outfit.getOrgId());
+                                notifyDataSetChanged();
                             }
 
                         });

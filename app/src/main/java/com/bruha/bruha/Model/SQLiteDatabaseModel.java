@@ -328,6 +328,67 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.execSQL("delete from "+TABLE_ADDICTIONS_ORG+" where orgID='"+id+"'");
     }
 
+    public void deleteUserEvent(android.database.sqlite.SQLiteDatabase db,String id) {
+        db.execSQL("delete from "+TABLE_USER_EVENT_INFO+" where eventID='"+id+"'");
+        db.execSQL("delete from "+TABLE_EVENT_INFO+" where eventID='"+id+"'");
+    }
+
+    public void deleteUserVenue(android.database.sqlite.SQLiteDatabase db,String id) {
+        db.execSQL("delete from "+TABLE_USER_VENUES_INFO+" where venueID='"+id+"'");
+        db.execSQL("delete from "+TABLE_VENUES_INFO+" where venueID='"+id+"'");
+    }
+
+    public void deleteUserArtist(android.database.sqlite.SQLiteDatabase db,String id) {
+        db.execSQL("delete from "+TABLE_USER_ARTIST_INFO+" where artistID='"+id+"'");
+        db.execSQL("delete from "+TABLE_ARTIST_INFO+" where artistID='"+id+"'");
+    }
+
+    public void deleteUserOrg(android.database.sqlite.SQLiteDatabase db,String id) {
+        db.execSQL("delete from "+TABLE_USER_OUTFIT_INFO+" where outfitID='"+id+"'");
+        db.execSQL("delete from "+TABLE_OUTFIT_INFO+" where outfitID='"+id+"'");
+    }
+
+
+    public void insertEventAddiction(android.database.sqlite.SQLiteDatabase db,String id)
+    {
+                ContentValues values = new ContentValues();
+
+            values.put("eventID", id);
+            db.insert(TABLE_ADDICTIONS, null, values);
+
+
+    }
+
+    public void insertVenueAddiction(android.database.sqlite.SQLiteDatabase db,String id)
+    {
+        ContentValues values = new ContentValues();
+
+        values.put("venueID", id);
+        db.insert(TABLE_ADDICTIONS_VENUES, null, values);
+
+
+    }
+
+    public void insertArtistAddiction(android.database.sqlite.SQLiteDatabase db,String id)
+    {
+        ContentValues values = new ContentValues();
+
+        values.put("artistID", id);
+        db.insert(TABLE_ADDICTIONS_ARTISTS, null, values);
+
+
+    }
+
+    public void insertOrgAddiction(android.database.sqlite.SQLiteDatabase db,String id)
+    {
+        ContentValues values = new ContentValues();
+
+        values.put("orgID", id);
+        db.insert(TABLE_ADDICTIONS_ORG, null, values);
+
+
+    }
+
     //MANUALLY DELETING SELECTED TABLES WHEN APP IS OPENED.
     @Override
     public void onUpgrade(android.database.sqlite.SQLiteDatabase db, int oldVersion, int newVersion) {
