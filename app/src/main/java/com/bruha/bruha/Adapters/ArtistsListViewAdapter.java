@@ -302,11 +302,13 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
                     @Override
                     public void onClick(View v) {
                        String x = retrieveMyPHP.deleteUserArtist(MyApplication.userName, artist.getArtistId());
-                        dbHelper.deleteUserArtist(dbHelper.getWritableDatabase(),artist.getArtistId());
                         Toast.makeText(mActivity.getApplicationContext(), x, Toast.LENGTH_SHORT).show();
 
-                        mArtists.remove(position);
-                        notifyDataSetChanged();
+                        if(x.contains("!")) {
+                            dbHelper.deleteUserArtist(dbHelper.getWritableDatabase(),artist.getArtistId());
+                            mArtists.remove(position);
+                            notifyDataSetChanged();
+                        }
                     }
                 });
             } else {

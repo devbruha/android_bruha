@@ -1,5 +1,7 @@
 package com.bruha.bruha.Processing;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -82,16 +84,18 @@ public class CredentialsPHP {
         String error;
         if(y==1)
         {
+            Log.v("This",response);
             error="Success";
         }
 
-        else{ error="badCredentials"; }
+        else{ Log.v("That",response);
+            error="badCredentials"; }
 
         return error;
     }
 
     //The method to register an account.
-    public void register(String mUsername, String mPassword, String mEmail) {
+    public String register(String mUsername, String mPassword, String mEmail) {
 
         // creates parameters for the DB call to attach to the "initial" URL
         // to attach more paramenters its of the form:
@@ -150,5 +154,6 @@ public class CredentialsPHP {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return response;
     }
 }
