@@ -15,6 +15,8 @@ import java.util.Date;
 
 public class MyApplication extends Application{
 
+    public static boolean internetCheck = false;
+
     public static ArrayList<Event> backupEventList = new ArrayList<>();
     public static ArrayList<Venue> backupVenueList = new ArrayList<>();
     public static ArrayList<Artist> backupArtistList = new ArrayList<>();

@@ -265,9 +265,16 @@ public class RegisterActivity extends ActionBarActivity {
 
                         // Calling the init function within PHP with the parameters passed
 
-                        error="Success";
+
                         CredentialsPHP credentialsPHP = new CredentialsPHP();
-                        credentialsPHP.register(username, password, email);
+                        error=  credentialsPHP.register(username, password, email);
+
+                        if (error.contains("1")) {
+                            error="Success";
+                        }
+
+
+
 
                     }
                     // If email is invalid, error string is updated
@@ -361,7 +368,7 @@ public class RegisterActivity extends ActionBarActivity {
                 break;
 
             default:
-                alertUserAboutError(response, "Error " + response);
+                alertUserAboutError(response, "Error, " + response);
                 break;
         }
     }

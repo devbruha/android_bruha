@@ -327,11 +327,13 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
                     @Override
                     public void onClick(View v) {
                         String x = retrieveMyPHP.deleteUserOrg(MyApplication.userName, Outfit.getOrgId());
-                        dbHelper.deleteUserOrg(dbHelper.getWritableDatabase(),Outfit.getOrgId());
                         Toast.makeText(mActivity.getApplicationContext(), x, Toast.LENGTH_SHORT).show();
 
-                        mOrganizations.remove(position);
-                        notifyDataSetChanged();
+                        if(x.contains("!")) {
+                            dbHelper.deleteUserOrg(dbHelper.getWritableDatabase(),Outfit.getOrgId());
+                            mOrganizations.remove(position);
+                            notifyDataSetChanged();
+                        }
 
                     }
                 });
