@@ -223,6 +223,25 @@ public class CalendarActivity extends FragmentActivity {
 
         }
 
+        for(Event x: mEvents) {
+
+            for(Event y: addictionEvents) {
+
+                Date ThisDate= currentDate;
+                Date NextDate = currentDate;
+                try {
+                    ThisDate = formatter.parse(x.getEventDate());
+                    NextDate = formatter.parse(y.getEventDate());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if(ThisDate.equals(NextDate))
+                {caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_purple,ThisDate);}
+
+            }
+
+        }
+
 
         // Setup listener for date onClick
         final CaldroidListener listener = new CaldroidListener() {
