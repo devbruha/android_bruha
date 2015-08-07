@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -12,6 +13,8 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,6 +37,8 @@ import butterknife.OnClick;
 
 
 public class DashboardActivity extends ActionBarActivity {
+
+
 
     //The Buttons
     @InjectView(R.id.uploadButton) LinearLayout myUploadButton;
@@ -249,6 +254,42 @@ public class DashboardActivity extends ActionBarActivity {
         resize();
 
         MyApplication.listIconParam = dudeButton.getLayoutParams();
+
+        if(!isNetworkAvailable())
+        {
+            if(!MyApplication.internetCheck)
+            {
+                alertUserAboutError("No internet connection detected!","The information displayed is not up to date and some of our features will not be available to you due to no internet connection being detected. Please turn on your internet connection and restart the app to get updated information.");
+                MyApplication.internetCheck = true;
+            }
+        }
+
+    }
+
+    // A function to call the AlertDialogFragment Activity
+    private void alertUserAboutError(String errorTitle, String errorMessage) {
+
+        AlertDialogFragment dialog = new AlertDialogFragment().newInstance( errorTitle,errorMessage );
+        dialog.show(getFragmentManager(), "error_dialog");
+    }
+
+
+    // A function used to check whether users are connected to the internet
+    private boolean isNetworkAvailable() {
+        ConnectivityManager manager = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+        // boolean variable initialized to false, set true if there is a connection
+
+        boolean isAvailable = false;
+
+        if(networkInfo != null && networkInfo.isConnected()){
+
+            isAvailable = true;
+        }
+        return isAvailable;
     }
 
     private void resize()

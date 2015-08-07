@@ -40,7 +40,23 @@ public class LoadScreenActivity extends Activity {
 
         if(!isNetworkAvailable())
         {
-            Dialog();
+
+            //Initializing the local database.
+            SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
+            SQLiteUtils sqLiteUtils = new SQLiteUtils();
+            ArrayList<String> userinfo = sqLiteUtils.getUserInfo(dbHelper);
+            //Log.v("Size", userinfo.size() + "");
+
+            //Checks to see if the user is already logged in, if not,go to splash screen. Else navigate to Dashboard.
+            if (userinfo.size() == 0) {
+                Intent intent = new Intent(this, SplashActivity.class);
+                startActivity(intent);
+            }
+            else {
+                MyApplication.loginCheck = true;
+                Intent intent = new Intent(this, DashboardActivity.class);
+                startActivity(intent);
+            }
         }
 
         else {
@@ -173,6 +189,7 @@ public class LoadScreenActivity extends Activity {
         return isAvailable;
     }
 
+    //Dialog telling you need internet connection for this App.
     private void Dialog()
     {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);

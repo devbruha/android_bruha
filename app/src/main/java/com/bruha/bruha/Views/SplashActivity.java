@@ -13,6 +13,8 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.R;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
@@ -36,6 +39,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class SplashActivity extends Activity {
+
 
     Typeface opensansregfnt;
 
@@ -126,7 +130,24 @@ public class SplashActivity extends Activity {
         });
 
         resize();
+
+        if(!isNetworkAvailable())
+        {
+            if(!MyApplication.internetCheck) {
+                alertUserAboutError("No internet connection detected!", "The information displayed is not up to date and some of our features will not be available to you due to no internet connection being detected. Please turn on your internet connection and restart the app to get updated information.");
+                MyApplication.internetCheck = true;
+            }
+        }
+
     }
+
+    // A function to call the AlertDialogFragment Activity
+    private void alertUserAboutError(String errorTitle, String errorMessage) {
+
+        AlertDialogFragment dialog = new AlertDialogFragment().newInstance( errorTitle,errorMessage );
+        dialog.show(getFragmentManager(), "error_dialog");
+    }
+
 
     private void resize()
     {
@@ -183,27 +204,6 @@ public class SplashActivity extends Activity {
         }
         return null;
     }
-
-    public Bitmap svgToBitmap(Resources res, int resource, int size) {
-        try {
-            size = (int)(size*res.getDisplayMetrics().density);
-            SVG svg = SVG.getFromResource(getApplicationContext(), resource);
-
-            Bitmap bmp;
-            bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(bmp);
-            svg.renderToCanvas(canvas);
-
-
-            return bmp;
-        } catch (SVGParseException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
-
 
     //Button to skip the logging in process.
     public void noLogin(View view){
@@ -505,5 +505,23 @@ public class SplashActivity extends Activity {
             im4.setImageDrawable(selected);
             im5.setImageDrawable(unselected);
         }
+    }
+
+    // A function used to check whether users are connected to the internet
+    private boolean isNetworkAvailable() {
+        ConnectivityManager manager = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+        // boolean variable initialized to false, set true if there is a connection
+
+        boolean isAvailable = false;
+
+        if(networkInfo != null && networkInfo.isConnected()){
+
+            isAvailable = true;
+        }
+        return isAvailable;
     }
 }
