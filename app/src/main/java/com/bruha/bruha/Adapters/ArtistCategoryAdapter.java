@@ -200,7 +200,7 @@ public class ArtistCategoryAdapter {
             if(mUserCustomFilter.getArtistFilter().contains(catName)){
 
                 // simulating clicks if appropriate
-                mSubItemName.setBackgroundResource(android.R.color.holo_blue_bright);
+                mSubItemName.setBackgroundColor(Color.parseColor("#e95f5f5f"));
             }
 
             mSubItemName.setText(catName);

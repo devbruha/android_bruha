@@ -348,130 +348,49 @@ public class FilterOut {
 
     public void filterVenueMap(HashMap<String, Marker> markerMap){
 
-        // Retrieves the shared variables events and filteredEvents, events contains all events and filterd
-        // events contains the filtered
+        venues = MyApplication.backupVenueList;
 
-        events = MyApplication.backupEventList;
+        tempVenueList.clear();
+        tempVenueListID.clear();
 
-        tempEventList.clear();
-        tempEventListID.clear();
-
-        tempEventList = new ArrayList<>(events);
-
-        // If the date filter is non null, filter off all events that dont have date...
-
-        if(customFilters.getDateFilter().size() != 0) {
-
-            for (int i = tempEventList.size(); i > 0; i--) {
-
-                if (!customFilters.getDateFilter().contains(tempEventList.get(i - 1).getEventDate())) {
-
-                    tempEventListID.add(tempEventList.get(i - 1).getEventid());
-                    markerMap.get(tempEventList.get(i-1).getEventid()).setVisible(false);
-                    tempEventList.remove(i - 1);
-                }
-                else{
-                    markerMap.get(tempEventList.get(i-1).getEventid()).setVisible(true);
-                }
-            }
-        }
+        tempVenueList = new ArrayList<>(venues);
 
         // If the category filter is non null, filter off all events that dont have date...
 
-        if(customFilters.getCategoryFilter().size() != 0) {
+        // If the category filter is non null, filter off all events that dont have date...
 
-            for (int i = tempEventList.size(); i > 0; i--) {
+        if(customFilters.getVenueFilter().size() != 0) {
+
+            for (int i = tempVenueList.size(); i > 0; i--) {
 
                 // If the item's primary category is NOT contained in the filter, remove said item
 
-                if (!customFilters.getCategoryFilter().containsKey(tempEventList.get(i - 1).getEventPrimaryCategory())) {
+                if (!customFilters.getVenueFilter().contains(tempVenueList.get(i - 1).getVenuePrimaryCategory())) {
 
-                    tempEventListID.add(tempEventList.get(i - 1).getEventid());
-                    markerMap.get(tempEventList.get(i-1).getEventid()).setVisible(false);
-                    tempEventList.remove(i - 1);
+                    tempVenueListID.add(tempVenueList.get(i - 1).getVenueId());
+                    markerMap.get(tempVenueList.get(i-1).getVenueId()).setVisible(false);
+                    tempVenueList.remove(i - 1);
                 }
-
                 else{
 
-                    ArrayList<Event> tempEvent = new ArrayList<>();
-                    ArrayList<String> tempEventID = new ArrayList<>();
-
-                    outerloop:
-                    for(String key: customFilters.getCategoryFilter().keySet()){
-
-                        if(customFilters.getCategoryFilter().get(key).size() != 0) {
-
-                            for (int j = 0; j < tempEventList.get(i - 1).getEventSubCategories().size(); j++) {
-
-                                if (customFilters.getCategoryFilter().get(key).contains(tempEventList.get(i - 1).getEventSubCategoriesID().get(j))) {
-
-                                    if(!tempEvent.contains(tempEventList.get(i-1))){
-
-                                        tempEvent.add(tempEventList.get(i-1));
-                                        tempEventID.add(tempEventList.get(i-1).getEventid());
-                                    }
-                                }
-                            }
-                        }
-                        else{
-
-                            if( key.equals(tempEventList.get(i-1).getEventPrimaryCategory()) ){
-
-                                if(!tempEvent.contains(tempEventList.get(i-1))){
-
-                                    tempEvent.add(tempEventList.get(i-1));
-                                    tempEventID.add(tempEventList.get(i-1).getEventid());
-                                }
-                            }
-                        }
-                    }
-
-                    if(!tempEvent.contains(tempEventList.get(i-1))){
-
-                        tempEventListID.add(tempEventList.get(i - 1).getEventid());
-                        markerMap.get(tempEventList.get(i-1).getEventid()).setVisible(false);
-                        tempEventList.remove(i - 1);
-                    }
-                    else{
-
-                        markerMap.get(tempEventList.get(i-1).getEventid()).setVisible(true);
-                    }
+                    markerMap.get(tempVenueList.get(i-1).getVenueId()).setVisible(true);
                 }
             }
         }
 
-        // If event price > admission filter, filter event off
-
-        if(customFilters.getAdmissionPriceFilter() != -1) {
-
-            for (int i = tempEventList.size(); i > 0; i--) {
-
-                if (tempEventList.get(i - 1).getEventPrice() > customFilters.getAdmissionPriceFilter()) {
-
-                    tempEventListID.add(tempEventList.get(i - 1).getEventid());
-                    markerMap.get(tempEventList.get(i-1).getEventid()).setVisible(false);
-                    tempEventList.remove(i - 1);
-                }
-                else{
-                    markerMap.get(tempEventList.get(i-1).getEventid()).setVisible(true);
-                }
-            }
-        }
-
-        if(customFilters.getDateFilter().size() == 0 &&
-                customFilters.getAdmissionPriceFilter() == -1 &&
-                customFilters.getCategoryFilter().size() == 0) {
+        if( customFilters.getVenueFilter().size() == 0) {
 
             for(String key : markerMap.keySet()){
                 markerMap.get(key).setVisible(true);
             }
-            tempEventListID.clear();
-            tempEventListID.add("All");
+
+            tempVenueList.clear();
+            tempVenueListID.add("All");
+            tempVenueList = new ArrayList<>(venues);
         }
 
-        MyApplication.sourceEvents = new ArrayList<>(tempEventList);
-        MyApplication.sourceEventsID = new ArrayList<>(tempEventListID);
-
+        MyApplication.sourceVenues = new ArrayList<>(tempVenueList);
+        MyApplication.sourceVenuesID = new ArrayList<>(tempVenueListID);
     }
 
     public void filterArtistList(ArtistsListViewAdapter adapter){
@@ -566,6 +485,53 @@ public class FilterOut {
         adapter.getData().clear();
         adapter.getData().addAll(tempOrganizationList);
         listView.setAdapter(adapter);
+    }
+
+    public void filterOrganizationMap(HashMap<String, Marker> markerMap){
+
+        organizations = MyApplication.backupOrganizationList;
+
+        tempOrganizationList.clear();
+        tempOrganizationListID.clear();
+
+        tempOrganizationList = new ArrayList<>(organizations);
+
+        // If the category filter is non null, filter off all events that dont have date...
+
+        // If the category filter is non null, filter off all events that dont have date...
+
+        if(customFilters.getOrganizationFilter().size() != 0) {
+
+            for (int i = tempOrganizationList.size(); i > 0; i--) {
+
+                // If the item's primary category is NOT contained in the filter, remove said item
+
+                if (!customFilters.getOrganizationFilter().contains(tempOrganizationList.get(i - 1).getOrgPrimaryCategory())) {
+
+                    tempOrganizationListID.add(tempOrganizationList.get(i - 1).getOrgId());
+                    markerMap.get(tempOrganizationList.get(i-1).getOrgId()).setVisible(false);
+                    tempOrganizationList.remove(i - 1);
+                }
+                else{
+
+                    markerMap.get(tempOrganizationList.get(i-1).getOrgId()).setVisible(true);
+                }
+            }
+        }
+
+        if( customFilters.getOrganizationFilter().size() == 0) {
+
+            for(String key : markerMap.keySet()){
+                markerMap.get(key).setVisible(true);
+            }
+
+            tempOrganizationList.clear();
+            tempOrganizationListID.add("All");
+            tempOrganizationList = new ArrayList<>(organizations);
+        }
+
+        MyApplication.sourceOrganizations = new ArrayList<>(tempOrganizationList);
+        MyApplication.sourceOrganizationsID = new ArrayList<>(tempOrganizationListID);
     }
 
 }

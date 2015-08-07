@@ -192,7 +192,7 @@ public class OrganizationCategoryAdapter {
                     }
 
                     if (markerMap != null) {
-                        //filtering.filterEventMap(markerMap);
+                        filtering.filterOrganizationMap(markerMap);
                     }
                 }
             });
@@ -200,7 +200,7 @@ public class OrganizationCategoryAdapter {
             if(mUserCustomFilter.getOrganizationFilter().contains(catName)){
 
                 // simulating clicks if appropriate
-                mSubItemName.setBackgroundResource(android.R.color.holo_blue_bright);
+                mSubItemName.setBackgroundColor(Color.parseColor("#e95f5f5f"));
             }
 
             mSubItemName.setText(catName);

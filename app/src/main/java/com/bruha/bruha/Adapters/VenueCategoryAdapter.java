@@ -192,7 +192,7 @@ public class VenueCategoryAdapter {
                     }
 
                     if (markerMap != null) {
-                        //filtering.filterEventMap(markerMap);
+                        filtering.filterVenueMap(markerMap);
                     }
                 }
             });
@@ -200,7 +200,7 @@ public class VenueCategoryAdapter {
             if(mUserCustomFilter.getVenueFilter().contains(catName)){
 
                 // simulating clicks if appropriate
-                mSubItemName.setBackgroundResource(android.R.color.holo_blue_bright);
+                mSubItemName.setBackgroundColor(Color.parseColor("#e95f5f5f"));
             }
 
             mSubItemName.setText(catName);

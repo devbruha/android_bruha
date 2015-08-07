@@ -61,6 +61,7 @@ public class MapsActivity extends FragmentActivity implements
     ArrayList<Event> mEvents;
     ArrayList<Venue> mVenues;
     ArrayList<Organizations> mOrganizations;
+
     ArrayList<String> eventaddictID;
     ArrayList<String> venueaddictID;
     ArrayList<String> orgaddictID;
@@ -166,15 +167,6 @@ public class MapsActivity extends FragmentActivity implements
         mapButtonLayoutParams.height =  (int)Math.round(height*.07);
         mapButtonLayoutParams.width =  (int)Math.round(height*.07);
 
-        //mUserCustomFilters = ((MyApplication) getApplicationContext()).getUserCustomFilters();
-
-        /*
-        eventAdapter=new MapListViewAdapter(this, selectedEvents); //Calling the eventAdapter mListView to help set the List
-
-        //Sets the Adapter from the class Listview Adapter
-        mListView.setAdapter(eventAdapter);
-
-*/
         // Map and Filter setup
 
         buildGoogleApiClient();
@@ -314,11 +306,11 @@ public class MapsActivity extends FragmentActivity implements
 
             Marker eventMarker = mMap.addMarker(new MarkerOptions().position(eventLocation).title(eventName));
 
-            if(MyApplication.sourceEventsID.contains(mOrganizations.get(i).getOrgId())) {
+            if(MyApplication.sourceOrganizationsID.contains(mOrganizations.get(i).getOrgId())) {
 
                 eventMarker.setVisible(false);
             }
-            else if(MyApplication.sourceEventsID.contains("All")){
+            else if(MyApplication.sourceOrganizationsID.contains("All")){
 
                 eventMarker.setVisible(true);
             }
@@ -392,11 +384,11 @@ public class MapsActivity extends FragmentActivity implements
             Marker eventMarker = mMap.addMarker(new MarkerOptions().position(eventLocation).title(eventName));
 
 
-            if(MyApplication.sourceEventsID.contains(mVenues.get(i).getVenueId())) {
+            if(MyApplication.sourceVenuesID.contains(mVenues.get(i).getVenueId())) {
 
                 eventMarker.setVisible(false);
             }
-            else if(MyApplication.sourceEventsID.contains("All")){
+            else if(MyApplication.sourceVenuesID.contains("All")){
 
                 eventMarker.setVisible(true);
             }
@@ -425,7 +417,7 @@ public class MapsActivity extends FragmentActivity implements
                         if (mVenues.get(i).getLat() == venueLat &&
                                 mVenues.get(i).getLng() == venueLon) {
 
-                            if (!MyApplication.sourceEventsID.contains(mVenues.get(i).getVenueId())) {
+                            if (!MyApplication.sourceVenuesID.contains(mVenues.get(i).getVenueId())) {
 
                                 selectedVenues.add(mVenues.get(i));
                             }
