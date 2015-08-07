@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.util.Log;
 import android.widget.ListView;
 
+import com.bruha.bruha.Adapters.ArtistsListViewAdapter;
 import com.bruha.bruha.Adapters.EventListviewAdapter;
+import com.bruha.bruha.Adapters.OrganizationListViewAdapter;
 import com.bruha.bruha.Adapters.VenueListViewAdapter;
 import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.Event;
@@ -38,6 +40,12 @@ public class FilterOut {
 
     ArrayList<Venue> tempVenueList = new ArrayList<>();
     ArrayList<String> tempVenueListID = new ArrayList<>();
+
+    ArrayList<Artist> tempArtistList = new ArrayList<>();
+    ArrayList<String> tempArtistListID = new ArrayList<>();
+
+    ArrayList<Organizations> tempOrganizationList = new ArrayList<>();
+    ArrayList<String> tempOrganizationListID = new ArrayList<>();
 
     public FilterOut(Activity activity){
 
@@ -311,12 +319,7 @@ public class FilterOut {
 
         if(customFilters.getVenueFilter().size() != 0) {
 
-            Log.v("VenueFilterTest", customFilters.getVenueFilter().size()+"");
-            Log.v("VenueFilterTest", tempVenueList.size()+"");
-
             for (int i = tempVenueList.size(); i > 0; i--) {
-
-                Log.v("VenueFilterTest", tempVenueList.get(i-1).getVenueName()+"");
 
                 // If the item's primary category is NOT contained in the filter, remove said item
 
@@ -469,6 +472,100 @@ public class FilterOut {
         MyApplication.sourceEvents = new ArrayList<>(tempEventList);
         MyApplication.sourceEventsID = new ArrayList<>(tempEventListID);
 
+    }
+
+    public void filterArtistList(ArtistsListViewAdapter adapter){
+
+        // Retrieves the shared variables events and filteredEvents, events contains all events and filterd
+        // events contains the filtered
+
+        artists = MyApplication.backupArtistList;
+
+        tempArtistList.clear();
+        tempArtistListID.clear();
+
+        tempArtistList = new ArrayList<>(artists);
+
+        ListView listView = (ListView)mActivity.findViewById(android.R.id.list);
+
+        // If the category filter is non null, filter off all events that dont have date...
+
+        // If the category filter is non null, filter off all events that dont have date...
+
+        if(customFilters.getArtistFilter().size() != 0) {
+
+            for (int i = tempArtistList.size(); i > 0; i--) {
+
+                // If the item's primary category is NOT contained in the filter, remove said item
+
+                if (!customFilters.getArtistFilter().contains(tempArtistList.get(i - 1).getArtistPrimaryCategory())) {
+
+                    tempArtistListID.add(tempArtistList.get(i - 1).getArtistId());
+                    tempArtistList.remove(i - 1);
+                }
+            }
+        }
+
+        if( customFilters.getArtistFilter().size() == 0) {
+
+            tempArtistList.clear();
+            tempArtistListID.add("All");
+            tempArtistList = new ArrayList<>(artists);
+        }
+
+        MyApplication.sourceArtists = new ArrayList<>(tempArtistList);
+        MyApplication.sourceArtistsID = new ArrayList<>(tempArtistListID);
+
+        adapter.getData().clear();
+        adapter.getData().addAll(tempArtistList);
+        listView.setAdapter(adapter);
+    }
+
+    public void filterOrganizationList(OrganizationListViewAdapter adapter){
+
+        // Retrieves the shared variables events and filteredEvents, events contains all events and filterd
+        // events contains the filtered
+
+        organizations = MyApplication.backupOrganizationList;
+
+        tempOrganizationList.clear();
+        tempOrganizationListID.clear();
+
+        tempOrganizationList = new ArrayList<>(organizations);
+
+        ListView listView = (ListView)mActivity.findViewById(android.R.id.list);
+
+        // If the category filter is non null, filter off all events that dont have date...
+
+        // If the category filter is non null, filter off all events that dont have date...
+
+        if(customFilters.getOrganizationFilter().size() != 0) {
+
+            for (int i = tempOrganizationList.size(); i > 0; i--) {
+
+                // If the item's primary category is NOT contained in the filter, remove said item
+
+                if (!customFilters.getOrganizationFilter().contains(tempOrganizationList.get(i - 1).getOrgPrimaryCategory())) {
+
+                    tempOrganizationListID.add(tempOrganizationList.get(i - 1).getOrgId());
+                    tempOrganizationList.remove(i - 1);
+                }
+            }
+        }
+
+        if( customFilters.getOrganizationFilter().size() == 0) {
+
+            tempOrganizationList.clear();
+            tempOrganizationListID.add("All");
+            tempOrganizationList = new ArrayList<>(organizations);
+        }
+
+        MyApplication.sourceOrganizations = new ArrayList<>(tempOrganizationList);
+        MyApplication.sourceOrganizationsID = new ArrayList<>(tempOrganizationListID);
+
+        adapter.getData().clear();
+        adapter.getData().addAll(tempOrganizationList);
+        listView.setAdapter(adapter);
     }
 
 }

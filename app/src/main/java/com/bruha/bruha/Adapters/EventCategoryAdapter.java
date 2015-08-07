@@ -29,7 +29,7 @@ import java.util.Map;
 /**
  * Created by Thomas on 5/21/2015.
  */
-public class CategoryAdapter {
+public class EventCategoryAdapter {
 
     FilterOut filtering;
 
@@ -61,7 +61,7 @@ public class CategoryAdapter {
 
     // Constructor for the adapter, takes a context, linear layout and "super" list
 
-    public CategoryAdapter(FragmentActivity activity, LinearLayout linearListView, ArrayList<Items> mainList,EventListviewAdapter adapter, HashMap markerHashMap){
+    public EventCategoryAdapter(FragmentActivity activity, LinearLayout linearListView, ArrayList<Items> mainList, EventListviewAdapter adapter, HashMap markerHashMap){
 
         this.mActivity = activity;
         this.mLinearListView = linearListView;

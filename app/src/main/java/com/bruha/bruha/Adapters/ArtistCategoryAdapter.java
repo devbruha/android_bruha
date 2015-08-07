@@ -23,7 +23,7 @@ import java.util.HashMap;
 /**
  * Created by Thomas on 5/22/2015.
  */
-public class VenueAdapter {
+public class ArtistCategoryAdapter {
 
     FilterOut filtering;
 
@@ -31,7 +31,7 @@ public class VenueAdapter {
     private LinearLayout mLinearListView;
     private ArrayList<Items> mMainList;
 
-    ArrayList<String> venueFilters = new ArrayList<>();
+    ArrayList<String> artistFilters = new ArrayList<>();
 
     UserCustomFilters mUserCustomFilter = MyApplication.userFilters;
 
@@ -40,12 +40,12 @@ public class VenueAdapter {
     boolean isFirstViewClick=false;
     boolean isSecondViewClick=false;
 
-    private VenueListViewAdapter mAdapter;
+    private ArtistsListViewAdapter mAdapter;
     HashMap<String, Marker> markerMap = new HashMap<>();
 
     // Constructor for the adapter, takes a context, linear layout and "super" list
 
-    public VenueAdapter(FragmentActivity context, LinearLayout linearListView, ArrayList<Items> mainList, VenueListViewAdapter adapter, HashMap markerHashMap){
+    public ArtistCategoryAdapter(FragmentActivity context, LinearLayout linearListView, ArrayList<Items> mainList, ArtistsListViewAdapter adapter, HashMap markerHashMap){
 
         this.mActivity = context;
         this.mLinearListView = linearListView;
@@ -112,7 +112,7 @@ public class VenueAdapter {
 
             // If there are selected categories from previous activity, simulate click the first level
 
-            if(!mUserCustomFilter.getVenueFilter().isEmpty()){
+            if(!mUserCustomFilter.getArtistFilter().isEmpty()){
 
                 mLinearFirstArrow.performClick();
             }
@@ -152,7 +152,7 @@ public class VenueAdapter {
                 @Override
                 public void onClick(View v) {
 
-                    if(mUserCustomFilter.getVenueFilter().contains(catName)){
+                    if(mUserCustomFilter.getArtistFilter().contains(catName)){
 
                         isSecondViewClick = true;
                     }
@@ -170,9 +170,9 @@ public class VenueAdapter {
 
                         mSubItemName.setBackgroundColor(Color.parseColor("#e95f5f5f"));
 
-                        if(!venueFilters.contains(catName)){
+                        if(!artistFilters.contains(catName)){
 
-                            venueFilters.add(catName);
+                            artistFilters.add(catName);
                         }
                     }
                     else {
@@ -181,14 +181,14 @@ public class VenueAdapter {
 
                         mSubItemName.setBackgroundResource(android.R.color.background_dark);
 
-                        venueFilters.remove(catName);
+                        artistFilters.remove(catName);
                     }
 
-                    mUserCustomFilter.setVenueFilter(venueFilters);
+                    mUserCustomFilter.setArtistFilter(artistFilters);
 
                     if (mAdapter != null) {
 
-                        filtering.filterVenueList(mAdapter);
+                        filtering.filterArtistList(mAdapter);
                     }
 
                     if (markerMap != null) {
@@ -197,7 +197,7 @@ public class VenueAdapter {
                 }
             });
 
-            if(mUserCustomFilter.getVenueFilter().contains(catName)){
+            if(mUserCustomFilter.getArtistFilter().contains(catName)){
 
                 // simulating clicks if appropriate
                 mSubItemName.setBackgroundResource(android.R.color.holo_blue_bright);
