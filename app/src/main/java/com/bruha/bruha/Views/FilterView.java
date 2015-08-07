@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.bruha.bruha.Adapters.CategoryAdapter;
 import com.bruha.bruha.Adapters.EventListviewAdapter;
-import com.bruha.bruha.Adapters.QuickieAdapter;
+import com.bruha.bruha.Adapters.VenueAdapter;
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.Processing.FilterOut;
@@ -39,7 +39,7 @@ public class FilterView {
 
     // Creating a UserCustomFilters object to store user filters
 
-    UserCustomFilters userCustomFilters;
+    UserCustomFilters userCustomFilters = MyApplication.userEventFilters;
 
     // Creating a CaldroidFragment object
     private CaldroidFragment caldroidFragment;
@@ -65,14 +65,10 @@ public class FilterView {
 
         // Linking the local variables with their global counterparts
 
-        userCustomFilters = ((MyApplication) mActivity.getApplicationContext()).getUserCustomFilters();
-
         calendarSelected = new ArrayList<>(userCustomFilters.getDateFilter());
         datesSaved = ((MyApplication) mActivity.getApplicationContext()).getSavedDates();
 
         quickieSaved = ((MyApplication) mActivity.getApplicationContext()).getSavedQuickie();
-
-
     }
 
 
@@ -98,7 +94,7 @@ public class FilterView {
 
         setOrganizationCategoryList();
 
-        //admission price is added to userCustomFilters within its function
+        //admission price is added to userEventFilters within its function
 
         setAdmissionPrice();
     }
@@ -189,7 +185,7 @@ public class FilterView {
 
         // calling and setting the "adapter" to set the list items
 
-        QuickieAdapter adapter = new QuickieAdapter(mActivity, mVenueListView, MyApplication.mainList.get(1));
+        VenueAdapter adapter = new VenueAdapter(mActivity, mVenueListView, MyApplication.mainList.get(1));
         adapter.set();
     }
 
@@ -201,7 +197,7 @@ public class FilterView {
 
         // calling and setting the "adapter" to set the list items
 
-        QuickieAdapter adapter = new QuickieAdapter(mActivity, mArtistListView, MyApplication.mainList.get(2));
+        VenueAdapter adapter = new VenueAdapter(mActivity, mArtistListView, MyApplication.mainList.get(2));
         adapter.set();
     }
 
@@ -213,7 +209,7 @@ public class FilterView {
 
         // calling and setting the "adapter" to set the list items
 
-        QuickieAdapter adapter = new QuickieAdapter(mActivity, mOrganizationListView, MyApplication.mainList.get(3));
+        VenueAdapter adapter = new VenueAdapter(mActivity, mOrganizationListView, MyApplication.mainList.get(3));
         adapter.set();
     }
 
@@ -329,11 +325,11 @@ public class FilterView {
 
                 if(mAdapter != null) {
 
-                    filtering.filterList(mAdapter);
+                    filtering.filterEventList(mAdapter);
                 }
 
                 if(markerMap!= null){
-                    filtering.filterMap(markerMap);
+                    filtering.filterEventMap(markerMap);
                 }
 
                 caldroidFragment.refreshView();
@@ -383,7 +379,7 @@ public class FilterView {
                     seekBarValue.setText(String.valueOf(progress-1) + " $");
                 }
 
-                // As the seekBar is changed we shall update the userCustomFilters aswell
+                // As the seekBar is changed we shall update the userEventFilters aswell
 
                 Log.v("progress test", progress+"");
 
@@ -391,11 +387,11 @@ public class FilterView {
 
                 if(mAdapter != null) {
 
-                    filtering.filterList(mAdapter);
+                    filtering.filterEventList(mAdapter);
                 }
 
                 if(markerMap!= null){
-                    filtering.filterMap(markerMap);
+                    filtering.filterEventMap(markerMap);
                 }
             }
 

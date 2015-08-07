@@ -17,6 +17,12 @@ public class UserCustomFilters {
 
     private ArrayList<Date> nonFormattedDateFilter = new ArrayList<>();
     private Map<String, ArrayList<String>> CategoryFilter = new HashMap<>();
+
+    private ArrayList<String> VenueFilter = new ArrayList<>();
+
+    private ArrayList<String> ArtistFilter = new ArrayList<>();
+    private ArrayList<String> OrganizationFilter = new ArrayList<>();
+
     private int AdmissionPriceFilter = -1;
 
 
@@ -66,6 +72,30 @@ public class UserCustomFilters {
 
     public void setSubCategoryIDFilter(ArrayList<String> subCategoryIDFilter) {
         SubCategoryIDFilter = subCategoryIDFilter;
+    }
+
+    public ArrayList<String> getArtistFilter() {
+        return ArtistFilter;
+    }
+
+    public void setArtistFilter(ArrayList<String> artistFilter) {
+        ArtistFilter = artistFilter;
+    }
+
+    public ArrayList<String> getVenueFilter() {
+        return VenueFilter;
+    }
+
+    public void setVenueFilter(ArrayList<String> venueFilter) {
+        VenueFilter = venueFilter;
+    }
+
+    public ArrayList<String> getOrganizationFilter() {
+        return OrganizationFilter;
+    }
+
+    public void setOrganizationFilter(ArrayList<String> organizationFilter) {
+        OrganizationFilter = organizationFilter;
     }
 
 }

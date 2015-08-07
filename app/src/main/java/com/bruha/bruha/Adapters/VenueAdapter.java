@@ -2,14 +2,12 @@ package com.bruha.bruha.Adapters;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bruha.bruha.Model.Items;
 import com.bruha.bruha.Model.MyApplication;
@@ -17,20 +15,19 @@ import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.R;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by Thomas on 5/22/2015.
  */
-public class QuickieAdapter {
+public class VenueAdapter {
 
     private Context mContext;
     private LinearLayout mLinearListView;
     private ArrayList<Items> mMainList;
 
-    ArrayList<String> quickieFilters = new ArrayList<>();
+    ArrayList<String> venueFilters = new ArrayList<>();
 
-    UserCustomFilters mUserCustomFilter;
+    UserCustomFilters mUserCustomFilter = MyApplication.userEventFilters;
 
     // boolean variables representing the upper and lower levels being selected
 
@@ -39,13 +36,11 @@ public class QuickieAdapter {
 
     // Constructor for the adapter, takes a context, linear layout and "super" list
 
-    public QuickieAdapter(Context context, LinearLayout linearListView, ArrayList<Items> mainList){
+    public VenueAdapter(Context context, LinearLayout linearListView, ArrayList<Items> mainList){
 
         this.mContext = context;
         this.mLinearListView = linearListView;
         this.mMainList = mainList;
-
-        mUserCustomFilter = ((MyApplication) mContext.getApplicationContext()).getUserCustomFilters();
     }
 
     public void set(){
@@ -103,7 +98,7 @@ public class QuickieAdapter {
 
             // If there are selected categories from previous activity, simulate click the first level
 
-            if(!mUserCustomFilter.getQuickieFilter().isEmpty()){
+            if(!mUserCustomFilter.getVenueFilter().isEmpty()){
 
                 mLinearFirstArrow.performClick();
             }
@@ -143,7 +138,7 @@ public class QuickieAdapter {
                 @Override
                 public void onClick(View v) {
 
-                    if(mUserCustomFilter.getQuickieFilter().contains(catName)){
+                    if(mUserCustomFilter.getVenueFilter().contains(catName)){
 
                         isSecondViewClick = true;
                     }
@@ -161,9 +156,9 @@ public class QuickieAdapter {
 
                         mSubItemName.setBackgroundColor(Color.parseColor("#e95f5f5f"));
 
-                        if(!quickieFilters.contains(catName)){
+                        if(!venueFilters.contains(catName)){
 
-                            quickieFilters.add(catName);
+                            venueFilters.add(catName);
                         }
                     }
                     else {
@@ -172,14 +167,14 @@ public class QuickieAdapter {
 
                         mSubItemName.setBackgroundResource(android.R.color.background_dark);
 
-                        quickieFilters.remove(catName);
+                        venueFilters.remove(catName);
                     }
 
-                    mUserCustomFilter.setQuickieFilter(quickieFilters);
+                    mUserCustomFilter.setVenueFilter(venueFilters);
                 }
             });
 
-            if(mUserCustomFilter.getQuickieFilter().contains(catName)){
+            if(mUserCustomFilter.getVenueFilter().contains(catName)){
 
                 // simulating clicks if appropriate
                 mSubItemName.setBackgroundResource(android.R.color.holo_blue_bright);

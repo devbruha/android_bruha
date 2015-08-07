@@ -214,7 +214,7 @@ public class ListActivity extends FragmentActivity {
 
     private void init() {
 
-        backupEventList = ((MyApplication) getApplicationContext()).getBackupEventList();
+        backupEventList = MyApplication.backupEventList;
         backupEventList.clear();
 
         // Create the local DB object
@@ -445,14 +445,5 @@ public class ListActivity extends FragmentActivity {
             e.printStackTrace();
         }
         return null;
-    }
-
-
-    @Override
-    public void finish() {
-
-        filterView.collapseLists();
-        super.finish();
-        instance = null;
     }
 }

@@ -37,7 +37,9 @@ public class CategoryAdapter {
     private LinearLayout mLinearListView;
     private ArrayList<Items> mMainList;
 
-    UserCustomFilters mUserCustomFilter;
+    int count = 0;
+
+    UserCustomFilters mEventFilter = MyApplication.userEventFilters;
 
     private EventListviewAdapter mAdapter;
     HashMap<String, Marker> markerMap = new HashMap<>();
@@ -70,7 +72,7 @@ public class CategoryAdapter {
         mAdapter = adapter;
         markerMap = markerHashMap;
 
-        this.mUserCustomFilter = ((MyApplication) mActivity.getApplicationContext()).getUserCustomFilters();
+        //this.mEventFilter = ((MyApplication) mActivity.getApplicationContext()).getUserCustomFilters();
     }
 
     public Map<String, ArrayList<String>> set(){
@@ -98,7 +100,7 @@ public class CategoryAdapter {
             View mLinearView = inflater.inflate(R.layout.row_first, null);
 
             final TextView mProductName = (TextView) mLinearView.findViewById(R.id.textViewName);
-            mLinearFirstArrow =(RelativeLayout)mLinearView.findViewById(R.id.linearFirst);
+            final RelativeLayout mLinearFirstArrow =(RelativeLayout)mLinearView.findViewById(R.id.linearFirst);
             final ImageView mImageArrowFirst=(ImageView)mLinearView.findViewById(R.id.imageFirstArrow);
             final LinearLayout mLinearScrollSecond=(LinearLayout)mLinearView.findViewById(R.id.linear_scroll);
 
@@ -118,13 +120,27 @@ public class CategoryAdapter {
 
                     if (isFirstViewClick == false) {
 
-                        mLinearFirstArrow.setTag("Open");
+                        count++;
+
                         isFirstViewClick = true;
                         mImageArrowFirst.setBackgroundResource(android.R.drawable.arrow_down_float);
                         mLinearScrollSecond.setVisibility(View.VISIBLE);
 
-                    } else {
-                        mLinearFirstArrow.setTag("Closed");
+                        for(int i = 0; i<mLinearScrollSecond.getChildCount(); i++){
+
+                            Log.v("FilterTest", mEventFilter.getCategoryFilter().keySet()+"");
+                            Log.v("FilterTest", ((RelativeLayout)((LinearLayout) mLinearScrollSecond.getChildAt(i)).getChildAt(0)).getTag()+"");
+
+                            //((RelativeLayout)((LinearLayout) mLinearScrollSecond.getChildAt(i)).getChildAt(0)).performClick();
+
+                            if(!mEventFilter.getCategoryFilter().containsKey(((RelativeLayout)((LinearLayout) mLinearScrollSecond.getChildAt(i)).getChildAt(0)).getTag()+"")  ){
+
+                                ((RelativeLayout)((LinearLayout) mLinearScrollSecond.getChildAt(i)).getChildAt(0)).performClick();
+                            }
+                        }
+                    }
+                    else {
+
                         isFirstViewClick = false;
                         mImageArrowFirst.setBackgroundResource(android.R.drawable.arrow_up_float);
                         mLinearScrollSecond.setVisibility(View.GONE);
@@ -132,11 +148,13 @@ public class CategoryAdapter {
                 }
             });
 
-            if(!mUserCustomFilter.getCategoryFilter().isEmpty()){
+            if(!mEventFilter.getCategoryFilter().isEmpty()){
 
                 // If there are selected categories from previous activity, simulate click the first level
 
-                mLinearFirstArrow.performClick();
+                //mLinearFirstArrow.performClick();
+
+
             }
 
             // Setting the title of the parent item (in this case categories)
@@ -183,7 +201,7 @@ public class CategoryAdapter {
 
                     //Log.v("Filterid test", mSubItemName.getTag()+"");
 
-                    if (mUserCustomFilter.getCategoryFilter().containsKey(catName)) {
+                    if (mEventFilter.getCategoryFilter().containsKey(catName)) {
 
                         isSecondViewClick = true;
                     } else {
@@ -193,7 +211,7 @@ public class CategoryAdapter {
 
                     if (isSecondViewClick == false) {
 
-                        if (mUserCustomFilter.getCategoryFilter().size() < 3) {
+                        if (mEventFilter.getCategoryFilter().size() < 3) {
 
                             mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_down_float);
 
@@ -205,7 +223,7 @@ public class CategoryAdapter {
                             // this is only if it does not already exist in the categories variable
                             // in order to prevent duplicate entries
 
-                            if (!mUserCustomFilter.getCategoryFilter().containsKey(catName)) {
+                            if (!mEventFilter.getCategoryFilter().containsKey(catName)) {
 
                                 ArrayList<String> primaryCategory = new ArrayList<>();
                                 //primaryCategory.add(catName);
@@ -235,15 +253,15 @@ public class CategoryAdapter {
                         mUserCategorySelected.remove(catName);
                     }
 
-                    mUserCustomFilter.setCategoryFilter(mUserCategorySelected);
+                    mEventFilter.setCategoryFilter(mUserCategorySelected);
 
                     if (mAdapter != null) {
 
-                        filtering.filterList(mAdapter);
+                        filtering.filterEventList(mAdapter);
                     }
 
                     if (markerMap != null) {
-                        filtering.filterMap(markerMap);
+                        filtering.filterEventMap(markerMap);
                     }
 
                 }
@@ -253,12 +271,17 @@ public class CategoryAdapter {
             // if there is, the corresponding item is click simulated, aswell as inflated
             // otherwise it is not
 
-            if(mUserCustomFilter.getCategoryFilter().containsKey(catName)){
 
-                mLinearScrollThird.setVisibility(View.VISIBLE);
-                mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_down_float);
+            if(mEventFilter.getCategoryFilter().containsKey(catName)){
 
-                mLinearSecondArrow.setBackgroundColor(Color.parseColor("#491c2295"));
+                mLinearScrollThird.setVisibility(View.GONE);
+                mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_up_float);
+
+                //mLinearSecondArrow.performClick();
+                //mLinearScrollThird.setVisibility(View.VISIBLE);
+                //mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_down_float);
+
+                //mLinearSecondArrow.setBackgroundColor(Color.parseColor("#491c2295"));
             }
             else{
 
@@ -266,11 +289,13 @@ public class CategoryAdapter {
                 mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_up_float);
             }
 
+
             // Sets the title of the child level (primary category)
 
             //final String catName = mMainList.get(firstLevelNumber).getmSubCategoryList().get(j).getpSubCatName();
 
             mSubItemName.setText(catName);
+            mLinearSecondArrow.setTag(catName);
 
             // Goes in one more level to add the child-child (sub category)
 
@@ -318,7 +343,7 @@ public class CategoryAdapter {
                     //ArrayList<String> categoryArrayList = mUserCategorySelected.get(catName);
                     ArrayList<String> categoryArrayList = mUserCategorySelected.get(catName);
 
-                    if (mUserCustomFilter.getCategoryFilter().get(catName).contains(mSubCategoryName.getTag() + "")) {
+                    if (mEventFilter.getCategoryFilter().get(catName).contains(mSubCategoryName.getTag() + "")) {
 
                         isThirdViewClick = true;
                     } else {
@@ -374,11 +399,11 @@ public class CategoryAdapter {
 
                     if (mAdapter != null) {
 
-                        filtering.filterList(mAdapter);
+                        filtering.filterEventList(mAdapter);
                     }
 
                     if (markerMap != null) {
-                        filtering.filterMap(markerMap);
+                        filtering.filterEventMap(markerMap);
                     }
                 }
             });
@@ -392,6 +417,13 @@ public class CategoryAdapter {
 
     private void isMenuOpen(boolean viewClick, ImageView image, LinearLayout linLayout){
 
+
+        // If no click, set the lower level lin layout to invisible
+        linLayout.setVisibility(View.GONE);
+
+        // update the arrow icon for an UNselected item
+        image.setBackgroundResource(android.R.drawable.arrow_up_float);
+        /*
         if(viewClick==false)
         {
             // If no click, set the lower level lin layout to invisible
@@ -405,6 +437,7 @@ public class CategoryAdapter {
             linLayout.setVisibility(View.VISIBLE);
             image.setBackgroundResource(android.R.drawable.arrow_down_float);
         }
+        */
     }
 
     public void collapseLists(){

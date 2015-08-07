@@ -403,7 +403,9 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
 
     }
 
-
+    public ArrayList<Organizations> getData() {
+        return mOrganizations;
+    }
 
     @Override
     public int getCount() {
