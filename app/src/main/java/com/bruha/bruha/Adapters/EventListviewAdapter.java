@@ -455,11 +455,13 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                     @Override
                     public void onClick(View v) {
                       String x=  retrieveMyPHP.deleteUserEvent(MyApplication.userName,event.getEventid());
-                        dbHelper.deleteUserEvent(dbHelper.getWritableDatabase(),event.getEventid());
                         Toast.makeText(mActivity.getApplicationContext(),x,Toast.LENGTH_SHORT).show();
 
-                        mEvents.remove(position);
-                        notifyDataSetChanged();
+                        if(x.equals("Event Deleted!")) {
+                            dbHelper.deleteUserEvent(dbHelper.getWritableDatabase(), event.getEventid());
+                            mEvents.remove(position);
+                            notifyDataSetChanged();
+                        }
                     }
                 });
             }
