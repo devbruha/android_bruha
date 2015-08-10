@@ -2,17 +2,62 @@ package com.bruha.bruha.Processing;
 
 import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.Items;
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.Venue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by Thomas on 5/8/2015.
  */
 public class SQLiteUtils {
+
+    //-------------------------------------- CATEGORY ITEMS------------------------------------------
+
+    public void insertEventCategories(SQLiteDatabaseModel dbHelper, HashMap<String,ArrayList<ArrayList<String>>> event_categories){
+
+        dbHelper.addEventPrimaryCategories(event_categories);
+        dbHelper.addEventCategories(event_categories);
+    }
+
+    public ArrayList<ArrayList<Items>> getEventCategories(SQLiteDatabaseModel dbhelper){
+
+        return dbhelper.getEventCategories();
+    }
+
+    public void insertVenueCategories(SQLiteDatabaseModel dbHelper, ArrayList<String> venue_primary){
+
+        dbHelper.addVenueCategories(venue_primary);
+    }
+
+    public ArrayList<Items> getVenueCategories(SQLiteDatabaseModel dbhelper){
+
+        return dbhelper.getVenueCategories();
+    }
+
+    public void insertArtistCategories(SQLiteDatabaseModel dbHelper, ArrayList<String> artist_primary){
+
+        dbHelper.addArtistCategories(artist_primary);
+    }
+
+    public ArrayList<Items> getArtistCategories(SQLiteDatabaseModel dbhelper){
+
+        return dbhelper.getArtistCategories();
+    }
+
+    public void insertOrganizationCategories(SQLiteDatabaseModel dbHelper, ArrayList<String> organization_primary){
+
+        dbHelper.addOrganizationCategories(organization_primary);
+    }
+
+    public ArrayList<Items> getOrganizationCategories(SQLiteDatabaseModel dbhelper){
+
+        return dbhelper.getOrganizationCategories();
+    }
 
     //-------------------------------------- EXPLORE ITEMS------------------------------------------
 

@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.widget.ImageView;
 
 import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.Event;
@@ -22,9 +21,7 @@ import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 
 import java.util.ArrayList;
-
-import butterknife.ButterKnife;
-import butterknife.InjectView;
+import java.util.HashMap;
 
 public class LoadScreenActivity extends Activity {
 
@@ -36,7 +33,7 @@ public class LoadScreenActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_screen);
-        ;
+
 
         if(!isNetworkAvailable())
         {
@@ -64,7 +61,7 @@ public class LoadScreenActivity extends Activity {
             retrievedInfo = new RetrievePHP(); // Initializing the class.
             retrieveMyPHP = new RetrieveMyPHP();
 
-            retrievedInfo.getCategoryList();
+            //retrievedInfo.getEventCategoryList();
 
             // this.deleteDatabase("BruhaDatabase.db");
 
@@ -74,6 +71,7 @@ public class LoadScreenActivity extends Activity {
             //Calling the method that removes selected tables off the database and creates new ones.
             dbHelper.onUpgrade(dbHelper.getWritableDatabase(), 1, 1);
 
+            initialCategoryRetrieval(dbHelper);
             initialEventRetrieval(dbHelper);
 
             // ArrayList<Event> userEvents=retrievePHP.getUserEventList(username);
@@ -119,10 +117,30 @@ public class LoadScreenActivity extends Activity {
         }
     }
 
+    private void initialCategoryRetrieval(SQLiteDatabaseModel dbHelper){
+
+        HashMap<String,ArrayList<ArrayList<String>>> eventArrayList = new HashMap<>();
+        ArrayList<String> venueArrayList = new ArrayList<>();
+        ArrayList<String> artistArrayList = new ArrayList<>();
+        ArrayList<String> organizationArrayList = new ArrayList<>();
+
+        eventArrayList = retrievedInfo.getEventCategoryList();
+        venueArrayList = retrievedInfo.getVenueCategoryList();
+        artistArrayList = retrievedInfo.getArtistCategoryList();
+        organizationArrayList = retrievedInfo.getOrganizationCategoryList();
+
+        //Setting the local database.
+        SQLiteUtils sqLiteUtils = new SQLiteUtils();
+        sqLiteUtils.insertEventCategories(dbHelper, eventArrayList);
+        sqLiteUtils.insertVenueCategories(dbHelper, venueArrayList);
+        sqLiteUtils.insertArtistCategories(dbHelper, artistArrayList);
+        sqLiteUtils.insertOrganizationCategories(dbHelper, organizationArrayList);
+
+    }
+
     private void initialEventRetrieval(SQLiteDatabaseModel dbHelper) {
+
         // Create the local DB object
-        //SQLiteDatabaseModel dbHelper = ((MyApplication) getApplicationContext()).getDbHelper();
-        //SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
 
         //The call to get the list of mEvents.
         ArrayList<Event> events = new ArrayList<>() ;

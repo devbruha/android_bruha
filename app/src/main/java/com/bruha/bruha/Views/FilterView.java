@@ -193,7 +193,7 @@ public class FilterView {
 
         // calling and setting the "eventAdapter" to set the list items
 
-        eventEventCategoryAdapter = new EventCategoryAdapter(mActivity, mCategoryListView, MyApplication.mainList.get(0), mEventAdapter,markerMap);
+        eventEventCategoryAdapter = new EventCategoryAdapter(mActivity, mCategoryListView, MyApplication.mainList.get(1), mEventAdapter,markerMap);
 
         eventEventCategoryAdapter.set();
 
@@ -207,7 +207,7 @@ public class FilterView {
 
         // calling and setting the "eventAdapter" to set the list items
 
-        venueCategoryAdapter = new VenueCategoryAdapter(mActivity, mVenueListView, MyApplication.mainList.get(1), mVenueAdapter, markerMap);
+        venueCategoryAdapter = new VenueCategoryAdapter(mActivity, mVenueListView, MyApplication.mainList.get(2), mVenueAdapter, markerMap);
         venueCategoryAdapter.set();
     }
 
@@ -219,7 +219,7 @@ public class FilterView {
 
         // calling and setting the "eventAdapter" to set the list items
 
-        artistCategoryAdapter = new ArtistCategoryAdapter(mActivity, mArtistListView, MyApplication.mainList.get(2),mArtistAdapter,null);
+        artistCategoryAdapter = new ArtistCategoryAdapter(mActivity, mArtistListView, MyApplication.mainList.get(3),mArtistAdapter,null);
         artistCategoryAdapter.set();
     }
 
@@ -231,7 +231,7 @@ public class FilterView {
 
         // calling and setting the "eventAdapter" to set the list items
 
-        organizationCategoryAdapter =  new OrganizationCategoryAdapter(mActivity, mOrganizationListView, MyApplication.mainList.get(3),mOrganizationAdapter,markerMap);
+        organizationCategoryAdapter =  new OrganizationCategoryAdapter(mActivity, mOrganizationListView, MyApplication.mainList.get(4),mOrganizationAdapter,markerMap);
         organizationCategoryAdapter.set();
     }
 

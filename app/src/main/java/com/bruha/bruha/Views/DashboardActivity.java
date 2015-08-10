@@ -27,6 +27,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bruha.bruha.Model.MyApplication;
+import com.bruha.bruha.Model.SQLiteDatabaseModel;
+import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
@@ -71,6 +73,8 @@ public class DashboardActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         ButterKnife.inject(this);
+
+        setCategories();
 
         exploreButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -264,6 +268,19 @@ public class DashboardActivity extends ActionBarActivity {
             }
         }
 
+    }
+
+    private void setCategories(){
+
+        //Initializing the local database.
+        SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
+        SQLiteUtils sqLiteUtils = new SQLiteUtils();
+
+        MyApplication.mainList.add(sqLiteUtils.getEventCategories(dbHelper).get(0));
+        MyApplication.mainList.add(sqLiteUtils.getEventCategories(dbHelper).get(1));
+        MyApplication.mainList.add(sqLiteUtils.getVenueCategories(dbHelper));
+        MyApplication.mainList.add(sqLiteUtils.getArtistCategories(dbHelper));
+        MyApplication.mainList.add(sqLiteUtils.getOrganizationCategories(dbHelper));
     }
 
     // A function to call the AlertDialogFragment Activity

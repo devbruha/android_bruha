@@ -305,7 +305,7 @@ public class EventCategoryAdapter {
             // Retrieving the name for the selected subcategory
 
             final String subCategoryName = mMainList.get(firstLevelNumber).getmSubCategoryList().get(secondLevelNumber).getmItemListArray().get(k).getItemName();
-            final String subCategoryID = MyApplication.mainList.get(4).get(firstLevelNumber).getmSubCategoryList().get(secondLevelNumber).getmItemListArray().get(k).getItemName();
+            final String subCategoryID = MyApplication.mainList.get(0).get(firstLevelNumber).getmSubCategoryList().get(secondLevelNumber).getmItemListArray().get(k).getItemName();
 
             mSubCategoryName.setText(subCategoryName);
             mSubCategoryName.setTag(subCategoryID);

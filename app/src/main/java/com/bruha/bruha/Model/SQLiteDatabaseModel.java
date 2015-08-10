@@ -8,12 +8,35 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
  * Created by Thomas on 5/8/2015.
  */
 public class SQLiteDatabaseModel extends SQLiteOpenHelper{
+
+    // Event Category Lists
+
+    public static final String TABLE_EVENT_PRIMARY = "event_primary_categories";
+
+    public static final String TABLE_EVENT_CATEGORIES = "event_categories";
+    public static final String RELATION_ID = "_id";
+    public static final String PRIMARY_CATEGORY_NAME = "primary_category_name";
+    public static final String SUB_CATEGORY_NAME = "sub_category_name";
+    public static final String SUB_CATEGORY_ID = "sub_category_id";
+
+    // Venue Category Lists
+
+    public static final String TABLE_VENUE_CATEGORIES = "venue_categories";
+
+    // Artist Category Lists
+
+    public static final String TABLE_ARTIST_CATEGORIES = "artist_categories";
+
+    // Organization Category Lists
+
+    public static final String TABLE_ORGANIZATION_CATEGORIES = "organization_categories";
 
     // User Info Table Stuff
     public static final String TABLE_USER_INFO = "user_info";
@@ -34,7 +57,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String TABLE_ADDICTIONS_VENUES = "addictionsVenue";
     public static final String ADDICTIONS_VENUES_ID = "_id";
     public static final String ADDICTIONS_VENUES_VENUEID = "venueID";
-
 
     //Addictions Artist
     public static final String TABLE_ADDICTIONS_ARTISTS = "addictionsArtist";
@@ -132,6 +154,35 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + USER_INFO_LOCATION + " text not null);";
 
     // SQL to create DB
+
+    //Category list shit
+
+    private static final String DATABASE_CREATE_EVENT_PRIMARY = "create table "
+            + TABLE_EVENT_PRIMARY + "(" + RELATION_ID
+            + " integer primary key autoincrement, "
+            + PRIMARY_CATEGORY_NAME + " text not null);";
+
+    private static final String DATABASE_CREATE_EVENT_CATEGORIES = "create table "
+            + TABLE_EVENT_CATEGORIES + "(" + RELATION_ID
+            + " integer primary key autoincrement, "
+            + PRIMARY_CATEGORY_NAME + " text not null, "
+            + SUB_CATEGORY_NAME + " text not null, "
+            + SUB_CATEGORY_ID + " text not null);";
+
+    private static final String DATABASE_CREATE_VENUE_CATEGORIES = "create table "
+            + TABLE_VENUE_CATEGORIES + "(" + RELATION_ID
+            + " integer primary key autoincrement, "
+            + PRIMARY_CATEGORY_NAME + " text not null);";
+
+    private static final String DATABASE_CREATE_ARTIST_CATEGORIES = "create table "
+            + TABLE_ARTIST_CATEGORIES + "(" + RELATION_ID
+            + " integer primary key autoincrement, "
+            + PRIMARY_CATEGORY_NAME + " text not null);";
+
+    private static final String DATABASE_CREATE_ORGANIZATION_CATEGORIES = "create table "
+            + TABLE_ORGANIZATION_CATEGORIES + "(" + RELATION_ID
+            + " integer primary key autoincrement, "
+            + PRIMARY_CATEGORY_NAME + " text not null);";
 
     //Addictions shit
     private static final String DATABASE_CREATE_ADDICTIONS = "create table "
@@ -293,6 +344,12 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     @Override
     public void onCreate(android.database.sqlite.SQLiteDatabase db) {
         //EXCECUTING THE COMMAND TO CREATE THE TABLES.
+
+        db.execSQL(DATABASE_CREATE_EVENT_PRIMARY);
+        db.execSQL(DATABASE_CREATE_EVENT_CATEGORIES);
+        db.execSQL(DATABASE_CREATE_VENUE_CATEGORIES);
+        db.execSQL(DATABASE_CREATE_ARTIST_CATEGORIES);
+        db.execSQL(DATABASE_CREATE_ORGANIZATION_CATEGORIES);
         db.execSQL(DATABASE_CREATE_USER_INFO);
         db.execSQL(DATABASE_CREATE_EVENT_INFO);
         db.execSQL(DATABASE_CREATE_EVENT_SUB_CATEGORY);
@@ -344,8 +401,8 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     }
 
     public void deleteUserOrg(android.database.sqlite.SQLiteDatabase db,String id) {
-        db.execSQL("delete from "+TABLE_USER_OUTFIT_INFO+" where outfitID='"+id+"'");
-        db.execSQL("delete from "+TABLE_OUTFIT_INFO+" where outfitID='"+id+"'");
+        db.execSQL("delete from " + TABLE_USER_OUTFIT_INFO + " where outfitID='" + id + "'");
+        db.execSQL("delete from " + TABLE_OUTFIT_INFO + " where outfitID='" + id + "'");
     }
 
 
@@ -394,6 +451,17 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public void onUpgrade(android.database.sqlite.SQLiteDatabase db, int oldVersion, int newVersion) {
 
       //  db.execSQL("DROP TABLE IF EXISTS user_info");
+        db.execSQL("DROP TABLE IF EXISTS event_primary_categories");
+        db.execSQL(DATABASE_CREATE_EVENT_PRIMARY);
+        db.execSQL("DROP TABLE IF EXISTS event_categories");
+        db.execSQL(DATABASE_CREATE_EVENT_CATEGORIES);
+        db.execSQL("DROP TABLE IF EXISTS venue_categories");
+        db.execSQL(DATABASE_CREATE_VENUE_CATEGORIES);
+        db.execSQL("DROP TABLE IF EXISTS artist_categories");
+        db.execSQL(DATABASE_CREATE_ARTIST_CATEGORIES);
+        db.execSQL("DROP TABLE IF EXISTS organization_categories");
+        db.execSQL(DATABASE_CREATE_ORGANIZATION_CATEGORIES);
+
         db.execSQL("DROP TABLE IF EXISTS event_info");
         db.execSQL(DATABASE_CREATE_EVENT_INFO);
         db.execSQL("DROP TABLE IF EXISTS event_sub_categories");
@@ -446,6 +514,206 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.execSQL(DATABASE_CREATE_ADDICTIONS_ARTISTS);
     }
 
+    //--------------------------------------CATEGORY LISTS-----------------------------------------
+
+    public void addEventPrimaryCategories( HashMap<String,ArrayList<ArrayList<String>>> event_primary_categories){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        for(String key: event_primary_categories.keySet()){
+
+            values.put("primary_category_name", key);
+
+            db.insert(TABLE_EVENT_PRIMARY, null, values);
+        }
+    }
+
+    public void addEventCategories( HashMap<String,ArrayList<ArrayList<String>>> event_categories){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        for(String key : event_categories.keySet()){
+
+            for(int i = 0; i<event_categories.get(key).get(0).size(); i++){
+
+                values.put("primary_category_name", key);
+                values.put("sub_category_name", event_categories.get(key).get(1).get(i));
+                values.put("sub_category_id", event_categories.get(key).get(0).get(i));
+
+                db.insert(TABLE_EVENT_CATEGORIES, null, values);
+            }
+        }
+    }
+
+    public ArrayList<ArrayList<Items>> getEventCategories(){
+
+        ArrayList<ArrayList<Items>> mainList = new ArrayList<>();
+
+        ArrayList<Items>eventMainList = new ArrayList<>();
+        ArrayList<Items>eventMainListID = new ArrayList<>();
+
+        ArrayList<Items.SubCategory>eventArrayList = new ArrayList<>();
+        ArrayList<Items.SubCategory>eventArrayListID = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String orderBy = "primary_category_name";
+
+        Cursor cursor = db.query(TABLE_EVENT_PRIMARY, null, null, null, null, null, orderBy);
+
+        eventMainList.add(new Items("Event Categories", eventArrayList));
+        eventMainListID.add(new Items("Event Categories", eventArrayListID));
+
+        if(cursor != null) {
+
+            while(cursor.moveToNext()){
+
+                ArrayList<Items.SubCategory.ItemList> itemSub = new ArrayList<>();
+                ArrayList<Items.SubCategory.ItemList> itemSubID = new ArrayList<>();
+
+                String whereClause = "primary_category_name = '"+cursor.getString(cursor.getColumnIndex("primary_category_name"))+"'";
+                Cursor subCursor = db.query(TABLE_EVENT_CATEGORIES,null,whereClause,null,null,null,null);
+
+                if(subCursor != null){
+
+                    while(subCursor.moveToNext()){
+
+                        itemSubID.add(new Items.SubCategory.ItemList(subCursor.getString(subCursor.getColumnIndex("sub_category_id"))));
+                        itemSub.add(new Items.SubCategory.ItemList(subCursor.getString(subCursor.getColumnIndex("sub_category_name"))));
+                    }
+                }
+
+                subCursor.close();
+
+                eventArrayList.add(new Items.SubCategory(cursor.getString(cursor.getColumnIndex("primary_category_name")), new ArrayList<>(itemSub)));
+                eventArrayListID.add(new Items.SubCategory(cursor.getString(cursor.getColumnIndex("primary_category_name")), new ArrayList<>(itemSubID)));
+            }
+
+            mainList.add(eventMainListID);
+            mainList.add(eventMainList);
+        }
+
+        cursor.close();
+
+        return mainList;
+    }
+
+    public void addVenueCategories( ArrayList<String> venue_categories){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        for(int i = 0; i <venue_categories.size(); i++){
+
+            values.put("primary_category_name", venue_categories.get(i));
+
+            db.insert(TABLE_VENUE_CATEGORIES, null, values);
+        }
+    }
+
+    public ArrayList<Items> getVenueCategories(){
+
+        ArrayList<Items>venueMainList = new ArrayList<Items>();
+
+        ArrayList<Items.SubCategory>venueArrayList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_VENUE_CATEGORIES, null, null, null, null, null, null);
+
+        venueMainList.add(new Items("Venue Categories", venueArrayList));
+
+        if(cursor != null) {
+
+            while(cursor.moveToNext()){
+
+                venueArrayList.add(new Items.SubCategory(cursor.getString(cursor.getColumnIndex("primary_category_name")), null));
+            }
+        }
+
+        cursor.close();
+
+        return venueMainList;
+    }
+
+    public void addArtistCategories( ArrayList<String> artist_categories){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        for(int i = 0; i <artist_categories.size(); i++){
+
+            values.put("primary_category_name", artist_categories.get(i));
+
+            db.insert(TABLE_ARTIST_CATEGORIES, null, values);
+        }
+    }
+
+    public ArrayList<Items> getArtistCategories(){
+
+        ArrayList<Items>artistMainList = new ArrayList<Items>();
+
+        ArrayList<Items.SubCategory>artistArrayList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_ARTIST_CATEGORIES, null, null, null, null, null, null);
+
+        artistMainList.add(new Items("Artist Categories", artistArrayList));
+
+        if(cursor != null) {
+
+            while(cursor.moveToNext()){
+
+                artistArrayList.add(new Items.SubCategory(cursor.getString(cursor.getColumnIndex("primary_category_name")), null));
+            }
+        }
+
+        cursor.close();
+
+        return artistMainList;
+    }
+
+    public void addOrganizationCategories( ArrayList<String> organization_categories){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        for(int i = 0; i <organization_categories.size(); i++){
+
+            values.put("primary_category_name", organization_categories.get(i));
+
+            db.insert(TABLE_ORGANIZATION_CATEGORIES, null, values);
+        }
+    }
+
+    public ArrayList<Items> getOrganizationCategories(){
+
+        ArrayList<Items>organizationMainList = new ArrayList<Items>();
+
+        ArrayList<Items.SubCategory>organizationArrayList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_ORGANIZATION_CATEGORIES, null, null, null, null, null, null);
+
+        organizationMainList.add(new Items("Organization Categories", organizationArrayList));
+
+        if(cursor != null) {
+
+            while(cursor.moveToNext()){
+
+                organizationArrayList.add(new Items.SubCategory(cursor.getString(cursor.getColumnIndex("primary_category_name")), null));
+            }
+        }
+
+        cursor.close();
+
+        return organizationMainList;
+    }
+
     //-------------------------------------- EXPLORE ITEMS-----------------------------------------
 
     //ADDING THE LIST OF EVENTS INTO THE LOCAL DATABASE TABLE.
@@ -496,8 +764,8 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
         Cursor cursor = db.query(TABLE_EVENT_INFO, null, null, null, null, null, null);
 
-        if(cursor != null)
-        {
+        if(cursor != null) {
+
             while(cursor.moveToNext()){
 
                 Event newEvent = new Event();
@@ -537,14 +805,11 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                 newEvent.setEventEndTime(cursor.getString(cursor.getColumnIndex("eventEndTime")));
                 newEvent.setEventEndDate(cursor.getString(cursor.getColumnIndex("eventEndDate")));
 
-                Log.v("DB cAT", newEvent.getEventName() + "");
-                Log.v("DB cAT", newEvent.getEventSubCategories() + "");
-                Log.v("DB cAT", newEvent.getEventSubCategoriesID() + "");
-
                 mEvents.add(newEvent);
             }
         }
         cursor.close();
+
         return mEvents;
     }
 

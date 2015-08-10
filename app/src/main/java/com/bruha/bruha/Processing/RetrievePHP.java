@@ -20,6 +20,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 /**
@@ -42,11 +43,11 @@ public class RetrievePHP {
     ArrayList<Items>artistMainList = new ArrayList<Items>();
     ArrayList<Items>organizationMainList = new ArrayList<Items>();
 
-    ArrayList<Items.SubCategory>eventArrayList = new ArrayList<>();
+    HashMap<String,ArrayList<ArrayList<String>>> eventArrayList = new HashMap<>();
     ArrayList<Items.SubCategory>eventArrayListID = new ArrayList<>();
-    ArrayList<Items.SubCategory> venueArrayList = new ArrayList<Items.SubCategory>();
-    ArrayList<Items.SubCategory> artistArrayList = new ArrayList<Items.SubCategory>();
-    ArrayList<Items.SubCategory> organizationArrayList = new ArrayList<Items.SubCategory>();
+    ArrayList<String> venueArrayList = new ArrayList<>();
+    ArrayList<String> artistArrayList = new ArrayList<>();
+    ArrayList<String> organizationArrayList = new ArrayList<>();
 
     //Variables used when connecting to a network.
     URL url = null;
@@ -55,7 +56,7 @@ public class RetrievePHP {
     OutputStreamWriter request = null;
 
     //Gets the List of Events uploaded in the Database.
-    public void getCategoryList() {
+    public HashMap<String,ArrayList<ArrayList<String>>> getEventCategoryList() {
 
         Thread thread;
 
@@ -104,16 +105,15 @@ public class RetrievePHP {
 
             JSONObject eventCat  = x.getJSONObject("event_cat");
 
-            eventMainList.add(new Items("Event Categories", eventArrayList));
-            eventMainListID.add(new Items("Event Categories", eventArrayListID));
-
             Iterator<String> iter = eventCat.keys();
             String primCatName;
 
             while( iter.hasNext() ){
 
-                itemSub.clear();
-                itemSubID.clear();
+                ArrayList<String> itemSub = new ArrayList<>();
+                ArrayList<String> itemSubID = new ArrayList<>();
+
+                ArrayList<ArrayList<String>> superArray = new ArrayList<>();
 
                 primCatName = iter.next();
 
@@ -124,15 +124,62 @@ public class RetrievePHP {
 
                 for( int i = 0; i<subCatList.length()-1; i++){
 
-                    itemSub.add(new Items.SubCategory.ItemList(subCatList.getString(i)));
-                    itemSubID.add(new Items.SubCategory.ItemList(subCatIDJSON.getString(i)));
+                    itemSub.add(subCatList.getString(i));
+                    itemSubID.add(subCatIDJSON.getString(i));
                 }
 
-                eventArrayList.add(new Items.SubCategory(primCatName, new ArrayList<Items.SubCategory.ItemList>(itemSub)));
-                eventArrayListID.add(new Items.SubCategory(primCatName, new ArrayList<Items.SubCategory.ItemList>(itemSubID)));
+                superArray.add(itemSubID);
+                superArray.add(itemSub);
+
+                eventArrayList.put(primCatName,superArray);
             }
 
         } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return eventArrayList;
+    }
+
+    public ArrayList<String> getVenueCategoryList() {
+
+        Thread thread;
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+
+                    url = new URL("http://bruha.com/mobile_php/CategoryList.php");
+                    connection = (HttpURLConnection) url.openConnection();
+
+                    String line = "";
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader reader = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    // Response from server after login process will be stored in response variable.
+
+                    // in this case the response is the echo from the php script (i.e = 1) if successful
+
+                    response = sb.toString();
+                    isr.close();
+                    reader.close();
+
+                } catch (IOException e) {
+                    Log.v("Exception", e.toString());
+                }
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
@@ -143,58 +190,138 @@ public class RetrievePHP {
 
             JSONArray venueCat  = x.getJSONArray("venue_cat");
 
-            venueMainList.add(new Items("Venue Categories", venueArrayList));
-
             for(int i = 0; i< venueCat.length(); i++){
 
-                venueArrayList.add(new Items.SubCategory(venueCat.getString(i), null));
+                venueArrayList.add(venueCat.getString(i));
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        // Get artist cats
+        return venueArrayList;
+    }
+
+    public ArrayList<String> getArtistCategoryList() {
+
+        Thread thread;
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+
+                    url = new URL("http://bruha.com/mobile_php/CategoryList.php");
+                    connection = (HttpURLConnection) url.openConnection();
+
+                    String line = "";
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader reader = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    // Response from server after login process will be stored in response variable.
+
+                    // in this case the response is the echo from the php script (i.e = 1) if successful
+
+                    response = sb.toString();
+                    isr.close();
+                    reader.close();
+
+                } catch (IOException e) {
+                    Log.v("Exception", e.toString());
+                }
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Get venue cats
 
         try {
             JSONObject x = new JSONObject(response);
 
             JSONArray artistCat  = x.getJSONArray("artist_cat");
 
-            artistMainList.add(new Items("Artist Categories", artistArrayList));
-
             for(int i = 0; i< artistCat.length(); i++){
 
-                artistArrayList.add(new Items.SubCategory(artistCat.getString(i), null));
+                artistArrayList.add(artistCat.getString(i));
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        // Get organization cats
+        return artistArrayList;
+    }
+
+    public ArrayList<String> getOrganizationCategoryList() {
+
+        Thread thread;
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+
+                    url = new URL("http://bruha.com/mobile_php/CategoryList.php");
+                    connection = (HttpURLConnection) url.openConnection();
+
+                    String line = "";
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader reader = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    // Response from server after login process will be stored in response variable.
+
+                    // in this case the response is the echo from the php script (i.e = 1) if successful
+
+                    response = sb.toString();
+                    isr.close();
+                    reader.close();
+
+                } catch (IOException e) {
+                    Log.v("Exception", e.toString());
+                }
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Get venue cats
 
         try {
             JSONObject x = new JSONObject(response);
 
             JSONArray organizationCat  = x.getJSONArray("organization_cat");
 
-            organizationMainList.add(new Items("Organization Categories", organizationArrayList));
-
             for(int i = 0; i< organizationCat.length(); i++){
 
-                organizationArrayList.add(new Items.SubCategory(organizationCat.getString(i), null));
+                organizationArrayList.add(organizationCat.getString(i));
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        MyApplication.mainList.add(eventMainList);
-        MyApplication.mainList.add(venueMainList);
-        MyApplication.mainList.add(artistMainList);
-        MyApplication.mainList.add(organizationMainList);
-        MyApplication.mainList.add(eventMainListID);
+        return organizationArrayList;
     }
 
     //Gets the List of Events uploaded in the Database.
