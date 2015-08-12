@@ -13,11 +13,9 @@ public class Event {
     private double eventPrice;
     private double eventDistance;
     private String eventPicture;
-
     //ALL the variables for the lat/lng of event
     private double eventLatitude;
     private double eventLongitude;
-
     //All the variables the Event Detailed Description holds.
     private String eventLocName;
     private String eventLocSt;
@@ -25,14 +23,10 @@ public class Event {
     private String eventStartTime;
     private String eventEndDate;
     private String eventEndTime;
-
     // Variables for event categories
-
     private String eventPrimaryCategory;
     private ArrayList<String> eventSubCategories = new ArrayList<>();
-
     private ArrayList<String> eventSubCategoriesID = new ArrayList<>();
-
     //SQL variables and eventpage
     private String eventDescription;
     private String eventid;

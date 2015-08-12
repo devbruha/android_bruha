@@ -4,28 +4,23 @@ package com.bruha.bruha.Model;
  * Created by Work on 2015-06-11.
  */
 public class Artist {
-
     //Artist main Database data.
     private String artistId;
     private String artistName;
     private String artistDescription;
-
     //Artist Event Data.
     private int artistEventId;
-
     //Artist Media data.
     private String artistPicture;
     private int artistIcon;
-
+    //Category of the artist.
     private String artistPrimaryCategory;
-
     //Artist Contact data.
     private String contactName;
     private String contactPhoneNumber;
     private String contactEmail;
     private String contactWebsite;
     private String contactAddress;
-
 
     //The getters and setters for Aritists variables defined above.
 

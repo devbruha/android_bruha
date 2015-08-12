@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -19,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
@@ -31,23 +29,20 @@ import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 /**
  * Created by Work on 2015-06-10.
  */
 public class MapListViewAdapter extends BaseSwipeAdapter {
+    //Global variables being declared to be used throughout the class.
     private Activity mActivity;
     private ArrayList<Event> mEvent;
     private ArrayList<String> addictedEventsID;
     RetrieveMyPHP retrieveMyPHP;
     SQLiteDatabaseModel dbHelper;
 
-    public MapListViewAdapter(Activity activity,ArrayList<Event> event,ArrayList<String> addictevent)
-    {
+    public MapListViewAdapter(Activity activity,ArrayList<Event> event,ArrayList<String> addictevent) {
         mActivity=activity;
         mEvent=event;
         addictedEventsID = addictevent;
@@ -55,18 +50,14 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         dbHelper = new SQLiteDatabaseModel(mActivity);
     }
 
-
     //Checks if it is a free event, if so, Displays it.
-    public String freeEventCheck(double price)
-    {
+    public String freeEventCheck(double price) {
         if(price==0.0)
         {return "Free!";}
         else {return "$"+price; }
     }
 
-
-    public String TimeFormat(String Time)
-    {
+    public String TimeFormat(String Time) {
         String Hour= Time.substring(0,2);
         String Min= Time.substring(3, 5);
         double hr= Double.parseDouble(Hour);
@@ -83,10 +74,8 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
 
     }
 
-
     //Method to Format the Date that will be displayed.
-    public String dateFormat(String Date)
-    {
+    public String dateFormat(String Date) {
         String year=Date.substring(0,4);
         String Month=Date.substring(5,7);
         String Dates=Date.substring(8,10);
@@ -95,8 +84,7 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
     }
 
     //Part of the Implementation of the dateFormat Method.
-    public String getMonth(String Month)
-    {
+    public String getMonth(String Month) {
         if(Month.equals("01"))
             Month="January";
         if(Month.equals("02"))
@@ -133,11 +121,8 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
     @Override
     public View generateView(final int position, ViewGroup viewGroup) {
         final View convertView = LayoutInflater.from(mActivity).inflate(R.layout.map_item, viewGroup, false);
-
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
-
         convertView.setTag(holder); //sets the tag
-
 
         //Obtaining References to the Image/Text to change inside the layout.
         holder.Picture=(ImageView) convertView.findViewById(R.id.MapEventPicture);
@@ -151,8 +136,6 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         //Initializing each item to the required type
         final Event event = mEvent.get(position);
 
-
-
         //Changing the text in the fields everytime.
         holder.Title.setText(event.getEventName());
         holder.Price.setText(freeEventCheck(event.getEventPrice()));
@@ -160,21 +143,14 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         holder.LocSt.setText(event.getEventLocSt());
         holder.LocAdd.setText(event.getEventLocAdd());
         holder.Hours.setText(dateFormat(event.getEventDate())+" At "+TimeFormat(event.getEventStartTime()));
-        //holder.Picture.setImageResource();
-
+        //Setting the Image
         Picasso.with(viewGroup.getContext()).load(event.getEventPicture()).fit().into(holder.Picture);
-
-
-
-
 
         //Swipe methods being Implemented
         SwipeLayout swipeLayout = (SwipeLayout)convertView.findViewById(getSwipeLayoutResourceId(position));
         swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         swipeLayout.addDrag(SwipeLayout.DragEdge.Left, convertView.findViewById(R.id.left_wrapper_map));
         swipeLayout.addDrag(SwipeLayout.DragEdge.Right, convertView.findViewById(R.id.MapRightSwipeLayout));
-
-
 
         //Implements the Button 'Buy Ticket' that appears after swipe right,Shows Button Highlight for half a second when clicked.
         TableRow GoBuyTicketPage = (TableRow) convertView.findViewById(R.id.MapBuyTicket);
@@ -193,7 +169,6 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
                 animator.start();
             }
         });
-
         //Implements the Button 'Preview' that appears after swipe right,Shows Button Highlight for half a second when clicked.
         TableRow GoPreviewPage  = (TableRow) convertView.findViewById(R.id.MapPreview);
         GoPreviewPage.setOnClickListener(new View.OnClickListener() {
@@ -214,7 +189,6 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
                 animator.start();
             }
         });
-
         //Implements the Button 'More Info' that appears after swipe right,Shows Button Highlight for half a second when clicked.
         TableRow GoMoreInfoPage = (TableRow) convertView.findViewById(R.id.MapMoreInfo);
         GoMoreInfoPage.setOnClickListener(new View.OnClickListener() {
@@ -237,7 +211,7 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         });
 
 
-
+        //Implements the left swipe /Addiction stuff.
         if(MyApplication.loginCheck==true) {
 
             if(mActivity.getLocalClassName().equals("Views.CalendarActivity"))
@@ -251,7 +225,6 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
                     }
                 });
             }
-
 
             else {
 
@@ -267,8 +240,6 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
                     }
 
                     final Button likeText = (Button) convertView.findViewById(R.id.likeButton);
-
-
                     if (addicted == true) {
                         likeText.setText("Unlike!");
                         likeText.setOnClickListener(new View.OnClickListener() {
@@ -278,8 +249,6 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
                                 dbHelper.deleteEventAddiction(dbHelper.getWritableDatabase(), event.getEventid());
                                 Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
                                 likeText.setText("Like!");
-
-
                                 for(int i=0;i<addictedEventsID.size();i++)
                                 {
                                     if(addictedEventsID.get(i).equals(event.getEventid()))
@@ -331,19 +300,13 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
                 }
             });
         }
-
-
         return convertView;
     }
-
 
     //Use for resizing everything like in the Event ListViewAdapter.
     @Override
     public void fillValues(int i, View view) {
-
-
-        //FONT SHIT.
-      //  Typeface domregfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Regular.ttf");
+        //FONT,Resizing
         Typeface domboldfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Bold.ttf");
         Typeface opensansregfnt = Typeface.createFromAsset(mActivity.getAssets(), "fonts/OpenSans-Regular.ttf");
 
@@ -351,49 +314,40 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         Display display = mActivity.getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-
         // Storing the screen height into an int variable.
         int height = size.y;
 
         //Sets the height to 1/3 the screensize.
         ViewGroup.LayoutParams params = view.getLayoutParams();
         params.height =  (int)Math.round(height*.33);
-
         //Assigning the ImageBubble to a variable to alter its dimensions after with.
         ImageView MapPicture = (ImageView) view.findViewById(R.id.MapEventPicture);
         ViewGroup.LayoutParams circleParams = MapPicture.getLayoutParams();
         circleParams.height =  (int)Math.round(height*.20);
         circleParams.width = (int)Math.round(height*.18);
-
-        //Text Formatting inside the EventImage Bubble
         //The EventName being Formatted.
         TextView EventName = (TextView) view.findViewById(R.id.MapEventName);
         int x1= (int)Math.round(height*.0310);
         EventName.setTextSize(TypedValue.COMPLEX_UNIT_PX,x1);
         EventName.setTypeface(domboldfnt);
-
         //The EventPrice being formatted.
         TextView EventPrice = (TextView) view.findViewById(R.id.MapEventPrice);
         int x2= (int)Math.round(height*.0310);
         EventPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX,x2);
         EventPrice.setTypeface(domboldfnt);
-
         //The EventPrice being formatted.
         TextView EventLocName = (TextView) view.findViewById(R.id.MapEventLocName);
         int x3= (int)Math.round(height*.02175);
         EventLocName.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
         EventLocName.setTypeface(opensansregfnt);
-
         //The EventPrice being formatted.
         TextView EventLocSt = (TextView) view.findViewById(R.id.MapEventLocSt);
         EventLocSt.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
         EventLocSt.setTypeface(opensansregfnt);
-
         //The EventPrice being formatted.
         TextView EventLocAdd = (TextView) view.findViewById(R.id.MapEventLocAddress);
         EventLocAdd.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
         EventLocAdd.setTypeface(opensansregfnt);
-
         //The EventDate being formatted.
         TextView EventDate = (TextView) view.findViewById(R.id.MapEventStartDateAndTime);
         int x4= (int)Math.round(height*.022);
@@ -406,16 +360,12 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         TextView Swipe1 = (TextView) view.findViewById(R.id.MapSwipeBarSize1);
         int x5= (int)Math.round(height*.030);
         Swipe1.setTextSize(TypedValue.COMPLEX_UNIT_PX,x5);
-
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
         TextView Swipe2 = (TextView) view.findViewById(R.id.MapSwipeBarSize2);
         Swipe2.setTextSize(TypedValue.COMPLEX_UNIT_PX,x5);
-
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
         TextView Swipe3 = (TextView) view.findViewById(R.id.MapSwipeBarSize3);
         Swipe3.setTextSize(TypedValue.COMPLEX_UNIT_PX,x5);
-
-
     }
 
     @Override
@@ -433,7 +383,6 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         return 0;  //Id of the Item being accessed in the view
     }
 
-
     //A view holder that contain the things that need to be changed for every event
     private static class ViewHolder{
         private ImageView Picture;
@@ -443,7 +392,6 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         private TextView LocSt;
         private TextView LocAdd;
         private TextView Hours;
-
     }
 
 

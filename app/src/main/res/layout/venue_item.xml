@@ -359,16 +359,14 @@
             android:layout_marginTop="11dp" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/VenueIcon"
-            android:src="@android:drawable/ic_secure"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/VAOIcon"
             android:layout_alignTop="@+id/VenueImageBubble"
-            android:layout_alignLeft="@+id/VenueDistance"
-            android:layout_alignStart="@+id/VenueDistance"
-            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="7dp"
             android:paddingBottom="8dp"
-            android:visibility="invisible" />
+            android:visibility="visible" />
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -4,27 +4,23 @@ package com.bruha.bruha.Model;
  * Created by Work on 2015-06-09.
  */
 public class Venue {
-
     //Venue main Database data.
     private String venueId;
     private String venueName;
     private String venueSt;
     private String venueLocation;
     private String venueDescription;
-
     //Venue Media data.
     private String venuePicture;
+    //VenueCategory Data
     private int venueCategoryIcon;
-
     private String venuePrimaryCategory;
-
     //Venue Contact data.
     private String contactName;
     private String contactPhoneNumber;
     private String contactEmail;
     private String contactWebsite;
     private String contactAddress;
-
     //Venue Location
     private double lat;
     private double lng;

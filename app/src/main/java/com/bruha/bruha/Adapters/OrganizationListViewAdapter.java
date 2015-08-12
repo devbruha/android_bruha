@@ -5,9 +5,12 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Typeface;
-import android.media.Image;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -20,7 +23,6 @@ import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
@@ -28,19 +30,18 @@ import com.bruha.bruha.Processing.RetrieveMyPHP;
 import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
 import com.bruha.bruha.Views.ShowOnMapActivity;
+import com.caverock.androidsvg.SVG;
+import com.caverock.androidsvg.SVGParseException;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 /**
  * Created by Work on 2015-06-12.
  */
 public class OrganizationListViewAdapter extends BaseSwipeAdapter {
-
+    //Declaring the global variables to be referenced throughout the class.
     private Activity mActivity;
     private ArrayList<Organizations> mOrganizations;
     public static int Clicks=0;
@@ -48,16 +49,13 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
     RetrieveMyPHP retrieveMyPHP;
     SQLiteDatabaseModel dbHelper;
 
-    public OrganizationListViewAdapter(Activity activity,ArrayList<Organizations> organizations,ArrayList<String> orgID)
-    {
+    public OrganizationListViewAdapter(Activity activity,ArrayList<Organizations> organizations,ArrayList<String> orgID) {
         mActivity=activity;
         mOrganizations=organizations;
         addictOrgID = orgID;
         retrieveMyPHP = new RetrieveMyPHP();
         dbHelper = new SQLiteDatabaseModel(mActivity);
     }
-
-
 
     @Override
     public int getSwipeLayoutResourceId(int i) {
@@ -68,17 +66,59 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
     public View generateView(int position, ViewGroup viewGroup) {
         //Inflates the view to be used
         final View convertView = LayoutInflater.from(mActivity).inflate(R.layout.venue_item, viewGroup, false);
-
-
-
         return convertView;
     }
 
+    //Method to set the icon of the event.
+    public void setIcon(Organizations org,ImageView icon) {
+        if(org.getOrgPrimaryCategory().contains("Academic"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgacademic, 30));}
+
+        else if(org.getOrgPrimaryCategory().contains("Business"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgbusiness, 30));}
+
+        else if(org.getOrgPrimaryCategory().contains("Charity"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgcharity, 30));}
+
+        else if (org.getOrgPrimaryCategory().contains("Fashion"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgfashion, 30));}
+
+        else if (org.getOrgPrimaryCategory().contains("Festival"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgnonprofit, 30));}
+
+        else if (org.getOrgPrimaryCategory().contains("Fraternity"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgfraternity, 30));}
+
+        else if (org.getOrgPrimaryCategory().contains("Music"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgpromoter, 30));}
+
+        else if (org.getOrgPrimaryCategory().contains("Not-for-profit"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgnonprofit, 30));}
+
+        else if (org.getOrgPrimaryCategory().contains("Sports"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgsports, 30));}
+
+        else if (org.getOrgPrimaryCategory().contains("Association"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgstudent, 30));}
+
+        else if (org.getOrgPrimaryCategory().contains("Union"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgstudent, 30));}
+
+        else if (org.getOrgPrimaryCategory().contains("Student"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgstudent, 30));}
+
+        else if (org.getOrgPrimaryCategory().contains("Performing"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgpromoter, 30));}
+
+        else if (org.getOrgPrimaryCategory().contains("Religion"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgreligon, 30));}
+
+        else if (org.getOrgPrimaryCategory().contains("Club"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgnonprofit, 30));}
+    }
 
     @Override
     public void fillValues(final int position, final View convertView) {
-
-        //Test
 
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
 
@@ -127,7 +167,7 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
 
         //Summary Description of the Venue.
         holder.OrganizationPicture= (ImageView) convertView.findViewById(R.id.VenuePicture);
-        holder.OrganizationIcon = (ImageView) convertView.findViewById(R.id.VenueIcon);
+        holder.OrganizationIcon = (ImageView) convertView.findViewById(R.id.VAOIcon);
         holder.OrganizationName = (TextView) convertView.findViewById(R.id.VenueName);
         holder.OrganizationDistance = (TextView) convertView.findViewById(R.id.VenueDistance);
 
@@ -140,19 +180,14 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         holder.OrganizationSaturday = (TextView) convertView.findViewById(R.id.VenueSaturdayHour);
         holder.OrganizationSunday = (TextView) convertView.findViewById(R.id.VenueSundayHour);
 
-
-        //FONT SHIT.
-        Typeface fnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Regular.ttf");
-        Typeface tfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Bold.ttf");
-        Typeface rest = Typeface.createFromAsset(mActivity.getAssets(),"fonts/OpenSans-Regular.ttf");
-
-
-
         //Setting all the text inside the view.
 
         //Summary being set.
         holder.OrganizationName.setText(Outfit.getOrgName());
         //  holder.OrganizationDistance.setText("1.2 km");
+
+        setIcon(Outfit,holder.OrganizationIcon);
+
 
         //Detailed Description being set.
         holder.OrganizationDetailedName.setText(Outfit.getOrgName());
@@ -160,18 +195,14 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         holder.OrganizationLocSt.setText(Outfit.getOrgSt());
         holder.OrganizationLocAdd.setText(Outfit.getOrgLocation());
 
-
+        //Putting the picture into the view.
         Picasso.with(convertView.getContext()).load(Outfit.getOrgPicture()).into(holder.OrganizationPicture);
-
-
-
 
         //Swipe methods being Implemented
         SwipeLayout swipeLayout = (SwipeLayout)convertView.findViewById(getSwipeLayoutResourceId(position));
         swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         swipeLayout.addDrag(SwipeLayout.DragEdge.Left, convertView.findViewById(R.id.Venue_Left_wrapper));
         swipeLayout.addDrag(SwipeLayout.DragEdge.Right, convertView.findViewById(R.id.VenueRightSwipeLayout));
-
 
         //Implements the Button 'Preview' that appears after swipe right,Shows Button Highlight for half a second when clicked.
         TableRow GoPreviewPage  = (TableRow) convertView.findViewById(R.id.VenuePreviewRow);
@@ -193,7 +224,6 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
                 animator.start();
             }
         });
-
         //Implements the Button 'More Info' that appears after swipe right,Shows Button Highlight for half a second when clicked.
         TableRow GoMoreInfoPage = (TableRow) convertView.findViewById(R.id.VenueMoreInfoRow);
         GoMoreInfoPage.setOnClickListener(new View.OnClickListener() {
@@ -215,13 +245,11 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
             }
         });
 
+        //FONT,Resizing and addiction implementation:
 
-        //FONT SHIT
         Typeface domregfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Regular.ttf");
         Typeface domboldfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Bold.ttf");
         Typeface opensansregfnt = Typeface.createFromAsset(mActivity.getAssets(), "fonts/OpenSans-Regular.ttf");
-
-
 
         //Assigning the ImageBubble to a variable to alter iits dimensions after with.
         ImageView circle = (ImageView) convertView.findViewById(R.id.VenueImageBubble);
@@ -230,27 +258,25 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         Display display = mActivity.getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-
         // Storing the screen height into an int variable.
         int height = size.y;
 
-
+        //Getting the icon and setting its size
+        ImageView icon = (ImageView) convertView.findViewById(R.id.VAOIcon);
+        ViewGroup.LayoutParams iconLayoutParams = icon.getLayoutParams();
+        iconLayoutParams.height =  (int)Math.round(height*.05);
+        iconLayoutParams.width =  (int)Math.round(height*.05);
         //Sets the height to 1/3 the screensize.
         ViewGroup.LayoutParams params = convertView.getLayoutParams();
         params.height =  (int)Math.round(height*.33);
-
+        //Picture being resized.
         ImageView Picture = (ImageView) convertView.findViewById(R.id.VenuePicture);
         ViewGroup.LayoutParams PictureParam = Picture.getLayoutParams();
         PictureParam.height =  (int)Math.round(height*.33);
-
-
-
-
         //Getting the LayoutParams of the circle and then setting it to quarter the screensize.
         ViewGroup.LayoutParams circleParams = circle.getLayoutParams();
         circleParams.height =  (int)Math.round(height*.25);
         circleParams.width = (int)Math.round(height*.25);
-
 
         //Summary being resized.
 
@@ -259,7 +285,6 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         int x1= (int)Math.round(height*.030);
         VenueName.setTextSize(TypedValue.COMPLEX_UNIT_PX,x1);
         VenueName.setTypeface(domboldfnt);
-
         //The VenueDistance being formatted.
         TextView VenueDistance = (TextView) convertView.findViewById(R.id.VenueDistance);
         int x2= (int)Math.round(height * .018);
@@ -273,38 +298,34 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         int x3= (int)Math.round(height * .030);
         DesVenueName.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
         DesVenueName.setTypeface(domboldfnt);
-
         //The VenueDistance being formatted.
         TextView DesVenueLocName = (TextView) convertView.findViewById(R.id.DesVenueLocName);
         int x4= (int)Math.round(height * .0215);
         DesVenueLocName.setTextSize(TypedValue.COMPLEX_UNIT_PX,x4);
         DesVenueLocName.setTypeface(opensansregfnt);
-
         //The VenueDistance being formatted.
         TextView DesVenueLocSt = (TextView) convertView.findViewById(R.id.DesVenueLocStreet);
         DesVenueLocSt.setTextSize(TypedValue.COMPLEX_UNIT_PX, x4);
         DesVenueLocSt.setTypeface(opensansregfnt);
-
         //The VenueDistance being formatted.
         TextView DesVenueLocAdd = (TextView) convertView.findViewById(R.id.DesVenueLocAddress);
         DesVenueLocAdd.setTextSize(TypedValue.COMPLEX_UNIT_PX, x4);
         DesVenueLocAdd.setTypeface(opensansregfnt);
-
         //The VenueDistance being formatted.
         TextView DesVenueHourText = (TextView) convertView.findViewById(R.id.VenueHourText);
         int x5= (int)Math.round(height * .0185);
         DesVenueHourText.setTextSize(TypedValue.COMPLEX_UNIT_PX,x5);
         DesVenueHourText.setTypeface(domboldfnt);
-
+        //Hour text being resized.
         TextView DesVenueHourWeekDay = (TextView) convertView.findViewById(R.id.VenueMontoFriHour);
         int x6= (int)Math.round(height * .0165);
         DesVenueHourWeekDay.setTextSize(TypedValue.COMPLEX_UNIT_PX,x6);
         DesVenueHourWeekDay.setTypeface(domregfnt);
-
+        //Hour text being resized.
         TextView DesVenueHourSaturday=(TextView) convertView.findViewById(R.id.VenueSaturdayHour);
         DesVenueHourSaturday.setTextSize(TypedValue.COMPLEX_UNIT_PX,x6);
         DesVenueHourSaturday.setTypeface(domregfnt);
-
+        //Hour text being resized.
         TextView DesVenueHourSunday= (TextView) convertView.findViewById(R.id.VenueSundayHour);
         DesVenueHourSunday.setTextSize(TypedValue.COMPLEX_UNIT_PX,x6);
         DesVenueHourSaturday.setTypeface(domregfnt);
@@ -313,13 +334,12 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         TextView Swipe1 = (TextView) convertView.findViewById(R.id.VenueSwipeBarSize1);
         int x7= (int)Math.round(height * .030);
         Swipe1.setTextSize(TypedValue.COMPLEX_UNIT_PX,x7);
-
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
         TextView Swipe2 = (TextView) convertView.findViewById(R.id.VenueSwipeBarSize2);
         Swipe2.setTextSize(TypedValue.COMPLEX_UNIT_PX,x7);
 
+        //The left swipe being implemented/Addiction or User deletion being implemented.
         if(MyApplication.loginCheck==true) {
-
             if (mActivity.getLocalClassName().equals("Views.MyUploadsActivity")) {
                 final Button likeText = (Button) convertView.findViewById(R.id.likeVenButton);
                 likeText.setText("Delete!");
@@ -338,7 +358,6 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
                     }
                 });
             } else {
-
                 //myAddictions stuff:
                 boolean addicted = false;
 
@@ -351,8 +370,6 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
                     }
 
                     final Button likeText = (Button) convertView.findViewById(R.id.likeVenButton);
-
-
                     if (addicted == true) {
                         likeText.setText("Unlike!");
                         likeText.setOnClickListener(new View.OnClickListener() {
@@ -423,30 +440,23 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         return mOrganizations.size();
     }
 
-
-
     @Override
     public Object getItem(int position) {
         return mOrganizations.get(position);  //Returns the Item being accessed in the the array
     }
-
-
 
     @Override
     public long getItemId(int position) {
         return 0;
     }
 
-
     //A view holder that contain the things that need to be changed for every event
     private static class ViewHolder{
-
         //The values holding summary description of the Venue.
         ImageView OrganizationPicture;
         ImageView OrganizationIcon;
         TextView OrganizationName;
         TextView OrganizationDistance;
-
         //Values holding the detailed description of venues.
         TextView OrganizationDetailedName;
         TextView OrganizationLocName;
@@ -455,10 +465,25 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         TextView OrganizationWeekDayHours;
         TextView OrganizationSaturday;
         TextView OrganizationSunday;
-
-
     }
 
+    //SVG Conversion.
+    public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
+        try {
+            size = (int)(size*res.getDisplayMetrics().density);
+            SVG svg = SVG.getFromResource(mActivity.getApplicationContext(), resource);
+
+            Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bmp);
+            svg.renderToCanvas(canvas);
+
+            BitmapDrawable drawable = new BitmapDrawable(res, bmp);
 
 
+            return drawable;
+        }catch(SVGParseException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

@@ -5,8 +5,12 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -19,24 +23,24 @@ import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.RetrieveMyPHP;
 import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
+import com.caverock.androidsvg.SVG;
+import com.caverock.androidsvg.SVGParseException;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 /**
  * Created by Work on 2015-06-12.
  */
 public class ArtistsListViewAdapter extends BaseSwipeAdapter {
-
+    //Global variables to  be used throughout the app.
     private Activity mActivity;             //The Activity where it is to be displayed.
     private ArrayList<Artist> mArtists;    //The List of Artist to be displayed.
     public static int Clicks=0;             //The number of times tapped on the screen.
@@ -44,8 +48,7 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
     ArrayList<String> addictArtistID;
     SQLiteDatabaseModel dbHelper;
 
-    public ArtistsListViewAdapter(Activity activity,ArrayList<Artist> artists, ArrayList<String> artistID)
-    {
+    public ArtistsListViewAdapter(Activity activity,ArrayList<Artist> artists, ArrayList<String> artistID) {
         mActivity = activity;
         mArtists = artists;
         addictArtistID = artistID;
@@ -60,18 +63,49 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
 
     @Override
     public View generateView(int position, ViewGroup viewGroup) {
-
         //Inflates the view to be used
         final View convertView = LayoutInflater.from(mActivity).inflate(R.layout.venue_item, viewGroup, false);
-
-
         return convertView;
+    }
+
+    //Method to set the icon of the event.
+    public void setIcon(Artist artist,ImageView icon) {
+        if(artist.getArtistPrimaryCategory().contains("Actor"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.artistperforming, 30));}
+
+        else if(artist.getArtistPrimaryCategory().contains("Actress"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.artistperforming, 30));}
+
+        else if(artist.getArtistPrimaryCategory().contains("Band"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.artistband, 30));}
+
+        else if (artist.getArtistPrimaryCategory().contains("Crafts"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.artistvideographer, 30));}
+
+        else if (artist.getArtistPrimaryCategory().contains("Graffiti"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.artistdesigner, 30));}
+
+        else if (artist.getArtistPrimaryCategory().contains("Painter"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.artistdesigner, 30));}
+
+        else if (artist.getArtistPrimaryCategory().contains("Photographer"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.artistphotographer, 30));}
+
+        else if (artist.getArtistPrimaryCategory().contains("Sculpter"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.artistdesigner, 30));}
+
+        else if (artist.getArtistPrimaryCategory().contains("Sketch"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.artistvisualarts, 30));}
+
+        else if (artist.getArtistPrimaryCategory().contains("Solo"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.artistsolomusician, 30));}
+
+        else if (artist.getArtistPrimaryCategory().contains("Writer"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.artistwriter, 30));}
     }
 
     @Override
     public void fillValues(final int position, final View convertView) {
-
-        //Test
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
 
         convertView.setTag(holder); //sets the tag
@@ -118,7 +152,7 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
 
         //Summary Description of the Venue.
         holder.ArtistPicture= (ImageView) convertView.findViewById(R.id.VenuePicture);
-        holder.ArtistIcon = (ImageView) convertView.findViewById(R.id.VenueIcon);
+        holder.ArtistIcon = (ImageView) convertView.findViewById(R.id.VAOIcon);
         holder.ArtistName = (TextView) convertView.findViewById(R.id.VenueName);
         holder.ArtistDistance = (TextView) convertView.findViewById(R.id.VenueDistance);
 
@@ -129,14 +163,15 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         holder.ArtistEventTiming= (TextView) convertView.findViewById(R.id.VenueMontoFriHour);
         holder.DesArtistName=(TextView) convertView.findViewById(R.id.DesVenueName);
 
-
         //Setting all the text inside the view.
+
+        setIcon(artist,holder.ArtistIcon);
 
         //Summary being set.
         // holder.ArtistPicture.setImageResource();
         // holder.ArtistIcon.setImageResource();
         holder.ArtistName.setText(artist.getArtistName());
-        holder.ArtistDistance.setText(artist.getArtistDescription());
+        // holder.ArtistDistance.setText(artist.getArtistDescription());
 
         //Detailed Description being set.
         holder.DesArtistName.setText(artist.getArtistName());
@@ -145,7 +180,7 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         //holder.ArtistLocAdd.setText("Hamilton, ON Canada");
         //holder.ArtistEventTiming.setText("30 September,2015 At 3:30:00");
 
-
+        //Sets the picture of the view.
         Picasso.with(convertView.getContext()).load(artist.getArtistPicture()).into(holder.ArtistPicture);
 
 
@@ -212,19 +247,22 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         // Storing the screen height into an int variable.
         int height = size.y;
 
+        //Getting the icon and setting its size
+        ImageView icon = (ImageView) convertView.findViewById(R.id.VAOIcon);
+        ViewGroup.LayoutParams iconLayoutParams = icon.getLayoutParams();
+        iconLayoutParams.height =  (int)Math.round(height*.05);
+        iconLayoutParams.width =  (int)Math.round(height*.05);
         //Sets the height to 1/3 the screensize.
         ViewGroup.LayoutParams params = convertView.getLayoutParams();
         params.height =  (int)Math.round(height*.33);
-
+        //Picture being resized to the view height
         ImageView Pic = (ImageView) convertView.findViewById(R.id.VenuePicture);
         ViewGroup.LayoutParams PictureParam = Pic.getLayoutParams();
         PictureParam.height =  (int)Math.round(height*.33);
-
         //Getting the LayoutParams of the circle and then setting it to quarter the screensize.
         ViewGroup.LayoutParams circleParams = circle.getLayoutParams();
         circleParams.height =  (int)Math.round(height*.25);
         circleParams.width = (int)Math.round(height*.25);
-
 
         //Summary being resized.
 
@@ -233,7 +271,6 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         int x1= (int)Math.round(height*.030);
         VenueName.setTextSize(TypedValue.COMPLEX_UNIT_PX,x1);
         VenueName.setTypeface(domboldfnt);
-
         //The VenueDistance being formatted.
         TextView VenueDistance = (TextView) convertView.findViewById(R.id.VenueDistance);
         int x2= (int)Math.round(height * .018);
@@ -247,38 +284,34 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         int x3= (int)Math.round(height * .030);
         DesVenueName.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
         DesVenueName.setTypeface(domboldfnt);
-
         //The VenueDistance being formatted.
         TextView DesVenueLocName = (TextView) convertView.findViewById(R.id.DesVenueLocName);
         int x4= (int)Math.round(height * .0215);
         DesVenueLocName.setTextSize(TypedValue.COMPLEX_UNIT_PX,x4);
         DesVenueLocName.setTypeface(opensansregfnt);
-
         //The VenueDistance being formatted.
         TextView DesVenueLocSt = (TextView) convertView.findViewById(R.id.DesVenueLocStreet);
         DesVenueLocSt.setTextSize(TypedValue.COMPLEX_UNIT_PX, x4);
         DesVenueLocSt.setTypeface(opensansregfnt);
-
         //The VenueDistance being formatted.
         TextView DesVenueLocAdd = (TextView) convertView.findViewById(R.id.DesVenueLocAddress);
         DesVenueLocAdd.setTextSize(TypedValue.COMPLEX_UNIT_PX, x4);
         DesVenueLocAdd.setTypeface(opensansregfnt);
-
         //The VenueDistance being formatted.
         TextView DesVenueHourText = (TextView) convertView.findViewById(R.id.VenueHourText);
         int x5= (int)Math.round(height * .0185);
         DesVenueHourText.setTextSize(TypedValue.COMPLEX_UNIT_PX,x5);
         DesVenueHourText.setTypeface(domboldfnt);
-
+        //Hour text being resized
         TextView DesVenueHourWeekDay = (TextView) convertView.findViewById(R.id.VenueMontoFriHour);
         int x6= (int)Math.round(height * .0165);
         DesVenueHourWeekDay.setTextSize(TypedValue.COMPLEX_UNIT_PX,x6);
         DesVenueHourWeekDay.setTypeface(domregfnt);
-
+        //Saturday text being resized
         TextView DesVenueHourSaturday=(TextView) convertView.findViewById(R.id.VenueSaturdayHour);
         DesVenueHourSaturday.setTextSize(TypedValue.COMPLEX_UNIT_PX,x6);
         DesVenueHourSaturday.setTypeface(domregfnt);
-
+        //Sunday text resizing
         TextView DesVenueHourSunday= (TextView) convertView.findViewById(R.id.VenueSundayHour);
         DesVenueHourSunday.setTextSize(TypedValue.COMPLEX_UNIT_PX,x6);
         DesVenueHourSunday.setTypeface(domregfnt);
@@ -287,12 +320,11 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         TextView Swipe1 = (TextView) convertView.findViewById(R.id.VenueSwipeBarSize1);
         int x7= (int)Math.round(height * .030);
         Swipe1.setTextSize(TypedValue.COMPLEX_UNIT_PX,x7);
-
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
         TextView Swipe2 = (TextView) convertView.findViewById(R.id.VenueSwipeBarSize2);
         Swipe2.setTextSize(TypedValue.COMPLEX_UNIT_PX,x7);
 
-
+        //The left swipe/Addiction/ User deletion being initialized according to the view opened.
         if(MyApplication.loginCheck==true) {
 
             if (mActivity.getLocalClassName().equals("Views.MyUploadsActivity")) {
@@ -325,7 +357,6 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
                     }
 
                     final Button likeText = (Button) convertView.findViewById(R.id.likeVenButton);
-
 
                     if (addicted == true) {
                         likeText.setText("Unlike!");
@@ -384,7 +415,6 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
                 }
             });
         }
-
     }
 
     public ArrayList<Artist> getData() {
@@ -413,12 +443,31 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         ImageView ArtistIcon;
         TextView ArtistName;
         TextView ArtistDistance;
-
         //Values holding the detailed description of venues.
         TextView DesArtistName;
         TextView ArtistLocName;
         TextView ArtistLocSt;
         TextView ArtistLocAdd;
         TextView ArtistEventTiming;
+    }
+
+    //SVG Conversion.
+    public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
+        try {
+            size = (int)(size*res.getDisplayMetrics().density);
+            SVG svg = SVG.getFromResource(mActivity.getApplicationContext(), resource);
+
+            Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bmp);
+            svg.renderToCanvas(canvas);
+
+            BitmapDrawable drawable = new BitmapDrawable(res, bmp);
+
+
+            return drawable;
+        }catch(SVGParseException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

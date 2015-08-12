@@ -20,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
 import com.bruha.bruha.Adapters.ArtistsListViewAdapter;
 import com.bruha.bruha.Adapters.EventListviewAdapter;
 import com.bruha.bruha.Adapters.OrganizationListViewAdapter;
@@ -35,12 +34,10 @@ import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
-
 import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-
 
 public class ListActivity extends FragmentActivity {
     //The Arrays that will contain the information retrieved from the local database.
@@ -48,53 +45,44 @@ public class ListActivity extends FragmentActivity {
     ArrayList<Organizations> mOrganizations = new ArrayList<>();
     ArrayList<Venue> mVenues = new ArrayList<>();
     ArrayList<Artist> mArtists = new ArrayList<>();
-
-    public static ListActivity instance = null;
-
     ArrayList<String> addictEventId = new ArrayList<>();
     ArrayList<String> addictVenueId = new ArrayList<>();
     ArrayList<String> addictArtistId = new ArrayList<>();
     ArrayList<String> addictOutfitId = new ArrayList<>();
-
-
+    public static ListActivity instance = null;   //Some variable.
     //Initualiing the Filter Obects to hide and display everytime Venue,Artist,Event and Outfit Filters are applied.
     LinearLayout mEventCategoryListView;
     LinearLayout mVenueCategoryListView;
     LinearLayout mArtistCategoryListView;
     LinearLayout mOrganizationCategoryListView;
-
+    //Filters stuff that will hide when changed filter.
     FilterView filterView;
-
     LinearLayout linearCalendar ;
     TextView admission;
     TextView mPrice;
     SeekBar prce;
-
+    //Backup lists so the filters can work.
     ArrayList<Event> backupEventList;         //Array backupEventList of the whole list,since mEvent changes when we update the eventAdapter in filter save button.
     ArrayList<Venue> backupVenueList;         //Array backupEventList of the whole list,since mEvent changes when we update the eventAdapter in filter save button.
     ArrayList<Artist> backupArtistList;         //Array backupEventList of the whole list,since mEvent changes when we update the eventAdapter in filter save button.
     ArrayList<Organizations> backupOrganizationList;         //Array backupEventList of the whole list,since mEvent changes when we update the eventAdapter in filter save button.
-
+    //The adapters to be used.
     EventListviewAdapter eventAdapter;
     VenueListViewAdapter venueAdapter;
     OrganizationListViewAdapter organizationAdapter;
     ArtistsListViewAdapter artistAdapter;
-
     //Injecting Buttons using ButterKnife Library
     @InjectView(android.R.id.list) ListView mListView;
-
     //The Linear layout to be set OnCLickListener to and background changing.
     @InjectView(R.id.venueButton) LinearLayout venueButton;
     @InjectView(R.id.artistButton) LinearLayout artistButton;
     @InjectView(R.id.outfitButton) LinearLayout orgButton;
     @InjectView(R.id.eventButton) LinearLayout eventButton;
-
     //The Image Views to set and Change for the Filters
     @InjectView(R.id.eventButtonImage) ImageView eventImage;
     @InjectView(R.id.venueButtonImage) ImageView venueImage;
     @InjectView(R.id.artistButtonImage) ImageView artistImage;
     @InjectView(R.id.outfitButtonImage) ImageView outfitImage;
-
     //The TextViews to be RESIZED(HELLO,RESIZE EM!!) and Changed.
     @InjectView(R.id.filtereventtext) TextView eventText;
     @InjectView(R.id.filtervenuetext) TextView venueText;
@@ -103,7 +91,6 @@ public class ListActivity extends FragmentActivity {
     @InjectView(R.id.DashboardButton) ImageView dudeButton;
     @InjectView(R.id.MapButton) ImageView mapButton;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,24 +98,11 @@ public class ListActivity extends FragmentActivity {
         setContentView(R.layout.activity_list2);
         ButterKnife.inject(this);                   //Injecting all the objects to be imported from above.
 
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
+        setsize(); //Method to set the size of the buttons in the view.
 
-        // Storing the screen height into an int variable..
-        int height = size.y;
+        init();     //Initialize the variables from local database.
 
-        //Assigning the PageEventCoverPicture to a variable to alter its dimensions after with.
-        ViewGroup.LayoutParams dudeButtonLayoutParams = dudeButton.getLayoutParams();
-        dudeButtonLayoutParams.height =  (int)Math.round(height*.07);
-        dudeButtonLayoutParams.width =  (int)Math.round(height*.07);
-
-        ViewGroup.LayoutParams mapButtonLayoutParams = mapButton.getLayoutParams();
-        mapButtonLayoutParams.height =  (int)Math.round(height*.07);
-        mapButtonLayoutParams.width =  (int)Math.round(height*.07);
-
-        init();
-
+        //Filter sttuff.
         if(MyApplication.sourceEvents.size() == 0) {
 
             //Creating an variable of type Listview Adapter to create the list view.
@@ -168,28 +142,25 @@ public class ListActivity extends FragmentActivity {
             organizationAdapter =new OrganizationListViewAdapter(this, MyApplication.sourceOrganizations,addictOutfitId); //Calling the eventAdapter mListView to help set the List
         }
 
-        setUpFilters();
+        setUpFilters(); //Method to set up the filters in the view.
 
-        //Setting the Filters to the Filter Item once they have been declared and set in the view,later to be altered with.
-
+        //Setting the Filters to the Filter Item once they have been declared and set in the view,later to be altered with
         mEventCategoryListView = (LinearLayout) findViewById(R.id.event_category_listview);
         mVenueCategoryListView = (LinearLayout) findViewById(R.id.venue_category_listview);
         mArtistCategoryListView = (LinearLayout) findViewById(R.id.artist_category_listview);
         mOrganizationCategoryListView = (LinearLayout) findViewById(R.id.organization_category_listview);
-
+        //assigning the global variables the respective views.
         linearCalendar = (LinearLayout) findViewById(R.id.calendarView);
         prce = (SeekBar) findViewById(R.id.priceBar);
         mPrice = (TextView) findViewById(R.id.priceDisplay);
         admission = (TextView) findViewById(R.id.admissionTextView);
-
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(eventAdapter);
 
-        //Swipe stuff
-       // eventAdapter.setMode(Attributes.Mode.Single);
 
-        setButtons();
+        setButtons();   //Method to create and set the Dashboard/Map Button.
 
+        //Checking which filter was chosen before opening the activity.
         if(MyApplication.filterTracker.equals("Event"))
         {
             eventButton(null);
@@ -211,12 +182,25 @@ public class ListActivity extends FragmentActivity {
 
     }
 
-    private void setButtons() {
+    private void setsize() {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        // Storing the screen height into an int variable..
+        int height = size.y;
+        //Assigning the PageEventCoverPicture to a variable to alter its dimensions after with.
+        ViewGroup.LayoutParams dudeButtonLayoutParams = dudeButton.getLayoutParams();
+        dudeButtonLayoutParams.height =  (int)Math.round(height*.07);
+        dudeButtonLayoutParams.width =  (int)Math.round(height*.07);
+        ViewGroup.LayoutParams mapButtonLayoutParams = mapButton.getLayoutParams();
+        mapButtonLayoutParams.height =  (int)Math.round(height*.07);
+        mapButtonLayoutParams.width =  (int)Math.round(height*.07);
+    }
 
+    private void setButtons() {
+        //Sets the image and onclicklisteners for the Buttons for dashboard/map navigation.
         dudeButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 30));
         mapButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.mapicon, 30));
-
-
         dudeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -231,7 +215,6 @@ public class ListActivity extends FragmentActivity {
                 animator.start();
             }
         });
-
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -306,21 +289,17 @@ public class ListActivity extends FragmentActivity {
     @OnClick(R.id.venueButton)
     public void venueButton(View view) {
 
-        MyApplication.filterTracker = "Venue";
-
-        //Changing shit:
+        MyApplication.filterTracker = "Venue";  //Letting App know which filter was open last.
+        //Changing Filters
         venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
         artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-
         eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventwhite, 50));
         venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venueorange, 50));
         artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistwhite, 50));
         outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
-        
         mVenueCategoryListView.setVisibility(view.VISIBLE);
-
         admission.setVisibility(View.GONE);
         mPrice.setVisibility(View.GONE);
         prce.setVisibility(View.GONE);
@@ -328,24 +307,35 @@ public class ListActivity extends FragmentActivity {
         mArtistCategoryListView.setVisibility(view.GONE);
         mOrganizationCategoryListView.setVisibility(view.GONE);
         linearCalendar.setVisibility(view.GONE);
-
-        //Sets the Adapter from the class Listview Adapter
-        mListView.setAdapter(venueAdapter);
-
         venueText.setTextColor(Color.parseColor("#FFFFBB33"));
         eventText.setTextColor(Color.parseColor("#ffffff"));
         outfitText.setTextColor(Color.parseColor("#ffffff"));
         artistText.setTextColor(Color.parseColor("#ffffff"));
+
+        //Sets the Adapter from the class Listview Adapter
+        mListView.setAdapter(venueAdapter);
     }
 
-    //venueButton Implemented to switch the mListView to show List of Venue.
+    //outfitButton Implemented to switch the mListView to show List of Outfits.
     @OnClick(R.id.outfitButton)
     public void organizationButton(View view) {
 
-        MyApplication.filterTracker = "Outfit";
+        MyApplication.filterTracker = "Outfit"; //Letting App know which filter was open last.
 
+        //Changing shit:
+        orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
+        artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
+        eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
+        venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
+        eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventwhite, 50));
+        venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venuewhite, 50));
+        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistwhite, 50));
+        outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitorange, 50));
+        outfitText.setTextColor(Color.parseColor("#FFFFBB33"));
+        venueText.setTextColor(Color.parseColor("#ffffff"));
+        eventText.setTextColor(Color.parseColor("#ffffff"));
+        artistText.setTextColor(Color.parseColor("#ffffff"));
         mOrganizationCategoryListView.setVisibility(view.VISIBLE);
-
         admission.setVisibility(View.GONE);
         mPrice.setVisibility(View.GONE);
         prce.setVisibility(View.GONE);
@@ -356,35 +346,28 @@ public class ListActivity extends FragmentActivity {
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(organizationAdapter);
-
-        //Changing shit:
-        orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
-        artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-        eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-        venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-
-        eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventwhite, 50));
-        venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venuewhite, 50));
-        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistwhite, 50));
-        outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitorange, 50));
-
-        outfitText.setTextColor(Color.parseColor("#FFFFBB33"));
-        venueText.setTextColor(Color.parseColor("#ffffff"));
-        eventText.setTextColor(Color.parseColor("#ffffff"));
-        artistText.setTextColor(Color.parseColor("#ffffff"));
     }
 
     @OnClick(R.id.eventButton)
     public void eventButton(View view) {
 
-        MyApplication.filterTracker = "Event";
-        mListView.setAdapter(eventAdapter);
-
-
+        MyApplication.filterTracker = "Event";  //Letting the app know which filter was open last.
+        //Changing Filter:
+        eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
+        artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
+        venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
+        orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
+        eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventorange, 50));
+        venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venuewhite, 50));
+        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistwhite, 50));
+        outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
+        eventText.setTextColor(Color.parseColor("#FFFFBB33"));
+        venueText.setTextColor(Color.parseColor("#ffffff"));
+        outfitText.setTextColor(Color.parseColor("#ffffff"));
+        artistText.setTextColor(Color.parseColor("#ffffff"));
         TextView Admission = (TextView) findViewById(R.id.admissionTextView);
         TextView Price = (TextView) findViewById(R.id.priceDisplay);
         SeekBar prce = (SeekBar) findViewById(R.id.priceBar);
-
         Admission.setVisibility(View.VISIBLE);
         Price.setVisibility(View.VISIBLE);
         prce.setVisibility(View.VISIBLE);
@@ -393,43 +376,23 @@ public class ListActivity extends FragmentActivity {
         mArtistCategoryListView.setVisibility(view.GONE);
         mOrganizationCategoryListView.setVisibility(view.GONE);
         linearCalendar.setVisibility(view.VISIBLE);
-
-
-        //Changing shit:
-        eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
-        artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-        venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-        orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-
-        eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventorange, 50));
-        venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venuewhite, 50));
-        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistwhite, 50));
-        outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
-
-        eventText.setTextColor(Color.parseColor("#FFFFBB33"));
-        venueText.setTextColor(Color.parseColor("#ffffff"));
-        outfitText.setTextColor(Color.parseColor("#ffffff"));
-        artistText.setTextColor(Color.parseColor("#ffffff"));
-
-
+        //Setting the adapter.
+        mListView.setAdapter(eventAdapter);
     }
 
     @OnClick(R.id.artistButton)
     public void artistButton(View view) {
 
         MyApplication.filterTracker = "Artist";
-
-        //Changing shit:
+        //Changing Filters:
         artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
         venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-
         eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventwhite, 50));
         venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venuewhite, 50));
         artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistorange, 50));
         outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
-
         admission.setVisibility(View.GONE);
         mPrice.setVisibility(View.GONE);
         prce.setVisibility(View.GONE);
@@ -438,34 +401,29 @@ public class ListActivity extends FragmentActivity {
         mOrganizationCategoryListView.setVisibility(view.GONE);
         mVenueCategoryListView.setVisibility(view.GONE);
         linearCalendar.setVisibility(view.GONE);
-
-        //Sets the Adapter from the class Listview Adapter.
-        mListView.setAdapter(artistAdapter);
-
         artistText.setTextColor(Color.parseColor("#FFFFBB33"));
         venueText.setTextColor(Color.parseColor("#ffffff"));
         outfitText.setTextColor(Color.parseColor("#ffffff"));
         eventText.setTextColor(Color.parseColor("#ffffff"));
+        //Sets the Adapter from the class Listview Adapter.
+        mListView.setAdapter(artistAdapter);
     }
 
     //Button Implementation for navigating to the Map from mListView.
-    public void startMapActivity(View view)
-    {
+    public void startMapActivity(View view) {
         Intent intent=new Intent(this,MapsActivity.class);
         startActivity(intent);
         finish();
     }
 
     //Button Implementation for navigating to the Dashboard from mListView.
-    public void startDashboardActivity(View view)
-    {
+    public void startDashboardActivity(View view) {
         Intent intent=new Intent(this,DashboardActivity.class);
         startActivity(intent);
         finish();
     }
 
-
-    //SVG SHIT:
+    //SVG Conversion.
     public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
         try {
             size = (int)(size*res.getDisplayMetrics().density);

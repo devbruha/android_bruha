@@ -5,9 +5,12 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Typeface;
-import android.util.Log;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -20,15 +23,15 @@ import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.RetrieveMyPHP;
-import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
 import com.bruha.bruha.Views.ShowOnMapActivity;
+import com.caverock.androidsvg.SVG;
+import com.caverock.androidsvg.SVGParseException;
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
@@ -58,6 +61,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
 
     public String TimeFormat(String Time)
     {
+        //Sets the time format from 24 hour clock to 12 hour.
         String Hour= Time.substring(0,2);
         String Min= Time.substring(3, 5);
         double hr= Double.parseDouble(Hour);
@@ -71,7 +75,6 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         Hour= x+"";
         String time = Hour + ":" + Min + " " + M;
         return time;
-
     }
 
     //Method to Format the Date that will be displayed.
@@ -146,22 +149,16 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         return R.id.swipe;
     }
 
-
-
     @Override
     public View generateView(int position, ViewGroup parent) {
-
         //Inflates the view to be used
         final View convertView = LayoutInflater.from(mActivity).inflate(R.layout.list_item, parent, false);
-
-
         return convertView;
     }
 
     @Override
     public void fillValues(final int position, final View convertView) {
         //Setting all the variables and words for each ROW:
-
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
 
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -170,7 +167,6 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
 
                 //Assigning the Relative Layout that contains the detailed description.
                 RelativeLayout layout = (RelativeLayout) v.findViewById(R.id.DescriptionLayout);
-
                 //Assigning the summary description stuff that will hide and reappear depending on the clicks.
                 ImageView Bubble = (ImageView) v.findViewById(R.id.VenueImageBubble);
                 ImageView swipeRicon = (ImageView) v.findViewById(R.id.swipeyright);
@@ -233,12 +229,13 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         //Setting the text boxes to the information retrieved from the arrays of events
 
         //Setting the summary description
-       // holder.EventDistance.setText(event.getEventDistance() + "km");
         holder.EventName.setText(event.getEventName());
         holder.EventDate.setText(dateFormat(event.getEventDate()));
         holder.EventPrice.setText(freeEventCheck(event.getEventPrice()));
+        // holder.EventDistance.setText(event.getEventDistance() + "km");
+        setIcon(event,holder.EventIcon);
 
-
+        //Setting the background image of the event.
         Picasso.with(convertView.getContext()).load(event.getEventPicture()).into(holder.EventPicture);
 
         //Setting the detailed description..
@@ -321,11 +318,9 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
             }
         });
 
-        //End of Test
 
+        //Setting the font and resizing everything.
 
-
-      //  Typeface domregfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Regular.ttf");
         Typeface domboldfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Bold.ttf");
         Typeface opensansregfnt = Typeface.createFromAsset(mActivity.getAssets(), "fonts/OpenSans-Regular.ttf");
 
@@ -343,11 +338,16 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         //Sets the height to 1/3 the screensize.
         params.height =  (int)Math.round(height*.33);
 
-
+        //Getting layoutparam of image and setting it to the view size.
         ImageView Picture = (ImageView) convertView.findViewById(R.id.ImageEventPicture);
         ViewGroup.LayoutParams PicParam = Picture.getLayoutParams();
         PicParam.height =  (int)Math.round(height*.33);
 
+        //Getting the icon and setting its size
+        ImageView icon = (ImageView) convertView.findViewById(R.id.VenueIcon);
+        ViewGroup.LayoutParams iconLayoutParams = icon.getLayoutParams();
+        iconLayoutParams.height =  (int)Math.round(height*.05);
+        iconLayoutParams.width =  (int)Math.round(height*.05);
 
         //Getting the LayoutParams of the circle and then setting it to quarter the screensize.
         ViewGroup.LayoutParams circleParams = circle.getLayoutParams();
@@ -430,7 +430,9 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         int y9= (int)Math.round(height*.0127);
         end.setTextSize(TypedValue.COMPLEX_UNIT_PX,y9);
         end.setTypeface(domboldfnt);
-        //Swipe Bars being resized.
+
+        //Swipe Bars being resized:
+
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
         TextView Swipe1 = (TextView) convertView.findViewById(R.id.SwipeBarsize1);
         int yx9= (int)Math.round(height*.030);
@@ -446,6 +448,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
 
 
 
+        //The Button implementation of the left swipe button(addiction button).
         if(MyApplication.loginCheck==true) {
 
             if(mActivity.getLocalClassName().equals("Views.MyUploadsActivity"))
@@ -543,6 +546,63 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         }
     }
 
+    //Method to set the icon of the event.
+    public void setIcon(Event event,ImageView icon) {
+     if(event.getEventPrimaryCategory().contains("Club"))
+     {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.club, 30));}
+
+     else if(event.getEventPrimaryCategory().contains("Performing"))
+     {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.performing, 30));}
+
+     else if(event.getEventPrimaryCategory().contains("Business"))
+     {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.business, 30));}
+
+     else if(event.getEventPrimaryCategory().contains("Ceremony"))
+     {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.ceremony, 30));}
+
+     else if(event.getEventPrimaryCategory().contains("Tech"))
+     {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.tech, 30));}
+
+     else if(event.getEventPrimaryCategory().contains("Comedy"))
+     {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.comedy, 30));}
+
+     else if(event.getEventPrimaryCategory().contains("Fashion"))
+     {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.fashion, 30));}
+
+     else if(event.getEventPrimaryCategory().contains("Festivals"))
+     {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.festivals, 30));}
+
+     else if(event.getEventPrimaryCategory().contains("Film"))
+     {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.film, 30));}
+
+     else if(event.getEventPrimaryCategory().contains("Food"))
+     {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.food, 30));}
+
+     else if(event.getEventPrimaryCategory().contains("Party"))
+     {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.party, 30));}
+
+     else if(event.getEventPrimaryCategory().contains("Music"))
+     {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.music, 30));}
+
+     else if(event.getEventPrimaryCategory().contains("Political"))
+     {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.political, 30));}
+
+     else if(event.getEventPrimaryCategory().contains("School"))
+     {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.school, 30));}
+
+     else if(event.getEventPrimaryCategory().contains("Sports"))
+     {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.sports, 30));}
+
+     else if(event.getEventPrimaryCategory().contains("Tour"))
+     {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.tour, 30));}
+
+     else if(event.getEventPrimaryCategory().contains("Arts"))
+     {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.arts, 30));}
+
+     else if(event.getEventPrimaryCategory().contains("Social"))
+     {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.social, 30));}
+    }
+
     //A view holder that contain the things that need to be changed for every event
     private static class ViewHolder{
         //The values holding summary description of the event.
@@ -564,5 +624,25 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         TextView EventEndTime;
         //No need for Name,Price and Start Date for event as it is already given in first batch above
 
+    }
+
+    //SVG Conversion.
+    public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
+        try {
+            size = (int)(size*res.getDisplayMetrics().density);
+            SVG svg = SVG.getFromResource(mActivity.getApplicationContext(), resource);
+
+            Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bmp);
+            svg.renderToCanvas(canvas);
+
+            BitmapDrawable drawable = new BitmapDrawable(res, bmp);
+
+
+            return drawable;
+        }catch(SVGParseException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }
