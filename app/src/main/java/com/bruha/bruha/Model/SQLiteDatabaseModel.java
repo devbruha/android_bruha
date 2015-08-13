@@ -5,8 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,11 +13,9 @@ import java.util.HashMap;
  * Created by Thomas on 5/8/2015.
  */
 public class SQLiteDatabaseModel extends SQLiteOpenHelper{
-
+    //Category declarations:
     // Event Category Lists
-
     public static final String TABLE_EVENT_PRIMARY = "event_primary_categories";
-
     public static final String TABLE_EVENT_CATEGORIES = "event_categories";
     public static final String RELATION_ID = "_id";
     public static final String PRIMARY_CATEGORY_NAME = "primary_category_name";
@@ -27,15 +23,12 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String SUB_CATEGORY_ID = "sub_category_id";
 
     // Venue Category Lists
-
     public static final String TABLE_VENUE_CATEGORIES = "venue_categories";
 
     // Artist Category Lists
-
     public static final String TABLE_ARTIST_CATEGORIES = "artist_categories";
 
     // Organization Category Lists
-
     public static final String TABLE_ORGANIZATION_CATEGORIES = "organization_categories";
 
     // User Info Table Stuff
@@ -48,7 +41,9 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String USER_INFO_EMAIL = "email";
     public static final String USER_INFO_LOCATION = "location";
 
-    //Addictions
+    //Addictions:
+
+    //Addictions Event
     public static final String TABLE_ADDICTIONS = "addictions";
     public static final String ADDICTIONS_ID = "_id";
     public static final String ADDICTIONS_EVENTID = "eventID";
@@ -62,7 +57,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String TABLE_ADDICTIONS_ARTISTS = "addictionsArtist";
     public static final String ADDICTIONS_ARTISTS_ID = "_id";
     public static final String ADDICTIONS_ARTISTS_ARTISTID = "artistID";
-
 
     //Addictions Org
     public static final String TABLE_ADDICTIONS_ORG = "addictionsOrg";
@@ -91,13 +85,11 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String EVENT_END_DATE = "eventEndDate";
 
     // Event SubCategory Table
-
     public static final String TABLE_EVENT_SUB_CATEGORY = "event_sub_categories";
     public static final String EVENT_SUB_CATEGORY = "eventSubCategory";
     public static final String EVENT_SUB_CATEGORY_ID = "eventSubCategoryID";
 
     // User Event SubCategory Table
-
     public static final String TABLE_USER_EVENT_SUB_CATEGORY = "user_event_sub_categories";
 
     // VENUES Info Table Stuff
@@ -205,7 +197,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + " integer primary key autoincrement, "
             + ADDICTIONS_ORG_ORGID + " text not null);";
 
-
     private static final String DATABASE_CREATE_EVENT_INFO = "create table "
             + TABLE_EVENT_INFO + "(" + EVENT_LOCAL_ID
             + " integer primary key autoincrement, "
@@ -253,8 +244,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + EVENT_PICTURE + " text not null, "
             + EVENT_END_DATE + " text not null);";
 
-
-
     private static final String DATABASE_CREATE_USER_EVENT_SUB_CATEGORY = "create table "
             + TABLE_USER_EVENT_SUB_CATEGORY + "(" + EVENT_LOCAL_ID
             + " integer primary key autoincrement, "
@@ -287,7 +276,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + VENUE_STREET + " text not null, "
             + VENUE_LONGITUDE + " text not null, "
             + VENUE_LOCATION_NAME + " text not null); ";
-
 
     private static final String DATABASE_CREATE_USER_OUTFIT_INFO = "create table "
             + TABLE_USER_OUTFIT_INFO + "(" + OUTFIT_LOCAL_ID
@@ -344,7 +332,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     @Override
     public void onCreate(android.database.sqlite.SQLiteDatabase db) {
         //EXCECUTING THE COMMAND TO CREATE THE TABLES.
-
         db.execSQL(DATABASE_CREATE_EVENT_PRIMARY);
         db.execSQL(DATABASE_CREATE_EVENT_CATEGORIES);
         db.execSQL(DATABASE_CREATE_VENUE_CATEGORIES);
@@ -365,7 +352,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.execSQL(DATABASE_CREATE_VENUE_INFO);
         db.execSQL(DATABASE_CREATE_OUTFIT_INFO);
         db.execSQL(DATABASE_CREATE_ARTIST_INFO);
-
     }
 
     //Deleting Addictions
@@ -384,6 +370,8 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public void deleteOrgAddiction(android.database.sqlite.SQLiteDatabase db,String id) {
         db.execSQL("delete from "+TABLE_ADDICTIONS_ORG+" where orgID='"+id+"'");
     }
+
+    //Deleting Event/Org/Venue/Artist
 
     public void deleteUserEvent(android.database.sqlite.SQLiteDatabase db,String id) {
         db.execSQL("delete from "+TABLE_USER_EVENT_INFO+" where eventID='"+id+"'");
@@ -405,6 +393,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.execSQL("delete from " + TABLE_OUTFIT_INFO + " where outfitID='" + id + "'");
     }
 
+    //Inserting Addiction:
 
     public void insertEventAddiction(android.database.sqlite.SQLiteDatabase db,String id)
     {
@@ -439,11 +428,8 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public void insertOrgAddiction(android.database.sqlite.SQLiteDatabase db,String id)
     {
         ContentValues values = new ContentValues();
-
         values.put("orgID", id);
         db.insert(TABLE_ADDICTIONS_ORG, null, values);
-
-
     }
 
     //MANUALLY DELETING SELECTED TABLES WHEN APP IS OPENED.
@@ -1282,7 +1268,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         return mEvents;
     }
 
-
     //ADDING THE LIST OF USER VENUES INTO THE LOCAL DATABASE TABLE.
     public void addUserVenues( ArrayList<Venue> venue){
 
@@ -1382,7 +1367,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         cursor.close();
         return mArtist;
     }
-
 
     //ADDING THE LIST OF OUTFITS INTO THE LOCAL DATABASE TABLE.
     public void addUserOrganizations(ArrayList<Organizations> Org){
