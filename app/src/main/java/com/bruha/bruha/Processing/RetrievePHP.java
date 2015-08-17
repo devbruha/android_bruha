@@ -1,22 +1,15 @@
 package com.bruha.bruha.Processing;
 
-
-import android.util.Log;
-
 import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.Event;
-import com.bruha.bruha.Model.Items;
-import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.Venue;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -27,33 +20,19 @@ import java.util.Iterator;
  * Created by Work on 2015-06-23.
  */
 public class RetrievePHP {
-
     //List of Arrays used to store respective information that is returned by each method called.
     ArrayList<Event> mEvents = new ArrayList<>();
     ArrayList<Venue> mVenues = new ArrayList<>();
     ArrayList<Organizations> mOrg = new ArrayList<>();
     ArrayList<Artist> mArtists = new ArrayList<>();
-
-    ArrayList<Items.SubCategory.ItemList> itemSub = new ArrayList<>();
-    ArrayList<Items.SubCategory.ItemList> itemSubID = new ArrayList<>();
-
-    ArrayList<Items>eventMainList = new ArrayList<Items>();
-    ArrayList<Items>eventMainListID = new ArrayList<Items>();
-    ArrayList<Items>venueMainList = new ArrayList<Items>();
-    ArrayList<Items>artistMainList = new ArrayList<Items>();
-    ArrayList<Items>organizationMainList = new ArrayList<Items>();
-
     HashMap<String,ArrayList<ArrayList<String>>> eventArrayList = new HashMap<>();
-    ArrayList<Items.SubCategory>eventArrayListID = new ArrayList<>();
     ArrayList<String> venueArrayList = new ArrayList<>();
     ArrayList<String> artistArrayList = new ArrayList<>();
     ArrayList<String> organizationArrayList = new ArrayList<>();
-
     //Variables used when connecting to a network.
     URL url = null;
     String response = null;
     HttpURLConnection connection;
-    OutputStreamWriter request = null;
 
     //Gets the List of Events uploaded in the Database.
     public HashMap<String,ArrayList<ArrayList<String>>> getEventCategoryList() {
@@ -85,7 +64,7 @@ public class RetrievePHP {
                     reader.close();
 
                 } catch (IOException e) {
-                    Log.v("Exception", e.toString());
+                    e.printStackTrace();
                 }
             }
         });
@@ -170,7 +149,7 @@ public class RetrievePHP {
                     reader.close();
 
                 } catch (IOException e) {
-                    Log.v("Exception", e.toString());
+                    e.printStackTrace();
                 }
             }
         });
@@ -231,7 +210,7 @@ public class RetrievePHP {
                     reader.close();
 
                 } catch (IOException e) {
-                    Log.v("Exception", e.toString());
+                   e.printStackTrace();
                 }
             }
         });
@@ -292,7 +271,7 @@ public class RetrievePHP {
                     reader.close();
 
                 } catch (IOException e) {
-                    Log.v("Exception", e.toString());
+                    e.printStackTrace();
                 }
             }
         });
@@ -354,7 +333,7 @@ public class RetrievePHP {
                     reader.close();
 
                 } catch (IOException e) {
-                    Log.v("Exception", e.toString());
+                    e.printStackTrace();
                 }
             }
         });
@@ -461,7 +440,7 @@ public class RetrievePHP {
                     reader.close();
 
                 } catch (IOException e) {
-                    Log.v("Exception",e.toString());
+                    e.printStackTrace();
                 }
             }
         });
@@ -529,7 +508,7 @@ public class RetrievePHP {
                     reader.close();
 
                 } catch (IOException e) {
-                    Log.v("Exception",e.toString());
+                    e.printStackTrace();
                 }
             }
         });
@@ -596,7 +575,7 @@ public class RetrievePHP {
                     reader.close();
 
                 } catch (IOException e) {
-                    Log.v("Exception",e.toString());
+                   e.printStackTrace();
                 }
             }
         });
@@ -629,6 +608,4 @@ public class RetrievePHP {
         }
         return mArtists;
     }
-
-
 }

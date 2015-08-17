@@ -1,7 +1,5 @@
 package com.bruha.bruha.Processing;
 
-import android.util.Log;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,7 +11,6 @@ import java.net.URL;
  * Created by Work on 2015-07-31.
  */
 public class CredentialsPHP {
-
     //Variables used when connecting to a network.
     URL url = null;
     String response = null;
@@ -84,13 +81,12 @@ public class CredentialsPHP {
         String error;
         if(y==1)
         {
-            Log.v("This",response);
             error="Success";
         }
 
-        else{ Log.v("That",response);
-            error="badCredentials"; }
-
+        else{
+            error="badCredentials";
+        }
         return error;
     }
 
@@ -110,11 +106,8 @@ public class CredentialsPHP {
 
                 try
                 {
-
                     // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-
                     // alot of boiler plate stuff
-
                     url = new URL("http://bruha.com/mobile_php/SignUp.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);

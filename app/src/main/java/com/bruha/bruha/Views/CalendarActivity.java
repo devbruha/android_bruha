@@ -1,6 +1,5 @@
 package com.bruha.bruha.Views;
 
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
@@ -13,7 +12,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,19 +34,15 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class CalendarActivity extends FragmentActivity {
+    // Creating a CaldroidFragment object
     ArrayList<Date> datesSaved;
     UserCustomFilters userCustomFilters;
-
-    // Creating a CaldroidFragment object
   //  private CaldroidFragment caldroidFragment;
     ArrayList<String> calendarSelected;
-
     //The List of mEvents to be displayed when clicked on a certain date.
     ArrayList<Event> selectedDateEvents = new ArrayList<>();
-
     // Creating a CaldroidFragment object
     private CaldroidFragment caldroidFragment;
-
     //The List of events containing in the local database.
     ArrayList<Event> mEvents = new ArrayList<>();
     ArrayList<Event> addictionEvents = new ArrayList<>();
@@ -61,15 +55,13 @@ public class CalendarActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_whats_hot);
 
-
          mListView = (ListView) findViewById(R.id.ChangeList);
         init();
         setCalendar();
         setButton();
     }
 
-    private void setButton()
-    {
+    private void setButton() {
         // Android functions to determine the screen dimensions.
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -102,7 +94,6 @@ public class CalendarActivity extends FragmentActivity {
         });
     }
 
-
     private void init() {
             // Create the local DB object
             SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
@@ -125,38 +116,10 @@ public class CalendarActivity extends FragmentActivity {
         }
 
     private void setCalendar(){
-/*
- // Dynamically changing the calendar height / width due to the bug while it is within a
-        // scrollview
-
-        LinearLayout linearCalendar = (LinearLayout) findViewById(R.id.CalendarLayout);
-
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-
-    // Storing the screen height and width into int variables
-        int height = size.y;
-        int width = size.x;
-
-        // Retrieves the current parameters of the layout and storing them in variable params
-
-        ViewGroup.LayoutParams params = linearCalendar.getLayoutParams();
-
-// Re-setting the height parameter to .75 the max screen height
-        params.height =  (int)Math.round(height*.55);
-        params.width = (int)Math.round(width*.80);
-        */
-
-        // Creating a date formatter for the calendar
-
-
         // Setup caldroid fragment
-
         caldroidFragment = new CaldroidFragment();
 
         // Setup arguments for the CalDroid
-
         Bundle args = new Bundle();
         Calendar cal = Calendar.getInstance();
 
@@ -174,7 +137,6 @@ public class CalendarActivity extends FragmentActivity {
         args.putInt(CaldroidFragment.THEME_RESOURCE, com.caldroid.R.style.CaldroidDefaultDark);
 
         // Applying the arguments
-
         caldroidFragment.setArguments(args);
 
         // Attach to the activity
@@ -183,24 +145,16 @@ public class CalendarActivity extends FragmentActivity {
         t.commit();
 
         // Getting current date and setting background and adding to arraylist
-
         cal.add(Calendar.DATE, 0);
         Date currentDate = cal.getTime();
 
-
-        Log.v("Date:", currentDate.toString());
         final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String formatted = formatter.format(cal.getTime());
-        Log.v("Date:",formatted);
-
-
-
 
         // Overriding the default background for current date
         caldroidFragment.setBackgroundResourceForDate(android.R.color.black, currentDate);
 
       for(Event x: mEvents) {
-
           Date ThisDate= currentDate;
           try {
                ThisDate = formatter.parse(x.getEventDate());
@@ -208,11 +162,9 @@ public class CalendarActivity extends FragmentActivity {
               e.printStackTrace();
           }
           caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_blue_dark,ThisDate);
-
       }
 
         for(Event x: addictionEvents) {
-
             Date ThisDate= currentDate;
             try {
                 ThisDate = formatter.parse(x.getEventDate());
@@ -220,13 +172,10 @@ public class CalendarActivity extends FragmentActivity {
                 e.printStackTrace();
             }
             caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_orange_dark,ThisDate);
-
         }
 
         for(Event x: mEvents) {
-
             for(Event y: addictionEvents) {
-
                 Date ThisDate= currentDate;
                 Date NextDate = currentDate;
                 try {
@@ -237,20 +186,15 @@ public class CalendarActivity extends FragmentActivity {
                 }
                 if(ThisDate.equals(NextDate))
                 {caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_purple,ThisDate);}
-
             }
-
         }
 
-
-        // Setup listener for date onClick
         final CaldroidListener listener = new CaldroidListener() {
 
             @Override
             public void onSelectDate(Date date, View view) {
-
+                // Setup listener for date onClick
                 selectedDateEvents.clear();
-
                 final SimpleDateFormat Format = new SimpleDateFormat("yyyy-MM-dd");
                 String NewDate = Format.format(date);
 
@@ -284,14 +228,13 @@ public class CalendarActivity extends FragmentActivity {
         adapter = new MapListViewAdapter(this, selectedDateEvents,addictEID);
     }
 
-    public void startDashboardActivity(View view)
-    {
+    public void startDashboardActivity(View view) {
         Intent intent = new Intent(this,DashboardActivity.class);
         startActivity(intent);
         finish();
     }
 
-    //SVG SHIT:
+    //SVG Conversion:
     public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
         try {
             size = (int)(size*res.getDisplayMetrics().density);
@@ -310,5 +253,4 @@ public class CalendarActivity extends FragmentActivity {
         }
         return null;
     }
-
 }

@@ -41,34 +41,29 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class MyUploadsActivity extends ActionBarActivity {
-
+    //The Lists that will hold the information from the local database about which stuff to populate.
     ArrayList<Venue> mVenues = new ArrayList<>();
     ArrayList<Artist> mArtist = new ArrayList<>();
     ArrayList<Organizations> mOrg = new ArrayList<>();
-    ArrayList<Event> mEvents = new ArrayList<>(); //The Array that will hold the mEvents that we will pass around(to Adapter,the List...
+    ArrayList<Event> mEvents = new ArrayList<>();
+
     EventListviewAdapter adapter;                      //Initialzing the Adapter for the ListView.
 
     //Injecting Views using ButterKnife Library
     @InjectView(android.R.id.list) ListView mListView;
     @InjectView(R.id.myuploadDashboardImage) ImageView dudeButton;
-
-
     //The Linear layout to be set OnCLickListener to and background changing.
-    @InjectView(R.id.venueButton)
-    LinearLayout venueButton;
+    @InjectView(R.id.venueButton) LinearLayout venueButton;
     @InjectView(R.id.artistButton) LinearLayout artistButton;
     @InjectView(R.id.outfitButton) LinearLayout orgButton;
     @InjectView(R.id.eventButton) LinearLayout eventButton;
-
     //The Image Views to set and Change for the Filters
     @InjectView(R.id.eventButtonImage) ImageView eventImage;
     @InjectView(R.id.venueButtonImage) ImageView venueImage;
     @InjectView(R.id.artistButtonImage) ImageView artistImage;
     @InjectView(R.id.outfitButtonImage) ImageView outfitImage;
-
     //The TextViews to be RESIZED(HELLO,RESIZE EM!!) and Changed.
-    @InjectView(R.id.filtereventtext)
-    TextView eventText;
+    @InjectView(R.id.filtereventtext) TextView eventText;
     @InjectView(R.id.filtervenuetext) TextView venueText;
     @InjectView(R.id.filterartisttext) TextView artistText;
     @InjectView(R.id.filteroutfittext) TextView outfitText;
@@ -79,9 +74,9 @@ public class MyUploadsActivity extends ActionBarActivity {
         setContentView(R.layout.activity_my_uploads);
         ButterKnife.inject(this);
 
-        init();
+        init(); //Calling local database to set the arraylists up
 
-        setUpFilters();
+        setUpFilters(); //Setting the filters up.
 
         //Creating an variable of type Listview Adapter to create the list view.
         adapter=new EventListviewAdapter(this, mEvents,null); //Calling the eventAdapter mListView to help set the List
@@ -89,9 +84,9 @@ public class MyUploadsActivity extends ActionBarActivity {
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(adapter);
 
-        resize();
+        resize(); //Resizing the page and setting what the buttons do.
 
-        eventButton(null);
+        eventButton(null); //Populating the event upload list when activity is opened.
     }
 
     private void setUpFilters(){
@@ -102,8 +97,7 @@ public class MyUploadsActivity extends ActionBarActivity {
         slidepanel.setTouchEnabled(false);
     }
 
-    private void resize()
-    {
+    private void resize() {   //The method to resize everything inside the activity.
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -133,7 +127,6 @@ public class MyUploadsActivity extends ActionBarActivity {
         });
     }
 
-
     private void init(){
         // Create the local DB object
         SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
@@ -146,63 +139,51 @@ public class MyUploadsActivity extends ActionBarActivity {
         mOrg = sqLiteUtils.getUserOrganizationInfo(dbHelper);
     }
 
-
-    //venueButton Implemented to switch the mListView to show List of Venue.
     @OnClick(R.id.venueButton)
     public void venueButton(View view) {
-
+        //venueButton Implemented to switch the mListView to show List of Venue.
 
         //Changing shit:
         venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
         artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-
         eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventwhite, 50));
         venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venueorange, 50));
         artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistwhite, 50));
         outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
-
-
-        VenueListViewAdapter venueAdapter;
-
-        //Creating an variable of type Listview Adapter to create the list view.
-        venueAdapter=new VenueListViewAdapter(this, mVenues,null); //Calling the eventAdapter mListView to help set the List
-
-        //Sets the Adapter from the class Listview Adapter
-        mListView.setAdapter(venueAdapter);
-
         venueText.setTextColor(Color.parseColor("#FFFFBB33"));
         eventText.setTextColor(Color.parseColor("#ffffff"));
         outfitText.setTextColor(Color.parseColor("#ffffff"));
         artistText.setTextColor(Color.parseColor("#ffffff"));
-    }
-
-    //venueButton Implemented to switch the mListView to show List of Venue.
-    @OnClick(R.id.outfitButton)
-    public void organizationButton(View view) {
-
-        OrganizationListViewAdapter OrgAdapter;
-
 
         //Creating an variable of type Listview Adapter to create the list view.
-        OrgAdapter=new OrganizationListViewAdapter(this, mOrg,null); //Calling the eventAdapter mListView to help set the List
+        VenueListViewAdapter venueAdapter;
+        venueAdapter=new VenueListViewAdapter(this, mVenues,null); //Calling the eventAdapter mListView to help set the List
 
+        //Sets the Adapter from the class Listview Adapter
+        mListView.setAdapter(venueAdapter);
+    }
+
+    @OnClick(R.id.outfitButton)
+    public void organizationButton(View view) {
+        //organizationsButtonButton Implemented to switch the mListView to show List of Organizations.
+
+        //Creating an variable of type Listview Adapter to create the list view.
+        OrganizationListViewAdapter OrgAdapter;
+        OrgAdapter=new OrganizationListViewAdapter(this, mOrg,null); //Calling the eventAdapter mListView to help set the List
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(OrgAdapter);
 
-
-        //Changing shit:
+        //Changing the filter.
         orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
         artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-
         eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventwhite, 50));
         venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venuewhite, 50));
         artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistwhite, 50));
         outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitorange, 50));
-
         outfitText.setTextColor(Color.parseColor("#FFFFBB33"));
         venueText.setTextColor(Color.parseColor("#ffffff"));
         eventText.setTextColor(Color.parseColor("#ffffff"));
@@ -211,21 +192,17 @@ public class MyUploadsActivity extends ActionBarActivity {
 
     @OnClick(R.id.eventButton)
     public void eventButton(View view) {
-
-        mListView.setAdapter(adapter);
-
+        mListView.setAdapter(adapter); //Setting the adapter of the list.
 
         //Changing shit:
         eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
         artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-
         eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventorange, 50));
         venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venuewhite, 50));
         artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistwhite, 50));
         outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
-
         eventText.setTextColor(Color.parseColor("#FFFFBB33"));
         venueText.setTextColor(Color.parseColor("#ffffff"));
         outfitText.setTextColor(Color.parseColor("#ffffff"));
@@ -234,39 +211,28 @@ public class MyUploadsActivity extends ActionBarActivity {
 
     @OnClick(R.id.artistButton)
     public void artistButton(View view) {
-
-
-        //Changing shit:
+        //Changing filter:
         artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
         venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-
         eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventwhite, 50));
         venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venuewhite, 50));
         artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistorange, 50));
         outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
-
-
-        ArtistsListViewAdapter artistsListViewAdapter;
-
-
-        //Creating an variable of type Listview Adapter to create the list view.
-        artistsListViewAdapter=new ArtistsListViewAdapter(this, mArtist,null); //Calling the eventAdapter mListView to help set the List
-
-        //Sets the Adapter from the class Listview Adapter.
-        mListView.setAdapter(artistsListViewAdapter);
-
-
         artistText.setTextColor(Color.parseColor("#FFFFBB33"));
         venueText.setTextColor(Color.parseColor("#ffffff"));
         outfitText.setTextColor(Color.parseColor("#ffffff"));
         eventText.setTextColor(Color.parseColor("#ffffff"));
+
+        //Creating an variable of type Listview Adapter to create the list view.
+        ArtistsListViewAdapter artistsListViewAdapter;
+        artistsListViewAdapter=new ArtistsListViewAdapter(this, mArtist,null); //Calling the eventAdapter mListView to help set the List
+        //Sets the Adapter from the class Listview Adapter.
+        mListView.setAdapter(artistsListViewAdapter);
     }
 
-
-
-    //SVG SHIT:
+    //SVG Conversion:
     public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
         try {
             size = (int)(size*res.getDisplayMetrics().density);

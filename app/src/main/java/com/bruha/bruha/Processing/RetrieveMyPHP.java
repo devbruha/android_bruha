@@ -1,8 +1,5 @@
 package com.bruha.bruha.Processing;
 
-
-import android.util.Log;
-
 import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.Organizations;
@@ -22,7 +19,6 @@ import java.util.ArrayList;
  * Created by Work on 2015-06-23.
  */
 public class RetrieveMyPHP {
-
     //List of Arrays used to store respective information that is returned by each method called.
     ArrayList<Event> mUserEvents = new ArrayList<>();
     ArrayList<Venue> mUserVenues = new ArrayList<>();
@@ -32,17 +28,12 @@ public class RetrieveMyPHP {
     ArrayList<String> mAddictedVenues = new ArrayList<>();
     ArrayList<String> mAddictedArtist = new ArrayList<>();
     ArrayList<String> mAddictedOrg = new ArrayList<>();
-
     String display = "";
-
-
     //Variables used when connecting to a network.
     URL url = null;
     String response = null;
     HttpURLConnection connection;
     OutputStreamWriter request = null;
-
-
 
     //Gets the List of Events that the user uploaded.
     public ArrayList<Event> getUserEventList(String user) {
@@ -82,7 +73,7 @@ public class RetrieveMyPHP {
                     isr.close();
                     reader.close();
                 } catch (IOException e) {
-                    Log.v("Exception", e + "");
+                    e.printStackTrace();
                 }
             }
         });
@@ -96,7 +87,6 @@ public class RetrieveMyPHP {
         }
 
         try {
-            Log.v("Response", response);
             JSONArray x = new JSONArray(response);
 
             for (int i = 0; i < x.length(); i++) {
@@ -163,10 +153,8 @@ public class RetrieveMyPHP {
         return mUserEvents;
     }
 
-    //The method to delete an addicted event.
+    //The method to delete an user's event.
     public String deleteUserEvent(String mUsername, String eventid) {
-
-
         // creates parameters for the DB call to attach to the "initial" URL
         // to attach more paramenters its of the form:
         // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
@@ -180,11 +168,6 @@ public class RetrieveMyPHP {
 
                 try
                 {
-
-                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-
-                    // alot of boiler plate stuff
-
                     url = new URL("http://bruha.com/mobile_php/deleteUserEvent.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -231,13 +214,8 @@ public class RetrieveMyPHP {
         return display;
     }
 
-
-    //The method to delete an addicted venue.
+    //The method to delete an user's venue.
     public String deleteUserVenue(String mUsername, String venueid) {
-
-        // creates parameters for the DB call to attach to the "initial" URL
-        // to attach more paramenters its of the form:
-        // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
         final String parameters = "user_id="+mUsername+"&venue_id="+venueid;
 
         Thread thread;
@@ -248,11 +226,6 @@ public class RetrieveMyPHP {
 
                 try
                 {
-
-                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-
-                    // alot of boiler plate stuff
-
                     url = new URL("http://bruha.com/mobile_php/deleteUserVenue.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -296,12 +269,8 @@ public class RetrieveMyPHP {
         return display;
     }
 
-    //The method to delete an addicted artist.
+    //The method to delete an user's artist.
     public String deleteUserArtist(String mUsername, String artistid) {
-
-        // creates parameters for the DB call to attach to the "initial" URL
-        // to attach more paramenters its of the form:
-        // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
         final String parameters = "user_id="+mUsername+"&artist_id="+artistid;
 
         Thread thread;
@@ -312,11 +281,6 @@ public class RetrieveMyPHP {
 
                 try
                 {
-
-                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-
-                    // alot of boiler plate stuff
-
                     url = new URL("http://bruha.com/mobile_php/deleteUserArtist.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -360,13 +324,8 @@ public class RetrieveMyPHP {
         return display;
     }
 
-
-    //The method to delete an addicted event.
+    //The method to delete an user's organization.
     public String deleteUserOrg(String mUsername, String organizationid) {
-
-        // creates parameters for the DB call to attach to the "initial" URL
-        // to attach more paramenters its of the form:
-        // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
         final String parameters = "user_id="+mUsername+"&organization_id="+organizationid;
 
         Thread thread;
@@ -377,11 +336,6 @@ public class RetrieveMyPHP {
 
                 try
                 {
-
-                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-
-                    // alot of boiler plate stuff
-
                     url = new URL("http://bruha.com/mobile_php/deleteUserOrg.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -436,8 +390,6 @@ public class RetrieveMyPHP {
             public void run() {
 
                 try {
-                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-                    // alot of boiler plate stuff
                     url = new URL("http://bruha.com/mobile_php/UserVenueList.php?" + parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -463,7 +415,7 @@ public class RetrieveMyPHP {
                     isr.close();
                     reader.close();
                 } catch (IOException e) {
-                    Log.v("Exception", e + "");
+                    e.printStackTrace();
                 }
             }
         });
@@ -496,9 +448,7 @@ public class RetrieveMyPHP {
 
                 mUserVenues.add(ven);
             }
-
             return mUserVenues;
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -516,8 +466,6 @@ public class RetrieveMyPHP {
             public void run() {
 
                 try {
-                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-                    // alot of boiler plate stuff
                     url = new URL("http://bruha.com/mobile_php/UserOrgList.php?" + parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -543,7 +491,7 @@ public class RetrieveMyPHP {
                     isr.close();
                     reader.close();
                 } catch (IOException e) {
-                    Log.v("Exception", e + "");
+                    e.printStackTrace();
                 }
             }
         });
@@ -559,7 +507,6 @@ public class RetrieveMyPHP {
         try {
 
             JSONArray x = new JSONArray(response);
-            Log.v("responseOrg",response);
 
             for (int i = 0; i < x.length(); i++) {
                 JSONObject Organization = x.getJSONObject(i);
@@ -597,8 +544,6 @@ public class RetrieveMyPHP {
             public void run() {
 
                 try {
-                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-                    // alot of boiler plate stuff
                     url = new URL("http://bruha.com/mobile_php/UserArtistList.php?" + parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -624,7 +569,7 @@ public class RetrieveMyPHP {
                     isr.close();
                     reader.close();
                 } catch (IOException e) {
-                    Log.v("Exception", e + "");
+                    e.printStackTrace();
                 }
             }
         });
@@ -654,9 +599,7 @@ public class RetrieveMyPHP {
 
                 mUserArist.add(Artist);
             }
-
             return mUserArist;
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -676,8 +619,6 @@ public class RetrieveMyPHP {
             public void run() {
 
                 try {
-                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-                    // alot of boiler plate stuff
                     url = new URL("http://bruha.com/mobile_php/UserInfo.php?" + parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -738,10 +679,6 @@ public class RetrieveMyPHP {
 
     //The method to get addicted to an event.
     public void eventAddiction(String mUsername, String eventid) {
-
-        // creates parameters for the DB call to attach to the "initial" URL
-        // to attach more paramenters its of the form:
-        // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
         final String parameters = "user_id="+mUsername+"&event_id="+eventid;
 
         Thread thread;
@@ -752,11 +689,6 @@ public class RetrieveMyPHP {
 
                 try
                 {
-
-                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-
-                    // alot of boiler plate stuff
-
                     url = new URL("http://bruha.com/mobile_php/EventAddictions.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -778,7 +710,6 @@ public class RetrieveMyPHP {
                     // Response from server after login process will be stored in response variable.
                     // in this case the response is the echo from the php script (i.e = 1) if successful
                     response = sb.toString();
-                    Log.v("ResponseAddicted",response);
                     // You can perform UI operations here
                     isr.close();
                     reader.close();
@@ -801,10 +732,6 @@ public class RetrieveMyPHP {
 
     //The method to delete an addicted event.
     public void deleteEventAddiction(String mUsername, String eventid) {
-
-        // creates parameters for the DB call to attach to the "initial" URL
-        // to attach more paramenters its of the form:
-        // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
         final String parameters = "user_id="+mUsername+"&event_id="+eventid;
 
         Thread thread;
@@ -815,11 +742,6 @@ public class RetrieveMyPHP {
 
                 try
                 {
-
-                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-
-                    // alot of boiler plate stuff
-
                     url = new URL("http://bruha.com/mobile_php/deleteEventAddiction.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -841,7 +763,6 @@ public class RetrieveMyPHP {
                     // Response from server after login process will be stored in response variable.
                     // in this case the response is the echo from the php script (i.e = 1) if successful
                     response = sb.toString();
-                    Log.v("ResponseAddictionDelete",response);
                     // You can perform UI operations here
                     isr.close();
                     reader.close();
@@ -862,13 +783,8 @@ public class RetrieveMyPHP {
         }
     }
 
-
     //The method to delete an addicted venue.
     public void deleteVenueAddiction(String mUsername, String venueid) {
-
-        // creates parameters for the DB call to attach to the "initial" URL
-        // to attach more paramenters its of the form:
-        // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
         final String parameters = "user_id="+mUsername+"&venue_id="+venueid;
 
         Thread thread;
@@ -879,11 +795,6 @@ public class RetrieveMyPHP {
 
                 try
                 {
-
-                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-
-                    // alot of boiler plate stuff
-
                     url = new URL("http://bruha.com/mobile_php/deleteVenueAddiction.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -905,7 +816,6 @@ public class RetrieveMyPHP {
                     // Response from server after login process will be stored in response variable.
                     // in this case the response is the echo from the php script (i.e = 1) if successful
                     response = sb.toString();
-                    Log.v("ResponseAddictionDelete",response);
                     // You can perform UI operations here
                     isr.close();
                     reader.close();
@@ -928,10 +838,6 @@ public class RetrieveMyPHP {
 
     //The method to delete an addicted artist.
     public void deleteArtistAddiction(String mUsername, String artistid) {
-
-        // creates parameters for the DB call to attach to the "initial" URL
-        // to attach more paramenters its of the form:
-        // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
         final String parameters = "user_id="+mUsername+"&artist_id="+artistid;
 
         Thread thread;
@@ -942,11 +848,6 @@ public class RetrieveMyPHP {
 
                 try
                 {
-
-                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-
-                    // alot of boiler plate stuff
-
                     url = new URL("http://bruha.com/mobile_php/deleteArtistAddiction.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -968,7 +869,6 @@ public class RetrieveMyPHP {
                     // Response from server after login process will be stored in response variable.
                     // in this case the response is the echo from the php script (i.e = 1) if successful
                     response = sb.toString();
-                    Log.v("ResponseArtistDelete",response);
                     // You can perform UI operations here
                     isr.close();
                     reader.close();
@@ -992,10 +892,6 @@ public class RetrieveMyPHP {
 
     //The method to delete an addicted event.
     public void deleteOrgAddiction(String mUsername, String organizationid) {
-
-        // creates parameters for the DB call to attach to the "initial" URL
-        // to attach more paramenters its of the form:
-        // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
         final String parameters = "user_id="+mUsername+"&organization_id="+organizationid;
 
         Thread thread;
@@ -1006,11 +902,6 @@ public class RetrieveMyPHP {
 
                 try
                 {
-
-                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-
-                    // alot of boiler plate stuff
-
                     url = new URL("http://bruha.com/mobile_php/deleteOrgAddiction.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -1032,7 +923,6 @@ public class RetrieveMyPHP {
                     // Response from server after login process will be stored in response variable.
                     // in this case the response is the echo from the php script (i.e = 1) if successful
                     response = sb.toString();
-                    Log.v("ResponseOrgDelete",response);
                     // You can perform UI operations here
                     isr.close();
                     reader.close();
@@ -1053,13 +943,9 @@ public class RetrieveMyPHP {
         }
     }
 
-    //Addicted Stuff
+
     //The method to get addicted to a venue.
     public void venueAddiction(String mUsername, String venueid) {
-
-        // creates parameters for the DB call to attach to the "initial" URL
-        // to attach more paramenters its of the form:
-        // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
         final String parameters = "user_id="+mUsername+"&venue_id="+venueid;
 
         Thread thread;
@@ -1070,11 +956,6 @@ public class RetrieveMyPHP {
 
                 try
                 {
-
-                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-
-                    // alot of boiler plate stuff
-
                     url = new URL("http://bruha.com/mobile_php/VenueAddictions.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -1096,7 +977,6 @@ public class RetrieveMyPHP {
                     // Response from server after login process will be stored in response variable.
                     // in this case the response is the echo from the php script (i.e = 1) if successful
                     response = sb.toString();
-                    Log.v("ResponseAddicted",response);
                     // You can perform UI operations here
                     isr.close();
                     reader.close();
@@ -1117,13 +997,8 @@ public class RetrieveMyPHP {
         }
     }
 
-    //Addicted Stuff
     //The method to get addicted to an artist.
     public void artistAddiction(String mUsername, String artistid) {
-
-        // creates parameters for the DB call to attach to the "initial" URL
-        // to attach more paramenters its of the form:
-        // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
         final String parameters = "user_id="+mUsername+"&artist_id="+artistid;
 
         Thread thread;
@@ -1134,11 +1009,6 @@ public class RetrieveMyPHP {
 
                 try
                 {
-
-                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-
-                    // alot of boiler plate stuff
-
                     url = new URL("http://bruha.com/mobile_php/ArtistAddictions.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -1160,7 +1030,6 @@ public class RetrieveMyPHP {
                     // Response from server after login process will be stored in response variable.
                     // in this case the response is the echo from the php script (i.e = 1) if successful
                     response = sb.toString();
-                    Log.v("ResponseAddicted",response);
                     // You can perform UI operations here
                     isr.close();
                     reader.close();
@@ -1181,13 +1050,8 @@ public class RetrieveMyPHP {
         }
     }
 
-    //Addicted Stuff
     //The method to get addicted to an organization.
     public void organizationAddiction(String mUsername, String orgid) {
-
-        // creates parameters for the DB call to attach to the "initial" URL
-        // to attach more paramenters its of the form:
-        // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
         final String parameters = "user_id="+mUsername+"&organization_id="+orgid;
 
         Thread thread;
@@ -1198,11 +1062,6 @@ public class RetrieveMyPHP {
 
                 try
                 {
-
-                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-
-                    // alot of boiler plate stuff
-
                     url = new URL("http://bruha.com/mobile_php/OrgAddictions.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -1224,7 +1083,6 @@ public class RetrieveMyPHP {
                     // Response from server after login process will be stored in response variable.
                     // in this case the response is the echo from the php script (i.e = 1) if successful
                     response = sb.toString();
-                    Log.v("ResponseAddicted",response);
                     // You can perform UI operations here
                     isr.close();
                     reader.close();
@@ -1256,8 +1114,6 @@ public class RetrieveMyPHP {
             public void run() {
 
                 try {
-                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-                    // alot of boiler plate stuff
                     url = new URL("http://bruha.com/mobile_php/getUserAddiction.php?" + parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -1283,7 +1139,7 @@ public class RetrieveMyPHP {
                     isr.close();
                     reader.close();
                 } catch (IOException e) {
-                    Log.v("Exception", e + "");
+                    e.printStackTrace();
                 }
             }
         });
@@ -1348,7 +1204,7 @@ public class RetrieveMyPHP {
                     isr.close();
                     reader.close();
                 } catch (IOException e) {
-                    Log.v("Exception", e + "");
+                    e.printStackTrace();
                 }
             }
         });
@@ -1386,8 +1242,6 @@ public class RetrieveMyPHP {
             public void run() {
 
                 try {
-                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-                    // alot of boiler plate stuff
                     url = new URL("http://bruha.com/mobile_php/getArtistAddictions.php?" + parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -1408,12 +1262,11 @@ public class RetrieveMyPHP {
                     // Response from server after login process will be stored in response variable.
                     // in this case the response is the echo from the php script (i.e = 1) if successful
                     response = sb.toString();
-                    //   Log.v("response",response);
                     // You can perform UI operations here
                     isr.close();
                     reader.close();
                 } catch (IOException e) {
-                    Log.v("Exception", e + "");
+                    e.printStackTrace();
                 }
             }
         });
@@ -1451,8 +1304,6 @@ public class RetrieveMyPHP {
             public void run() {
 
                 try {
-                    // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
-                    // alot of boiler plate stuff
                     url = new URL("http://bruha.com/mobile_php/getOrgAddictions.php?" + parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -1478,7 +1329,7 @@ public class RetrieveMyPHP {
                     isr.close();
                     reader.close();
                 } catch (IOException e) {
-                    Log.v("Exception", e + "");
+                   e.printStackTrace();
                 }
             }
         });

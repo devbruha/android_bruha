@@ -6,7 +6,6 @@ import com.bruha.bruha.Model.Items;
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.Venue;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -197,5 +196,4 @@ public class SQLiteUtils {
 
         return dbhelper.retrieveUserOrganizationInfo();
     }
-
 }

@@ -6,7 +6,6 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -22,30 +21,21 @@ import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.R;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
-
 import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.OnClick;
 
 public class SplashActivity extends Activity {
-
-
-    Typeface opensansregfnt;
-
+   //The bulb Images to be used.
     BitmapDrawable selected;
     BitmapDrawable unselected;
-
+    Typeface opensansregfnt;  //Font to be used.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,21 +44,15 @@ public class SplashActivity extends Activity {
         // using ButterKnife.inject to allow the InjectViews to take effect.
         ButterKnife.inject(this);
 
-
+        //Initializing the global variables delcared above.
         selected = svgToBitmapDrawable(getResources(), R.raw.selected, 10);
         unselected=svgToBitmapDrawable(getResources(), R.raw.notselected, 10);
+        opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
 
-
-         opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
-
-
-
-
-        //Setting SVG image
+        //Setting Splash page up.
         ImageView loginimage = (ImageView) findViewById(R.id.logindude);
         // Android functions to determine the screen dimensions.
         loginimage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 30));
-
 
         //Code to execute the swipe code.
         MyPagerAdapter adapter = new MyPagerAdapter();          //Making variable eventAdapter of class MyPageAdapter defined below.
@@ -76,10 +60,7 @@ public class SplashActivity extends Activity {
         pager.setAdapter(adapter);                              //Setting the Adapter of the layout to eventAdapter.
         pager.setCurrentItem(0);                                 //The first page to be displayed in the
 
-
-
-
-
+        //Buttons of the splash page being implemented and their respective onClickListeners.
         final LinearLayout loginButton = (LinearLayout) findViewById(R.id.splashloginButton);
         final LinearLayout registerButton = (LinearLayout) findViewById(R.id.splashregisterButton);
         final Button skipButton = (Button) findViewById(R.id.noLoginButton);
@@ -129,8 +110,9 @@ public class SplashActivity extends Activity {
             }
         });
 
-        resize();
+        resize();  //The method that resizes and sets the font size according to the screen size.
 
+        //Checks if internet connection is available,if not app continues without internet connection.
         if(!isNetworkAvailable())
         {
             if(!MyApplication.internetCheck) {
@@ -141,16 +123,13 @@ public class SplashActivity extends Activity {
 
     }
 
-    // A function to call the AlertDialogFragment Activity
     private void alertUserAboutError(String errorTitle, String errorMessage) {
-
+        // A function to call the AlertDialogFragment Activity that alerts the user about possible errors.
         AlertDialogFragment dialog = new AlertDialogFragment().newInstance( errorTitle,errorMessage );
         dialog.show(getFragmentManager(), "error_dialog");
     }
 
-
-    private void resize()
-    {
+    private void resize() {   //The method that resizes the splash page according to the screen size and sets the font.
 
         // Android functions to determine the screen dimensions.
         Display display = getWindowManager().getDefaultDisplay();
@@ -159,61 +138,19 @@ public class SplashActivity extends Activity {
 
         // Storing the screen height into an int variable..
         int height = size.y;
-
         int x= (int)Math.round(height * .045);
 
+        //Setting text size and font.
         TextView loginText = (TextView) findViewById(R.id.splashLoginText);
         TextView registerText = (TextView) findViewById(R.id.splashRegisterText);
         loginText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         registerText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         loginText.setTypeface(opensansregfnt);
         registerText.setTypeface(opensansregfnt);
-
-
     }
 
-    public void startLoginActivity(View view)
-    {
-        Intent intent = new Intent(this,LoginActivity.class);
-        startActivity(intent);
-    }
-
-
-    public void startRegisterActivity(View view)
-    {
-        Intent intent = new Intent(this,RegisterActivity.class);
-        startActivity(intent);
-
-    }
-
-    public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
-        try {
-            size = (int)(size*res.getDisplayMetrics().density);
-            SVG svg = SVG.getFromResource(getApplicationContext(), resource);
-
-            Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(bmp);
-            svg.renderToCanvas(canvas);
-
-            BitmapDrawable drawable = new BitmapDrawable(res, bmp);
-
-
-            return drawable;
-        }catch(SVGParseException e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    //Button to skip the logging in process.
-    public void noLogin(View view){
-        Intent intent = new Intent(this, DashboardActivity.class);
-        startActivity(intent);
-    }
-
-
-    //MyPageAdapter class to decide which page is going to be swiped to.
     public class MyPagerAdapter extends PagerAdapter {
+        //MyPageAdapter class to decide which page is going to be swiped to.
         //set  number of swipe screens here
         @Override
         public int getCount() {
@@ -259,7 +196,6 @@ public class SplashActivity extends Activity {
         }
     }
 
-
     private void loadpics(View view,int resId) {
         // Android functions to determine the screen dimensions.
         Display display = getWindowManager().getDefaultDisplay();
@@ -269,7 +205,7 @@ public class SplashActivity extends Activity {
         // Storing the screen height into an int variable..
         int height = size.y;
 
-
+        //Checks what the Page ID is and populates the page and its images accordingly.
         if(resId==R.layout.splash_bruha) {
             ImageView im = (ImageView) view.findViewById(R.id.splashImage);
             // Android functions to determine the screen dimensions.
@@ -389,8 +325,6 @@ public class SplashActivity extends Activity {
             outfitDestext.setTypeface(opensansregfnt);
         }
 
-
-
         if(resId==R.layout.splash_events)
         {
             ImageView arts = (ImageView) view.findViewById(R.id.imageart);
@@ -507,15 +441,14 @@ public class SplashActivity extends Activity {
         }
     }
 
-    // A function used to check whether users are connected to the internet
     private boolean isNetworkAvailable() {
+        // A function used to check whether users are connected to the internet
         ConnectivityManager manager = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
         // boolean variable initialized to false, set true if there is a connection
-
         boolean isAvailable = false;
 
         if(networkInfo != null && networkInfo.isConnected()){
@@ -523,5 +456,43 @@ public class SplashActivity extends Activity {
             isAvailable = true;
         }
         return isAvailable;
+    }
+
+    public void startLoginActivity(View view) {
+        //Login Button implementation to navigate to the Login Activity.
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
+    }
+
+    public void startRegisterActivity(View view) {
+        //Register Button implementation to navigate to the Register Activity.
+        Intent intent = new Intent(this,RegisterActivity.class);
+        startActivity(intent);
+
+    }
+
+    public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
+        try {
+            size = (int)(size*res.getDisplayMetrics().density);
+            SVG svg = SVG.getFromResource(getApplicationContext(), resource);
+
+            Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bmp);
+            svg.renderToCanvas(canvas);
+
+            BitmapDrawable drawable = new BitmapDrawable(res, bmp);
+
+
+            return drawable;
+        }catch(SVGParseException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void noLogin(View view){
+        //Button to skip the logging in process.
+        Intent intent = new Intent(this, DashboardActivity.class);
+        startActivity(intent);
     }
 }

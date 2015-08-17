@@ -17,7 +17,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
@@ -25,23 +24,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-
 public class DashboardActivity extends ActionBarActivity {
-
-
-
     //The Buttons
     @InjectView(R.id.uploadButton) LinearLayout myUploadButton;
     @InjectView(R.id.ticketButton) LinearLayout myTicketButton;
@@ -49,16 +42,14 @@ public class DashboardActivity extends ActionBarActivity {
     @InjectView(R.id.hotButton) LinearLayout hotButton;
     @InjectView(R.id.addictionButton) LinearLayout addictionButton;
     @InjectView(R.id.exploreButton) LinearLayout exploreButton;
-
-    //The Buttons
+    //The Buttons's TextViews
     @InjectView(R.id.UploadButton) TextView myUploadText;
     @InjectView(R.id.TicketButton) TextView myTicketText;
     @InjectView(R.id.ProfileButton) TextView profileText;
     @InjectView(R.id.HotButton) TextView hotText;
     @InjectView(R.id.AddictionButton) TextView addictionText;
     @InjectView(R.id.ExploreButton) TextView exploreText;
-
-
+    //The Images of the Buttons
     @InjectView(R.id.dashboardMyTicketImage) ImageView myTicketImage;
     @InjectView(R.id.dashboardMyAddictionImage) ImageView myAddictionImage;
     @InjectView(R.id.dashboardDudeButtonImage) ImageView dudeButton;
@@ -67,15 +58,15 @@ public class DashboardActivity extends ActionBarActivity {
     @InjectView(R.id.dashboardprofileImage) ImageView profileImage;
     @InjectView(R.id.dashboardcalendarImage) ImageView calendarImage;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         ButterKnife.inject(this);
 
-        setCategories();
+        setCategories();  //Sets the Categories
 
+        //The Button implementaion of EXPLORE which stays the same no matter logged in or not.
         exploreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -97,10 +88,8 @@ public class DashboardActivity extends ActionBarActivity {
         // it gets set to true
 
         //The myUploadButton's implementation.
-
         if(MyApplication.loginCheck == true)
         {
-
             //MyUpload Button's Implementation.
             myUploadButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -182,7 +171,7 @@ public class DashboardActivity extends ActionBarActivity {
                 }
             });
         }
-        else {
+        else { //If not Logged into the app.
 
             //UploadButton's Implementation.
             myUploadButton.setAlpha((float) 0.25);
@@ -202,9 +191,7 @@ public class DashboardActivity extends ActionBarActivity {
                 }
             });
 
-
             //WhatsHot's Implementation
-            //Profile Button's Implementation
             hotButton.setAlpha((float) 0.25);
             hotButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -223,7 +210,7 @@ public class DashboardActivity extends ActionBarActivity {
                 }
             });
 
-
+            //Addiction Button's Implementaion.
             addictionButton.setAlpha((float) 0.25);
             addictionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -233,11 +220,7 @@ public class DashboardActivity extends ActionBarActivity {
             });
         }
 
-
-
-
-        //Shade Animator for ListButton
-
+        //Dashboard Button implementaion.
         dudeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -253,12 +236,12 @@ public class DashboardActivity extends ActionBarActivity {
             }
         });
 
-
-        setImages();
-        resize();
+        setImages();  //Calling the method that sets all the images inside the database.
+        resize();     //Calling the method that resizes everything inside the database.
 
         MyApplication.listIconParam = dudeButton.getLayoutParams();
 
+        //Checks to see if internet connection is available,if not then proceed with the app without using any internet connection.
         if(!isNetworkAvailable())
         {
             if(!MyApplication.internetCheck)
@@ -267,11 +250,9 @@ public class DashboardActivity extends ActionBarActivity {
                 MyApplication.internetCheck = true;
             }
         }
-
     }
 
     private void setCategories(){
-
         //Initializing the local database.
         SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
@@ -283,16 +264,14 @@ public class DashboardActivity extends ActionBarActivity {
         MyApplication.mainList.add(sqLiteUtils.getOrganizationCategories(dbHelper));
     }
 
-    // A function to call the AlertDialogFragment Activity
     private void alertUserAboutError(String errorTitle, String errorMessage) {
-
+        // A function to call the AlertDialogFragment Activity to alert the user about possible errors.
         AlertDialogFragment dialog = new AlertDialogFragment().newInstance( errorTitle,errorMessage );
         dialog.show(getFragmentManager(), "error_dialog");
     }
 
-
-    // A function used to check whether users are connected to the internet
     private boolean isNetworkAvailable() {
+        // A function used to check whether users are connected to the internet
         ConnectivityManager manager = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -309,11 +288,8 @@ public class DashboardActivity extends ActionBarActivity {
         return isAvailable;
     }
 
-    private void resize()
-    {
-
+    private void resize() {   //The method used to resize everything inside the app and set the font for.
         Typeface opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
-
 
         // Android functions to determine the screen dimensions.
         Display display = getWindowManager().getDefaultDisplay();
@@ -322,8 +298,9 @@ public class DashboardActivity extends ActionBarActivity {
 
         // Storing the screen height into an int variable..
         int height = size.y;
-
         int x= (int)Math.round(height*.025);
+
+        //Setting the new text size and font.
         exploreText.setTextSize(TypedValue.COMPLEX_UNIT_PX,x);
         exploreText.setTypeface(opensansregfnt);
         hotText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
@@ -338,8 +315,7 @@ public class DashboardActivity extends ActionBarActivity {
         addictionText.setTypeface(opensansregfnt);
     }
 
-    private void setImages()
-    {
+    private void setImages() {       //The method that sets all the images inside the Dashboard activity.
         dudeButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 30));
         myAddictionImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.myaddictions, 60));
         myTicketImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.tickets, 60));
@@ -351,61 +327,48 @@ public class DashboardActivity extends ActionBarActivity {
 
     //The OnClickListeners for the DashBoard Buttons:
 
-    public void startMapActivity(View view)
-    {
-        Intent intent = new Intent(this, MapsActivity.class);
-        startActivity(intent);
-    }
-
-    public void startListActivity(View view){
-        Intent intent = new Intent(this, ListActivity.class);
-        startActivity(intent);
-
-    }
-
-    //OnClickListener for "Explore" that leads to the mListView Activity.
+    //OnClickListener for "Explore" that leads to the ListActivity.
     public void startExploreActivity(View view){
         Intent intent = new Intent(this, ListActivity.class);
         startActivity(intent);
     }
 
-    //OnClickListener for "Explore" that leads to the Addiction Activity.
+    //OnClickListener for "Addiction" that leads to the Addiction Activity.
     @OnClick(R.id.addictionButton)
     public void startAddictionAcitivty(View view){
         Intent intent = new Intent(this, myAddictions.class);
         startActivity(intent);
     }
 
-    //OnClickListener for "Explore" that leads to the Ticket Activity.
+    //OnClickListener for "Ticket" that leads to the Ticket Activity.
     @OnClick(R.id.ticketButton)
     public void startTicketAcitivity(View view){
         Intent intent = new Intent(this, MyTicketActivity.class);
         startActivity(intent);
     }
 
-    //OnClickListener for "Explore" that leads to the Hot Activity.
+    //OnClickListener for "CALENDAR" that leads to the Hot Activity.
     @OnClick(R.id.hotButton)
     public void startHotActivity(View view){
         Intent intent = new Intent(this, CalendarActivity.class);
         startActivity(intent);
     }
 
-    //OnClickListener for "Explore" that leads to the Upload Activity.
+    //OnClickListener for "MyUploads" that leads to the Upload Activity.
     public void startUploadActivity(View view){
         Intent intent = new Intent(this, MyUploadsActivity.class);
         startActivity(intent);
     }
 
-    //OnClickListener for "Explore" that leads to the Profile Activity.
+    //OnClickListener for "Profile" that leads to the Profile Activity.
     @OnClick(R.id.profileButton)
     public void startProfileActivity(View view){
         Intent intent = new Intent(this, UserProfileActivity.class);
         startActivity(intent);
     }
 
-
     public void ticketDialog()
-    {
+    {   //Alert Dialog to let the user know the page is under construction.
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Add the buttons
         builder.setMessage("This page is currently in development,Sorry!");
@@ -420,7 +383,7 @@ public class DashboardActivity extends ActionBarActivity {
     }
 
     public void showDialog()
-    {
+    {   //Alert dialog to let the user know the page cannot be accessed cause not logged in.
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Add the buttons
         builder.setMessage("Oopse! You are not logged in!");
@@ -459,7 +422,7 @@ public class DashboardActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
-    //SVG SHIT:
+    //SVG Conversion method.
     public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
         try {
             size = (int)(size*res.getDisplayMetrics().density);
@@ -482,8 +445,6 @@ public class DashboardActivity extends ActionBarActivity {
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
-
-        Log.v("Resumetest", "HI");
 
         if(ListActivity.instance != null) {
             try {

@@ -6,7 +6,6 @@ import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -27,7 +26,6 @@ import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
-
 import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -45,17 +43,17 @@ public class UserProfileActivity extends ActionBarActivity {
         setContentView(R.layout.activity_user_profile);
         ButterKnife.inject(this);
 
-
-
+        //Initializing the local database.
         dbHelper = new SQLiteDatabaseModel(this);
         sqLiteUtils = new SQLiteUtils();
 
         init(); // Initializes the array to contain the information to be displayed.(User Info)
         setPage(); //Setting up the page.
-        resizeButton();
+        resizeButton(); //Resizing the page.
     }
 
    private void resizeButton() {
+       //The method that resizes the buttons.
        Display display = getWindowManager().getDefaultDisplay();
        Point size = new Point();
        display.getSize(size);
@@ -85,10 +83,9 @@ public class UserProfileActivity extends ActionBarActivity {
        });
    }
 
-
-    //Resizes the page, sets the fonts, sets the text.
     private void setPage()
-    {
+    {   //Resizes the page, sets the fonts, sets the text.
+
         //FONT SHIT
         Typeface domboldfnt = Typeface.createFromAsset(this.getAssets(),"fonts/Domine-Bold.ttf");
         Typeface opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
@@ -116,7 +113,6 @@ public class UserProfileActivity extends ActionBarActivity {
         infoBoxLayoutParams.width = (int)Math.round(height*.50);
 
         //Resizing, changing font and setting the text of the following.
-
         TextView name = (TextView) findViewById(R.id.Name);
         name.setText(userInfo.get(1));
         TextView username = (TextView) findViewById(R.id.username);
@@ -151,7 +147,6 @@ public class UserProfileActivity extends ActionBarActivity {
         sex.setTypeface(domboldfnt);
         location.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         location.setTypeface(domboldfnt);
-
         usernameText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         usernameText.setTypeface(opensansregfnt);
         emailText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
@@ -174,11 +169,7 @@ public class UserProfileActivity extends ActionBarActivity {
         logoutDialog();
     }
 
-
-
-
-    public void logout(View view)
-    {
+    public void logout(View view) {
         MyApplication.loginCheck = false;
         MyApplication.userName = "false";
         dbHelper.onLogout(dbHelper.getWritableDatabase(), 1, 1);
@@ -186,19 +177,17 @@ public class UserProfileActivity extends ActionBarActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
-
     }
 
     @OnClick(R.id.userprofileDashboardImage)
-    public void startDashboardActivity(View view)
-    {
+    public void startDashboardActivity(View view) {
         Intent intent = new Intent(this,DashboardActivity.class);
         startActivity(intent);
         finish();
     }
 
-    //SVG SHIT:
     public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
+        //SVG Conversion
         try {
             size = (int)(size*res.getDisplayMetrics().density);
             SVG svg = SVG.getFromResource(getApplicationContext(), resource);
@@ -217,10 +206,7 @@ public class UserProfileActivity extends ActionBarActivity {
         return null;
     }
 
-
-
-    public void logoutDialog()
-    {
+    public void logoutDialog() {   //Dialog that confirms the user would like to log out.
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Add the buttons
         builder.setMessage("Are you sure you want to log out?!");
@@ -238,5 +224,4 @@ public class UserProfileActivity extends ActionBarActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-
 }

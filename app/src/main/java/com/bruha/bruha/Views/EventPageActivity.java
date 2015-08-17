@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.Organizations;
@@ -23,7 +22,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class EventPageActivity extends ActionBarActivity {
-
+    //Initializing the variables that will be used to store info and populate accordingly.
     ArrayList<Event> mEvents= new ArrayList<>();
     ArrayList<Venue> mVenues = new ArrayList<>();
     ArrayList<Artist> mArtists = new ArrayList<>();
@@ -33,7 +32,6 @@ public class EventPageActivity extends ActionBarActivity {
     Artist artist;
     Organizations outfit;
     String type;
-
     TextView EventName;
     TextView EventAge;
     TextView PageStartDateandTime;
@@ -43,13 +41,10 @@ public class EventPageActivity extends ActionBarActivity {
     ImageView EventCoverPage;
     ImageView EventPicture;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_page);
-
 
         init(); //Calling to initialized Array selectedDateEvents to loop through to find the Event to be displayed.
 
@@ -66,7 +61,6 @@ public class EventPageActivity extends ActionBarActivity {
                 }
             }
         }
-
         else if(type.equals("Venue"))
         {
             //Finding out and storing the event that is to be displayed.
@@ -76,7 +70,6 @@ public class EventPageActivity extends ActionBarActivity {
                 }
             }
         }
-
         else if(type.equals("Outfit"))
         {
             //Finding out and storing the event that is to be displayed.
@@ -86,7 +79,6 @@ public class EventPageActivity extends ActionBarActivity {
                 }
             }
         }
-
         else
         {
             //Finding out and storing the event that is to be displayed.
@@ -97,17 +89,13 @@ public class EventPageActivity extends ActionBarActivity {
             }
         }
 
-        resize();
+        resize();       //Resizing the page.
 
-        settext();
+        settext();      //Setting the texts inside the page.
 
     }
 
-
-
-
-    private void resize()
-    {
+    private void resize() {
         //The EventPage dimensions being set to fit all types of screen, along with the text being assigned.
 
         // Android functions to determine the screen dimensions.
@@ -123,19 +111,16 @@ public class EventPageActivity extends ActionBarActivity {
         ViewGroup.LayoutParams EventCoverPageParams = EventCoverPage.getLayoutParams();
         EventCoverPageParams.height =  (int)Math.round(height*.20);
 
-
         //Assigning the PageEventPicture to a variable to alter its dimensions after with.
         EventPicture = (ImageView) findViewById(R.id.PageEventPicture);
         ViewGroup.LayoutParams EventPictureParams = EventPicture.getLayoutParams();
         EventPictureParams.height =  (int)Math.round(height*.15);
         EventPictureParams.width  =  (int)Math.round(height*.15);
 
-
         //The PageEventName being Formatted.
          EventName = (TextView) findViewById(R.id.PageEventName);
         int x1= (int)Math.round(height*.038);
         EventName.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
-
 
         //The PageEventAge being Formatted.
         EventAge= (TextView) findViewById(R.id.PageEventAge);
@@ -159,7 +144,6 @@ public class EventPageActivity extends ActionBarActivity {
         PageEndDateandTime.setTextSize(TypedValue.COMPLEX_UNIT_PX, x3);
         PageAddressLoc.setTextSize(TypedValue.COMPLEX_UNIT_PX, x3);
 
-
         //The About text being resized.
         TextView PageAbout = (TextView) findViewById(R.id.VenueHourText);
         int x4= (int)Math.round(height * .020);
@@ -172,7 +156,6 @@ public class EventPageActivity extends ActionBarActivity {
         int x5= (int)Math.round(height * .019);
         PageEventDescription.setTextSize(TypedValue.COMPLEX_UNIT_PX, x5);
 
-
         //Just spacing out for the map.
         TextView PageMapSpace = (TextView) findViewById(R.id.PageMapSpace);
         ViewGroup.LayoutParams PageMapSpaceParams = PageMapSpace.getLayoutParams();
@@ -181,17 +164,14 @@ public class EventPageActivity extends ActionBarActivity {
         PageMapSpace.setTextSize(TypedValue.COMPLEX_UNIT_PX, x6);
     }
 
-    private void settext()
-    {
+    private void settext() {
         TextView PageStart = (TextView) findViewById(R.id.VenueHourText);
         TextView PageEnd = (TextView) findViewById(R.id.PageEndText);
         TextView PageAddress = (TextView) findViewById(R.id.PageAddressText);
         TextView PageMapSpace = (TextView) findViewById(R.id.PageMapSpace);
 
-
         if(type.equals("Event"))
         {
-
             EventName.setText(event.getEventName());
             PageEventDescription.setText(event.getEventDescription());
             PageStartDateandTime.setText(event.getEventDate() + " At " + event.getEventStartTime());
@@ -205,9 +185,7 @@ public class EventPageActivity extends ActionBarActivity {
                     startEventPreview();
                 }
             });
-
         }
-
         else if(type.equals("Outfit"))
         {
             Picasso.with(this.getApplicationContext()).load(outfit.getOrgPicture()).fit().into(EventPicture);
@@ -225,9 +203,7 @@ public class EventPageActivity extends ActionBarActivity {
                 startOrgPreview();
                 }
             });
-
         }
-
         else if(type.equals("Venue"))
         {
             Picasso.with(this.getApplicationContext()).load(venue.getVenuePicture()).fit().into(EventPicture);
@@ -246,9 +222,7 @@ public class EventPageActivity extends ActionBarActivity {
 
                 }
             });
-
         }
-
         else {
             Picasso.with(this.getApplicationContext()).load(artist.getArtistPicture()).fit().into(EventPicture);
             Picasso.with(this.getApplicationContext()).load(artist.getArtistPicture()).fit().into(EventCoverPage);
@@ -267,14 +241,12 @@ public class EventPageActivity extends ActionBarActivity {
                 }
             });
         }
-
     }
 
     private void init(){
         // Create the local DB object
         SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
-
         //Assigns the array containing the list of events.
         mEvents = sqLiteUtils.getEventInfo(dbHelper);
         mVenues= sqLiteUtils.getVenuesInfo(dbHelper);
@@ -282,28 +254,24 @@ public class EventPageActivity extends ActionBarActivity {
         mArtists= sqLiteUtils.getArtistInfo(dbHelper);
     }
 
-    public void startVenPreview()
-    {
+    public void startVenPreview() {
         Intent intent = new Intent(this, ShowOnMapActivity.class);
         intent.putExtra("Id",venue.getVenueId());
         intent.putExtra("Type","Venue");
         startActivity(intent);
     }
 
-    public void startEventPreview()
-    {
+    public void startEventPreview() {
         Intent intent = new Intent(this, ShowOnMapActivity.class);
         intent.putExtra("Id",event.getEventid());
         intent.putExtra("Type","Event");
         startActivity(intent);
     }
 
-    public void startOrgPreview()
-    {
+    public void startOrgPreview() {
         Intent intent = new Intent(this, ShowOnMapActivity.class);
         intent.putExtra("Id",outfit.getOrgId());
         intent.putExtra("Type","Outfit");
         startActivity(intent);
     }
-
 }

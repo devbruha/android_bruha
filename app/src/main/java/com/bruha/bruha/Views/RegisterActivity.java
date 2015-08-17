@@ -24,13 +24,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bruha.bruha.Processing.CredentialsPHP;
-import com.bruha.bruha.Processing.RetrievePHP;
 import com.bruha.bruha.R;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -43,18 +40,15 @@ public class RegisterActivity extends ActionBarActivity {
     @InjectView(R.id.registerEmailTextView) TextView mRegisterEmailTextView;
     @InjectView(R.id.registerUsernameTextView) TextView mRegisterUsernameTextView;
     @InjectView(R.id.registerPasswordTextView) TextView mRegisterPasswordTextView;
-
     //Injevting the Buttons:
     @InjectView(R.id.createAccountButton) Button registerButton;
     @InjectView(R.id.continueNotRegisteredButton) Button noRegisterButton;
     @InjectView(R.id.registerLoginButton) Button loginButton;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
         // using ButterKnife.inject to allow the InjectViews to take effect
         ButterKnife.inject(this);
 
@@ -62,8 +56,7 @@ public class RegisterActivity extends ActionBarActivity {
         ImageView im = (ImageView) findViewById(R.id.registerbruhaface);
         im.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhapurpleface, 100));
 
-
-
+        //Setting the OnClickListeners for all the buttons inside the page.
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -78,7 +71,6 @@ public class RegisterActivity extends ActionBarActivity {
                 animator.start();
             }
         });
-
         noRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -93,8 +85,6 @@ public class RegisterActivity extends ActionBarActivity {
                 animator.start();
             }
         });
-
-
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -110,13 +100,10 @@ public class RegisterActivity extends ActionBarActivity {
             }
         });
 
-    resize();
+    resize(); //Calling the method that resizes everything inside the page.
     }
 
-
-
-    private void resize()
-    {
+    private void resize() {
         // Android functions to determine the screen dimensions.
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -143,7 +130,6 @@ public class RegisterActivity extends ActionBarActivity {
         mRegisterUsernameEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
         mRegisterUsernameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
 
-
         ViewGroup.LayoutParams mRegisterUsernameEditTextLayoutParams = mRegisterUsernameEditText.getLayoutParams();
         ViewGroup.LayoutParams mRegisterPasswordEditTextLayoutParams = mRegisterPasswordEditText.getLayoutParams();
         ViewGroup.LayoutParams mRegisterEmailEditTextLayoutParams = mRegisterEmailEditText.getLayoutParams();
@@ -167,29 +153,22 @@ public class RegisterActivity extends ActionBarActivity {
         loginButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         registerButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         noRegisterButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-
     }
 
-
-
-   private void startLoginActivity(View view)
-   {
+    private void startLoginActivity(View view) {
        Intent intent = new Intent(this,LoginActivity.class);
        startActivity(intent);
        finish();
    }
 
-
-
-
-    // A function to call the AlertDialogFragment Activity
     private void alertUserAboutError(String errorTitle, String errorMessage) {
+        // A function to call the AlertDialogFragment Activity to alert the user about possible errors
         AlertDialogFragment dialog = new AlertDialogFragment().newInstance( errorTitle,errorMessage );
         dialog.show(getFragmentManager(), "error_dialog");
     }
 
-    // A function used to check whether users are connected to the internet
     private boolean isNetworkAvailable() {
+        // A function used to check whether users are connected to the internet
         ConnectivityManager manager = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -206,8 +185,8 @@ public class RegisterActivity extends ActionBarActivity {
         return isAvailable;
     }
 
-    // A function used to check whether users are entering a valid email address
     private boolean isValidEmail(String email) {
+        // A function used to check whether users are entering a valid email address
         if (TextUtils.isEmpty(email)) {
             return false;
         }
@@ -216,8 +195,8 @@ public class RegisterActivity extends ActionBarActivity {
         }
     }
 
-    // A function used to check whether users are entering a valid username
     private boolean isValidUsername(String username){
+        // A function used to check whether users are entering a valid username
         boolean isAvailable = false;
         int length = username.length();
 
@@ -228,12 +207,11 @@ public class RegisterActivity extends ActionBarActivity {
                 isAvailable = true;
             }
         }
-
         return isAvailable;
     }
 
-    // A function used to check whether users are entering a valid password
     private boolean isValidPassword(String password){
+        // A function used to check whether users are entering a valid password
         boolean isAvailable = false;
         int length = password.length();
 
@@ -248,9 +226,8 @@ public class RegisterActivity extends ActionBarActivity {
         return isAvailable;
     }
 
-    // A function to run the previous check aswell as to call the PHP class to run the queries.
     private String isValidAccountInformation(String username, String password, String email){
-
+        // A function to run the previous check aswell as to call the PHP class to run the queries.
         String error;
 
         if(isNetworkAvailable()) {
@@ -260,22 +237,12 @@ public class RegisterActivity extends ActionBarActivity {
                 if( isValidPassword(password) ) {
 
                     if (isValidEmail(email)) {
-
-                        //error="Success";
-
                         // Calling the init function within PHP with the parameters passed
-
-
                         CredentialsPHP credentialsPHP = new CredentialsPHP();
                         error=  credentialsPHP.register(username, password, email);
-
                         if (error.contains("1")) {
                             error="Success";
                         }
-
-
-
-
                     }
                     // If email is invalid, error string is updated
 
@@ -304,9 +271,9 @@ public class RegisterActivity extends ActionBarActivity {
         return error;
     }
 
-    // Setting the listeners for the choice the user is to make on button click
-
     public void createAccount(View view){
+        // Setting the listeners for the choice the user is to make on button click
+
 
         // Retrieving the entered information and converting to string.
         String username = mRegisterUsernameEditText.getText().toString();
@@ -381,6 +348,7 @@ public class RegisterActivity extends ActionBarActivity {
 
     }
 
+    //SVG conversion.
     public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
         try {
             size = (int)(size*res.getDisplayMetrics().density);
@@ -399,6 +367,4 @@ public class RegisterActivity extends ActionBarActivity {
         }
         return null;
     }
-
-
 }

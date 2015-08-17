@@ -522,16 +522,15 @@
             android:layout_marginTop="3dp" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:id="@+id/VenueIcon"
-            android:src="@android:drawable/ic_secure"
             android:layout_alignTop="@+id/VenueImageBubble"
             android:layout_alignLeft="@+id/VenueDistance"
             android:layout_alignStart="@+id/VenueDistance"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="6dp"
             android:paddingBottom="8dp"
-            android:visibility="invisible" />
+            android:visibility="visible" />
 
         <RelativeLayout
             android:layout_width="match_parent"

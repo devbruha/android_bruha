@@ -3,7 +3,6 @@ package com.bruha.bruha.Views;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-
 import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.Organizations;
@@ -21,9 +20,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 
 public class ShowOnMapActivity extends FragmentActivity {
-
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
+    //Initializing the Variables that will be used to populate our page.
     ArrayList<Event> mEvents= new ArrayList<>();
     ArrayList<Venue> mVenues = new ArrayList<>();
     ArrayList<Artist> mArtists = new ArrayList<>();
@@ -38,7 +37,6 @@ public class ShowOnMapActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_on_map);
-
 
         init(); //Calling to initialized Array selectedDateEvents to loop through to find the Event to be displayed.
 
@@ -86,8 +84,7 @@ public class ShowOnMapActivity extends FragmentActivity {
             }
         }
 
-
-        setUpMapIfNeeded();
+        setUpMapIfNeeded(); //Sets the map up.
     }
 
     @Override
@@ -131,9 +128,7 @@ public class ShowOnMapActivity extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-
-
-
+        //Set the map up according to what type is selected and what Event
         if(type.equals("Event")) {
 
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(event.getEventLatitude(), event.getEventLongitude()), 14.0f));
@@ -170,10 +165,8 @@ public class ShowOnMapActivity extends FragmentActivity {
 
     }
 
-
-
 private void init()
-{
+{   //The method that calls the local database and sets all the variables accordingly.
     // Create the local DB object
     SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
     SQLiteUtils sqLiteUtils = new SQLiteUtils();
@@ -184,6 +177,4 @@ private void init()
     mOutfit= sqLiteUtils.getOrganizationsInfo(dbHelper);
     mArtists= sqLiteUtils.getArtistInfo(dbHelper);
 }
-
-
 }

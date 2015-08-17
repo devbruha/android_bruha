@@ -5,8 +5,12 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -19,7 +23,6 @@ import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.Venue;
@@ -27,17 +30,17 @@ import com.bruha.bruha.Processing.RetrieveMyPHP;
 import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
 import com.bruha.bruha.Views.ShowOnMapActivity;
+import com.caverock.androidsvg.SVG;
+import com.caverock.androidsvg.SVGParseException;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 /**
  * Created by Work on 2015-06-09.
  */
 public class VenueListViewAdapter extends BaseSwipeAdapter {
-
     private Activity mActivity;
     private ArrayList<Venue> mVenue;
     public static int Clicks = 0;
@@ -68,12 +71,9 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         return convertView;
     }
 
-
     //Use for resizing everything like in the Event ListViewAdapter.
     @Override
     public void fillValues(final int position, final View convertView) {
-
-        //Test:
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
 
         convertView.setTag(holder); //sets the tag
@@ -119,10 +119,9 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
 
         //Summary Description of the Venue.
         holder.VenuePicture = (ImageView) convertView.findViewById(R.id.VenuePicture);
-        holder.VenueIcon = (ImageView) convertView.findViewById(R.id.VenueIcon);
+        holder.VenueIcon = (ImageView) convertView.findViewById(R.id.VAOIcon);
         holder.VenueName = (TextView) convertView.findViewById(R.id.VenueName);
         holder.VenueDistance = (TextView) convertView.findViewById(R.id.VenueDistance);
-
         //Detailed Description of the Venue
         holder.VenueLocName = (TextView) convertView.findViewById(R.id.DesVenueLocName);
         holder.VenueLocSt = (TextView) convertView.findViewById(R.id.DesVenueLocStreet);
@@ -132,8 +131,8 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         holder.VenueHourSunday = (TextView) convertView.findViewById(R.id.VenueSundayHour);
         holder.VenueDesName = (TextView) convertView.findViewById(R.id.DesVenueName);
 
-
         //Setting all the text inside the view.
+        setIcon(Venue,holder.VenueIcon);
 
         //Summary being set.
         //  holder.VenuePicture.setImageResource();
@@ -150,9 +149,8 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         // holder.VenueHourSaturday.setText();
         // holder.VenueHourSunday.setText();
 
-
+        //Getting the picture to inflate inside the view.
         String url = Venue.getVenuePicture();
-
         Picasso.with(convertView.getContext()).load(url).into(holder.VenuePicture);
 
 
@@ -161,7 +159,6 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         swipeLayout.addDrag(SwipeLayout.DragEdge.Left, convertView.findViewById(R.id.Venue_Left_wrapper));
         swipeLayout.addDrag(SwipeLayout.DragEdge.Right, convertView.findViewById(R.id.VenueRightSwipeLayout));
-
 
         //Implements the Button 'Preview' that appears after swipe right,Shows Button Highlight for half a second when clicked.
         TableRow GoPreviewPage = (TableRow) convertView.findViewById(R.id.VenuePreviewRow);
@@ -183,7 +180,6 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
                 animator.start();
             }
         });
-
         //Implements the Button 'More Info' that appears after swipe right,Shows Button Highlight for half a second when clicked.
         TableRow GoMoreInfoPage = (TableRow) convertView.findViewById(R.id.VenueMoreInfoRow);
         GoMoreInfoPage.setOnClickListener(new View.OnClickListener() {
@@ -206,11 +202,11 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         });
 
 
-        //FONT SHIT
+        //FONT, Resizing and button implementations:
+
         Typeface domregfnt = Typeface.createFromAsset(mActivity.getAssets(), "fonts/Domine-Regular.ttf");
         Typeface domboldfnt = Typeface.createFromAsset(mActivity.getAssets(), "fonts/Domine-Bold.ttf");
         Typeface opensansregfnt = Typeface.createFromAsset(mActivity.getAssets(), "fonts/OpenSans-Regular.ttf");
-
 
         //Assigning the ImageBubble to a variable to alter iits dimensions after with.
         ImageView circle = (ImageView) convertView.findViewById(R.id.VenueImageBubble);
@@ -219,26 +215,25 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         Display display = mActivity.getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-
         // Storing the screen height into an int variable.
         int height = size.y;
 
-
+        //Getting the icon and setting its size
+        ImageView icon = (ImageView) convertView.findViewById(R.id.VAOIcon);
+        ViewGroup.LayoutParams iconLayoutParams = icon.getLayoutParams();
+        iconLayoutParams.height =  (int)Math.round(height*.05);
+        iconLayoutParams.width =  (int)Math.round(height*.05);
         //Sets the height to 1/3 the screensize.
         ViewGroup.LayoutParams params = convertView.getLayoutParams();
         params.height = (int) Math.round(height * .33);
-
-
+        //Resizing the Picture to the height of the view.
         ImageView Picture = (ImageView) convertView.findViewById(R.id.VenuePicture);
         ViewGroup.LayoutParams PictureParam = Picture.getLayoutParams();
         PictureParam.height = (int) Math.round(height * .33);
-
-
         //Getting the LayoutParams of the circle and then setting it to quarter the screensize.
         ViewGroup.LayoutParams circleParams = circle.getLayoutParams();
         circleParams.height = (int) Math.round(height * .25);
         circleParams.width = (int) Math.round(height * .25);
-
 
         //Summary being resized.
 
@@ -247,7 +242,6 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         int x1 = (int) Math.round(height * .030);
         VenueName.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
         VenueName.setTypeface(domboldfnt);
-
         //The VenueDistance being formatted.
         TextView VenueDistance = (TextView) convertView.findViewById(R.id.VenueDistance);
         int x2 = (int) Math.round(height * .018);
@@ -261,39 +255,34 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         int x3 = (int) Math.round(height * .030);
         DesVenueName.setTextSize(TypedValue.COMPLEX_UNIT_PX, x3);
         DesVenueName.setTypeface(domboldfnt);
-
         //The VenueDistance being formatted.
         TextView DesVenueLocName = (TextView) convertView.findViewById(R.id.DesVenueLocName);
         int x4 = (int) Math.round(height * .0215);
         DesVenueLocName.setTextSize(TypedValue.COMPLEX_UNIT_PX, x4);
         DesVenueLocName.setTypeface(opensansregfnt);
-
         //The VenueDistance being formatted.
         TextView DesVenueLocSt = (TextView) convertView.findViewById(R.id.DesVenueLocStreet);
         DesVenueLocSt.setTextSize(TypedValue.COMPLEX_UNIT_PX, x4);
         DesVenueLocSt.setTypeface(opensansregfnt);
-
         //The VenueDistance being formatted.
         TextView DesVenueLocAdd = (TextView) convertView.findViewById(R.id.DesVenueLocAddress);
         DesVenueLocAdd.setTextSize(TypedValue.COMPLEX_UNIT_PX, x4);
         DesVenueLocAdd.setTypeface(opensansregfnt);
-
         //The VenueDistance being formatted.
         TextView DesVenueHourText = (TextView) convertView.findViewById(R.id.VenueHourText);
         int x5 = (int) Math.round(height * .0185);
         DesVenueHourText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x5);
         DesVenueHourText.setTypeface(domboldfnt);
-
+        //Hour text
         TextView DesVenueHourWeekDay = (TextView) convertView.findViewById(R.id.VenueMontoFriHour);
         int x6 = (int) Math.round(height * .0165);
         DesVenueHourWeekDay.setTextSize(TypedValue.COMPLEX_UNIT_PX, x6);
         DesVenueHourWeekDay.setTypeface(domregfnt);
-
+        //Hour text
         TextView DesVenueHourSaturday = (TextView) convertView.findViewById(R.id.VenueSaturdayHour);
         DesVenueHourSaturday.setTextSize(TypedValue.COMPLEX_UNIT_PX, x6);
         DesVenueHourSaturday.setTypeface(domregfnt);
-
-
+        //Hour text
         TextView DesVenueHourSunday = (TextView) convertView.findViewById(R.id.VenueSundayHour);
         DesVenueHourSunday.setTextSize(TypedValue.COMPLEX_UNIT_PX, x6);
         DesVenueHourSunday.setTypeface(domregfnt);
@@ -302,13 +291,12 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         TextView Swipe1 = (TextView) convertView.findViewById(R.id.VenueSwipeBarSize1);
         int x7 = (int) Math.round(height * .030);
         Swipe1.setTextSize(TypedValue.COMPLEX_UNIT_PX, x7);
-
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
         TextView Swipe2 = (TextView) convertView.findViewById(R.id.VenueSwipeBarSize2);
         Swipe2.setTextSize(TypedValue.COMPLEX_UNIT_PX, x7);
 
 
-
+        //Left swipe /MY addiction/User deletion implementation.
         if(MyApplication.loginCheck==true) {
 
             if(mActivity.getLocalClassName().equals("Views.MyUploadsActivity"))
@@ -332,8 +320,6 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
 
 
             else {
-
-        //myAddictions stuff:
         boolean addicted = false;
 
         if (addictedVenueID != null) {
@@ -410,12 +396,9 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
 
     }
 
-
-
     public ArrayList<Venue> getData() {
         return mVenue;
     }
-
 
     @Override
     public int getCount() {
@@ -432,6 +415,62 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         return 0;  //Id of the Item being accessed in the view
     }
 
+    //Method to set the icon of the event.
+    public void setIcon(Venue venue,ImageView icon) {
+        if(venue.getVenuePrimaryCategory().contains("Amphitheatre"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venamphiteather, 30));}
+
+        else if(venue.getVenuePrimaryCategory().contains("Bar/Pub"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venbars, 30));}
+
+        else if(venue.getVenuePrimaryCategory().contains("Casino"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.vencasino, 30));}
+
+        else if (venue.getVenuePrimaryCategory().contains("Church"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venchurch, 30));}
+
+        else if (venue.getVenuePrimaryCategory().contains("Cinema"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.vencinema, 30));}
+
+        else if (venue.getVenuePrimaryCategory().contains("Club"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venclubs, 30));}
+
+        else if (venue.getVenuePrimaryCategory().contains("Coffee"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.vencoffee, 30));}
+
+        else if (venue.getVenuePrimaryCategory().contains("Comedy"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.vencomedy, 30));}
+
+        else if (venue.getVenuePrimaryCategory().contains("Community"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.vencommunity, 30));}
+
+        else if (venue.getVenuePrimaryCategory().contains("Fairgrounds"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venfairground, 30));}
+
+        else if (venue.getVenuePrimaryCategory().contains("Gallery"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.vengallery, 30));}
+
+        else if (venue.getVenuePrimaryCategory().contains("Park"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venparks, 30));}
+
+        else if (venue.getVenuePrimaryCategory().contains("Restaurant"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venrestauratns, 30));}
+
+        else if (venue.getVenuePrimaryCategory().contains("House/Residence"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venhouse, 30));}
+
+        else if (venue.getVenuePrimaryCategory().contains("School"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venschool, 30));}
+
+        else if (venue.getVenuePrimaryCategory().contains("Sports/Arena"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venarena, 30));}
+
+        else if (venue.getVenuePrimaryCategory().contains("Store"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venstore, 30));}
+
+        else if (venue.getVenuePrimaryCategory().contains("Theatre"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.ventheater, 30));}
+    }
 
     //A view holder that contain the things that need to be changed for every event
     private static class ViewHolder{
@@ -453,6 +492,23 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
 
     }
 
+    //SVG Conversion.
+    public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
+        try {
+            size = (int)(size*res.getDisplayMetrics().density);
+            SVG svg = SVG.getFromResource(mActivity.getApplicationContext(), resource);
+
+            Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bmp);
+            svg.renderToCanvas(canvas);
+
+            BitmapDrawable drawable = new BitmapDrawable(res, bmp);
 
 
+            return drawable;
+        }catch(SVGParseException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

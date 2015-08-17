@@ -23,7 +23,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.MyApplication;
@@ -37,7 +36,6 @@ import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
-
 import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -50,18 +48,15 @@ public class LoginActivity extends ActionBarActivity {
     RetrievePHP retrievePHP = new RetrievePHP();
     RetrieveMyPHP retrieveMyPHP = new RetrieveMyPHP();
     CredentialsPHP credentialsPHP = new CredentialsPHP();
-
     // Injecting the EditTexts using Butterknife library
     @InjectView(R.id.loginUsernameEditText) EditText mLoginUsernameEditText;
     @InjectView(R.id.loginPasswordEditText) EditText mLoginPasswordEditText;
     @InjectView(R.id.loginUsernameTextView) TextView mLoginUsernameTextView;
     @InjectView(R.id.loginPasswordTextView) TextView mLoginPasswordTextView;
-
+    //Injecting the Buttons implementations.
     @InjectView(R.id.loginButton) Button loginButton;
     @InjectView(R.id.continueNotLoggedButton) Button noLoginButton;
     @InjectView(R.id.loginRegisterButton) Button registerButton;
-
-
     // Create the local DB object
     SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
 
@@ -72,15 +67,11 @@ public class LoginActivity extends ActionBarActivity {
         // using ButterKnife.inject to allow the InjectViews to take effect
         ButterKnife.inject(this);
 
-
-
         //Setting the bruha face inside the Layout.
         ImageView im = (ImageView) findViewById(R.id.loginbruhaface);
         im.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhapurpleface, 100));
 
-
-
-
+        //Setting onCLickListeners for the buttons
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -95,7 +86,6 @@ public class LoginActivity extends ActionBarActivity {
                 animator.start();
             }
         });
-
         noLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -110,7 +100,6 @@ public class LoginActivity extends ActionBarActivity {
                 animator.start();
             }
         });
-
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -126,11 +115,10 @@ public class LoginActivity extends ActionBarActivity {
             }
         });
 
-        resize();
+        resize();  //Resizing the page and implementing the buttons.
     }
 
-    private void resize()
-    {
+    private void resize() {
         // Android functions to determine the screen dimensions.
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -153,7 +141,6 @@ public class LoginActivity extends ActionBarActivity {
         mLoginUsernameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         mLoginPasswordTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
 
-
         ViewGroup.LayoutParams mLoginUsernameEditTextLayoutParams = mLoginUsernameEditText.getLayoutParams();
         ViewGroup.LayoutParams mLoginPasswordEditTextLayoutParams = mLoginPasswordEditText.getLayoutParams();
         mLoginPasswordEditTextLayoutParams.height =  (int)Math.round(height*.07);
@@ -174,26 +161,22 @@ public class LoginActivity extends ActionBarActivity {
         loginButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         registerButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         noLoginButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-
-
     }
 
-    private void startRegisterActivity(View view)
-    {
+    private void startRegisterActivity(View view) {
         Intent intent = new Intent(this,RegisterActivity.class);
         startActivity(intent);
         finish();
     }
 
-    // A function to call the AlertDialogFragment Activity
     private void alertUserAboutError(String errorTitle, String errorMessage) {
-
+        // A function to call the AlertDialogFragment Activity to alert the user about possible erros.
         AlertDialogFragment dialog = new AlertDialogFragment().newInstance( errorTitle,errorMessage );
         dialog.show(getFragmentManager(), "error_dialog");
     }
 
-    // A function used to check whether users are connected to the internet
     private boolean isNetworkAvailable() {
+        // A function used to check whether users are connected to the internet
         ConnectivityManager manager = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -279,7 +262,6 @@ public class LoginActivity extends ActionBarActivity {
         return error;
     }
 
-
     public void loginAccount(View view){
 
         // Retrieving the entered information and converting to string
@@ -353,11 +335,8 @@ public class LoginActivity extends ActionBarActivity {
                 sqLiteUtils.insertArtistAddictions(dbHelper, addictedArtists);
                 sqLiteUtils.insertOrgAddictions(dbHelper, addictedOrganizations);
 
-
-
                 // Updating the shared variable login check to true on successful login
                 MyApplication.userName = userInfo.get(0);
-
                 MyApplication.loginCheck = true;
 
                 // Start the next activity right here
@@ -375,14 +354,12 @@ public class LoginActivity extends ActionBarActivity {
         }
     }
 
-
     public void proceedWithoutAccount(View view){
 
         Intent intent = new Intent(this, DashboardActivity.class);
         startActivity(intent);
 
     }
-
 
     public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
         try {
@@ -402,5 +379,4 @@ public class LoginActivity extends ActionBarActivity {
         }
         return null;
     }
-
 }
