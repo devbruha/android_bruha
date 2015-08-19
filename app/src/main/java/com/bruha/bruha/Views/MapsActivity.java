@@ -41,6 +41,8 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -180,12 +182,12 @@ public class MapsActivity extends FragmentActivity implements
 
         //Assigning the PageEventCoverPicture to a variable to alter its dimensions after with.
         ViewGroup.LayoutParams dudeButtonLayoutParams = dudeButton.getLayoutParams();
-        dudeButtonLayoutParams.height =  (int)Math.round(height*.07);
-        dudeButtonLayoutParams.width =  (int)Math.round(height*.07);
+        dudeButtonLayoutParams.height =  (int)Math.round(height * .07);
+        dudeButtonLayoutParams.width =  (int)Math.round(height * .07);
 
         ViewGroup.LayoutParams mapButtonLayoutParams = listButton.getLayoutParams();
-        mapButtonLayoutParams.height =  (int)Math.round(height*.07);
-        mapButtonLayoutParams.width =  (int)Math.round(height*.07);
+        mapButtonLayoutParams.height =  (int)Math.round(height * .07);
+        mapButtonLayoutParams.width =  (int)Math.round(height * .07);
 
     }
 
@@ -441,6 +443,65 @@ public class MapsActivity extends FragmentActivity implements
         mListView.setAdapter(mapAdapter);
     }
 
+    //Method to set the icon of the event.
+    public Bitmap setEventIcon(Event event) {
+        if(event.getEventPrimaryCategory().contains("Club"))
+        {return svgToBitmap(getResources(), R.raw.club, 30);}
+
+        else if(event.getEventPrimaryCategory().contains("Performing"))
+        {return svgToBitmap(getResources(), R.raw.performing, 30);}
+
+        else if(event.getEventPrimaryCategory().contains("Business"))
+        {return svgToBitmap(getResources(), R.raw.business, 30);}
+
+        else if(event.getEventPrimaryCategory().contains("Ceremony"))
+        {return svgToBitmap(getResources(), R.raw.ceremony, 30);}
+
+        else if(event.getEventPrimaryCategory().contains("Tech"))
+        {return svgToBitmap(getResources(), R.raw.tech, 30);}
+
+        else if(event.getEventPrimaryCategory().contains("Comedy"))
+        {return svgToBitmap(getResources(), R.raw.comedy, 30);}
+
+        else if(event.getEventPrimaryCategory().contains("Fashion"))
+        {return svgToBitmap(getResources(), R.raw.fashion, 30);}
+
+        else if(event.getEventPrimaryCategory().contains("Festivals"))
+        {return svgToBitmap(getResources(), R.raw.festivals, 30);}
+
+        else if(event.getEventPrimaryCategory().contains("Film"))
+        {return svgToBitmap(getResources(), R.raw.film, 30);}
+
+        else if(event.getEventPrimaryCategory().contains("Food"))
+        {return svgToBitmap(getResources(), R.raw.food, 30);}
+
+        else if(event.getEventPrimaryCategory().contains("Party"))
+        {return svgToBitmap(getResources(), R.raw.party, 30);}
+
+        else if(event.getEventPrimaryCategory().contains("Music"))
+        {return svgToBitmap(getResources(), R.raw.music, 30);}
+
+        else if(event.getEventPrimaryCategory().contains("Political"))
+        {return svgToBitmap(getResources(), R.raw.political, 30);}
+
+        else if(event.getEventPrimaryCategory().contains("School"))
+        {return svgToBitmap(getResources(), R.raw.school, 30);}
+
+        else if(event.getEventPrimaryCategory().contains("Sports"))
+        {return svgToBitmap(getResources(), R.raw.sports, 30);}
+
+        else if(event.getEventPrimaryCategory().contains("Tour"))
+        {return svgToBitmap(getResources(), R.raw.tour, 30);}
+
+        else if(event.getEventPrimaryCategory().contains("Arts"))
+        {return svgToBitmap(getResources(), R.raw.arts, 30);}
+
+        else if(event.getEventPrimaryCategory().contains("Social"))
+        {return svgToBitmap(getResources(), R.raw.social, 30);}
+
+        return null;
+    }
+
     //Sets the Markers for the mEvents and Calls the Adapter to set the EventListView Adapter.
     private void setEventMarkers(){
 
@@ -458,6 +519,9 @@ public class MapsActivity extends FragmentActivity implements
             LatLng eventLocation = new LatLng(eventLat, eventLng);
 
             Marker eventMarker = mMap.addMarker(new MarkerOptions().position(eventLocation).title(eventName));
+            Bitmap bitmapIcon = setEventIcon(mEvents.get(i));
+            BitmapDescriptor bitmapDescriptorIcon = BitmapDescriptorFactory.fromBitmap(bitmapIcon);
+            eventMarker.setIcon(bitmapDescriptorIcon);
 
             if(MyApplication.sourceEventsID.contains(mEvents.get(i).getEventid())) {
 
@@ -757,6 +821,24 @@ public class MapsActivity extends FragmentActivity implements
 
             return drawable;
         }catch(SVGParseException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Bitmap svgToBitmap(Resources res, int resource, int size) {
+        try {
+            size = (int)(size*res.getDisplayMetrics().density);
+            SVG svg = SVG.getFromResource(getApplicationContext(), resource);
+
+            Bitmap bmp;
+            bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bmp);
+            svg.renderToCanvas(canvas);
+
+
+            return bmp;
+        } catch (SVGParseException e) {
             e.printStackTrace();
         }
         return null;

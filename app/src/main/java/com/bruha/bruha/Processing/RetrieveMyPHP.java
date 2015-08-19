@@ -48,7 +48,7 @@ public class RetrieveMyPHP {
                 try {
                     // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
                     // alot of boiler plate stuff
-                    url = new URL("http://bruha.com/mobile_php/UserEventList.php?" + parameters);
+                    url = new URL("http://bruha.com/mobile_php/RetrieveMyPHP/UserEventList.php?" + parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -168,7 +168,7 @@ public class RetrieveMyPHP {
 
                 try
                 {
-                    url = new URL("http://bruha.com/mobile_php/deleteUserEvent.php?"+parameters);
+                    url = new URL("http://bruha.com/mobile_php/RetrieveMyPHP/deleteUserEvent.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -226,7 +226,7 @@ public class RetrieveMyPHP {
 
                 try
                 {
-                    url = new URL("http://bruha.com/mobile_php/deleteUserVenue.php?"+parameters);
+                    url = new URL("http://bruha.com/mobile_php/RetrieveMyPHP/deleteUserVenue.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -281,7 +281,7 @@ public class RetrieveMyPHP {
 
                 try
                 {
-                    url = new URL("http://bruha.com/mobile_php/deleteUserArtist.php?"+parameters);
+                    url = new URL("http://bruha.com/mobile_php/RetrieveMyPHP/deleteUserArtist.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -336,7 +336,7 @@ public class RetrieveMyPHP {
 
                 try
                 {
-                    url = new URL("http://bruha.com/mobile_php/deleteUserOrg.php?"+parameters);
+                    url = new URL("http://bruha.com/mobile_php/RetrieveMyPHP/deleteUserOrg.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -390,7 +390,7 @@ public class RetrieveMyPHP {
             public void run() {
 
                 try {
-                    url = new URL("http://bruha.com/mobile_php/UserVenueList.php?" + parameters);
+                    url = new URL("http://bruha.com/mobile_php/RetrieveMyPHP/UserVenueList.php?" + parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -466,7 +466,7 @@ public class RetrieveMyPHP {
             public void run() {
 
                 try {
-                    url = new URL("http://bruha.com/mobile_php/UserOrgList.php?" + parameters);
+                    url = new URL("http://bruha.com/mobile_php/RetrieveMyPHP/UserOrgList.php?" + parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -544,7 +544,7 @@ public class RetrieveMyPHP {
             public void run() {
 
                 try {
-                    url = new URL("http://bruha.com/mobile_php/UserArtistList.php?" + parameters);
+                    url = new URL("http://bruha.com/mobile_php/RetrieveMyPHP/UserArtistList.php?" + parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -619,7 +619,7 @@ public class RetrieveMyPHP {
             public void run() {
 
                 try {
-                    url = new URL("http://bruha.com/mobile_php/UserInfo.php?" + parameters);
+                    url = new URL("http://bruha.com/mobile_php/RetrieveMyPHP/UserInfo.php?" + parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -689,7 +689,7 @@ public class RetrieveMyPHP {
 
                 try
                 {
-                    url = new URL("http://bruha.com/mobile_php/EventAddictions.php?"+parameters);
+                    url = new URL("http://bruha.com/mobile_php/RetrieveMyPHP/EventAddictions.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -742,7 +742,7 @@ public class RetrieveMyPHP {
 
                 try
                 {
-                    url = new URL("http://bruha.com/mobile_php/deleteEventAddiction.php?"+parameters);
+                    url = new URL("http://bruha.com/mobile_php/RetrieveMyPHP/deleteEventAddiction.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -795,7 +795,7 @@ public class RetrieveMyPHP {
 
                 try
                 {
-                    url = new URL("http://bruha.com/mobile_php/deleteVenueAddiction.php?"+parameters);
+                    url = new URL("http://bruha.com/mobile_php/RetrieveMyPHP/deleteVenueAddiction.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -848,7 +848,7 @@ public class RetrieveMyPHP {
 
                 try
                 {
-                    url = new URL("http://bruha.com/mobile_php/deleteArtistAddiction.php?"+parameters);
+                    url = new URL("http://bruha.com/mobile_php/RetrieveMyPHP/deleteArtistAddiction.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -902,7 +902,7 @@ public class RetrieveMyPHP {
 
                 try
                 {
-                    url = new URL("http://bruha.com/mobile_php/deleteOrgAddiction.php?"+parameters);
+                    url = new URL("http://bruha.com/mobile_php/RetrieveMyPHP/deleteOrgAddiction.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -956,7 +956,7 @@ public class RetrieveMyPHP {
 
                 try
                 {
-                    url = new URL("http://bruha.com/mobile_php/VenueAddictions.php?"+parameters);
+                    url = new URL("http://bruha.com/mobile_php/RetrieveMyPHP/VenueAddictions.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -1009,7 +1009,7 @@ public class RetrieveMyPHP {
 
                 try
                 {
-                    url = new URL("http://bruha.com/mobile_php/ArtistAddictions.php?"+parameters);
+                    url = new URL("http://bruha.com/mobile_php/RetrieveMyPHP/ArtistAddictions.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -1062,7 +1062,7 @@ public class RetrieveMyPHP {
 
                 try
                 {
-                    url = new URL("http://bruha.com/mobile_php/OrgAddictions.php?"+parameters);
+                    url = new URL("http://bruha.com/mobile_php/RetrieveMyPHP/OrgAddictions.php?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -1114,7 +1114,7 @@ public class RetrieveMyPHP {
             public void run() {
 
                 try {
-                    url = new URL("http://bruha.com/mobile_php/getUserAddiction.php?" + parameters);
+                    url = new URL("http://bruha.com/mobile_php/RetrieveMyPHP/getUserAddiction.php?" + parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -1179,7 +1179,7 @@ public class RetrieveMyPHP {
                 try {
                     // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
                     // alot of boiler plate stuff
-                    url = new URL("http://bruha.com/mobile_php/getVenueAddictions.php?" + parameters);
+                    url = new URL("http://bruha.com/mobile_php/RetrieveMyPHP/getVenueAddictions.php?" + parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -1242,7 +1242,7 @@ public class RetrieveMyPHP {
             public void run() {
 
                 try {
-                    url = new URL("http://bruha.com/mobile_php/getArtistAddictions.php?" + parameters);
+                    url = new URL("http://bruha.com/mobile_php/RetrieveMyPHP/getArtistAddictions.php?" + parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -1304,7 +1304,7 @@ public class RetrieveMyPHP {
             public void run() {
 
                 try {
-                    url = new URL("http://bruha.com/mobile_php/getOrgAddictions.php?" + parameters);
+                    url = new URL("http://bruha.com/mobile_php/RetrieveMyPHP/getOrgAddictions.php?" + parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
