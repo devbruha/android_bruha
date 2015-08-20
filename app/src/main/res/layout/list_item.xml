@@ -193,7 +193,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:background="#cf075a52"
+                android:background="#e9464646"
                 android:id="@+id/PreviewLayout">
 
                 <TextView
@@ -334,7 +334,7 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#afffba28"
+                android:background="#cffda221"
                 android:gravity="center"
                 android:id="@+id/MoreInfoLayout">
 

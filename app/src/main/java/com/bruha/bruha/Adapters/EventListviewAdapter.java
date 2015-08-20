@@ -236,7 +236,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         setIcon(event,holder.EventIcon);
 
         //Setting the background image of the event.
-        Picasso.with(convertView.getContext()).load(event.getEventPicture()).into(holder.EventPicture);
+        Picasso.with(convertView.getContext()).load(event.getEventPicture()).fit().into(holder.EventPicture);
 
         //Setting the detailed description..
         holder.EventDName.setText(event.getEventName());
