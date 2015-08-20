@@ -290,6 +290,9 @@ public class MapsActivity extends FragmentActivity implements
             LatLng eventLocation = new LatLng(eventLat, eventLng);
 
             Marker eventMarker = mMap.addMarker(new MarkerOptions().position(eventLocation).title(eventName));
+            Bitmap bitmapIcon = setOrgIcon(mOrganizations.get(i));
+            BitmapDescriptor bitmapDescriptorIcon = BitmapDescriptorFactory.fromBitmap(bitmapIcon);
+            eventMarker.setIcon(bitmapDescriptorIcon);
 
             if(MyApplication.sourceOrganizationsID.contains(mOrganizations.get(i).getOrgId())) {
 
@@ -367,6 +370,9 @@ public class MapsActivity extends FragmentActivity implements
 
 
             Marker eventMarker = mMap.addMarker(new MarkerOptions().position(eventLocation).title(eventName));
+            Bitmap bitmapIcon = setVenueIcon(mVenues.get(i));
+            BitmapDescriptor bitmapDescriptorIcon = BitmapDescriptorFactory.fromBitmap(bitmapIcon);
+            eventMarker.setIcon(bitmapDescriptorIcon);
 
 
             if(MyApplication.sourceVenuesID.contains(mVenues.get(i).getVenueId())) {
@@ -499,6 +505,113 @@ public class MapsActivity extends FragmentActivity implements
         else if(event.getEventPrimaryCategory().contains("Social"))
         {return svgToBitmap(getResources(), R.raw.social, 30);}
 
+        return null;
+    }
+
+    //Method to set the icon of the venue
+    public Bitmap setVenueIcon(Venue venue) {
+        if(venue.getVenuePrimaryCategory().contains("Amphitheatre"))
+        {return svgToBitmap(getResources(), R.raw.venamphiteather, 30);}
+
+        else if(venue.getVenuePrimaryCategory().contains("Bar/Pub"))
+        {return svgToBitmap(getResources(), R.raw.venbars, 30);}
+
+        else if(venue.getVenuePrimaryCategory().contains("Casino"))
+        {return svgToBitmap(getResources(), R.raw.vencasino, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Church"))
+        {return svgToBitmap(getResources(), R.raw.venchurch, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Cinema"))
+        {return svgToBitmap(getResources(), R.raw.vencinema, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Club"))
+        {return svgToBitmap(getResources(), R.raw.venclubs, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Coffee"))
+        {return svgToBitmap(getResources(), R.raw.vencoffee, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Comedy"))
+        {return svgToBitmap(getResources(), R.raw.vencomedy, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Community"))
+        {return svgToBitmap(getResources(), R.raw.vencommunity, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Fairgrounds"))
+        {return svgToBitmap(getResources(), R.raw.venfairground, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Gallery"))
+        {return svgToBitmap(getResources(), R.raw.vengallery, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Park"))
+        {return svgToBitmap(getResources(), R.raw.venparks, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Restaurant"))
+        {return svgToBitmap(getResources(), R.raw.venrestauratns, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("House/Residence"))
+        {return svgToBitmap(getResources(), R.raw.venhouse, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("School"))
+        {return svgToBitmap(getResources(), R.raw.venschool, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Sports/Arena"))
+        {return svgToBitmap(getResources(), R.raw.venarena, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Store"))
+        {return svgToBitmap(getResources(), R.raw.venstore, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Theatre"))
+        {return svgToBitmap(getResources(), R.raw.ventheater, 30);}
+        return null;
+    }
+
+    //Method to set the icon of the event.
+    public Bitmap setOrgIcon(Organizations org) {
+        if(org.getOrgPrimaryCategory().contains("Academic"))
+        {return svgToBitmap(getResources(), R.raw.orgacademic, 30);}
+
+        else if(org.getOrgPrimaryCategory().contains("Business"))
+        {return svgToBitmap(getResources(), R.raw.orgbusiness, 30);}
+
+        else if(org.getOrgPrimaryCategory().contains("Charity"))
+        {return svgToBitmap(getResources(), R.raw.orgcharity, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Fashion"))
+        {return svgToBitmap(getResources(), R.raw.orgfashion, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Festival"))
+        {return svgToBitmap(getResources(), R.raw.orgnonprofit, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Fraternity"))
+        {return svgToBitmap(getResources(), R.raw.orgfraternity, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Music"))
+        {return svgToBitmap(getResources(), R.raw.orgpromoter, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Not-for-profit"))
+        {return svgToBitmap(getResources(), R.raw.orgnonprofit, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Sports"))
+        {return svgToBitmap(getResources(), R.raw.orgsports, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Association"))
+        {return svgToBitmap(getResources(), R.raw.orgstudent, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Union"))
+        {return svgToBitmap(getResources(), R.raw.orgstudent, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Student"))
+        {return svgToBitmap(getResources(), R.raw.orgstudent, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Performing"))
+        {return svgToBitmap(getResources(), R.raw.orgpromoter, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Religion"))
+        {return svgToBitmap(getResources(), R.raw.orgreligon, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Club"))
+        {return svgToBitmap(getResources(), R.raw.orgnonprofit, 30);}
         return null;
     }
 

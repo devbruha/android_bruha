@@ -199,7 +199,7 @@ public class EventCategoryAdapter {
 
                             mLinearScrollThird.setVisibility(View.VISIBLE);
 
-                            mLinearSecondArrow.setBackgroundColor(Color.parseColor("#491c2295"));
+                            mLinearSecondArrow.setBackgroundColor(Color.parseColor("#ea8ff0e4"));
 
                             // Each key of the hashmap shall be the primary category(s) selected
                             // this is only if it does not already exist in the categories variable
@@ -219,7 +219,7 @@ public class EventCategoryAdapter {
                             toast.show();
                         }
                     } else {
-                        mLinearSecondArrow.setBackgroundResource(android.R.color.holo_orange_light);
+                        mLinearSecondArrow.setBackgroundColor(Color.parseColor("#ea553285"));
 
                         mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_up_float);
 
@@ -259,7 +259,7 @@ public class EventCategoryAdapter {
                 mLinearScrollThird.setVisibility(View.VISIBLE);
                 mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_down_float);
 
-                mLinearSecondArrow.setBackgroundColor(Color.parseColor("#491c2295"));
+                mLinearSecondArrow.setBackgroundColor(Color.parseColor("#ea553285"));
             }
             else{
 

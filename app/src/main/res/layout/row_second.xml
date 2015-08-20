@@ -9,7 +9,7 @@
         android:id="@+id/linearSecond"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#eaffb512">
+        android:background="#ea553285">
 
         <ImageView
             android:id="@+id/imageSecondArrow"
