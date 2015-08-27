@@ -327,7 +327,7 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:src="@drawable/round"
-            android:alpha=".42"
+            android:alpha=".75"
             android:focusable="false"
             android:layout_weight="5"
             />
@@ -343,7 +343,7 @@
             android:singleLine="true"
             android:textSize="20dp"
             android:paddingBottom="8dp"
-            android:textColor="#ff000000" />
+            android:textColor="#ffffff" />
 
 
 
@@ -354,8 +354,9 @@
             android:id="@+id/VenueDistance"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/VenueName"
+            android:visibility="invisible"
             android:textSize="12dp"
-            android:textColor="#ff000000"
+            android:textColor="#ffffff"
             android:layout_marginTop="11dp" />
 
         <ImageView
@@ -371,7 +372,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ffa2d8d8"
+            android:background="#ff54cdd6"
             android:alpha="0.75"
             android:id="@+id/VenueDescriptionLayout"
             android:layout_alignTop="@+id/VenueImageBubble"
@@ -490,21 +491,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/swipeyleft"
-            android:layout_toLeftOf="@+id/VenueDistance"
-            android:layout_marginRight="3dp"
-            android:layout_below="@+id/VenueName"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/VenueImageBubble"
             android:src="@drawable/calendar_prev_arrow"
+            android:layout_marginRight="5dp"
             android:layout_marginTop="8dp" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
+            android:layout_marginLeft="5dp"
             android:id="@+id/swipeyright"
-            android:layout_below="@+id/VenueName"
-            android:layout_toRightOf="@+id/VenueDistance"
             android:src="@drawable/calendar_next_arrow"
-            android:layout_marginTop="8dp" />
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/VenueImageBubble"
+            android:layout_marginTop="8dp"
+            android:layout_alignParentBottom="false" />
 
     </RelativeLayout>
 

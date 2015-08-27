@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <ListView
+    <com.github.ksoichiro.android.observablescrollview.ObservableListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@android:id/list"
@@ -39,13 +39,28 @@
         android:drawSelectorOnTop="false"
         android:dividerHeight="3dp"/>
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/myaddictionsDashboardImage"
-        android:layout_marginLeft="3dp"
-        android:layout_marginTop="5dp"
-        android:alpha="0.4" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="My Addictions"
+                    android:id="@+id/addictionText"
+                    android:background="#ff54cdd6"
+                    android:textSize="30sp"
+                    android:textColor="#ffffff"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="3dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="38dp"
+                    android:id="@+id/addictionImage"
+                    android:layout_alignTop="@+id/addictionText"
+                    android:layout_toRightOf="@+id/addictionText"
+                    android:layout_toEndOf="@+id/addictionText"
+                    android:layout_marginLeft="3dp"
+                    android:background="#ff54cdd6" />
 
             </RelativeLayout>
 

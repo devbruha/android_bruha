@@ -106,57 +106,17 @@ public class UserProfileActivity extends ActionBarActivity {
         userPictureLayoutParams.height =  (int)Math.round(height*.25);
         userPictureLayoutParams.width  =  (int)Math.round(height*.25);
 
-        //Resizing the Box containing the information to a certain size.
-        ImageView infoBox = (ImageView) findViewById(R.id.InfoBox);
-        ViewGroup.LayoutParams infoBoxLayoutParams = infoBox.getLayoutParams();
-        infoBoxLayoutParams.height = (int)Math.round(height*.40);
-        infoBoxLayoutParams.width = (int)Math.round(height*.50);
-
         //Resizing, changing font and setting the text of the following.
-        TextView name = (TextView) findViewById(R.id.Name);
-        name.setText(userInfo.get(1));
-        TextView username = (TextView) findViewById(R.id.username);
-        TextView email = (TextView) findViewById(R.id.email);
-        TextView age = (TextView) findViewById(R.id.age);
-        TextView sex = (TextView) findViewById(R.id.sex);
-        TextView location = (TextView) findViewById(R.id.location);
-
         TextView usernameText = (TextView) findViewById(R.id.usernametext);
         usernameText.setText(userInfo.get(0));
         TextView emailText = (TextView) findViewById(R.id.emailtext);
         emailText.setText(userInfo.get(4));
-        TextView ageText = (TextView) findViewById(R.id.agetext);
-        ageText.setText(userInfo.get(2));
-        TextView sexText = (TextView) findViewById(R.id.sextext);
-        sexText.setText(userInfo.get(3));
-        TextView locationText = (TextView) findViewById(R.id.locationtext);
-        locationText.setText(userInfo.get(5));
-
         int x= (int)Math.round(height * .0275);
         int x1= (int)Math.round(height * .0485);
-
-        name.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
-        name.setTypeface(domboldfnt);
-        username.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        username.setTypeface(domboldfnt);
-        email.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        email.setTypeface(domboldfnt);
-        age.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        age.setTypeface(domboldfnt);
-        sex.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        sex.setTypeface(domboldfnt);
-        location.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        location.setTypeface(domboldfnt);
-        usernameText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        usernameText.setTypeface(opensansregfnt);
+        usernameText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
+        usernameText.setTypeface(domboldfnt);
         emailText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         emailText.setTypeface(opensansregfnt);
-        ageText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        ageText.setTypeface(opensansregfnt);
-        sexText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        sexText.setTypeface(opensansregfnt);
-        locationText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        locationText.setTypeface(opensansregfnt);
     }
 
     private void init() {
@@ -179,7 +139,6 @@ public class UserProfileActivity extends ActionBarActivity {
         finish();
     }
 
-    @OnClick(R.id.userprofileDashboardImage)
     public void startDashboardActivity(View view) {
         Intent intent = new Intent(this,DashboardActivity.class);
         startActivity(intent);

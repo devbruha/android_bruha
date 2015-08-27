@@ -1,7 +1,11 @@
 package com.bruha.bruha.Adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,8 +18,11 @@ import android.widget.TextView;
 import com.bruha.bruha.Model.Items;
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.UserCustomFilters;
+import com.bruha.bruha.Model.Venue;
 import com.bruha.bruha.Processing.FilterOut;
 import com.bruha.bruha.R;
+import com.caverock.androidsvg.SVG;
+import com.caverock.androidsvg.SVGParseException;
 import com.google.android.gms.maps.model.Marker;
 
 import java.util.ArrayList;
@@ -146,18 +153,20 @@ public class VenueCategoryAdapter {
 
             LayoutInflater inflater2 = null;
             inflater2 = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View mLinearView2 = inflater2.inflate(R.layout.row_third, null);
+            View mLinearView2 = inflater2.inflate(R.layout.row_second, null);
 
-            final LinearLayout childChildLayout = (LinearLayout)mLinearView2.findViewById(R.id.childChildItem);
+            final RelativeLayout linearSecond = (RelativeLayout) mLinearView2.findViewById(R.id.linearSecond);
+            linearSecond.setBackgroundColor(Color.BLACK);
 
-            final TextView mSubItemName = (TextView) mLinearView2.findViewById(R.id.textViewItemName);
-
+            final TextView mSubItemName = (TextView) mLinearView2.findViewById(R.id.textViewTitle);
+            final ImageView mSubItemIcon = (ImageView) mLinearView2.findViewById(R.id.imageViewIcon);
             final String catName = mMainList.get(firstLevelNumber).getmSubCategoryList().get(j).getpSubCatName();
 
             mSubItemName.setText(catName);
+            setIcon(catName, mSubItemIcon);
             mSubItemName.setTag(catName);
 
-            childChildLayout.setOnClickListener(new View.OnClickListener() {
+            linearSecond.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -176,7 +185,7 @@ public class VenueCategoryAdapter {
 
                         isSecondViewClick = true;
 
-                        mSubItemName.setBackgroundColor(Color.parseColor("#e95f5f5f"));
+                        linearSecond.setBackgroundColor(Color.parseColor("#e95f5f5f"));
 
                         if (!venueFilters.contains(catName)) {
 
@@ -186,7 +195,7 @@ public class VenueCategoryAdapter {
 
                         isSecondViewClick = false;
 
-                        mSubItemName.setBackgroundResource(android.R.color.background_dark);
+                        linearSecond.setBackgroundResource(android.R.color.background_dark);
 
                         venueFilters.remove(catName);
                     }
@@ -206,7 +215,7 @@ public class VenueCategoryAdapter {
 
             if(mUserCustomFilter.getVenueFilter().contains(catName)){
 
-                mSubItemName.setBackgroundColor(Color.parseColor("#e95f5f5f"));
+                linearSecond.setBackgroundColor(Color.parseColor("#e95f5f5f"));
 
             }
 
@@ -236,4 +245,79 @@ public class VenueCategoryAdapter {
 
     }
 
+    public void setIcon(String catName,ImageView icon) {
+        if(catName.contains("Amphitheatre"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venamphiteather, 30));}
+
+        else if(catName.contains("Bar/Pub"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venbars, 30));}
+
+        else if(catName.contains("Casino"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.vencasino, 30));}
+
+        else if (catName.contains("Church"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venchurch, 30));}
+
+        else if (catName.contains("Cinema"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.vencinema, 30));}
+
+        else if (catName.contains("Club"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venclubs, 30));}
+
+        else if (catName.contains("Coffee"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.vencoffee, 30));}
+
+        else if (catName.contains("Comedy"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.vencomedy, 30));}
+
+        else if (catName.contains("Community"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.vencommunity, 30));}
+
+        else if (catName.contains("Fairgrounds")) {
+            icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venfairground, 30));}
+
+        else if (catName.contains("Gallery"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.vengallery, 30));}
+
+        else if (catName.contains("Park"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venparks, 30));}
+
+        else if (catName.contains("Restaurant")) {
+            icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venrestauratns, 30));}
+
+        else if (catName.contains("House/Residence")) {
+            icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venhouse, 30));}
+
+        else if (catName.contains("School"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venschool, 30));}
+
+        else if (catName.contains("Sports/Arena"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venarena, 30));}
+
+        else if (catName.contains("Store"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venstore, 30));}
+
+        else if (catName.contains("Theatre"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.ventheater, 30));}
+    }
+
+    //SVG Conversion.
+    public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
+        try {
+            size = (int)(size*res.getDisplayMetrics().density);
+            SVG svg = SVG.getFromResource(mActivity.getApplicationContext(), resource);
+
+            Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bmp);
+            svg.renderToCanvas(canvas);
+
+            BitmapDrawable drawable = new BitmapDrawable(res, bmp);
+
+
+            return drawable;
+        }catch(SVGParseException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

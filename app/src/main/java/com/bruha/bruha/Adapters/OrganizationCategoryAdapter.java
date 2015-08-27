@@ -1,7 +1,11 @@
 package com.bruha.bruha.Adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,14 +13,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.bruha.bruha.Model.Items;
 import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.Processing.FilterOut;
 import com.bruha.bruha.R;
+import com.caverock.androidsvg.SVG;
+import com.caverock.androidsvg.SVGParseException;
 import com.google.android.gms.maps.model.Marker;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -145,15 +149,17 @@ public class OrganizationCategoryAdapter {
 
             LayoutInflater inflater2 = null;
             inflater2 = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View mLinearView2 = inflater2.inflate(R.layout.row_third, null);
+            View mLinearView2 = inflater2.inflate(R.layout.row_second, null);
 
-            final LinearLayout childChildLayout = (LinearLayout)mLinearView2.findViewById(R.id.childChildItem);
+            final RelativeLayout linearSecond = (RelativeLayout) mLinearView2.findViewById(R.id.linearSecond);
+            linearSecond.setBackgroundColor(Color.BLACK);
 
-            final TextView mSubItemName = (TextView) mLinearView2.findViewById(R.id.textViewItemName);
 
+            final TextView mSubItemName = (TextView) mLinearView2.findViewById(R.id.textViewTitle);
+            final ImageView mSubItemIcon = (ImageView) mLinearView2.findViewById(R.id.imageViewIcon);
             final String catName = mMainList.get(firstLevelNumber).getmSubCategoryList().get(j).getpSubCatName();
 
-            childChildLayout.setOnClickListener(new View.OnClickListener() {
+            linearSecond.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -173,7 +179,7 @@ public class OrganizationCategoryAdapter {
 
                         isSecondViewClick = true;
 
-                        mSubItemName.setBackgroundColor(Color.parseColor("#e95f5f5f"));
+                        linearSecond.setBackgroundColor(Color.parseColor("#e95f5f5f"));
 
                         if(!organizationFilters.contains(catName)){
 
@@ -184,7 +190,7 @@ public class OrganizationCategoryAdapter {
 
                         isSecondViewClick = false;
 
-                        mSubItemName.setBackgroundResource(android.R.color.background_dark);
+                        linearSecond.setBackgroundResource(android.R.color.background_dark);
 
                         organizationFilters.remove(catName);
                     }
@@ -205,10 +211,11 @@ public class OrganizationCategoryAdapter {
             if(mUserCustomFilter.getOrganizationFilter().contains(catName)){
 
                 // simulating clicks if appropriate
-                mSubItemName.setBackgroundColor(Color.parseColor("#e95f5f5f"));
+                linearSecond.setBackgroundColor(Color.parseColor("#e95f5f5f"));
             }
 
             mSubItemName.setText(catName);
+            setIcon(catName, mSubItemIcon);
 
             mLinearScrollSecond.addView(mLinearView2);
 
@@ -218,7 +225,8 @@ public class OrganizationCategoryAdapter {
 
     // A function used to set the layout depending on if the item is pressed or not
 
-    private void isMenuOpen(boolean viewClick, ImageView image, LinearLayout linLayout){
+    private void isMenuOpen(boolean viewClick, ImageView image, LinearLayout linLayout)
+    {
 
         if(viewClick==false)
         {
@@ -235,4 +243,71 @@ public class OrganizationCategoryAdapter {
         }
     }
 
+    //Method to set the icon of the event.
+    public void setIcon(String catName,ImageView icon) {
+        if(catName.contains("Academic"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgacademic, 30));}
+
+        else if(catName.contains("Business"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgbusiness, 30));}
+
+        else if(catName.contains("Charity"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgcharity, 30));}
+
+        else if (catName.contains("Fashion"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgfashion, 30));}
+
+        else if (catName.contains("Festival"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgnonprofit, 30));}
+
+        else if (catName.contains("Fraternity"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgfraternity, 30));}
+
+        else if (catName.contains("Music"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgpromoter, 30));}
+
+        else if (catName.contains("Not-for-profit"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgnonprofit, 30));}
+
+        else if (catName.contains("Sports"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgsports, 30));}
+
+        else if (catName.contains("Association"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgstudent, 30));}
+
+        else if (catName.contains("Union"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgstudent, 30));}
+
+        else if (catName.contains("Student"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgstudent, 30));}
+
+        else if (catName.contains("Performing"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgpromoter, 30));}
+
+        else if (catName.contains("Religion"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgreligon, 30));}
+
+        else if (catName.contains("Club"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgnonprofit, 30));}
+    }
+
+    //SVG Conversion.
+    public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
+        try {
+            size = (int)(size*res.getDisplayMetrics().density);
+            SVG svg = SVG.getFromResource(mActivity.getApplicationContext(), resource);
+
+            Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bmp);
+            svg.renderToCanvas(canvas);
+
+            BitmapDrawable drawable = new BitmapDrawable(res, bmp);
+
+
+            return drawable;
+        }catch(SVGParseException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

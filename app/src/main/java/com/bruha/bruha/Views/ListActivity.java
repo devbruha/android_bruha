@@ -3,6 +3,7 @@ package com.bruha.bruha.Views;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -13,6 +14,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -34,12 +36,16 @@ import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
+import com.github.ksoichiro.android.observablescrollview.ObservableListView;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
+
 import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class ListActivity extends FragmentActivity {
+public class ListActivity extends FragmentActivity implements ObservableScrollViewCallbacks {
     //The Arrays that will contain the information retrieved from the local database.
     ArrayList<Event> mEvents = new ArrayList<>();
     ArrayList<Organizations> mOrganizations = new ArrayList<>();
@@ -72,7 +78,7 @@ public class ListActivity extends FragmentActivity {
     OrganizationListViewAdapter organizationAdapter;
     ArtistsListViewAdapter artistAdapter;
     //Injecting Buttons using ButterKnife Library
-    @InjectView(android.R.id.list) ListView mListView;
+    @InjectView(android.R.id.list) ObservableListView mListView;
     //The Linear layout to be set OnCLickListener to and background changing.
     @InjectView(R.id.venueButton) LinearLayout venueButton;
     @InjectView(R.id.artistButton) LinearLayout artistButton;
@@ -88,8 +94,10 @@ public class ListActivity extends FragmentActivity {
     @InjectView(R.id.filtervenuetext) TextView venueText;
     @InjectView(R.id.filterartisttext) TextView artistText;
     @InjectView(R.id.filteroutfittext) TextView outfitText;
-    @InjectView(R.id.DashboardButton) ImageView dudeButton;
-    @InjectView(R.id.MapButton) ImageView mapButton;
+    //Buttons
+    ImageView mapButton;
+    ImageView dudeButton;
+    ActionBar mActionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +106,9 @@ public class ListActivity extends FragmentActivity {
         setContentView(R.layout.activity_list2);
         ButterKnife.inject(this);                   //Injecting all the objects to be imported from above.
 
-        setsize(); //Method to set the size of the buttons in the view.
+        mListView.setScrollViewCallbacks(this);
+
+        actionbar();
 
         init();     //Initialize the variables from local database.
 
@@ -157,9 +167,6 @@ public class ListActivity extends FragmentActivity {
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(eventAdapter);
 
-
-        setButtons();   //Method to create and set the Dashboard/Map Button.
-
         //Checking which filter was chosen before opening the activity.
         if(MyApplication.filterTracker.equals("Event"))
         {
@@ -182,6 +189,20 @@ public class ListActivity extends FragmentActivity {
 
     }
 
+    private void actionbar()
+    {
+        mActionBar = getActionBar();
+        mActionBar.setDisplayShowHomeEnabled(false);
+        mActionBar.setDisplayShowTitleEnabled(false);
+        LayoutInflater mInflater = LayoutInflater.from(this);
+        View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
+        dudeButton =(ImageView) mCustomView.findViewById(R.id.DashboardButton);
+        mapButton = (ImageView) mCustomView.findViewById(R.id.MapButton);
+        setsize(); //Method to set the size of the buttons in the view.
+        mActionBar.setCustomView(mCustomView);
+        mActionBar.setDisplayShowCustomEnabled(true);
+    }
+
     private void setsize() {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -195,6 +216,8 @@ public class ListActivity extends FragmentActivity {
         ViewGroup.LayoutParams mapButtonLayoutParams = mapButton.getLayoutParams();
         mapButtonLayoutParams.height =  (int)Math.round(height*.07);
         mapButtonLayoutParams.width =  (int)Math.round(height*.07);
+
+        setButtons();  //Method to create and set the Dashboard/Map Button.
     }
 
     private void setButtons() {
@@ -441,5 +464,33 @@ public class ListActivity extends FragmentActivity {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public void onScrollChanged(int i, boolean b, boolean b1) {
+
+    }
+
+    @Override
+    public void onDownMotionEvent() {
+
+    }
+
+    @Override
+    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+
+        if (mActionBar == null) {
+            return;
+        }
+        if (scrollState == ScrollState.UP) {
+            if (mActionBar.isShowing()) {
+                mActionBar.hide();
+            }
+        } else if (scrollState == ScrollState.DOWN) {
+            if (!mActionBar.isShowing()) {
+                mActionBar.show();
+            }
+        }
+
     }
 }
