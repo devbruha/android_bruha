@@ -3,21 +3,24 @@ package com.bruha.bruha.Views;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bruha.bruha.Adapters.ArtistsListViewAdapter;
@@ -33,6 +36,9 @@ import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
+import com.github.ksoichiro.android.observablescrollview.ObservableListView;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
@@ -40,18 +46,18 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class MyUploadsActivity extends ActionBarActivity {
+public class MyUploadsActivity extends FragmentActivity implements ObservableScrollViewCallbacks {
     //The Lists that will hold the information from the local database about which stuff to populate.
     ArrayList<Venue> mVenues = new ArrayList<>();
     ArrayList<Artist> mArtist = new ArrayList<>();
     ArrayList<Organizations> mOrg = new ArrayList<>();
     ArrayList<Event> mEvents = new ArrayList<>();
-
+    ActionBar mActionBar;
     EventListviewAdapter adapter;                      //Initialzing the Adapter for the ListView.
 
     //Injecting Views using ButterKnife Library
-    @InjectView(android.R.id.list) ListView mListView;
-    @InjectView(R.id.myuploadDashboardImage) ImageView dudeButton;
+    @InjectView(android.R.id.list) ObservableListView mListView;
+    ImageView dudeButton;
     //The Linear layout to be set OnCLickListener to and background changing.
     @InjectView(R.id.venueButton) LinearLayout venueButton;
     @InjectView(R.id.artistButton) LinearLayout artistButton;
@@ -67,12 +73,18 @@ public class MyUploadsActivity extends ActionBarActivity {
     @InjectView(R.id.filtervenuetext) TextView venueText;
     @InjectView(R.id.filterartisttext) TextView artistText;
     @InjectView(R.id.filteroutfittext) TextView outfitText;
+    //MyUpload page title
+    @InjectView(R.id.uploadText) TextView uploadText;
+    @InjectView(R.id.uploadImage) ImageView uploadImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_uploads);
         ButterKnife.inject(this);
+
+        mListView.setScrollViewCallbacks(this);
+        actionbar();
 
         init(); //Calling local database to set the arraylists up
 
@@ -84,8 +96,6 @@ public class MyUploadsActivity extends ActionBarActivity {
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(adapter);
 
-        resize(); //Resizing the page and setting what the buttons do.
-
         eventButton(null); //Populating the event upload list when activity is opened.
     }
 
@@ -95,6 +105,19 @@ public class MyUploadsActivity extends ActionBarActivity {
         filterView.init();
         SlidingUpPanelLayout slidepanel = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout_lower);
         slidepanel.setTouchEnabled(false);
+    }
+
+    private void actionbar()
+    {
+        mActionBar = getActionBar();
+        mActionBar.setDisplayShowHomeEnabled(false);
+        mActionBar.setDisplayShowTitleEnabled(false);
+        LayoutInflater mInflater = LayoutInflater.from(this);
+        View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
+        dudeButton =(ImageView) mCustomView.findViewById(R.id.DashboardButton);
+        resize();       //Resizing the page and buttons
+        mActionBar.setCustomView(mCustomView);
+        mActionBar.setDisplayShowCustomEnabled(true);
     }
 
     private void resize() {   //The method to resize everything inside the activity.
@@ -125,6 +148,21 @@ public class MyUploadsActivity extends ActionBarActivity {
                 animator.start();
             }
         });
+
+        Typeface opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
+
+        ViewGroup.LayoutParams addictionTextLayoutParams = uploadText.getLayoutParams();
+        addictionTextLayoutParams.height =  (int)Math.round(height*.04);
+        addictionTextLayoutParams.width =  (int)Math.round(height * .15);
+        int x= (int)Math.round(height * .024);
+        uploadText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        uploadText.setTypeface(opensansregfnt);
+
+        ViewGroup.LayoutParams addictionImageLayoutParams = uploadImage.getLayoutParams();
+        addictionImageLayoutParams.height =  (int)Math.round(height*.04);
+        addictionImageLayoutParams.width =  (int)Math.round(height*.05);
+        //Setting the Button Image
+        uploadImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.myupload, 30));
     }
 
     private void init(){
@@ -252,11 +290,37 @@ public class MyUploadsActivity extends ActionBarActivity {
         return null;
     }
 
-    @OnClick(R.id.myuploadDashboardImage)
     public void startDashboardActivity(View view)
     {
         Intent intent = new Intent(this,DashboardActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onScrollChanged(int i, boolean b, boolean b1) {
+
+    }
+
+    @Override
+    public void onDownMotionEvent() {
+
+    }
+
+    @Override
+    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+
+        if (mActionBar == null) {
+            return;
+        }
+        if (scrollState == ScrollState.UP) {
+            if (mActionBar.isShowing()) {
+                mActionBar.hide();
+            }
+        } else if (scrollState == ScrollState.DOWN) {
+            if (!mActionBar.isShowing()) {
+                mActionBar.show();
+            }
+        }
     }
 }

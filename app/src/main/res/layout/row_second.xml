@@ -9,31 +9,76 @@
         android:id="@+id/linearSecond"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#eaffb512">
+        android:background="#ea553285">
 
-        <ImageView
-            android:id="@+id/imageSecondArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="false"
-            android:layout_alignParentEnd="false"
-            android:layout_alignParentTop="false"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:weightSum="7"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textViewTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="TextView"
-            android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:textColor="@android:color/white"
-            android:textSize="22sp" />
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_weight="3"
+                android:layout_height="match_parent">
+
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imageViewIcon"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="5dp"
+                     />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="TextView"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    android:layout_marginLeft="8dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_weight="3"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imageSecondArrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        />
+                </RelativeLayout>
+
+            </LinearLayout>
+        </LinearLayout>
 
     </RelativeLayout>
 

@@ -3,16 +3,21 @@ package com.bruha.bruha.Views;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -32,13 +37,16 @@ import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
+import com.github.ksoichiro.android.observablescrollview.ObservableListView;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class myAddictions extends ActionBarActivity {
+public class myAddictions extends FragmentActivity implements ObservableScrollViewCallbacks {
 
     //Event's Addictions Variables.
     ArrayList<Event> mEvents = new ArrayList<>(); //The Array that will hold the mEvents that we will pass around(to Adapter,the List...
@@ -58,8 +66,9 @@ public class myAddictions extends ActionBarActivity {
     ArrayList<Organizations> addictedOrg = new ArrayList<>();
     ArrayList<String> orgID = new ArrayList<>();
     //Injecting Views using ButterKnife Library
-    @InjectView(android.R.id.list) ListView mListView;
-    @InjectView(R.id.myaddictionsDashboardImage) ImageView dudeButton;
+    @InjectView(android.R.id.list) ObservableListView mListView;
+    ImageView dudeButton;
+    ImageView mapButton;
     //The Linear layout to be set OnCLickListener to and background changing.
     @InjectView(R.id.venueButton) LinearLayout venueButton;
     @InjectView(R.id.artistButton) LinearLayout artistButton;
@@ -75,12 +84,19 @@ public class myAddictions extends ActionBarActivity {
     @InjectView(R.id.filtervenuetext) TextView venueText;
     @InjectView(R.id.filterartisttext) TextView artistText;
     @InjectView(R.id.filteroutfittext) TextView outfitText;
+    //MyAddiction page title
+    @InjectView(R.id.addictionText) TextView addictionText;
+    @InjectView(R.id.addictionImage) ImageView addictionImage;
+    ActionBar mActionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_addictions);
         ButterKnife.inject(this);
+
+        mListView.setScrollViewCallbacks(this);
+        actionbar();
 
         init();             //Initializes the local variables to the info inside the local database.
 
@@ -91,9 +107,21 @@ public class myAddictions extends ActionBarActivity {
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(adapter);
 
-        resize();       //Resizing the page and buttons
-
         eventButton(null); //Populate the Events upon opening the page.
+    }
+
+    private void actionbar() {
+        mActionBar = getActionBar();
+        mActionBar.setDisplayShowHomeEnabled(false);
+        mActionBar.setDisplayShowTitleEnabled(false);
+        LayoutInflater mInflater = LayoutInflater.from(this);
+        View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
+        dudeButton =(ImageView) mCustomView.findViewById(R.id.DashboardButton);
+        mapButton = (ImageView) mCustomView.findViewById(R.id.MapButton);
+        mapButton.setVisibility(View.INVISIBLE);
+        resize();       //Resizing the page and buttons
+        mActionBar.setCustomView(mCustomView);
+        mActionBar.setDisplayShowCustomEnabled(true);
     }
 
     private void setUpFilters(){
@@ -132,6 +160,20 @@ public class myAddictions extends ActionBarActivity {
                 animator.start();
             }
         });
+
+        Typeface opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
+        ViewGroup.LayoutParams addictionTextLayoutParams = addictionText.getLayoutParams();
+        addictionTextLayoutParams.height =  (int)Math.round(height*.04);
+        addictionTextLayoutParams.width =  (int)Math.round(height*.15);
+        int x= (int)Math.round(height * .02);
+        addictionText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        addictionText.setTypeface(opensansregfnt);
+
+        ViewGroup.LayoutParams addictionImageLayoutParams = addictionImage.getLayoutParams();
+        addictionImageLayoutParams.height =  (int)Math.round(height*.04);
+        addictionImageLayoutParams.width =  (int)Math.round(height*.05);
+        //Setting the Button Image
+        addictionImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.myaddictions, 30));
     }
 
     //SVG Conversion.
@@ -314,5 +356,32 @@ public class myAddictions extends ActionBarActivity {
         artistsListViewAdapter=new ArtistsListViewAdapter(this, addictedArtists,artistID); //Calling the eventAdapter mListView to help set the List
         //Sets the Adapter from the class Listview Adapter.
         mListView.setAdapter(artistsListViewAdapter);
+    }
+
+    @Override
+    public void onScrollChanged(int i, boolean b, boolean b1) {
+
+    }
+
+    @Override
+    public void onDownMotionEvent() {
+
+    }
+
+    @Override
+    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+        if (mActionBar == null) {
+            return;
+        }
+        if (scrollState == ScrollState.UP) {
+            if (mActionBar.isShowing()) {
+                mActionBar.hide();
+            }
+        } else if (scrollState == ScrollState.DOWN) {
+            if (!mActionBar.isShowing()) {
+                mActionBar.show();
+            }
+        }
+
     }
 }

@@ -71,6 +71,7 @@
                 android:inputType="textMultiLine"
                 android:singleLine="true"
                 android:ems="10"
+                android:password="true"
                 android:id="@+id/loginPasswordEditText"/>
 
         </LinearLayout>

@@ -45,7 +45,7 @@ public class RetrievePHP {
 
                 try {
 
-                    url = new URL("http://bruha.com/mobile_php/CategoryList.php");
+                    url = new URL("http://bruha.com/mobile_php/RetrievePHP/CategoryList.php");
                     connection = (HttpURLConnection) url.openConnection();
 
                     String line = "";
@@ -130,7 +130,7 @@ public class RetrievePHP {
 
                 try {
 
-                    url = new URL("http://bruha.com/mobile_php/CategoryList.php");
+                    url = new URL("http://bruha.com/mobile_php/RetrievePHP/CategoryList.php");
                     connection = (HttpURLConnection) url.openConnection();
 
                     String line = "";
@@ -191,7 +191,7 @@ public class RetrievePHP {
 
                 try {
 
-                    url = new URL("http://bruha.com/mobile_php/CategoryList.php");
+                    url = new URL("http://bruha.com/mobile_php/RetrievePHP/CategoryList.php");
                     connection = (HttpURLConnection) url.openConnection();
 
                     String line = "";
@@ -252,7 +252,7 @@ public class RetrievePHP {
 
                 try {
 
-                    url = new URL("http://bruha.com/mobile_php/CategoryList.php");
+                    url = new URL("http://bruha.com/mobile_php/RetrievePHP/CategoryList.php");
                     connection = (HttpURLConnection) url.openConnection();
 
                     String line = "";
@@ -314,7 +314,7 @@ public class RetrievePHP {
 
                 try {
 
-                    url = new URL("http://bruha.com/mobile_php/EventList.php");
+                    url = new URL("http://bruha.com/mobile_php/RetrievePHP/EventList.php");
                     connection = (HttpURLConnection) url.openConnection();
 
                     String line = "";
@@ -423,7 +423,7 @@ public class RetrievePHP {
             public void run() {
 
                 try {
-                    url = new URL("http://bruha.com/mobile_php/VenueList.php");
+                    url = new URL("http://bruha.com/mobile_php/RetrievePHP/VenueList.php");
                     connection = (HttpURLConnection) url.openConnection();
 
                     String line = "";
@@ -489,7 +489,7 @@ public class RetrievePHP {
             public void run() {
 
                 try {
-                    url = new URL("http://bruha.com/mobile_php/OrganizationList.php");
+                    url = new URL("http://bruha.com/mobile_php/RetrievePHP/OrganizationList.php");
                     connection = (HttpURLConnection) url.openConnection();
 
                     String line = "";
@@ -557,7 +557,7 @@ public class RetrievePHP {
             public void run() {
 
                 try {
-                    url = new URL("http://bruha.com/mobile_php/ArtistList.php");
+                    url = new URL("http://bruha.com/mobile_php/RetrievePHP/ArtistList.php");
                     connection = (HttpURLConnection) url.openConnection();
 
                     String line = "";

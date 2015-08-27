@@ -71,6 +71,7 @@
                 android:inputType="textMultiLine"
                 android:ems="10"
                 android:singleLine="true"
+                android:password="true"
                 android:id="@+id/registerPasswordEditText"/>
 
             <TextView

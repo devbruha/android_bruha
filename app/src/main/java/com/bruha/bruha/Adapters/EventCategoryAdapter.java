@@ -4,7 +4,11 @@ package com.bruha.bruha.Adapters;
  * Created by Thomas on 5/22/2015.
  */
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +24,8 @@ import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.Processing.FilterOut;
 import com.bruha.bruha.R;
+import com.caverock.androidsvg.SVG;
+import com.caverock.androidsvg.SVGParseException;
 import com.google.android.gms.maps.model.Marker;
 
 import java.util.ArrayList;
@@ -167,6 +173,7 @@ public class EventCategoryAdapter {
             View mLinearView2 = inflater2.inflate(R.layout.row_second, null);
 
             final TextView mSubItemName = (TextView) mLinearView2.findViewById(R.id.textViewTitle);
+            final ImageView mSubItemIcon = (ImageView) mLinearView2.findViewById(R.id.imageViewIcon);
             final RelativeLayout mLinearSecondArrow=(RelativeLayout)mLinearView2.findViewById(R.id.linearSecond);
             final ImageView mImageArrowSecond=(ImageView)mLinearView2.findViewById(R.id.imageSecondArrow);
             final LinearLayout mLinearScrollThird=(LinearLayout)mLinearView2.findViewById(R.id.linear_scroll_third);
@@ -199,7 +206,7 @@ public class EventCategoryAdapter {
 
                             mLinearScrollThird.setVisibility(View.VISIBLE);
 
-                            mLinearSecondArrow.setBackgroundColor(Color.parseColor("#491c2295"));
+                            mLinearSecondArrow.setBackgroundColor(Color.parseColor("#ea8ff0e4"));
 
                             // Each key of the hashmap shall be the primary category(s) selected
                             // this is only if it does not already exist in the categories variable
@@ -219,7 +226,7 @@ public class EventCategoryAdapter {
                             toast.show();
                         }
                     } else {
-                        mLinearSecondArrow.setBackgroundResource(android.R.color.holo_orange_light);
+                        mLinearSecondArrow.setBackgroundColor(Color.parseColor("#ea553285"));
 
                         mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_up_float);
 
@@ -259,7 +266,7 @@ public class EventCategoryAdapter {
                 mLinearScrollThird.setVisibility(View.VISIBLE);
                 mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_down_float);
 
-                mLinearSecondArrow.setBackgroundColor(Color.parseColor("#491c2295"));
+                mLinearSecondArrow.setBackgroundColor(Color.parseColor("#ea553285"));
             }
             else{
 
@@ -271,6 +278,7 @@ public class EventCategoryAdapter {
             // Sets the title of the child level (primary category)
 
             mSubItemName.setText(catName);
+            setIcon(catName,mSubItemIcon);
             mLinearSecondArrow.setTag(catName);
 
             // Goes in one more level to add the child-child (sub category)
@@ -392,5 +400,82 @@ public class EventCategoryAdapter {
             linLayout.setVisibility(View.VISIBLE);
             image.setBackgroundResource(android.R.drawable.arrow_down_float);
         }
+    }
+
+    //Method to set the icon of the event.
+    public void setIcon(String catName,ImageView icon) {
+        if(catName.contains("Club"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.club, 30));}
+
+        else if(catName.contains("Performing"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.performing, 30));}
+
+        else if(catName.contains("Business"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.business, 30));}
+
+        else if(catName.contains("Ceremony"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.ceremony, 30));}
+
+        else if(catName.contains("Tech"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.tech, 30));}
+
+        else if(catName.contains("Comedy"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.comedy, 30));}
+
+        else if(catName.contains("Fashion"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.fashion, 30));}
+
+        else if(catName.contains("Festivals"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.festivals, 30));}
+
+        else if(catName.contains("Film"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.film, 30));}
+
+        else if(catName.contains("Food"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.food, 30));}
+
+        else if(catName.contains("Party"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.party, 30));}
+
+        else if(catName.contains("Music"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.music, 30));}
+
+        else if(catName.contains("Political"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.political, 30));}
+
+        else if(catName.contains("School"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.school, 30));}
+
+        else if(catName.contains("Sports"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.sports, 30));}
+
+        else if(catName.contains("Tour"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.tour, 30));}
+
+        else if(catName.contains("Arts"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.arts, 30));}
+
+        else if(catName.contains("Social"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.social, 30));}
+    }
+
+    //SVG Conversion.
+    public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
+        try {
+            size = (int)(size*res.getDisplayMetrics().density);
+            SVG svg = SVG.getFromResource(mActivity.getApplicationContext(), resource);
+
+            Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bmp);
+            svg.renderToCanvas(canvas);
+
+            BitmapDrawable drawable = new BitmapDrawable(res, bmp);
+
+
+            return drawable;
+        }catch(SVGParseException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }
