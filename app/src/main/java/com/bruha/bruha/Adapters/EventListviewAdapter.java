@@ -184,7 +184,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                     EventName.setVisibility(View.INVISIBLE);
                     EventDate.setVisibility(View.INVISIBLE);
                     EventPrice.setVisibility(View.INVISIBLE);
-                    EventDistance.setVisibility(View.INVISIBLE);
+                 //   EventDistance.setVisibility(View.INVISIBLE);
                     swipeLicon.setVisibility(View.INVISIBLE);
                     swipeRicon.setVisibility(View.INVISIBLE);
                 } else {
@@ -195,7 +195,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                     EventName.setVisibility(View.VISIBLE);
                     EventDate.setVisibility(View.VISIBLE);
                     EventPrice.setVisibility(View.VISIBLE);
-                    EventDistance.setVisibility(View.VISIBLE);
+                 //   EventDistance.setVisibility(View.VISIBLE);
                     swipeLicon.setVisibility(View.VISIBLE);
                     swipeRicon.setVisibility(View.VISIBLE);
                 }
@@ -211,7 +211,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         holder.EventName = (TextView) convertView.findViewById(R.id.TextEventName);
         holder.EventDate = (TextView) convertView.findViewById(R.id.VenueName);
         holder.EventPrice= (TextView) convertView.findViewById(R.id.TextEventPrice);
-        holder.EventDistance= (TextView) convertView.findViewById(R.id.VenueDistance);
+        holder.EventActivityIcon= (ImageView) convertView.findViewById(R.id.VenueActivityIcon);
 
         //Initializing each item to the required type
         final Event event = mEvents.get(position);
@@ -370,10 +370,11 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         EventPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
         EventPrice.setTypeface(domboldfnt);
         //The EventDistance being formatted.
-        TextView EventDistance = (TextView) convertView.findViewById(R.id.VenueDistance);
+      /*  TextView EventDistance = (TextView) convertView.findViewById(R.id.VenueDistance);
         int x4= (int)Math.round(height*.020);
         EventDistance.setTextSize(TypedValue.COMPLEX_UNIT_PX,x4);
         EventDistance.setTypeface(domboldfnt);
+        */
         //TextViews inside the Detailed view being formatted.
         //The DesEventName being Formatted.
         TextView DesEventName = (TextView) convertView.findViewById(R.id.DesVenueName);
@@ -453,6 +454,8 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
 
             if(mActivity.getLocalClassName().equals("Views.MyUploadsActivity"))
             {
+                holder.EventActivityIcon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.myupload, 30));
+
                 final Button likeText = (Button) convertView.findViewById(R.id.likeButton);
                 likeText.setText("Delete!");
                 likeText.setOnClickListener(new View.OnClickListener() {
@@ -480,6 +483,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                     for (String ID : addictedEventsID) {
                         if (ID.equals(event.getEventid())) {
                             addicted = true;
+                            holder.EventActivityIcon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.myaddictions, 30));
                         }
                     }
 
@@ -612,6 +616,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         TextView EventDate;
         TextView EventPrice;
         TextView EventDistance;
+        ImageView EventActivityIcon;
         //The Values holding detailed description of the event.
         TextView EventDName;
         TextView EventDPrice;

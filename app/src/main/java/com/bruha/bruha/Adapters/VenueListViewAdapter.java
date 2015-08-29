@@ -97,7 +97,7 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
                     //Hiding the summary Description from view to display the detailed description.
                     Bubble.setVisibility(View.INVISIBLE);
                     OrganizationName.setVisibility(View.INVISIBLE);
-                    OrganizationDistance.setVisibility(View.INVISIBLE);
+                  //  OrganizationDistance.setVisibility(View.INVISIBLE);
                     swipeLicon.setVisibility(View.INVISIBLE);
                     swipeRicon.setVisibility(View.INVISIBLE);
                 } else {
@@ -106,7 +106,7 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
                     //Hiding the summary Description from view to display the detailed description.
                     Bubble.setVisibility(View.VISIBLE);
                     OrganizationName.setVisibility(View.VISIBLE);
-                    OrganizationDistance.setVisibility(View.VISIBLE);
+                 //   OrganizationDistance.setVisibility(View.VISIBLE);
                     swipeLicon.setVisibility(View.VISIBLE);
                     swipeRicon.setVisibility(View.VISIBLE);
                 }
