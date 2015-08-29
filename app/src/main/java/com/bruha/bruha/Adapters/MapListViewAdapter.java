@@ -12,6 +12,8 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -117,6 +119,118 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         return R.id.swipe;
     }
 
+    public void setAnimation(final ImageView sR, final ImageView sL) {
+        final Animation animation1 = new AlphaAnimation(0.0f, 1.0f);
+        animation1.setDuration(3000);
+
+        final Animation animation2 = new AlphaAnimation(1.0f, 0.0f);
+        animation2.setDuration(3000);
+        //animation1 AnimationListener
+        animation1.setAnimationListener(new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                // start animation2 when animation1 ends (continue)
+                sL.startAnimation(animation2);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationStart(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+
+
+        //animation2 AnimationListener
+        animation2.setAnimationListener(new Animation.AnimationListener(){
+
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                // start animation1 when animation2 ends (repeat)
+                sL.startAnimation(animation1);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationStart(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+
+
+        sL.setAnimation(animation1);
+
+        final Animation  animation11 = new AlphaAnimation(0.0f, 1.0f);
+        animation11.setDuration(3000);
+
+        final Animation animation22 = new AlphaAnimation(1.0f, 0.0f);
+        animation22.setDuration(3000);
+        //animation1 AnimationListener
+        animation11.setAnimationListener(new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                // start animation2 when animation1 ends (continue)
+                sR.startAnimation(animation22);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationStart(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+
+
+        //animation2 AnimationListener
+        animation22.setAnimationListener(new Animation.AnimationListener(){
+
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                // start animation1 when animation2 ends (repeat)
+                sR.startAnimation(animation11);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationStart(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+
+
+        sR.setAnimation(animation11);
+    }
+
     //Generates the view,look at ListViewAdapter when implementing this.
     @Override
     public View generateView(final int position, ViewGroup viewGroup) {
@@ -132,6 +246,11 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         holder.LocSt= (TextView) convertView.findViewById(R.id.MapEventLocSt);
         holder.LocAdd= (TextView) convertView.findViewById(R.id.MapEventLocAddress);
         holder.Hours= (TextView) convertView.findViewById(R.id.MapEventStartDateAndTime);
+
+       final ImageView swipeyright = (ImageView) convertView.findViewById(R.id.swipeyright);
+        final ImageView swipeyleft = (ImageView) convertView.findViewById(R.id.swipeyleft);
+        setAnimation(swipeyright,swipeyleft);
+
 
         //Initializing each item to the required type
         final Event event = mEvent.get(position);

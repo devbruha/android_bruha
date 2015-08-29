@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:text="My Uploads"
                     android:id="@+id/uploadText"
-                    android:background="#e8ffa41a"
+                    android:background="#ff54cdd6"
                     android:textSize="30sp"
                     android:textColor="#ffffff"
                     android:layout_marginLeft="3dp"
@@ -60,7 +60,7 @@
                     android:layout_toRightOf="@+id/uploadText"
                     android:layout_toEndOf="@+id/uploadText"
                     android:layout_marginLeft="3dp"
-                    android:background="#e8ffa41a" />
+                    android:background="#ff54cdd6" />
 
 
             </RelativeLayout>
