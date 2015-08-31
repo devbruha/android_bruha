@@ -1,0 +1,293 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bruha.bruha.Views.MoreInfoActivity">
+
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        xmlns:sothree="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/sliding_layout_lower"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        sothree:umanoPanelHeight="68dp"
+        sothree:umanoDragView="@+id/dragView"
+        sothree:umanoOverlay="true"
+        sothree:umanoFadeColor="@android:color/transparent"
+        android:background="@android:color/transparent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:minHeight="100dp"
+            android:background="@android:color/black">
+
+            <!-- Insert the stuff you want to appear on the main section here Bilal -->
+
+        </FrameLayout>
+
+        <!-- SLIDING LAYOUT -->
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:clickable="false"
+            android:focusable="false"
+            android:id="@+id/dragView"
+            android:elevation="50dp"
+            android:background="@android:color/holo_orange_dark">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:visibility="visible"
+                android:id="@+id/relhandlelayout">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="68dp"
+                    android:id="@+id/handleLayout"
+                    android:weightSum="4"
+                    android:orientation="horizontal"
+                    android:background="#ff252525"
+                    android:clickable="true"
+
+                    android:baselineAligned="false"
+                    android:alpha="0.60">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:clickable="true"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border"
+                        android:id="@+id/eventButton">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:weightSum="4"
+                            android:orientation="vertical"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:layout_marginTop="3dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:id="@+id/eventButtonImage" />
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_weight="3"
+                                android:gravity="center"
+                                android:layout_height="match_parent">
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Events"
+                                    android:textSize="10sp"
+                                    android:layout_marginBottom="3dp"
+                                    android:textColor="#ffffff"
+                                    android:id="@+id/filtereventtext" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border"
+                        android:id="@+id/venueButton">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:weightSum="4"
+                            android:orientation="vertical"
+                            android:layout_height="match_parent">
+
+
+
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginTop="3dp"
+                                    android:id="@+id/venueButtonImage" />
+
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_weight="3"
+                                android:gravity="center"
+                                android:layout_height="match_parent">
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Venues"
+                                    android:textSize="10sp"
+                                    android:layout_marginBottom="3dp"
+                                    android:textColor="#ffffff"
+                                    android:id="@+id/filtervenuetext" />
+
+
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border"
+                        android:id="@+id/artistButton">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:weightSum="4"
+                            android:orientation="vertical"
+                            android:layout_height="match_parent">
+
+
+
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_height="match_parent"
+                                    android:id="@+id/artistButtonImage" />
+
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_weight="3"
+                                android:gravity="center"
+                                android:layout_height="match_parent">
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Artists"
+                                    android:textColor="#ffffff"
+                                    android:textSize="10sp"
+                                    android:id="@+id/filterartisttext" />
+
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border"
+                        android:id="@+id/outfitButton">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:weightSum="4"
+                            android:orientation="vertical"
+                            android:layout_height="match_parent">
+
+
+
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent">
+
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginTop="3dp"
+                                    android:id="@+id/outfitButtonImage" />
+
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_weight="3"
+                                android:gravity="center"
+                                android:layout_height="match_parent">
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Organizations"
+                                    android:textSize="10sp"
+                                    android:textColor="#ffffff"
+                                    android:id="@+id/filteroutfittext" />
+
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+</RelativeLayout>

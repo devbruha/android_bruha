@@ -71,7 +71,7 @@
             android:name=".Views.ListActivity"
             android:label="@string/title_activity_list"
             android:screenOrientation="portrait"
-            android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar" >
         </activity>
         <activity
             android:name=".Views.EventPageActivity"
@@ -100,8 +100,8 @@
         <activity
             android:name=".Views.CalendarActivity"
             android:label="@string/title_activity_whats_hot"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
         <activity
             android:name=".Views.ShowOnMapActivity"
@@ -112,7 +112,13 @@
             android:name=".Views.myAddictions"
             android:label="@string/title_activity_my_addictions"
             android:screenOrientation="portrait"
-            android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar" >
+        </activity>
+        <activity
+            android:name=".Views.MoreInfoActivity"
+            android:label="@string/title_activity_more_info"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
     </application>
 

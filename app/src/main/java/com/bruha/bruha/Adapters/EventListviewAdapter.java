@@ -29,6 +29,7 @@ import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.RetrieveMyPHP;
 import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
+import com.bruha.bruha.Views.MoreInfoActivity;
 import com.bruha.bruha.Views.ShowOnMapActivity;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
@@ -308,7 +309,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
                         MoreInfoLay.setAlpha(1f);
-                        Intent intent = new Intent(mActivity, EventPageActivity.class);
+                        Intent intent = new Intent(mActivity, MoreInfoActivity.class);
                         intent.putExtra("Id",event.getEventid());
                         intent.putExtra("Type","Event");
                         mActivity.startActivity(intent);
