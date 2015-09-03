@@ -7,100 +7,154 @@
     android:focusable="false"
     android:id="@+id/dragView"
     android:elevation="50dp"
+    android:weightSum="5"
     android:background="@android:color/transparent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="68dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="68dp"
-            android:id="@+id/handleLayout"
-            android:weightSum="1"
-            android:orientation="horizontal"
-            android:background="@android:color/transparent"
-            android:clickable="true"
-            android:baselineAligned="false">
-
-            <Button
-                android:id="@+id/eventButton"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="14sp"
-                android:layout_weight="0.25"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:text="Events"
-                />
-
-            <Button
-                android:id="@+id/venueButton"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="14sp"
-                android:layout_weight="0.25"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:text="Venues"/>
-
-            <Button
-                android:id="@+id/artistButton"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="14sp"
-                android:layout_weight="0.25"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:text="Artists"/>
-
-            <Button
-                android:id="@+id/orgButton"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="14sp"
-                android:layout_weight="0.25"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:text="Organizations"/>
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-    <ScrollView
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clickable="false"
-        android:background="@android:color/black">
+        android:background="@android:color/transparent">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:background="#e87a2253">
 
-            <!-- Category Filters -->
+            <ImageView
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:id="@+id/imageView5" />
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="10dp"
-                android:id="@+id/category"
-                android:layout_below="@+id/calendarView">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Event Name"
+                android:layout_marginLeft="15dp"
+                android:textSize="22sp"
+                android:layout_marginTop="15dp"
+                android:textStyle="bold"
+                android:id="@+id/nonfilterEventName" />
 
-                <!-- Linearlaout which acts as listview -->
-                <LinearLayout
-                    android:id="@+id/category_listview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Venue Name"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/nonfilterEventName"
+                android:id="@+id/nonfilterVenueName" />
 
-            </ScrollView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Venue Country"
+                android:layout_marginLeft="15dp"
+                android:id="@+id/nonfilterVenueCountry"
+                android:layout_below="@+id/nonfilterVenueStreet"
+                />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Venue Street"
+                android:layout_marginLeft="15dp"
+                android:id="@+id/nonfilterVenueStreet"
+                android:layout_below="@+id/nonfilterVenueName"
+                 />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="3">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#c8010101"
+            android:layout_marginRight="2dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:text="$25.00"
+                android:textStyle="bold"
+                android:id="@+id/textView3"
+                android:textColor="#ff54cdd6" />
         </LinearLayout>
 
-    </ScrollView>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="#c8010101"
+            android:layout_marginRight="2dp">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="May 15, 2015"
+                android:id="@+id/textView5"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:textColor="#ff54cdd6" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#ff54cdd6"></LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffcccccc"
+        android:layout_marginTop="5dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/borderblack"></LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#e87a2253">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ff54cdd6">
+
+    </LinearLayout>
 </LinearLayout>
