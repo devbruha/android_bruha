@@ -507,28 +507,23 @@
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/VenueName"
             android:textSize="20sp"
-            android:paddingBottom="8dp"
+            android:paddingBottom="6dp"
             android:textColor="#ffffff" />
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Swipe"
-            android:id="@+id/VenueDistance"
-            android:layout_centerHorizontal="true"
+            android:id="@+id/VenueActivityIcon"
             android:layout_below="@+id/TextEventPrice"
-            android:textSize="12dp"
-            android:textColor="#ffffff"
-            android:layout_marginTop="3dp"
-            android:visibility="invisible" />
+            android:layout_centerHorizontal="true"
+            android:visibility="visible" />
 
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:id="@+id/VenueIcon"
             android:layout_alignTop="@+id/VenueImageBubble"
-            android:layout_alignLeft="@+id/VenueDistance"
-            android:layout_alignStart="@+id/VenueDistance"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="6dp"
             android:paddingBottom="8dp"
             android:visibility="visible" />

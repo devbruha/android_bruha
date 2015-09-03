@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:text="My Addictions"
                     android:id="@+id/addictionText"
-                    android:background="#ff54cdd6"
+                    android:background="#e8ffa41a"
                     android:textSize="30sp"
                     android:textColor="#ffffff"
                     android:layout_marginLeft="3dp"
@@ -60,7 +60,7 @@
                     android:layout_toRightOf="@+id/addictionText"
                     android:layout_toEndOf="@+id/addictionText"
                     android:layout_marginLeft="3dp"
-                    android:background="#ff54cdd6" />
+                    android:background="#e8ffa41a" />
 
             </RelativeLayout>
 

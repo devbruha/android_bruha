@@ -538,23 +538,13 @@
             android:layout_marginLeft="5dp"
             android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Swipe"
-            android:id="@+id/textView"
-            android:layout_below="@+id/MapEventPicture"
-            android:layout_centerHorizontal="true"
-            android:textColor="#ffffff"
-            android:layout_marginTop="11dp" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/swipeyright"
             android:layout_below="@+id/MapEventPicture"
-            android:layout_toRightOf="@+id/textView"
-            android:layout_toEndOf="@+id/textView"
+            android:layout_alignParentLeft="true"
             android:layout_marginTop="8dp"
             android:layout_marginLeft="3dp"
             android:src="@drawable/calendar_next_arrow" />
@@ -564,8 +554,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/swipeyleft"
             android:layout_below="@+id/MapEventPicture"
-            android:layout_toLeftOf="@+id/textView"
-            android:layout_toStartOf="@+id/textView"
+            android:layout_alignParentRight="true"
             android:layout_marginRight="3dp"
             android:layout_marginTop="8dp"
             android:src="@drawable/calendar_prev_arrow" />
