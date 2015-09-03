@@ -5,124 +5,136 @@
     android:orientation="vertical"
     android:clickable="false"
     android:focusable="false"
-    android:id="@+id/dragView"
+    android:id="@+id/moreInfoDragView"
     android:elevation="50dp"
     android:weightSum="5"
     android:background="@android:color/transparent">
+
+    <!-- Handle LAYOUT -->
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/moreInfoHandle"
         android:background="@android:color/transparent">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#e87a2253">
-
-            <ImageView
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="20dp"
-                android:id="@+id/imageView5" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Event Name"
-                android:layout_marginLeft="15dp"
-                android:textSize="22sp"
-                android:layout_marginTop="15dp"
-                android:textStyle="bold"
-                android:id="@+id/nonfilterEventName" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Venue Name"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="5dp"
-                android:layout_below="@+id/nonfilterEventName"
-                android:id="@+id/nonfilterVenueName" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Venue Country"
-                android:layout_marginLeft="15dp"
-                android:id="@+id/nonfilterVenueCountry"
-                android:layout_below="@+id/nonfilterVenueStreet"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Venue Street"
-                android:layout_marginLeft="15dp"
-                android:id="@+id/nonfilterVenueStreet"
-                android:layout_below="@+id/nonfilterVenueName"
-                 />
-
-        </RelativeLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="3">
-
         <LinearLayout
             android:orientation="vertical"
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#c8010101"
-            android:layout_marginRight="2dp"
-            android:gravity="center">
+            android:background="@android:color/transparent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="30sp"
-                android:text="$25.00"
-                android:textStyle="bold"
-                android:id="@+id/textView3"
-                android:textColor="#ff54cdd6" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#e87a2253">
+
+                <ImageView
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:id="@+id/imageView5" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Event Name"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="22sp"
+                    android:layout_marginTop="15dp"
+                    android:textStyle="bold"
+                    android:id="@+id/nonfilterEventName" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Venue Name"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/nonfilterEventName"
+                    android:id="@+id/nonfilterVenueName" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Venue Country"
+                    android:layout_marginLeft="15dp"
+                    android:id="@+id/nonfilterVenueCountry"
+                    android:layout_below="@+id/nonfilterVenueStreet"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Venue Street"
+                    android:layout_marginLeft="15dp"
+                    android:id="@+id/nonfilterVenueStreet"
+                    android:layout_below="@+id/nonfilterVenueName"
+                    />
+
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
+            android:orientation="horizontal"
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:background="#c8010101"
-            android:layout_marginRight="2dp">
+            android:weightSum="3">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#c8010101"
+                android:layout_marginRight="2dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:text="$25.00"
+                    android:textStyle="bold"
+                    android:id="@+id/textView3"
+                    android:textColor="#ff54cdd6" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:text="May 15, 2015"
-                android:id="@+id/textView5"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:textColor="#ff54cdd6" />
+                android:background="#c8010101"
+                android:layout_marginRight="2dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="May 15, 2015"
+                    android:id="@+id/textView5"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:textColor="#ff54cdd6" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ff54cdd6"></LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#ff54cdd6"></LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -138,6 +150,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/borderblack"></LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout

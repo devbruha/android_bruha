@@ -135,9 +135,6 @@ public class FilterView {
 
         final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout)mActivity.findViewById(R.id.sliding_layout_lower);
 
-        // Creating buttons for all the buttons on the sliding panel handle
-
-
         // Finding the handle layout
 
         LinearLayout handleLayout = (LinearLayout)mActivity.findViewById(R.id.handleLayout);
