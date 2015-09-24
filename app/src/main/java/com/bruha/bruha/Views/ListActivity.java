@@ -191,16 +191,18 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
 
     private void actionbar()
     {
+        /*
         mActionBar = getActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);
         mActionBar.setDisplayShowTitleEnabled(false);
         LayoutInflater mInflater = LayoutInflater.from(this);
         View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
-        dudeButton =(ImageView) mCustomView.findViewById(R.id.DashboardButton);
-        mapButton = (ImageView) mCustomView.findViewById(R.id.MapButton);
+        */
+        dudeButton =(ImageView) findViewById(R.id.DashboardButton);
+        mapButton = (ImageView) findViewById(R.id.MapButton);
         setsize(); //Method to set the size of the buttons in the view.
-        mActionBar.setCustomView(mCustomView);
-        mActionBar.setDisplayShowCustomEnabled(true);
+       // mActionBar.setCustomView(mCustomView);
+       // mActionBar.setDisplayShowCustomEnabled(true);
     }
 
     private void setsize() {

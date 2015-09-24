@@ -109,15 +109,17 @@ public class MyUploadsActivity extends FragmentActivity implements ObservableScr
 
     private void actionbar()
     {
+        /*
         mActionBar = getActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);
         mActionBar.setDisplayShowTitleEnabled(false);
         LayoutInflater mInflater = LayoutInflater.from(this);
         View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
-        dudeButton =(ImageView) mCustomView.findViewById(R.id.DashboardButton);
+        */
+        dudeButton =(ImageView) findViewById(R.id.dudeButton);
         resize();       //Resizing the page and buttons
-        mActionBar.setCustomView(mCustomView);
-        mActionBar.setDisplayShowCustomEnabled(true);
+      //  mActionBar.setCustomView(mCustomView);
+      //  mActionBar.setDisplayShowCustomEnabled(true);
     }
 
     private void resize() {   //The method to resize everything inside the activity.

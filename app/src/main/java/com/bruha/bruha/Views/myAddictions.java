@@ -111,17 +111,19 @@ public class myAddictions extends FragmentActivity implements ObservableScrollVi
     }
 
     private void actionbar() {
+        /*
         mActionBar = getActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);
         mActionBar.setDisplayShowTitleEnabled(false);
         LayoutInflater mInflater = LayoutInflater.from(this);
         View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
-        dudeButton =(ImageView) mCustomView.findViewById(R.id.DashboardButton);
-        mapButton = (ImageView) mCustomView.findViewById(R.id.MapButton);
-        mapButton.setVisibility(View.INVISIBLE);
+        */
+        dudeButton =(ImageView) findViewById(R.id.dudeButton);
+       // mapButton = (ImageView) mCustomView.findViewById(R.id.MapButton);
+       // mapButton.setVisibility(View.INVISIBLE);
         resize();       //Resizing the page and buttons
-        mActionBar.setCustomView(mCustomView);
-        mActionBar.setDisplayShowCustomEnabled(true);
+     //   mActionBar.setCustomView(mCustomView);
+      //  mActionBar.setDisplayShowCustomEnabled(true);
     }
 
     private void setUpFilters(){
