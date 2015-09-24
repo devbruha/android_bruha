@@ -5,18 +5,24 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.MyApplication;
+import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
+import com.bruha.bruha.Model.Venue;
+import com.bruha.bruha.Processing.RetrieveMyPHP;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.caverock.androidsvg.SVG;
@@ -24,18 +30,31 @@ import com.caverock.androidsvg.SVGParseException;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class MoreInfoActivity extends ActionBarActivity {
 
     String type;
     ArrayList<Event> mEvents = new ArrayList<>();
+    ArrayList<Venue> mVenue = new ArrayList();
+    ArrayList<Organizations> mOrg = new ArrayList<>();
+    ArrayList<Artist> mArtist = new ArrayList<>();
     Event event;
+    Venue venue;
+    Organizations org;
+    Artist artist;
+    RetrieveMyPHP retrieveMyPHP;
+    SQLiteDatabaseModel dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more_info);
+
+        retrieveMyPHP = new RetrieveMyPHP();
+        dbHelper = new SQLiteDatabaseModel(this);
 
         init(); //Calling to initialized Array selectedDateEvents to loop through to find the Event to be displayed.
 
@@ -53,6 +72,33 @@ public class MoreInfoActivity extends ActionBarActivity {
             }
         }
 
+       else if(type.equals("Venue")) {
+            //Finding out and storing the event that is to be displayed.
+            for (Venue x : mVenue) {
+                if (x.getVenueId().equals(id)) {
+                    venue = x;
+                }
+            }
+        }
+
+       else if(type.equals("Artist")) {
+            //Finding out and storing the event that is to be displayed.
+            for (Artist x : mArtist) {
+                if (x.getArtistId().equals(id)) {
+                    artist = x;
+                }
+            }
+        }
+
+        else  {
+            //Finding out and storing the event that is to be displayed.
+            for (Organizations x : mOrg) {
+                if (x.getOrgId().equals(id)) {
+                    org = x;
+                }
+            }
+        }
+
         panelSetup();
 
 
@@ -66,6 +112,9 @@ public class MoreInfoActivity extends ActionBarActivity {
 
         //Assigns the array containing the list of events.
         mEvents = sqLiteUtils.getEventInfo(dbHelper);
+        mVenue = sqLiteUtils.getVenuesInfo(dbHelper);
+        mArtist = sqLiteUtils.getArtistInfo(dbHelper);
+        mOrg = sqLiteUtils.getOrganizationsInfo(dbHelper);
     }
 
     private void panelSetup() {
@@ -109,13 +158,15 @@ public class MoreInfoActivity extends ActionBarActivity {
 
         mLayout.setAnchorPoint(.5f);
 
+        //mLayout.
+
         // Storing the sliding panel (lin layout) into a linear layout variable
 
         LinearLayout dragLayout = (LinearLayout)findViewById(R.id.moreInfoSlideLayout);
 
         ViewGroup.LayoutParams handleParams = handleLayout.getLayoutParams();
         //handleParams.height = (int)Math.round(workingHeight*.33);
-        mLayout.setPanelHeight((int)Math.round(workingHeight*.40));
+        mLayout.setPanelHeight((int)Math.round(workingHeight*.46));
 
         // Retrieves the current parameters of the layout and storing them in variable params
 
@@ -179,23 +230,103 @@ public class MoreInfoActivity extends ActionBarActivity {
         TextView eventdesc = (TextView) findViewById(R.id.moreinfoeventdescription);
         ImageView eventPic = (ImageView) findViewById(R.id.moreinfoPicture);
         ImageView addictionImage = (ImageView) findViewById(R.id.addictionImage);
+        LinearLayout likeText = (LinearLayout) findViewById(R.id.moreInfoAddiction);
+        final TextView addict1 = (TextView) findViewById(R.id.textView5);
+        final TextView addict2 = (TextView) findViewById(R.id.textView6);
+
 
         addictionImage.setImageBitmap(svgToBitmap(getResources(),R.raw.myaddictions,60));
 
-        //Setting the background image of the event.
-        Picasso.with(getApplicationContext()).load(event.getEventPicture()).fit().into(eventPic);
+        if(type.equals("Event")) {
+            //Setting the background image of the event.
+            Picasso.with(getApplicationContext()).load(event.getEventPicture()).fit().into(eventPic);
+            eventName.setText(event.getEventName());
+            venueName.setText(event.getEventLocName());
+            venueSt.setText(event.getEventLocSt());
+            venuecountry.setText(event.getEventLocAdd());
+            eventprice.setText(event.getEventPrice() + "");
+            eventdate.setText(dateFormat(event.getEventDate()));
+            eventdesc.setText(event.getEventDescription());
+            Bitmap x = setEventIcon(event);
+            filterimage.setImageBitmap(x);
 
 
-        eventName.setText(event.getEventName());
-        venueName.setText(event.getEventLocName());
-        venueSt.setText(event.getEventLocSt());
-        venuecountry.setText(event.getEventLocAdd());
-        eventprice.setText(event.getEventPrice() + "");
-        eventdate.setText(dateFormat(event.getEventDate()));
-        eventdesc.setText(event.getEventDescription());
-       Bitmap x = setEventIcon(event);
-     filterimage.setImageBitmap(x);
-    }
+                likeText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        retrieveMyPHP.eventAddiction(MyApplication.userName, event.getEventid());
+                        Toast.makeText(getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
+                        addict1.setText("You are");
+                        addict2.setText("Addicted!");
+
+                        dbHelper.insertEventAddiction(dbHelper.getWritableDatabase(), event.getEventid());
+                    }
+
+                });
+
+        }
+
+        else if(type.equals("Venue")) {
+            //Setting the background image of the event.
+            Picasso.with(getApplicationContext()).load(venue.getVenuePicture()).fit().into(eventPic);
+            eventName.setText(venue.getVenueName());
+            venueName.setText(venue.getVenueName());
+            venueSt.setText(venue.getVenueSt());
+            venuecountry.setText(venue.getVenueLocation());
+            eventprice.setText("-");
+            eventdate.setText("-");
+            eventdesc.setText(venue.getVenueDescription());
+            Bitmap x = setVenueIcon(venue);
+            filterimage.setImageBitmap(x);
+
+            likeText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    retrieveMyPHP.venueAddiction(MyApplication.userName, venue.getVenueId());
+                    Toast.makeText(getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
+                    addict1.setText("You are");
+                    addict2.setText("Addicted!");
+
+                    dbHelper.insertVenueAddiction(dbHelper.getWritableDatabase(), venue.getVenueId());
+                }
+
+            });
+
+        }
+
+        else if(type.equals("Artist")) {
+
+        }
+
+        else {
+            //Setting the background image of the event.
+            Picasso.with(getApplicationContext()).load(org.getOrgPicture()).fit().into(eventPic);
+            eventName.setText(org.getOrgName());
+            venueName.setText(org.getOrgName());
+            venueSt.setText(org.getOrgSt());
+            venuecountry.setText(org.getOrgLocation());
+            eventprice.setText("-");
+            eventdate.setText("-");
+            eventdesc.setText(org.getOrgDescription());
+            Bitmap x = setOrgIcon(org);
+            filterimage.setImageBitmap(x);
+
+            likeText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    retrieveMyPHP.organizationAddiction(MyApplication.userName, org.getOrgId());
+                    Toast.makeText(getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
+                    addict1.setText("You are");
+                    addict2.setText("Addicted!");
+
+                    dbHelper.insertOrgAddiction(dbHelper.getWritableDatabase(),org.getOrgId());
+                }
+
+            });
+
+        }
+
+        }
 
 
     //Method to set the icon of the event.
@@ -257,6 +388,112 @@ public class MoreInfoActivity extends ActionBarActivity {
         return null;
     }
 
+    //Method to set the icon of the venue
+    public Bitmap setVenueIcon(Venue venue) {
+        if(venue.getVenuePrimaryCategory().contains("Amphitheatre"))
+        {return svgToBitmap(getResources(), R.raw.venamphiteather, 30);}
+
+        else if(venue.getVenuePrimaryCategory().contains("Bar/Pub"))
+        {return svgToBitmap(getResources(), R.raw.venbars, 30);}
+
+        else if(venue.getVenuePrimaryCategory().contains("Casino"))
+        {return svgToBitmap(getResources(), R.raw.vencasino, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Church"))
+        {return svgToBitmap(getResources(), R.raw.venchurch, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Cinema"))
+        {return svgToBitmap(getResources(), R.raw.vencinema, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Club"))
+        {return svgToBitmap(getResources(), R.raw.venclubs, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Coffee"))
+        {return svgToBitmap(getResources(), R.raw.vencoffee, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Comedy"))
+        {return svgToBitmap(getResources(), R.raw.vencomedy, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Community"))
+        {return svgToBitmap(getResources(), R.raw.vencommunity, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Fairgrounds"))
+        {return svgToBitmap(getResources(), R.raw.venfairground, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Gallery"))
+        {return svgToBitmap(getResources(), R.raw.vengallery, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Park"))
+        {return svgToBitmap(getResources(), R.raw.venparks, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Restaurant"))
+        {return svgToBitmap(getResources(), R.raw.venrestauratns, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("House/Residence"))
+        {return svgToBitmap(getResources(), R.raw.venhouse, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("School"))
+        {return svgToBitmap(getResources(), R.raw.venschool, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Sports/Arena"))
+        {return svgToBitmap(getResources(), R.raw.venarena, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Store"))
+        {return svgToBitmap(getResources(), R.raw.venstore, 30);}
+
+        else if (venue.getVenuePrimaryCategory().contains("Theatre"))
+        {return svgToBitmap(getResources(), R.raw.ventheater, 30);}
+        return null;
+    }
+
+    //Method to set the icon of the event.
+    public Bitmap setOrgIcon(Organizations org) {
+        if(org.getOrgPrimaryCategory().contains("Academic"))
+        {return svgToBitmap(getResources(), R.raw.orgacademic, 30);}
+
+        else if(org.getOrgPrimaryCategory().contains("Business"))
+        {return svgToBitmap(getResources(), R.raw.orgbusiness, 30);}
+
+        else if(org.getOrgPrimaryCategory().contains("Charity"))
+        {return svgToBitmap(getResources(), R.raw.orgcharity, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Fashion"))
+        {return svgToBitmap(getResources(), R.raw.orgfashion, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Festival"))
+        {return svgToBitmap(getResources(), R.raw.orgnonprofit, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Fraternity"))
+        {return svgToBitmap(getResources(), R.raw.orgfraternity, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Music"))
+        {return svgToBitmap(getResources(), R.raw.orgpromoter, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Not-for-profit"))
+        {return svgToBitmap(getResources(), R.raw.orgnonprofit, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Sports"))
+        {return svgToBitmap(getResources(), R.raw.orgsports, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Association"))
+        {return svgToBitmap(getResources(), R.raw.orgstudent, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Union"))
+        {return svgToBitmap(getResources(), R.raw.orgstudent, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Student"))
+        {return svgToBitmap(getResources(), R.raw.orgstudent, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Performing"))
+        {return svgToBitmap(getResources(), R.raw.orgpromoter, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Religion"))
+        {return svgToBitmap(getResources(), R.raw.orgreligon, 30);}
+
+        else if (org.getOrgPrimaryCategory().contains("Club"))
+        {return svgToBitmap(getResources(), R.raw.orgnonprofit, 30);}
+        return null;
+    }
 
     public int getStatusBarHeight() {
         int result = 0;
