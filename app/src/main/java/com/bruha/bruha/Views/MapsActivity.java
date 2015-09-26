@@ -513,6 +513,9 @@ public class MapsActivity extends FragmentActivity implements
         if(venue.getVenuePrimaryCategory().contains("Amphitheatre"))
         {return svgToBitmap(getResources(), R.raw.venamphiteather, 30);}
 
+        if(venue.getVenuePrimaryCategory().contains("Arena"))
+        {return svgToBitmap(getResources(), R.raw.venarena, 30);}
+
         else if(venue.getVenuePrimaryCategory().contains("Bar/Pub"))
         {return svgToBitmap(getResources(), R.raw.venbars, 30);}
 
@@ -563,7 +566,8 @@ public class MapsActivity extends FragmentActivity implements
 
         else if (venue.getVenuePrimaryCategory().contains("Theatre"))
         {return svgToBitmap(getResources(), R.raw.ventheater, 30);}
-        return null;
+
+        return svgToBitmap(getResources(), R.raw.vencommunity, 30);
     }
 
     //Method to set the icon of the event.
@@ -580,14 +584,11 @@ public class MapsActivity extends FragmentActivity implements
         else if (org.getOrgPrimaryCategory().contains("Fashion"))
         {return svgToBitmap(getResources(), R.raw.orgfashion, 30);}
 
-        else if (org.getOrgPrimaryCategory().contains("Festival"))
-        {return svgToBitmap(getResources(), R.raw.orgnonprofit, 30);}
+        else if (org.getOrgPrimaryCategory().contains("Promoter"))
+        {return svgToBitmap(getResources(), R.raw.orgpromoter, 30);}
 
         else if (org.getOrgPrimaryCategory().contains("Fraternity"))
         {return svgToBitmap(getResources(), R.raw.orgfraternity, 30);}
-
-        else if (org.getOrgPrimaryCategory().contains("Music"))
-        {return svgToBitmap(getResources(), R.raw.orgpromoter, 30);}
 
         else if (org.getOrgPrimaryCategory().contains("Not-for-profit"))
         {return svgToBitmap(getResources(), R.raw.orgnonprofit, 30);}
@@ -595,24 +596,13 @@ public class MapsActivity extends FragmentActivity implements
         else if (org.getOrgPrimaryCategory().contains("Sports"))
         {return svgToBitmap(getResources(), R.raw.orgsports, 30);}
 
-        else if (org.getOrgPrimaryCategory().contains("Association"))
-        {return svgToBitmap(getResources(), R.raw.orgstudent, 30);}
-
-        else if (org.getOrgPrimaryCategory().contains("Union"))
-        {return svgToBitmap(getResources(), R.raw.orgstudent, 30);}
-
         else if (org.getOrgPrimaryCategory().contains("Student"))
         {return svgToBitmap(getResources(), R.raw.orgstudent, 30);}
-
-        else if (org.getOrgPrimaryCategory().contains("Performing"))
-        {return svgToBitmap(getResources(), R.raw.orgpromoter, 30);}
 
         else if (org.getOrgPrimaryCategory().contains("Religion"))
         {return svgToBitmap(getResources(), R.raw.orgreligon, 30);}
 
-        else if (org.getOrgPrimaryCategory().contains("Club"))
-        {return svgToBitmap(getResources(), R.raw.orgnonprofit, 30);}
-        return null;
+        return svgToBitmap(getResources(), R.raw.orgpromoter, 30);
     }
 
     //Sets the Markers for the mEvents and Calls the Adapter to set the EventListView Adapter.

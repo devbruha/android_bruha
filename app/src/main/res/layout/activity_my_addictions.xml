@@ -65,8 +65,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:id="@+id/dudeButton"
-                    android:layout_alignBottom="@+id/addictionImage"
+                    android:id="@+id/addictionDudeButton"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="5dp"

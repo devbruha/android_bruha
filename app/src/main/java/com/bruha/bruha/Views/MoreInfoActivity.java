@@ -1,10 +1,14 @@
 package com.bruha.bruha.Views;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,11 +51,15 @@ public class MoreInfoActivity extends ActionBarActivity {
     Artist artist;
     RetrieveMyPHP retrieveMyPHP;
     SQLiteDatabaseModel dbHelper;
+    ImageView dudeButton;
+    ImageView listButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more_info);
+
+        setButtons();
 
         retrieveMyPHP = new RetrieveMyPHP();
         dbHelper = new SQLiteDatabaseModel(this);
@@ -102,6 +110,74 @@ public class MoreInfoActivity extends ActionBarActivity {
         panelSetup();
 
 
+    }
+
+    private void setButtons() {
+
+         dudeButton = (ImageView) findViewById(R.id.moreinfoDudeButton);
+         listButton = (ImageView) findViewById(R.id.moreinfoListView);
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        // Storing the screen height into an int variable..
+        int height = size.y;
+        //Assigning the PageEventCoverPicture to a variable to alter its dimensions after with.
+        ViewGroup.LayoutParams dudeButtonLayoutParams = dudeButton.getLayoutParams();
+        dudeButtonLayoutParams.height =  (int)Math.round(height*.07);
+        dudeButtonLayoutParams.width =  (int)Math.round(height*.07);
+        ViewGroup.LayoutParams listButtonLayoutParams = listButton.getLayoutParams();
+        listButtonLayoutParams.height =  (int)Math.round(height*.07);
+        listButtonLayoutParams.width =  (int)Math.round(height*.07);
+
+
+        //Sets the image and onclicklisteners for the Buttons for dashboard/map navigation.
+        dudeButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 30));
+        listButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.listicon, 30));
+        dudeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(dudeButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        dudeButton.setAlpha(1f);
+                        startDashboardActivity(v);
+                    }
+                });
+                animator.start();
+            }
+        });
+        listButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(listButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        listButton.setAlpha(1f);
+                        startListActivity(v);
+                    }
+                });
+                animator.start();
+            }
+        });
+    }
+
+
+
+    //OnClickListener for "Explore" that leads to the ListActivity.
+    public void startListActivity(View view){
+        Intent intent = new Intent(this, ListActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    //OnClickListener for "Explore" that leads to the ListActivity.
+    public void startDashboardActivity(View view){
+        Intent intent = new Intent(this, DashboardActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void init() {
@@ -393,6 +469,9 @@ public class MoreInfoActivity extends ActionBarActivity {
         if(venue.getVenuePrimaryCategory().contains("Amphitheatre"))
         {return svgToBitmap(getResources(), R.raw.venamphiteather, 30);}
 
+        if(venue.getVenuePrimaryCategory().contains("Arena"))
+        {return svgToBitmap(getResources(), R.raw.venarena, 30);}
+
         else if(venue.getVenuePrimaryCategory().contains("Bar/Pub"))
         {return svgToBitmap(getResources(), R.raw.venbars, 30);}
 
@@ -460,14 +539,11 @@ public class MoreInfoActivity extends ActionBarActivity {
         else if (org.getOrgPrimaryCategory().contains("Fashion"))
         {return svgToBitmap(getResources(), R.raw.orgfashion, 30);}
 
-        else if (org.getOrgPrimaryCategory().contains("Festival"))
-        {return svgToBitmap(getResources(), R.raw.orgnonprofit, 30);}
+        else if (org.getOrgPrimaryCategory().contains("Promoter"))
+        {return svgToBitmap(getResources(), R.raw.orgpromoter, 30);}
 
         else if (org.getOrgPrimaryCategory().contains("Fraternity"))
         {return svgToBitmap(getResources(), R.raw.orgfraternity, 30);}
-
-        else if (org.getOrgPrimaryCategory().contains("Music"))
-        {return svgToBitmap(getResources(), R.raw.orgpromoter, 30);}
 
         else if (org.getOrgPrimaryCategory().contains("Not-for-profit"))
         {return svgToBitmap(getResources(), R.raw.orgnonprofit, 30);}
@@ -475,23 +551,12 @@ public class MoreInfoActivity extends ActionBarActivity {
         else if (org.getOrgPrimaryCategory().contains("Sports"))
         {return svgToBitmap(getResources(), R.raw.orgsports, 30);}
 
-        else if (org.getOrgPrimaryCategory().contains("Association"))
-        {return svgToBitmap(getResources(), R.raw.orgstudent, 30);}
-
-        else if (org.getOrgPrimaryCategory().contains("Union"))
-        {return svgToBitmap(getResources(), R.raw.orgstudent, 30);}
-
         else if (org.getOrgPrimaryCategory().contains("Student"))
         {return svgToBitmap(getResources(), R.raw.orgstudent, 30);}
-
-        else if (org.getOrgPrimaryCategory().contains("Performing"))
-        {return svgToBitmap(getResources(), R.raw.orgpromoter, 30);}
 
         else if (org.getOrgPrimaryCategory().contains("Religion"))
         {return svgToBitmap(getResources(), R.raw.orgreligon, 30);}
 
-        else if (org.getOrgPrimaryCategory().contains("Club"))
-        {return svgToBitmap(getResources(), R.raw.orgnonprofit, 30);}
         return null;
     }
 
@@ -502,6 +567,26 @@ public class MoreInfoActivity extends ActionBarActivity {
             result = getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    //SVG Conversion method.
+    public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
+        try {
+            size = (int)(size*res.getDisplayMetrics().density);
+            SVG svg = SVG.getFromResource(getApplicationContext(), resource);
+
+            Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bmp);
+            svg.renderToCanvas(canvas);
+
+            BitmapDrawable drawable = new BitmapDrawable(res, bmp);
+
+
+            return drawable;
+        }catch(SVGParseException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public Bitmap svgToBitmap(Resources res, int resource, int size) {

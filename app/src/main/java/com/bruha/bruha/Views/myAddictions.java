@@ -118,7 +118,7 @@ public class myAddictions extends FragmentActivity implements ObservableScrollVi
         LayoutInflater mInflater = LayoutInflater.from(this);
         View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
         */
-        dudeButton =(ImageView) findViewById(R.id.dudeButton);
+        dudeButton =(ImageView) findViewById(R.id.addictionDudeButton);
        // mapButton = (ImageView) mCustomView.findViewById(R.id.MapButton);
        // mapButton.setVisibility(View.INVISIBLE);
         resize();       //Resizing the page and buttons

@@ -232,6 +232,8 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         sR.setAnimation(animation11);
     }
 
+
+
     //Generates the view,look at ListViewAdapter when implementing this.
     @Override
     public View generateView(final int position, ViewGroup viewGroup) {
