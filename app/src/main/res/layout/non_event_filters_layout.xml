@@ -6,7 +6,6 @@
     android:clickable="false"
     android:focusable="false"
     android:id="@+id/moreInfoDragView"
-    android:elevation="50dp"
     android:weightSum="11"
     android:background="#e82b091d">
 
@@ -93,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#a6363636"
+                android:background="#ff363636"
                 android:layout_marginRight="3dp"
                 android:gravity="center">
 
@@ -113,7 +112,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:background="#a6363636"
+                android:background="#ff363636"
                 android:layout_marginRight="3dp">
 
                 <TextView
@@ -192,11 +191,19 @@
         android:background="#ffcccccc"
         android:layout_marginTop="5dp">
 
-        <TextView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="New Text"
-            android:id="@+id/moreinfoeventdescription" />
+            android:fadeScrollbars="false"
+            android:id="@+id/scrollView"
+            android:layout_marginLeft="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="New Text"
+                android:id="@+id/moreinfoeventdescription" />
+        </ScrollView>
     </LinearLayout>
 
     <LinearLayout

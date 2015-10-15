@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -164,8 +165,6 @@ public class MoreInfoActivity extends ActionBarActivity {
         });
     }
 
-
-
     //OnClickListener for "Explore" that leads to the ListActivity.
     public void startListActivity(View view){
         Intent intent = new Intent(this, ListActivity.class);
@@ -256,18 +255,16 @@ public class MoreInfoActivity extends ActionBarActivity {
     }
 
     //Method to Format the Date that will be displayed.
-    public String dateFormat(String Date)
-    {
+    public String dateFormat(String Date) {
         String year=Date.substring(0,4);
         String Month=Date.substring(5,7);
         String Dates=Date.substring(8,10);
-        String Displayed=getMonth(Month)+ " " + Dates + "," + year;
+        String Displayed=getMonth(Month)+ " " + Dates + ", " + year;
         return Displayed;
     }
 
     //Part of the Implementation of the dateFormat Method.
-    public String getMonth(String Month)
-    {
+    public String getMonth(String Month) {
         if(Month.equals("01"))
             Month="January";
         if(Month.equals("02"))
@@ -296,20 +293,30 @@ public class MoreInfoActivity extends ActionBarActivity {
     }
 
     public void initializePanel() {
+        Typeface opensansregfnt = Typeface.createFromAsset(getAssets(), "fonts/OpenSans-Regular.ttf");
+
         ImageView filterimage = (ImageView) findViewById(R.id.eventcategory);
         TextView eventName = (TextView) findViewById(R.id.nonfilterEventName);
+        eventName.setTypeface(opensansregfnt);
         TextView venueName = (TextView) findViewById(R.id.nonfilterVenueName);
+        venueName.setTypeface(opensansregfnt);
         TextView venueSt = (TextView) findViewById(R.id.nonfilterVenueStreet);
+        venueSt.setTypeface(opensansregfnt);
         TextView venuecountry = (TextView) findViewById(R.id.nonfilterVenueCountry);
+        venuecountry.setTypeface(opensansregfnt);
         TextView eventprice = (TextView) findViewById(R.id.eventprice);
+        eventprice.setTypeface(opensansregfnt);
         TextView eventdate = (TextView) findViewById(R.id.eventdate);
+        eventdate.setTypeface(opensansregfnt);
         TextView eventdesc = (TextView) findViewById(R.id.moreinfoeventdescription);
+        eventdesc.setTypeface(opensansregfnt);
         ImageView eventPic = (ImageView) findViewById(R.id.moreinfoPicture);
         ImageView addictionImage = (ImageView) findViewById(R.id.addictionImage);
         LinearLayout likeText = (LinearLayout) findViewById(R.id.moreInfoAddiction);
         final TextView addict1 = (TextView) findViewById(R.id.textView5);
+        addict1.setTypeface(opensansregfnt);
         final TextView addict2 = (TextView) findViewById(R.id.textView6);
-
+        addict2.setTypeface(opensansregfnt);
 
         addictionImage.setImageBitmap(svgToBitmap(getResources(),R.raw.myaddictions,60));
 
@@ -320,7 +327,7 @@ public class MoreInfoActivity extends ActionBarActivity {
             venueName.setText(event.getEventLocName());
             venueSt.setText(event.getEventLocSt());
             venuecountry.setText(event.getEventLocAdd());
-            eventprice.setText(event.getEventPrice() + "");
+            eventprice.setText("$"+event.getEventPrice());
             eventdate.setText(dateFormat(event.getEventDate()));
             eventdesc.setText(event.getEventDescription());
             Bitmap x = setEventIcon(event);
@@ -333,7 +340,7 @@ public class MoreInfoActivity extends ActionBarActivity {
                         retrieveMyPHP.eventAddiction(MyApplication.userName, event.getEventid());
                         Toast.makeText(getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
                         addict1.setText("You are");
-                        addict2.setText("Addicted!");
+                        addict2.setText("Addicted");
 
                         dbHelper.insertEventAddiction(dbHelper.getWritableDatabase(), event.getEventid());
                     }
@@ -361,7 +368,7 @@ public class MoreInfoActivity extends ActionBarActivity {
                     retrieveMyPHP.venueAddiction(MyApplication.userName, venue.getVenueId());
                     Toast.makeText(getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
                     addict1.setText("You are");
-                    addict2.setText("Addicted!");
+                    addict2.setText("Addicted");
 
                     dbHelper.insertVenueAddiction(dbHelper.getWritableDatabase(), venue.getVenueId());
                 }
@@ -393,7 +400,7 @@ public class MoreInfoActivity extends ActionBarActivity {
                     retrieveMyPHP.organizationAddiction(MyApplication.userName, org.getOrgId());
                     Toast.makeText(getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
                     addict1.setText("You are");
-                    addict2.setText("Addicted!");
+                    addict2.setText("Addicted");
 
                     dbHelper.insertOrgAddiction(dbHelper.getWritableDatabase(),org.getOrgId());
                 }
@@ -403,7 +410,6 @@ public class MoreInfoActivity extends ActionBarActivity {
         }
 
         }
-
 
     //Method to set the icon of the event.
     public Bitmap setEventIcon(Event event) {

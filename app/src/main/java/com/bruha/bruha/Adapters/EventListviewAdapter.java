@@ -86,7 +86,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         String year=Date.substring(0,4);
         String Month=Date.substring(5,7);
         String Dates=Date.substring(8,10);
-        String Displayed=getMonth(Month)+ " " + Dates + "," + year;
+        String Displayed=getMonth(Month)+ " " + Dates + ", " + year;
         return Displayed;
     }
 
@@ -161,10 +161,10 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
 
     public void setAnimation(final ImageView sR, final ImageView sL) {
         final Animation animation1 = new AlphaAnimation(0.0f, 1.0f);
-        animation1.setDuration(3000);
+        animation1.setDuration(1000);
 
         final Animation animation2 = new AlphaAnimation(1.0f, 0.0f);
-        animation2.setDuration(3000);
+        animation2.setDuration(1000);
         //animation1 AnimationListener
         animation1.setAnimationListener(new Animation.AnimationListener() {
 
@@ -216,10 +216,10 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         sL.setAnimation(animation1);
 
         final Animation  animation11 = new AlphaAnimation(0.0f, 1.0f);
-        animation11.setDuration(3000);
+        animation11.setDuration(1000);
 
         final Animation animation22 = new AlphaAnimation(1.0f, 0.0f);
-        animation22.setDuration(3000);
+        animation22.setDuration(1000);
         //animation1 AnimationListener
         animation11.setAnimationListener(new Animation.AnimationListener() {
 
@@ -294,12 +294,14 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                 TextView EventDate = (TextView) v.findViewById(R.id.VenueName);
                 TextView EventPrice = (TextView) v.findViewById(R.id.TextEventPrice);
                 TextView EventDistance = (TextView) v.findViewById(R.id.VenueDistance);
+                ImageView CatIcon = (ImageView) v.findViewById(R.id.VenueIcon);
 
 
                 if (Clicks % 2 == 0) {
                     //Popping the detailed description into view.
                     layout.setVisibility(View.VISIBLE);
                     //Hiding the summary Description from view to display the detailed description.
+                    CatIcon.setVisibility(View.INVISIBLE);
                     Bubble.setVisibility(View.INVISIBLE);
                     EventName.setVisibility(View.INVISIBLE);
                     EventDate.setVisibility(View.INVISIBLE);
@@ -311,6 +313,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                     //Hiding the detailed description upon the 2nd click.
                     layout.setVisibility(View.INVISIBLE);
                     //Displaying the summary description back upon the 2nd click.
+                    CatIcon.setVisibility(View.VISIBLE);
                     Bubble.setVisibility(View.VISIBLE);
                     EventName.setVisibility(View.VISIBLE);
                     EventDate.setVisibility(View.VISIBLE);
@@ -346,6 +349,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         holder.EventStartTime=(TextView) convertView.findViewById(R.id.DesEventStartTime);
         holder.EventEndDate = (TextView) convertView.findViewById(R.id.DesEventEndDate);
         holder.EventEndTime= (TextView) convertView.findViewById(R.id.DesEventEndTime);
+        holder.EventCatPic = (ImageView) convertView.findViewById(R.id.DesEventCatPic);
         //Setting the text boxes to the information retrieved from the arrays of events
 
         //Setting the summary description
@@ -354,6 +358,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         holder.EventPrice.setText(freeEventCheck(event.getEventPrice()));
         // holder.EventDistance.setText(event.getEventDistance() + "km");
         setIcon(event,holder.EventIcon);
+        setIcon(event,holder.EventCatPic);
 
         //Setting the background image of the event.
         Picasso.with(convertView.getContext()).load(event.getEventPicture()).fit().into(holder.EventPicture);
@@ -364,9 +369,9 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         holder.EventLocName.setText(event.getEventLocName());
         holder.EventLocSt.setText(event.getEventLocSt());
         holder.EventLocAdd.setText(event.getEventLocAdd());
-        holder.EventStartDate.setText(dateFormat(event.getEventDate()));
+        holder.EventStartDate.setText(dateFormat(event.getEventDate())+" At ");
         holder.EventStartTime.setText(TimeFormat(event.getEventStartTime()));
-        holder.EventEndDate.setText(dateFormat(event.getEventEndDate()));
+        holder.EventEndDate.setText(dateFormat(event.getEventEndDate())+" At ");
         holder.EventEndTime.setText(TimeFormat(event.getEventEndTime()));
 
         //Swipe methods being Implemented
@@ -456,12 +461,12 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         //Gets the Layout Params of the itemList.
         ViewGroup.LayoutParams params = convertView.getLayoutParams();
         //Sets the height to 1/3 the screensize.
-        params.height =  (int)Math.round(height*.33);
+        params.height =  (int)Math.round(height*.50);
 
         //Getting layoutparam of image and setting it to the view size.
         ImageView Picture = (ImageView) convertView.findViewById(R.id.ImageEventPicture);
         ViewGroup.LayoutParams PicParam = Picture.getLayoutParams();
-        PicParam.height =  (int)Math.round(height*.33);
+        PicParam.height =  (int)Math.round(height*.50);
 
         //Getting the icon and setting its size
         ImageView icon = (ImageView) convertView.findViewById(R.id.VenueIcon);
@@ -473,6 +478,11 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         ViewGroup.LayoutParams circleParams = circle.getLayoutParams();
         circleParams.height =  (int)Math.round(height*.25);
         circleParams.width = (int)Math.round(height*.25);
+
+        //Getting the LayoutParams of the DesCat and then setting it to quarter the screensize.
+        ViewGroup.LayoutParams EventCatPicLayouts = holder.EventCatPic.getLayoutParams();
+        EventCatPicLayouts.height =  (int)Math.round(height*.10);
+        EventCatPicLayouts.width = (int)Math.round(height*.10);
         //Text Formatting inside the EventImage Bubble
         //The EventName being Formatted.
         TextView EventName = (TextView) convertView.findViewById(R.id.TextEventName);
@@ -498,57 +508,57 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         //TextViews inside the Detailed view being formatted.
         //The DesEventName being Formatted.
         TextView DesEventName = (TextView) convertView.findViewById(R.id.DesVenueName);
-        int y= (int)Math.round(height*.028);
+        int y= (int)Math.round(height*.03);
         DesEventName.setTextSize(TypedValue.COMPLEX_UNIT_PX,y);
         DesEventName.setTypeface(domboldfnt);
         //The DesEventPrice being formatted.
         TextView DesPrice = (TextView) convertView.findViewById(R.id.DesEventPrice);
-        int y12= (int)Math.round(height*.028);
+        int y12= (int)Math.round(height*.03);
         DesPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX,y12);
         DesPrice.setTypeface(domboldfnt);
         //The DesLocName being Formatted.
         TextView DesLocName = (TextView) convertView.findViewById(R.id.DesVenueLocName);
-        int y1= (int)Math.round(height*.018);
+        int y1= (int)Math.round(height*.02);
         DesLocName.setTextSize(TypedValue.COMPLEX_UNIT_PX,y1);
         DesLocName.setTypeface(opensansregfnt);
         //The DesLocSt being formatted.
         TextView DesLocSt = (TextView) convertView.findViewById(R.id.DesVenueLocStreet);
-        int y2= (int)Math.round(height*.018);
+        int y2= (int)Math.round(height*.02);
         DesLocSt.setTextSize(TypedValue.COMPLEX_UNIT_PX,y2);
         DesLocSt.setTypeface(opensansregfnt);
         //The DesLocAdd being Formatted.
         TextView DesLocAdd = (TextView) convertView.findViewById(R.id.DesVenueLocAddress);
-        int y3= (int)Math.round(height*.018);
+        int y3= (int)Math.round(height*.02);
         DesLocAdd.setTextSize(TypedValue.COMPLEX_UNIT_PX,y3);
         DesLocAdd.setTypeface(opensansregfnt);
         //The DesStartDate being formatted.
         TextView DesStartDate = (TextView) convertView.findViewById(R.id.DesEventStartDate);
-        int y4= (int)Math.round(height*.014);
+        int y4= (int)Math.round(height*.016);
         DesStartDate.setTextSize(TypedValue.COMPLEX_UNIT_PX, y4);
         DesStartDate.setTypeface(opensansregfnt);
         //The DesStartTime being formatted.
         TextView DesStartTime = (TextView) convertView.findViewById(R.id.DesEventStartTime);
-        int y5= (int)Math.round(height*.014);
+        int y5= (int)Math.round(height*.016);
         DesStartTime.setTextSize(TypedValue.COMPLEX_UNIT_PX,y5);
         DesStartTime.setTypeface(opensansregfnt);
         //The DesEndDate being formatted.
         TextView DesEndDate = (TextView) convertView.findViewById(R.id.DesEventEndDate);
-        int y6= (int)Math.round(height * .014);
+        int y6= (int)Math.round(height * .016);
         DesEndDate.setTextSize(TypedValue.COMPLEX_UNIT_PX,y6);
         DesEndDate.setTypeface(opensansregfnt);
         //The DesEndTime being formattted.
         TextView DesEndTime = (TextView) convertView.findViewById(R.id.DesEventEndTime);
-        int y7= (int)Math.round(height*.014);
+        int y7= (int)Math.round(height*.016);
         DesEndTime.setTextSize(TypedValue.COMPLEX_UNIT_PX,y7);
         DesEndTime.setTypeface(opensansregfnt);
         //The TextView saying "start" being formatted.
         TextView start = (TextView) convertView.findViewById(R.id.VenueHourText);
-        int y8= (int)Math.round(height*.0127);
+        int y8= (int)Math.round(height*.013);
         start.setTextSize(TypedValue.COMPLEX_UNIT_PX,y8);
         start.setTypeface(domboldfnt);
         //The TextView saying "end" being formatted.
         TextView end = (TextView) convertView.findViewById(R.id.PageEndText);
-        int y9= (int)Math.round(height*.0127);
+        int y9= (int)Math.round(height*.013);
         end.setTextSize(TypedValue.COMPLEX_UNIT_PX,y9);
         end.setTypeface(domboldfnt);
 
@@ -747,6 +757,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         TextView EventStartTime;
         TextView EventEndDate;
         TextView EventEndTime;
+        ImageView EventCatPic;
         //No need for Name,Price and Start Date for event as it is already given in first batch above
 
     }

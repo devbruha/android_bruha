@@ -161,7 +161,7 @@ public class CalendarActivity extends FragmentActivity {
           } catch (ParseException e) {
               e.printStackTrace();
           }
-          caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_blue_dark,ThisDate);
+          caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_orange_dark,ThisDate);
       }
 
         for(Event x: addictionEvents) {
@@ -171,7 +171,7 @@ public class CalendarActivity extends FragmentActivity {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_orange_dark,ThisDate);
+            caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_blue_dark,ThisDate);
         }
 
         for(Event x: mEvents) {
