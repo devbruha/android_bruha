@@ -36,49 +36,59 @@
                 android:background="@drawable/border"
                 android:id="@+id/eventButton">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:weightSum="4"
-                    android:orientation="vertical"
                     android:layout_height="match_parent">
 
-
-
-
                     <LinearLayout
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_weight="1"
+                        android:weightSum="4"
+                        android:orientation="vertical"
                         android:layout_height="match_parent">
 
-                        <ImageView
-                            android:layout_marginTop="3dp"
+
+
+
+                        <LinearLayout
+                            android:orientation="vertical"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:id="@+id/eventButtonImage" />
+                            android:layout_weight="1"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_marginTop="3dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/eventButtonImage" />
 
 
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_weight="3"
+                            android:gravity="center"
+                            android:layout_height="match_parent">
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Events"
+                                android:textSize="10sp"
+                                android:layout_marginBottom="3dp"
+                                android:textColor="#ffffff"
+                                android:id="@+id/filtereventtext" />
+
+                        </LinearLayout>
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:layout_height="match_parent">
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Events"
-                            android:textSize="10sp"
-                            android:layout_marginBottom="3dp"
-                            android:textColor="#ffffff"
-                            android:id="@+id/filtereventtext" />
-
-                    </LinearLayout>
-                </LinearLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView5" />
+                </RelativeLayout>
 
             </LinearLayout>
 

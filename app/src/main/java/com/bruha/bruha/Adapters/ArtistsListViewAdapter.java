@@ -16,6 +16,8 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -70,31 +72,20 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
 
     //Method to set the icon of the event.
     public void setIcon(Artist artist,ImageView icon) {
-        if(artist.getArtistPrimaryCategory().contains("Actor"))
-        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.artistperforming, 30));}
 
-        else if(artist.getArtistPrimaryCategory().contains("Actress"))
-        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.artistperforming, 30));}
-
-        else if(artist.getArtistPrimaryCategory().contains("Band"))
+         if(artist.getArtistPrimaryCategory().contains("Band"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.artistband, 30));}
 
-        else if (artist.getArtistPrimaryCategory().contains("Crafts"))
-        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.artistvideographer, 30));}
-
-        else if (artist.getArtistPrimaryCategory().contains("Graffiti"))
+        else if (artist.getArtistPrimaryCategory().contains("Designer"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.artistdesigner, 30));}
 
-        else if (artist.getArtistPrimaryCategory().contains("Painter"))
-        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.artistdesigner, 30));}
-
-        else if (artist.getArtistPrimaryCategory().contains("Photographer"))
+        else if (artist.getArtistPrimaryCategory().contains("Performing"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.artistphotographer, 30));}
 
-        else if (artist.getArtistPrimaryCategory().contains("Sculpter"))
+        else if (artist.getArtistPrimaryCategory().contains("Photographer"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.artistdesigner, 30));}
 
-        else if (artist.getArtistPrimaryCategory().contains("Sketch"))
+        else if (artist.getArtistPrimaryCategory().contains("Videographer"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.artistvisualarts, 30));}
 
         else if (artist.getArtistPrimaryCategory().contains("Solo"))
@@ -102,6 +93,119 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
 
         else if (artist.getArtistPrimaryCategory().contains("Writer"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.artistwriter, 30));}
+
+    }
+
+    public void setAnimation(final ImageView sR, final ImageView sL) {
+        final Animation animation1 = new AlphaAnimation(0.0f, 1.0f);
+        animation1.setDuration(3000);
+
+        final Animation animation2 = new AlphaAnimation(1.0f, 0.0f);
+        animation2.setDuration(3000);
+        //animation1 AnimationListener
+        animation1.setAnimationListener(new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                // start animation2 when animation1 ends (continue)
+                sL.startAnimation(animation2);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationStart(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+
+
+        //animation2 AnimationListener
+        animation2.setAnimationListener(new Animation.AnimationListener(){
+
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                // start animation1 when animation2 ends (repeat)
+                sL.startAnimation(animation1);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationStart(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+
+
+        sL.setAnimation(animation1);
+
+        final Animation  animation11 = new AlphaAnimation(0.0f, 1.0f);
+        animation11.setDuration(3000);
+
+        final Animation animation22 = new AlphaAnimation(1.0f, 0.0f);
+        animation22.setDuration(3000);
+        //animation1 AnimationListener
+        animation11.setAnimationListener(new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                // start animation2 when animation1 ends (continue)
+                sR.startAnimation(animation22);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationStart(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+
+
+        //animation2 AnimationListener
+        animation22.setAnimationListener(new Animation.AnimationListener(){
+
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                // start animation1 when animation2 ends (repeat)
+                sR.startAnimation(animation11);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationStart(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+
+
+        sR.setAnimation(animation11);
     }
 
     @Override
@@ -109,6 +213,10 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
 
         convertView.setTag(holder); //sets the tag
+
+        ImageView swipeRicon = (ImageView) convertView.findViewById(R.id.swipeyright);
+        ImageView swipeLicon = (ImageView) convertView.findViewById(R.id.swipeyleft);
+        setAnimation(swipeLicon, swipeRicon);
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

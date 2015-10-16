@@ -371,7 +371,7 @@ public class DashboardActivity extends ActionBarActivity {
     {   //Alert Dialog to let the user know the page is under construction.
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Add the buttons
-        builder.setMessage("This page is currently in development,Sorry!");
+        builder.setMessage("This page is currently in development, Sorry!");
         builder.setCancelable(true);
         builder.setPositiveButton("Cancel!", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {

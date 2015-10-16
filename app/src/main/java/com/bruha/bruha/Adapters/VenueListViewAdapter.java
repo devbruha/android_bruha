@@ -16,6 +16,8 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,6 +31,7 @@ import com.bruha.bruha.Model.Venue;
 import com.bruha.bruha.Processing.RetrieveMyPHP;
 import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
+import com.bruha.bruha.Views.MoreInfoActivity;
 import com.bruha.bruha.Views.ShowOnMapActivity;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
@@ -61,6 +64,118 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         return R.id.swipe;
     }
 
+    public void setAnimation(final ImageView sR, final ImageView sL) {
+        final Animation animation1 = new AlphaAnimation(0.0f, 1.0f);
+        animation1.setDuration(3000);
+
+        final Animation animation2 = new AlphaAnimation(1.0f, 0.0f);
+        animation2.setDuration(3000);
+        //animation1 AnimationListener
+        animation1.setAnimationListener(new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                // start animation2 when animation1 ends (continue)
+                sL.startAnimation(animation2);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationStart(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+
+
+        //animation2 AnimationListener
+        animation2.setAnimationListener(new Animation.AnimationListener(){
+
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                // start animation1 when animation2 ends (repeat)
+                sL.startAnimation(animation1);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationStart(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+
+
+        sL.setAnimation(animation1);
+
+        final Animation  animation11 = new AlphaAnimation(0.0f, 1.0f);
+        animation11.setDuration(3000);
+
+        final Animation animation22 = new AlphaAnimation(1.0f, 0.0f);
+        animation22.setDuration(3000);
+        //animation1 AnimationListener
+        animation11.setAnimationListener(new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                // start animation2 when animation1 ends (continue)
+                sR.startAnimation(animation22);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationStart(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+
+
+        //animation2 AnimationListener
+        animation22.setAnimationListener(new Animation.AnimationListener(){
+
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                // start animation1 when animation2 ends (repeat)
+                sR.startAnimation(animation11);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationStart(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+
+
+        sR.setAnimation(animation11);
+    }
+
     //Generates the view,look at ListViewAdapter when implementing this.
     @Override
     public View generateView(int position, ViewGroup viewGroup) {
@@ -77,6 +192,10 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
 
         convertView.setTag(holder); //sets the tag
+
+        ImageView swipeRicon = (ImageView) convertView.findViewById(R.id.swipeyright);
+        ImageView swipeLicon = (ImageView) convertView.findViewById(R.id.swipeyleft);
+        setAnimation(swipeLicon, swipeRicon);
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,7 +310,7 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
                         MoreInfoLay.setAlpha(1f);
-                        Intent intent = new Intent(mActivity, EventPageActivity.class);
+                        Intent intent = new Intent(mActivity, MoreInfoActivity.class);
                         intent.putExtra("Id", Venue.getVenueId());
                         intent.putExtra("Type", "Venue");
                         mActivity.startActivity(intent);
@@ -420,7 +539,10 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         if(venue.getVenuePrimaryCategory().contains("Amphitheatre"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venamphiteather, 30));}
 
-        else if(venue.getVenuePrimaryCategory().contains("Bar/Pub"))
+        if(venue.getVenuePrimaryCategory().contains("Arena"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venarena, 30));}
+
+        else if(venue.getVenuePrimaryCategory().contains("Bar-Pub"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venbars, 30));}
 
         else if(venue.getVenuePrimaryCategory().contains("Casino"))
@@ -456,13 +578,13 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         else if (venue.getVenuePrimaryCategory().contains("Restaurant"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venrestauratns, 30));}
 
-        else if (venue.getVenuePrimaryCategory().contains("House/Residence"))
+        else if (venue.getVenuePrimaryCategory().contains("House-Residence"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venhouse, 30));}
 
         else if (venue.getVenuePrimaryCategory().contains("School"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venschool, 30));}
 
-        else if (venue.getVenuePrimaryCategory().contains("Sports/Arena"))
+        else if (venue.getVenuePrimaryCategory().contains("Sports-Arena"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venarena, 30));}
 
         else if (venue.getVenuePrimaryCategory().contains("Store"))

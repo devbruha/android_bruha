@@ -45,9 +45,16 @@
                     android:layout_height="50dp"
                     android:id="@+id/MapButton"
                     android:layout_alignParentEnd="true"
-                    android:alpha="0.4"
                     android:layout_marginRight="3dp"
                     android:layout_marginTop="5dp" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/DashboardButton"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="3dp"
+                    android:adjustViewBounds="false" />
 
             </RelativeLayout>
 

@@ -16,6 +16,8 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,6 +31,7 @@ import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Processing.RetrieveMyPHP;
 import com.bruha.bruha.R;
 import com.bruha.bruha.Views.EventPageActivity;
+import com.bruha.bruha.Views.MoreInfoActivity;
 import com.bruha.bruha.Views.ShowOnMapActivity;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
@@ -83,14 +86,11 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         else if (org.getOrgPrimaryCategory().contains("Fashion"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgfashion, 30));}
 
-        else if (org.getOrgPrimaryCategory().contains("Festival"))
-        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgnonprofit, 30));}
+        else if (org.getOrgPrimaryCategory().contains("Promoter"))
+        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgpromoter, 30));}
 
         else if (org.getOrgPrimaryCategory().contains("Fraternity"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgfraternity, 30));}
-
-        else if (org.getOrgPrimaryCategory().contains("Music"))
-        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgpromoter, 30));}
 
         else if (org.getOrgPrimaryCategory().contains("Not-for-profit"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgnonprofit, 30));}
@@ -98,23 +98,124 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         else if (org.getOrgPrimaryCategory().contains("Sports"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgsports, 30));}
 
-        else if (org.getOrgPrimaryCategory().contains("Association"))
-        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgstudent, 30));}
-
-        else if (org.getOrgPrimaryCategory().contains("Union"))
-        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgstudent, 30));}
-
         else if (org.getOrgPrimaryCategory().contains("Student"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgstudent, 30));}
-
-        else if (org.getOrgPrimaryCategory().contains("Performing"))
-        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgpromoter, 30));}
 
         else if (org.getOrgPrimaryCategory().contains("Religion"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgreligon, 30));}
 
-        else if (org.getOrgPrimaryCategory().contains("Club"))
-        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgnonprofit, 30));}
+    }
+
+    public void setAnimation(final ImageView sR, final ImageView sL) {
+        final Animation animation1 = new AlphaAnimation(0.0f, 1.0f);
+        animation1.setDuration(3000);
+
+        final Animation animation2 = new AlphaAnimation(1.0f, 0.0f);
+        animation2.setDuration(3000);
+        //animation1 AnimationListener
+        animation1.setAnimationListener(new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                // start animation2 when animation1 ends (continue)
+                sL.startAnimation(animation2);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationStart(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+
+
+        //animation2 AnimationListener
+        animation2.setAnimationListener(new Animation.AnimationListener(){
+
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                // start animation1 when animation2 ends (repeat)
+                sL.startAnimation(animation1);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationStart(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+
+
+        sL.setAnimation(animation1);
+
+        final Animation  animation11 = new AlphaAnimation(0.0f, 1.0f);
+        animation11.setDuration(3000);
+
+        final Animation animation22 = new AlphaAnimation(1.0f, 0.0f);
+        animation22.setDuration(3000);
+        //animation1 AnimationListener
+        animation11.setAnimationListener(new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                // start animation2 when animation1 ends (continue)
+                sR.startAnimation(animation22);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationStart(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+
+
+        //animation2 AnimationListener
+        animation22.setAnimationListener(new Animation.AnimationListener(){
+
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                // start animation1 when animation2 ends (repeat)
+                sR.startAnimation(animation11);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationStart(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+
+
+        sR.setAnimation(animation11);
     }
 
     @Override
@@ -123,6 +224,10 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
 
         convertView.setTag(holder); //sets the tag
+
+        ImageView swipeRicon = (ImageView) convertView.findViewById(R.id.swipeyright);
+        ImageView swipeLicon = (ImageView) convertView.findViewById(R.id.swipeyleft);
+        setAnimation(swipeLicon, swipeRicon);
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -235,7 +340,7 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
                         MoreInfoLay.setAlpha(1f);
-                        Intent intent = new Intent(mActivity, EventPageActivity.class);
+                        Intent intent = new Intent(mActivity, MoreInfoActivity.class);
                         intent.putExtra("Id",Outfit.getOrgId());
                         intent.putExtra("Type","Outfit");
                         mActivity.startActivity(intent);
