@@ -164,6 +164,8 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
         prce = (SeekBar) findViewById(R.id.priceBar);
         mPrice = (TextView) findViewById(R.id.priceDisplay);
         admission = (TextView) findViewById(R.id.admissionTextView);
+        ImageView swipeup = (ImageView) findViewById(R.id.swipeup);
+        swipeup.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.swipeup, 20));
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(eventAdapter);
 

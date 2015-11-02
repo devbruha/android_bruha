@@ -12,7 +12,6 @@
 
     <LinearLayout
         android:tag="Bottom1"
-        android:background="#ff54cdd6"
         android:id="@+id/bottom_wrapper"
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
@@ -469,20 +468,18 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:src="@drawable/round"
-            android:alpha=".75"
+            android:alpha=".90"
             android:focusable="false"
             android:layout_weight="5"
-            />
+            android:adjustViewBounds="false" />
 
         <TextView
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="The Arkells"
             android:id="@+id/TextEventName"
             android:textSize="20sp"
             android:paddingBottom="8dp"
-
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/VenueIcon"
             android:textColor="#ffffff" />
@@ -573,7 +570,8 @@
                 android:id="@+id/DesVenueLocName"
                 android:layout_below="@+id/DesVenueName"
                 android:paddingLeft="5dp"
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -584,25 +582,25 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:paddingLeft="5dp"
-                android:textColor="#ffffff" />
+                android:textColor="#ff727272" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="GA 319204"
                 android:id="@+id/DesVenueLocAddress"
-                android:layout_below="@+id/DesVenueLocStreet"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
                 android:paddingLeft="5dp"
-                android:layout_marginBottom="5dp"
-                android:textColor="#ffffff" />
+                android:textColor="#ff727272"
+                android:layout_alignTop="@+id/DesVenueLocStreet"
+                android:layout_toRightOf="@+id/DesVenueLocStreet"
+                android:layout_toEndOf="@+id/DesVenueLocStreet" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Start:"
                 android:id="@+id/VenueHourText"
+                android:visibility="invisible"
                 android:textSize="10dp"
                 android:textStyle="bold"
                 android:layout_below="@+id/DesVenueLocAddress"
@@ -616,7 +614,7 @@
                 android:layout_height="wrap_content"
                 android:text="May 25, 2015"
                 android:id="@+id/DesEventStartDate"
-                android:paddingLeft="8dp"
+                android:paddingLeft="5dp"
                 android:textSize="10dp"
                 android:layout_below="@+id/VenueHourText"
                 android:layout_alignParentLeft="true"
@@ -644,6 +642,7 @@
                 android:layout_below="@+id/DesEventStartTime"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:visibility="gone"
                 android:textColor="#ffffff" />
 
             <TextView
@@ -651,7 +650,7 @@
                 android:layout_height="wrap_content"
                 android:text="May 26,2015"
                 android:id="@+id/DesEventEndDate"
-                android:paddingLeft="8dp"
+                android:paddingLeft="5dp"
                 android:textSize="10dp"
                 android:layout_below="@+id/PageEndText"
                 android:layout_alignParentLeft="true"
@@ -665,6 +664,7 @@
                 android:id="@+id/DesEventEndTime"
                 android:textSize="10dp"
                 android:textColor="#ffffff"
+                android:visibility="invisible"
                 android:layout_alignTop="@+id/DesEventEndDate"
                 android:layout_toRightOf="@+id/DesEventEndDate" />
 
@@ -687,8 +687,7 @@
             android:layout_toRightOf="@+id/VenueDistance"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/VenueImageBubble"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/calendar_next_arrow" />
+            android:layout_marginTop="8dp" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -698,8 +697,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/VenueImageBubble"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="3dp"
-            android:src="@drawable/calendar_prev_arrow" />
+            android:layout_marginBottom="3dp" />
 
     </RelativeLayout>
 

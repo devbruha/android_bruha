@@ -327,7 +327,7 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:src="@drawable/round"
-            android:alpha=".75"
+            android:alpha=".95"
             android:focusable="false"
             android:layout_weight="5"
             />
@@ -373,7 +373,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ff54cdd6"
-            android:alpha="0.75"
+            android:alpha="0.95"
             android:id="@+id/VenueDescriptionLayout"
             android:layout_alignTop="@+id/VenueImageBubble"
             android:layout_alignParentLeft="true"
@@ -424,9 +424,8 @@
                 android:text=" "
                 android:id="@+id/DesVenueLocAddress"
                 android:textSize="15dp"
-                android:layout_below="@+id/DesVenueLocStreet"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+                android:layout_below="@+id/DesVenueLocName"
+                android:layout_toEndOf="@+id/DesVenueLocStreet"
                 android:paddingLeft="5dp"
                 android:layout_marginBottom="10dp"
                 android:textColor="#ffffff" />
@@ -493,7 +492,6 @@
             android:id="@+id/swipeyleft"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/VenueImageBubble"
-            android:src="@drawable/calendar_prev_arrow"
             android:layout_marginRight="5dp"
             android:layout_marginTop="8dp" />
 
@@ -502,7 +500,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:id="@+id/swipeyright"
-            android:src="@drawable/calendar_next_arrow"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/VenueImageBubble"
             android:layout_marginTop="8dp"

@@ -45,14 +45,13 @@
                     android:text="My Addictions"
                     android:id="@+id/addictionText"
                     android:background="#ff54cdd6"
-                    android:layout_below="@+id/addictionDudeButton"
                     android:textSize="30sp"
                     android:textColor="#ffffff"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginTop="3dp"
                     android:paddingRight="5dp"
                     android:paddingLeft="5dp"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:layout_alignBottom="@+id/addictionDudeButton"
+                    android:layout_centerHorizontal="true" />
 
                 <ImageView
                     android:layout_width="40dp"
@@ -70,8 +69,7 @@
                     android:id="@+id/addictionDudeButton"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="5dp"
-                    android:layout_marginRight="3dp"
-                    android:alpha="0.4" />
+                    android:layout_marginRight="3dp" />
 
             </RelativeLayout>
 

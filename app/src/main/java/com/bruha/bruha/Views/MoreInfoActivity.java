@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
@@ -46,6 +47,9 @@ public class MoreInfoActivity extends ActionBarActivity {
     ArrayList<Venue> mVenue = new ArrayList();
     ArrayList<Organizations> mOrg = new ArrayList<>();
     ArrayList<Artist> mArtist = new ArrayList<>();
+    ArrayList<String> mEventAdd = new ArrayList<>();
+    ArrayList<String> mVenueAdd = new ArrayList<>();
+    ArrayList<String> mOrgAdd = new ArrayList<>();
     Event event;
     Venue venue;
     Organizations org;
@@ -190,6 +194,11 @@ public class MoreInfoActivity extends ActionBarActivity {
         mVenue = sqLiteUtils.getVenuesInfo(dbHelper);
         mArtist = sqLiteUtils.getArtistInfo(dbHelper);
         mOrg = sqLiteUtils.getOrganizationsInfo(dbHelper);
+
+        mEventAdd = sqLiteUtils.getEventAddictions(dbHelper);
+        mVenueAdd = sqLiteUtils.getVenueAddictions(dbHelper);
+        mOrgAdd = sqLiteUtils.getOrgAddictions(dbHelper);
+
     }
 
     private void panelSetup() {
@@ -312,7 +321,7 @@ public class MoreInfoActivity extends ActionBarActivity {
         eventdesc.setTypeface(opensansregfnt);
         ImageView eventPic = (ImageView) findViewById(R.id.moreinfoPicture);
         ImageView addictionImage = (ImageView) findViewById(R.id.addictionImage);
-        LinearLayout likeText = (LinearLayout) findViewById(R.id.moreInfoAddiction);
+        final LinearLayout likeText = (LinearLayout) findViewById(R.id.moreInfoAddiction);
         final TextView addict1 = (TextView) findViewById(R.id.textView5);
         addict1.setTypeface(opensansregfnt);
         final TextView addict2 = (TextView) findViewById(R.id.textView6);
@@ -333,19 +342,52 @@ public class MoreInfoActivity extends ActionBarActivity {
             Bitmap x = setEventIcon(event);
             filterimage.setImageBitmap(x);
 
+            for(int i=0; i<mEventAdd.size();i++)
+            {
+                for(int j = 0; j<mEvents.size();j++)
+                { if(mEventAdd.get(i).equals(mEvents.get(j)))
+                    {
+                        addict1.setText("You are");
+                        addict2.setText("addicted");
+                        likeText.setBackgroundResource(android.R.color.holo_orange_dark);
+                    }
 
+                }
+            }
+
+            boolean addict = false ;
+
+            if(addict==false) {
                 likeText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         retrieveMyPHP.eventAddiction(MyApplication.userName, event.getEventid());
                         Toast.makeText(getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
                         addict1.setText("You are");
-                        addict2.setText("Addicted");
+                        addict2.setText("addicted");
+                        likeText.setBackgroundResource(android.R.color.holo_orange_dark);
 
                         dbHelper.insertEventAddiction(dbHelper.getWritableDatabase(), event.getEventid());
                     }
 
                 });
+            }
+
+            else{
+                likeText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        retrieveMyPHP.deleteVenueAddiction(MyApplication.userName, venue.getVenueId());
+                        Toast.makeText(getApplicationContext(), "You are unaddicted", Toast.LENGTH_SHORT).show();
+                        addict1.setText("Get");
+                        addict2.setText("addicted");
+                        likeText.setBackgroundColor(Color.parseColor("#ff54cdd6"));
+
+                        dbHelper.deleteVenueAddiction(dbHelper.getWritableDatabase(), venue.getVenueId());
+                    }
+
+                });
+            }
 
         }
 
@@ -362,18 +404,52 @@ public class MoreInfoActivity extends ActionBarActivity {
             Bitmap x = setVenueIcon(venue);
             filterimage.setImageBitmap(x);
 
-            likeText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    retrieveMyPHP.venueAddiction(MyApplication.userName, venue.getVenueId());
-                    Toast.makeText(getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
+            boolean addict = false;
+
+            for(int i=0; i<mVenueAdd.size();i++)
+            {
+                for(int j = 0; j<mVenue.size();j++)
+                { if(mVenueAdd.get(i).equals(mVenue.get(j).getVenueId()))
+                {
                     addict1.setText("You are");
-                    addict2.setText("Addicted");
+                    addict2.setText("addicted");
+                    likeText.setBackgroundResource(android.R.color.holo_orange_dark);
+                    addict = true;
+                }}}
 
-                    dbHelper.insertVenueAddiction(dbHelper.getWritableDatabase(), venue.getVenueId());
-                }
+            if(addict==false)
+            {
+                likeText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        retrieveMyPHP.venueAddiction(MyApplication.userName, venue.getVenueId());
+                        Toast.makeText(getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
+                        addict1.setText("You are");
+                        addict2.setText("addicted");
+                        likeText.setBackgroundResource(android.R.color.holo_orange_dark);
 
-            });
+                        dbHelper.insertVenueAddiction(dbHelper.getWritableDatabase(), venue.getVenueId());
+                    }
+
+                });
+            }
+
+            else{
+                likeText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        retrieveMyPHP.deleteVenueAddiction(MyApplication.userName, venue.getVenueId());
+                        Toast.makeText(getApplicationContext(), "You are unaddicted", Toast.LENGTH_SHORT).show();
+                        addict1.setText("Get");
+                        addict2.setText("addicted");
+                        likeText.setBackgroundColor(Color.parseColor("#ff54cdd6"));
+
+                        dbHelper.deleteVenueAddiction(dbHelper.getWritableDatabase(), venue.getVenueId());
+                    }
+
+                });
+
+            }
 
         }
 

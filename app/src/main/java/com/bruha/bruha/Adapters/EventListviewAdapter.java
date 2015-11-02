@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
@@ -94,9 +96,9 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
     public String getMonth(String Month)
     {
         if(Month.equals("01"))
-            Month="January";
+            Month="Jan.";
         if(Month.equals("02"))
-            Month="Febuary";
+            Month="Feb.";
         if(Month.equals("03"))
             Month="March";
         if(Month.equals("04"))
@@ -108,15 +110,15 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         if(Month.equals("07"))
             Month="July";
         if(Month.equals("08"))
-            Month="August";
+            Month="Aug.";
         if(Month.equals("09"))
-            Month="September";
+            Month="Sept.";
         if(Month.equals("10"))
-            Month="October";
+            Month="Oct.";
         if(Month.equals("11"))
-            Month="November";
+            Month="Nov.";
         if(Month.equals("12"))
-            Month="December";
+            Month="Dec.";
         return Month;
     }
 
@@ -277,7 +279,9 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         ViewHolder holder = new ViewHolder(); //Making variable of class type ViewHolder def
 
         ImageView swipeRicon = (ImageView) convertView.findViewById(R.id.swipeyright);
+        swipeRicon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.rightswipe, 30));
         ImageView swipeLicon = (ImageView) convertView.findViewById(R.id.swipeyleft);
+        swipeLicon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.leftswipe, 30));
         setAnimation(swipeLicon,swipeRicon);
 
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -353,13 +357,18 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         //Setting the text boxes to the information retrieved from the arrays of events
 
         //Setting the summary description
-        holder.EventName.setText(event.getEventName());
+        if(event.getEventName().length()<=15)
+        { holder.EventName.setText(event.getEventName());}
+        else { holder.EventName.setText(event.getEventName().substring(0,15)+"..."); }
         holder.EventDate.setText(dateFormat(event.getEventDate()));
+       Paint paint = new Paint();
+        paint.setColor(Color.GREEN);
+        holder.EventDate.setPaintFlags(paint.getColor());
+        holder.EventDate.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
         holder.EventPrice.setText(freeEventCheck(event.getEventPrice()));
         // holder.EventDistance.setText(event.getEventDistance() + "km");
         setIcon(event,holder.EventIcon);
-        setIcon(event,holder.EventCatPic);
-
+        setIcon(event, holder.EventCatPic);
         //Setting the background image of the event.
         Picasso.with(convertView.getContext()).load(event.getEventPicture()).fit().into(holder.EventPicture);
 
@@ -367,11 +376,11 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         holder.EventDName.setText(event.getEventName());
         holder.EventDPrice.setText("$"+event.getEventPrice());
         holder.EventLocName.setText(event.getEventLocName());
-        holder.EventLocSt.setText(event.getEventLocSt());
+        holder.EventLocSt.setText(event.getEventLocSt()+", ");
         holder.EventLocAdd.setText(event.getEventLocAdd());
         holder.EventStartDate.setText(dateFormat(event.getEventDate())+" At ");
         holder.EventStartTime.setText(TimeFormat(event.getEventStartTime()));
-        holder.EventEndDate.setText(dateFormat(event.getEventEndDate())+" At ");
+        holder.EventEndDate.setText(event.getEventPrimaryCategory());
         holder.EventEndTime.setText(TimeFormat(event.getEventEndTime()));
 
         //Swipe methods being Implemented
@@ -471,13 +480,13 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         //Getting the icon and setting its size
         ImageView icon = (ImageView) convertView.findViewById(R.id.VenueIcon);
         ViewGroup.LayoutParams iconLayoutParams = icon.getLayoutParams();
-        iconLayoutParams.height =  (int)Math.round(height*.05);
-        iconLayoutParams.width =  (int)Math.round(height*.05);
+        iconLayoutParams.height =  (int)Math.round(height*.06);
+        iconLayoutParams.width =  (int)Math.round(height*.06);
 
         //Getting the LayoutParams of the circle and then setting it to quarter the screensize.
         ViewGroup.LayoutParams circleParams = circle.getLayoutParams();
-        circleParams.height =  (int)Math.round(height*.25);
-        circleParams.width = (int)Math.round(height*.25);
+        circleParams.height =  (int)Math.round(height*.3);
+        circleParams.width = (int)Math.round(height*.3);
 
         //Getting the LayoutParams of the DesCat and then setting it to quarter the screensize.
         ViewGroup.LayoutParams EventCatPicLayouts = holder.EventCatPic.getLayoutParams();
@@ -508,42 +517,42 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         //TextViews inside the Detailed view being formatted.
         //The DesEventName being Formatted.
         TextView DesEventName = (TextView) convertView.findViewById(R.id.DesVenueName);
-        int y= (int)Math.round(height*.03);
+        int y= (int)Math.round(height*.032);
         DesEventName.setTextSize(TypedValue.COMPLEX_UNIT_PX,y);
         DesEventName.setTypeface(domboldfnt);
         //The DesEventPrice being formatted.
         TextView DesPrice = (TextView) convertView.findViewById(R.id.DesEventPrice);
-        int y12= (int)Math.round(height*.03);
+        int y12= (int)Math.round(height*.032);
         DesPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX,y12);
         DesPrice.setTypeface(domboldfnt);
         //The DesLocName being Formatted.
         TextView DesLocName = (TextView) convertView.findViewById(R.id.DesVenueLocName);
-        int y1= (int)Math.round(height*.02);
+        int y1= (int)Math.round(height*.025);
         DesLocName.setTextSize(TypedValue.COMPLEX_UNIT_PX,y1);
         DesLocName.setTypeface(opensansregfnt);
         //The DesLocSt being formatted.
         TextView DesLocSt = (TextView) convertView.findViewById(R.id.DesVenueLocStreet);
-        int y2= (int)Math.round(height*.02);
+        int y2= (int)Math.round(height*.022);
         DesLocSt.setTextSize(TypedValue.COMPLEX_UNIT_PX,y2);
         DesLocSt.setTypeface(opensansregfnt);
         //The DesLocAdd being Formatted.
         TextView DesLocAdd = (TextView) convertView.findViewById(R.id.DesVenueLocAddress);
-        int y3= (int)Math.round(height*.02);
+        int y3= (int)Math.round(height*.022);
         DesLocAdd.setTextSize(TypedValue.COMPLEX_UNIT_PX,y3);
         DesLocAdd.setTypeface(opensansregfnt);
         //The DesStartDate being formatted.
         TextView DesStartDate = (TextView) convertView.findViewById(R.id.DesEventStartDate);
-        int y4= (int)Math.round(height*.016);
+        int y4= (int)Math.round(height*.022);
         DesStartDate.setTextSize(TypedValue.COMPLEX_UNIT_PX, y4);
         DesStartDate.setTypeface(opensansregfnt);
         //The DesStartTime being formatted.
         TextView DesStartTime = (TextView) convertView.findViewById(R.id.DesEventStartTime);
-        int y5= (int)Math.round(height*.016);
+        int y5= (int)Math.round(height*.022);
         DesStartTime.setTextSize(TypedValue.COMPLEX_UNIT_PX,y5);
         DesStartTime.setTypeface(opensansregfnt);
         //The DesEndDate being formatted.
         TextView DesEndDate = (TextView) convertView.findViewById(R.id.DesEventEndDate);
-        int y6= (int)Math.round(height * .016);
+        int y6= (int)Math.round(height * .022);
         DesEndDate.setTextSize(TypedValue.COMPLEX_UNIT_PX,y6);
         DesEndDate.setTypeface(opensansregfnt);
         //The DesEndTime being formattted.
@@ -622,6 +631,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
 
                     if (addicted == true) {
                         likeText.setText("Unlike!");
+                        likeText.setBackgroundColor(Color.parseColor("#ff8a00"));
                         likeText.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -629,19 +639,19 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                                 dbHelper.deleteEventAddiction(dbHelper.getWritableDatabase(), event.getEventid());
                                 Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
                                 likeText.setText("Like!");
+                                likeText.setBackgroundColor(Color.parseColor("#ff54cdd6"));
 
 
-                                for(int i=0;i<addictedEventsID.size();i++)
-                                {
-                                    if(addictedEventsID.get(i).equals(event.getEventid()))
-                                    {
+                                for (int i = 0; i < addictedEventsID.size(); i++) {
+                                    if (addictedEventsID.get(i).equals(event.getEventid())) {
                                         addictedEventsID.remove(i);
                                         break;
                                     }
                                 }
 
-                                if(mActivity.getLocalClassName().equals("Views.myAddictions"))
-                                { mEvents.remove(position);}
+                                if (mActivity.getLocalClassName().equals("Views.myAddictions")) {
+                                    mEvents.remove(position);
+                                }
 
                                 notifyDataSetChanged();
                             }
@@ -654,6 +664,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                                 retrieveMyPHP.eventAddiction(MyApplication.userName, event.getEventid());
                                 Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
                                 likeText.setText("Unlike!");
+                                likeText.setBackgroundColor(Color.parseColor("#ff8a00"));
 
                                 addictedEventsID.add(event.getEventid());
                                 dbHelper.insertEventAddiction(dbHelper.getWritableDatabase(),event.getEventid());

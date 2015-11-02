@@ -1,5 +1,7 @@
 package com.bruha.bruha.Processing;
 
+import android.util.Log;
+
 import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.Organizations;
@@ -710,6 +712,7 @@ public class RetrieveMyPHP {
                     // Response from server after login process will be stored in response variable.
                     // in this case the response is the echo from the php script (i.e = 1) if successful
                     response = sb.toString();
+                    Log.v("The Response:",response);
                     // You can perform UI operations here
                     isr.close();
                     reader.close();
