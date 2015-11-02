@@ -66,10 +66,10 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
 
     public void setAnimation(final ImageView sR, final ImageView sL) {
         final Animation animation1 = new AlphaAnimation(0.0f, 1.0f);
-        animation1.setDuration(3000);
+        animation1.setDuration(1000);
 
         final Animation animation2 = new AlphaAnimation(1.0f, 0.0f);
-        animation2.setDuration(3000);
+        animation2.setDuration(1000);
         //animation1 AnimationListener
         animation1.setAnimationListener(new Animation.AnimationListener() {
 
@@ -121,10 +121,10 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         sL.setAnimation(animation1);
 
         final Animation  animation11 = new AlphaAnimation(0.0f, 1.0f);
-        animation11.setDuration(3000);
+        animation11.setDuration(1000);
 
         final Animation animation22 = new AlphaAnimation(1.0f, 0.0f);
-        animation22.setDuration(3000);
+        animation22.setDuration(1000);
         //animation1 AnimationListener
         animation11.setAnimationListener(new Animation.AnimationListener() {
 
@@ -194,7 +194,9 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         convertView.setTag(holder); //sets the tag
 
         ImageView swipeRicon = (ImageView) convertView.findViewById(R.id.swipeyright);
+        swipeRicon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.rightswipe, 30));
         ImageView swipeLicon = (ImageView) convertView.findViewById(R.id.swipeyleft);
+        swipeLicon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.leftswipe, 30));
         setAnimation(swipeLicon, swipeRicon);
 
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -262,7 +264,7 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         //Detailed Description being set.
         holder.VenueDesName.setText(Venue.getVenueName());
         holder.VenueLocName.setText(Venue.getVenueName());
-        holder.VenueLocSt.setText(Venue.getVenueSt());
+        holder.VenueLocSt.setText(Venue.getVenueSt()+", ");
         holder.VenueLocAdd.setText(Venue.getVenueLocation());
         // holder.VenueHourWeekDay.setText();
         // holder.VenueHourSaturday.setText();
@@ -344,15 +346,15 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         iconLayoutParams.width =  (int)Math.round(height*.05);
         //Sets the height to 1/3 the screensize.
         ViewGroup.LayoutParams params = convertView.getLayoutParams();
-        params.height = (int) Math.round(height * .33);
+        params.height = (int) Math.round(height * .5);
         //Resizing the Picture to the height of the view.
         ImageView Picture = (ImageView) convertView.findViewById(R.id.VenuePicture);
         ViewGroup.LayoutParams PictureParam = Picture.getLayoutParams();
-        PictureParam.height = (int) Math.round(height * .33);
+        PictureParam.height = (int) Math.round(height * .5);
         //Getting the LayoutParams of the circle and then setting it to quarter the screensize.
         ViewGroup.LayoutParams circleParams = circle.getLayoutParams();
-        circleParams.height = (int) Math.round(height * .25);
-        circleParams.width = (int) Math.round(height * .25);
+        circleParams.height = (int) Math.round(height * .3);
+        circleParams.width = (int) Math.round(height * .3);
 
         //Summary being resized.
 

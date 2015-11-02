@@ -7,7 +7,7 @@
     android:focusable="false"
     android:id="@+id/moreInfoDragView"
     android:weightSum="11"
-    android:background="#e82b091d">
+    android:background="#792b091d">
 
     <!-- Handle LAYOUT -->
 
