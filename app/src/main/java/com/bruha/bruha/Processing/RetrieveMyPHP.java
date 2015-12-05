@@ -1,3 +1,5 @@
+// Copyright 2015, Thomas Miele and Bilal Chowdhry, All rights reserved.
+
 package com.bruha.bruha.Processing;
 
 import android.util.Log;

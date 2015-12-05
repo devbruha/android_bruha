@@ -1,3 +1,5 @@
+// Copyright 2015, Thomas Miele and Bilal Chowdhry, All rights reserved.
+
 package com.bruha.bruha.Model;
 
 import android.app.Application;
