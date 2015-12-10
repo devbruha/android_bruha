@@ -150,61 +150,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:layout_height="match_parent"
-                android:background="@drawable/border"
-                android:id="@+id/artistButton">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:weightSum="4"
-                    android:orientation="vertical"
-                    android:layout_height="match_parent">
-
-
-
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_marginTop="3dp"
-                            android:layout_height="match_parent"
-                            android:id="@+id/artistButtonImage" />
-
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:layout_height="match_parent">
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Artists"
-                            android:textColor="#ffffff"
-                            android:textSize="10sp"
-                            android:id="@+id/filterartisttext" />
-
-
-                    </LinearLayout>
-                </LinearLayout>
-
-            </LinearLayout>
 
             <LinearLayout
                 android:orientation="vertical"
@@ -262,6 +207,59 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:layout_height="match_parent"
+                android:background="@drawable/border"
+                android:id="@+id/artistButton">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:weightSum="4"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="3dp"
+                            android:layout_height="match_parent"
+                            android:id="@+id/artistButtonImage" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:layout_height="match_parent">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Discoverable"
+                            android:textColor="#ffffff"
+                            android:textSize="10sp"
+                            android:id="@+id/filterartisttext" />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
     </LinearLayout>

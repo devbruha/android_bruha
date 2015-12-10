@@ -2,7 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/concretebackground"
+                android:background="@drawable/splashandroid"
                 tools:context=".SplashActivity">
 
     <!-- The Swipe code to swipe between different layouts. -->

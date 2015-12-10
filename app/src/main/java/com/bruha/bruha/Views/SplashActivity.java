@@ -209,10 +209,11 @@ public class SplashActivity extends Activity {
 
         //Checks what the Page ID is and populates the page and its images accordingly.
         if(resId==R.layout.splash_bruha) {
+            /*
             ImageView im = (ImageView) view.findViewById(R.id.splashImage);
             // Android functions to determine the screen dimensions.
             im.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.splash, 300));
-
+*/
 
             ImageView im1 = (ImageView) view.findViewById(R.id.imageView31);
             ImageView im2 = (ImageView) view.findViewById(R.id.imageView32);
@@ -224,6 +225,7 @@ public class SplashActivity extends Activity {
             im3.setImageDrawable(unselected);
             im4.setImageDrawable(unselected);
             im5.setImageDrawable(unselected);
+
 
         }
 

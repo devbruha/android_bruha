@@ -17,6 +17,8 @@ import java.util.Date;
 
 public class MyApplication extends Application{
 
+    public static String credentialError = "";
+
     public static boolean internetCheck = false;
 
     public static ArrayList<Event> backupEventList = new ArrayList<>();

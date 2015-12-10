@@ -26,6 +26,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Processing.CredentialsPHP;
 import com.bruha.bruha.R;
 import com.caverock.androidsvg.SVG;
@@ -203,11 +205,17 @@ public class RegisterActivity extends ActionBarActivity {
         int length = username.length();
 
         // Ensure the proper length and legal characters to prevent query injecting
-        if( length >= 6 && length <= 20 ){
+        if( length >= 1 && length <= 20 ){
             if( username.matches("^[a-zA-Z0-9_]*$")){
 
                 isAvailable = true;
             }
+            else{
+                MyApplication.credentialError = "Your username must only contain letters, numbers, or underscore (_)";
+            }
+        }
+        else{
+            MyApplication.credentialError = "Your username must not contain more than 20 characters.";
         }
         return isAvailable;
     }
@@ -218,11 +226,21 @@ public class RegisterActivity extends ActionBarActivity {
         int length = password.length();
 
         // Ensure the proper length and legal characters to prevent query injecting
-        if( length >= 6 && length <= 20 ){
+        if( length >= 8 && length <= 20 ){
             if( password.matches("^[a-zA-Z0-9_]*$")){
-
-                isAvailable = true;
+                if(password.matches(".*\\d.*")){
+                    isAvailable = true;
+                }
+                else{
+                    MyApplication.credentialError = "Your password must contain at least one number";
+                }
             }
+            else{
+                MyApplication.credentialError = "Your password must only contain letters, numbers, or underscore (_)";
+            }
+        }
+        else{
+            MyApplication.credentialError = "Your password must contain at least 8 characters and no more than 20 characters.";
         }
 
         return isAvailable;
@@ -300,13 +318,13 @@ public class RegisterActivity extends ActionBarActivity {
             case "usernameInvalid":
                 alertUserAboutError(
                         res.getString(R.string.error_bad_register),
-                        res.getString(R.string.error_message_invalid_username));
+                        MyApplication.credentialError);
                 break;
 
             case "passwordInvalid":
                 alertUserAboutError(
                         res.getString(R.string.error_bad_register),
-                        res.getString(R.string.error_message_invalid_password));
+                        MyApplication.credentialError);
                 break;
 
             case "emailInvalid":
