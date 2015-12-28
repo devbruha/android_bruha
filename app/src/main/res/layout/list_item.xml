@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:gravity="center"
+            android:gravity="center_vertical|center"
             android:id="@+id/BuyTicketRow">
 
 
@@ -53,9 +53,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#e2643faa"
-                android:gravity="center"
+                android:gravity="center_vertical|center"
                 android:id="@+id/BuyTicketLayout"
                 android:alpha="0.25">
+
+                <!--
 
                 <TextView
                     android:textStyle="bold"
@@ -177,6 +179,24 @@
                     android:visibility="invisible"
                     android:gravity="center_horizontal"
                     android:id="@+id/SwipeBarsize1"/>
+                    -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Buy"
+                    android:id="@+id/Swipe1"
+                    android:textColor="#ffffff"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tickets"
+                    android:id="@+id/Swipe4"
+                    android:textColor="#ffffff"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp" />
             </LinearLayout>
         </TableRow>
 
@@ -195,6 +215,7 @@
                 android:background="#e9464646"
                 android:id="@+id/PreviewLayout">
 
+                <!--
                 <TextView
                     android:textStyle="bold"
                     android:textColor="#ffffff"
@@ -316,7 +337,16 @@
                     android:visibility="invisible"
                     android:gravity="center_horizontal"
                     android:id="@+id/SwipeBarSize2"/>
+            -->
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Preview"
+                    android:id="@+id/Swipe2"
+                    android:textColor="#ffffff"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp" />
 
             </LinearLayout>
 
@@ -337,6 +367,7 @@
                 android:gravity="center"
                 android:id="@+id/MoreInfoLayout">
 
+                <!--
                 <TextView
                     android:textStyle="bold"
                     android:textColor="#ffffff"
@@ -439,6 +470,26 @@
                     android:gravity="center_horizontal"
                     android:id="@+id/SwipeBarSize3"/>
 
+                    -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="More"
+                    android:id="@+id/Swipe3"
+                    android:singleLine="false"
+                    android:textColor="#ffffff"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Info"
+                    android:id="@+id/Swipe5"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColor="#ffffff" />
             </LinearLayout>
         </TableRow>
     </LinearLayout>
