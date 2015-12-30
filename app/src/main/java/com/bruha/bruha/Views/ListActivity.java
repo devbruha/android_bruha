@@ -16,12 +16,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.Display;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import com.bruha.bruha.Adapters.ArtistsListViewAdapter;
@@ -96,6 +94,8 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
     @InjectView(R.id.filtervenuetext) TextView venueText;
     @InjectView(R.id.filterartisttext) TextView artistText;
     @InjectView(R.id.filteroutfittext) TextView outfitText;
+
+    @InjectView(R.id.mapFilterLayout) LinearLayout dragView;
     //Buttons
     ImageView mapButton;
     ImageView dudeButton;
@@ -105,8 +105,12 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         instance = this;
+
         setContentView(R.layout.activity_list2);
         ButterKnife.inject(this);                   //Injecting all the objects to be imported from above.
+
+        dudeButton =(ImageView) findViewById(R.id.DashboardButton);
+        mapButton = (ImageView) findViewById(R.id.MapButton);
 
         mListView.setScrollViewCallbacks(this);
 
@@ -168,6 +172,44 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
         admission = (TextView) findViewById(R.id.admissionTextView);
         ImageView swipeup = (ImageView) findViewById(R.id.swipeup);
         swipeup.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.swipeup, 20));
+
+        if(MyApplication.moreInfoCheck.equals("Venue")){
+
+            MyApplication.moreInfoCheck = "None";
+
+            ArrayList<Event> moreInfoEvents = new ArrayList<>();
+
+            for (Event event : mEvents) {
+                if(event.getVenueid().equals(MyApplication.venueID)){
+
+                    moreInfoEvents.add(event);
+                }
+            }
+
+            eventAdapter = new EventListviewAdapter(this, moreInfoEvents,addictEventId);
+            eventButton.callOnClick();
+            dragView.setVisibility(View.INVISIBLE);
+            mapButton.setVisibility(View.INVISIBLE);
+        }
+        else if(MyApplication.moreInfoCheck.equals("Organization")){
+
+            MyApplication.moreInfoCheck = "None";
+
+            ArrayList<Event> moreInfoEvents = new ArrayList<>();
+
+            for (Event event : mEvents) {
+                if(event.getOrganizationid().equals(MyApplication.organizationID)){
+
+                    moreInfoEvents.add(event);
+                }
+            }
+
+            eventAdapter = new EventListviewAdapter(this, moreInfoEvents,addictEventId);
+            eventButton.callOnClick();
+            dragView.setVisibility(View.INVISIBLE);
+            mapButton.setVisibility(View.INVISIBLE);
+        }
+
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(eventAdapter);
 
@@ -193,8 +235,8 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
 
     }
 
-    private void actionbar()
-    {
+    private void actionbar() {
+
         /*
         mActionBar = getActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);
@@ -204,12 +246,12 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
         */
         dudeButton =(ImageView) findViewById(R.id.DashboardButton);
         mapButton = (ImageView) findViewById(R.id.MapButton);
-        setsize(); //Method to set the size of the buttons in the view.
+        setSize(); //Method to set the size of the buttons in the view.
        // mActionBar.setCustomView(mCustomView);
        // mActionBar.setDisplayShowCustomEnabled(true);
     }
 
-    private void setsize() {
+    private void setSize() {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);

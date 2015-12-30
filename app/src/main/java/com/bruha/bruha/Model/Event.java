@@ -33,6 +33,7 @@ public class Event {
     private String eventDescription;
     private String eventid;
     private String venueid;
+    private String organizationid;
     private String locationID;
 
     //Default Constructor for Event.
@@ -163,6 +164,14 @@ public class Event {
     public String getEventDescription() { return eventDescription; }
 
     public void setEventDescription(String eventDescription) { this.eventDescription = eventDescription; }
+
+    public String getOrganizationid() {
+        return organizationid;
+    }
+
+    public void setOrganizationid(String organizationid) {
+        this.organizationid = organizationid;
+    }
 
     public String getVenueid() { return venueid; }
 

@@ -400,13 +400,37 @@ public class MoreInfoActivity extends ActionBarActivity {
             venueName.setText(venue.getVenueName());
             venueSt.setText(venue.getVenueSt());
             venuecountry.setText(venue.getVenueLocation());
-            eventprice.setText("-");
-            eventdate.setText("-");
+            eventprice.setText("Calendar");
+            eventdate.setText("Up Coming Events");
             eventdesc.setText(venue.getVenueDescription());
             Bitmap x = setVenueIcon(venue);
             filterimage.setImageBitmap(x);
 
             boolean addict = false;
+
+            eventprice.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    MyApplication.moreInfoCheck = "Venue";
+                    MyApplication.venueID = venue.getVenueId();
+
+                    Intent intent=new Intent(MoreInfoActivity.this,CalendarActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            eventdate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    MyApplication.moreInfoCheck = "Venue";
+                    MyApplication.venueID = venue.getVenueId();
+
+                    Intent intent=new Intent(MoreInfoActivity.this,ListActivity.class);
+                    startActivity(intent);
+                }
+            });
 
             for(int i=0; i<mVenueAdd.size();i++)
             {
@@ -455,10 +479,6 @@ public class MoreInfoActivity extends ActionBarActivity {
 
         }
 
-        else if(type.equals("Artist")) {
-
-        }
-
         else {
             //Setting the background image of the event.
             Picasso.with(getApplicationContext()).load(org.getOrgPicture()).fit().into(eventPic);
@@ -466,11 +486,35 @@ public class MoreInfoActivity extends ActionBarActivity {
             venueName.setText(org.getOrgName());
             venueSt.setText(org.getOrgSt());
             venuecountry.setText(org.getOrgLocation());
-            eventprice.setText("-");
-            eventdate.setText("-");
+            eventprice.setText("Calendar");
+            eventdate.setText("Up Coming Events");
             eventdesc.setText(org.getOrgDescription());
             Bitmap x = setOrgIcon(org);
             filterimage.setImageBitmap(x);
+
+            eventprice.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    MyApplication.moreInfoCheck = "Organization";
+                    MyApplication.organizationID = org.getOrgId();
+
+                    Intent intent = new Intent(MoreInfoActivity.this, CalendarActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            eventdate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    MyApplication.moreInfoCheck = "Organization";
+                    MyApplication.organizationID = org.getOrgId();
+
+                    Intent intent = new Intent(MoreInfoActivity.this, ListActivity.class);
+                    startActivity(intent);
+                }
+            });
 
             likeText.setOnClickListener(new View.OnClickListener() {
                 @Override

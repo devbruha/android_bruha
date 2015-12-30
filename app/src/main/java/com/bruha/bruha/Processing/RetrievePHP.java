@@ -358,6 +358,7 @@ public class RetrievePHP {
                 even.setEventid(Event.getString("event_id"));
                 even.setEventName(Event.getString("event_name"));
                 even.setVenueid(Event.getString("venue_id"));
+                even.setOrganizationid(Event.getString("organization_id"));
                 even.setEventDescription(Event.getString("event_desc"));
                 even.setEventDate(Event.getString("event_start_date"));
                 even.setEventEndDate(Event.getString("event_end_date"));
