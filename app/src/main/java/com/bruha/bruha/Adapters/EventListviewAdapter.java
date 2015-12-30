@@ -576,18 +576,23 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         //Swipe Bars being resized:
 
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
-        TextView Swipe1 = (TextView) convertView.findViewById(R.id.SwipeBarsize1);
+        TextView Swipe1 = (TextView) convertView.findViewById(R.id.Swipe1);
         int yx9= (int)Math.round(height*.030);
-        Swipe1.setTextSize(TypedValue.COMPLEX_UNIT_PX,yx9);
+        Swipe1.setTextSize(TypedValue.COMPLEX_UNIT_PX, yx9);
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
-        TextView Swipe2 = (TextView) convertView.findViewById(R.id.SwipeBarSize2);
+        TextView Swipe2 = (TextView) convertView.findViewById(R.id.Swipe2);
         int yx8= (int)Math.round(height*.030);
         Swipe2.setTextSize(TypedValue.COMPLEX_UNIT_PX,yx8);
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
-        TextView Swipe3 = (TextView) convertView.findViewById(R.id.SwipeBarSize3);
+        TextView Swipe3 = (TextView) convertView.findViewById(R.id.Swipe3);
         int yx7= (int)Math.round(height*.030);
         Swipe3.setTextSize(TypedValue.COMPLEX_UNIT_PX,yx7);
-
+        //The TextView "LOLi" that helps set size of right swipe bar being formatted.
+        TextView Swipe4 = (TextView) convertView.findViewById(R.id.Swipe4);
+        Swipe4.setTextSize(TypedValue.COMPLEX_UNIT_PX,yx7);
+        //The TextView "LOLi" that helps set size of right swipe bar being formatted.
+        TextView Swipe5 = (TextView) convertView.findViewById(R.id.Swipe5);
+        Swipe5.setTextSize(TypedValue.COMPLEX_UNIT_PX,yx7);
 
 
         //The Button implementation of the left swipe button(addiction button).
