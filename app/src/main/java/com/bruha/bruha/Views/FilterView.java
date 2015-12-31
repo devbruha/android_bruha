@@ -163,7 +163,6 @@ public class FilterView {
         });
     }
 
-
     private void setPanel(){
 
         // Retrieving the device API level to determine if the modification to the sliding panel need

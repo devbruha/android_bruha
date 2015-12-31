@@ -15,6 +15,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -304,6 +305,7 @@ public class MoreInfoActivity extends ActionBarActivity {
     }
 
     public void initializePanel() {
+
         Typeface opensansregfnt = Typeface.createFromAsset(getAssets(), "fonts/OpenSans-Regular.ttf");
 
         ImageView filterimage = (ImageView) findViewById(R.id.eventcategory);
@@ -340,7 +342,7 @@ public class MoreInfoActivity extends ActionBarActivity {
             venuecountry.setText(event.getEventLocAdd());
             eventprice.setText("$"+event.getEventPrice());
             eventdate.setText(dateFormat(event.getEventDate()));
-            eventdesc.setText(event.getEventDescription());
+            eventdesc.setText(Html.fromHtml(event.getEventDescription()));
             Bitmap x = setEventIcon(event);
             filterimage.setImageBitmap(x);
 
@@ -402,7 +404,7 @@ public class MoreInfoActivity extends ActionBarActivity {
             venuecountry.setText(venue.getVenueLocation());
             eventprice.setText("Calendar");
             eventdate.setText("Up Coming Events");
-            eventdesc.setText(venue.getVenueDescription());
+            eventdesc.setText(Html.fromHtml(venue.getVenueDescription()));
             Bitmap x = setVenueIcon(venue);
             filterimage.setImageBitmap(x);
 
@@ -488,7 +490,7 @@ public class MoreInfoActivity extends ActionBarActivity {
             venuecountry.setText(org.getOrgLocation());
             eventprice.setText("Calendar");
             eventdate.setText("Up Coming Events");
-            eventdesc.setText(org.getOrgDescription());
+            eventdesc.setText(Html.fromHtml(org.getOrgDescription()));
             Bitmap x = setOrgIcon(org);
             filterimage.setImageBitmap(x);
 
