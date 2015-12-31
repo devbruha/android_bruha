@@ -383,7 +383,8 @@
                 android:paddingRight="15dp"
                 android:paddingTop="10dp"
                 android:id="@+id/admission"
-                android:layout_below="@+id/category">
+                android:layout_below="@+id/category"
+                android:paddingBottom="15dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -414,6 +415,16 @@
                     android:thumb="@android:drawable/editbox_background_normal"/>
 
             </LinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Clear Filters"
+                android:id="@+id/clearFilterButton"
+                android:layout_gravity="right"
+                android:textColor="#ffffff"
+                android:background="#46bec2"
+                android:layout_marginRight="15dp" />
 
         </LinearLayout>
 

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -44,6 +45,8 @@ public class FilterView {
 
     FilterOut filtering;
 
+    Button filterClearButton;
+
     // Creating a UserCustomFilters object to store user filters
 
     UserCustomFilters userCustomFilters = MyApplication.userFilters;
@@ -67,7 +70,6 @@ public class FilterView {
 
     EventCategoryAdapter eventEventCategoryAdapter;
     VenueCategoryAdapter venueCategoryAdapter;
-    ArtistCategoryAdapter artistCategoryAdapter;
     OrganizationCategoryAdapter organizationCategoryAdapter;
 
     public FilterView(FragmentActivity activity,
@@ -98,6 +100,8 @@ public class FilterView {
 
     public void init(){
 
+        filterClearButton = (Button)mActivity.findViewById(R.id.clearFilterButton);
+
         setPanel();
 
         // Setting and storing the quickie filters.
@@ -114,13 +118,49 @@ public class FilterView {
 
         setVenueCategoryList();
 
-        setArtistCategoryList();
-
         setOrganizationCategoryList();
 
         //admission price is added to userFilters within its function
 
         setAdmissionPrice();
+
+        filterClearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SeekBar mSeekBar = (SeekBar) mActivity.findViewById(R.id.priceBar);
+                mSeekBar.setProgress(-1);
+
+                if(!userCustomFilters.getNonFormattedDateFilter().isEmpty()){
+
+                    for(int i = 0; i<userCustomFilters.getNonFormattedDateFilter().size();i++){
+                        caldroidFragment.setBackgroundResourceForDate(android.R.color.black, userCustomFilters.getNonFormattedDateFilter().get(i));
+                    }
+                }
+
+                MyApplication.userFilters.setDateFilter(new ArrayList<String>());
+                MyApplication.userFilters.setNonFormattedDateFilter(new ArrayList<Date>());
+
+                caldroidFragment.clearSelectedDates();
+                caldroidFragment.refreshView();
+
+                MyApplication.userFilters.setCategoryFilter(new HashMap<String, ArrayList<String>>());
+
+                LinearLayout mCategoryListView = (LinearLayout)mActivity.findViewById(R.id.event_category_listview);
+                mCategoryListView.removeAllViews();
+
+                setEventCategoryList();
+
+                if(mEventAdapter != null) {
+
+                    filtering.filterEventList(mEventAdapter);
+                }
+
+                if(markerMap!= null){
+                    filtering.filterEventMap(markerMap);
+                }
+            }
+        });
     }
 
 
@@ -208,18 +248,6 @@ public class FilterView {
 
         venueCategoryAdapter = new VenueCategoryAdapter(mActivity, mVenueListView, MyApplication.mainList.get(2), mVenueAdapter, markerMap);
         venueCategoryAdapter.set();
-    }
-
-    private void setArtistCategoryList(){
-
-        // Storing the quickie layout into mQuickieListview
-
-        LinearLayout mArtistListView = (LinearLayout)mActivity.findViewById(R.id.artist_category_listview);
-
-        // calling and setting the "eventAdapter" to set the list items
-
-        artistCategoryAdapter = new ArtistCategoryAdapter(mActivity, mArtistListView, MyApplication.mainList.get(3),mArtistAdapter,null);
-        artistCategoryAdapter.set();
     }
 
     private void setOrganizationCategoryList(){
