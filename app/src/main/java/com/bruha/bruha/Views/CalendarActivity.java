@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import com.bruha.bruha.Adapters.MapListViewAdapter;
 import com.bruha.bruha.Model.Event;
+import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.Processing.SQLiteUtils;
@@ -51,6 +52,8 @@ public class CalendarActivity extends FragmentActivity {
     ArrayList<String> addictEID;
     MapListViewAdapter adapter;
     ListView mListView;
+
+    ArrayList<Event> moreInfoEvents = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,25 +100,25 @@ public class CalendarActivity extends FragmentActivity {
     }
 
     private void init() {
-            // Create the local DB object
-            SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
-            SQLiteUtils sqLiteUtils = new SQLiteUtils();
-            mEvents = sqLiteUtils.getUserEventInfo(dbHelper);
-            addictEID= sqLiteUtils.getEventAddictions(dbHelper);
-            ArrayList<Event> eventList = sqLiteUtils.getEventInfo(dbHelper);
 
-        for(String Id:addictEID)
-        {
-            for(int i =0 ; i<eventList.size();i++)
-            {
-                if(Id.equals(eventList.get(i).getEventid()))
-                {
+        // Create the local DB object
+        SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
+        SQLiteUtils sqLiteUtils = new SQLiteUtils();
+        mEvents = sqLiteUtils.getUserEventInfo(dbHelper);
+        addictEID= sqLiteUtils.getEventAddictions(dbHelper);
+        ArrayList<Event> eventList = sqLiteUtils.getEventInfo(dbHelper);
+
+        for(String Id:addictEID) {
+
+            for(int i =0 ; i<eventList.size();i++){
+
+                if(Id.equals(eventList.get(i).getEventid())){
+
                     addictionEvents.add(eventList.get(i));
                 }
             }
-
         }
-        }
+    }
 
     private void setCalendar(){
         // Setup caldroid fragment
@@ -156,38 +159,84 @@ public class CalendarActivity extends FragmentActivity {
         // Overriding the default background for current date
         caldroidFragment.setBackgroundResourceForDate(android.R.color.black, currentDate);
 
-      for(Event x: mEvents) {
-          Date ThisDate= currentDate;
-          try {
-               ThisDate = formatter.parse(x.getEventDate());
-          } catch (ParseException e) {
-              e.printStackTrace();
-          }
-          caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_orange_dark,ThisDate);
-      }
+        if(MyApplication.moreInfoCheck.equals("Venue")){
 
-        for(Event x: addictionEvents) {
-            Date ThisDate= currentDate;
-            try {
-                ThisDate = formatter.parse(x.getEventDate());
-            } catch (ParseException e) {
-                e.printStackTrace();
+            for (Event event : MyApplication.backupEventList) {
+
+                Date ThisDate= currentDate;
+
+                if(event.getVenueid().equals(MyApplication.venueID)){
+
+                    moreInfoEvents.add(event);
+
+                    try {
+                        ThisDate = formatter.parse(event.getEventDate());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_red_light,ThisDate);
+                }
             }
-            caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_blue_dark,ThisDate);
         }
 
-        for(Event x: mEvents) {
-            for(Event y: addictionEvents) {
+        else if(MyApplication.moreInfoCheck.equals("Organization")){
+
+            for (Event event : MyApplication.backupEventList) {
+
                 Date ThisDate= currentDate;
-                Date NextDate = currentDate;
+
+                if(event.getOrganizationid().equals(MyApplication.organizationID)){
+
+                    moreInfoEvents.add(event);
+
+                    try {
+                        ThisDate = formatter.parse(event.getEventDate());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_red_light,ThisDate);
+                }
+            }
+        }
+
+        else{
+
+            for(Event x: mEvents) {
+                Date ThisDate= currentDate;
                 try {
                     ThisDate = formatter.parse(x.getEventDate());
-                    NextDate = formatter.parse(y.getEventDate());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                if(ThisDate.equals(NextDate))
-                {caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_purple,ThisDate);}
+                caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_orange_dark,ThisDate);
+            }
+
+            for(Event x: addictionEvents) {
+                Date ThisDate= currentDate;
+                try {
+                    ThisDate = formatter.parse(x.getEventDate());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_blue_dark,ThisDate);
+            }
+
+            for(Event x: mEvents) {
+
+                for(Event y: addictionEvents) {
+                    Date ThisDate= currentDate;
+                    Date NextDate = currentDate;
+                    try {
+                        ThisDate = formatter.parse(x.getEventDate());
+                        NextDate = formatter.parse(y.getEventDate());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    if(ThisDate.equals(NextDate))
+                    {caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_purple,ThisDate);}
+                }
             }
         }
 
@@ -200,19 +249,42 @@ public class CalendarActivity extends FragmentActivity {
                 final SimpleDateFormat Format = new SimpleDateFormat("yyyy-MM-dd");
                 String NewDate = Format.format(date);
 
-                for(Event x: mEvents)
-                {
-                    if(x.getEventDate().equals(NewDate))
+                if(MyApplication.moreInfoCheck.equals("Venue")){
+
+                    for(Event x: moreInfoEvents)
                     {
-                        selectedDateEvents.add(x);
+                        if(x.getEventDate().equals(NewDate))
+                        {
+                            selectedDateEvents.add(x);
+                        }
                     }
                 }
+                else if(MyApplication.moreInfoCheck.equals("Organization")){
 
-                for(Event x: addictionEvents)
-                {
-                    if(x.getEventDate().equals(NewDate))
+                    for(Event x: moreInfoEvents)
                     {
-                        selectedDateEvents.add(x);
+                        if(x.getEventDate().equals(NewDate))
+                        {
+                            selectedDateEvents.add(x);
+                        }
+                    }
+                }
+                else{
+
+                    for(Event x: mEvents)
+                    {
+                        if(x.getEventDate().equals(NewDate))
+                        {
+                            selectedDateEvents.add(x);
+                        }
+                    }
+
+                    for(Event x: addictionEvents)
+                    {
+                        if(x.getEventDate().equals(NewDate))
+                        {
+                            selectedDateEvents.add(x);
+                        }
                     }
                 }
 
@@ -254,5 +326,14 @@ public class CalendarActivity extends FragmentActivity {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void onDestroy() {
+
+        super.onDestroy();
+
+        MyApplication.moreInfoCheck = "None";
+
+        finish();
     }
 }

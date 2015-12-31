@@ -71,6 +71,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String EVENT_LOCAL_ID = "_id";
     public static final String EVENT_REMOTE_ID = "eventID";
     public static final String EVENT_VENUE_ID = "venueID";
+    public static final String EVENT_ORGANIZATION_ID = "organizationID";
     public static final String EVENT_DESCRIPTION = "eventDescription";
     public static final String EVENT_PRIMARY_CATEGORY = "eventPrimaryCategory";
     public static final String EVENT_NAME = "eventName";
@@ -204,6 +205,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + " integer primary key autoincrement, "
             + EVENT_REMOTE_ID + " text not null, "
             + EVENT_VENUE_ID + " text not null, "
+            + EVENT_ORGANIZATION_ID + " text not null, "
             + EVENT_DESCRIPTION + " text not null, "
             + EVENT_NAME + " text not null, "
             + EVENT_PRIMARY_CATEGORY + " text not null, "
@@ -231,6 +233,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + " integer primary key autoincrement, "
             + EVENT_REMOTE_ID + " text not null, "
             + EVENT_VENUE_ID + " text not null, "
+            + EVENT_ORGANIZATION_ID + "text not null, "
             + EVENT_DESCRIPTION + " text not null, "
             + EVENT_NAME + " text not null, "
             + EVENT_PRIMARY_CATEGORY + " text not null, "
@@ -714,6 +717,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         for(int i =0; i < events.size();i++){
             values.put("eventID", events.get(i).getEventid());
             values.put("venueID", events.get(i).getVenueid());
+            values.put("organizationID", events.get(i).getOrganizationid());
             values.put("eventDescription", events.get(i).getEventDescription());
             values.put("eventName", events.get(i).getEventName());
             values.put("eventPrimaryCategory", events.get(i).getEventPrimaryCategory());
@@ -776,6 +780,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
                 newEvent.setEventid(cursor.getString(cursor.getColumnIndex("eventID")));
                 newEvent.setVenueid(cursor.getString(cursor.getColumnIndex("venueID")));
+                newEvent.setOrganizationid(cursor.getString(cursor.getColumnIndex("organizationID")));
                 newEvent.setEventDescription(cursor.getString(cursor.getColumnIndex("eventDescription")));
                 newEvent.setEventName(cursor.getString(cursor.getColumnIndex("eventName")));
                 newEvent.setEventPrimaryCategory(cursor.getString(cursor.getColumnIndex("eventPrimaryCategory")));
@@ -1179,6 +1184,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         for(int i =0; i< events.size();i++){
             values.put("eventID", events.get(i).getEventid());
             values.put("venueID", events.get(i).getVenueid());
+            values.put("organizationID", events.get(i).getOrganizationid());
             values.put("eventDescription", events.get(i).getEventDescription());
             values.put("eventName", events.get(i).getEventName());
             values.put("eventPrimaryCategory", events.get(i).getEventPrimaryCategory());
@@ -1245,6 +1251,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
                 newEvent.setEventid(cursor.getString(cursor.getColumnIndex("eventID")));
                 newEvent.setVenueid(cursor.getString(cursor.getColumnIndex("venueID")));
+                newEvent.setOrganizationid(cursor.getString(cursor.getColumnIndex("organizationID")));
                 newEvent.setEventDescription(cursor.getString(cursor.getColumnIndex("eventDescription")));
                 newEvent.setEventName(cursor.getString(cursor.getColumnIndex("eventName")));
                 newEvent.setEventPrimaryCategory(cursor.getString(cursor.getColumnIndex("eventPrimaryCategory")));
