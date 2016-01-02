@@ -426,6 +426,7 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         DesVenueHourSunday.setTextSize(TypedValue.COMPLEX_UNIT_PX,x6);
         DesVenueHourSunday.setTypeface(domregfnt);
 
+        /*
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
         TextView Swipe1 = (TextView) convertView.findViewById(R.id.VenueSwipeBarSize1);
         int x7= (int)Math.round(height * .030);
@@ -433,6 +434,7 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
         TextView Swipe2 = (TextView) convertView.findViewById(R.id.VenueSwipeBarSize2);
         Swipe2.setTextSize(TypedValue.COMPLEX_UNIT_PX,x7);
+        */
 
         //The left swipe/Addiction/ User deletion being initialized according to the view opened.
         if(MyApplication.loginCheck==true) {

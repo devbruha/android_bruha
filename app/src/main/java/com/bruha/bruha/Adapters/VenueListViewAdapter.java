@@ -410,13 +410,18 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         DesVenueHourSunday.setTextSize(TypedValue.COMPLEX_UNIT_PX, x6);
         DesVenueHourSunday.setTypeface(domregfnt);
 
+        TextView Swipe2 = (TextView) convertView.findViewById(R.id.Swipe2);
+        int x55= (int)Math.round(height * .030);
+        Swipe2.setTextSize(TypedValue.COMPLEX_UNIT_PX, x55);
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
-        TextView Swipe1 = (TextView) convertView.findViewById(R.id.VenueSwipeBarSize1);
-        int x7 = (int) Math.round(height * .030);
-        Swipe1.setTextSize(TypedValue.COMPLEX_UNIT_PX, x7);
+        TextView Swipe3 = (TextView) convertView.findViewById(R.id.Swipe3);
+        Swipe3.setTextSize(TypedValue.COMPLEX_UNIT_PX, x55);
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
-        TextView Swipe2 = (TextView) convertView.findViewById(R.id.VenueSwipeBarSize2);
-        Swipe2.setTextSize(TypedValue.COMPLEX_UNIT_PX, x7);
+        TextView Swipe5 = (TextView) convertView.findViewById(R.id.Swipe5);
+        Swipe5.setTextSize(TypedValue.COMPLEX_UNIT_PX,x55);
+        //The TextView "LOLi" that helps set size of right swipe bar being formatted.
+        TextView Swipe6 = (TextView) convertView.findViewById(R.id.Swipe6);
+        Swipe6.setTextSize(TypedValue.COMPLEX_UNIT_PX,x55);
 
 
         //Left swipe /MY addiction/User deletion implementation.

@@ -15,6 +15,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -369,10 +370,12 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         holder.EventDate.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
         holder.EventPrice.setText(freeEventCheck(event.getEventPrice()));
         // holder.EventDistance.setText(event.getEventDistance() + "km");
-        setIcon(event,holder.EventIcon);
+        setIcon(event, holder.EventIcon);
         setIcon(event, holder.EventCatPic);
         //Setting the background image of the event.
         Picasso.with(convertView.getContext()).load(event.getEventPicture()).fit().into(holder.EventPicture);
+
+
 
         //Setting the detailed description..
         holder.EventDName.setText(event.getEventName());
@@ -593,6 +596,9 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
         TextView Swipe5 = (TextView) convertView.findViewById(R.id.Swipe5);
         Swipe5.setTextSize(TypedValue.COMPLEX_UNIT_PX,yx7);
+        //The TextView "LOLi" that helps set size of right swipe bar being formatted.
+        TextView Swipe6 = (TextView) convertView.findViewById(R.id.Swipe6);
+        Swipe6.setTextSize(TypedValue.COMPLEX_UNIT_PX,yx7);
 
 
         //The Button implementation of the left swipe button(addiction button).

@@ -361,7 +361,7 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
         //The EventPrice being formatted.
         TextView EventPrice = (TextView) view.findViewById(R.id.MapEventPrice);
         int x2= (int)Math.round(height*.0310);
-        EventPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX,x2);
+        EventPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX, x2);
         //The EventPrice being formatted.
         TextView EventLocName = (TextView) view.findViewById(R.id.MapEventLocName);
         int x3= (int)Math.round(height*.02175);
@@ -377,19 +377,25 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
         EventLocAdd.setTypeface(opensansregfnt);
         //The EventDate being formatted.
         TextView EventDate = (TextView) view.findViewById(R.id.MapEventStartDateAndTime);
-        int x4= (int)Math.round(height*.022);
+        int x4= (int)Math.round(height * .022);
         EventDate.setTextSize(TypedValue.COMPLEX_UNIT_PX,x4);
         EventDate.setTypeface(domboldfnt);
 
         //Swipe Bars being resized.
 
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
-        TextView Swipe1 = (TextView) view.findViewById(R.id.venMapSwipeBarSize1);
+        TextView Swipe2 = (TextView) view.findViewById(R.id.Swipe2);
         int x5= (int)Math.round(height*.030);
-        Swipe1.setTextSize(TypedValue.COMPLEX_UNIT_PX,x5);
+        Swipe2.setTextSize(TypedValue.COMPLEX_UNIT_PX, x5);
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
-        TextView Swipe2 = (TextView) view.findViewById(R.id.venMapSwipeBarSize2);
-        Swipe2.setTextSize(TypedValue.COMPLEX_UNIT_PX,x5);
+        TextView Swipe3 = (TextView) view.findViewById(R.id.Swipe3);
+        Swipe3.setTextSize(TypedValue.COMPLEX_UNIT_PX,x5);
+        //The TextView "LOLi" that helps set size of right swipe bar being formatted.
+        TextView Swipe5 = (TextView) view.findViewById(R.id.Swipe5);
+        Swipe5.setTextSize(TypedValue.COMPLEX_UNIT_PX,x5);
+        //The TextView "LOLi" that helps set size of right swipe bar being formatted.
+        TextView Swipe6 = (TextView) view.findViewById(R.id.Swipe6);
+        Swipe6.setTextSize(TypedValue.COMPLEX_UNIT_PX,x5);
     }
 
     @Override
