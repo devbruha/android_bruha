@@ -260,11 +260,15 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         //Summary being set.
         //  holder.VenuePicture.setImageResource();
         // holder.VenueIcon.setImageResource();
-        holder.VenueName.setText(Venue.getVenueName());
+        if(Venue.getVenueName().length()<=15)
+        { holder.VenueName.setText(Venue.getVenueName());}
+        else { holder.VenueName.setText(Venue.getVenueName().substring(0,15)+"..."); }
         // holder.VenueDistance.setText();
 
         //Detailed Description being set.
-        holder.VenueDesName.setText(Venue.getVenueName());
+        if(Venue.getVenueName().length()<=15)
+        { holder.VenueDesName.setText(Venue.getVenueName());}
+        else { holder.VenueDesName.setText(Venue.getVenueName().substring(0,15)+"..."); }
         holder.VenueLocName.setText(Venue.getVenueName());
         holder.VenueLocSt.setText(Venue.getVenueSt()+", ");
         holder.VenueLocAdd.setText(Venue.getVenueLocation());

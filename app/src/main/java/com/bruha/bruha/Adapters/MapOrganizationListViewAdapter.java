@@ -197,7 +197,9 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
         final Organizations organization = mOrganization.get(position);
 
         //Changing the text in the fields everytime.
-        holder.Title.setText(organization.getOrgName());
+        if(organization.getOrgName().length()<=15)
+        { holder.Title.setText(organization.getOrgName());}
+        else { holder.Title.setText(organization.getOrgName().substring(0,15)+"..."); }
         holder.Price.setVisibility(View.INVISIBLE);
         holder.LocName.setText(organization.getOrgLocation());
         holder.LocSt.setText(organization.getOrgDescription());

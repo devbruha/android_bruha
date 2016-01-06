@@ -517,8 +517,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="false"
-            android:scaleType="fitXY"
-            />
+            android:scaleType="fitXY" />
 
         <ImageView
             android:layout_width="wrap_content"

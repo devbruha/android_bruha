@@ -196,7 +196,9 @@ public class MapVenListViewAdapter extends BaseSwipeAdapter {
         final Venue venue = mVenues.get(position);
 
         //Changing the text in the fields everytime.
-        holder.Title.setText(venue.getVenueName());
+        if(venue.getVenueName().length()<=15)
+        { holder.Title.setText(venue.getVenueName());}
+        else { holder.Title.setText(venue.getVenueName().substring(0,15)+"..."); }
         holder.Price.setVisibility(View.INVISIBLE);
         holder.LocName.setText(venue.getVenueLocation());
         holder.LocSt.setText("Street 42.");

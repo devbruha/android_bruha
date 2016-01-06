@@ -292,14 +292,19 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         //Setting all the text inside the view.
 
         //Summary being set.
-        holder.OrganizationName.setText(Outfit.getOrgName());
+
+        if(Outfit.getOrgName().length()<=15)
+        { holder.OrganizationName.setText(Outfit.getOrgName());}
+        else { holder.OrganizationName.setText(Outfit.getOrgName().substring(0,15)+"..."); }
         //  holder.OrganizationDistance.setText("1.2 km");
 
         setIcon(Outfit,holder.OrganizationIcon);
 
 
         //Detailed Description being set.
-        holder.OrganizationDetailedName.setText(Outfit.getOrgName());
+        if(Outfit.getOrgName().length()<=15)
+        { holder.OrganizationDetailedName.setText(Outfit.getOrgName());}
+        else { holder.OrganizationDetailedName.setText(Outfit.getOrgName().substring(0,15)+"..."); }
         holder.OrganizationLocName.setText(Outfit.getOrgName());
         holder.OrganizationLocSt.setText(Outfit.getOrgSt());
         holder.OrganizationLocAdd.setText(Outfit.getOrgLocation());
