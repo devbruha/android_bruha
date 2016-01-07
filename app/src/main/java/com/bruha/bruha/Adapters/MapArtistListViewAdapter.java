@@ -193,6 +193,7 @@ public class MapArtistListViewAdapter extends BaseSwipeAdapter {
 
         //Swipe Bars being resized.
 
+        /*
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
         TextView Swipe1 = (TextView) view.findViewById(R.id.venMapSwipeBarSize1);
         int x5= (int)Math.round(height*.030);
@@ -201,6 +202,7 @@ public class MapArtistListViewAdapter extends BaseSwipeAdapter {
         //The TextView "LOLi" that helps set size of right swipe bar being formatted.
         TextView Swipe2 = (TextView) view.findViewById(R.id.venMapSwipeBarSize2);
         Swipe2.setTextSize(TypedValue.COMPLEX_UNIT_PX,x5);
+        */
 
     }
 

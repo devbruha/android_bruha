@@ -55,6 +55,7 @@
                 android:background="#cf075a52"
                 android:id="@+id/VenuePreviewLayout">
 
+                <!--
                 <TextView
                     android:textStyle="bold"
                     android:textColor="#ffffff"
@@ -177,6 +178,27 @@
                     android:id="@+id/VenueSwipeBarSize1"/>
 
 
+            -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Show On"
+                    android:id="@+id/Swipe2"
+                    android:textColor="#ffffff"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Map"
+                    android:id="@+id/Swipe6"
+                    android:textColor="#ffffff"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp" />
+
+
             </LinearLayout>
 
         </TableRow>
@@ -196,6 +218,7 @@
                 android:gravity="center"
                 android:id="@+id/VenueMoreInfoLayout">
 
+                <!--
                 <TextView
                     android:textStyle="bold"
                     android:textColor="#ffffff"
@@ -297,6 +320,27 @@
                     android:visibility="invisible"
                     android:gravity="center_horizontal"
                     android:id="@+id/VenueSwipeBarSize2"/>
+
+                    -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="More"
+                    android:id="@+id/Swipe3"
+                    android:singleLine="false"
+                    android:textColor="#ffffff"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Info"
+                    android:id="@+id/Swipe5"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColor="#ffffff" />
 
             </LinearLayout>
         </TableRow>
