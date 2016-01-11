@@ -466,14 +466,14 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
 
 
             if (addicted == true) {
-                likeText.setText("Unlike!");
+                likeText.setText("Addicted!");
                 likeText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         retrieveMyPHP.deleteVenueAddiction(MyApplication.userName, Venue.getVenueId());
                         dbHelper.deleteVenueAddiction(dbHelper.getWritableDatabase(),Venue.getVenueId());
                         Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
-                        likeText.setText("Like!");
+                        likeText.setText("Get Addicted!");
 
 
                         for(int i=0;i<addictedVenueID.size();i++)
@@ -493,13 +493,13 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
                     }
                 });
             } else {
-                likeText.setText("Like!");
+                likeText.setText("Get Addicted!");
                 likeText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         retrieveMyPHP.venueAddiction(MyApplication.userName, Venue.getVenueId());
                         Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
-                        likeText.setText("Unlike!");
+                        likeText.setText("Addicted!");
 
                         addictedVenueID.add(Venue.getVenueId());
                         dbHelper.insertVenueAddiction(dbHelper.getWritableDatabase(),Venue.getVenueId());

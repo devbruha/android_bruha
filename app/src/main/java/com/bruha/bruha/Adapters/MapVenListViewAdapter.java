@@ -269,14 +269,14 @@ public class MapVenListViewAdapter extends BaseSwipeAdapter {
 
                 final Button likeText = (Button) convertView.findViewById(R.id.likeVenButton);
                 if (addicted == true) {
-                    likeText.setText("Unlike!");
+                    likeText.setText("Addicted!");
                     likeText.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             retrieveMyPHP.deleteVenueAddiction(MyApplication.userName, venue.getVenueId());
                             dbHelper.deleteVenueAddiction(dbHelper.getWritableDatabase(),venue.getVenueId());
                             Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
-                            likeText.setText("Like!");
+                            likeText.setText("Get Addicted!");
 
 
                             for(int i=0;i<addictedVenueID.size();i++)
@@ -295,13 +295,13 @@ public class MapVenListViewAdapter extends BaseSwipeAdapter {
                         }
                     });
                 } else {
-                    likeText.setText("Like!");
+                    likeText.setText("Get Addicted!");
                     likeText.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             retrieveMyPHP.venueAddiction(MyApplication.userName, venue.getVenueId());
                             Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
-                            likeText.setText("Unlike!");
+                            likeText.setText("Addicted!");
 
                             addictedVenueID.add(venue.getVenueId());
                             dbHelper.insertVenueAddiction(dbHelper.getWritableDatabase(), venue.getVenueId());

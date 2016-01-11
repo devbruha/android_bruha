@@ -471,14 +471,14 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
                     final Button likeText = (Button) convertView.findViewById(R.id.likeVenButton);
 
                     if (addicted == true) {
-                        likeText.setText("Unlike!");
+                        likeText.setText("Addicted!");
                         likeText.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 retrieveMyPHP.deleteArtistAddiction(MyApplication.userName, artist.getArtistId());
                                 dbHelper.deleteArtistAddiction(dbHelper.getWritableDatabase(),artist.getArtistId());
                                 Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
-                                likeText.setText("Like!");
+                                likeText.setText("Get Addicted!!");
 
                                 for(int i=0;i<addictArtistID.size();i++)
                                 {
@@ -497,13 +497,13 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
                             }
                         });
                     } else {
-                        likeText.setText("Like!");
+                        likeText.setText("Get Addicted!!");
                         likeText.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 retrieveMyPHP.artistAddiction(MyApplication.userName, artist.getArtistId());
                                 Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
-                                likeText.setText("Unlike!");
+                                likeText.setText("Addicted!!");
 
                                 addictArtistID.add(artist.getArtistId());
                                 dbHelper.insertArtistAddiction(dbHelper.getWritableDatabase(),artist.getArtistId());

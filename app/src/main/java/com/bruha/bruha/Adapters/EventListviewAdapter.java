@@ -645,7 +645,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
 
 
                     if (addicted == true) {
-                        likeText.setText("Unlike!");
+                        likeText.setText("Addicted!!");
                         likeText.setBackgroundColor(Color.parseColor("#ff8a00"));
                         likeText.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -653,7 +653,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                                 retrieveMyPHP.deleteEventAddiction(MyApplication.userName, event.getEventid());
                                 dbHelper.deleteEventAddiction(dbHelper.getWritableDatabase(), event.getEventid());
                                 Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
-                                likeText.setText("Like!");
+                                likeText.setText("Get Addicted!!");
                                 likeText.setBackgroundColor(Color.parseColor("#ff54cdd6"));
 
 
@@ -672,13 +672,13 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                             }
                         });
                     } else {
-                        likeText.setText("Like!");
+                        likeText.setText("Get Addicted!!");
                         likeText.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 retrieveMyPHP.eventAddiction(MyApplication.userName, event.getEventid());
                                 Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
-                                likeText.setText("Unlike!");
+                                likeText.setText("Addicted!");
                                 likeText.setBackgroundColor(Color.parseColor("#ff8a00"));
 
                                 addictedEventsID.add(event.getEventid());

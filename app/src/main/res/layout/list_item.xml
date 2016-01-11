@@ -20,11 +20,11 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Like!"
+            android:text="Get Addicted!"
             android:textStyle="bold"
             android:textColor="#ffffff"
             android:id="@+id/likeButton"
-            android:background="#ff54cdd6" />
+            android:background="#46bec2" />
 
 
     </LinearLayout>
@@ -52,7 +52,7 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#e2643faa"
+                android:background="#24163f"
                 android:gravity="center_vertical|center"
                 android:id="@+id/BuyTicketLayout"
                 android:alpha="0.25">
@@ -212,7 +212,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:background="#e9464646"
+                android:background="#474747"
                 android:id="@+id/PreviewLayout">
 
                 <!--
@@ -586,7 +586,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ff54cdd6"
+            android:background="#46bec2"
             android:alpha="0.95"
             android:id="@+id/DescriptionLayout"
             android:visibility="invisible"

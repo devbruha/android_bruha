@@ -6,6 +6,8 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -260,9 +262,9 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
         //Assigning the PageEventCoverPicture to a variable to alter its dimensions after with.
         ViewGroup.LayoutParams dudeButtonLayoutParams = dudeButton.getLayoutParams();
         dudeButtonLayoutParams.height =  (int)Math.round(height*.07);
-        dudeButtonLayoutParams.width =  (int)Math.round(height*.07);
+        dudeButtonLayoutParams.width =  (int)Math.round(height * .07);
         ViewGroup.LayoutParams mapButtonLayoutParams = mapButton.getLayoutParams();
-        mapButtonLayoutParams.height =  (int)Math.round(height*.07);
+        mapButtonLayoutParams.height =  (int)Math.round(height * .07);
         mapButtonLayoutParams.width =  (int)Math.round(height*.07);
 
         setButtons();  //Method to create and set the Dashboard/Map Button.
@@ -368,7 +370,7 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
         orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventwhite, 50));
         venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venueorange, 50));
-        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistwhite, 50));
+        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 50));
         outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
         mVenueCategoryListView.setVisibility(view.VISIBLE);
         admission.setVisibility(View.GONE);
@@ -400,7 +402,7 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
         venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventwhite, 50));
         venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venuewhite, 50));
-        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistwhite, 50));
+        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 50));
         outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitorange, 50));
         outfitText.setTextColor(Color.parseColor("#FFFFBB33"));
         venueText.setTextColor(Color.parseColor("#ffffff"));
@@ -430,7 +432,7 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
         orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventorange, 50));
         venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venuewhite, 50));
-        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistwhite, 50));
+        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 50));
         outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
         eventText.setTextColor(Color.parseColor("#FFFFBB33"));
         venueText.setTextColor(Color.parseColor("#ffffff"));
@@ -453,7 +455,7 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
 
     @OnClick(R.id.artistButton)
     public void artistButton(View view) {
-
+/*
         MyApplication.filterTracker = "Artist";
         //Changing Filters:
         artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
@@ -462,7 +464,7 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
         orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventwhite, 50));
         venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venuewhite, 50));
-        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistorange, 50));
+        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhapurpleface, 50));
         outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
         admission.setVisibility(View.GONE);
         mPrice.setVisibility(View.GONE);
@@ -477,7 +479,8 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
         outfitText.setTextColor(Color.parseColor("#ffffff"));
         eventText.setTextColor(Color.parseColor("#ffffff"));
         //Sets the Adapter from the class Listview Adapter.
-        mListView.setAdapter(artistAdapter);
+        mListView.setAdapter(artistAdapter);*/
+        showDialog();
     }
 
     //Button Implementation for navigating to the Map from mListView.
@@ -540,5 +543,21 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
             }
         }
 
+    }
+
+    public void showDialog()
+    {   //Alert dialog to let the user know discoverable is coming soon..
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Add the buttons
+        builder.setMessage("Discoverable Coming Soon!");
+        builder.setCancelable(true);
+        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

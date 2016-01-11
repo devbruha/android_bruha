@@ -6,6 +6,8 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -282,7 +284,7 @@ public class myAddictions extends FragmentActivity implements ObservableScrollVi
         orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventwhite, 50));
         venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venueorange, 50));
-        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistwhite, 50));
+        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 50));
         outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
         venueText.setTextColor(Color.parseColor("#FFFFBB33"));
         eventText.setTextColor(Color.parseColor("#ffffff"));
@@ -312,7 +314,7 @@ public class myAddictions extends FragmentActivity implements ObservableScrollVi
         venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventwhite, 50));
         venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venuewhite, 50));
-        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistwhite, 50));
+        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 50));
         outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitorange, 50));
         outfitText.setTextColor(Color.parseColor("#FFFFBB33"));
         venueText.setTextColor(Color.parseColor("#ffffff"));
@@ -331,7 +333,7 @@ public class myAddictions extends FragmentActivity implements ObservableScrollVi
         orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventorange, 50));
         venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venuewhite, 50));
-        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistwhite, 50));
+        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 50));
         outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
         eventText.setTextColor(Color.parseColor("#FFFFBB33"));
         venueText.setTextColor(Color.parseColor("#ffffff"));
@@ -341,14 +343,14 @@ public class myAddictions extends FragmentActivity implements ObservableScrollVi
 
     @OnClick(R.id.artistButton)
     public void artistButton(View view) {
-        //Changing filters:
+       /* //Changing filters:
         artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
         venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventwhite, 50));
         venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venuewhite, 50));
-        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistorange, 50));
+        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhapurpleface, 50));
         outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
         artistText.setTextColor(Color.parseColor("#FFFFBB33"));
         venueText.setTextColor(Color.parseColor("#ffffff"));
@@ -360,6 +362,8 @@ public class myAddictions extends FragmentActivity implements ObservableScrollVi
         artistsListViewAdapter=new ArtistsListViewAdapter(this, addictedArtists,artistID); //Calling the eventAdapter mListView to help set the List
         //Sets the Adapter from the class Listview Adapter.
         mListView.setAdapter(artistsListViewAdapter);
+        */
+        showDialog();
     }
 
     @Override
@@ -387,5 +391,21 @@ public class myAddictions extends FragmentActivity implements ObservableScrollVi
             }
         }
 
+    }
+
+    public void showDialog()
+    {   //Alert dialog to let the user know discoverable is coming soon.
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Add the buttons
+        builder.setMessage("Discoverable Coming Soon!");
+        builder.setCancelable(true);
+        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

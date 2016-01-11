@@ -490,14 +490,14 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
 
                     final Button likeText = (Button) convertView.findViewById(R.id.likeVenButton);
                     if (addicted == true) {
-                        likeText.setText("Unlike!");
+                        likeText.setText("Addicted!");
                         likeText.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 retrieveMyPHP.deleteOrgAddiction(MyApplication.userName, Outfit.getOrgId());
                                 dbHelper.deleteOrgAddiction(dbHelper.getWritableDatabase(),Outfit.getOrgId());
                                 Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
-                                likeText.setText("Like!");
+                                likeText.setText("Get Addicted!");
 
 
                                 for(int i=0;i<addictOrgID.size();i++)
@@ -517,13 +517,13 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
                             }
                         });
                     } else {
-                        likeText.setText("Like!");
+                        likeText.setText("Get Addicted!");
                         likeText.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 retrieveMyPHP.organizationAddiction(MyApplication.userName, Outfit.getOrgId());
                                 Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
-                                likeText.setText("Unlike!");
+                                likeText.setText("Addicted!");
 
                                 addictOrgID.add(Outfit.getOrgId());
                                 dbHelper.insertOrgAddiction(dbHelper.getWritableDatabase(),Outfit.getOrgId());

@@ -21,9 +21,9 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Like!"
+            android:text="Get Addicted!"
             android:textStyle="bold"
-            android:background="#66ddff00"
+            android:background="#46bec2"
             android:textColor="#ffffff"
             android:id="@+id/likeVenButton"/>
 
@@ -53,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:background="#cf075a52"
+                android:background="#474747"
                 android:id="@+id/venMapPreviewLayout">
 
                 <!--

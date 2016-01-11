@@ -271,14 +271,14 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
 
             final Button likeText = (Button) convertView.findViewById(R.id.likeVenButton);
             if (addicted == true) {
-                likeText.setText("Unlike!");
+                likeText.setText("Addicted!");
                 likeText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         retrieveMyPHP.deleteOrgAddiction(MyApplication.userName, organization.getOrgId());
                         dbHelper.deleteOrgAddiction(dbHelper.getWritableDatabase(),organization.getOrgId());
                         Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
-                        likeText.setText("Like!");
+                        likeText.setText("Get Addicted!");
 
                         for(int i=0;i<addictOrgID.size();i++)
                         {
@@ -298,13 +298,13 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
                     }
                 });
             } else {
-                likeText.setText("Like!");
+                likeText.setText("Get Addicted!");
                 likeText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         retrieveMyPHP.organizationAddiction(MyApplication.userName, organization.getOrgId());
                         Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
-                        likeText.setText("Unlike!");
+                        likeText.setText("Addicted!");
 
                         addictOrgID.add(organization.getOrgId());
                         dbHelper.insertOrgAddiction(dbHelper.getWritableDatabase(),organization.getOrgId());
