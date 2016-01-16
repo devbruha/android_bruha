@@ -340,8 +340,8 @@ public class MoreInfoActivity extends ActionBarActivity {
             venueName.setText(event.getEventLocName());
             venueSt.setText(event.getEventLocSt());
             venuecountry.setText(event.getEventLocAdd());
-            eventprice.setText("$"+event.getEventPrice());
-            eventdate.setText(dateFormat(event.getEventDate()));
+            eventprice.setText("Venue (placeholder)");
+            eventdate.setText("Affiliated Organizations");
             eventdesc.setText(Html.fromHtml(event.getEventDescription()));
             Bitmap x = setEventIcon(event);
             filterimage.setImageBitmap(x);
@@ -360,6 +360,36 @@ public class MoreInfoActivity extends ActionBarActivity {
             }
 
             boolean addict = false ;
+
+            eventprice.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Intent intent=new Intent(MoreInfoActivity.this,MoreInfoActivity.class);
+
+                    intent.putExtra("Id", event.getVenueid());
+                    intent.putExtra("Type", "Venue");
+
+                    startActivity(intent);
+                }
+            });
+
+            //Todo this is where i do the affiliated organizations
+
+            /*
+
+            eventdate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    MyApplication.moreInfoCheck = "Event";
+                    MyApplication.eventID = event.getEventid();
+
+                    Intent intent=new Intent(MoreInfoActivity.this,ListActivity.class);
+                    startActivity(intent);
+                }
+            });
+            */
 
             if(addict==false) {
                 likeText.setOnClickListener(new View.OnClickListener() {

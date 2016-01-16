@@ -33,6 +33,7 @@ public class MyApplication extends Application{
 
     public static String venueID = "000000000";
     public static String organizationID = "00000000";
+    public static String eventID = "000000000";
     public static String moreInfoCheck = "none";
 
     public static String userName = "false";

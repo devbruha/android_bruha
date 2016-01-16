@@ -193,6 +193,28 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
             dragView.setVisibility(View.INVISIBLE);
             mapButton.setVisibility(View.INVISIBLE);
         }
+
+        //Todo this is where i do the affiliated organizations
+        /*
+        else if(MyApplication.moreInfoCheck.equals("Event")){
+
+            MyApplication.moreInfoCheck = "None";
+
+            ArrayList<Event> moreInfoOrganizations = new ArrayList<>();
+
+            for (Organizations organization : mOrganizations) {
+                if(organization.getVenueid().equals(MyApplication.venueID)){
+
+                    moreInfoEvents.add(event);
+                }
+            }
+
+            eventAdapter = new EventListviewAdapter(this, moreInfoEvents,addictEventId);
+            eventButton.callOnClick();
+            dragView.setVisibility(View.INVISIBLE);
+            mapButton.setVisibility(View.INVISIBLE);
+        }
+        */
         else if(MyApplication.moreInfoCheck.equals("Organization")){
 
             MyApplication.moreInfoCheck = "None";
