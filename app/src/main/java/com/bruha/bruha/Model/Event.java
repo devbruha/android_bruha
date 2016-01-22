@@ -33,7 +33,7 @@ public class Event {
     private String eventDescription;
     private String eventid;
     private String venueid;
-    private String organizationid;
+    private ArrayList<String> organizationid;
     private String locationID;
 
     //Default Constructor for Event.
@@ -165,11 +165,11 @@ public class Event {
 
     public void setEventDescription(String eventDescription) { this.eventDescription = eventDescription; }
 
-    public String getOrganizationid() {
+    public ArrayList<String> getOrganizationid() {
         return organizationid;
     }
 
-    public void setOrganizationid(String organizationid) {
+    public void setOrganizationid(ArrayList<String> organizationid) {
         this.organizationid = organizationid;
     }
 

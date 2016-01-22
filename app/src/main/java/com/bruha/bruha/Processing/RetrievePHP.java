@@ -2,6 +2,8 @@
 
 package com.bruha.bruha.Processing;
 
+import android.util.Log;
+
 import com.bruha.bruha.Model.Artist;
 import com.bruha.bruha.Model.Event;
 import com.bruha.bruha.Model.Organizations;
@@ -358,7 +360,6 @@ public class RetrievePHP {
                 even.setEventid(Event.getString("event_id"));
                 even.setEventName(Event.getString("event_name"));
                 even.setVenueid(Event.getString("venue_id"));
-                even.setOrganizationid(Event.getString("organization_id"));
                 even.setEventDescription(Event.getString("event_desc"));
                 even.setEventDate(Event.getString("event_start_date"));
                 even.setEventEndDate(Event.getString("event_end_date"));
@@ -394,8 +395,19 @@ public class RetrievePHP {
                 JSONArray evenSubJSON = ((JSONArray)Event.get("sub_category"));
                 JSONArray evenSubIDJSON = ((JSONArray)Event.get("sub_category_id"));
 
+                JSONArray evenOrgJSON = ((JSONArray)Event.get("organization_id"));
+
                 ArrayList<String> evenSubArrayList = new ArrayList<>();
                 ArrayList<String> evenSubIDArrayList = new ArrayList<>();
+
+                ArrayList<String> evenOrgList = new ArrayList<>();
+
+                for(int j=0; j<evenOrgJSON.length();j++){
+
+                    evenOrgList.add(evenOrgJSON.getString(j));
+                }
+
+                even.setOrganizationid(evenOrgList);
 
                 for(int j=0; j<evenSubJSON.length();j++){
 

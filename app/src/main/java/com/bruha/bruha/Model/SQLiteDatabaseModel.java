@@ -71,7 +71,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String EVENT_LOCAL_ID = "_id";
     public static final String EVENT_REMOTE_ID = "eventID";
     public static final String EVENT_VENUE_ID = "venueID";
-    public static final String EVENT_ORGANIZATION_ID = "organizationID";
     public static final String EVENT_DESCRIPTION = "eventDescription";
     public static final String EVENT_PRIMARY_CATEGORY = "eventPrimaryCategory";
     public static final String EVENT_NAME = "eventName";
@@ -87,6 +86,11 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String EVENT_END_TIME = "eventEndTime";
     public static final String EVENT_END_DATE = "eventEndDate";
 
+    // Event Organizations Table
+
+    public static final String TABLE_EVENT_ORGANIZATIONS = "event_organizations";
+    public static final String EVENT_ORGANIZATION_ID = "eventOrganizationID";
+
     // Event SubCategory Table
     public static final String TABLE_EVENT_SUB_CATEGORY = "event_sub_categories";
     public static final String EVENT_SUB_CATEGORY = "eventSubCategory";
@@ -94,6 +98,10 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
     // User Event SubCategory Table
     public static final String TABLE_USER_EVENT_SUB_CATEGORY = "user_event_sub_categories";
+
+    // User Event Organizations Table
+
+    public static final String TABLE_USER_EVENT_ORGANIZATIONS = "user_event_organizations";
 
     // VENUES Info Table Stuff
     public static final String TABLE_USER_VENUES_INFO = "user_venue_info";
@@ -205,7 +213,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + " integer primary key autoincrement, "
             + EVENT_REMOTE_ID + " text not null, "
             + EVENT_VENUE_ID + " text not null, "
-            + EVENT_ORGANIZATION_ID + " text not null, "
             + EVENT_DESCRIPTION + " text not null, "
             + EVENT_NAME + " text not null, "
             + EVENT_PRIMARY_CATEGORY + " text not null, "
@@ -221,6 +228,18 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + EVENT_END_TIME + " text not null, "
             + EVENT_END_DATE + " text not null);";
 
+    private static final String DATABASE_CREATE_EVENT_ORGANIZATIONS = "create table "
+            + TABLE_EVENT_ORGANIZATIONS + "(" + EVENT_LOCAL_ID
+            + " integer primary key autoincrement, "
+            + EVENT_REMOTE_ID + " text not null, "
+            + EVENT_ORGANIZATION_ID + " text not null);";
+
+    private static final String DATABASE_CREATE_USER_EVENT_ORGANIZATIONS = "create table "
+            + TABLE_USER_EVENT_ORGANIZATIONS + "(" + EVENT_LOCAL_ID
+            + " integer primary key autoincrement, "
+            + EVENT_REMOTE_ID + " text not null, "
+            + EVENT_ORGANIZATION_ID + " text not null);";
+
     private static final String DATABASE_CREATE_EVENT_SUB_CATEGORY = "create table "
             + TABLE_EVENT_SUB_CATEGORY + "(" + EVENT_LOCAL_ID
             + " integer primary key autoincrement, "
@@ -233,7 +252,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
             + " integer primary key autoincrement, "
             + EVENT_REMOTE_ID + " text not null, "
             + EVENT_VENUE_ID + " text not null, "
-            + EVENT_ORGANIZATION_ID + "text not null, "
             + EVENT_DESCRIPTION + " text not null, "
             + EVENT_NAME + " text not null, "
             + EVENT_PRIMARY_CATEGORY + " text not null, "
@@ -345,10 +363,12 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.execSQL(DATABASE_CREATE_USER_INFO);
         db.execSQL(DATABASE_CREATE_EVENT_INFO);
         db.execSQL(DATABASE_CREATE_EVENT_SUB_CATEGORY);
+        db.execSQL(DATABASE_CREATE_EVENT_ORGANIZATIONS);
         db.execSQL(DATABASE_CREATE_USER_EVENT_INFO);
         db.execSQL(DATABASE_CREATE_USER_VENUE_INFO);
         db.execSQL(DATABASE_CREATE_USER_ARTIST_INFO);
         db.execSQL(DATABASE_CREATE_USER_OUTFIT_INFO);
+        db.execSQL(DATABASE_CREATE_USER_EVENT_ORGANIZATIONS);
         db.execSQL(DATABASE_CREATE_USER_EVENT_SUB_CATEGORY);
         db.execSQL(DATABASE_CREATE_ADDICTIONS);
         db.execSQL(DATABASE_CREATE_ADDICTIONS_ARTISTS);
@@ -455,6 +475,8 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
         db.execSQL("DROP TABLE IF EXISTS event_info");
         db.execSQL(DATABASE_CREATE_EVENT_INFO);
+        db.execSQL("DROP TABLE IF EXISTS event_organizations");
+        db.execSQL(DATABASE_CREATE_EVENT_ORGANIZATIONS);
         db.execSQL("DROP TABLE IF EXISTS event_sub_categories");
         db.execSQL(DATABASE_CREATE_EVENT_SUB_CATEGORY);
         db.execSQL("DROP TABLE IF EXISTS venue_info");
@@ -471,6 +493,8 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.execSQL(DATABASE_CREATE_USER_ARTIST_INFO);
         db.execSQL("DROP TABLE IF EXISTS user_outfit_info");
         db.execSQL(DATABASE_CREATE_USER_OUTFIT_INFO);
+        db.execSQL("DROP TABLE IF EXISTS user_event_organizations");
+        db.execSQL(DATABASE_CREATE_USER_EVENT_ORGANIZATIONS);
         db.execSQL("DROP TABLE IF EXISTS user_event_sub_categories");
         db.execSQL(DATABASE_CREATE_USER_EVENT_SUB_CATEGORY);
         db.execSQL("DROP TABLE IF EXISTS addictions");
@@ -714,13 +738,22 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
         ContentValues subCatValues = new ContentValues();
 
+        ContentValues orgValues = new ContentValues();
+
         for(int i =0; i < events.size();i++){
             values.put("eventID", events.get(i).getEventid());
             values.put("venueID", events.get(i).getVenueid());
-            values.put("organizationID", events.get(i).getOrganizationid());
             values.put("eventDescription", events.get(i).getEventDescription());
             values.put("eventName", events.get(i).getEventName());
             values.put("eventPrimaryCategory", events.get(i).getEventPrimaryCategory());
+
+            for(int j= 0; j< events.get(i).getOrganizationid().size(); j++){
+
+                orgValues.put("eventID",events.get(i).getEventid());
+                orgValues.put("eventOrganizationID", events.get(i).getOrganizationid().get(j));
+
+                db.insert(TABLE_EVENT_ORGANIZATIONS, null, orgValues);
+            }
 
             for(int j= 0; j< events.get(i).getEventSubCategories().size(); j++){
 
@@ -762,12 +795,15 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
                 Event newEvent = new Event();
 
+                ArrayList<String> eventOrgs = new ArrayList<>();
+
                 ArrayList<String> eventSubCatID = new ArrayList<>();
                 ArrayList<String> eventSubCat = new ArrayList<>();
 
                 String whereClause = "eventID = '"+cursor.getString(cursor.getColumnIndex("eventID"))+"'";
 
                 Cursor subCursor = db.query(TABLE_EVENT_SUB_CATEGORY,null,whereClause,null,null,null,null);
+                Cursor orgCursor = db.query(TABLE_EVENT_ORGANIZATIONS,null,whereClause,null,null,null,null);
 
                 if(subCursor != null){
 
@@ -778,9 +814,17 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
                     }
                 }
 
+                if(orgCursor != null){
+
+                    while(orgCursor.moveToNext()){
+
+                        eventOrgs.add(orgCursor.getString(orgCursor.getColumnIndex("eventOrganizationID")));
+                    }
+                }
+
                 newEvent.setEventid(cursor.getString(cursor.getColumnIndex("eventID")));
                 newEvent.setVenueid(cursor.getString(cursor.getColumnIndex("venueID")));
-                newEvent.setOrganizationid(cursor.getString(cursor.getColumnIndex("organizationID")));
+                newEvent.setOrganizationid(eventOrgs);
                 newEvent.setEventDescription(cursor.getString(cursor.getColumnIndex("eventDescription")));
                 newEvent.setEventName(cursor.getString(cursor.getColumnIndex("eventName")));
                 newEvent.setEventPrimaryCategory(cursor.getString(cursor.getColumnIndex("eventPrimaryCategory")));
@@ -1181,16 +1225,22 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
         ContentValues subCatValues = new ContentValues();
 
+        ContentValues orgValues = new ContentValues();
+
         for(int i =0; i< events.size();i++){
             values.put("eventID", events.get(i).getEventid());
             values.put("venueID", events.get(i).getVenueid());
-            values.put("organizationID", events.get(i).getOrganizationid());
             values.put("eventDescription", events.get(i).getEventDescription());
             values.put("eventName", events.get(i).getEventName());
             values.put("eventPrimaryCategory", events.get(i).getEventPrimaryCategory());
 
-            //Log.v("LocalTest", events.get(i).getEventSubCategories() + "");
-            //Log.v("LocalTest", events.get(i).getEventSubCategoriesID() + "");
+            for(int j= 0; j< events.get(i).getOrganizationid().size(); j++){
+
+                orgValues.put("eventID",events.get(i).getEventid());
+                orgValues.put("eventOrganizationID", events.get(i).getOrganizationid().get(j));
+
+                db.insert(TABLE_USER_EVENT_ORGANIZATIONS, null, orgValues);
+            }
 
             for(int j= 0; j< events.get(i).getEventSubCategories().size(); j++){
 
@@ -1222,7 +1272,6 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
         ArrayList<Event> mEvents = new ArrayList<>();
 
-
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_USER_EVENT_INFO, null, null, null, null, null, null);
@@ -1235,10 +1284,21 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
                 String whereClause = "eventID = '"+cursor.getString(cursor.getColumnIndex("eventID"))+"'";
 
-                Cursor subCursor = db.query(TABLE_EVENT_SUB_CATEGORY,null,whereClause,null,null,null,null);
+                Cursor subCursor = db.query(TABLE_USER_EVENT_SUB_CATEGORY,null,whereClause,null,null,null,null);
+                Cursor orgCursor = db.query(TABLE_USER_EVENT_ORGANIZATIONS,null,whereClause,null,null,null,null);
 
                 ArrayList<String> eventSubCatID = new ArrayList<>();
                 ArrayList<String> eventSubCat = new ArrayList<>();
+
+                ArrayList<String> eventOrgs = new ArrayList<>();
+
+                if(orgCursor != null){
+
+                    while(orgCursor.moveToNext()){
+
+                        eventOrgs.add(orgCursor.getString(subCursor.getColumnIndex("eventOrganizationID")));
+                    }
+                }
 
                 if(subCursor != null){
 
@@ -1251,7 +1311,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
                 newEvent.setEventid(cursor.getString(cursor.getColumnIndex("eventID")));
                 newEvent.setVenueid(cursor.getString(cursor.getColumnIndex("venueID")));
-                newEvent.setOrganizationid(cursor.getString(cursor.getColumnIndex("organizationID")));
+                newEvent.setOrganizationid(eventOrgs);
                 newEvent.setEventDescription(cursor.getString(cursor.getColumnIndex("eventDescription")));
                 newEvent.setEventName(cursor.getString(cursor.getColumnIndex("eventName")));
                 newEvent.setEventPrimaryCategory(cursor.getString(cursor.getColumnIndex("eventPrimaryCategory")));
