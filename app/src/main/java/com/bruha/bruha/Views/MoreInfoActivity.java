@@ -376,20 +376,20 @@ public class MoreInfoActivity extends ActionBarActivity {
 
             //Todo this is where i do the affiliated organizations
 
-            /*
+
 
             eventdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                     MyApplication.moreInfoCheck = "Event";
-                    MyApplication.eventID = event.getEventid();
+                    MyApplication.event = event;
 
                     Intent intent=new Intent(MoreInfoActivity.this,ListActivity.class);
                     startActivity(intent);
                 }
             });
-            */
+
 
             if(addict==false) {
                 likeText.setOnClickListener(new View.OnClickListener() {

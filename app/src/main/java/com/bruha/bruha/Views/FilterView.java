@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.bruha.bruha.Adapters.ArtistCategoryAdapter;
 import com.bruha.bruha.Adapters.ArtistsListViewAdapter;
 import com.bruha.bruha.Adapters.EventCategoryAdapter;
 import com.bruha.bruha.Adapters.EventListviewAdapter;

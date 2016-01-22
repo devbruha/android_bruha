@@ -192,29 +192,35 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
             eventButton.callOnClick();
             dragView.setVisibility(View.INVISIBLE);
             mapButton.setVisibility(View.INVISIBLE);
+
+            mListView.setAdapter(eventAdapter);
         }
 
         //Todo this is where i do the affiliated organizations
-        /*
+
         else if(MyApplication.moreInfoCheck.equals("Event")){
 
             MyApplication.moreInfoCheck = "None";
 
-            ArrayList<Event> moreInfoOrganizations = new ArrayList<>();
+            ArrayList<Organizations> moreInfoOrganizations = new ArrayList<>();
 
-            for (Organizations organization : mOrganizations) {
-                if(organization.getVenueid().equals(MyApplication.venueID)){
+            for(String eventOrgID : MyApplication.event.getOrganizationid()){
 
-                    moreInfoEvents.add(event);
+                for (Organizations organization : mOrganizations) {
+                    if(organization.getOrgId().equals(eventOrgID)){
+
+                        moreInfoOrganizations.add(organization);
+                    }
                 }
             }
 
-            eventAdapter = new EventListviewAdapter(this, moreInfoEvents,addictEventId);
-            eventButton.callOnClick();
+            organizationAdapter = new OrganizationListViewAdapter(this, moreInfoOrganizations,addictOutfitId);
+            orgButton.callOnClick();
             dragView.setVisibility(View.INVISIBLE);
             mapButton.setVisibility(View.INVISIBLE);
+
+            mListView.setAdapter(organizationAdapter);
         }
-        */
         else if(MyApplication.moreInfoCheck.equals("Organization")){
 
             MyApplication.moreInfoCheck = "None";
@@ -222,9 +228,12 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
             ArrayList<Event> moreInfoEvents = new ArrayList<>();
 
             for (Event event : mEvents) {
-                if(event.getOrganizationid().equals(MyApplication.organizationID)){
+                for(String eventOrgID : event.getOrganizationid()){
 
-                    moreInfoEvents.add(event);
+                    if(eventOrgID.equals(MyApplication.organizationID)){
+
+                        moreInfoEvents.add(event);
+                    }
                 }
             }
 
@@ -232,23 +241,22 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
             eventButton.callOnClick();
             dragView.setVisibility(View.INVISIBLE);
             mapButton.setVisibility(View.INVISIBLE);
-        }
 
-        //Sets the Adapter from the class Listview Adapter
-        mListView.setAdapter(eventAdapter);
+            mListView.setAdapter(eventAdapter);
+        }
+        else{
+
+            mListView.setAdapter(eventAdapter);
+        }
 
         //Checking which filter was chosen before opening the activity.
         if(MyApplication.filterTracker.equals("Event"))
         {
             eventButton(null);
-        }
-
-       else if(MyApplication.filterTracker.equals("Venue"))
+        } else if(MyApplication.filterTracker.equals("Venue"))
         {
             venueButton(null);
-        }
-
-        else if(MyApplication.filterTracker.equals("Outfit"))
+        } else if(MyApplication.filterTracker.equals("Outfit"))
         {
             organizationButton(null);
         }

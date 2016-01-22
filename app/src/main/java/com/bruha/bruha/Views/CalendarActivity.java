@@ -186,17 +186,20 @@ public class CalendarActivity extends FragmentActivity {
 
                 Date ThisDate= currentDate;
 
-                if(event.getOrganizationid().equals(MyApplication.organizationID)){
+                for(String orgID : event.getOrganizationid()){
 
-                    moreInfoEvents.add(event);
+                    if(orgID.equals(MyApplication.organizationID)){
 
-                    try {
-                        ThisDate = formatter.parse(event.getEventDate());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
+                        moreInfoEvents.add(event);
+
+                        try {
+                            ThisDate = formatter.parse(event.getEventDate());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_red_light,ThisDate);
                     }
-
-                    caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_red_light,ThisDate);
                 }
             }
         }

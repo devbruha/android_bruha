@@ -3,7 +3,6 @@
 package com.bruha.bruha.Processing;
 
 import android.app.Activity;
-import android.util.Log;
 import android.widget.ListView;
 
 import com.bruha.bruha.Adapters.ArtistsListViewAdapter;
