@@ -372,7 +372,7 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#afffba28"
+                android:background="#f47521"
                 android:gravity="center"
                 android:id="@+id/MapMoreInfoLayout">
 
