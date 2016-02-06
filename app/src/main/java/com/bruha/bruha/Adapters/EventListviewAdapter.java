@@ -646,7 +646,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
 
                     if (addicted == true) {
                         likeText.setText("Addicted!!");
-                        likeText.setBackgroundColor(Color.parseColor("#ff8a00"));
+                        likeText.setBackgroundColor(Color.parseColor("#f47521"));
                         likeText.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -679,7 +679,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
                                 retrieveMyPHP.eventAddiction(MyApplication.userName, event.getEventid());
                                 Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
                                 likeText.setText("Addicted!");
-                                likeText.setBackgroundColor(Color.parseColor("#ff8a00"));
+                                likeText.setBackgroundColor(Color.parseColor("#f47521"));
 
                                 addictedEventsID.add(event.getEventid());
                                 dbHelper.insertEventAddiction(dbHelper.getWritableDatabase(),event.getEventid());
