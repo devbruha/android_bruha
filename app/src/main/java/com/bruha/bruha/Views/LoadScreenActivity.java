@@ -159,6 +159,20 @@ public class LoadScreenActivity extends Activity {
             e.printStackTrace();
         }
 
+        // BubbleSorting events by starting dates.
+        Event tempevent = new Event() ;
+        for( int i = events.size() - 1 ; i > 0 ; --i ){
+            for ( int j = 0 ; j < i ;++j ) {
+                int retval = events.get(j+1).getEventDate().compareTo(events.get(j).getEventDate());
+                if ( retval < 0 ){
+                    tempevent = events.get(j);
+                    events.set(j,events.get(j+1));
+                    events.set(j+1,tempevent);
+                }
+
+            }
+        }
+
         //Setting the local database with the information retrieved.
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
         sqLiteUtils.insertEvents(dbHelper, events);
