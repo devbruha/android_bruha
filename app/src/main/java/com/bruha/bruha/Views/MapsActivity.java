@@ -2,10 +2,12 @@
 
 package com.bruha.bruha.Views;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -15,6 +17,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -242,10 +245,12 @@ public class MapsActivity extends FragmentActivity implements
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
+            mMap.setMyLocationEnabled(true);
+            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
-                setUpMap();
                 mMap.setMyLocationEnabled(true);
+                setUpMap();
             }
         }
     }
@@ -253,11 +258,9 @@ public class MapsActivity extends FragmentActivity implements
     private void setUpMap() {
         // Setting default location to mcmaster, eventually will be set to user location
         if(mLastLocation != null){
-
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), 14.0f));
         }
         else{
-
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.2500, -79.919501), 14.0f));
         }
     }
@@ -701,7 +704,7 @@ public class MapsActivity extends FragmentActivity implements
         SlidingUpPanelLayout mSlidingPanel = (SlidingUpPanelLayout)findViewById(R.id.sliding_layout_upper);
         mSlidingPanel.setTouchEnabled(false);
 
-       /// Log.v("Status bar height", getStatusBarHeight() + "");
+        /// Log.v("Status bar height", getStatusBarHeight() + "");
 
         // Android functions to determine the screen dimensions
 
@@ -773,11 +776,11 @@ public class MapsActivity extends FragmentActivity implements
         if (mLastLocation != null) {
             mLatitudeText =String.valueOf(mLastLocation.getLatitude());
             mLongitudeText = String.valueOf(mLastLocation.getLongitude());
-
+            setUpMap();
         }
         else {
 
-            Toast.makeText(this,"No location detected", Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Location detecting, please check GPS on your device", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -949,3 +952,5 @@ public class MapsActivity extends FragmentActivity implements
         return null;
     }
 }
+
+
