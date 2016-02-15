@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
@@ -491,6 +492,7 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
                     final Button likeText = (Button) convertView.findViewById(R.id.likeVenButton);
                     if (addicted == true) {
                         likeText.setText("Addicted!");
+                        likeText.setBackgroundColor(Color.parseColor("#f47521"));
                         likeText.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -498,6 +500,7 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
                                 dbHelper.deleteOrgAddiction(dbHelper.getWritableDatabase(),Outfit.getOrgId());
                                 Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
                                 likeText.setText("Get Addicted!");
+                                likeText.setBackgroundColor(Color.parseColor("#ff54cdd6"));
 
 
                                 for(int i=0;i<addictOrgID.size();i++)
@@ -518,12 +521,14 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
                         });
                     } else {
                         likeText.setText("Get Addicted!");
+                        likeText.setBackgroundColor(Color.parseColor("#ff54cdd6")); //blue
                         likeText.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 retrieveMyPHP.organizationAddiction(MyApplication.userName, Outfit.getOrgId());
                                 Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
                                 likeText.setText("Addicted!");
+                                likeText.setBackgroundColor(Color.parseColor("#f47521"));
 
                                 addictOrgID.add(Outfit.getOrgId());
                                 dbHelper.insertOrgAddiction(dbHelper.getWritableDatabase(),Outfit.getOrgId());

@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
@@ -467,6 +468,7 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
 
             if (addicted == true) {
                 likeText.setText("Addicted!");
+                likeText.setBackgroundColor(Color.parseColor("#f47521"));
                 likeText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -474,6 +476,7 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
                         dbHelper.deleteVenueAddiction(dbHelper.getWritableDatabase(),Venue.getVenueId());
                         Toast.makeText(mActivity.getApplicationContext(), "You are Unaddicted!", Toast.LENGTH_SHORT).show();
                         likeText.setText("Get Addicted!");
+                        likeText.setBackgroundColor(Color.parseColor("#ff54cdd6"));
 
 
                         for(int i=0;i<addictedVenueID.size();i++)
@@ -494,12 +497,14 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
                 });
             } else {
                 likeText.setText("Get Addicted!");
+                likeText.setBackgroundColor(Color.parseColor("#ff54cdd6")); //blue
                 likeText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         retrieveMyPHP.venueAddiction(MyApplication.userName, Venue.getVenueId());
                         Toast.makeText(mActivity.getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
                         likeText.setText("Addicted!");
+                        likeText.setBackgroundColor(Color.parseColor("#f47521"));
 
                         addictedVenueID.add(Venue.getVenueId());
                         dbHelper.insertVenueAddiction(dbHelper.getWritableDatabase(),Venue.getVenueId());
