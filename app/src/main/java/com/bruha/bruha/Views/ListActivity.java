@@ -42,6 +42,7 @@ import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.SQLiteDatabaseModel;
 import com.bruha.bruha.Model.Venue;
+import com.bruha.bruha.Processing.FilterOut;
 import com.bruha.bruha.Processing.SQLiteUtils;
 import com.bruha.bruha.R;
 import com.caverock.androidsvg.SVG;
@@ -59,21 +60,27 @@ import butterknife.OnClick;
 
 public class ListActivity extends FragmentActivity implements ObservableScrollViewCallbacks {
 
+    FilterOut filtering = new FilterOut(this);
+
     //The Arrays that will contain the information retrieved from the local database.
     ArrayList<Event> mEvents = new ArrayList<>();
     ArrayList<Organizations> mOrganizations = new ArrayList<>();
     ArrayList<Venue> mVenues = new ArrayList<>();
     ArrayList<Artist> mArtists = new ArrayList<>();
+
     ArrayList<String> addictEventId = new ArrayList<>();
     ArrayList<String> addictVenueId = new ArrayList<>();
     ArrayList<String> addictArtistId = new ArrayList<>();
     ArrayList<String> addictOutfitId = new ArrayList<>();
+
     public static ListActivity instance = null;   //Some variable.
+
     //Initualiing the Filter Obects to hide and display everytime Venue,Artist,Event and Outfit Filters are applied.
     LinearLayout mEventCategoryListView;
     LinearLayout mVenueCategoryListView;
     LinearLayout mArtistCategoryListView;
     LinearLayout mOrganizationCategoryListView;
+
     //Filters stuff that will hide when changed filter.
     FilterView filterView;
     LinearLayout linearCalendar ;
@@ -85,28 +92,34 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
     TextView searchCancel;
 
     SeekBar prce;
+
     //Backup lists so the filters can work.
     ArrayList<Event> backupEventList;         //Array backupEventList of the whole list,since mEvent changes when we update the eventAdapter in filter save button.
     ArrayList<Venue> backupVenueList;         //Array backupEventList of the whole list,since mEvent changes when we update the eventAdapter in filter save button.
     ArrayList<Artist> backupArtistList;         //Array backupEventList of the whole list,since mEvent changes when we update the eventAdapter in filter save button.
     ArrayList<Organizations> backupOrganizationList;         //Array backupEventList of the whole list,since mEvent changes when we update the eventAdapter in filter save button.
+
     //The adapters to be used.
     EventListviewAdapter eventAdapter;
     VenueListViewAdapter venueAdapter;
     OrganizationListViewAdapter organizationAdapter;
     ArtistsListViewAdapter artistAdapter;
+
     //Injecting Buttons using ButterKnife Library
     @InjectView(android.R.id.list) ObservableListView mListView;
+
     //The Linear layout to be set OnCLickListener to and background changing.
     @InjectView(R.id.venueButton) LinearLayout venueButton;
     @InjectView(R.id.artistButton) LinearLayout artistButton;
     @InjectView(R.id.outfitButton) LinearLayout orgButton;
     @InjectView(R.id.eventButton) LinearLayout eventButton;
+
     //The Image Views to set and Change for the Filters
     @InjectView(R.id.eventButtonImage) ImageView eventImage;
     @InjectView(R.id.venueButtonImage) ImageView venueImage;
     @InjectView(R.id.artistButtonImage) ImageView artistImage;
     @InjectView(R.id.outfitButtonImage) ImageView outfitImage;
+
     //The TextViews to be RESIZED(HELLO,RESIZE EM!!) and Changed.
     @InjectView(R.id.filtereventtext) TextView eventText;
     @InjectView(R.id.filtervenuetext) TextView venueText;
@@ -114,6 +127,7 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
     @InjectView(R.id.filteroutfittext) TextView outfitText;
 
     @InjectView(R.id.mapFilterLayout) LinearLayout dragView;
+
     //Buttons
     ImageView mapButton;
     ImageView dudeButton;
@@ -212,14 +226,17 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
                 if(MyApplication.filterTracker.equals("Event")){
 
                     MyApplication.userFilters.setEventStringFilter(searchEdit.getText().toString());
+                    filtering.filterEventList(eventAdapter);
                 }
                 else if(MyApplication.filterTracker.equals("Venue")){
 
                     MyApplication.userFilters.setVenueStringFilter(searchEdit.getText().toString());
+                    filtering.filterVenueList(venueAdapter);
                 }
                 else{
 
                     MyApplication.userFilters.setOrganizationStringFilter(searchEdit.getText().toString());
+                    filtering.filterOrganizationList(organizationAdapter);
                 }
             }
         });
@@ -241,14 +258,17 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
                 if(MyApplication.filterTracker.equals("Event")){
 
                     MyApplication.userFilters.setEventStringFilter(searchEdit.getText().toString());
+                    filtering.filterEventList(eventAdapter);
                 }
                 else if(MyApplication.filterTracker.equals("Venue")){
 
                     MyApplication.userFilters.setVenueStringFilter(searchEdit.getText().toString());
+                    filtering.filterVenueList(venueAdapter);
                 }
                 else{
 
                     MyApplication.userFilters.setOrganizationStringFilter(searchEdit.getText().toString());
+                    filtering.filterOrganizationList(organizationAdapter);
                 }
             }
         });
@@ -273,8 +293,6 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
 
             mListView.setAdapter(eventAdapter);
         }
-
-        //Todo this is where i do the affiliated organizations
 
         else if(MyApplication.moreInfoCheck.equals("Event")){
 
@@ -332,16 +350,19 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
         {
             listTitle.setText("Event");
             searchEdit.setHint("Search Events");
+            searchEdit.setText(MyApplication.userFilters.getEventStringFilter());
             eventButton(null);
         } else if(MyApplication.filterTracker.equals("Venue"))
         {
             listTitle.setText("Venue");
             searchEdit.setHint("Search Venues");
+            searchEdit.setText(MyApplication.userFilters.getVenueStringFilter());
             venueButton(null);
         } else if(MyApplication.filterTracker.equals("Outfit"))
         {
             listTitle.setText("Organization");
             searchEdit.setHint("Search Organizations");
+            searchEdit.setText(MyApplication.userFilters.getOrganizationStringFilter());
             organizationButton(null);
         }
 
