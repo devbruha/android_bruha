@@ -69,6 +69,18 @@ public class FilterOut {
 
         ListView listView = (ListView)mActivity.findViewById(android.R.id.list);
 
+        if(!customFilters.getEventStringFilter().equals("")){
+
+            for (int i = tempEventList.size(); i > 0; i--) {
+
+                if (!tempEventList.get(i-1).getEventName().toLowerCase().contains(customFilters.getEventStringFilter().toLowerCase())) {
+
+                    tempEventListID.add(tempEventList.get(i - 1).getEventid());
+                    tempEventList.remove(i - 1);
+                }
+            }
+        }
+
         // If the date filter is non null, filter off all events that dont have date...
 
         if(customFilters.getDateFilter().size() != 0) {
@@ -157,7 +169,8 @@ public class FilterOut {
 
         if(customFilters.getDateFilter().size() == 0 &&
                 customFilters.getAdmissionPriceFilter() == -1 &&
-                customFilters.getCategoryFilter().size() == 0) {
+                customFilters.getCategoryFilter().size() == 0 &&
+                customFilters.getEventStringFilter().equals("")) {
 
             tempEventListID.clear();
             tempEventListID.add("All");
@@ -314,6 +327,18 @@ public class FilterOut {
 
         ListView listView = (ListView)mActivity.findViewById(android.R.id.list);
 
+        if(!customFilters.getVenueStringFilter().equals("")){
+
+            for (int i = tempVenueList.size(); i > 0; i--) {
+
+                if (!tempVenueList.get(i-1).getVenueName().toLowerCase().contains(customFilters.getVenueStringFilter().toLowerCase())) {
+
+                    tempVenueListID.add(tempVenueList.get(i - 1).getVenueId());
+                    tempVenueList.remove(i - 1);
+                }
+            }
+        }
+
         // If the category filter is non null, filter off all events that dont have date...
 
         // If the category filter is non null, filter off all events that dont have date...
@@ -332,7 +357,8 @@ public class FilterOut {
             }
         }
 
-        if( customFilters.getVenueFilter().size() == 0) {
+        if( customFilters.getVenueFilter().size() == 0 &&
+                customFilters.getVenueStringFilter().equals("")) {
 
             tempVenueList.clear();
             tempVenueListID.add("All");
@@ -455,6 +481,18 @@ public class FilterOut {
 
         ListView listView = (ListView)mActivity.findViewById(android.R.id.list);
 
+        if(!customFilters.getOrganizationStringFilter().equals("")){
+
+            for (int i = tempOrganizationList.size(); i > 0; i--) {
+
+                if (!tempOrganizationList.get(i-1).getOrgName().toLowerCase().contains(customFilters.getOrganizationStringFilter().toLowerCase())) {
+
+                    tempOrganizationListID.add(tempOrganizationList.get(i - 1).getOrgId());
+                    tempOrganizationList.remove(i - 1);
+                }
+            }
+        }
+
         // If the category filter is non null, filter off all events that dont have date...
 
         // If the category filter is non null, filter off all events that dont have date...
@@ -473,7 +511,8 @@ public class FilterOut {
             }
         }
 
-        if( customFilters.getOrganizationFilter().size() == 0) {
+        if( customFilters.getOrganizationFilter().size() == 0 &&
+                customFilters.getOrganizationStringFilter().equals("")) {
 
             tempOrganizationList.clear();
             tempOrganizationListID.add("All");
