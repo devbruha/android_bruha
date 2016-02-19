@@ -270,7 +270,12 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
         if(Venue.getVenueName().length()<=15)
         { holder.VenueDesName.setText(Venue.getVenueName());}
         else { holder.VenueDesName.setText(Venue.getVenueName().substring(0,15)+"..."); }
+
         holder.VenueLocName.setText(Venue.getVenueName());
+        if(Venue.getVenueName().length()<=15)
+        { holder.VenueLocName.setText(Venue.getVenueName());}
+        else { holder.VenueLocName.setText(Venue.getVenueName().substring(0,15)+"..."); }
+
         holder.VenueLocSt.setText(Venue.getVenueSt()+", ");
         holder.VenueLocAdd.setText(Venue.getVenueLocation());
         // holder.VenueHourWeekDay.setText();

@@ -201,7 +201,12 @@ public class MapOrganizationListViewAdapter extends BaseSwipeAdapter {
         { holder.Title.setText(organization.getOrgName());}
         else { holder.Title.setText(organization.getOrgName().substring(0,15)+"..."); }
         holder.Price.setVisibility(View.INVISIBLE);
-        holder.LocName.setText(organization.getOrgLocation());
+
+        //holder.LocName.setText(organization.getOrgLocation());
+        if(organization.getOrgLocation().length()<=15)
+        { holder.LocName.setText(organization.getOrgLocation());}
+        else { holder.LocName.setText(organization.getOrgLocation().substring(0,15)+"..."); }
+
         holder.LocSt.setText(organization.getOrgDescription());
         holder.LocAdd.setText("Hamilton, ON Canada");
         holder.Hours.setText("Mon to Friday: 8 AM - 10 PM");

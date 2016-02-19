@@ -67,9 +67,6 @@ public class MapArtistListViewAdapter extends BaseSwipeAdapter {
         //Initializing each item to the required type
         final Artist artist = mArtists.get(position);
 
-
-
-
         //Changing the text in the fields everytime.
         holder.Title.setText("The Arkells");
         holder.Price.setText("$20.50");

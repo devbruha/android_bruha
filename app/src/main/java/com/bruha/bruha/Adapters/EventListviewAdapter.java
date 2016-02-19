@@ -382,7 +382,12 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         { holder.EventDName.setText(event.getEventName());}
         else { holder.EventDName.setText(event.getEventName().substring(0,15)+"..."); }
         holder.EventDPrice.setText("$"+event.getEventPrice());
-        holder.EventLocName.setText(event.getEventLocName());
+
+        //holder.EventLocName.setText(event.getEventLocName());
+        if(event.getEventLocName().length()<=15)
+        { holder.EventLocName.setText(event.getEventLocName());}
+        else { holder.EventLocName.setText(event.getEventLocName().substring(0,15)+"..."); }
+
         holder.EventLocSt.setText(event.getEventLocSt()+", ");
         holder.EventLocAdd.setText(event.getEventLocAdd());
         holder.EventStartDate.setText(dateFormat(event.getEventDate())+" At ");
