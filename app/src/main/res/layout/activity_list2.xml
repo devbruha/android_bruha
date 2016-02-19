@@ -3,7 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:context="com.bruha.bruha.Views.ListActivity"
-                android:background="#191919"
+                android:background="#24163f"
                 android:id="@+id/ListActRelativeLayout"
                 >
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
@@ -16,7 +16,8 @@
         sothree:umanoDragView="@+id/dragView"
         sothree:umanoOverlay="true"
         sothree:umanoFadeColor="@android:color/transparent"
-        android:background="@android:color/transparent">
+        android:background="@android:color/transparent"
+        android:layout_alignParentEnd="true">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -24,21 +25,9 @@
             android:orientation="vertical"
             android:minHeight="100dp">
 
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-                <com.github.ksoichiro.android.observablescrollview.ObservableListView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@android:id/list"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:drawSelectorOnTop="false"
-                    android:dividerHeight="3dp"/>
-
 
                 <ImageView
                     android:layout_width="50dp"
@@ -48,6 +37,18 @@
                     android:layout_marginRight="3dp"
                     android:layout_marginTop="5dp" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ListTitleText"
+                    android:text="Event"
+                    android:textSize="36sp"
+                    android:textColor="#ffffff"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:layout_alignParentTop="true" />
+
+
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -55,6 +56,48 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="3dp"
                     android:adjustViewBounds="false" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/searchEditText"
+                    android:background="#ffffff"
+                    android:hint="Search Events"
+                    android:layout_below="@+id/DashboardButton"
+                    android:layout_toLeftOf="@+id/cancelSearch"
+                    android:layout_toStartOf="@+id/cancelSearch"
+                    android:textSize="24dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:paddingLeft="15dp"
+                    android:imeActionLabel="Done"
+                    android:imeOptions="actionDone"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    android:id="@+id/cancelSearch"
+                    android:textColor="#ffffff"
+                    android:layout_below="@+id/DashboardButton"
+                    android:layout_alignParentRight="true"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:textSize="24dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="15dp" />
+
+                <com.github.ksoichiro.android.observablescrollview.ObservableListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@android:id/list"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="false"
+                    android:drawSelectorOnTop="false"
+                    android:dividerHeight="3dp"
+                    android:layout_below="@+id/cancelSearch"
+                    android:layout_marginTop="15dp" />
 
             </RelativeLayout>
 

@@ -7,6 +7,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -17,9 +18,16 @@ import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -42,12 +50,15 @@ import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class ListActivity extends FragmentActivity implements ObservableScrollViewCallbacks {
+
     //The Arrays that will contain the information retrieved from the local database.
     ArrayList<Event> mEvents = new ArrayList<>();
     ArrayList<Organizations> mOrganizations = new ArrayList<>();
@@ -68,6 +79,11 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
     LinearLayout linearCalendar ;
     TextView admission;
     TextView mPrice;
+    TextView listTitle;
+
+    EditText searchEdit;
+    TextView searchCancel;
+
     SeekBar prce;
     //Backup lists so the filters can work.
     ArrayList<Event> backupEventList;         //Array backupEventList of the whole list,since mEvent changes when we update the eventAdapter in filter save button.
@@ -113,6 +129,11 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
 
         dudeButton =(ImageView) findViewById(R.id.DashboardButton);
         mapButton = (ImageView) findViewById(R.id.MapButton);
+        listTitle = (TextView) findViewById(R.id.ListTitleText);
+        searchCancel = (TextView) findViewById(R.id.cancelSearch);
+        searchEdit = (EditText) findViewById(R.id.searchEditText);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         mListView.setScrollViewCallbacks(this);
 
@@ -174,6 +195,63 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
         admission = (TextView) findViewById(R.id.admissionTextView);
         ImageView swipeup = (ImageView) findViewById(R.id.swipeup);
         swipeup.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.swipeup, 20));
+
+        searchCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                searchEdit.setText("");
+
+                view = getCurrentFocus();
+
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+
+                if(MyApplication.filterTracker.equals("Event")){
+
+                    MyApplication.userFilters.setEventStringFilter(searchEdit.getText().toString());
+                }
+                else if(MyApplication.filterTracker.equals("Venue")){
+
+                    MyApplication.userFilters.setVenueStringFilter(searchEdit.getText().toString());
+                }
+                else{
+
+                    MyApplication.userFilters.setOrganizationStringFilter(searchEdit.getText().toString());
+                }
+            }
+        });
+
+        searchEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                if(MyApplication.filterTracker.equals("Event")){
+
+                    MyApplication.userFilters.setEventStringFilter(searchEdit.getText().toString());
+                }
+                else if(MyApplication.filterTracker.equals("Venue")){
+
+                    MyApplication.userFilters.setVenueStringFilter(searchEdit.getText().toString());
+                }
+                else{
+
+                    MyApplication.userFilters.setOrganizationStringFilter(searchEdit.getText().toString());
+                }
+            }
+        });
 
         if(MyApplication.moreInfoCheck.equals("Venue")){
 
@@ -252,12 +330,18 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
         //Checking which filter was chosen before opening the activity.
         if(MyApplication.filterTracker.equals("Event"))
         {
+            listTitle.setText("Event");
+            searchEdit.setHint("Search Events");
             eventButton(null);
         } else if(MyApplication.filterTracker.equals("Venue"))
         {
+            listTitle.setText("Venue");
+            searchEdit.setHint("Search Venues");
             venueButton(null);
         } else if(MyApplication.filterTracker.equals("Outfit"))
         {
+            listTitle.setText("Organization");
+            searchEdit.setHint("Search Organizations");
             organizationButton(null);
         }
 
@@ -388,11 +472,53 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
         filterView.init();
     }
 
+    @OnClick(R.id.eventButton)
+    public void eventButton(View view) {
+
+        MyApplication.filterTracker = "Event";  //Letting the app know which filter was open last.
+
+        listTitle.setText("Event");
+        searchEdit.setHint("Search Events");
+        searchEdit.setText(MyApplication.userFilters.getEventStringFilter());
+
+        //Changing Filter:
+        eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
+        artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
+        venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
+        orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
+        eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventorange, 50));
+        venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venuewhite, 50));
+        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 50));
+        outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
+        eventText.setTextColor(Color.parseColor("#FFFFBB33"));
+        venueText.setTextColor(Color.parseColor("#ffffff"));
+        outfitText.setTextColor(Color.parseColor("#ffffff"));
+        artistText.setTextColor(Color.parseColor("#ffffff"));
+        TextView Admission = (TextView) findViewById(R.id.admissionTextView);
+        TextView Price = (TextView) findViewById(R.id.priceDisplay);
+        SeekBar prce = (SeekBar) findViewById(R.id.priceBar);
+        Admission.setVisibility(View.VISIBLE);
+        Price.setVisibility(View.VISIBLE);
+        prce.setVisibility(View.VISIBLE);
+        mVenueCategoryListView.setVisibility(view.GONE);
+        mEventCategoryListView.setVisibility(view.VISIBLE);
+        mArtistCategoryListView.setVisibility(view.GONE);
+        mOrganizationCategoryListView.setVisibility(view.GONE);
+        linearCalendar.setVisibility(view.VISIBLE);
+        //Setting the adapter.
+        mListView.setAdapter(eventAdapter);
+    }
+
     //venueButton Implemented to switch the mListView to show List of Venue.
     @OnClick(R.id.venueButton)
     public void venueButton(View view) {
 
         MyApplication.filterTracker = "Venue";  //Letting App know which filter was open last.
+
+        listTitle.setText("Venue");
+        searchEdit.setHint("Search Venues");
+        searchEdit.setText(MyApplication.userFilters.getVenueStringFilter());
+
         //Changing Filters
         venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
         artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
@@ -425,6 +551,10 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
 
         MyApplication.filterTracker = "Outfit"; //Letting App know which filter was open last.
 
+        listTitle.setText("Organization");
+        searchEdit.setHint("Search Organizations");
+        searchEdit.setText(MyApplication.userFilters.getOrganizationStringFilter());
+
         //Changing shit:
         orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
         artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
@@ -449,38 +579,6 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
 
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(organizationAdapter);
-    }
-
-    @OnClick(R.id.eventButton)
-    public void eventButton(View view) {
-
-        MyApplication.filterTracker = "Event";  //Letting the app know which filter was open last.
-        //Changing Filter:
-        eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
-        artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-        venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-        orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-        eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventorange, 50));
-        venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venuewhite, 50));
-        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 50));
-        outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
-        eventText.setTextColor(Color.parseColor("#FFFFBB33"));
-        venueText.setTextColor(Color.parseColor("#ffffff"));
-        outfitText.setTextColor(Color.parseColor("#ffffff"));
-        artistText.setTextColor(Color.parseColor("#ffffff"));
-        TextView Admission = (TextView) findViewById(R.id.admissionTextView);
-        TextView Price = (TextView) findViewById(R.id.priceDisplay);
-        SeekBar prce = (SeekBar) findViewById(R.id.priceBar);
-        Admission.setVisibility(View.VISIBLE);
-        Price.setVisibility(View.VISIBLE);
-        prce.setVisibility(View.VISIBLE);
-        mVenueCategoryListView.setVisibility(view.GONE);
-        mEventCategoryListView.setVisibility(view.VISIBLE);
-        mArtistCategoryListView.setVisibility(view.GONE);
-        mOrganizationCategoryListView.setVisibility(view.GONE);
-        linearCalendar.setVisibility(view.VISIBLE);
-        //Setting the adapter.
-        mListView.setAdapter(eventAdapter);
     }
 
     @OnClick(R.id.artistButton)
@@ -512,6 +610,8 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
         mListView.setAdapter(artistAdapter);*/
         showDialog();
     }
+
+
 
     //Button Implementation for navigating to the Map from mListView.
     public void startMapActivity(View view) {
@@ -572,7 +672,6 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
                 mActionBar.show();
             }
         }
-
     }
 
     public void showDialog()

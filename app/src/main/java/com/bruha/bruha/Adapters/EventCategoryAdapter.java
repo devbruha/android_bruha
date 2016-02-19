@@ -185,6 +185,7 @@ public class EventCategoryAdapter {
 
             //Handles onclick effect on list item
 
+
             mLinearSecondArrow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -205,7 +206,7 @@ public class EventCategoryAdapter {
 
                             mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_down_float);
 
-                            mLinearScrollThird.setVisibility(View.VISIBLE);
+                            //mLinearScrollThird.setVisibility(View.VISIBLE);
 
                             mLinearSecondArrow.setBackgroundColor(Color.parseColor("#ea8ff0e4"));
 
@@ -231,12 +232,12 @@ public class EventCategoryAdapter {
 
                         mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_up_float);
 
-                        for (int i = 0; i < mLinearScrollThird.getChildCount(); i++) {
+                        //for (int i = 0; i < mLinearScrollThird.getChildCount(); i++) {
 
-                            ((LinearLayout) mLinearScrollThird.getChildAt(i)).getChildAt(0).setBackgroundResource(android.R.color.black);
-                        }
+                            //((LinearLayout) mLinearScrollThird.getChildAt(i)).getChildAt(0).setBackgroundResource(android.R.color.black);
+                        //}
 
-                        mLinearScrollThird.setVisibility(View.GONE);
+                        //mLinearScrollThird.setVisibility(View.GONE);
 
                         // Removing the key if the primary category is de-selected
 
@@ -256,6 +257,7 @@ public class EventCategoryAdapter {
 
                 }
             });
+
 
             // Checking to see if there is a stored category variable
             // if there is, the corresponding item is click simulated, aswell as inflated

@@ -26,6 +26,11 @@ public class UserCustomFilters {
 
     private int AdmissionPriceFilter = -1;
 
+    private String eventStringFilter = "";
+    private String venueStringFilter = "";
+    private String organizationStringFilter = "";
+
+
     public UserCustomFilters(){
 
     }
@@ -124,6 +129,30 @@ public class UserCustomFilters {
 
     public void setOrganizationFilter(ArrayList<String> organizationFilter) {
         OrganizationFilter = organizationFilter;
+    }
+
+    public String getEventStringFilter() {
+        return eventStringFilter;
+    }
+
+    public void setEventStringFilter(String eventStringFilter) {
+        this.eventStringFilter = eventStringFilter;
+    }
+
+    public String getVenueStringFilter() {
+        return venueStringFilter;
+    }
+
+    public void setVenueStringFilter(String venueStringFilter) {
+        this.venueStringFilter = venueStringFilter;
+    }
+
+    public String getOrganizationStringFilter() {
+        return organizationStringFilter;
+    }
+
+    public void setOrganizationStringFilter(String organizationStringFilter) {
+        this.organizationStringFilter = organizationStringFilter;
     }
 
 }
