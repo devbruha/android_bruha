@@ -200,7 +200,12 @@ public class MapVenListViewAdapter extends BaseSwipeAdapter {
         { holder.Title.setText(venue.getVenueName());}
         else { holder.Title.setText(venue.getVenueName().substring(0,15)+"..."); }
         holder.Price.setVisibility(View.INVISIBLE);
-        holder.LocName.setText(venue.getVenueLocation());
+
+        //holder.LocName.setText(venue.getVenueLocation());
+        if(venue.getVenueLocation().length()<=15)
+        { holder.LocName.setText(venue.getVenueLocation());}
+        else { holder.LocName.setText(venue.getVenueLocation().substring(0,15)+"..."); }
+
         holder.LocSt.setText("Street 42.");
         holder.LocAdd.setText(venue.getVenueDescription());
         holder.Hours.setText("20 September, 2015 At 8:30 PM");

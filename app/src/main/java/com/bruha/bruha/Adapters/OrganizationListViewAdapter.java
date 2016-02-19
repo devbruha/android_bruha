@@ -306,7 +306,12 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         if(Outfit.getOrgName().length()<=15)
         { holder.OrganizationDetailedName.setText(Outfit.getOrgName());}
         else { holder.OrganizationDetailedName.setText(Outfit.getOrgName().substring(0,15)+"..."); }
-        holder.OrganizationLocName.setText(Outfit.getOrgName());
+
+        //holder.OrganizationLocName.setText(Outfit.getOrgName());
+        if(Outfit.getOrgName().length()<=15)
+        { holder.OrganizationLocName.setText(Outfit.getOrgName());}
+        else { holder.OrganizationLocName.setText(Outfit.getOrgName().substring(0,15)+"..."); }
+
         holder.OrganizationLocSt.setText(Outfit.getOrgSt());
         holder.OrganizationLocAdd.setText(Outfit.getOrgLocation());
 

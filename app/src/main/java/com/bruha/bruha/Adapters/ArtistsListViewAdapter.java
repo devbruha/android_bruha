@@ -280,11 +280,17 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
         //Summary being set.
         // holder.ArtistPicture.setImageResource();
         // holder.ArtistIcon.setImageResource();
-        holder.ArtistName.setText(artist.getArtistName());
+        //holder.ArtistName.setText(artist.getArtistName());
+        if(artist.getArtistName().length()<=15)
+        { holder.ArtistName.setText(artist.getArtistName());}
+        else { holder.ArtistName.setText(artist.getArtistName().substring(0,15)+"..."); }
         // holder.ArtistDistance.setText(artist.getArtistDescription());
 
         //Detailed Description being set.
-        holder.DesArtistName.setText(artist.getArtistName());
+        //holder.DesArtistName.setText(artist.getArtistName());
+        if(artist.getArtistName().length()<=15)
+        { holder.DesArtistName.setText(artist.getArtistName());}
+        else { holder.DesArtistName.setText(artist.getArtistName().substring(0,15)+"..."); }
         //  holder.ArtistLocName.setText("X Lounge");
         //holder.ArtistLocSt.setText("1250 Main St. West");
         //holder.ArtistLocAdd.setText("Hamilton, ON Canada");

@@ -265,7 +265,12 @@ public class MapListViewAdapter extends BaseSwipeAdapter {
         { holder.Title.setText(event.getEventName());}
         else { holder.Title.setText(event.getEventName().substring(0,15)+"..."); }
         holder.Price.setText(freeEventCheck(event.getEventPrice()));
-        holder.LocName.setText(event.getEventLocName());
+
+        //holder.LocName.setText(event.getEventLocName());
+        if(event.getEventLocName().length()<=15)
+        { holder.LocName.setText(event.getEventLocName());}
+        else { holder.LocName.setText(event.getEventLocName().substring(0,15)+"..."); }
+
         holder.LocSt.setText(event.getEventLocSt());
         holder.LocAdd.setText(event.getEventLocAdd());
         holder.Hours.setText(dateFormat(event.getEventDate())+" At "+TimeFormat(event.getEventStartTime()));
