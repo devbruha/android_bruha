@@ -353,7 +353,7 @@ public class MoreInfoActivity extends ActionBarActivity {
                     {
                         addict1.setText("You are");
                         addict2.setText("addicted");
-                        likeText.setBackgroundResource(android.R.color.holo_orange_dark);
+                        likeText.setBackgroundColor(Color.parseColor("#f47521")); //orange
                     }
 
                 }
@@ -473,7 +473,7 @@ public class MoreInfoActivity extends ActionBarActivity {
                 {
                     addict1.setText("You are");
                     addict2.setText("addicted");
-                    likeText.setBackgroundResource(android.R.color.holo_orange_dark);
+                    likeText.setBackgroundColor(Color.parseColor("#f47521")); //orange
                     addict = true;
                 }}}
 
@@ -560,6 +560,7 @@ public class MoreInfoActivity extends ActionBarActivity {
                     Toast.makeText(getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
                     addict1.setText("You are");
                     addict2.setText("Addicted");
+                    likeText.setBackgroundColor(Color.parseColor("#f47521")); //orange
 
                     dbHelper.insertOrgAddiction(dbHelper.getWritableDatabase(),org.getOrgId());
                 }
