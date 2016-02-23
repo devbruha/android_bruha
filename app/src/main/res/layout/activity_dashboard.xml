@@ -6,7 +6,7 @@
                 android:orientation="vertical"
                 android:weightSum="43"
                 tools:context="com.bruha.bruha.Views.DashboardActivity"
-                android:background="@drawable/black_gradient">
+                android:background="@drawable/purple_gradient">
 
 
     <LinearLayout
