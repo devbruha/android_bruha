@@ -15,6 +15,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
@@ -24,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bruha.bruha.Processing.CredentialsPHP;
 import com.bruha.bruha.R;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
@@ -32,6 +34,8 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class ForgetPasswordActivity extends AppCompatActivity {
+
+    CredentialsPHP credentialsPHP = new CredentialsPHP();
 
     @InjectView(R.id.forgetPasswordUsernameTextView) TextView mForgetPasswordUsernameTextView;
     @InjectView(R.id.forgetPasswordUsernameEditText) EditText mForgetPasswordUsernameEditText;
@@ -88,7 +92,12 @@ public class ForgetPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(final View v) {
 
-                /////////////////////
+                String username = mForgetPasswordUsernameEditText.getText().toString();
+                String email = mForgetPasswordEmailEditText.getText().toString();
+
+                String response = credentialsPHP.forgotPassword(email, username);
+
+                Log.v("Passreset test", response);
 
             }
         });
