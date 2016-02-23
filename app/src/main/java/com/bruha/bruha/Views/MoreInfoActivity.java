@@ -392,6 +392,7 @@ public class MoreInfoActivity extends ActionBarActivity {
 
 
             if(addict==false) {
+                likeText.setBackgroundColor(Color.parseColor("#ff54cdd6")); //blue
                 likeText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -399,7 +400,7 @@ public class MoreInfoActivity extends ActionBarActivity {
                         Toast.makeText(getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
                         addict1.setText("You are");
                         addict2.setText("addicted");
-                        likeText.setBackgroundResource(android.R.color.holo_orange_dark);
+                        likeText.setBackgroundColor(Color.parseColor("#f47521")); //orange
 
                         dbHelper.insertEventAddiction(dbHelper.getWritableDatabase(), event.getEventid());
                     }
@@ -408,6 +409,7 @@ public class MoreInfoActivity extends ActionBarActivity {
             }
 
             else{
+                likeText.setBackgroundColor(Color.parseColor("#f47521")); //orange
                 likeText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -477,6 +479,7 @@ public class MoreInfoActivity extends ActionBarActivity {
 
             if(addict==false)
             {
+                likeText.setBackgroundColor(Color.parseColor("#ff54cdd6")); //blue
                 likeText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -484,7 +487,8 @@ public class MoreInfoActivity extends ActionBarActivity {
                         Toast.makeText(getApplicationContext(), "You are addicted", Toast.LENGTH_SHORT).show();
                         addict1.setText("You are");
                         addict2.setText("addicted");
-                        likeText.setBackgroundResource(android.R.color.holo_orange_dark);
+                        //likeText.setBackgroundResource(android.R.color.holo_orange_dark);
+                        likeText.setBackgroundColor(Color.parseColor("#f47521")); //orange
 
                         dbHelper.insertVenueAddiction(dbHelper.getWritableDatabase(), venue.getVenueId());
                     }
@@ -493,6 +497,7 @@ public class MoreInfoActivity extends ActionBarActivity {
             }
 
             else{
+                likeText.setBackgroundColor(Color.parseColor("#f47521")); //orange
                 likeText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
