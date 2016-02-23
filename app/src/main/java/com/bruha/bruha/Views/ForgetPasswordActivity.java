@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Processing.CredentialsPHP;
 import com.bruha.bruha.R;
 import com.caverock.androidsvg.SVG;
@@ -39,8 +40,8 @@ public class ForgetPasswordActivity extends AppCompatActivity {
 
     @InjectView(R.id.forgetPasswordUsernameTextView) TextView mForgetPasswordUsernameTextView;
     @InjectView(R.id.forgetPasswordUsernameEditText) EditText mForgetPasswordUsernameEditText;
-    @InjectView(R.id.forgetPasswordEmailTextView) TextView mForgetPasswordEmailTextView;
-    @InjectView(R.id.forgetPasswordEmailEditText) EditText mForgetPasswordEmailEditText;
+    //@InjectView(R.id.forgetPasswordEmailTextView) TextView mForgetPasswordEmailTextView;
+    //@InjectView(R.id.forgetPasswordEmailEditText) EditText mForgetPasswordEmailEditText;
     //Injevting the Buttons:
     @InjectView(R.id.forgetPasswordSkipButton) Button mForgetPasswordSkipButton;
     @InjectView(R.id.forgetPasswordBackButton) Button mForgetPasswordBackButton;
@@ -93,12 +94,37 @@ public class ForgetPasswordActivity extends AppCompatActivity {
             public void onClick(final View v) {
 
                 String username = mForgetPasswordUsernameEditText.getText().toString();
-                String email = mForgetPasswordEmailEditText.getText().toString();
+                String email = mForgetPasswordUsernameEditText.getText().toString();
 
                 String response = credentialsPHP.forgotPassword(email, username);
 
-                Log.v("Passreset test", response);
+                // A message is displayed to the user corresponding to the response received
+                switch (response) {
 
+                    case "1":
+                        alertUserAboutError(
+                                "Success",
+                                "Instructions to reset have been sent to your email!");
+                        break;
+
+                    case "Unable to send email.":
+                        alertUserAboutError(
+                                "Error",
+                                "Unable to send email to specificed email address");
+                        break;
+
+                    case "Failed to generate link":
+                        alertUserAboutError(
+                                "Error",
+                                response);
+                        break;
+
+                    case "No email Found":
+                        alertUserAboutError(
+                                "Error",
+                                "Email address does not exist.");
+                        break;
+                }
             }
         });
 
@@ -118,22 +144,22 @@ public class ForgetPasswordActivity extends AppCompatActivity {
 
         mForgetPasswordUsernameTextView.setTypeface(opensansregfnt);
         mForgetPasswordUsernameEditText.setTypeface(opensansregfnt);
-        mForgetPasswordEmailTextView.setTypeface(opensansregfnt);
-        mForgetPasswordEmailEditText.setTypeface(opensansregfnt);
+        //mForgetPasswordEmailTextView.setTypeface(opensansregfnt);
+        //mForgetPasswordEmailEditText.setTypeface(opensansregfnt);
 
         int x= (int)Math.round(height * .018);
         int x1= (int)Math.round(height * .028);
         mForgetPasswordUsernameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
         mForgetPasswordUsernameEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
-        mForgetPasswordEmailTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        mForgetPasswordEmailEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        //mForgetPasswordEmailTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        //mForgetPasswordEmailEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
 
         ViewGroup.LayoutParams mForgetPasswordUsernameEditTextLayoutParams = mForgetPasswordUsernameEditText.getLayoutParams();
-        ViewGroup.LayoutParams mForgetPasswordEmailEditTextLayoutParams = mForgetPasswordEmailEditText.getLayoutParams();
+        //ViewGroup.LayoutParams mForgetPasswordEmailEditTextLayoutParams = mForgetPasswordEmailEditText.getLayoutParams();
         mForgetPasswordUsernameEditTextLayoutParams.height =  (int)Math.round(height*.07);
-        mForgetPasswordEmailEditTextLayoutParams.height =  (int)Math.round(height*.07);
+        //mForgetPasswordEmailEditTextLayoutParams.height =  (int)Math.round(height*.07);
         mForgetPasswordUsernameEditTextLayoutParams.width  = (int) Math.round(height*.30);
-        mForgetPasswordEmailEditTextLayoutParams.width  = (int) Math.round(height*.30);
+        //mForgetPasswordEmailEditTextLayoutParams.width  = (int) Math.round(height*.30);
 
         ViewGroup.LayoutParams SkipButtonLayoutParams = mForgetPasswordSkipButton.getLayoutParams();
         ViewGroup.LayoutParams BackButtonLayoutParams = mForgetPasswordBackButton.getLayoutParams();
@@ -150,11 +176,11 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         mForgetPasswordSubmitButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
     }
 
-
-
-
-
-
+    private void alertUserAboutError(String errorTitle, String errorMessage) {
+        // A function to call the AlertDialogFragment Activity to alert the user about possible erros.
+        AlertDialogFragment dialog = new AlertDialogFragment().newInstance( errorTitle,errorMessage );
+        dialog.show(getFragmentManager(), "error_dialog");
+    }
 
     public void proceedWithoutAccount(View view){
         Intent intent = new Intent(this, DashboardActivity.class);
