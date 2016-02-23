@@ -56,6 +56,7 @@ public class LoginActivity extends ActionBarActivity {
     @InjectView(R.id.loginUsernameTextView) TextView mLoginUsernameTextView;
     @InjectView(R.id.loginPasswordTextView) TextView mLoginPasswordTextView;
     //Injecting the Buttons implementations.
+    @InjectView(R.id.forgetPasswordButton) Button mForgetPasswordButton;
     @InjectView(R.id.loginButton) Button loginButton;
     @InjectView(R.id.continueNotLoggedButton) Button noLoginButton;
     @InjectView(R.id.loginRegisterButton) Button registerButton;
@@ -116,9 +117,25 @@ public class LoginActivity extends ActionBarActivity {
                 animator.start();
             }
         });
+        mForgetPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(mForgetPasswordButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        mForgetPasswordButton.setAlpha(1f);
+                        startForgetPasswordActivity(null);
+                    }
+                });
+                animator.start();
+            }
+        });
 
         resize();  //Resizing the page and implementing the buttons.
     }
+
+
 
     private void resize() {
         // Android functions to determine the screen dimensions.
@@ -167,6 +184,12 @@ public class LoginActivity extends ActionBarActivity {
 
     private void startRegisterActivity(View view) {
         Intent intent = new Intent(this,RegisterActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void startForgetPasswordActivity(View view) {
+        Intent intent = new Intent(this,ForgetPasswordActivity.class);
         startActivity(intent);
         finish();
     }
