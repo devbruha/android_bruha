@@ -54,8 +54,8 @@
                                 android:text="SKIP"
                                 android:id="@+id/noLoginButton"
                                 android:textSize="18sp"
-                                android:textColor="#f8181aab"
-                                android:background="@drawable/borderorange"
+                                android:textColor="@android:color/white"
+                                android:background="@drawable/rounded_corner_button"
                                 android:layout_alignParentRight="true"
                                 android:layout_marginRight="10dp"
                                 android:layout_marginTop="10dp"
@@ -185,109 +185,66 @@
 
                 <LinearLayout
                     android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_weight="3"
-                    android:weightSum="10"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="2"
+                    android:weightSum="8"
                     android:layout_height="match_parent">
 
                     <LinearLayout
-                        android:orientation="vertical"
+                        android:orientation="horizontal"
+                        android:layout_weight="2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_weight="3"
                         android:layout_height="match_parent">
 
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Login"
+                            android:id="@+id/splashloginButton"
+                            android:clickable="false"
+                            android:textColor="@android:color/white"
+                            android:background="@drawable/rounded_corner_button"
+                            android:layout_weight="1"/>
                     </LinearLayout>
 
                     <LinearLayout
                         android:orientation="horizontal"
-                        android:layout_width="match_parent"
                         android:layout_weight="2"
-                        android:layout_height="match_parent"
-                        android:weightSum="3"
-                        android:clickable="true"
-                        android:id="@+id/splashloginButton"
-                        android:background="#ff5030b0"
-                        android:alpha="0.75">
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
 
-                        <LinearLayout
-                            android:orientation="vertical"
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <Button
                             android:layout_width="match_parent"
-                            android:layout_weight="2"
-                            android:layout_height="match_parent">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:id="@+id/logindude" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_weight="1"
-                            android:layout_height="match_parent">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:text=" Login"
-                                android:gravity="center_vertical"
-                                android:id="@+id/splashLoginText"
-                                android:textColor="#ffffff"
-                                android:textSize="28sp"
-                                android:textStyle="normal" />
-                        </LinearLayout>
+                            android:layout_height="wrap_content"
+                            android:text="Register"
+                            android:id="@+id/splashregisterButton"
+                            android:textColor="@android:color/white"
+                            android:background="@drawable/rounded_corner_button"
+                            android:layout_weight="2"/>
                     </LinearLayout>
 
                     <LinearLayout
                         android:orientation="horizontal"
-                        android:layout_width="match_parent"
                         android:layout_weight="2"
-                        android:layout_height="match_parent"
-                        android:weightSum="15"
-                        android:clickable="true"
-                        android:id="@+id/splashregisterButton"
-                        android:background="#ff5030b0"
-                        android:alpha="0.75">
-
-                        <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_weight="14"
-                            android:layout_height="match_parent"
-                            android:background="#9e7345fd">
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_weight="1"
-                            android:layout_height="match_parent">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:text="  Register"
-                                android:id="@+id/splashRegisterText"
-                                android:gravity="center_vertical"
-                                android:textSize="25sp"
-                                android:textColor="#ffffff"
-                                android:textStyle="normal" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_weight="3"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"/>
 
-                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_weight="4"
                     android:layout_height="match_parent">
