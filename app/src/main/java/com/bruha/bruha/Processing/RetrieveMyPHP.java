@@ -122,11 +122,11 @@ public class RetrieveMyPHP {
 
                 if (!Event.getString("image_link").equals("null")){
 
-                    even.setEventPicture("http://bruha.com/WorkingWebsite/"+Event.getString("image_link"));
+                    even.setEventPicture("http://bruha.com/"+Event.getString("image_link"));
                 }
                 else{
 
-                    even.setEventPicture("http://bruha.com/WorkingWebsite/assets/uploads/Events/Concrete_Android-Lrg.jpg");
+                    even.setEventPicture("http://bruha.com/assets/uploads/Events/Concrete_Android-Lrg.jpg");
                 }
 
                 even.setEventPrimaryCategory((Event.getString("primary_category")));
@@ -458,7 +458,7 @@ public class RetrieveMyPHP {
                 ven.setVenueLocation(Venue.getString("location_city") + ", " + Venue.getString("country"));
                 ven.setLat(Double.parseDouble(Venue.getString("location_lat")));
                 ven.setLng(Double.parseDouble(Venue.getString("location_lng")));
-                ven.setVenuePicture("http://bruha.com/WorkingWebsite/"+Venue.getString("media"));
+                ven.setVenuePicture("http://bruha.com/"+Venue.getString("media"));
                 ven.setVenuePrimaryCategory(Venue.getString("primary_category"));
 
                 mUserVenues.add(ven);
@@ -534,7 +534,7 @@ public class RetrieveMyPHP {
                 org.setOrgLocation(Organization.getString("location_city") + ", " + Organization.getString("country"));
                 org.setLat(Double.parseDouble(Organization.getString("location_lat")));
                 org.setLng(Double.parseDouble(Organization.getString("location_lng")));
-                org.setOrgPicture("http://bruha.com/WorkingWebsite/" + Organization.getString("media"));
+                org.setOrgPicture("http://bruha.com/" + Organization.getString("media"));
                 org.setOrgPrimaryCategory(Organization.getString("primary_category"));
 
                 mUserOrg.add(org);
@@ -609,7 +609,7 @@ public class RetrieveMyPHP {
                 Artist.setArtistId(mArtist.getString("Artist_id"));
                 Artist.setArtistName(mArtist.getString("Artist_name"));
                 Artist.setArtistDescription(mArtist.getString("Artist_desc"));
-                Artist.setArtistPicture("http://bruha.com/WorkingWebsite/" + mArtist.getString("Artist_media"));
+                Artist.setArtistPicture("http://bruha.com/" + mArtist.getString("Artist_media"));
                 Artist.setArtistPrimaryCategory(mArtist.getString("primary_category"));
 
                 mUserArist.add(Artist);
