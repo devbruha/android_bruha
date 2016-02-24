@@ -134,7 +134,7 @@
                     android:gravity="center"
                     android:text="Explore"
                     android:id="@+id/ExploreButton"
-                    android:textColor="@android:color/white"
+                    android:textColor="#fe50e3ff"
                     android:textSize="20sp"
                     android:layout_marginRight="3dp" />
             </LinearLayout>
@@ -180,7 +180,7 @@
                     android:gravity="center"
                     android:text="My Addictions"
                     android:id="@+id/AddictionButton"
-                    android:textColor="@android:color/white"
+                    android:textColor="#fe50e3ff"
                     android:textSize="20sp"
                     android:layout_marginLeft="3dp" />
 
@@ -243,7 +243,7 @@
                     android:gravity="center"
                     android:text="My Tickets"
                     android:id="@+id/TicketButton"
-                    android:textColor="@android:color/white"
+                    android:textColor="#fe50e3ff"
                     android:textSize="20sp"
                     android:layout_marginRight="3dp" />
 
@@ -289,7 +289,7 @@
                     android:gravity="center"
                     android:text="Calendar"
                     android:id="@+id/HotButton"
-                    android:textColor="@android:color/white"
+                    android:textColor="#fe50e3ff"
                     android:textSize="20sp"
                     android:layout_marginLeft="3dp" />
 
@@ -352,7 +352,7 @@
                     android:gravity="center"
                     android:text="My Uploads"
                     android:id="@+id/UploadButton"
-                    android:textColor="@android:color/white"
+                    android:textColor="#fe50e3ff"
                     android:textSize="20sp"
                     android:layout_marginRight="3dp" />
 
@@ -399,7 +399,7 @@
                     android:gravity="center"
                     android:text="Profile"
                     android:id="@+id/ProfileButton"
-                    android:textColor="@android:color/white"
+                    android:textColor="#fe50e3ff"
                     android:textSize="20sp"
                     android:layout_marginLeft="3dp" />
 

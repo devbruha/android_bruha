@@ -90,7 +90,6 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
                                 android:text="Discover Events"
                                 android:id="@+id/discoverEventDes"
                                 android:layout_below="@+id/discoverEvent"
@@ -179,7 +178,6 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
                                 android:text="Locate Venues"
                                 android:id="@+id/discoverVenuesDes"
                                 android:layout_below="@+id/discoverVenues"
@@ -264,7 +262,6 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
                                 android:text="Recognize Artists"
                                 android:id="@+id/discoverArtistDes"
                                 android:layout_below="@+id/discoverArtist"
@@ -353,7 +350,6 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
                                 android:text="Find Local Organizations"
                                 android:id="@+id/discoverOutfitsDes"
                                 android:layout_below="@+id/discoverOutfits"
