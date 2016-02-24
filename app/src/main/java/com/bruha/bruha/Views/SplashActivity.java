@@ -52,9 +52,9 @@ public class SplashActivity extends Activity {
         opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
 
         //Setting Splash page up.
-        ImageView loginimage = (ImageView) findViewById(R.id.logindude);
+       // ImageView loginimage = (ImageView) findViewById(R.id.logindude);
         // Android functions to determine the screen dimensions.
-        loginimage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 30));
+        //loginimage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 30));
 
         //Code to execute the swipe code.
         MyPagerAdapter adapter = new MyPagerAdapter();          //Making variable eventAdapter of class MyPageAdapter defined below.
@@ -63,8 +63,10 @@ public class SplashActivity extends Activity {
         pager.setCurrentItem(0);                                 //The first page to be displayed in the
 
         //Buttons of the splash page being implemented and their respective onClickListeners.
-        final LinearLayout loginButton = (LinearLayout) findViewById(R.id.splashloginButton);
-        final LinearLayout registerButton = (LinearLayout) findViewById(R.id.splashregisterButton);
+        //final LinearLayout loginButton = (LinearLayout) findViewById(R.id.splashloginButton);
+        //final LinearLayout registerButton = (LinearLayout) findViewById(R.id.splashregisterButton);
+        final Button loginButton = (Button) findViewById(R.id.splashloginButton);
+        final Button registerButton = (Button) findViewById(R.id.splashregisterButton);
         final Button skipButton = (Button) findViewById(R.id.noLoginButton);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +114,7 @@ public class SplashActivity extends Activity {
             }
         });
 
-        resize();  //The method that resizes and sets the font size according to the screen size.
+       // resize();  //The method that resizes and sets the font size according to the screen size.
 
         //Checks if internet connection is available,if not app continues without internet connection.
         if(!isNetworkAvailable())
@@ -131,7 +133,7 @@ public class SplashActivity extends Activity {
         dialog.show(getFragmentManager(), "error_dialog");
     }
 
-    private void resize() {   //The method that resizes the splash page according to the screen size and sets the font.
+   /* private void resize() {   //The method that resizes the splash page according to the screen size and sets the font.
 
         // Android functions to determine the screen dimensions.
         Display display = getWindowManager().getDefaultDisplay();
@@ -142,14 +144,14 @@ public class SplashActivity extends Activity {
         int height = size.y;
         int x= (int)Math.round(height * .045);
 
-        //Setting text size and font.
+        Setting text size and font.
         TextView loginText = (TextView) findViewById(R.id.splashLoginText);
         TextView registerText = (TextView) findViewById(R.id.splashRegisterText);
         loginText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         registerText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         loginText.setTypeface(opensansregfnt);
         registerText.setTypeface(opensansregfnt);
-    }
+    }*/
 
     public class MyPagerAdapter extends PagerAdapter {
         //MyPageAdapter class to decide which page is going to be swiped to.

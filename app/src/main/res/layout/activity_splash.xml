@@ -232,7 +232,7 @@
                             android:id="@+id/splashregisterButton"
                             android:textColor="@android:color/white"
                             android:background="@drawable/rounded_corner_button"
-                            android:layout_weight="2"/>
+                            android:layout_weight="1"/>
                     </LinearLayout>
 
                     <LinearLayout

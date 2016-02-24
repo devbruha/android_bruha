@@ -109,9 +109,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:text="LOGIN!"
+                    android:text="Back"
                     android:layout_centerInParent="true"
-                    android:id="@+id/loginButton"
+                    android:id="@+id/backButton"
                     android:background="@drawable/rounded_corner_button"
                     android:textColor="#ffffff"
                     />
@@ -119,8 +119,8 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Register"
-                    android:id="@+id/loginRegisterButton"
+                    android:text="Login"
+                    android:id="@+id/loginButton"
                     android:background="@drawable/rounded_corner_button"
                     android:textColor="#ffffff"
                     android:layout_marginTop="10dp"

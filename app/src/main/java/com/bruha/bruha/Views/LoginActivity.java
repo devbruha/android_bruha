@@ -59,7 +59,7 @@ public class LoginActivity extends ActionBarActivity {
     @InjectView(R.id.forgetPasswordButton) Button mForgetPasswordButton;
     @InjectView(R.id.loginButton) Button loginButton;
     @InjectView(R.id.continueNotLoggedButton) Button noLoginButton;
-    @InjectView(R.id.loginRegisterButton) Button registerButton;
+    @InjectView(R.id.backButton) Button mBackButton;
     // Create the local DB object
     SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
 
@@ -103,15 +103,15 @@ public class LoginActivity extends ActionBarActivity {
                 animator.start();
             }
         });
-        registerButton.setOnClickListener(new View.OnClickListener() {
+        mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                ObjectAnimator animator = ObjectAnimator.ofFloat(registerButton, "alpha", 1f, 0.5f);
+                ObjectAnimator animator = ObjectAnimator.ofFloat(mBackButton, "alpha", 1f, 0.5f);
                 animator.setDuration(100);
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
-                        registerButton.setAlpha(1f);
-                        startRegisterActivity(null);
+                        mBackButton.setAlpha(1f);
+                        startBackActivity(null);
                     }
                 });
                 animator.start();
@@ -169,21 +169,21 @@ public class LoginActivity extends ActionBarActivity {
 
         ViewGroup.LayoutParams loginButtonLayoutParams = loginButton.getLayoutParams();
         ViewGroup.LayoutParams noLoginButtonLayoutParams = noLoginButton.getLayoutParams();
-        ViewGroup.LayoutParams registerButtonLayoutParams = registerButton.getLayoutParams();
+        ViewGroup.LayoutParams backButtonLayoutParams = mBackButton.getLayoutParams();
         loginButtonLayoutParams.height =  (int)Math.round(height*.07);
         noLoginButtonLayoutParams.height =  (int)Math.round(height*.07);
-        registerButtonLayoutParams.height =  (int)Math.round(height*.07);
+        backButtonLayoutParams.height =  (int)Math.round(height*.07);
         loginButtonLayoutParams.width  = (int) Math.round(height*.135);
         noLoginButtonLayoutParams.width  = (int) Math.round(height*.135);
-        registerButtonLayoutParams.width  = (int) Math.round(height*.135);
+        backButtonLayoutParams.width  = (int) Math.round(height*.135);
 
         loginButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        registerButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        mBackButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         noLoginButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
     }
 
-    private void startRegisterActivity(View view) {
-        Intent intent = new Intent(this,RegisterActivity.class);
+    private void startBackActivity(View view) {
+        Intent intent = new Intent(this,SplashActivity.class);
         startActivity(intent);
         finish();
     }
