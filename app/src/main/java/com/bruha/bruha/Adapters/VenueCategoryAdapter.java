@@ -127,10 +127,10 @@ public class VenueCategoryAdapter {
 
             // If there are selected categories from previous activity, simulate click the first level
 
-            if(!mUserCustomFilter.getVenueFilter().isEmpty()){
+            //if(!mUserCustomFilter.getVenueFilter().isEmpty()){
 
                 mLinearFirstArrow.performClick();
-            }
+            //}
 
             // Setting the title of the parent item (in this case categories)
 
@@ -158,7 +158,7 @@ public class VenueCategoryAdapter {
             View mLinearView2 = inflater2.inflate(R.layout.row_second, null);
 
             final RelativeLayout linearSecond = (RelativeLayout) mLinearView2.findViewById(R.id.linearSecond);
-            linearSecond.setBackgroundColor(Color.BLACK);
+            linearSecond.setBackgroundColor(Color.parseColor("#24163f"));
 
             final TextView mSubItemName = (TextView) mLinearView2.findViewById(R.id.textViewTitle);
             final ImageView mSubItemIcon = (ImageView) mLinearView2.findViewById(R.id.imageViewIcon);
@@ -187,7 +187,7 @@ public class VenueCategoryAdapter {
 
                         isSecondViewClick = true;
 
-                        linearSecond.setBackgroundColor(Color.parseColor("#e95f5f5f"));
+                        linearSecond.setBackgroundColor(Color.parseColor("#ea8ff0e4"));
 
                         if (!venueFilters.contains(catName)) {
 
@@ -197,7 +197,7 @@ public class VenueCategoryAdapter {
 
                         isSecondViewClick = false;
 
-                        linearSecond.setBackgroundResource(android.R.color.background_dark);
+                        linearSecond.setBackgroundColor(Color.parseColor("#24163f"));
 
                         venueFilters.remove(catName);
                     }
@@ -217,7 +217,7 @@ public class VenueCategoryAdapter {
 
             if(mUserCustomFilter.getVenueFilter().contains(catName)){
 
-                linearSecond.setBackgroundColor(Color.parseColor("#e95f5f5f"));
+                linearSecond.setBackgroundColor(Color.parseColor("#ea8ff0e4"));
 
             }
 

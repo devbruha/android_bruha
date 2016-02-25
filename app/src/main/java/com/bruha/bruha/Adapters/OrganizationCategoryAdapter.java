@@ -111,8 +111,7 @@ public class OrganizationCategoryAdapter {
                         isFirstViewClick = true;
                         mImageArrowFirst.setBackgroundResource(android.R.drawable.arrow_down_float);
                         mLinearScrollSecond.setVisibility(View.VISIBLE);
-                    }
-                    else {
+                    } else {
 
                         isFirstViewClick = false;
                         mImageArrowFirst.setBackgroundResource(android.R.drawable.arrow_up_float);
@@ -123,10 +122,10 @@ public class OrganizationCategoryAdapter {
 
             // If there are selected categories from previous activity, simulate click the first level
 
-            if(!mUserCustomFilter.getOrganizationFilter().isEmpty()){
+            //if(!mUserCustomFilter.getOrganizationFilter().isEmpty()){
 
                 mLinearFirstArrow.performClick();
-            }
+            //}
 
             // Setting the title of the parent item (in this case categories)
 
@@ -154,7 +153,7 @@ public class OrganizationCategoryAdapter {
             View mLinearView2 = inflater2.inflate(R.layout.row_second, null);
 
             final RelativeLayout linearSecond = (RelativeLayout) mLinearView2.findViewById(R.id.linearSecond);
-            linearSecond.setBackgroundColor(Color.BLACK);
+            linearSecond.setBackgroundColor(Color.parseColor("#24163f"));
 
 
             final TextView mSubItemName = (TextView) mLinearView2.findViewById(R.id.textViewTitle);
@@ -181,7 +180,7 @@ public class OrganizationCategoryAdapter {
 
                         isSecondViewClick = true;
 
-                        linearSecond.setBackgroundColor(Color.parseColor("#e95f5f5f"));
+                        linearSecond.setBackgroundColor(Color.parseColor("#ea8ff0e4"));
 
                         if(!organizationFilters.contains(catName)){
 
@@ -192,7 +191,7 @@ public class OrganizationCategoryAdapter {
 
                         isSecondViewClick = false;
 
-                        linearSecond.setBackgroundResource(android.R.color.background_dark);
+                        linearSecond.setBackgroundColor(Color.parseColor("#24163f"));
 
                         organizationFilters.remove(catName);
                     }
@@ -213,7 +212,7 @@ public class OrganizationCategoryAdapter {
             if(mUserCustomFilter.getOrganizationFilter().contains(catName)){
 
                 // simulating clicks if appropriate
-                linearSecond.setBackgroundColor(Color.parseColor("#e95f5f5f"));
+                linearSecond.setBackgroundColor(Color.parseColor("#ea8ff0e4"));
             }
 
             mSubItemName.setText(catName);

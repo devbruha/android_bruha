@@ -141,12 +141,12 @@ public class EventCategoryAdapter {
                 }
             });
 
-            if(!mEventFilter.getCategoryFilter().isEmpty()){
+            //if(!mEventFilter.getCategoryFilter().isEmpty()){
 
                 // If there are selected categories from previous activity, simulate click the first level
 
                 mLinearFirstArrow.performClick();
-            }
+            //}
 
             // Setting the title of the parent item (in this case categories)
 
@@ -204,7 +204,7 @@ public class EventCategoryAdapter {
 
                         if (mEventFilter.getCategoryFilter().size() < 3) {
 
-                            mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_down_float);
+                            //mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_down_float);
 
                             //mLinearScrollThird.setVisibility(View.VISIBLE);
 
@@ -228,9 +228,9 @@ public class EventCategoryAdapter {
                             toast.show();
                         }
                     } else {
-                        mLinearSecondArrow.setBackgroundColor(Color.parseColor("#ea553285"));
+                        mLinearSecondArrow.setBackgroundColor(Color.parseColor("#24163f"));
 
-                        mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_up_float);
+                        //mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_up_float);
 
                         //for (int i = 0; i < mLinearScrollThird.getChildCount(); i++) {
 
@@ -266,16 +266,17 @@ public class EventCategoryAdapter {
 
             if(mEventFilter.getCategoryFilter().containsKey(catName)){
 
-                mLinearScrollThird.setVisibility(View.VISIBLE);
-                mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_down_float);
+                //mLinearScrollThird.setVisibility(View.VISIBLE);
+               //mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_down_float);
 
-                mLinearSecondArrow.setBackgroundColor(Color.parseColor("#ea553285"));
+                mLinearSecondArrow.setBackgroundColor(Color.parseColor("#ea8ff0e4"));
             }
             else{
 
                 mLinearScrollThird.setVisibility(View.GONE);
-                mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_up_float);
+                //mImageArrowSecond.setBackgroundResource(android.R.drawable.arrow_up_float);
             }
+
 
 
             // Sets the title of the child level (primary category)
@@ -286,7 +287,7 @@ public class EventCategoryAdapter {
 
             // Goes in one more level to add the child-child (sub category)
 
-            addThirdRow(firstLevelNumber, j, mLinearScrollThird, catName);
+            //addThirdRow(firstLevelNumber, j, mLinearScrollThird, catName);
 
             mLinearScrollSecond.addView(mLinearView2);
 
