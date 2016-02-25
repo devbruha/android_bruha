@@ -69,6 +69,15 @@
                     android:id="@+id/dudeButton"
                     android:layout_alignParentTop="true" />
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:id="@+id/exploreEmptypic"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/upload_empty_white_lrg"
+                    android:isScrollContainer="false"
+                    android:visibility="visible"/>
 
             </RelativeLayout>
 

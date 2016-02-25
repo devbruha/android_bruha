@@ -89,6 +89,7 @@ public class myAddictions extends FragmentActivity implements ObservableScrollVi
     @InjectView(R.id.addictionText) TextView addictionText;
     @InjectView(R.id.addictionImage) ImageView addictionImage;
     ActionBar mActionBar;
+    @InjectView(R.id.exploreEmptypic) ImageView emptyStatepic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,6 +178,10 @@ public class myAddictions extends FragmentActivity implements ObservableScrollVi
         addictionImageLayoutParams.width =  (int)Math.round(height*.05);
         //Setting the Button Image
         addictionImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.myaddictions, 30));
+
+        //Empty State ImageView being resized
+        ViewGroup.LayoutParams emptyStatePicLayoutParams = emptyStatepic.getLayoutParams();
+        emptyStatePicLayoutParams.height =  (int)Math.round(height * .45);
     }
 
     //SVG Conversion.
@@ -293,6 +298,13 @@ public class myAddictions extends FragmentActivity implements ObservableScrollVi
         venueAdapter=new VenueListViewAdapter(this, addictedVenues,venueID); //Calling the venueAdapter mListView to help set the List
         //Sets the Adapter from the class Listview Adapter
         mListView.setAdapter(venueAdapter);
+        if(addictedVenues.size()==0)
+        {
+            emptyStatepic.setVisibility(View.VISIBLE);
+        }
+        else{
+            emptyStatepic.setVisibility(View.INVISIBLE);
+        }
     }
 
     @OnClick(R.id.outfitButton)
@@ -317,11 +329,25 @@ public class myAddictions extends FragmentActivity implements ObservableScrollVi
         venueText.setTextColor(Color.parseColor("#ffffff"));
         eventText.setTextColor(Color.parseColor("#ffffff"));
         artistText.setTextColor(Color.parseColor("#ffffff"));
+        if(addictedOrg.size()==0)
+        {
+            emptyStatepic.setVisibility(View.VISIBLE);
+        }
+        else{
+            emptyStatepic.setVisibility(View.INVISIBLE);
+        }
     }
 
     @OnClick(R.id.eventButton)
     public void eventButton(View view) {
         mListView.setAdapter(adapter);
+        if(addictedEvents.size()==0)
+        {
+            emptyStatepic.setVisibility(View.VISIBLE);
+        }
+        else{
+            emptyStatepic.setVisibility(View.INVISIBLE);
+        }
 
         //Changing filters:
         eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
