@@ -377,6 +377,7 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
 
 
 
+
         //Setting the detailed description..
         if(event.getEventName().length()<=15)
         { holder.EventDName.setText(event.getEventName());}

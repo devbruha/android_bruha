@@ -77,6 +77,8 @@ public class MyUploadsActivity extends FragmentActivity implements ObservableScr
     //MyUpload page title
     @InjectView(R.id.uploadText) TextView uploadText;
     @InjectView(R.id.uploadImage) ImageView uploadImage;
+    @InjectView(R.id.exploreEmptypic) ImageView emptyStatepic;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,6 +168,10 @@ public class MyUploadsActivity extends FragmentActivity implements ObservableScr
         addictionImageLayoutParams.width =  (int)Math.round(height*.05);
         //Setting the Button Image
         uploadImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.myupload, 30));
+
+        //Empty State ImageView being resized
+        ViewGroup.LayoutParams emptyStatePicLayoutParams = emptyStatepic.getLayoutParams();
+        emptyStatePicLayoutParams.height =  (int)Math.round(height * .45);
     }
 
     private void init(){
@@ -182,6 +188,13 @@ public class MyUploadsActivity extends FragmentActivity implements ObservableScr
 
     @OnClick(R.id.venueButton)
     public void venueButton(View view) {
+        if(mVenues.size()==0)
+        {
+            emptyStatepic.setVisibility(View.VISIBLE);
+        }
+        else{
+            emptyStatepic.setVisibility(View.INVISIBLE);
+        }
         //venueButton Implemented to switch the mListView to show List of Venue.
 
         //Changing shit:
@@ -208,6 +221,13 @@ public class MyUploadsActivity extends FragmentActivity implements ObservableScr
 
     @OnClick(R.id.outfitButton)
     public void organizationButton(View view) {
+        if(mOrg.size()==0)
+        {
+            emptyStatepic.setVisibility(View.VISIBLE);
+        }
+        else{
+            emptyStatepic.setVisibility(View.INVISIBLE);
+        }
         //organizationsButtonButton Implemented to switch the mListView to show List of Organizations.
 
         //Creating an variable of type Listview Adapter to create the list view.
@@ -234,6 +254,14 @@ public class MyUploadsActivity extends FragmentActivity implements ObservableScr
     @OnClick(R.id.eventButton)
     public void eventButton(View view) {
         mListView.setAdapter(adapter); //Setting the adapter of the list.
+
+        if(mEvents.size()==0)
+        {
+            emptyStatepic.setVisibility(View.VISIBLE);
+        }
+        else{
+            emptyStatepic.setVisibility(View.INVISIBLE);
+        }
 
         //Changing shit:
         eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));

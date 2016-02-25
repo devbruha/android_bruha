@@ -3,6 +3,9 @@
 package com.bruha.bruha.Processing;
 
 import android.app.Activity;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.bruha.bruha.Adapters.ArtistsListViewAdapter;
@@ -15,6 +18,7 @@ import com.bruha.bruha.Model.MyApplication;
 import com.bruha.bruha.Model.Organizations;
 import com.bruha.bruha.Model.UserCustomFilters;
 import com.bruha.bruha.Model.Venue;
+import com.bruha.bruha.R;
 import com.google.android.gms.maps.model.Marker;
 
 import java.util.ArrayList;
@@ -47,15 +51,18 @@ public class FilterOut {
 
     ArrayList<Organizations> tempOrganizationList = new ArrayList<>();
     ArrayList<String> tempOrganizationListID = new ArrayList<>();
+    ImageView emptyStatePic;
 
     public FilterOut(Activity activity){
 
         mActivity = activity;
 
+
         //customFilters = ((MyApplication) mActivity.getApplicationContext()).getUserCustomFilters();
     }
 
     public void filterEventList(EventListviewAdapter adapter){
+        emptyStatePic = (ImageView) mActivity.findViewById(R.id.exploreEmptypic);
 
         // Retrieves the shared variables events and filteredEvents, events contains all events and filterd
         // events contains the filtered
@@ -79,6 +86,8 @@ public class FilterOut {
                     tempEventList.remove(i - 1);
                 }
             }
+
+
         }
 
         // If the date filter is non null, filter off all events that dont have date...
@@ -94,6 +103,7 @@ public class FilterOut {
                 }
             }
         }
+
 
         // If the category filter is non null, filter off all events that dont have date...
 
@@ -182,6 +192,14 @@ public class FilterOut {
 
         adapter.getData().clear();
         adapter.getData().addAll(tempEventList);
+        if(adapter.getCount()==0)
+        {
+            emptyStatePic.setVisibility(View.VISIBLE);
+            emptyStatePic.setImageResource(R.drawable.event_taco_white_lrg);
+        }
+        else{
+            emptyStatePic.setVisibility(View.INVISIBLE);
+        }
         listView.setAdapter(adapter);
     }
 
@@ -314,6 +332,7 @@ public class FilterOut {
     }
 
     public void filterVenueList(VenueListViewAdapter adapter){
+        emptyStatePic = (ImageView) mActivity.findViewById(R.id.exploreEmptypic);
 
         // Retrieves the shared variables events and filteredEvents, events contains all events and filterd
         // events contains the filtered
@@ -370,6 +389,14 @@ public class FilterOut {
 
         adapter.getData().clear();
         adapter.getData().addAll(tempVenueList);
+        if(adapter.getCount()==0)
+        {
+            emptyStatePic.setVisibility(View.VISIBLE);
+            emptyStatePic.setImageResource(R.drawable.venue_stool_white);
+        }
+        else{
+            emptyStatePic.setVisibility(View.INVISIBLE);
+        }
         listView.setAdapter(adapter);
     }
 
@@ -468,6 +495,7 @@ public class FilterOut {
     }
 
     public void filterOrganizationList(OrganizationListViewAdapter adapter){
+        emptyStatePic = (ImageView) mActivity.findViewById(R.id.exploreEmptypic);
 
         // Retrieves the shared variables events and filteredEvents, events contains all events and filterd
         // events contains the filtered
@@ -524,6 +552,14 @@ public class FilterOut {
 
         adapter.getData().clear();
         adapter.getData().addAll(tempOrganizationList);
+        if(adapter.getCount()==0)
+        {
+            emptyStatePic.setVisibility(View.VISIBLE);
+            emptyStatePic.setImageResource(R.drawable.glasses_white_lrg);
+        }
+        else{
+            emptyStatePic.setVisibility(View.INVISIBLE);
+        }
         listView.setAdapter(adapter);
     }
 

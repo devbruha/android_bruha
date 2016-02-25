@@ -107,6 +107,7 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
 
     //Injecting Buttons using ButterKnife Library
     @InjectView(android.R.id.list) ObservableListView mListView;
+    ImageView emptyStatePic;
 
     //The Linear layout to be set OnCLickListener to and background changing.
     @InjectView(R.id.venueButton) LinearLayout venueButton;
@@ -140,6 +141,7 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
 
         setContentView(R.layout.activity_list2);
         ButterKnife.inject(this);                   //Injecting all the objects to be imported from above.
+        emptyStatePic = (ImageView) findViewById(R.id.exploreEmptypic);
 
         dudeButton =(ImageView) findViewById(R.id.DashboardButton);
         mapButton = (ImageView) findViewById(R.id.MapButton);
@@ -227,6 +229,7 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
 
                     MyApplication.userFilters.setEventStringFilter(searchEdit.getText().toString());
                     filtering.filterEventList(eventAdapter);
+
                 }
                 else if(MyApplication.filterTracker.equals("Venue")){
 
@@ -402,6 +405,11 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
         mapButtonLayoutParams.height =  (int)Math.round(height * .07);
         mapButtonLayoutParams.width =  (int)Math.round(height*.07);
 
+        //Empty State ImageView being resized
+        ViewGroup.LayoutParams emptyStatePicLayoutParams = emptyStatePic.getLayoutParams();
+        emptyStatePicLayoutParams.height =  (int)Math.round(height * .45);
+
+
         setButtons();  //Method to create and set the Dashboard/Map Button.
     }
 
@@ -528,6 +536,12 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
         linearCalendar.setVisibility(view.VISIBLE);
         //Setting the adapter.
         mListView.setAdapter(eventAdapter);
+        setEmptyStatePic();
+    }
+
+    public void setEmptyStatePic()
+    {
+       Log.v("Here", mListView.getAdapter().getCount()+"");
     }
 
     //venueButton Implemented to switch the mListView to show List of Venue.

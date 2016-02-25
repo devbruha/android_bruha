@@ -71,6 +71,16 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="3dp" />
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:id="@+id/exploreEmptypic"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:isScrollContainer="false"
+                    android:visibility="visible"
+                    android:src="@drawable/addictions_white_lrg"/>
+
             </RelativeLayout>
 
         </FrameLayout>

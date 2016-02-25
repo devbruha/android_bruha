@@ -5,6 +5,7 @@
                 tools:context="com.bruha.bruha.Views.ListActivity"
                 android:background="#24163f"
                 android:id="@+id/ListActRelativeLayout"
+                android:isScrollContainer="false"
                 >
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
         xmlns:sothree="http://schemas.android.com/apk/res-auto"
@@ -17,25 +18,29 @@
         sothree:umanoOverlay="true"
         sothree:umanoFadeColor="@android:color/transparent"
         android:background="@android:color/transparent"
-        android:layout_alignParentEnd="true">
+        android:isScrollContainer="false"
+        android:layout_alignParentEnd="false">
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:isScrollContainer="false"
             android:orientation="vertical"
             android:minHeight="100dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:isScrollContainer="false">
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:id="@+id/MapButton"
-                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentEnd="false"
                     android:layout_marginRight="3dp"
-                    android:layout_marginTop="5dp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_alignParentRight="true"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -99,6 +104,16 @@
                     android:layout_below="@+id/cancelSearch"
                     android:layout_marginTop="15dp" />
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:id="@+id/exploreEmptypic"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/event_taco_white_lrg"
+                    android:isScrollContainer="false"
+                    android:visibility="invisible"/>
+
             </RelativeLayout>
 
         </FrameLayout>
@@ -108,6 +123,7 @@
 
         <include android:id="@+id/mapFilterLayout" layout="@layout/filters_layout"
             android:layout_width="match_parent"
+                 android:isScrollContainer="false"
             android:layout_height="match_parent"/>
 
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
