@@ -55,7 +55,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         ButterKnife.inject(this);
 
         //Setting the bruha face inside the Layout.
-        ImageView im = (ImageView) findViewById(R.id.loginbruhaface);
+        ImageView im = (ImageView) findViewById(R.id.registerbruhaface);
         im.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhapurpleface, 100));
 
         //Setting onCLickListeners for the buttons

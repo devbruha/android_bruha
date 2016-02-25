@@ -50,7 +50,7 @@ public class RegisterActivity extends ActionBarActivity {
     //Injevting the Buttons:
     @InjectView(R.id.createAccountButton) Button registerButton;
     @InjectView(R.id.continueNotRegisteredButton) Button noRegisterButton;
-    @InjectView(R.id.registerLoginButton) Button loginButton;
+    @InjectView(R.id.backtoSplashButton) Button mBacktoSplashButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,15 +92,15 @@ public class RegisterActivity extends ActionBarActivity {
                 animator.start();
             }
         });
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        mBacktoSplashButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                ObjectAnimator animator = ObjectAnimator.ofFloat(loginButton, "alpha", 1f, 0.5f);
+                ObjectAnimator animator = ObjectAnimator.ofFloat(mBacktoSplashButton, "alpha", 1f, 0.5f);
                 animator.setDuration(100);
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
-                        loginButton.setAlpha(1f);
-                        startLoginActivity(null);
+                        mBacktoSplashButton.setAlpha(1f);
+                        startBackActivity(null);
                     }
                 });
                 animator.start();
@@ -154,23 +154,23 @@ public class RegisterActivity extends ActionBarActivity {
         mRegisterPasswordEditTextLayoutParams.width  = (int) Math.round(height*.30);
         mRegisterEmailEditTextLayoutParams.width  = (int) Math.round(height*.30);
 
-        ViewGroup.LayoutParams loginButtonLayoutParams = loginButton.getLayoutParams();
+        ViewGroup.LayoutParams mBacktoSplashButtonLayoutParams = mBacktoSplashButton.getLayoutParams();
         ViewGroup.LayoutParams noLoginButtonLayoutParams = noRegisterButton.getLayoutParams();
         ViewGroup.LayoutParams registerButtonLayoutParams = registerButton.getLayoutParams();
-        loginButtonLayoutParams.height =  (int)Math.round(height*.07);
+        mBacktoSplashButtonLayoutParams.height =  (int)Math.round(height*.07);
         noLoginButtonLayoutParams.height =  (int)Math.round(height*.07);
         registerButtonLayoutParams.height =  (int)Math.round(height*.07);
-        loginButtonLayoutParams.width  = (int) Math.round(height*.135);
+        mBacktoSplashButtonLayoutParams.width  = (int) Math.round(height*.135);
         noLoginButtonLayoutParams.width  = (int) Math.round(height*.135);
         registerButtonLayoutParams.width  = (int) Math.round(height*.135);
 
-        loginButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        mBacktoSplashButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         registerButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         noRegisterButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
     }
 
-    private void startLoginActivity(View view) {
-       Intent intent = new Intent(this,LoginActivity.class);
+    private void startBackActivity(View view) {
+       Intent intent = new Intent(this,SplashActivity.class);
        startActivity(intent);
        finish();
    }
