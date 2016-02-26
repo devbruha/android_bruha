@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:weightSum="15"
     android:orientation="vertical"
-    tools:context="com.bruha.bruha.Views.CalendarActivity"
+    tools:context="com.bruha.bruhaandroid.Views.CalendarActivity"
     android:background="#ff000000">
 
     <LinearLayout
