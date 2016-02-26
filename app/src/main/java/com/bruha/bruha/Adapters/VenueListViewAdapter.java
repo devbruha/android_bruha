@@ -559,7 +559,7 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
 
     //Method to set the icon of the event.
     public void setIcon(Venue venue,ImageView icon) {
-        if(venue.getVenuePrimaryCategory().contains("Amphitheatre"))
+        if(venue.getVenuePrimaryCategory().contains("Amphitheater"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.venamphiteather, 30));}
 
         if(venue.getVenuePrimaryCategory().contains("Arena"))
