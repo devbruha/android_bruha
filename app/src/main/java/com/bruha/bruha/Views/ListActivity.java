@@ -536,13 +536,9 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
         linearCalendar.setVisibility(view.VISIBLE);
         //Setting the adapter.
         mListView.setAdapter(eventAdapter);
-        setEmptyStatePic();
+
     }
 
-    public void setEmptyStatePic()
-    {
-       Log.v("Here", mListView.getAdapter().getCount()+"");
-    }
 
     //venueButton Implemented to switch the mListView to show List of Venue.
     @OnClick(R.id.venueButton)

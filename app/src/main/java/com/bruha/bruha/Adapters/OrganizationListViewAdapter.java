@@ -89,8 +89,6 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         else if (org.getOrgPrimaryCategory().contains("Fashion"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgfashion, 30));}
 
-        else if (org.getOrgPrimaryCategory().contains("Promoter"))
-        {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgpromoter, 30));}
 
         else if (org.getOrgPrimaryCategory().contains("Fraternity"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgfraternity, 30));}
@@ -98,7 +96,7 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
         else if (org.getOrgPrimaryCategory().contains("Not-for-profit"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgnonprofit, 30));}
 
-        else if (org.getOrgPrimaryCategory().contains("Sports"))
+        else if (org.getOrgPrimaryCategory().contains("Sport"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgsports, 30));}
 
         else if (org.getOrgPrimaryCategory().contains("Student"))
@@ -106,6 +104,9 @@ public class OrganizationListViewAdapter extends BaseSwipeAdapter {
 
         else if (org.getOrgPrimaryCategory().contains("Religion"))
         {icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgreligon, 30));}
+
+        else { icon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(), R.raw.orgpromoter, 30));}
+
 
     }
 
