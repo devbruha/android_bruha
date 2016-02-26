@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.bruha.bruha.Views.UserProfileActivity"
+    tools:context="com.bruha.bruhaandroid.Views.UserProfileActivity"
     android:background="@drawable/prof_gradient"
     android:id="@+id/UserRelLayout">
 

@@ -45,7 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/map"
-                    tools:context="com.bruha.bruha.Views.MapsActivity"
+                    tools:context="com.bruha.bruhaandroid.Views.MapsActivity"
                     android:name="com.google.android.gms.maps.SupportMapFragment" />
 
                 <!-- Transparent View to fix the map bug -->
