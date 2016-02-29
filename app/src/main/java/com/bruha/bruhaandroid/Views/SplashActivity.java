@@ -23,6 +23,7 @@ import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,12 +32,16 @@ import com.bruha.bruhaandroid.R;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 public class SplashActivity extends Activity {
    //The bulb Images to be used.
     BitmapDrawable selected;
     BitmapDrawable unselected;
     Typeface opensansregfnt;  //Font to be used.
+    //Injevting the Buttons:
+    @InjectView(R.id.splashloginButton) Button loginButton;
+    @InjectView(R.id.splashregisterButton) Button registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +72,9 @@ public class SplashActivity extends Activity {
         final Button loginButton = (Button) findViewById(R.id.splashloginButton);
         final Button registerButton = (Button) findViewById(R.id.splashregisterButton);
         final Button skipButton = (Button) findViewById(R.id.noLoginButton);
+        //@InjectView(R.id.splashloginButton) Button loginButton;
+        //@InjectView(R.id.splashregisterButton) Button registerButton;
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +121,7 @@ public class SplashActivity extends Activity {
             }
         });
 
-       // resize();  //The method that resizes and sets the font size according to the screen size.
+          resize();  //The method that resizes and sets the font size according to the screen size.
 
         //Checks if internet connection is available,if not app continues without internet connection.
         if(!isNetworkAvailable())
@@ -132,7 +140,7 @@ public class SplashActivity extends Activity {
         dialog.show(getFragmentManager(), "error_dialog");
     }
 
-   /* private void resize() {   //The method that resizes the splash page according to the screen size and sets the font.
+    private void resize() {   //The method that resizes the splash page according to the screen size and sets the font.
 
         // Android functions to determine the screen dimensions.
         Display display = getWindowManager().getDefaultDisplay();
@@ -141,16 +149,21 @@ public class SplashActivity extends Activity {
 
         // Storing the screen height into an int variable..
         int height = size.y;
-        int x= (int)Math.round(height * .045);
+        Typeface opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
+        int x= (int)Math.round(height * .024);
 
-        Setting text size and font.
-        TextView loginText = (TextView) findViewById(R.id.splashLoginText);
-        TextView registerText = (TextView) findViewById(R.id.splashRegisterText);
-        loginText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        registerText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        loginText.setTypeface(opensansregfnt);
-        registerText.setTypeface(opensansregfnt);
-    }*/
+        ViewGroup.LayoutParams loginButtonLayoutParams = loginButton.getLayoutParams();
+        ViewGroup.LayoutParams registerButtonLayoutParams = registerButton.getLayoutParams();
+
+        loginButtonLayoutParams.height =  (int)Math.round(height*.05);
+        registerButtonLayoutParams.height =  (int)Math.round(height*.05);
+
+        loginButtonLayoutParams.width  = (int) Math.round(height*.25);
+        registerButtonLayoutParams.width  = (int) Math.round(height*.25);
+
+        loginButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        registerButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+    }
 
     public class MyPagerAdapter extends PagerAdapter {
         //MyPageAdapter class to decide which page is going to be swiped to.

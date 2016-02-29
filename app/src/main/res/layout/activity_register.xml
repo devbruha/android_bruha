@@ -47,10 +47,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Enter Desired Username"
                 android:id="@+id/registerUsernameTextView"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:textColor="@android:color/black"
+                />
 
             <EditText
                 android:layout_width="wrap_content"
@@ -58,14 +59,17 @@
                 android:inputType="textMultiLine"
                 android:singleLine="true"
                 android:ems="10"
-                android:id="@+id/registerUsernameEditText"/>
+                android:id="@+id/registerUsernameEditText"
+                android:background="@drawable/rounded_edittext"
+                />
 
             <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Enter Desired Password"
-            android:id="@+id/registerPasswordTextView"/>
+            android:id="@+id/registerPasswordTextView"
+            android:textColor="@android:color/black"
+                />
 
             <EditText
                 android:layout_width="wrap_content"
@@ -74,14 +78,17 @@
                 android:ems="10"
                 android:singleLine="true"
                 android:password="true"
-                android:id="@+id/registerPasswordEditText"/>
+                android:id="@+id/registerPasswordEditText"
+                android:background="@drawable/rounded_edittext"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Please Enter Password Again"
-                android:id="@+id/reenterregisterPasswordTextView"/>
+                android:id="@+id/reenterregisterPasswordTextView"
+                android:textColor="@android:color/black"
+                />
 
             <EditText
                 android:layout_width="wrap_content"
@@ -90,14 +97,17 @@
                 android:ems="10"
                 android:singleLine="true"
                 android:password="true"
-                android:id="@+id/reenterregisterPasswordEditText"/>
+                android:id="@+id/reenterregisterPasswordEditText"
+                android:background="@drawable/rounded_edittext"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Enter Your Email"
-                android:id="@+id/registerEmailTextView"/>
+                android:id="@+id/registerEmailTextView"
+                android:textColor="@android:color/black"
+                />
 
             <EditText
                 android:layout_width="wrap_content"
@@ -105,7 +115,9 @@
                 android:inputType="textMultiLine"
                 android:ems="10"
                 android:singleLine="true"
-                android:id="@+id/registerEmailEditText"/>
+                android:id="@+id/registerEmailEditText"
+                android:background="@drawable/rounded_edittext"
+                />
         </LinearLayout>
 
         <LinearLayout

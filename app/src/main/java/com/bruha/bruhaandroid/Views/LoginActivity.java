@@ -153,8 +153,8 @@ public class LoginActivity extends ActionBarActivity {
         mLoginPasswordTextView.setTypeface(opensansregfnt);
         mLoginPasswordEditText.setTypeface(opensansregfnt);
 
-        int x= (int)Math.round(height * .018);
-        int x1= (int)Math.round(height * .028);
+        int x= (int)Math.round(height * .024);
+        int x1= (int)Math.round(height * .024);
         mLoginPasswordEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
         mLoginUsernameEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
         mLoginUsernameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
@@ -162,20 +162,20 @@ public class LoginActivity extends ActionBarActivity {
 
         ViewGroup.LayoutParams mLoginUsernameEditTextLayoutParams = mLoginUsernameEditText.getLayoutParams();
         ViewGroup.LayoutParams mLoginPasswordEditTextLayoutParams = mLoginPasswordEditText.getLayoutParams();
-        mLoginPasswordEditTextLayoutParams.height =  (int)Math.round(height*.07);
-        mLoginUsernameEditTextLayoutParams.height =  (int)Math.round(height*.07);
-        mLoginPasswordEditTextLayoutParams.width  = (int) Math.round(height*.30);
-        mLoginUsernameEditTextLayoutParams.width  = (int) Math.round(height*.30);
+        mLoginPasswordEditTextLayoutParams.height =  (int)Math.round(height*.04);
+        mLoginUsernameEditTextLayoutParams.height =  (int)Math.round(height*.04);
+        mLoginPasswordEditTextLayoutParams.width  = (int) Math.round(height*.40);
+        mLoginUsernameEditTextLayoutParams.width  = (int) Math.round(height*.40);
 
         ViewGroup.LayoutParams loginButtonLayoutParams = loginButton.getLayoutParams();
         ViewGroup.LayoutParams noLoginButtonLayoutParams = noLoginButton.getLayoutParams();
         ViewGroup.LayoutParams backButtonLayoutParams = mBackButton.getLayoutParams();
-        loginButtonLayoutParams.height =  (int)Math.round(height*.07);
-        noLoginButtonLayoutParams.height =  (int)Math.round(height*.07);
-        backButtonLayoutParams.height =  (int)Math.round(height*.07);
-        loginButtonLayoutParams.width  = (int) Math.round(height*.135);
-        noLoginButtonLayoutParams.width  = (int) Math.round(height*.135);
-        backButtonLayoutParams.width  = (int) Math.round(height*.135);
+        loginButtonLayoutParams.height =  (int)Math.round(height*.05);
+        noLoginButtonLayoutParams.height =  (int)Math.round(height*.05);
+        backButtonLayoutParams.height =  (int)Math.round(height*.05);
+        loginButtonLayoutParams.width  = (int) Math.round(height*.17);
+        noLoginButtonLayoutParams.width  = (int) Math.round(height*.17);
+        backButtonLayoutParams.width  = (int) Math.round(height*.17);
 
         loginButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         mBackButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
