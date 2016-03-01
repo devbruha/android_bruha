@@ -139,32 +139,25 @@ public class ForgetPasswordActivity extends AppCompatActivity {
 
         mForgetPasswordUsernameTextView.setTypeface(opensansregfnt);
         mForgetPasswordUsernameEditText.setTypeface(opensansregfnt);
-        //mForgetPasswordEmailTextView.setTypeface(opensansregfnt);
-        //mForgetPasswordEmailEditText.setTypeface(opensansregfnt);
 
-        int x= (int)Math.round(height * .018);
-        int x1= (int)Math.round(height * .028);
+        int x= (int)Math.round(height * .024);
+        int x1= (int)Math.round(height * .024);
         mForgetPasswordUsernameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
         mForgetPasswordUsernameEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
-        //mForgetPasswordEmailTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        //mForgetPasswordEmailEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
 
         ViewGroup.LayoutParams mForgetPasswordUsernameEditTextLayoutParams = mForgetPasswordUsernameEditText.getLayoutParams();
-        //ViewGroup.LayoutParams mForgetPasswordEmailEditTextLayoutParams = mForgetPasswordEmailEditText.getLayoutParams();
-        mForgetPasswordUsernameEditTextLayoutParams.height =  (int)Math.round(height*.07);
-        //mForgetPasswordEmailEditTextLayoutParams.height =  (int)Math.round(height*.07);
-        mForgetPasswordUsernameEditTextLayoutParams.width  = (int) Math.round(height*.30);
-        //mForgetPasswordEmailEditTextLayoutParams.width  = (int) Math.round(height*.30);
+        mForgetPasswordUsernameEditTextLayoutParams.height =  (int)Math.round(height*.04);
+        mForgetPasswordUsernameEditTextLayoutParams.width  = (int) Math.round(height*.40);
 
         ViewGroup.LayoutParams SkipButtonLayoutParams = mForgetPasswordSkipButton.getLayoutParams();
         ViewGroup.LayoutParams BackButtonLayoutParams = mForgetPasswordBackButton.getLayoutParams();
         ViewGroup.LayoutParams SubmitButtonLayoutParams = mForgetPasswordSubmitButton.getLayoutParams();
-        SkipButtonLayoutParams.height =  (int)Math.round(height*.07);
-        BackButtonLayoutParams.height =  (int)Math.round(height*.07);
-        SubmitButtonLayoutParams.height =  (int)Math.round(height*.07);
-        SkipButtonLayoutParams.width  = (int) Math.round(height*.135);
-        BackButtonLayoutParams.width  = (int) Math.round(height*.135);
-        SubmitButtonLayoutParams.width  = (int) Math.round(height*.135);
+        SkipButtonLayoutParams.height =  (int)Math.round(height*.05);
+        BackButtonLayoutParams.height =  (int)Math.round(height*.05);
+        SubmitButtonLayoutParams.height =  (int)Math.round(height*.05);
+        SkipButtonLayoutParams.width  = (int) Math.round(height*.17);
+        BackButtonLayoutParams.width  = (int) Math.round(height*.17);
+        SubmitButtonLayoutParams.width  = (int) Math.round(height*.17);
 
         mForgetPasswordSkipButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         mForgetPasswordBackButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
