@@ -55,7 +55,8 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:ems="10"
-                android:id="@+id/loginUsernameEditText"/>
+                android:id="@+id/loginUsernameEditText"
+                android:background="@drawable/rounded_edittext"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -70,7 +71,8 @@
                 android:singleLine="true"
                 android:ems="10"
                 android:password="true"
-                android:id="@+id/loginPasswordEditText"/>
+                android:id="@+id/loginPasswordEditText"
+                android:background="@drawable/rounded_edittext"/>
 
             <Button
                 android:layout_width="wrap_content"

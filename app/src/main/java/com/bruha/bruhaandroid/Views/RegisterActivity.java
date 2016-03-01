@@ -131,8 +131,8 @@ public class RegisterActivity extends ActionBarActivity {
         mRegisterReenterPasswordTextView.setTypeface(opensansregfnt);
 
 
-        int x= (int)Math.round(height * .018);
-        int x1= (int)Math.round(height * .028);
+        int x= (int)Math.round(height * .024);
+        int x1= (int)Math.round(height * .024);
         mRegisterEmailEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
         mRegisterEmailTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         mRegisterPasswordEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
@@ -147,22 +147,24 @@ public class RegisterActivity extends ActionBarActivity {
         ViewGroup.LayoutParams mRegisterPasswordEditTextLayoutParams = mRegisterPasswordEditText.getLayoutParams();
         ViewGroup.LayoutParams mRegisterReenterPasswordEditTextLayoutParams = mRegisterReenterPasswordEditText.getLayoutParams();
         ViewGroup.LayoutParams mRegisterEmailEditTextLayoutParams = mRegisterEmailEditText.getLayoutParams();
-        mRegisterUsernameEditTextLayoutParams.height =  (int)Math.round(height*.07);
-        mRegisterPasswordEditTextLayoutParams.height =  (int)Math.round(height*.07);
-        mRegisterReenterPasswordEditTextLayoutParams.height = (int)Math.round(height*.07);
-        mRegisterReenterPasswordEditTextLayoutParams.width = (int) Math.round(height*.30);
-        mRegisterPasswordEditTextLayoutParams.width  = (int) Math.round(height*.30);
-        mRegisterEmailEditTextLayoutParams.width  = (int) Math.round(height*.30);
+        mRegisterUsernameEditTextLayoutParams.height =  (int)Math.round(height*.04);
+        mRegisterPasswordEditTextLayoutParams.height =  (int)Math.round(height*.04);
+        mRegisterEmailEditTextLayoutParams.height =  (int)Math.round(height*.04);
+        mRegisterReenterPasswordEditTextLayoutParams.height = (int)Math.round(height*.04);
+        mRegisterUsernameEditTextLayoutParams.width = (int) Math.round(height*.40);
+        mRegisterReenterPasswordEditTextLayoutParams.width = (int) Math.round(height*.40);
+        mRegisterPasswordEditTextLayoutParams.width  = (int) Math.round(height*.40);
+        mRegisterEmailEditTextLayoutParams.width  = (int) Math.round(height*.40);
 
         ViewGroup.LayoutParams mBacktoSplashButtonLayoutParams = mBacktoSplashButton.getLayoutParams();
         ViewGroup.LayoutParams noLoginButtonLayoutParams = noRegisterButton.getLayoutParams();
         ViewGroup.LayoutParams registerButtonLayoutParams = registerButton.getLayoutParams();
-        mBacktoSplashButtonLayoutParams.height =  (int)Math.round(height*.07);
-        noLoginButtonLayoutParams.height =  (int)Math.round(height*.07);
-        registerButtonLayoutParams.height =  (int)Math.round(height*.07);
-        mBacktoSplashButtonLayoutParams.width  = (int) Math.round(height*.135);
-        noLoginButtonLayoutParams.width  = (int) Math.round(height*.135);
-        registerButtonLayoutParams.width  = (int) Math.round(height*.135);
+        mBacktoSplashButtonLayoutParams.height =  (int)Math.round(height*.05);
+        noLoginButtonLayoutParams.height =  (int)Math.round(height*.05);
+        registerButtonLayoutParams.height =  (int)Math.round(height*.05);
+        mBacktoSplashButtonLayoutParams.width  = (int) Math.round(height*.17);
+        noLoginButtonLayoutParams.width  = (int) Math.round(height*.17);
+        registerButtonLayoutParams.width  = (int) Math.round(height*.17);
 
         mBacktoSplashButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         registerButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
