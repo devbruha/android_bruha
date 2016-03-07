@@ -42,6 +42,7 @@ public class SplashActivity extends Activity {
     //Injevting the Buttons:
     @InjectView(R.id.splashloginButton) Button loginButton;
     @InjectView(R.id.splashregisterButton) Button registerButton;
+    @InjectView(R.id.splashImageView) ImageView mSplashImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +121,7 @@ public class SplashActivity extends Activity {
                 animator.start();
             }
         });
-
+          setImages();  //Calling the method that sets all the images inside the database.
           resize();  //The method that resizes and sets the font size according to the screen size.
 
         //Checks if internet connection is available,if not app continues without internet connection.
@@ -163,6 +164,10 @@ public class SplashActivity extends Activity {
 
         loginButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         registerButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+    }
+
+    private void setImages() {       //The method that sets all the images inside the Dashboard activity.
+        mSplashImageView.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.splash, 100));
     }
 
     public class MyPagerAdapter extends PagerAdapter {
