@@ -41,6 +41,7 @@ public class SplashActivity extends Activity {
     Typeface opensansregfnt;  //Font to be used.
     //Injevting the Buttons:
     @InjectView(R.id.splashloginButton) Button loginButton;
+    @InjectView(R.id.noLoginButton) Button mSkipButton;
     @InjectView(R.id.splashregisterButton) Button registerButton;
     @InjectView(R.id.splashImageView) ImageView mSplashImageView;
 
@@ -155,15 +156,19 @@ public class SplashActivity extends Activity {
 
         ViewGroup.LayoutParams loginButtonLayoutParams = loginButton.getLayoutParams();
         ViewGroup.LayoutParams registerButtonLayoutParams = registerButton.getLayoutParams();
+        ViewGroup.LayoutParams skipButtonLayoutParams = mSkipButton.getLayoutParams();
 
         loginButtonLayoutParams.height =  (int)Math.round(height*.05);
         registerButtonLayoutParams.height =  (int)Math.round(height*.05);
+        skipButtonLayoutParams.height =  (int)Math.round(height*.04);
 
         loginButtonLayoutParams.width  = (int) Math.round(height*.25);
         registerButtonLayoutParams.width  = (int) Math.round(height*.25);
+        skipButtonLayoutParams.width  = (int) Math.round(height*.09);
 
         loginButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         registerButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        mSkipButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
     }
 
     private void setImages() {       //The method that sets all the images inside the Dashboard activity.
