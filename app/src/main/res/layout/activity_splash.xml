@@ -8,8 +8,9 @@
     <!-- The Swipe code to swipe between different layouts. -->
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/splashImageView"/>
+        android:layout_height="fill_parent"
+        android:id="@+id/splashImageView"
+        android:layout_marginBottom="95dp"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
