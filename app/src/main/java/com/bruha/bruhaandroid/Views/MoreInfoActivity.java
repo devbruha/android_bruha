@@ -338,7 +338,7 @@ public class MoreInfoActivity extends ActionBarActivity {
             venueName.setText(event.getEventLocName());
             venueSt.setText(event.getEventLocSt());
             venuecountry.setText(event.getEventLocAdd());
-            eventprice.setText("Venue (placeholder)");
+            eventprice.setText(event.getEventLocName());
             eventdate.setText("Affiliated Organizations");
             eventdesc.setText(Html.fromHtml(event.getEventDescription()));
             Bitmap x = setEventIcon(event);

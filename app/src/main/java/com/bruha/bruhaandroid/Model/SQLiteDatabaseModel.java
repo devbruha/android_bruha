@@ -1296,7 +1296,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
 
                     while(orgCursor.moveToNext()){
 
-                        eventOrgs.add(orgCursor.getString(subCursor.getColumnIndex("eventOrganizationID")));
+                        eventOrgs.add(orgCursor.getString(orgCursor.getColumnIndex("eventOrganizationID")));
                     }
                 }
 
