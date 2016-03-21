@@ -47,11 +47,12 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/ListTitleText"
                     android:text="Event"
-                    android:textSize="36sp"
+                    android:textSize="25dp"
                     android:textColor="#ffffff"
                     android:layout_centerHorizontal="true"
                     android:gravity="center_vertical|center_horizontal"
-                    android:layout_alignParentTop="true" />
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="5dp"/>
 
 
                 <ImageView
@@ -66,12 +67,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/searchEditText"
-                    android:background="#ffffff"
+                    android:background="@drawable/rounded_edittext"
                     android:hint="Search Events"
                     android:layout_below="@+id/DashboardButton"
                     android:layout_toLeftOf="@+id/cancelSearch"
                     android:layout_toStartOf="@+id/cancelSearch"
-                    android:textSize="24dp"
+                    android:textSize="20dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="15dp"
                     android:paddingLeft="15dp"
@@ -89,7 +90,7 @@
                     android:layout_alignParentRight="true"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
-                    android:textSize="24dp"
+                    android:textSize="20dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginRight="15dp" />
 

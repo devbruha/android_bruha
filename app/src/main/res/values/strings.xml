@@ -89,6 +89,7 @@
     <string name="title_activity_my_addictions">myAddictions</string>
     <string name="title_activity_more_info">MoreInfoActivity</string>
     <string name="title_activity_forget_password">ForgetPasswordActivity</string>
+    <string name="title_activity_more_info_event">MoreInfoEventActivity</string>
 
 
 </resources>

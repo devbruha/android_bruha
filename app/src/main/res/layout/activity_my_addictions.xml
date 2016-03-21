@@ -45,7 +45,7 @@
                     android:text="My Addictions"
                     android:id="@+id/addictionText"
                     android:background="#ff54cdd6"
-                    android:textSize="30sp"
+                    android:textSize="25dp"
                     android:textColor="#ffffff"
                     android:paddingRight="5dp"
                     android:paddingLeft="5dp"
