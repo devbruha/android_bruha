@@ -120,7 +120,7 @@ public class EventPageActivity extends ActionBarActivity {
         EventPictureParams.width  =  (int)Math.round(height*.15);
 
         //The PageEventName being Formatted.
-         EventName = (TextView) findViewById(R.id.PageEventName);
+        EventName = (TextView) findViewById(R.id.PageEventName);
         int x1= (int)Math.round(height*.038);
         EventName.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
 

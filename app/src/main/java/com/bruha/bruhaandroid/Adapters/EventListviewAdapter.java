@@ -43,6 +43,8 @@ import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 
 /**
  * Created by Work on 2015-05-12.
@@ -361,12 +363,17 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
         if(event.getEventName().length()<=15)
         { holder.EventName.setText(event.getEventName());}
         else { holder.EventName.setText(event.getEventName().substring(0,15)+"..."); }
+
+
+
         holder.EventDate.setText(dateFormat(event.getEventDate()));
        Paint paint = new Paint();
         paint.setColor(Color.GREEN);
         holder.EventDate.setPaintFlags(paint.getColor());
         holder.EventDate.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
         holder.EventPrice.setText(freeEventCheck(event.getEventPrice()));
+        holder.EventPrice.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+
         // holder.EventDistance.setText(event.getEventDistance() + "km");
         setIcon(event, holder.EventIcon);
         setIcon(event, holder.EventCatPic);
@@ -377,15 +384,16 @@ public class EventListviewAdapter extends BaseSwipeAdapter {
 
 
         //Setting the detailed description..
-        if(event.getEventName().length()<=15)
-        { holder.EventDName.setText(event.getEventName());}
-        else { holder.EventDName.setText(event.getEventName().substring(0,15)+"..."); }
+        if(event.getEventName().length()<=23)
+        { holder.EventDName.setText(event.getEventName());   holder.EventDName.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);}
+        else { holder.EventDName.setText(event.getEventName().substring(0,23)+"...");   holder.EventDName.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG); }
         holder.EventDPrice.setText("$"+event.getEventPrice());
 
         //holder.EventLocName.setText(event.getEventLocName());
-        if(event.getEventLocName().length()<=15)
-        { holder.EventLocName.setText(event.getEventLocName());}
-        else { holder.EventLocName.setText(event.getEventLocName().substring(0,15)+"..."); }
+       // if(event.getEventLocName().length()<=15)
+        { holder.EventLocName.setText(event.getEventLocName());
+            holder.EventPrice.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);}
+       // else { holder.EventLocName.setText(event.getEventLocName().substring(0,15)+"..."); }
 
         holder.EventLocSt.setText(event.getEventLocSt()+", ");
         holder.EventLocAdd.setText(event.getEventLocAdd());
