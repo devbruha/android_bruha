@@ -67,7 +67,7 @@ public class UserProfileActivity extends ActionBarActivity {
         resizeButton(); //Resizing the page.
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
-        mClient = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        //mClient = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     private void resizeButton() {
@@ -200,6 +200,7 @@ public class UserProfileActivity extends ActionBarActivity {
         dialog.show();
     }
 
+    /*
     @Override
     public void onStart() {
         super.onStart();
@@ -220,6 +221,7 @@ public class UserProfileActivity extends ActionBarActivity {
         AppIndex.AppIndexApi.start(mClient, viewAction);
     }
 
+
     @Override
     public void onStop() {
         super.onStop();
@@ -239,6 +241,7 @@ public class UserProfileActivity extends ActionBarActivity {
         AppIndex.AppIndexApi.end(mClient, viewAction);
         mClient.disconnect();
     }
+    */
 }
 
 
