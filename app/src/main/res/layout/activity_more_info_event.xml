@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.bruha.bruhaandroid.Views.MoreInfoEventActivity"
+    android:background="#24163f">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:context="com.bruha.bruhaandroid.Views.MoreInfoEventActivity"
+                    android:background="@android:color/transparent">
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent">
+
+            <RelativeLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent">
+
+                <RelativeLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/relativeLayout1"
+                    android:background="@android:color/transparent">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#24163f">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/MoreinfoEventTitleTextview"
+                            android:text="More Info"
+                            android:textSize="30sp"
+                            android:textColor="@android:color/white"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:layout_alignParentTop="true"
+                            android:background="@android:color/transparent"
+                            android:layout_gravity="center_horizontal"/>
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:id="@+id/MIEbacktoDashBoardimageView"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:adjustViewBounds="false"
+                            android:background="@android:color/transparent"/>
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:id="@+id/MIElistImageview"
+                            android:layout_alignParentEnd="false"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_gravity="right|top"
+                            android:background="@android:color/transparent"/>
+                    </FrameLayout>
+                </RelativeLayout>
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/scrollView2"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/concretebackground"
+                    android:layout_below="@+id/relativeLayout1"
+                    android:layout_above="@+id/TicketInfoTextview">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_above="@+id/TicketInfoTextview"
+                        android:background="@android:color/transparent">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:id="@+id/WebImageView"
+                            android:background="@android:color/transparent"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="2dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="95dp"
+                            android:text="New Text"
+                            android:id="@+id/EventDescriptionTextView"
+                            android:background="@android:color/transparent"
+                            android:layout_below="@+id/WebImageView"/>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:weightSum="3"
+                            android:layout_weight="2"
+                            android:background="@android:color/transparent"
+                            android:id="@+id/linearLayout2"
+                            android:layout_below="@+id/EventDescriptionTextView">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="fill_parent"
+                                android:text="New Text"
+                                android:id="@+id/VenueNameTextView"
+                                android:layout_weight="1"
+                                android:background="@android:color/transparent"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="fill_parent"
+                                android:text="New Text"
+                                android:id="@+id/AffliatedOrgTextview"
+                                android:layout_weight="1"
+                                android:background="@android:color/transparent"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="fill_parent"
+                                android:text="New Text"
+                                android:id="@+id/GetAddictedTextView"
+                                android:layout_weight="1"
+                                android:background="@android:color/transparent"/>
+                        </LinearLayout>
+
+                        <ScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:id="@+id/scrollView3"
+                            android:layout_below="@+id/linearLayout2"
+                            android:layout_alignParentBottom="true"
+                            android:background="@android:color/transparent">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp"
+                                android:text="New Text"
+                                android:id="@+id/WebviewTextView"
+                                android:background="@android:color/transparent"
+                                android:layout_below="@+id/linearLayout2"/>
+
+
+                        </ScrollView>
+                    </RelativeLayout>
+                </ScrollView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ticket Coming Soon ......"
+                    android:id="@+id/TicketInfoTextview"
+                    android:background="#24163f"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+        </FrameLayout>
+
+    </RelativeLayout>
+
+
+
+
+
+</android.support.design.widget.CoordinatorLayout>

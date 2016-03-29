@@ -640,7 +640,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:paddingLeft="5dp"
-                android:textColor="#ff727272" />
+                android:textColor="#ffffff" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -648,7 +648,7 @@
                 android:text="GA 319204"
                 android:id="@+id/DesVenueLocAddress"
                 android:paddingLeft="5dp"
-                android:textColor="#ff727272"
+                android:textColor="#ffffff"
                 android:layout_alignTop="@+id/DesVenueLocStreet"
                 android:layout_toRightOf="@+id/DesVenueLocStreet"
                 android:layout_toEndOf="@+id/DesVenueLocStreet" />

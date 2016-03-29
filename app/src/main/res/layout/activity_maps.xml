@@ -90,7 +90,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#B4000000">
+            android:background="#24163f">
 
             <ListView
                 android:layout_width="match_parent"
@@ -100,7 +100,8 @@
                 android:fadeScrollbars="false"
                 android:scrollbarSize="2dp"
                 android:scrollbarThumbVertical="@android:color/holo_orange_light"
-                android:dividerHeight="5dp"/>
+                android:dividerHeight="5dp"
+                android:background="#24163f"/>
 
         </LinearLayout>
 

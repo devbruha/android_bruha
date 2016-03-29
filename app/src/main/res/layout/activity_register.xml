@@ -134,7 +134,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SKIP"
+                    android:text="Skip"
                     android:layout_centerVertical="true"
                     android:singleLine="true"
                     android:id="@+id/continueNotRegisteredButton"
@@ -155,7 +155,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Submit"
+                    android:text="Sign Up"
                     android:id="@+id/createAccountButton"
                     android:layout_alignTop="@+id/backtoSplashButton"
                     android:layout_alignParentRight="true"

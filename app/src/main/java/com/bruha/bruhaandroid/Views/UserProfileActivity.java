@@ -14,6 +14,7 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -21,6 +22,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import de.hdodenhof.circleimageview.CircleImageView;
 import android.widget.TextView;
 import com.bruha.bruhaandroid.Model.MyApplication;
 import com.bruha.bruhaandroid.Model.SQLiteDatabaseModel;
@@ -33,11 +35,22 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 public class UserProfileActivity extends ActionBarActivity {
-    ArrayList<String> userInfo=new ArrayList<>();
+    ArrayList<String> userInfo = new ArrayList<>();
     SQLiteDatabaseModel dbHelper;
     SQLiteUtils sqLiteUtils;
-    @InjectView(R.id.userprofileDashboardImage) ImageView dudeButton;
+    @InjectView(R.id.userprofileDashboardImage)
+    ImageView dudeButton;
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient mClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,44 +65,46 @@ public class UserProfileActivity extends ActionBarActivity {
         init(); // Initializes the array to contain the information to be displayed.(User Info)
         setPage(); //Setting up the page.
         resizeButton(); //Resizing the page.
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        mClient = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-   private void resizeButton() {
-       //The method that resizes the buttons.
-       Display display = getWindowManager().getDefaultDisplay();
-       Point size = new Point();
-       display.getSize(size);
+    private void resizeButton() {
+        //The method that resizes the buttons.
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
 
-       // Storing the screen height into an int variable..
-       int height = size.y;
-       //Assigning the PageEventCoverPicture to a variable to alter its dimensions after with.
-       ViewGroup.LayoutParams dudeButtonLayoutParams = dudeButton.getLayoutParams();
-       dudeButtonLayoutParams.height = (int) Math.round(height * .07);
-       dudeButtonLayoutParams.width = (int) Math.round(height * .07);
-       //Setting the Button Image
-       dudeButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 30));
+        // Storing the screen height into an int variable..
+        int height = size.y;
+        //Assigning the PageEventCoverPicture to a variable to alter its dimensions after with.
+        ViewGroup.LayoutParams dudeButtonLayoutParams = dudeButton.getLayoutParams();
+        dudeButtonLayoutParams.height = (int) Math.round(height * .07);
+        dudeButtonLayoutParams.width = (int) Math.round(height * .07);
+        //Setting the Button Image
+        dudeButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 30));
 
-       dudeButton.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(final View v) {
-               ObjectAnimator animator = ObjectAnimator.ofFloat(dudeButton, "alpha", 1f, 0.5f);
-               animator.setDuration(100);
-               animator.addListener(new AnimatorListenerAdapter() {
-                   public void onAnimationEnd(Animator animation) {
-                       dudeButton.setAlpha(1f);
-                       startDashboardActivity(v);
-                   }
-               });
-               animator.start();
-           }
-       });
-   }
+        dudeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(dudeButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        dudeButton.setAlpha(1f);
+                        startDashboardActivity(v);
+                    }
+                });
+                animator.start();
+            }
+        });
+    }
 
-    private void setPage()
-    {   //Resizes the page, sets the fonts, sets the text.
+    private void setPage() {   //Resizes the page, sets the fonts, sets the text.
 
         //FONT SHIT
-        Typeface domboldfnt = Typeface.createFromAsset(this.getAssets(),"fonts/Domine-Bold.ttf");
+        Typeface domboldfnt = Typeface.createFromAsset(this.getAssets(), "fonts/Domine-Bold.ttf");
         Typeface opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
 
         //The EventPage dimensions being set to fit all types of screen:
@@ -103,18 +118,18 @@ public class UserProfileActivity extends ActionBarActivity {
         int height = size.y;
 
         //Assigning the UserPicture to a variable to alter its dimensions after with.
-        ImageView userPicture = (ImageView) findViewById(R.id.UserPicture);
+        CircleImageView userPicture = (CircleImageView) findViewById(R.id.UserPicture);
         ViewGroup.LayoutParams userPictureLayoutParams = userPicture.getLayoutParams();
-        userPictureLayoutParams.height =  (int)Math.round(height*.25);
-        userPictureLayoutParams.width  =  (int)Math.round(height*.25);
+        userPictureLayoutParams.height = (int) Math.round(height * .25);
+        userPictureLayoutParams.width = (int) Math.round(height * .25);
 
         //Resizing, changing font and setting the text of the following.
         TextView usernameText = (TextView) findViewById(R.id.usernametext);
         usernameText.setText(userInfo.get(0));
         TextView emailText = (TextView) findViewById(R.id.emailtext);
         emailText.setText(userInfo.get(4));
-        int x= (int)Math.round(height * .0275);
-        int x1= (int)Math.round(height * .0485);
+        int x = (int) Math.round(height * .0275);
+        int x1 = (int) Math.round(height * .0485);
         usernameText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
         usernameText.setTypeface(domboldfnt);
         emailText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
@@ -122,12 +137,11 @@ public class UserProfileActivity extends ActionBarActivity {
     }
 
     private void init() {
-        userInfo =sqLiteUtils.getUserInfo(dbHelper);
+        userInfo = sqLiteUtils.getUserInfo(dbHelper);
     }
 
     @OnClick(R.id.logouty)
-    public void onClickListenerLogout(View view)
-    {
+    public void onClickListenerLogout(View view) {
         logoutDialog();
     }
 
@@ -136,21 +150,21 @@ public class UserProfileActivity extends ActionBarActivity {
         MyApplication.userName = "false";
         dbHelper.onLogout(dbHelper.getWritableDatabase(), 1, 1);
         Intent intent = new Intent(this, SplashActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }
 
     public void startDashboardActivity(View view) {
-        Intent intent = new Intent(this,DashboardActivity.class);
+        Intent intent = new Intent(this, DashboardActivity.class);
         startActivity(intent);
         finish();
     }
 
-    public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
+    public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size) {
         //SVG Conversion
         try {
-            size = (int)(size*res.getDisplayMetrics().density);
+            size = (int) (size * res.getDisplayMetrics().density);
             SVG svg = SVG.getFromResource(getApplicationContext(), resource);
 
             Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
@@ -161,7 +175,7 @@ public class UserProfileActivity extends ActionBarActivity {
 
 
             return drawable;
-        }catch(SVGParseException e){
+        } catch (SVGParseException e) {
             e.printStackTrace();
         }
         return null;
@@ -185,4 +199,47 @@ public class UserProfileActivity extends ActionBarActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        mClient.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "UserProfile Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.bruha.bruhaandroid.Views/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(mClient, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "UserProfile Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.bruha.bruhaandroid.Views/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(mClient, viewAction);
+        mClient.disconnect();
+    }
 }
+
+
+

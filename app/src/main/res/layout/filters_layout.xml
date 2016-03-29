@@ -21,11 +21,11 @@
             android:id="@+id/handleLayout"
             android:weightSum="4"
             android:orientation="horizontal"
-            android:background="#ff252525"
+            android:background="#bb252525"
             android:clickable="true"
 
             android:baselineAligned="false"
-            android:alpha="0.60">
+            >
 
             <LinearLayout
                 android:orientation="vertical"
@@ -396,7 +396,7 @@
                     android:background="@android:color/holo_orange_dark"
                     android:textColor="@android:color/white"
                     android:id="@+id/admissionTextView"
-                    android:textSize="24sp"/>
+                    android:textSize="25dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -409,7 +409,7 @@
                 <SeekBar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/white"
+                    android:background="@drawable/rounded_edittext"
                     android:id="@+id/priceBar"
                     android:max="100"
                     android:thumb="@android:drawable/editbox_background_normal"/>
