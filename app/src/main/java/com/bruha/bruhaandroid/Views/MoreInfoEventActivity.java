@@ -1,3 +1,5 @@
+// Copyright 2015, Thomas Miele and Bilal Chowdhry, All rights reserved.
+
 package com.bruha.bruhaandroid.Views;
 
 import android.animation.Animator;
@@ -7,65 +9,25 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
-import android.app.Activity;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Point;
-import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
-import android.util.TypedValue;
-import android.view.Display;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.bruha.bruhaandroid.Model.Event;
-import com.bruha.bruhaandroid.Model.MyApplication;
-import com.bruha.bruhaandroid.Model.SQLiteDatabaseModel;
-import com.bruha.bruhaandroid.Processing.RetrieveMyPHP;
-import com.bruha.bruhaandroid.R;
-import com.bruha.bruhaandroid.Views.MoreInfoActivity;
-import com.bruha.bruhaandroid.Views.ShowOnMapActivity;
-import com.caverock.androidsvg.SVG;
-import com.caverock.androidsvg.SVGParseException;
-import com.daimajia.swipe.SimpleSwipeListener;
-import com.daimajia.swipe.SwipeLayout;
-import com.daimajia.swipe.adapters.BaseSwipeAdapter;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-import com.squareup.picasso.Picasso;
-import java.util.ArrayList;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
+
 import com.bruha.bruhaandroid.Model.Artist;
 import com.bruha.bruhaandroid.Model.Event;
+import com.bruha.bruhaandroid.Model.MyApplication;
 import com.bruha.bruhaandroid.Model.Organizations;
 import com.bruha.bruhaandroid.Model.SQLiteDatabaseModel;
 import com.bruha.bruhaandroid.Model.Venue;
@@ -74,19 +36,21 @@ import com.bruha.bruhaandroid.Processing.SQLiteUtils;
 import com.bruha.bruhaandroid.R;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
+public class MoreInfoEventActivity extends ActionBarActivity {
 
-public class MoreInfoEventActivity extends AppCompatActivity {
-
-    String type;
-    ArrayList<Event> mEvents = new ArrayList<>();
-    ArrayList<Venue> mVenue = new ArrayList();
-    ArrayList<Organizations> mOrg = new ArrayList<>();
-    ArrayList<Artist> mArtist = new ArrayList<>();
-    ArrayList<String> mEventAdd = new ArrayList<>();
-    ArrayList<String> mVenueAdd = new ArrayList<>();
-    ArrayList<String> mOrgAdd = new ArrayList<>();
+        String type;
+        ArrayList<Event> mEvents = new ArrayList<>();
+        ArrayList<Venue> mVenue = new ArrayList();
+        ArrayList<Organizations> mOrg = new ArrayList<>();
+        ArrayList<Artist> mArtist = new ArrayList<>();
+        ArrayList<String> mEventAdd = new ArrayList<>();
+        ArrayList<String> mVenueAdd = new ArrayList<>();
+        ArrayList<String> mOrgAdd = new ArrayList<>();
     Event event;
     Venue venue;
     Organizations org;
@@ -96,10 +60,11 @@ public class MoreInfoEventActivity extends AppCompatActivity {
     ImageView dudeButton;
     ImageView listButton;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_more_info_event);
+        setContentView(R.layout.activity_more_info);
 
         setButtons();
 
@@ -399,7 +364,8 @@ public class MoreInfoEventActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    Intent intent=new Intent(MoreInfoEventActivity.this,MoreInfoActivity.class);
+                    Intent intent = new Intent(MoreInfoActivity.this, MoreInfoActivity.class);
+
 
                     intent.putExtra("Id", event.getVenueid());
                     intent.putExtra("Type", "Venue");
@@ -419,7 +385,7 @@ public class MoreInfoEventActivity extends AppCompatActivity {
                     MyApplication.moreInfoCheck = "Event";
                     MyApplication.event = event;
 
-                    Intent intent=new Intent(MoreInfoEventActivity.this,ListActivity.class);
+                    Intent intent=new Intent(MoreInfoActivity.this,ListActivity.class);
                     startActivity(intent);
                 }
             });
@@ -483,7 +449,7 @@ public class MoreInfoEventActivity extends AppCompatActivity {
                     MyApplication.moreInfoCheck = "Venue";
                     MyApplication.venueID = venue.getVenueId();
 
-                    Intent intent=new Intent(MoreInfoEventActivity.this,CalendarActivity.class);
+                    Intent intent=new Intent(MoreInfoActivity.this,CalendarActivity.class);
                     startActivity(intent);
                 }
             });
@@ -495,7 +461,7 @@ public class MoreInfoEventActivity extends AppCompatActivity {
                     MyApplication.moreInfoCheck = "Venue";
                     MyApplication.venueID = venue.getVenueId();
 
-                    Intent intent=new Intent(MoreInfoEventActivity.this,ListActivity.class);
+                    Intent intent=new Intent(MoreInfoActivity.this,ListActivity.class);
                     startActivity(intent);
                 }
             });
@@ -570,7 +536,7 @@ public class MoreInfoEventActivity extends AppCompatActivity {
                     MyApplication.moreInfoCheck = "Organization";
                     MyApplication.organizationID = org.getOrgId();
 
-                    Intent intent = new Intent(MoreInfoEventActivity.this, CalendarActivity.class);
+                    Intent intent = new Intent(MoreInfoActivity.this, CalendarActivity.class);
                     startActivity(intent);
                 }
             });
@@ -582,7 +548,7 @@ public class MoreInfoEventActivity extends AppCompatActivity {
                     MyApplication.moreInfoCheck = "Organization";
                     MyApplication.organizationID = org.getOrgId();
 
-                    Intent intent = new Intent(MoreInfoEventActivity.this, ListActivity.class);
+                    Intent intent = new Intent(MoreInfoActivity.this, ListActivity.class);
                     startActivity(intent);
                 }
             });
