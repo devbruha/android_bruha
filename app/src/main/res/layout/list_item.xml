@@ -717,6 +717,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
                     android:id="@+id/DesEventCatPic"/>
 
                 <TextView
@@ -727,6 +728,7 @@
                     android:textSize="10dp"
                     android:textColor="#ffffff"
                     android:layout_below="@+id/DesEventCatPic"
+                    android:layout_centerHorizontal="true"
                     android:layout_alignParentBottom="@+id/DesEventCatPic"/>
             </RelativeLayout>
 

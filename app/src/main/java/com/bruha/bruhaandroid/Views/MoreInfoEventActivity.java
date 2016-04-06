@@ -64,7 +64,7 @@ public class MoreInfoEventActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_more_info);
+        setContentView(R.layout.activity_more_info_event);
 
         setButtons();
 
@@ -121,8 +121,8 @@ public class MoreInfoEventActivity extends ActionBarActivity {
 
     private void setButtons() {
 
-        dudeButton = (ImageView) findViewById(R.id.moreinfoDudeButton);
-        listButton = (ImageView) findViewById(R.id.moreinfoListView);
+        dudeButton = (ImageView) findViewById(R.id.MIEbacktoDashBoardimageView);
+        listButton = (ImageView) findViewById(R.id.MIElistImageview);
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -307,27 +307,37 @@ public class MoreInfoEventActivity extends ActionBarActivity {
 
         Typeface opensansregfnt = Typeface.createFromAsset(getAssets(), "fonts/OpenSans-Regular.ttf");
 
-        ImageView filterimage = (ImageView) findViewById(R.id.eventcategory);
-        TextView eventName = (TextView) findViewById(R.id.nonfilterEventName);
+        ImageView filterimage = (ImageView) findViewById(R.id.EventCategimageView);
+        TextView EvenCatetextView = (TextView) findViewById(R.id.EvenCatetextView18);
+        EvenCatetextView.setTypeface(opensansregfnt);
+        TextView eventName = (TextView) findViewById(R.id.EnametextView);
         eventName.setTypeface(opensansregfnt);
-        TextView venueName = (TextView) findViewById(R.id.nonfilterVenueName);
-        venueName.setTypeface(opensansregfnt);
-        TextView venueSt = (TextView) findViewById(R.id.nonfilterVenueStreet);
-        venueSt.setTypeface(opensansregfnt);
-        TextView venuecountry = (TextView) findViewById(R.id.nonfilterVenueCountry);
-        venuecountry.setTypeface(opensansregfnt);
-        TextView eventprice = (TextView) findViewById(R.id.eventprice);
+        TextView eventprice = (TextView) findViewById(R.id.EPriceTextView);
         eventprice.setTypeface(opensansregfnt);
-        TextView eventdate = (TextView) findViewById(R.id.eventdate);
+
+        TextView venueName = (TextView) findViewById(R.id.ElocNametextView);
+        venueName.setTypeface(opensansregfnt);
+        TextView venueSt = (TextView) findViewById(R.id.LocStreetNametextView);
+        venueSt.setTypeface(opensansregfnt);
+        TextView venuecountry = (TextView) findViewById(R.id.LocAddresstextView);
+        venuecountry.setTypeface(opensansregfnt);
+        TextView eventdate = (TextView) findViewById(R.id.DatetextView);
         eventdate.setTypeface(opensansregfnt);
-        TextView eventdesc = (TextView) findViewById(R.id.moreinfoeventdescription);
+        TextView StartTHourTextView = (TextView) findViewById(R.id.StartHourtextView);
+        StartTHourTextView.setTypeface(opensansregfnt);
+        TextView MoreInfoEAffiliatedtextView = (TextView) findViewById(R.id.AffiliatedtextView);
+        MoreInfoEAffiliatedtextView.setTypeface(opensansregfnt);
+        TextView MoreInfoEOrgtextView = (TextView) findViewById(R.id.moreInfoEOrgtextView);
+        MoreInfoEOrgtextView.setTypeface(opensansregfnt);
+
+        TextView eventdesc = (TextView) findViewById(R.id.WebviewTextView);
         eventdesc.setTypeface(opensansregfnt);
-        ImageView eventPic = (ImageView) findViewById(R.id.moreinfoPicture);
-        ImageView addictionImage = (ImageView) findViewById(R.id.addictionImage);
-        final LinearLayout likeText = (LinearLayout) findViewById(R.id.moreInfoAddiction);
-        final TextView addict1 = (TextView) findViewById(R.id.textView5);
+        ImageView eventPic = (ImageView) findViewById(R.id.MoreInfoWebImageView);
+        ImageView addictionImage = (ImageView) findViewById(R.id.GetAddictedimageView);
+        final LinearLayout likeText = (LinearLayout) findViewById(R.id.moreInfoEAddiction);
+        final TextView addict1 = (TextView) findViewById(R.id.GettextView);
         addict1.setTypeface(opensansregfnt);
-        final TextView addict2 = (TextView) findViewById(R.id.textView6);
+        final TextView addict2 = (TextView) findViewById(R.id.AddictedtextView);
         addict2.setTypeface(opensansregfnt);
 
         addictionImage.setImageBitmap(svgToBitmap(getResources(),R.raw.myaddictions,60));
@@ -335,12 +345,18 @@ public class MoreInfoEventActivity extends ActionBarActivity {
         if(type.equals("Event")) {
             //Setting the background image of the event.
             Picasso.with(getApplicationContext()).load(event.getEventPicture()).fit().into(eventPic);
+            EvenCatetextView.setText(event.getEventPrimaryCategory());
             eventName.setText(event.getEventName());
+            eventprice.setText("$" + event.getEventPrice());
+            eventdate.setText(dateFormat(event.getEventDate())+" At ");
+            StartTHourTextView.setText(TimeFormat(event.getEventStartTime()));
+
             venueName.setText(event.getEventLocName());
             venueSt.setText(event.getEventLocSt());
             venuecountry.setText(event.getEventLocAdd());
-            eventprice.setText(event.getEventLocName());
-            eventdate.setText("Affiliated Organizations");
+
+            MoreInfoEAffiliatedtextView.setText("Affiliated");
+            MoreInfoEOrgtextView.setText("Organizations");
             eventdesc.setText(Html.fromHtml(event.getEventDescription()));
             Bitmap x = setEventIcon(event);
             filterimage.setImageBitmap(x);
@@ -349,11 +365,11 @@ public class MoreInfoEventActivity extends ActionBarActivity {
             {
                 for(int j = 0; j<mEvents.size();j++)
                 { if(mEventAdd.get(i).equals(mEvents.get(j)))
-                {
-                    addict1.setText("You are");
-                    addict2.setText("addicted");
-                    likeText.setBackgroundColor(Color.parseColor("#f47521")); //orange
-                }
+                    {
+                        addict1.setText("You are");
+                        addict2.setText("addicted");
+                        likeText.setBackgroundColor(Color.parseColor("#f47521")); //orange
+                    }
 
                 }
             }
@@ -364,7 +380,7 @@ public class MoreInfoEventActivity extends ActionBarActivity {
                 @Override
                 public void onClick(View view) {
 
-                    Intent intent = new Intent(MoreInfoActivity.this, MoreInfoActivity.class);
+                    Intent intent = new Intent(MoreInfoEventActivity.this, MoreInfoEventActivity.class);
 
 
                     intent.putExtra("Id", event.getVenueid());
@@ -385,7 +401,7 @@ public class MoreInfoEventActivity extends ActionBarActivity {
                     MyApplication.moreInfoCheck = "Event";
                     MyApplication.event = event;
 
-                    Intent intent=new Intent(MoreInfoActivity.this,ListActivity.class);
+                    Intent intent=new Intent(MoreInfoEventActivity.this,ListActivity.class);
                     startActivity(intent);
                 }
             });
@@ -430,12 +446,16 @@ public class MoreInfoEventActivity extends ActionBarActivity {
         else if(type.equals("Venue")) {
             //Setting the background image of the event.
             Picasso.with(getApplicationContext()).load(venue.getVenuePicture()).fit().into(eventPic);
+            EvenCatetextView.setText(venue.getVenuePrimaryCategory());
             eventName.setText(venue.getVenueName());
-            venueName.setText(venue.getVenueName());
-            venueSt.setText(venue.getVenueSt());
-            venuecountry.setText(venue.getVenueLocation());
-            eventprice.setText("Calendar");
-            eventdate.setText("Up Coming Events");
+            eventprice.setVisibility(View.INVISIBLE);
+            eventdate.setText(venue.getVenueSt() + ", ");
+            StartTHourTextView.setText(venue.getVenueLocation());
+            venueName.setVisibility(View.INVISIBLE);
+            venueSt.setText("Calendar");
+            venuecountry.setVisibility(View.INVISIBLE);
+            MoreInfoEAffiliatedtextView.setText("Up Coming");
+            MoreInfoEOrgtextView.setText("Events");
             eventdesc.setText(Html.fromHtml(venue.getVenueDescription()));
             Bitmap x = setVenueIcon(venue);
             filterimage.setImageBitmap(x);
@@ -449,7 +469,7 @@ public class MoreInfoEventActivity extends ActionBarActivity {
                     MyApplication.moreInfoCheck = "Venue";
                     MyApplication.venueID = venue.getVenueId();
 
-                    Intent intent=new Intent(MoreInfoActivity.this,CalendarActivity.class);
+                    Intent intent=new Intent(MoreInfoEventActivity.this,CalendarActivity.class);
                     startActivity(intent);
                 }
             });
@@ -461,7 +481,7 @@ public class MoreInfoEventActivity extends ActionBarActivity {
                     MyApplication.moreInfoCheck = "Venue";
                     MyApplication.venueID = venue.getVenueId();
 
-                    Intent intent=new Intent(MoreInfoActivity.this,ListActivity.class);
+                    Intent intent=new Intent(MoreInfoEventActivity.this,ListActivity.class);
                     startActivity(intent);
                 }
             });
@@ -519,12 +539,16 @@ public class MoreInfoEventActivity extends ActionBarActivity {
         else {
             //Setting the background image of the event.
             Picasso.with(getApplicationContext()).load(org.getOrgPicture()).fit().into(eventPic);
+            EvenCatetextView.setText(org.getOrgPrimaryCategory());
             eventName.setText(org.getOrgName());
-            venueName.setText(org.getOrgName());
-            venueSt.setText(org.getOrgSt());
-            venuecountry.setText(org.getOrgLocation());
-            eventprice.setText("Calendar");
-            eventdate.setText("Up Coming Events");
+            eventprice.setVisibility(View.INVISIBLE);
+            eventdate.setText(org.getOrgSt() + ", ");
+            StartTHourTextView.setText(org.getOrgLocation());
+            venueName.setVisibility(View.INVISIBLE);
+            venueSt.setText("Calendar");
+            venuecountry.setVisibility(View.INVISIBLE);
+            MoreInfoEAffiliatedtextView.setText("Up Coming");
+            MoreInfoEOrgtextView.setText("Events");
             eventdesc.setText(Html.fromHtml(org.getOrgDescription()));
             Bitmap x = setOrgIcon(org);
             filterimage.setImageBitmap(x);
@@ -536,7 +560,7 @@ public class MoreInfoEventActivity extends ActionBarActivity {
                     MyApplication.moreInfoCheck = "Organization";
                     MyApplication.organizationID = org.getOrgId();
 
-                    Intent intent = new Intent(MoreInfoActivity.this, CalendarActivity.class);
+                    Intent intent = new Intent(MoreInfoEventActivity.this, CalendarActivity.class);
                     startActivity(intent);
                 }
             });
@@ -548,7 +572,7 @@ public class MoreInfoEventActivity extends ActionBarActivity {
                     MyApplication.moreInfoCheck = "Organization";
                     MyApplication.organizationID = org.getOrgId();
 
-                    Intent intent = new Intent(MoreInfoActivity.this, ListActivity.class);
+                    Intent intent = new Intent(MoreInfoEventActivity.this, ListActivity.class);
                     startActivity(intent);
                 }
             });
@@ -753,6 +777,23 @@ public class MoreInfoEventActivity extends ActionBarActivity {
             e.printStackTrace();
         }
         return null;
+    }
+    public String TimeFormat(String Time)
+    {
+        //Sets the time format from 24 hour clock to 12 hour.
+        String Hour= Time.substring(0,2);
+        String Min= Time.substring(3, 5);
+        double hr= Double.parseDouble(Hour);
+        int t= (int) (hr/12);
+        String M= "";
+        if(t==0)
+        {M="AM" ;}
+        else { M= "PM" ; }
+        hr=hr%12;
+        int x= (int) hr;
+        Hour= x+"";
+        String time = Hour + ":" + Min + " " + M;
+        return time;
     }
 
     public Bitmap svgToBitmap(Resources res, int resource, int size) {

@@ -90,7 +90,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="200dp"
-                            android:id="@+id/WebImageView"
+                            android:id="@+id/MoreInfoWebImageView"
                             android:background="@android:color/transparent"
                             android:layout_marginTop="2dp"
                             android:layout_marginBottom="2dp"/>
@@ -98,36 +98,46 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="#46bec2"
-                            android:alpha="0.95"
+                            android:background="#7f474747"
                             android:id="@+id/EventDescriptionBox"
                             android:visibility="visible"
                             android:layout_alignParentLeft="true"
-                            android:layout_below="@+id/WebImageView">
+                            android:layout_below="@+id/MoreInfoWebImageView"
+                            android:layout_marginTop="1dp"
+                            android:layout_margin="1dp"
+                            android:layout_marginLeft="1dp"
+                            android:layout_marginRight="1dp"
+                            android:layout_marginBottom="1dp">
 
                             <RelativeLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="24dp"
-                                android:layout_marginEnd="24dp"
+                                android:layout_marginEnd="5dp"
                                 android:layout_alignParentRight="true"
                                 android:layout_alignParentEnd="true"
-                                android:layout_alignParentBottom="true">
+                                android:layout_alignParentBottom="true"
+                                android:layout_below="@+id/EPriceTextView"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="5dp"
+                                android:id="@+id/CateboxrelativeLayout">
 
                                 <ImageView
                                     android:layout_width="50dp"
                                     android:layout_height="50dp"
-                                    android:id="@+id/imageView5"/>
+                                    android:id="@+id/EventCategimageView"
+                                    android:layout_centerHorizontal="true"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="May 26,2015"
-                                    android:id="@+id/textView18"
-                                    android:textSize="10dp"
+                                    android:text="Music"
+                                    android:id="@+id/EvenCatetextView18"
+                                    android:textSize="10sp"
                                     android:textColor="#ffffff"
-                                    android:layout_below="@+id/imageView5"
-                                    android:layout_alignParentBottom="@+id/imageView5"/>
+                                    android:layout_below="@+id/EventCategimageView"
+                                    android:layout_alignParentBottom="@+id/EventCategimageView"
+                                    android:layout_centerHorizontal="true"/>
                             </RelativeLayout>
 
                             <TextView
@@ -138,9 +148,11 @@
                                 android:layout_alignParentTop="true"
                                 android:layout_alignParentRight="true"
                                 android:layout_alignParentEnd="true"
-                                android:textSize="17dp"
+                                android:textSize="17sp"
                                 android:paddingRight="5dp"
-                                android:textColor="#ffffff"/>
+                                android:textColor="#ffffff"
+                                android:layout_marginTop="1dp"
+                                android:layout_marginRight="1dp"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -158,131 +170,168 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="X Lounge"
-                                android:id="@+id/ElocNametextView"
-                                android:paddingLeft="5dp"
-                                android:textColor="#ffffff"
-                                android:textStyle="bold"
-                                android:layout_below="@+id/EnametextView"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Machtree St."
-                                android:id="@+id/LocStreetNametextView"
-                                android:layout_below="@+id/ElocNametextView"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentStart="true"
-                                android:paddingLeft="5dp"
-                                android:textColor="#ffffff"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="GA 319204"
-                                android:id="@+id/LocAddresstextView"
-                                android:paddingLeft="5dp"
-                                android:textColor="#ffffff"
-                                android:layout_toRightOf="@+id/LocStreetNametextView"
-                                android:layout_toEndOf="@+id/LocStreetNametextView"
-                                android:layout_alignParentEnd="false"
-                                android:layout_alignTop="@+id/LocStreetNametextView"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Start:"
-                                android:id="@+id/StartTimetextView"
-                                android:visibility="invisible"
-                                android:textSize="10dp"
-                                android:textStyle="bold"
-                                android:layout_below="@+id/LocAddresstextView"
-                                android:layout_alignParentLeft="true"
-                                android:paddingLeft="5dp"
-                                android:layout_alignParentStart="true"
-                                android:textColor="#ffffff"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="May 25, 2015"
-                                android:id="@+id/DatetextView"
-                                android:paddingLeft="5dp"
-                                android:textSize="10dp"
-                                android:layout_below="@+id/StartTimetextView"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentStart="true"
-                                android:textColor="#ffffff"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="10:30 PM"
+                                android:text="At 10:30 PM  "
                                 android:id="@+id/StartHourtextView"
                                 android:textSize="10dp"
                                 android:textColor="#ffffff"
-                                android:layout_alignTop="@+id/StartTimetextView"
-                                android:layout_toRightOf="@+id/StartTimetextView"/>
+                                android:layout_below="@+id/EnametextView"
+                                android:layout_toRightOf="@+id/DatetextView"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="End:"
-                                android:id="@+id/EndTimetextView"
-                                android:textSize="10dp"
-                                android:paddingLeft="5dp"
-                                android:textStyle="bold"
-                                android:layout_below="@+id/StartHourtextView"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentStart="true"
-                                android:visibility="gone"
-                                android:textColor="#ffffff"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="2:00 AM"
-                                android:id="@+id/EndTimeTextView"
+                                android:text=" May 25, 2015,   "
+                                android:id="@+id/DatetextView"
                                 android:textSize="10dp"
                                 android:textColor="#ffffff"
-                                android:visibility="invisible"
-                                android:layout_alignParentStart="false"/>
+                                android:layout_below="@+id/EnametextView"/>
+
+
                         </RelativeLayout>
 
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="55dp"
+                            android:layout_height="wrap_content"
                             android:weightSum="3"
                             android:layout_weight="2"
-                            android:background="@android:color/transparent"
+                            android:background="#00474747"
                             android:id="@+id/linearLayout2"
                             android:layout_below="@+id/EventDescriptionBox"
-                            >
+                            android:layout_marginTop="1dp"
+                            android:layout_margin="1dp"
+                            android:layout_marginLeft="1dp"
+                            android:layout_marginRight="1dp"
+                            android:layout_marginBottom="1dp">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="fill_parent"
-                                android:text="New Text"
-                                android:id="@+id/VenueNameTextView"
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:background="@android:color/transparent"/>
+                                android:layout_marginLeft="1dp"
+                                android:layout_marginRight="1dp"
+                                android:background="#bf474747">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="fill_parent"
-                                android:text="New Text"
-                                android:id="@+id/AffliatedOrgTextview"
-                                android:layout_weight="1"
-                                android:background="@android:color/transparent"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="X Lounge"
+                                    android:id="@+id/ElocNametextView"
+                                    android:paddingLeft="5dp"
+                                    android:textColor="#ffffff"
+                                    android:layout_below="@+id/EnametextView"
+                                    android:layout_gravity="center_horizontal"
+                                    android:textSize="15dp"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="fill_parent"
-                                android:text="New Text"
-                                android:id="@+id/GetAddictedTextView"
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Machtree St."
+                                    android:id="@+id/LocStreetNametextView"
+                                    android:layout_below="@+id/ElocNametextView"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_alignParentStart="true"
+                                    android:paddingLeft="5dp"
+                                    android:textColor="#ffffff"
+                                    android:layout_gravity="center_horizontal"
+                                    android:textSize="15dp"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="GA 319204"
+                                    android:id="@+id/LocAddresstextView"
+                                    android:paddingLeft="5dp"
+                                    android:textColor="#ffffff"
+                                    android:layout_toRightOf="@+id/LocStreetNametextView"
+                                    android:layout_toEndOf="@+id/LocStreetNametextView"
+                                    android:layout_alignParentEnd="false"
+                                    android:layout_alignTop="@+id/LocStreetNametextView"
+                                    android:layout_gravity="center_horizontal"
+                                    android:textSize="15dp"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:background="@android:color/transparent"/>
+                                android:layout_marginRight="1dp"
+                                android:layout_marginLeft="1dp"
+                                android:background="#bf474747">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="Affiliated"
+                                    android:id="@+id/AffiliatedtextView"
+                                    android:layout_weight="1"
+                                    android:textColor="#ffffff"
+                                    android:gravity="bottom|center"
+                                    android:textSize="15dp"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="Organizations"
+                                    android:id="@+id/moreInfoEOrgtextView"
+                                    android:textColor="#ffffff"
+                                    android:gravity="center_horizontal"
+                                    android:layout_weight="1"
+                                    android:textSize="15dp"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="1dp"
+                                android:layout_marginRight="1dp"
+                                android:background="#bf474747"
+                                android:weightSum="4"
+                                android:id="@+id/moreInfoEAddiction">
+
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:weightSum="2">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="Get"
+                                        android:id="@+id/GettextView"
+                                        android:layout_weight="1"
+                                        android:textColor="#ffffff"
+                                        android:gravity="bottom|center"
+                                        android:textSize="15dp"/>
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="Addicted"
+                                        android:id="@+id/AddictedtextView"
+                                        android:textColor="#ffffff"
+                                        android:gravity="center_horizontal"
+                                        android:layout_weight="1"
+                                        android:textSize="15dp"/>
+                                </LinearLayout>
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:id="@+id/GetAddictedimageView"
+                                    android:layout_weight="3"
+                                    android:layout_toRightOf="@+id/GetAddictedTextView"
+                                    android:layout_toEndOf="@+id/GetAddictedTextView"
+                                    android:layout_alignParentRight="true"/>
+                            </LinearLayout>
+
                         </LinearLayout>
 
                         <ScrollView
@@ -291,14 +340,20 @@
                             android:id="@+id/scrollView3"
                             android:layout_below="@+id/linearLayout2"
                             android:layout_alignParentBottom="true"
-                            android:background="@android:color/transparent">
+                            android:background="@android:color/transparent"
+                            android:layout_marginTop="1dp"
+                            android:layout_margin="1dp"
+                            android:layout_marginLeft="1dp"
+                            android:layout_marginRight="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:layout_alignParentEnd="true">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="150dp"
                                 android:text="New Text"
                                 android:id="@+id/WebviewTextView"
-                                android:background="@android:color/transparent"
+                                android:background="#474747"
                                 android:layout_below="@+id/linearLayout2"/>
 
 
@@ -311,7 +366,8 @@
                     android:text="Ticket Coming Soon ......"
                     android:id="@+id/TicketInfoTextview"
                     android:background="#24163f"
-                    android:layout_alignParentBottom="true"/>
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="2dp"/>
             </RelativeLayout>
         </FrameLayout>
 
