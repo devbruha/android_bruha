@@ -151,7 +151,7 @@
                                 android:textSize="17sp"
                                 android:paddingRight="5dp"
                                 android:textColor="#ffffff"
-                                android:layout_marginTop="1dp"
+                                android:layout_marginTop="20dp"
                                 android:layout_marginRight="1dp"/>
 
                             <TextView
@@ -172,7 +172,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="At 10:30 PM  "
                                 android:id="@+id/StartHourtextView"
-                                android:textSize="10dp"
+                                android:textSize="15dp"
                                 android:textColor="#ffffff"
                                 android:layout_below="@+id/EnametextView"
                                 android:layout_toRightOf="@+id/DatetextView"/>
@@ -182,9 +182,10 @@
                                 android:layout_height="wrap_content"
                                 android:text=" May 25, 2015,   "
                                 android:id="@+id/DatetextView"
-                                android:textSize="10dp"
+                                android:textSize="15dp"
                                 android:textColor="#ffffff"
-                                android:layout_below="@+id/EnametextView"/>
+                                android:layout_below="@+id/EnametextView"
+                                android:layout_marginLeft="10dp"/>
 
 
                         </RelativeLayout>
@@ -211,7 +212,8 @@
                                 android:layout_weight="1"
                                 android:layout_marginLeft="1dp"
                                 android:layout_marginRight="1dp"
-                                android:background="#bf474747">
+                                android:background="#bf474747"
+                                android:id="@+id/calenderbutton">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -222,7 +224,10 @@
                                     android:textColor="#ffffff"
                                     android:layout_below="@+id/EnametextView"
                                     android:layout_gravity="center_horizontal"
-                                    android:textSize="15dp"/>
+                                    android:textSize="10dp"
+                                    android:gravity="center_horizontal"
+                                    android:foregroundGravity="center"
+                                    android:textAlignment="center"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -235,7 +240,10 @@
                                     android:paddingLeft="5dp"
                                     android:textColor="#ffffff"
                                     android:layout_gravity="center_horizontal"
-                                    android:textSize="15dp"/>
+                                    android:textSize="10dp"
+                                    android:foregroundGravity="center_horizontal"
+                                    android:gravity="center_horizontal"
+                                    android:textAlignment="center"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -249,7 +257,8 @@
                                     android:layout_alignParentEnd="false"
                                     android:layout_alignTop="@+id/LocStreetNametextView"
                                     android:layout_gravity="center_horizontal"
-                                    android:textSize="15dp"/>
+                                    android:textSize="10dp"
+                                    android:textAlignment="center"/>
                             </LinearLayout>
 
                             <LinearLayout
@@ -367,7 +376,10 @@
                     android:id="@+id/TicketInfoTextview"
                     android:background="#24163f"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginTop="2dp"/>
+                    android:layout_marginTop="2dp"
+                    android:textAlignment="center"
+                    android:foregroundGravity="center_horizontal"
+                    android:gravity="center_horizontal"/>
             </RelativeLayout>
         </FrameLayout>
 

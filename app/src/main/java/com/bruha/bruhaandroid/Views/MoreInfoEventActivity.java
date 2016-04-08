@@ -114,7 +114,9 @@ public class MoreInfoEventActivity extends ActionBarActivity {
             }
         }
 
-        panelSetup();
+//        panelSetup();
+
+        initializePanel();
 
 
     }
@@ -223,7 +225,7 @@ public class MoreInfoEventActivity extends ActionBarActivity {
 
         // Taking the status bar height into account for height calculations
 
-        int workingHeight = height - getStatusBarHeight();
+        //int workingHeight = height - getStatusBarHeight();
 
         // Storing the sliding panel into mLayout
 
@@ -252,7 +254,7 @@ public class MoreInfoEventActivity extends ActionBarActivity {
 
         ViewGroup.LayoutParams handleParams = handleLayout.getLayoutParams();
         //handleParams.height = (int)Math.round(workingHeight*.33);
-        mLayout.setPanelHeight((int)Math.round(workingHeight*.46));
+        mLayout.setPanelHeight((int)Math.round(height*.46));
 
         // Retrieves the current parameters of the layout and storing them in variable params
 
@@ -260,7 +262,7 @@ public class MoreInfoEventActivity extends ActionBarActivity {
 
         // Re-setting the height parameter to .65 the max screen height (status bar included)
 
-        params.height =  (int)Math.round(workingHeight);
+       // params.height =  (int)Math.round(workingHeight);
 
         initializePanel();
     }
@@ -303,9 +305,22 @@ public class MoreInfoEventActivity extends ActionBarActivity {
         return Month;
     }
 
+
+
+
     public void initializePanel() {
 
         Typeface opensansregfnt = Typeface.createFromAsset(getAssets(), "fonts/OpenSans-Regular.ttf");
+
+        LinearLayout calendarclick = (LinearLayout) findViewById(R.id.calenderbutton);
+        calendarclick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MoreInfoEventActivity.this,CalendarActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         ImageView filterimage = (ImageView) findViewById(R.id.EventCategimageView);
         TextView EvenCatetextView = (TextView) findViewById(R.id.EvenCatetextView18);
@@ -750,14 +765,14 @@ public class MoreInfoEventActivity extends ActionBarActivity {
         return null;
     }
 
-    public int getStatusBarHeight() {
+   /* public int getStatusBarHeight() {
         int result = 0;
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
             result = getResources().getDimensionPixelSize(resourceId);
         }
         return result;
-    }
+    }*/
 
     //SVG Conversion method.
     public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
