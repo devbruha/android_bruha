@@ -60,6 +60,7 @@ public class MoreInfoActivity extends ActionBarActivity {
     ImageView dudeButton;
     ImageView listButton;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

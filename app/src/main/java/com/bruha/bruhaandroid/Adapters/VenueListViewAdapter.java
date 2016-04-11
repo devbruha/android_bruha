@@ -34,6 +34,7 @@ import com.bruha.bruhaandroid.Model.Venue;
 import com.bruha.bruhaandroid.Processing.RetrieveMyPHP;
 import com.bruha.bruhaandroid.R;
 import com.bruha.bruhaandroid.Views.MoreInfoActivity;
+import com.bruha.bruhaandroid.Views.MoreInfoEventActivity;
 import com.bruha.bruhaandroid.Views.ShowOnMapActivity;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
@@ -323,7 +324,7 @@ public class VenueListViewAdapter extends BaseSwipeAdapter {
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
                         MoreInfoLay.setAlpha(1f);
-                        Intent intent = new Intent(mActivity, MoreInfoActivity.class);
+                        Intent intent = new Intent(mActivity, MoreInfoEventActivity.class);
                         intent.putExtra("Id", Venue.getVenueId());
                         intent.putExtra("Type", "Venue");
                         mActivity.startActivity(intent);

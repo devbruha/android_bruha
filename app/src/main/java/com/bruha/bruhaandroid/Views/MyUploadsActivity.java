@@ -6,6 +6,8 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -280,6 +282,8 @@ public class MyUploadsActivity extends FragmentActivity implements ObservableScr
 
     @OnClick(R.id.artistButton)
     public void artistButton(View view) {
+        showDialog();
+        /*
         //Changing filter:
         artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
         venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
@@ -299,6 +303,7 @@ public class MyUploadsActivity extends FragmentActivity implements ObservableScr
         artistsListViewAdapter=new ArtistsListViewAdapter(this, mArtist,null); //Calling the eventAdapter mListView to help set the List
         //Sets the Adapter from the class Listview Adapter.
         mListView.setAdapter(artistsListViewAdapter);
+        */
     }
 
     //SVG Conversion:
@@ -354,4 +359,22 @@ public class MyUploadsActivity extends FragmentActivity implements ObservableScr
             }
         }
     }
+
+    public void showDialog()
+    {   //Alert dialog to let the user know discoverable is coming soon..
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Add the buttons
+        builder.setMessage("Discoverable Coming Soon!");
+        builder.setCancelable(true);
+        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
 }
+

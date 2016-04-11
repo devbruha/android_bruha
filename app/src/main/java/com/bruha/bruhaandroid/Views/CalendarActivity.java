@@ -176,6 +176,7 @@ public class CalendarActivity extends FragmentActivity {
                     }
 
                     caldroidFragment.setBackgroundResourceForDate(android.R.color.holo_red_light,ThisDate);
+
                 }
             }
         }

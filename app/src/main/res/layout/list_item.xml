@@ -602,7 +602,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:textSize="20dp"
+                android:textSize="17dp"
                 android:paddingRight="5dp"
                 android:textColor="#ffffff" />
 
@@ -614,7 +614,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:textSize="20dp"
+                android:textSize="17dp"
                 android:paddingBottom="10dp"
                 android:paddingLeft="5dp"
                 android:textColor="#ffffff" />
@@ -703,17 +703,34 @@
                 android:visibility="gone"
                 android:textColor="#ffffff" />
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="May 26,2015"
-                android:id="@+id/DesEventEndDate"
-                android:paddingLeft="5dp"
-                android:textSize="10dp"
-                android:layout_below="@+id/PageEndText"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:textColor="#ffffff" />
+                android:layout_marginRight="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+
+                >
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/DesEventCatPic"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="May 26,2015"
+                    android:id="@+id/DesEventEndDate"
+                    android:textSize="10dp"
+                    android:textColor="#ffffff"
+                    android:layout_below="@+id/DesEventCatPic"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="@+id/DesEventCatPic"/>
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -722,18 +739,7 @@
                 android:id="@+id/DesEventEndTime"
                 android:textSize="10dp"
                 android:textColor="#ffffff"
-                android:visibility="invisible"
-                android:layout_alignTop="@+id/DesEventEndDate"
-                android:layout_toRightOf="@+id/DesEventEndDate" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/DesEventCatPic"
-                android:layout_below="@+id/DesEventStartTime"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="19dp" />
+                android:visibility="invisible"/>
 
         </RelativeLayout>
 

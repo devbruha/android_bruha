@@ -61,7 +61,7 @@
                     android:id="@+id/UserPicture"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:background="@drawable/background4"
+                    android:src="@drawable/background4"
                     app:civ_border_width="2dp"
                     app:civ_border_color="#FF000000"/>
 
