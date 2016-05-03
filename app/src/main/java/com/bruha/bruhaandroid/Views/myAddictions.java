@@ -1,4 +1,5 @@
 // Copyright 2015, Thomas Miele and Bilal Chowdhry, All rights reserved.
+// myAddictions - The my addictions activity page
 
 package com.bruha.bruhaandroid.Views;
 
@@ -150,20 +151,7 @@ public class myAddictions extends FragmentActivity implements ObservableScrollVi
         //Setting the Button Image
         dudeButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 30));
 
-        dudeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                ObjectAnimator animator = ObjectAnimator.ofFloat(dudeButton, "alpha", 1f, 0.5f);
-                animator.setDuration(100);
-                animator.addListener(new AnimatorListenerAdapter() {
-                    public void onAnimationEnd(Animator animation) {
-                        dudeButton.setAlpha(1f);
-                        startDashboardActivity(v);
-                    }
-                });
-                animator.start();
-            }
-        });
+        dudeOnClick();
 
         Typeface opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
         ViewGroup.LayoutParams addictionTextLayoutParams = addictionText.getLayoutParams();
@@ -182,6 +170,23 @@ public class myAddictions extends FragmentActivity implements ObservableScrollVi
         //Empty State ImageView being resized
         ViewGroup.LayoutParams emptyStatePicLayoutParams = emptyStatepic.getLayoutParams();
         emptyStatePicLayoutParams.height =  (int)Math.round(height * .45);
+    }
+
+    private void dudeOnClick() {
+        dudeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(dudeButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        dudeButton.setAlpha(1f);
+                        startDashboardActivity(v);
+                    }
+                });
+                animator.start();
+            }
+        });
     }
 
     //SVG Conversion.
@@ -280,18 +285,7 @@ public class myAddictions extends FragmentActivity implements ObservableScrollVi
         //venueButton Implemented to switch the mListView to show List of Venue.
 
         //Changing filters:
-        venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
-        artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-        eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-        orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-        eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventwhite, 50));
-        venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venueorange, 50));
-        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 50));
-        outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
-        venueText.setTextColor(Color.parseColor("#FFFFBB33"));
-        eventText.setTextColor(Color.parseColor("#ffffff"));
-        outfitText.setTextColor(Color.parseColor("#ffffff"));
-        artistText.setTextColor(Color.parseColor("#ffffff"));
+        changeFilters();
 
         //Creating an variable of type Listview Adapter to create the list view.
         VenueListViewAdapter venueAdapter;
@@ -317,18 +311,8 @@ public class myAddictions extends FragmentActivity implements ObservableScrollVi
         mListView.setAdapter(OrgAdapter);
 
         //Changing filters:
-        orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
-        artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-        eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-        venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-        eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventwhite, 50));
-        venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venuewhite, 50));
-        artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 50));
-        outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitorange, 50));
-        outfitText.setTextColor(Color.parseColor("#FFFFBB33"));
-        venueText.setTextColor(Color.parseColor("#ffffff"));
-        eventText.setTextColor(Color.parseColor("#ffffff"));
-        artistText.setTextColor(Color.parseColor("#ffffff"));
+        changeFilters();
+
         if(addictedOrg.size()==0)
         {
             emptyStatepic.setVisibility(View.VISIBLE);
@@ -350,17 +334,21 @@ public class myAddictions extends FragmentActivity implements ObservableScrollVi
         }
 
         //Changing filters:
-        eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
+        changeFilters();
+    }
+
+    private void changeFilters() {
+        orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
         artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
+        eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-        orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-        eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventorange, 50));
+        eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventwhite, 50));
         venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venuewhite, 50));
         artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 50));
-        outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 50));
-        eventText.setTextColor(Color.parseColor("#FFFFBB33"));
+        outfitImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitorange, 50));
+        outfitText.setTextColor(Color.parseColor("#FFFFBB33"));
         venueText.setTextColor(Color.parseColor("#ffffff"));
-        outfitText.setTextColor(Color.parseColor("#ffffff"));
+        eventText.setTextColor(Color.parseColor("#ffffff"));
         artistText.setTextColor(Color.parseColor("#ffffff"));
     }
 

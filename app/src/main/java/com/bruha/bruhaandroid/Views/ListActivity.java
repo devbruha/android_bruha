@@ -1,4 +1,5 @@
 // Copyright 2015, Thomas Miele and Bilal Chowdhry, All rights reserved.
+// ListActivity is the section in explorer page that displays events, venues, artists, and organizations
 
 package com.bruha.bruhaandroid.Views;
 
@@ -137,13 +138,8 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
 
         setContentView(R.layout.activity_list2);
         ButterKnife.inject(this);                   //Injecting all the objects to be imported from above.
-        emptyStatePic = (ImageView) findViewById(R.id.exploreEmptypic);
 
-        dudeButton =(ImageView) findViewById(R.id.DashboardButton);
-        mapButton = (ImageView) findViewById(R.id.MapButton);
-        listTitle = (TextView) findViewById(R.id.ListTitleText);
-        searchCancel = (TextView) findViewById(R.id.cancelSearch);
-        searchEdit = (EditText) findViewById(R.id.searchEditText);
+        assignViewImages();
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
@@ -153,61 +149,43 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
 
         init();     //Initialize the variables from local database.
 
-        //Filter sttuff.
-        if(MyApplication.sourceEvents.size() == 0) {
+        //Filter stuff.
+        filerStuff();
 
-            //Creating an variable of type Listview Adapter to create the list view.
-            eventAdapter = new EventListviewAdapter(this, mEvents,addictEventId); //Calling the eventAdapter mListView to help set the List
+        //Search stuff
+        searchAndOtherStuff();
+
+        //Checking which filter was chosen before opening the activity.
+        customFilter();
+    }
+
+    private void customFilter() {
+        if(MyApplication.filterTracker.equals("Event"))
+        {
+            listTitle.setText("Event");
+            searchEdit.setHint("Search Events");
+            searchEdit.setText(MyApplication.userFilters.getEventStringFilter());
+            eventButton(null);
+        } else if(MyApplication.filterTracker.equals("Venue"))
+        {
+            listTitle.setText("Venue");
+            searchEdit.setHint("Search Venues");
+            searchEdit.setText(MyApplication.userFilters.getVenueStringFilter());
+            venueButton(null);
+        } else if(MyApplication.filterTracker.equals("Outfit"))
+        {
+            listTitle.setText("Organization");
+            searchEdit.setHint("Search Organizations");
+            searchEdit.setText(MyApplication.userFilters.getOrganizationStringFilter());
+            organizationButton(null);
         }
+
         else{
-            eventAdapter = new EventListviewAdapter(this, MyApplication.sourceEvents,addictEventId);
+            artistButton(null);
         }
+    }
 
-        if(MyApplication.sourceVenues.size() == 0) {
-
-            //Creating an variable of type Listview Adapter to create the list view.
-            venueAdapter=new VenueListViewAdapter(this, mVenues,addictVenueId); //Calling the eventAdapter mListView to help set the List
-        }
-        else{
-            //Creating an variable of type Listview Adapter to create the list view.
-            venueAdapter=new VenueListViewAdapter(this, MyApplication.sourceVenues,addictVenueId); //Calling the eventAdapter mListView to help set the List
-        }
-
-        if(MyApplication.sourceArtists.size() == 0) {
-
-            //Creating an variable of type Listview Adapter to create the list view.
-            artistAdapter =new ArtistsListViewAdapter(this, mArtists,addictArtistId); //Calling the eventAdapter mListView to help set the List
-        }
-        else{
-            //Creating an variable of type Listview Adapter to create the list view.
-            artistAdapter =new ArtistsListViewAdapter(this, MyApplication.sourceArtists,addictArtistId); //Calling the eventAdapter mListView to help set the List
-        }
-
-        if(MyApplication.sourceOrganizations.size() == 0) {
-
-            //Creating an variable of type Listview Adapter to create the list view.
-            organizationAdapter =new OrganizationListViewAdapter(this, mOrganizations,addictOutfitId); //Calling the eventAdapter mListView to help set the List
-        }
-        else{
-            //Creating an variable of type Listview Adapter to create the list view.
-            organizationAdapter =new OrganizationListViewAdapter(this, MyApplication.sourceOrganizations,addictOutfitId); //Calling the eventAdapter mListView to help set the List
-        }
-
-        setUpFilters(); //Method to set up the filters in the view.
-
-        //Setting the Filters to the Filter Item once they have been declared and set in the view,later to be altered with
-        mEventCategoryListView = (LinearLayout) findViewById(R.id.event_category_listview);
-        mVenueCategoryListView = (LinearLayout) findViewById(R.id.venue_category_listview);
-        mArtistCategoryListView = (LinearLayout) findViewById(R.id.artist_category_listview);
-        mOrganizationCategoryListView = (LinearLayout) findViewById(R.id.organization_category_listview);
-        //assigning the global variables the respective views.
-        linearCalendar = (LinearLayout) findViewById(R.id.calendarView);
-        prce = (SeekBar) findViewById(R.id.priceBar);
-        mPrice = (TextView) findViewById(R.id.priceDisplay);
-        admission = (TextView) findViewById(R.id.admissionTextView);
-        ImageView swipeup = (ImageView) findViewById(R.id.swipeup);
-        swipeup.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.swipeup, 20));
-
+    private void searchAndOtherStuff() {
         searchCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -343,32 +321,71 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
 
             mListView.setAdapter(eventAdapter);
         }
+    }
 
-        //Checking which filter was chosen before opening the activity.
-        if(MyApplication.filterTracker.equals("Event"))
-        {
-            listTitle.setText("Event");
-            searchEdit.setHint("Search Events");
-            searchEdit.setText(MyApplication.userFilters.getEventStringFilter());
-            eventButton(null);
-        } else if(MyApplication.filterTracker.equals("Venue"))
-        {
-            listTitle.setText("Venue");
-            searchEdit.setHint("Search Venues");
-            searchEdit.setText(MyApplication.userFilters.getVenueStringFilter());
-            venueButton(null);
-        } else if(MyApplication.filterTracker.equals("Outfit"))
-        {
-            listTitle.setText("Organization");
-            searchEdit.setHint("Search Organizations");
-            searchEdit.setText(MyApplication.userFilters.getOrganizationStringFilter());
-            organizationButton(null);
+    private void filerStuff() {
+        if(MyApplication.sourceEvents.size() == 0) {
+
+            //Creating an variable of type Listview Adapter to create the list view.
+            eventAdapter = new EventListviewAdapter(this, mEvents,addictEventId); //Calling the eventAdapter mListView to help set the List
         }
-
         else{
-            artistButton(null);
+            eventAdapter = new EventListviewAdapter(this, MyApplication.sourceEvents,addictEventId);
         }
 
+        if(MyApplication.sourceVenues.size() == 0) {
+
+            //Creating an variable of type Listview Adapter to create the list view.
+            venueAdapter=new VenueListViewAdapter(this, mVenues,addictVenueId); //Calling the eventAdapter mListView to help set the List
+        }
+        else{
+            //Creating an variable of type Listview Adapter to create the list view.
+            venueAdapter=new VenueListViewAdapter(this, MyApplication.sourceVenues,addictVenueId); //Calling the eventAdapter mListView to help set the List
+        }
+
+        if(MyApplication.sourceArtists.size() == 0) {
+
+            //Creating an variable of type Listview Adapter to create the list view.
+            artistAdapter =new ArtistsListViewAdapter(this, mArtists,addictArtistId); //Calling the eventAdapter mListView to help set the List
+        }
+        else{
+            //Creating an variable of type Listview Adapter to create the list view.
+            artistAdapter =new ArtistsListViewAdapter(this, MyApplication.sourceArtists,addictArtistId); //Calling the eventAdapter mListView to help set the List
+        }
+
+        if(MyApplication.sourceOrganizations.size() == 0) {
+
+            //Creating an variable of type Listview Adapter to create the list view.
+            organizationAdapter =new OrganizationListViewAdapter(this, mOrganizations,addictOutfitId); //Calling the eventAdapter mListView to help set the List
+        }
+        else{
+            //Creating an variable of type Listview Adapter to create the list view.
+            organizationAdapter =new OrganizationListViewAdapter(this, MyApplication.sourceOrganizations,addictOutfitId); //Calling the eventAdapter mListView to help set the List
+        }
+
+        setUpFilters(); //Method to set up the filters in the view.
+
+        //Setting the Filters to the Filter Item once they have been declared and set in the view,later to be altered with
+        mEventCategoryListView = (LinearLayout) findViewById(R.id.event_category_listview);
+        mVenueCategoryListView = (LinearLayout) findViewById(R.id.venue_category_listview);
+        mArtistCategoryListView = (LinearLayout) findViewById(R.id.artist_category_listview);
+        mOrganizationCategoryListView = (LinearLayout) findViewById(R.id.organization_category_listview);
+        //assigning the global variables the respective views.
+        linearCalendar = (LinearLayout) findViewById(R.id.calendarView);
+        prce = (SeekBar) findViewById(R.id.priceBar);
+        mPrice = (TextView) findViewById(R.id.priceDisplay);
+        admission = (TextView) findViewById(R.id.admissionTextView);
+        ImageView swipeup = (ImageView) findViewById(R.id.swipeup);
+        swipeup.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.swipeup, 20));
+    }
+
+    private void assignViewImages() {
+        emptyStatePic = (ImageView) findViewById(R.id.exploreEmptypic);
+        dudeButton =(ImageView) findViewById(R.id.DashboardButton);
+        mapButton = (ImageView) findViewById(R.id.MapButton);
+        listTitle = (TextView) findViewById(R.id.ListTitleText);
+        searchCancel = (TextView) findViewById(R.id.cancelSearch);
+        searchEdit = (EditText) findViewById(R.id.searchEditText);
     }
 
     private void actionbar() {
