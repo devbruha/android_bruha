@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import com.bruha.bruhaandroid.Model.Artist;
 import com.bruha.bruhaandroid.R;
-import com.bruha.bruhaandroid.Views.EventPageActivity;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 
@@ -122,10 +121,10 @@ public class MapArtistListViewAdapter extends BaseSwipeAdapter {
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
                         MoreInfoLay.setAlpha(1f);
-                        Intent intent = new Intent(mActivity, EventPageActivity.class);
-                        intent.putExtra("Id",artist.getArtistId());
-                        intent.putExtra("Type","Artist");
-                        mActivity.startActivity(intent);
+        //                Intent intent = new Intent(mActivity, EventPageActivity.class);
+          //              intent.putExtra("Id",artist.getArtistId());
+            //            intent.putExtra("Type","Artist");
+              //          mActivity.startActivity(intent);
                     }
                 });
                 animator.start();

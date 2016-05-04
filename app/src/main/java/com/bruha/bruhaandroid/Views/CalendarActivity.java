@@ -1,4 +1,5 @@
 // Copyright 2015, Thomas Miele and Bilal Chowdhry, All rights reserved.
+// Calendar Activity - Shows Calendar with events date
 
 package com.bruha.bruhaandroid.Views;
 

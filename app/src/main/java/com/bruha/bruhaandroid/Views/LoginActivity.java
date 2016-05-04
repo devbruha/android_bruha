@@ -1,4 +1,5 @@
 // Copyright 2015, Thomas Miele and Bilal Chowdhry, All rights reserved.
+// LoginActivity - activity for logging into account
 
 package com.bruha.bruhaandroid.Views;
 
@@ -71,10 +72,15 @@ public class LoginActivity extends ActionBarActivity {
         ButterKnife.inject(this);
 
         //Setting the bruha face inside the Layout.
-        ImageView im = (ImageView) findViewById(R.id.loginbruhaface);
-        im.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhapurpleface, 100));
+        bruhaFace();
 
         //Setting onCLickListeners for the buttons
+        implementingOnClicks();
+
+        resize();  //Resizing the page and implementing the buttons.
+    }
+
+    private void implementingOnClicks() {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -131,10 +137,12 @@ public class LoginActivity extends ActionBarActivity {
                 animator.start();
             }
         });
-
-        resize();  //Resizing the page and implementing the buttons.
     }
 
+    private void bruhaFace() {
+        ImageView im = (ImageView) findViewById(R.id.loginbruhaface);
+        im.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhapurpleface, 100));
+    }
 
 
     private void resize() {

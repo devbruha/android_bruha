@@ -1,4 +1,5 @@
 // Copyright 2015, Thomas Miele and Bilal Chowdhry, All rights reserved.
+// MyUploadsActivity - Activity where you can create your event, venue or organization and upload it to Bruha
 
 package com.bruha.bruhaandroid.Views;
 
@@ -141,20 +142,7 @@ public class MyUploadsActivity extends FragmentActivity implements ObservableScr
         //Setting the Button Image
         dudeButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 30));
 
-        dudeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                ObjectAnimator animator = ObjectAnimator.ofFloat(dudeButton, "alpha", 1f, 0.5f);
-                animator.setDuration(100);
-                animator.addListener(new AnimatorListenerAdapter() {
-                    public void onAnimationEnd(Animator animation) {
-                        dudeButton.setAlpha(1f);
-                        startDashboardActivity(v);
-                    }
-                });
-                animator.start();
-            }
-        });
+        dudeOnClick();
 
         Typeface opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
 
@@ -174,6 +162,23 @@ public class MyUploadsActivity extends FragmentActivity implements ObservableScr
         //Empty State ImageView being resized
         ViewGroup.LayoutParams emptyStatePicLayoutParams = emptyStatepic.getLayoutParams();
         emptyStatePicLayoutParams.height =  (int)Math.round(height * .45);
+    }
+
+    private void dudeOnClick() {
+        dudeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(dudeButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        dudeButton.setAlpha(1f);
+                        startDashboardActivity(v);
+                    }
+                });
+                animator.start();
+            }
+        });
     }
 
     private void init(){

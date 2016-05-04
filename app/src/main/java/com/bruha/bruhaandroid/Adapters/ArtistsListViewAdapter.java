@@ -32,7 +32,6 @@ import com.bruha.bruhaandroid.Model.MyApplication;
 import com.bruha.bruhaandroid.Model.SQLiteDatabaseModel;
 import com.bruha.bruhaandroid.Processing.RetrieveMyPHP;
 import com.bruha.bruhaandroid.R;
-import com.bruha.bruhaandroid.Views.EventPageActivity;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 import com.daimajia.swipe.SwipeLayout;
@@ -338,10 +337,10 @@ public class ArtistsListViewAdapter extends BaseSwipeAdapter {
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
                         MoreInfoLay.setAlpha(1f);
-                        Intent intent = new Intent(mActivity, EventPageActivity.class);
-                        intent.putExtra("Id",artist.getArtistId());
-                        intent.putExtra("Type","Artist");
-                        mActivity.startActivity(intent);
+       //                 Intent intent = new Intent(mActivity, EventPageActivity.class);
+         //               intent.putExtra("Id",artist.getArtistId());
+           //             intent.putExtra("Type","Artist");
+             //           mActivity.startActivity(intent);
                     }
                 });
                 animator.start();
