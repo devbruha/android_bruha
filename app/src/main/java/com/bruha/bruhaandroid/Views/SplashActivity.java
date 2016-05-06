@@ -1,5 +1,7 @@
 // Copyright 2015, Thomas Miele and Bilal Chowdhry, All rights reserved.
 
+// Splash Activity: First page with Brüha on Login/signup
+
 package com.bruha.bruhaandroid.Views;
 
 import android.animation.Animator;
@@ -41,7 +43,7 @@ public class SplashActivity extends Activity {
     Typeface opensansregfnt;  //Font to be used.
     //Injevting the Buttons:
     @InjectView(R.id.splashloginButton) Button loginButton;
-    @InjectView(R.id.noLoginButton) Button mSkipButton;
+    @InjectView(R.id.noLoginButton) Button skipButton;
     @InjectView(R.id.splashregisterButton) Button registerButton;
     @InjectView(R.id.splashImageView) ImageView mSplashImageView;
 
@@ -57,26 +59,28 @@ public class SplashActivity extends Activity {
         unselected=svgToBitmapDrawable(getResources(), R.raw.notselected, 10);
         opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
 
-        //Setting Splash page up.
-       // ImageView loginimage = (ImageView) findViewById(R.id.logindude);
-        // Android functions to determine the screen dimensions.
-        //loginimage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 30));
-
         //Code to execute the swipe code.
         MyPagerAdapter adapter = new MyPagerAdapter();          //Making variable eventAdapter of class MyPageAdapter defined below.
         ViewPager pager = (ViewPager) findViewById(R.id.pager); //The Layout where the new Layout will be displayed.
         pager.setAdapter(adapter);                              //Setting the Adapter of the layout to eventAdapter.
         pager.setCurrentItem(0);                                 //The first page to be displayed in the
 
-        //Buttons of the splash page being implemented and their respective onClickListeners.
-        //final LinearLayout loginButton = (LinearLayout) findViewById(R.id.splashloginButton);
-        //final LinearLayout registerButton = (LinearLayout) findViewById(R.id.splashregisterButton);
-        final Button loginButton = (Button) findViewById(R.id.splashloginButton);
-        final Button registerButton = (Button) findViewById(R.id.splashregisterButton);
-        final Button skipButton = (Button) findViewById(R.id.noLoginButton);
-        //@InjectView(R.id.splashloginButton) Button loginButton;
-        //@InjectView(R.id.splashregisterButton) Button registerButton;
+          onClickImplementations();
+          setImages();  //Calling the method that sets all the images inside the database.
+          resize();  //The method that resizes and sets the font size according to the screen size.
 
+        //Checks if internet connection is available,if not app continues without internet connection.
+        if(!isNetworkAvailable())
+        {
+            if(!MyApplication.internetCheck) {
+                alertUserAboutError("No internet connection detected!", "The information displayed is not up to date and some of our features will not be available to you due to no internet connection being detected. Please turn on your internet connection and restart the app to get updated information.");
+                MyApplication.internetCheck = true;
+            }
+        }
+
+    }
+
+    private void onClickImplementations(){
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,18 +126,6 @@ public class SplashActivity extends Activity {
                 animator.start();
             }
         });
-          setImages();  //Calling the method that sets all the images inside the database.
-          resize();  //The method that resizes and sets the font size according to the screen size.
-
-        //Checks if internet connection is available,if not app continues without internet connection.
-        if(!isNetworkAvailable())
-        {
-            if(!MyApplication.internetCheck) {
-                alertUserAboutError("No internet connection detected!", "The information displayed is not up to date and some of our features will not be available to you due to no internet connection being detected. Please turn on your internet connection and restart the app to get updated information.");
-                MyApplication.internetCheck = true;
-            }
-        }
-
     }
 
     private void alertUserAboutError(String errorTitle, String errorMessage) {
@@ -156,7 +148,7 @@ public class SplashActivity extends Activity {
 
         ViewGroup.LayoutParams loginButtonLayoutParams = loginButton.getLayoutParams();
         ViewGroup.LayoutParams registerButtonLayoutParams = registerButton.getLayoutParams();
-        ViewGroup.LayoutParams skipButtonLayoutParams = mSkipButton.getLayoutParams();
+        ViewGroup.LayoutParams skipButtonLayoutParams = skipButton.getLayoutParams();
 
         loginButtonLayoutParams.height =  (int)Math.round(height*.05);
         registerButtonLayoutParams.height =  (int)Math.round(height*.05);
@@ -168,7 +160,7 @@ public class SplashActivity extends Activity {
 
         loginButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         registerButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        mSkipButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        skipButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
     }
 
     private void setImages() {       //The method that sets all the images inside the Dashboard activity.

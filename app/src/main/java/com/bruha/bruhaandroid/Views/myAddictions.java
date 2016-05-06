@@ -1,4 +1,5 @@
 // Copyright 2015, Thomas Miele and Bilal Chowdhry, All rights reserved.
+// myAddictions - The my addictions activity page
 
 package com.bruha.bruhaandroid.Views;
 
@@ -150,20 +151,7 @@ public class myAddictions extends FragmentActivity implements ObservableScrollVi
         //Setting the Button Image
         dudeButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 30));
 
-        dudeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                ObjectAnimator animator = ObjectAnimator.ofFloat(dudeButton, "alpha", 1f, 0.5f);
-                animator.setDuration(100);
-                animator.addListener(new AnimatorListenerAdapter() {
-                    public void onAnimationEnd(Animator animation) {
-                        dudeButton.setAlpha(1f);
-                        startDashboardActivity(v);
-                    }
-                });
-                animator.start();
-            }
-        });
+        dudeOnClick();
 
         Typeface opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
         ViewGroup.LayoutParams addictionTextLayoutParams = addictionText.getLayoutParams();
@@ -182,6 +170,23 @@ public class myAddictions extends FragmentActivity implements ObservableScrollVi
         //Empty State ImageView being resized
         ViewGroup.LayoutParams emptyStatePicLayoutParams = emptyStatepic.getLayoutParams();
         emptyStatePicLayoutParams.height =  (int)Math.round(height * .45);
+    }
+
+    private void dudeOnClick() {
+        dudeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(dudeButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        dudeButton.setAlpha(1f);
+                        startDashboardActivity(v);
+                    }
+                });
+                animator.start();
+            }
+        });
     }
 
     //SVG Conversion.

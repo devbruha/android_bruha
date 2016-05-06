@@ -1,5 +1,6 @@
 // Copyright 2015, Thomas Miele and Bilal Chowdhry, All rights reserved.
 
+
 package com.bruha.bruhaandroid.Views;
 
 import android.content.Intent;
@@ -51,9 +52,15 @@ public class ShowOnMapActivity extends FragmentActivity {
         init(); //Calling to initialized Array selectedDateEvents to loop through to find the Event to be displayed.
 
         //Getting the ID of the event that will need to be displayed
+        grabId();
+
+        setUpMapIfNeeded(); //Sets the map up.
+    }
+
+    private void grabId() {
         Intent intent = getIntent();
         String id= intent.getStringExtra("Id");
-         type = intent.getStringExtra("Type");
+        type = intent.getStringExtra("Type");
 
         if(type.equals("Event")) {
             //Finding out and storing the event that is to be displayed.
@@ -93,8 +100,6 @@ public class ShowOnMapActivity extends FragmentActivity {
                 }
             }
         }
-
-        setUpMapIfNeeded(); //Sets the map up.
     }
 
     @Override
@@ -390,5 +395,6 @@ public class ShowOnMapActivity extends FragmentActivity {
         }
         return null;
     }
+
 
 }

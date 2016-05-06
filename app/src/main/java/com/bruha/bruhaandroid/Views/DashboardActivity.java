@@ -1,4 +1,5 @@
 // Copyright 2015, Thomas Miele and Bilal Chowdhry, All rights reserved.
+// DashboardActivity - The main menu of the application
 
 package com.bruha.bruhaandroid.Views;
 
@@ -68,6 +69,25 @@ public class DashboardActivity extends ActionBarActivity {
 
         setCategories();  //Sets the Categories
 
+        implementOnClicks();
+
+        setImages();  //Calling the method that sets all the images inside the database.
+        resize();     //Calling the method that resizes everything inside the database.
+
+        MyApplication.listIconParam = dudeButton.getLayoutParams();
+
+        //Checks to see if internet connection is available,if not then proceed with the app without using any internet connection.
+        if(!isNetworkAvailable())
+        {
+            if(!MyApplication.internetCheck)
+            {
+                alertUserAboutError("No internet connection detected!","The information displayed is not up to date and some of our features will not be available to you due to no internet connection being detected. Please turn on your internet connection and restart the app to get updated information.");
+                MyApplication.internetCheck = true;
+            }
+        }
+    }
+
+    private void implementOnClicks() {
         //The Button implementaion of EXPLORE which stays the same no matter logged in or not.
         exploreButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +98,23 @@ public class DashboardActivity extends ActionBarActivity {
                     public void onAnimationEnd(Animator animation) {
                         exploreButton.setAlpha(1f);
                         startExploreActivity(v);
+                    }
+                });
+                animator.start();
+            }
+        });
+
+        //MyTicket Button's Implementation.
+        myTicketButton.setAlpha((float) 0.25);
+        myTicketButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(myTicketButton, "alpha", 1f, 0.5f);
+                animator.setDuration(100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        myTicketButton.setAlpha(.25f);
+                        ticketDialog();
                     }
                 });
                 animator.start();
@@ -102,23 +139,6 @@ public class DashboardActivity extends ActionBarActivity {
                         public void onAnimationEnd(Animator animation) {
                             myUploadButton.setAlpha(1f);
                             startUploadActivity(v);
-                        }
-                    });
-                    animator.start();
-                }
-            });
-
-            //MyTicket Button's Implementation.
-            myTicketButton.setAlpha((float) 0.25);
-            myTicketButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(final View v) {
-                    ObjectAnimator animator = ObjectAnimator.ofFloat(myTicketButton, "alpha", 1f, 0.5f);
-                    animator.setDuration(100);
-                    animator.addListener(new AnimatorListenerAdapter() {
-                        public void onAnimationEnd(Animator animation) {
-                            myTicketButton.setAlpha(.25f);
-                            ticketDialog();
                         }
                     });
                     animator.start();
@@ -184,15 +204,6 @@ public class DashboardActivity extends ActionBarActivity {
                 }
             });
 
-            //TicketButton's Implementation.
-            myTicketButton.setAlpha((float) 0.25);
-            myTicketButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ticketDialog();
-                }
-            });
-
             //WhatsHot's Implementation
             hotButton.setAlpha((float) 0.25);
             hotButton.setOnClickListener(new View.OnClickListener() {
@@ -237,21 +248,6 @@ public class DashboardActivity extends ActionBarActivity {
                 animator.start();
             }
         });
-
-        setImages();  //Calling the method that sets all the images inside the database.
-        resize();     //Calling the method that resizes everything inside the database.
-
-        MyApplication.listIconParam = dudeButton.getLayoutParams();
-
-        //Checks to see if internet connection is available,if not then proceed with the app without using any internet connection.
-        if(!isNetworkAvailable())
-        {
-            if(!MyApplication.internetCheck)
-            {
-                alertUserAboutError("No internet connection detected!","The information displayed is not up to date and some of our features will not be available to you due to no internet connection being detected. Please turn on your internet connection and restart the app to get updated information.");
-                MyApplication.internetCheck = true;
-            }
-        }
     }
 
     private void setCategories(){

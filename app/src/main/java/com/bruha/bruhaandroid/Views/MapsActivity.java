@@ -1,4 +1,5 @@
 // Copyright 2015, Thomas Miele and Bilal Chowdhry, All rights reserved.
+// MapsActivity - activity for the map view
 
 package com.bruha.bruhaandroid.Views;
 
@@ -127,6 +128,7 @@ public class MapsActivity extends FragmentActivity implements
         ButterKnife.inject(this);
 
         setButtons();    //Resizes the List and Dashboard navigation buttons.
+
         // Map and Filter setup
         buildGoogleApiClient();
         setUpMapIfNeeded();
@@ -136,7 +138,13 @@ public class MapsActivity extends FragmentActivity implements
         setUpperPanel();
         setVariables(); //Sets the variables for the filter layout to be accessed and changed later.
 
-        //Checking which filter was selecred before opening the activity and opening that one
+        //Checking which filter was selected before opening the activity and opening that one
+        filterCheck();
+
+        setImages();  //Sets the images for the buttons.
+    }
+
+    private void filterCheck() {
         if(MyApplication.filterTracker.equals("Event"))
         {
             eventButton(null);
@@ -155,8 +163,6 @@ public class MapsActivity extends FragmentActivity implements
         else{
             eventButton(null);
         }
-
-        setImages();  //Sets the images for the buttons.
     }
 
     private void setVariables()
@@ -199,6 +205,12 @@ public class MapsActivity extends FragmentActivity implements
 
         dudeButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 30));
         listButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.listicon, 30));
+
+        //set onClickListeners
+        imageOnClicks();
+    }
+
+    private void imageOnClicks() {
         dudeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -355,7 +367,7 @@ public class MapsActivity extends FragmentActivity implements
     }
 
     //Sets the Markers for the Venue and Calls the Adapter to set the VenueListView Adapter
-    private void setVenueMarkers(){
+    private void setVenueMarkers() {
 
         final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout)findViewById(R.id.sliding_layout_upper);
         mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);

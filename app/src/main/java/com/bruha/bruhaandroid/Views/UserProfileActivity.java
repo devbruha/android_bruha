@@ -1,4 +1,5 @@
 // Copyright 2015, Thomas Miele and Bilal Chowdhry, All rights reserved.
+// UserProfileActivity - The users profile setting + logout button
 
 package com.bruha.bruhaandroid.Views;
 
@@ -85,6 +86,10 @@ public class UserProfileActivity extends ActionBarActivity {
         //Setting the Button Image
         dudeButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 30));
 
+        dudeOnClick();
+    }
+
+    private void dudeOnClick() {
         dudeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {

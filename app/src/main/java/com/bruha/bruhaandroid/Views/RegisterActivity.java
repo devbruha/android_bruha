@@ -1,4 +1,5 @@
 // Copyright 2015, Thomas Miele and Bilal Chowdhry, All rights reserved.
+// RegisterActivity - Activity for user to register and sign up for account
 
 package com.bruha.bruhaandroid.Views;
 
@@ -64,6 +65,12 @@ public class RegisterActivity extends ActionBarActivity {
         im.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhapurpleface, 100));
 
         //Setting the OnClickListeners for all the buttons inside the page.
+        implementOnClicks();
+
+    resize(); //Calling the method that resizes everything inside the page.
+    }
+
+    private void implementOnClicks() {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -106,8 +113,6 @@ public class RegisterActivity extends ActionBarActivity {
                 animator.start();
             }
         });
-
-    resize(); //Calling the method that resizes everything inside the page.
     }
 
     private void resize() {
@@ -264,7 +269,7 @@ public class RegisterActivity extends ActionBarActivity {
             return true;
         }
         else {
-            MyApplication.credentialError = "Your reentered password does not match your password.";
+            MyApplication.credentialError = "Your re-entered password does not match your password.";
             return false;
         }
     }
