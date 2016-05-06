@@ -14,6 +14,7 @@ import com.bruha.bruhaandroid.Model.MyApplication;
 import com.bruha.bruhaandroid.Model.Organizations;
 import com.bruha.bruhaandroid.Model.SQLiteDatabaseModel;
 import com.bruha.bruhaandroid.Model.Venue;
+import com.bruha.bruhaandroid.Processing.CredentialsPHP;
 import com.bruha.bruhaandroid.Processing.RetrieveMyPHP;
 import com.bruha.bruhaandroid.Processing.RetrievePHP;
 import com.bruha.bruhaandroid.Processing.SQLiteUtils;
@@ -23,13 +24,17 @@ import java.util.HashMap;
 
 public class LoadScreenActivity extends Activity {
     //Initializing the class that contains the calls to the PHP Database.
-    RetrievePHP retrievedInfo;
-    RetrieveMyPHP retrieveMyPHP;
+    //  RetrievePHP retrievedInfo;
+    // RetrieveMyPHP retrieveMyPHP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_screen);
+
+
+        CredentialsPHP x = new CredentialsPHP();
+        x.login("robert@bruha.com","testing123");
 
         //In the case that there is no internet connection.
         if(!isNetworkAvailable())
@@ -54,8 +59,8 @@ public class LoadScreenActivity extends Activity {
 
         else {
             // Initializing the PHP classes.
-            retrievedInfo = new RetrievePHP();
-            retrieveMyPHP = new RetrieveMyPHP();
+            //       retrievedInfo = new RetrievePHP();
+            //     retrieveMyPHP = new RetrieveMyPHP();
 
             //Initializing the local database.
             SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
@@ -77,20 +82,29 @@ public class LoadScreenActivity extends Activity {
                 MyApplication.userName = userinfo.get(0);   //Letting the app know who the user is.
 
                 //Retrieving the List of Events/Venues/Artists/Organizations.
-                ArrayList<Event> userEvents = retrieveMyPHP.getUserEventList(userinfo.get(0));
-                ArrayList<Venue> userVenues = retrieveMyPHP.getUserVenueList(userinfo.get(0));
-                ArrayList<Artist> userArtist = retrieveMyPHP.getUserArtistList(userinfo.get(0));
-                ArrayList<Organizations> userOrg = retrieveMyPHP.getUserOrgList(userinfo.get(0));
+                //    ArrayList<Event> userEvents = retrieveMyPHP.getUserEventList(userinfo.get(0));
+                //    ArrayList<Venue> userVenues = retrieveMyPHP.getUserVenueList(userinfo.get(0));
+                //    ArrayList<Artist> userArtist = retrieveMyPHP.getUserArtistList(userinfo.get(0));
+                //    ArrayList<Organizations> userOrg = retrieveMyPHP.getUserOrgList(userinfo.get(0));
+                ArrayList<Event> userEvents = new ArrayList<>();
+                ArrayList<Venue> userVenues = new ArrayList<>();
+                ArrayList<Artist> userArtist = new ArrayList<>();
+                ArrayList<Organizations> userOrg = new ArrayList<>();
+
                 sqLiteUtils.insertUserEvents(dbHelper, userEvents);
                 sqLiteUtils.insertUserVenues(dbHelper, userVenues);
                 sqLiteUtils.insertUserArtist(dbHelper, userArtist);
                 sqLiteUtils.insertUserOrganization(dbHelper, userOrg);
 
                 //Retrieving the Addictions info.
-                ArrayList<String> addictedEvents = retrieveMyPHP.getAddictedList(userinfo.get(0));
-                ArrayList<String> addictedVenues = retrieveMyPHP.getAddictedVenueList(userinfo.get(0));
-                ArrayList<String> addictedArtists = retrieveMyPHP.getAddictedArtistList(userinfo.get(0));
-                ArrayList<String> addictedOrganizations = retrieveMyPHP.getAddictedOrgList(userinfo.get(0));
+                //   ArrayList<String> addictedEvents = retrieveMyPHP.getAddictedList(userinfo.get(0));
+                // ArrayList<String> addictedVenues = retrieveMyPHP.getAddictedVenueList(userinfo.get(0));
+                //  ArrayList<String> addictedArtists = retrieveMyPHP.getAddictedArtistList(userinfo.get(0));
+                //  ArrayList<String> addictedOrganizations = retrieveMyPHP.getAddictedOrgList(userinfo.get(0));
+                ArrayList<String> addictedEvents =  new ArrayList<>();
+                ArrayList<String> addictedVenues =  new ArrayList<>();
+                ArrayList<String> addictedArtists = new ArrayList<>();
+                ArrayList<String> addictedOrganizations =  new ArrayList<>();
                 sqLiteUtils.insertEventAddictions(dbHelper, addictedEvents);
                 sqLiteUtils.insertVenueAddictions(dbHelper, addictedVenues);
                 sqLiteUtils.insertArtistAddictions(dbHelper, addictedArtists);
@@ -111,10 +125,10 @@ public class LoadScreenActivity extends Activity {
         ArrayList<String> artistArrayList = new ArrayList<>();
         ArrayList<String> organizationArrayList = new ArrayList<>();
 
-        eventArrayList = retrievedInfo.getEventCategoryList();
-        venueArrayList = retrievedInfo.getVenueCategoryList();
-        artistArrayList = retrievedInfo.getArtistCategoryList();
-        organizationArrayList = retrievedInfo.getOrganizationCategoryList();
+        // eventArrayList = retrievedInfo.getEventCategoryList();
+        // venueArrayList = retrievedInfo.getVenueCategoryList();
+        // artistArrayList = retrievedInfo.getArtistCategoryList();
+        // organizationArrayList = retrievedInfo.getOrganizationCategoryList();
 
         //Setting the local database.
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
@@ -131,28 +145,47 @@ public class LoadScreenActivity extends Activity {
         //The call to get the list of mEvents.
         ArrayList<Event> events = new ArrayList<>() ;
         try {
-            events = retrievedInfo.getEventList();
+            // events = retrievedInfo.getEventList();
+            for(int i=0;i<5;i++)
+            {
+                Event x = new Event();
+                x.setEventName("Chutiyaap");
+                x.setEventid(i+"");
+                x.setEventDate("2016-10-21");
+                x.setEventEndDate("2016-10-21");
+                x.setEventStartTime("08:00");
+                x.setEventEndTime("11:30");
+                x.setEventDescription("HAIIIIII");
+                x.setEventPrimaryCategory("Sports");
+                x.setEventLocAdd("Phiti");
+                x.setEventLocName("Hai");
+                x.setEventPicture("https://i.ytimg.com/vi/MK3_Ep73pn0/hqdefault.jpg");
+                x.setEventLocSt("85 ward");
+                x.setVenueid(i+"");
+                x.setOrganizationid(new ArrayList<String>());
+                events.add(x);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         //The call to get the list of Venue.
         ArrayList<Venue> venues= new ArrayList<>() ;
         try {
-            venues = retrievedInfo.getVenueList();
+            //  venues = retrievedInfo.getVenueList();
         } catch (Exception e) {
             e.printStackTrace();
         }
         //The call to get the list of Organizations.
         ArrayList<Organizations> outfits= new ArrayList<>() ;
         try {
-            outfits = retrievedInfo.getOrgList();
+            // outfits = retrievedInfo.getOrgList();
         } catch (Exception e) {
             e.printStackTrace();
         }
         //The call to get the list of Artist.
         ArrayList<Artist> artists= new ArrayList<>() ;
         try {
-            artists = retrievedInfo.getArtistList();
+            //  artists = retrievedInfo.getArtistList();
         } catch (Exception e) {
             e.printStackTrace();
         }
