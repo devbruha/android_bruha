@@ -2,6 +2,8 @@
 
 package com.bruha.bruhaandroid.Processing;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -25,7 +27,7 @@ public class CredentialsPHP {
         // creates parameters for the DB call to attach to the "initial" URL
         // to attach more paramenters its of the form:
         // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
-        final String parameters = "username="+mUsername+"&password="+mPassword;
+        final String parameters = "email="+mUsername+"&password="+mPassword;
 
         Thread thread;
 
@@ -37,11 +39,20 @@ public class CredentialsPHP {
                 {
                     // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
                     // alot of boiler plate stuff
-                    url = new URL("http://bruha.com/mobile_php/CredentialsPHP/Login.php?"+parameters);
+                    url = new URL("http://bruha.com/api/v1/login?"+parameters);
+                    // url = new URL("http://dev.bruha.com/api/v1/login?");
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
-                    connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+                    // connection.setRequestProperty("Accept","application/json; charset=UTF-8");
                     connection.setRequestMethod("POST");
+                    connection.setRequestProperty("Content-Type", "application/json");
+                    connection.setRequestProperty("Accept", "application/json");
+                    //connection.setRequestProperty("Authorization", "key="+apiKey);
+                    // connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    // connection.setRequestProperty("Authorization", "application/json");
+                    // connection.setRequestProperty("Content-Type","application/json");
+                    //connectiom.setvalue("application/json", forHTTPHeaderField: "Accept")
 
                     request = new OutputStreamWriter(connection.getOutputStream());
                     request.write(parameters);
@@ -77,9 +88,11 @@ public class CredentialsPHP {
             e.printStackTrace();
         }
 
+        Log.v("Scene awnn:",response);
+        /*
         double x = Double.parseDouble(response);
         int y= (int) x;
-
+        //For logging its a string, display the string
         String error;
         if(y==1)
         {
@@ -90,6 +103,8 @@ public class CredentialsPHP {
             error="badCredentials";
         }
         return error;
+        */
+        return null;
     }
 
     //The method to register an account.
