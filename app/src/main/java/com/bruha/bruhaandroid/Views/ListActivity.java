@@ -524,10 +524,10 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
         searchEdit.setText(MyApplication.userFilters.getEventStringFilter());
 
         //Changing Filter:
-        eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
-        artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-        venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
-        orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
+        //eventButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.borderorange));
+        //artistButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
+        //venueButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
+        //orgButton.setBackgroundDrawable(getApplicationContext().getResources().getDrawable(R.drawable.border));
         eventImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventorange, 50));
         venueImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venuewhite, 50));
         artistImage.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 50));

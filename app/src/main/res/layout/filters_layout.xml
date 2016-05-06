@@ -33,7 +33,6 @@
                 android:clickable="true"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:background="@drawable/border"
                 android:id="@+id/eventButton">
 
                 <RelativeLayout
@@ -98,7 +97,6 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 android:layout_height="match_parent"
-                android:background="@drawable/border"
                 android:id="@+id/venueButton">
 
                 <LinearLayout
@@ -157,7 +155,6 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 android:layout_height="match_parent"
-                android:background="@drawable/border"
                 android:id="@+id/outfitButton">
 
                 <LinearLayout
@@ -214,7 +211,6 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 android:layout_height="match_parent"
-                android:background="@drawable/border"
                 android:id="@+id/artistButton">
 
                 <LinearLayout
