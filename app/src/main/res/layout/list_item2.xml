@@ -22,7 +22,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Get Addicted!"
-            android:textStyle="bold"
             android:background="#46bec2"
             android:textColor="#ffffff"
             android:id="@+id/likeButton"/>
@@ -30,12 +29,14 @@
 
     </LinearLayout>
 
+
+
     <!--The Linear Layout of the sliding panal -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="9"
+        android:orientation="vertical"
+        android:weightSum="2"
         android:id="@+id/rightSwipe">
 
         <!--Table Rows which are the buttons -->
@@ -44,19 +45,19 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="1"
             android:gravity="center"
-            android:id="@+id/MapBuyTicket">
+            android:id="@+id/MapTopHalf">
 
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#1a163f"
+                android:background="#f47521"
                 android:gravity="center"
                 android:id="@+id/MapBuyTicketLayout"
-                android:alpha=".25">
+                >
 
                 <!--
                 <TextView
@@ -181,325 +182,314 @@
                     android:id="@+id/MapSwipeBarSize1"/>
                     -->
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Buy"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Buy Tickets!"
                     android:id="@+id/Swipe1"
                     android:textColor="#ffffff"
                     android:paddingLeft="5dp"
-                    android:paddingRight="5dp" />
+                    android:paddingRight="5dp"
+                    android:gravity="center"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tickets"
-                    android:id="@+id/Swipe4"
-                    android:textColor="#ffffff"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp" />
             </LinearLayout>
         </TableRow>
 
         <!--TableRow Button 2 -->
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:id="@+id/MapPreview">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:background="#474747"
-                android:id="@+id/MapPreviewLayout">
-
-                <!--
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="S"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/textView30"/>
-
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="H"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/textView31"/>
-
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="O"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/textView32"/>
-
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="W"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/textView33"/>
-
-
-
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text=" "
-                    android:gravity="center_horizontal"
-                    android:id="@+id/textView34"
-                    />
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="O"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/textView35"/>
-
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="N"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/textView36"/>
-
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text=" "
-                    android:gravity="center_horizontal"
-                    android:id="@+id/textView362"/>
-
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="M"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/textView368"/>
-
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="A"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/textView367"/>
-
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="P"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/textView366"/>
-
-                <TextView
-                    android:textColor="#cf075a52"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="LOLi"
-                    android:visibility="invisible"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/MapSwipeBarSize2"/>
-                    -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Show On"
-                    android:id="@+id/Swipe2"
-                    android:textColor="#ffffff"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Map"
-                    android:id="@+id/Swipe6"
-                    android:textColor="#ffffff"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp" />
-
-
-            </LinearLayout>
-
-        </TableRow>
 
         <!--TableRow Button 3 -->
-        <TableRow
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:id="@+id/MapMoreInfo">
+            android:id="@+id/MapBottomHalf"
+            android:layout_weight="1"
+            android:weightSum= "2">
 
-            <LinearLayout
-                android:orientation="vertical"
+
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#f47521"
-                android:gravity="center"
-                android:id="@+id/MapMoreInfoLayout">
+                android:layout_weight="1"
+                android:id="@+id/MapMoreInfo">
 
-                <!--
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="M"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/MapTextView19"/>
+                    android:layout_height="match_parent"
+                    android:background="#1c1745"
+                    android:gravity="left"
+                    android:id="@+id/MapMoreInfoLayout">
 
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
+                    <!--
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="M"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/MapTextView19"/>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="O"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/MapTextView20"/>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="R"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/MapTextView21"/>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="E"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/MapTextView22"/>
+
+
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text=" "
+                        android:gravity="center_horizontal"
+                        android:id="@+id/MapTextView23"/>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="I"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/MapTextView24"/>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="N"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/MapTextView25"/>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="F"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/MapTextView26"/>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="O"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/MapTextView27"/>
+
+                    <TextView
+                        android:textColor="#afffba28"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="LOLi"
+                        android:visibility="invisible"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/MapSwipeBarSize3"/>
+                        -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="More Info"
+                        android:id="@+id/Swipe3"
+                        android:singleLine="false"
+                        android:textColor="#ffffff"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:gravity="center"/>
+
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/MapPreview">
+
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="O"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/MapTextView20"/>
+                    android:layout_height="match_parent"
+                    android:gravity="right"
+                    android:background="#474747"
+                    android:id="@+id/MapPreviewLayout">
 
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="R"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/MapTextView21"/>
+                    <!--
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="S"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/textView30"/>
 
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="E"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/MapTextView22"/>
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="H"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/textView31"/>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="O"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/textView32"/>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="W"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/textView33"/>
 
 
 
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text=" "
-                    android:gravity="center_horizontal"
-                    android:id="@+id/MapTextView23"/>
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text=" "
+                        android:gravity="center_horizontal"
+                        android:id="@+id/textView34"
+                        />
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="O"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/textView35"/>
 
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="I"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/MapTextView24"/>
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="N"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/textView36"/>
 
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="N"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/MapTextView25"/>
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text=" "
+                        android:gravity="center_horizontal"
+                        android:id="@+id/textView362"/>
 
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="F"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/MapTextView26"/>
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="M"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/textView368"/>
 
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="O"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/MapTextView27"/>
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="A"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/textView367"/>
 
-                <TextView
-                    android:textColor="#afffba28"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="LOLi"
-                    android:visibility="invisible"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/MapSwipeBarSize3"/>
-                    -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="More"
-                    android:id="@+id/Swipe3"
-                    android:singleLine="false"
-                    android:textColor="#ffffff"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp" />
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="P"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/textView366"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Info"
-                    android:id="@+id/Swipe5"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:textColor="#ffffff" />
+                    <TextView
+                        android:textColor="#cf075a52"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="LOLi"
+                        android:visibility="invisible"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/MapSwipeBarSize2"/>
+                        -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Show On Map"
+                        android:id="@+id/Swipe2"
+                        android:textColor="#ffffff"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:gravity="center"/>
 
-            </LinearLayout>
-        </TableRow>
+
+                </LinearLayout>
+
+            </TableRow>
+        </LinearLayout>
     </LinearLayout>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -513,7 +503,7 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="220dp"
             android:id="@+id/eventList"
             android:background="#ffdddddd"
             android:weightSum="10">
@@ -535,7 +525,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2"
-                android:background="#ffffff"
+                android:background="#eeeeee"
                 android:weightSum="2">
 
                 <LinearLayout

@@ -6,7 +6,7 @@
                 android:background="#24163f"
                 android:id="@+id/ListActRelativeLayout"
                 android:isScrollContainer="false"
-                >
+    >
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
         xmlns:sothree="http://schemas.android.com/apk/res-auto"
         android:id="@+id/sliding_layout_lower"
@@ -42,6 +42,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_alignParentRight="true"/>
 
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -50,9 +51,12 @@
                     android:textSize="25dp"
                     android:textColor="#ffffff"
                     android:layout_centerHorizontal="true"
+                    android:visibility="gone"
                     android:gravity="center_vertical|center_horizontal"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="5dp"/>
+
+
 
 
                 <ImageView
@@ -64,21 +68,19 @@
                     android:adjustViewBounds="false" />
 
                 <EditText
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingRight="30dp"
                     android:id="@+id/searchEditText"
                     android:background="@drawable/rounded_edittext"
                     android:hint="Search Events"
-                    android:layout_below="@+id/DashboardButton"
-                    android:layout_toLeftOf="@+id/cancelSearch"
-                    android:layout_toStartOf="@+id/cancelSearch"
-                    android:textSize="20dp"
-                    android:layout_marginLeft="15dp"
+                    android:layout_toEndOf="@+id/DashboardButton"
                     android:layout_marginTop="15dp"
-                    android:paddingLeft="15dp"
+                    android:layout_marginLeft="20dp"
                     android:imeActionLabel="Done"
                     android:imeOptions="actionDone"
                     />
+
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -86,13 +88,12 @@
                     android:text="Cancel"
                     android:id="@+id/cancelSearch"
                     android:textColor="#ffffff"
-                    android:layout_below="@+id/DashboardButton"
-                    android:layout_alignParentRight="true"
+                    android:layout_toEndOf="@+id/searchEditText"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
                     android:textSize="20dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginRight="15dp" />
+                    android:layout_marginLeft="5dp" />
 
                 <com.github.ksoichiro.android.observablescrollview.ObservableListView
                     android:layout_width="match_parent"
@@ -101,7 +102,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="false"
                     android:drawSelectorOnTop="false"
-                    android:dividerHeight="3dp"
+                    android:dividerHeight="8dp"
                     android:layout_below="@+id/cancelSearch"
                     android:layout_marginTop="15dp" />
 
@@ -123,9 +124,9 @@
 
 
         <include android:id="@+id/mapFilterLayout" layout="@layout/filters_layout"
-            android:layout_width="match_parent"
+                 android:layout_width="match_parent"
                  android:isScrollContainer="false"
-            android:layout_height="match_parent"/>
+                 android:layout_height="match_parent"/>
 
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
