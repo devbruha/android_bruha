@@ -148,26 +148,98 @@ public class LoadScreenActivity extends Activity {
         //The call to get the list of mEvents.
         ArrayList<Event> events = new ArrayList<>() ;
         try {
+
             // events = retrievedInfo.getEventList();
-            for(int i=0;i<10;i++)
-            {
-                Event x = new Event();
-                x.setEventName("Chutiyaap");
-                x.setEventid(i+"");
-                x.setEventDate("2016-10-21");
-                x.setEventEndDate("2016-10-21");
-                x.setEventStartTime("08:00");
-                x.setEventEndTime("11:30");
-                x.setEventDescription("HAIIIIII");
-                x.setEventPrimaryCategory("Sports");
-                x.setEventLocAdd("Phiti");
-                x.setEventLocName("Hai");
-                x.setEventPicture("https://thump-images.vice.com/images/articles/meta/2015/07/22/veld-festival-2015-is-coming-and-so-are-the-after-parties-1437601122.jpg");
-                x.setEventLocSt("85 ward");
-                x.setVenueid(i+"");
-                x.setOrganizationid(new ArrayList<String>());
-                events.add(x);
-            }
+            Event x = new Event();
+            x.setEventName("Party Event");
+            //x.setEventName("Chutiyaap");
+            x.setEventid(0+"");
+            x.setEventDate("2016-10-21");
+            x.setEventEndDate("2016-10-21");
+            x.setEventStartTime("08:00");
+            x.setEventEndTime("11:30");
+            x.setEventDescription("HAIIIIII");
+            x.setEventPrimaryCategory("Sports");
+            x.setEventLocAdd("Phiti");
+            x.setEventLocName("Hai");
+            x.setEventPicture("https://thump-images.vice.com/images/articles/meta/2015/07/22/veld-festival-2015-is-coming-and-so-are-the-after-parties-1437601122.jpg");
+            x.setEventLocSt("85 ward");
+            x.setVenueid(0+"");
+            x.setOrganizationid(new ArrayList<String>());
+            events.add(x);
+
+            Event x1 = new Event();
+            x1.setEventName("Sporting Event");
+            //x1.setEventName("tattiyan");
+            x1.setEventid(1+"");
+            x1.setEventDate("2016-10-21");
+            x1.setEventEndDate("2016-10-21");
+            x1.setEventStartTime("08:00");
+            x1.setEventEndTime("11:30");
+            x1.setEventDescription("HAIIIIII");
+            x1.setEventPrimaryCategory("Sports");
+            x1.setEventLocAdd("Phiti");
+            x1.setEventLocName("Hai");
+            x1.setEventPicture("http://assets.lfcimages.com/v2/uploads/media/default/0001/07/thumb_6249_default_news_size_5.jpeg");
+            x1.setEventLocSt("85 ward");
+            x1.setVenueid(1+"");
+            x1.setOrganizationid(new ArrayList<String>());
+            events.add(x1);
+
+            Event x2 = new Event();
+            x2.setEventName("Formal Event");
+            //x2.setEventName("scene awnnn");
+            x2.setEventid(2+"");
+            x2.setEventDate("2016-10-21");
+            x2.setEventEndDate("2016-10-21");
+            x2.setEventStartTime("08:00");
+            x2.setEventEndTime("11:30");
+            x2.setEventDescription("HAIIIIII");
+            x2.setEventPrimaryCategory("Sports");
+            x2.setEventLocAdd("Phiti");
+            x2.setEventLocName("Hai");
+            x2.setEventPicture("http://www.dreameurotrip.com/wp-content/uploads/2014/04/stockholm-party-Sturecompagniet.jpg");
+            x2.setEventLocSt("85 ward");
+            x2.setVenueid(2+"");
+            x2.setOrganizationid(new ArrayList<String>());
+            events.add(x2);
+
+            Event x3 = new Event();
+            x3.setEventName("Concert Event");
+            //x3.setEventName("ghand me mara");
+            x3.setEventid(3+"");
+            x3.setEventDate("2016-10-21");
+            x3.setEventEndDate("2016-10-21");
+            x3.setEventStartTime("08:00");
+            x3.setEventEndTime("11:30");
+            x3.setEventDescription("HAIIIIII");
+            x3.setEventPrimaryCategory("Sports");
+            x3.setEventLocAdd("Phiti");
+            x3.setEventLocName("Hai");
+            x3.setEventPicture("http://www.dreameurotrip.com/wp-content/uploads/2014/04/amsterdam-party-1024x488.jpg");
+            x3.setEventLocSt("85 ward");
+            x3.setVenueid(3+"");
+            x3.setOrganizationid(new ArrayList<String>());
+            events.add(x3);
+
+            Event x4 = new Event();
+            x4.setEventName("Social Event");
+            //x4.setEventName("Jalde se");
+            x4.setEventid(4+"");
+            x4.setEventDate("2016-10-21");
+            x4.setEventEndDate("2016-10-21");
+            x4.setEventStartTime("08:00");
+            x4.setEventEndTime("11:30");
+            x4.setEventDescription("HAIIIIII");
+            x4.setEventPrimaryCategory("Sports");
+            x4.setEventLocAdd("Phiti");
+            x4.setEventLocName("Hai");
+            x4.setEventPicture("http://www.dreameurotrip.com/wp-content/uploads/2014/04/hula-hula-hvar-beach-party-clubbing-croatia.jpg");
+            x4.setEventLocSt("85 ward");
+            x4.setVenueid(4+"");
+            x4.setOrganizationid(new ArrayList<String>());
+            events.add(x4);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
