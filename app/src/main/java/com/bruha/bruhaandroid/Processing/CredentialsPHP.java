@@ -113,7 +113,8 @@ public class CredentialsPHP {
         // creates parameters for the DB call to attach to the "initial" URL
         // to attach more paramenters its of the form:
         // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
-        final String parameters = "user_id="+mUsername+"&password="+mPassword+"&email="+mEmail;
+        final String parameters = "name="+mUsername+"&email="+mPassword+"&password="+mEmail+"&password_confirmation="+mEmail;
+
 
         Thread thread;
 
@@ -125,11 +126,14 @@ public class CredentialsPHP {
                 {
                     // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
                     // alot of boiler plate stuff
-                    url = new URL("http://bruha.com/mobile_php/CredentialsPHP/SignUp.php?"+parameters);
+                 //   url = new URL("http://bruha.com/mobile_php/CredentialsPHP/SignUp.php?"+parameters);
+                    url = new URL("http://bruha.com/api/v1/register?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
-                    connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                  //  connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                     connection.setRequestMethod("POST");
+                    connection.setRequestProperty("Content-Type", "application/json");
+                    connection.setRequestProperty("Accept", "application/json");
 
                     request = new OutputStreamWriter(connection.getOutputStream());
                     request.write(parameters);
@@ -164,7 +168,9 @@ public class CredentialsPHP {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return response;
+        Log.v("Scene",response);
+        return null;
+      //  return response;
     }
 
     public String forgotPassword(String mUsername, String mEmail){

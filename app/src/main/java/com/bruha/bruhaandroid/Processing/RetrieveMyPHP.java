@@ -625,7 +625,9 @@ public class RetrieveMyPHP {
     public ArrayList<String> getUserInfo(String user) {
         ArrayList<String> UserInfo = new ArrayList<>();
 
-        final String parameters = "username=" + user;
+        //"http://bruha.com/api/v1/user?"+parameters
+        //final String parameters = "1?api_token=uR862Mh3vMuVnxdQq22ANGdP1WlQtC2B0f98x53NdZETHhKbrkp6JJQ5RWos";
+       // final String parameters = "1?api_token=uR862Mh3vMuVnxdQq22ANGdP1WlQtC2B0f98x53NdZETHhKbrkp6JJQ5RWos";
 
         Thread thread;
 
@@ -634,16 +636,12 @@ public class RetrieveMyPHP {
             public void run() {
 
                 try {
-                    url = new URL("http://bruha.com/mobile_php/RetrieveMyPHP/UserInfo.php?" + parameters);
+                    url = new URL("http://bruha.com/api/v1/user/1?api_token=uR862Mh3vMuVnxdQq22ANGdP1WlQtC2B0f98x53NdZETHhKbrkp6JJQ5RWos");
                     connection = (HttpURLConnection) url.openConnection();
-                    connection.setDoOutput(true);
-                    connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                    connection.setRequestMethod("POST");
-
-                    request = new OutputStreamWriter(connection.getOutputStream());
-                    request.write(parameters);
-                    request.flush();
-                    request.close();
+                   // connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    connection.setRequestProperty("Content-Type", "application/json");
+                    connection.setRequestProperty("Accept", "application/json");
+                   // connection.setRequestMethod("GET");
                     String line = "";
                     InputStreamReader isr = new InputStreamReader(connection.getInputStream());
                     BufferedReader reader = new BufferedReader(isr);
@@ -652,11 +650,14 @@ public class RetrieveMyPHP {
                         sb.append(line + "\n");
                     }
                     // Response from server after login process will be stored in response variable.
+
                     // in this case the response is the echo from the php script (i.e = 1) if successful
+
                     response = sb.toString();
-                    // You can perform UI operations here
                     isr.close();
                     reader.close();
+
+
                 } catch (IOException e) {
                     // Error
                 }
@@ -670,7 +671,10 @@ public class RetrieveMyPHP {
             e.printStackTrace();
         }
 
+        Log.v("Sceneee",response);
+        /*
         try {
+
             JSONArray x = new JSONArray(response);
 
             for (int i = 0; i < x.length(); i++) {
@@ -684,10 +688,14 @@ public class RetrieveMyPHP {
                 UserInfo.add(User.getString("City"));
             }
             return UserInfo;
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return UserInfo;
+        */
+
+
+        return null;
     }
 
     //Addicted Stuff

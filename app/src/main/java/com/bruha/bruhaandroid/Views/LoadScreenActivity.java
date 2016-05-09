@@ -35,6 +35,9 @@ public class LoadScreenActivity extends Activity {
 
         CredentialsPHP x = new CredentialsPHP();
         x.login("robert@bruha.com","testing123");
+        RetrieveMyPHP y = new RetrieveMyPHP();
+        y.getUserInfo("");
+       // x.register("Bilalcui","jggddng961@hotmail.com","123");
 
         //In the case that there is no internet connection.
         if(!isNetworkAvailable())
@@ -146,7 +149,7 @@ public class LoadScreenActivity extends Activity {
         ArrayList<Event> events = new ArrayList<>() ;
         try {
             // events = retrievedInfo.getEventList();
-            for(int i=0;i<5;i++)
+            for(int i=0;i<10;i++)
             {
                 Event x = new Event();
                 x.setEventName("Chutiyaap");
@@ -159,7 +162,7 @@ public class LoadScreenActivity extends Activity {
                 x.setEventPrimaryCategory("Sports");
                 x.setEventLocAdd("Phiti");
                 x.setEventLocName("Hai");
-                x.setEventPicture("https://i.ytimg.com/vi/MK3_Ep73pn0/hqdefault.jpg");
+                x.setEventPicture("https://thump-images.vice.com/images/articles/meta/2015/07/22/veld-festival-2015-is-coming-and-so-are-the-after-parties-1437601122.jpg");
                 x.setEventLocSt("85 ward");
                 x.setVenueid(i+"");
                 x.setOrganizationid(new ArrayList<String>());

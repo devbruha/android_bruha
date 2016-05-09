@@ -33,6 +33,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import com.bruha.bruhaandroid.Adapters.ArtistsListViewAdapter;
 import com.bruha.bruhaandroid.Adapters.EventListviewAdapter;
+import com.bruha.bruhaandroid.Adapters.ListViewAdapter2;
 import com.bruha.bruhaandroid.Adapters.OrganizationListViewAdapter;
 import com.bruha.bruhaandroid.Adapters.VenueListViewAdapter;
 import com.bruha.bruhaandroid.Model.Artist;
@@ -149,6 +150,8 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
 
         init();     //Initialize the variables from local database.
 
+        mListView.setAdapter(new ListViewAdapter2(this,mEvents));
+        /*
         //Filter stuff.
         filerStuff();
 
@@ -157,6 +160,7 @@ public class ListActivity extends FragmentActivity implements ObservableScrollVi
 
         //Checking which filter was chosen before opening the activity.
         customFilter();
+        */
     }
 
     private void customFilter() {
