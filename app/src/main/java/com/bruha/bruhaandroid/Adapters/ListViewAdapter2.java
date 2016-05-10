@@ -44,6 +44,8 @@ import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 /**
@@ -190,14 +192,38 @@ public class ListViewAdapter2 extends BaseSwipeAdapter{
         swipeLayout.addDrag(SwipeLayout.DragEdge.Left, convertView.findViewById(R.id.leftSwipe));
         swipeLayout.addDrag(SwipeLayout.DragEdge.Right, convertView.findViewById(R.id.rightSwipe));
 
-        // Resizing for different displays
+        //Setting the font
+        Typeface opensansregfnt = Typeface.createFromAsset(mActivity.getAssets(), "fonts/OpenSans-Regular.ttf");
+        Typeface domboldfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Bold.ttf");
 
+        // Resizing for different displays:
         // Android functions to determine the screen dimensions.
         Display display = mActivity.getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        // Storing the screen height into an int variable.
+        // Storing the screen height into an int variable and adjustment variables
         int height = size.y;
+        double adjItem = 0.30; //for eventImage
+        double adjTopText = (int)Math.round(height*0.0225); // for eventTitle and event Price
+        double adjBottomText = (int)Math.round(height*0.015); // for eventDate and eventDistance
+
+        // Layout Params of the item list and setting height for it
+        ViewGroup.LayoutParams params = convertView.getLayoutParams();
+        params.height = (int)Math.round(height*adjItem);
+        // Layout Params & height adjustment of eventTitle
+        TextView eventTitle = (TextView) convertView.findViewById(R.id.eventTitle);
+        eventTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) adjTopText);
+        eventTitle.setTypeface(opensansregfnt);
+        eventTitle.setTypeface(domboldfnt);
+        // Layout Params & height adjustment of eventDate
+        TextView eventDate = (TextView) convertView.findViewById(R.id.eventDate);
+        eventDate.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) adjBottomText);
+        eventDate.setTypeface(opensansregfnt);
+        // Layout Params & height adjustment of eventPrice
+        TextView eventPrice = (TextView) convertView.findViewById(R.id.eventPrice);
+        eventPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) adjTopText);
+        eventPrice.setTypeface(opensansregfnt);
+        eventPrice.setTypeface(domboldfnt);
     }
 
     @Override

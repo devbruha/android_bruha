@@ -129,6 +129,8 @@
             android:label="@string/title_activity_more_info_event"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name=".Views.HomePageActivity">
+        </activity>
     </application>
 
 </manifest>

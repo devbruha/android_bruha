@@ -75,6 +75,8 @@
                     android:background="@drawable/rounded_edittext"
                     android:hint="Search Events"
                     android:layout_toEndOf="@+id/DashboardButton"
+                    android:layout_toStartOf="@+id/MapButton"
+                    android:layout_marginRight="20dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginLeft="20dp"
                     android:imeActionLabel="Done"
@@ -92,6 +94,7 @@
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
                     android:textSize="20dp"
+                    android:visibility="gone"
                     android:layout_marginTop="15dp"
                     android:layout_marginLeft="5dp" />
 
@@ -103,7 +106,7 @@
                     android:layout_alignParentStart="false"
                     android:drawSelectorOnTop="false"
                     android:dividerHeight="8dp"
-                    android:layout_below="@+id/cancelSearch"
+                    android:layout_below="@+id/searchEditText"
                     android:layout_marginTop="15dp" />
 
                 <ImageView

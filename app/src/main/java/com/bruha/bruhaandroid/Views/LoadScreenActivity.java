@@ -162,6 +162,7 @@ public class LoadScreenActivity extends Activity {
             x.setEventPrimaryCategory("Sports");
             x.setEventLocAdd("Phiti");
             x.setEventLocName("Hai");
+            x.setEventPrice(10.00);
             x.setEventPicture("https://thump-images.vice.com/images/articles/meta/2015/07/22/veld-festival-2015-is-coming-and-so-are-the-after-parties-1437601122.jpg");
             x.setEventLocSt("85 ward");
             x.setVenueid(0+"");
@@ -182,6 +183,7 @@ public class LoadScreenActivity extends Activity {
             x1.setEventLocName("Hai");
             x1.setEventPicture("http://assets.lfcimages.com/v2/uploads/media/default/0001/07/thumb_6249_default_news_size_5.jpeg");
             x1.setEventLocSt("85 ward");
+            x1.setEventPrice(20.0);
             x1.setVenueid(1+"");
             x1.setOrganizationid(new ArrayList<String>());
             events.add(x1);
@@ -216,6 +218,7 @@ public class LoadScreenActivity extends Activity {
             x3.setEventPrimaryCategory("Sports");
             x3.setEventLocAdd("Phiti");
             x3.setEventLocName("Hai");
+            x3.setEventPrice(53.24);
             x3.setEventPicture("http://www.dreameurotrip.com/wp-content/uploads/2014/04/amsterdam-party-1024x488.jpg");
             x3.setEventLocSt("85 ward");
             x3.setVenueid(3+"");
