@@ -327,7 +327,7 @@ public class DashboardActivity extends ActionBarActivity {
 
     //OnClickListener for "Explore" that leads to the ListActivity.
     public void startExploreActivity(View view){
-        Intent intent = new Intent(this, ListActivity.class);
+        Intent intent = new Intent(this, HomePageActivity.class);
         startActivity(intent);
     }
 

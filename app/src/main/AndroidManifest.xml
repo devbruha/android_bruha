@@ -114,8 +114,13 @@
         <activity
             android:name=".Views.MoreInfoEventActivity"
             android:label="@string/title_activity_more_info_event"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Views.HomePageActivity" />
+
+        <activity android:name=".Views.HomePageActivity"
+                  android:theme="@style/AppTheme.NoActionBar"
+                  android:screenOrientation="portrait"/>
+
         <activity android:name=".Views.ProfileActivity"
                   android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"></activity>
