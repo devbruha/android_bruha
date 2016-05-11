@@ -29,7 +29,7 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:id="@+id/imageView5"
+            android:id="@+id/profilePageUserPic"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"/>
 
@@ -37,10 +37,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name:"
-            android:id="@+id/textView2"
+            android:id="@+id/profilePageUserName"
             android:textColor="#ffffff"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/imageView5"
+            android:layout_toEndOf="@+id/profilePageUserPic"
             android:layout_marginLeft="10dp"
 
             />
@@ -48,14 +48,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Email:"
-            android:id="@+id/textView3"
+            android:id="@+id/profilePageUserEmail"
             android:layout_marginTop="10dp"
             android:textColor="#ffffff"
             android:layout_marginBottom="5dp"
-            android:layout_below="@+id/textView2"
-            android:layout_toRightOf="@+id/imageView5"
+            android:layout_below="@+id/profilePageUserName"
+            android:layout_toRightOf="@+id/profilePageUserPic"
             android:layout_marginLeft="10dp"
-            android:layout_toEndOf="@+id/imageView5" />
+            android:layout_toEndOf="@+id/profilePageUserPic" />
     </RelativeLayout>
 
     <LinearLayout
@@ -92,6 +92,7 @@
                 android:id="@+id/profilePageAddictionText"
                 android:textColor="#ffffff"
                 android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 />
 
             <ImageView
@@ -199,7 +200,8 @@
                 android:textStyle="bold"
                 android:id="@+id/profilePageUploadText"
                 android:textColor="#ffffff"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
 
             <ImageView
                 android:layout_width="30dp"
