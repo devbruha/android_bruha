@@ -6,14 +6,17 @@
     android:layout_height="match_parent"
     tools:context="com.bruha.bruhaandroid.Views.HomePageActivity"
     android:orientation="vertical"
-    android:weightSum="100">
+    android:weightSum="100"
+    android:background="#eeeeee">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="42"
-        android:weightSum="1">
+        android:layout_weight="44"
+        android:weightSum="1"
+        android:background="#24163f"
+        android:clickable="true">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -26,21 +29,56 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="4">
+                android:layout_weight="4"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/filterIcon"
+                    android:layout_margin="5dp"
+                    android:src="@android:drawable/ic_menu_sort_by_size"/>
             </LinearLayout>
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+
+                android:id="@+id/categoryBar">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Events"
+                    android:id="@+id/categoryName"
+                    android:textColor="#eeeeee"
+                    android:textSize="27sp"
+                    android:layout_centerInParent="true"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/arrowIcon"
+                    android:layout_toEndOf="@id/categoryName"
+                    android:layout_marginLeft="7dp"
+                    android:layout_centerInParent="true"
+                    android:src="@android:drawable/arrow_down_float"/>
+            </RelativeLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2">
-            </LinearLayout>
+                android:layout_weight="4"
+                >
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="4">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/mapIcon"
+                    android:layout_margin="5dp"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -48,7 +86,8 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.6">
+            android:layout_weight="0.6"
+            >
         </LinearLayout>
     </LinearLayout>
 
@@ -56,50 +95,88 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="13">
+        android:layout_weight="10"
+        android:background="#eeeeee"
+        android:id="@+id/listContent"
+        >
+
+        <com.github.ksoichiro.android.observablescrollview.ObservableListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@android:id/list"
+            android:drawSelectorOnTop="false"
+            android:dividerHeight="8dp"/>
+
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="45"
-        android:weightSum="10">
+        android:layout_weight="46"
+        android:weightSum="10"
+        android:background="#402c67"
+        android:id="@+id/navigationBar">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/homeIcon"
             android:layout_gravity="bottom"
-            android:layout_weight="2.1"/>
+            android:layout_weight="2.02"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
 
         <ImageView
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:id="@+id/calendarIcon"
-             android:layout_gravity="bottom"
-             android:layout_weight="2.1"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/calendarIcon"
+            android:layout_gravity="bottom"
+            android:layout_weight="2.02"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
 
         <ImageView
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:id="@+id/discoverableIcon"
-             android:layout_gravity="bottom"
-             android:layout_weight="1.6"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/discoverableIcon"
+            android:layout_gravity="bottom"
+            android:layout_weight="1.92"
+            android:baselineAlignBottom="true"
+            android:background="#7effb07c"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/ticketsIcon"
             android:layout_gravity="bottom"
-            android:layout_weight="2.1"/>
+            android:layout_weight="2.02"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/profileIcon"
             android:layout_gravity="bottom"
-            android:layout_weight="2.1"/>
+            android:layout_weight="2.02"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
     </LinearLayout>
 </LinearLayout>
 
