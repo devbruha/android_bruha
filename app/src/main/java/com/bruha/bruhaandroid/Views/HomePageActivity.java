@@ -33,7 +33,8 @@ import butterknife.InjectView;
 public class HomePageActivity extends AppCompatActivity {
 
     ArrayList<Event> mEvents = new ArrayList<>();
-    @InjectView(android.R.id.list) ObservableListView listView;
+    @InjectView(android.R.id.list)
+    ObservableListView listView;
 
     // Buttons to be implemented
     // top images
@@ -45,7 +46,6 @@ public class HomePageActivity extends AppCompatActivity {
     ImageView discoverableButton;
     ImageView ticketsButton;
     ImageView profileButton;
-
 
 
     @Override
@@ -92,11 +92,11 @@ public class HomePageActivity extends AppCompatActivity {
         //filterButton.setImageDrawable(;
         mapButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.mapicon, buttonResolution));
         // bottom images
-        homeButton.setImageDrawable(svgToBitmapDrawable(getResources(),R.raw.explore, buttonResolution));
-        calenderButton.setImageDrawable(svgToBitmapDrawable(getResources(),R.raw.calendar, buttonResolution));
-        discoverableButton.setImageDrawable(svgToBitmapDrawable(getResources(),R.raw.bruhawhite, buttonResolution));
-        ticketsButton.setImageDrawable(svgToBitmapDrawable(getResources(),R.raw.tickets, buttonResolution));
-        profileButton.setImageDrawable(svgToBitmapDrawable(getResources(),R.raw.profile, buttonResolution));
+        homeButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.explore, buttonResolution));
+        calenderButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.calendar, buttonResolution));
+        discoverableButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, buttonResolution));
+        ticketsButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.tickets, buttonResolution));
+        profileButton.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.profile, buttonResolution));
     }
 
     private void parseData() {
@@ -114,11 +114,10 @@ public class HomePageActivity extends AppCompatActivity {
         // categoryName
 
         // mapsIcon
-
-        mapButton.setOnClickListener(new View.OnClickListener(){
+        mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                ObjectAnimator clickAnimator = ObjectAnimator.ofFloat(mapButton,"alpha",1f,0.5f);
+                ObjectAnimator clickAnimator = ObjectAnimator.ofFloat(mapButton, "alpha", 1f, 0.5f);
                 clickAnimator.setDuration(500);
                 clickAnimator.addListener(new AnimatorListenerAdapter() {
                     @Override
@@ -140,14 +139,44 @@ public class HomePageActivity extends AppCompatActivity {
 
     private void navigationBarOnClicks() {
         // home(explorer)Icon
-
-        // calendarIcon
-
-        // discoverableIcon
-        discoverableButton.setOnClickListener(new View.OnClickListener(){
+        homeButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View view) {
-                ObjectAnimator clickAnimator = ObjectAnimator.ofFloat(discoverableButton,"alpha",1f,0.5f);
+                ObjectAnimator clickAnimator = ObjectAnimator.ofFloat(homeButton, "alpha", 1f, 0.5f);
+                clickAnimator.setDuration(500);
+                clickAnimator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        homeButton.setAlpha(1f);
+                        startHomePageActivity(view);
+                    }
+                });
+                clickAnimator.start();
+            }
+        });
+
+        // calendarIcon
+        calenderButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(final View view) {
+                ObjectAnimator clickAnimator = ObjectAnimator.ofFloat(calenderButton, "alpha", 1f, 0.5f);
+                clickAnimator.setDuration(500);
+                clickAnimator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        calenderButton.setAlpha(1f);
+                        startCalendarActivity(view);
+                    }
+                });
+                clickAnimator.start();
+            }
+        });
+
+        // discoverableIcon
+        discoverableButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                ObjectAnimator clickAnimator = ObjectAnimator.ofFloat(discoverableButton, "alpha", 1f, 0.5f);
                 clickAnimator.setDuration(100);
                 clickAnimator.addListener(new AnimatorListenerAdapter() {
                     @Override
@@ -161,17 +190,69 @@ public class HomePageActivity extends AppCompatActivity {
         });
 
         // ticketsIcon
+        ticketsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                ObjectAnimator clickAnimator = ObjectAnimator.ofFloat(ticketsButton, "alpha", 1f, 0.5f);
+                clickAnimator.setDuration(500);
+                clickAnimator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        ticketsButton.setAlpha(1f);
+                        startTicketsActivity(view);
+                    }
+                });
+                clickAnimator.start();
+            }
+        });
 
         // profileIcon
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                ObjectAnimator clickAnimator = ObjectAnimator.ofFloat(profileButton, "alpha", 1f, 0.5f);
+                clickAnimator.setDuration(500);
+                clickAnimator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        profileButton.setAlpha(1f);
+                        startProfileActivity(view);
+                    }
+                });
+                clickAnimator.start();
+            }
+        });
+    }
 
+    private void startHomePageActivity(View view) {
+        Intent intent = new Intent(this, HomePageActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void startCalendarActivity(View view) {
+        Intent intent = new Intent(this, CalendarActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void startDiscoverable(View view) {
         showDialog();
     }
 
-    public void showDialog()
-    {   //Alert dialog to let the user know discoverable is coming soon..
+    private void startTicketsActivity(View view) {
+        Intent intent = new Intent(this, MyTicketActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void startProfileActivity(View view) {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void showDialog() {   //Alert dialog to let the user know discoverable is coming soon..
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Add the buttons
         builder.setMessage("Discoverable Coming Soon!");
@@ -186,9 +267,9 @@ public class HomePageActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
+    public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size) {
         try {
-            size = (int)(size*res.getDisplayMetrics().density);
+            size = (int) (size * res.getDisplayMetrics().density);
             SVG svg = SVG.getFromResource(getApplicationContext(), resource);
 
             Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
@@ -199,10 +280,13 @@ public class HomePageActivity extends AppCompatActivity {
 
 
             return drawable;
-        }catch(SVGParseException e){
+        } catch (SVGParseException e) {
             e.printStackTrace();
         }
         return null;
     }
-
 }
+
+
+
+
