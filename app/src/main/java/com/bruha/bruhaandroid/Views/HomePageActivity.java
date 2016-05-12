@@ -119,7 +119,7 @@ public class HomePageActivity extends AppCompatActivity {
             @Override
             public void onClick(final View view) {
                 ObjectAnimator clickAnimator = ObjectAnimator.ofFloat(mapButton,"alpha",1f,0.5f);
-                clickAnimator.setDuration(200);
+                clickAnimator.setDuration(500);
                 clickAnimator.addListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
@@ -127,6 +127,7 @@ public class HomePageActivity extends AppCompatActivity {
                         startMapActivity(view);
                     }
                 });
+                clickAnimator.start();
             }
         });
     }
@@ -155,6 +156,7 @@ public class HomePageActivity extends AppCompatActivity {
                         startDiscoverable(view);
                     }
                 });
+                clickAnimator.start();
             }
         });
 
