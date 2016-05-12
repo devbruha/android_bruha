@@ -2,6 +2,8 @@
 
 package com.bruha.bruhaandroid.Processing;
 
+import android.util.Log;
+
 import com.bruha.bruhaandroid.Model.Artist;
 import com.bruha.bruhaandroid.Model.Event;
 import com.bruha.bruhaandroid.Model.Organizations;
@@ -316,7 +318,7 @@ public class RetrievePHP {
 
                 try {
 
-                    url = new URL("http://bruha.com/mobile_php/RetrievePHP/EventList.php");
+                    url = new URL("http://bruha.com/api/v1/explore/search?type=event");
                     connection = (HttpURLConnection) url.openConnection();
 
                     String line = "";
@@ -348,7 +350,14 @@ public class RetrievePHP {
             e.printStackTrace();
         }
 
-        try {
+
+        Log.v("Awn",response);
+
+      //  try {
+
+
+
+            /*
             JSONArray x = new JSONArray(response);
 
             for (int i = 0; i < x.length(); i++) {
@@ -419,11 +428,17 @@ public class RetrievePHP {
                 mEvents.add(even);
             }
 
+
+
         } catch (JSONException e) {
 
             e.printStackTrace();
         }
+
+        }
         return mEvents;
+        */
+        return null;
     }
 
     //Gets the List of Venue uploaded in the Database.
