@@ -811,7 +811,7 @@ public class MapsActivity extends FragmentActivity implements
 
     public void startDashboardActivity(View view){
 
-        Intent intent = new Intent(this, DashboardActivity.class);
+        Intent intent = new Intent(this, HomePageActivity.class);
         startActivity(intent);
         finish();
     }
@@ -819,7 +819,7 @@ public class MapsActivity extends FragmentActivity implements
 
     public void startListViewActivity(View view){
 
-        Intent intent = new Intent(this, ListActivity.class);
+        Intent intent = new Intent(this, HomePageActivity.class);
         startActivity(intent);
         finish();
     }

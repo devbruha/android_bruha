@@ -1,7 +1,11 @@
 package com.bruha.bruhaandroid.Views;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -9,6 +13,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bruha.bruhaandroid.Adapters.ListViewAdapter2;
@@ -31,34 +36,35 @@ public class HomePageActivity extends AppCompatActivity {
     @InjectView(android.R.id.list) ObservableListView listView;
 
     // Buttons to be implemented
-    // Top Buttons
+    // top images
     ImageView filterButton;
     ImageView mapButton;
-    //Bottom Buttons
+    // bottom images
     ImageView homeButton;
     ImageView calenderButton;
     ImageView discoverableButton;
     ImageView ticketsButton;
     ImageView profileButton;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         ButterKnife.inject(this);
-
-        importingData();
-
-        parseData();
-    }
-
-    private void importingData() {
-
         assigningImages();
-        settingImages();
+
+        // Setting Design; Images, Texts, etc
+        importingData();
+        parseData();
+
+        // Setting onClicks
+        filterBarOnClicks(); // the top bar; filterIcon, categoryName, and mapIcon
+        navigationBarOnClicks(); // the bottom bar; home(explorer)Icon, calendarIcon, discoverableIcon, ticketsIcon, and profileIcon
+
+
     }
-
-
 
     private void assigningImages() {
         // top images
@@ -72,6 +78,14 @@ public class HomePageActivity extends AppCompatActivity {
         profileButton = (ImageView) findViewById(R.id.profileIcon);
     }
 
+    private void importingData() {
+
+        settingImages();
+
+        // setting edit text
+
+    }
+
     private void settingImages() {
         int buttonResolution = 50;
         // top images
@@ -83,6 +97,91 @@ public class HomePageActivity extends AppCompatActivity {
         discoverableButton.setImageDrawable(svgToBitmapDrawable(getResources(),R.raw.bruhawhite, buttonResolution));
         ticketsButton.setImageDrawable(svgToBitmapDrawable(getResources(),R.raw.tickets, buttonResolution));
         profileButton.setImageDrawable(svgToBitmapDrawable(getResources(),R.raw.profile, buttonResolution));
+    }
+
+    private void parseData() {
+        // Create the local DB object
+        SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
+        SQLiteUtils sqLiteUtils = new SQLiteUtils();
+
+        mEvents = sqLiteUtils.getEventInfo(dbHelper);
+        listView.setAdapter(new ListViewAdapter2(this, mEvents));
+    }
+
+    private void filterBarOnClicks() {
+        // filterIcon
+
+        // categoryName
+
+        // mapsIcon
+
+        mapButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(final View view) {
+                ObjectAnimator clickAnimator = ObjectAnimator.ofFloat(mapButton,"alpha",1f,0.5f);
+                clickAnimator.setDuration(200);
+                clickAnimator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mapButton.setAlpha(1f);
+                        startMapActivity(view);
+                    }
+                });
+            }
+        });
+    }
+
+    private void startMapActivity(View view) {
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void navigationBarOnClicks() {
+        // home(explorer)Icon
+
+        // calendarIcon
+
+        // discoverableIcon
+        discoverableButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(final View view) {
+                ObjectAnimator clickAnimator = ObjectAnimator.ofFloat(discoverableButton,"alpha",1f,0.5f);
+                clickAnimator.setDuration(100);
+                clickAnimator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        discoverableButton.setAlpha(1f);
+                        startDiscoverable(view);
+                    }
+                });
+            }
+        });
+
+        // ticketsIcon
+
+        // profileIcon
+
+    }
+
+    private void startDiscoverable(View view) {
+        showDialog();
+    }
+
+    public void showDialog()
+    {   //Alert dialog to let the user know discoverable is coming soon..
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Add the buttons
+        builder.setMessage("Discoverable Coming Soon!");
+        builder.setCancelable(true);
+        builder.setPositiveButton("Close.. For Now", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
@@ -104,29 +203,4 @@ public class HomePageActivity extends AppCompatActivity {
         return null;
     }
 
-    public void showDialog()
-    {   //Alert dialog to let the user know discoverable is coming soon..
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        // Add the buttons
-        builder.setMessage("Discoverable Coming Soon!");
-        builder.setCancelable(true);
-        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
-    private void parseData() {
-        // Create the local DB object
-        SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
-        SQLiteUtils sqLiteUtils = new SQLiteUtils();
-
-        mEvents = sqLiteUtils.getEventInfo(dbHelper);
-
-        listView.setAdapter(new ListViewAdapter2(this, mEvents));
-    }
 }
