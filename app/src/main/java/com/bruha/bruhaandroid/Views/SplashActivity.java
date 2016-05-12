@@ -512,7 +512,7 @@ public class SplashActivity extends Activity {
 
     public void noLogin(View view){
         //Button to skip the logging in process.
-        Intent intent = new Intent(this, DashboardActivity.class);
+        Intent intent = new Intent(this, HomePageActivity.class);
         startActivity(intent);
     }
 }

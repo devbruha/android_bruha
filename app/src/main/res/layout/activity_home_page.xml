@@ -7,7 +7,7 @@
     tools:context="com.bruha.bruhaandroid.Views.HomePageActivity"
     android:orientation="vertical"
     android:weightSum="100"
-    android:background="#eeeeee">
+    android:background="#e0e0e0">
 
     <LinearLayout
         android:orientation="vertical"
@@ -87,7 +87,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.6"
-            >
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/searchBar"
+                android:background="@drawable/rounded_edittext"
+                android:hint=" Search Events"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="20dp"/>
+
         </LinearLayout>
     </LinearLayout>
 
@@ -96,7 +109,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="10"
-        android:background="#eeeeee"
+        android:background="#e0e0e0"
         android:id="@+id/listContent"
         >
 
@@ -124,10 +137,10 @@
             android:id="@+id/homeIcon"
             android:layout_gravity="bottom"
             android:layout_weight="2.02"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="5dp"
             />
 
         <ImageView
@@ -136,23 +149,32 @@
             android:id="@+id/calendarIcon"
             android:layout_gravity="bottom"
             android:layout_weight="2.02"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="10dp"
             />
-
-        <ImageView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/discoverableIcon"
             android:layout_gravity="bottom"
             android:layout_weight="1.92"
-            android:baselineAlignBottom="true"
             android:background="#7effb07c"
             android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            />
+            android:layout_marginRight="3dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/discoverableIcon"
+                android:layout_gravity="bottom"
+                android:baselineAlignBottom="true"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                />
+        </LinearLayout>
 
         <ImageView
             android:layout_width="match_parent"
@@ -160,10 +182,10 @@
             android:id="@+id/ticketsIcon"
             android:layout_gravity="bottom"
             android:layout_weight="2.02"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="5dp"
             />
 
         <ImageView
@@ -172,9 +194,9 @@
             android:id="@+id/profileIcon"
             android:layout_gravity="bottom"
             android:layout_weight="2.02"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="10dp"
             />
     </LinearLayout>
