@@ -38,7 +38,9 @@ public class LoadScreenActivity extends Activity {
         RetrieveMyPHP y = new RetrieveMyPHP();
         y.getUserInfo("");
         RetrievePHP z = new RetrievePHP();
-        z.getEventList();
+       // z.getEventList();
+       // z.getVenueList();
+        z.getOrgList();
        // x.register("Bilalcui","jggddng961@hotmail.com","123");
 
         //In the case that there is no internet connection.
