@@ -20,6 +20,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
@@ -33,6 +34,9 @@ import com.bruha.bruhaandroid.Processing.SQLiteUtils;
 import com.bruha.bruhaandroid.R;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
+
+import java.util.ArrayList;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -85,6 +89,16 @@ public class DashboardActivity extends ActionBarActivity {
                 MyApplication.internetCheck = true;
             }
         }
+
+
+        //Temporary Code
+        // Create the local DB object
+        SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
+        SQLiteUtils x = new SQLiteUtils();
+        ArrayList<String> y = x.getUserToken(dbHelper);
+        Log.v("sizeofIT",y.size()+"");
+        Log.v("sizeofIT",y.get(0)+"");
+        Log.v("sizeofIT",y.get(1)+"");
     }
 
     private void implementOnClicks() {

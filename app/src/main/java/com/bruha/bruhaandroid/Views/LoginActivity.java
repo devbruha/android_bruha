@@ -18,6 +18,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
@@ -48,8 +49,8 @@ import butterknife.InjectView;
 
 public class LoginActivity extends ActionBarActivity {
     //Initialzing the PHP call used to retrieving Data to be stored into the local database.
-    RetrievePHP retrievePHP = new RetrievePHP();
-    RetrieveMyPHP retrieveMyPHP = new RetrieveMyPHP();
+    //RetrievePHP retrievePHP = new RetrievePHP();
+    //RetrieveMyPHP retrieveMyPHP = new RetrieveMyPHP();
     CredentialsPHP credentialsPHP = new CredentialsPHP();
     // Injecting the EditTexts using Butterknife library
     @InjectView(R.id.loginUsernameEditText) EditText mLoginUsernameEditText;
@@ -63,6 +64,7 @@ public class LoginActivity extends ActionBarActivity {
     @InjectView(R.id.backButton) Button mBackButton;
     // Create the local DB object
     SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
+    ArrayList<String> loginArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,150 @@ public class LoginActivity extends ActionBarActivity {
         implementingOnClicks();
 
         resize();  //Resizing the page and implementing the buttons.
+    }
+
+    private void startBackActivity(View view) {
+        Intent intent = new Intent(this,SplashActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void startForgetPasswordActivity(View view) {
+        Intent intent = new Intent(this,ForgetPasswordActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void alertUserAboutError(String errorTitle, String errorMessage) {
+        // A function to call the AlertDialogFragment Activity to alert the user about possible erros.
+        AlertDialogFragment dialog = new AlertDialogFragment().newInstance( errorTitle,errorMessage );
+        dialog.show(getFragmentManager(), "error_dialog");
+    }
+
+    private boolean isNetworkAvailable() {
+        // A function used to check whether users are connected to the internet
+        ConnectivityManager manager = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+        // boolean variable initialized to false, set true if there is a connection
+
+        boolean isAvailable = false;
+
+        if(networkInfo != null && networkInfo.isConnected()){
+
+            isAvailable = true;
+        }
+        return isAvailable;
+    }
+
+    // A function to run the previous check aswell as to call the PHP class to run the queries
+    private String isValidAccountInformation(String username, String password){
+        String error;
+
+        if(isNetworkAvailable()) {
+                    // Calling the init function within PHP with the parameters passed
+                    loginArray= credentialsPHP.login(username,password);
+                    if(loginArray.size()==2)
+                        error = "Success";
+                    else error = "badCredentials";}
+        // If a connection cannot be established, update error string
+        else{ error = "connectionInvalid"; }
+        return error;
+    }
+
+    public void loginAccount(View view){
+
+        // Retrieving the entered information and converting to string
+        String username = mLoginUsernameEditText.getText().toString();
+        String password = mLoginPasswordEditText.getText().toString();
+
+        // Importing ressources in order to reference stored string values
+        Resources res = getResources();
+
+        String response = isValidAccountInformation(username, password);
+
+        // A message is displayed to the user corresponding to the response received
+        switch(response){
+
+            case "connectionInvalid":
+                alertUserAboutError(
+                        res.getString(R.string.error_bad_login),
+                        res.getString(R.string.error_message_no_connection));
+                break;
+
+            case "1064":
+                alertUserAboutError(
+                        res.getString(R.string.error_title_bad_SQL),
+                        res.getString(R.string.error_message_bad_SQL));
+                break;
+
+            case "badCredentials":
+                alertUserAboutError(
+                        res.getString(R.string.error_bad_login),
+                        res.getString(R.string.error_message_credential_mismatch));
+                break;
+
+            case "Success":
+                // Alerting user of successfull login
+                alertUserAboutError(
+                        res.getString(R.string.success_title_login),
+                        res.getString(R.string.success_message_login));
+
+
+                SQLiteUtils sqLiteUtils = new SQLiteUtils();
+
+                dbHelper.onUpgrade(dbHelper.getWritableDatabase(), 1, 1);
+                sqLiteUtils.insertNewUserToken(dbHelper,loginArray);
+
+               /* //Storing the information of the user and his uploaded events into the local database.
+                ArrayList<Event> userEvents= retrieveMyPHP.getUserEventList(username);
+                ArrayList<String> userInfo = retrieveMyPHP.getUserInfo(username);
+                ArrayList<Venue> userVenues = retrieveMyPHP.getUserVenueList(username);
+                ArrayList<Artist> userArtist = retrieveMyPHP.getUserArtistList(username);
+                ArrayList<Organizations> userOrg = retrieveMyPHP.getUserOrgList(username);
+                //Addiction stuff
+                ArrayList<String> addictedEvents = retrieveMyPHP.getAddictedList(username);
+                ArrayList<String> addictedVenues = retrieveMyPHP.getAddictedVenueList(username);
+                ArrayList<String> addictedArtists = retrieveMyPHP.getAddictedArtistList(username);
+                ArrayList<String> addictedOrganizations = retrieveMyPHP.getAddictedOrgList(username);
+                SQLiteUtils sqLiteUtils = new SQLiteUtils();
+                sqLiteUtils.insertUserEvents(dbHelper, userEvents);
+                sqLiteUtils.insertUserVenues(dbHelper, userVenues);
+                sqLiteUtils.insertUserArtist(dbHelper, userArtist);
+                sqLiteUtils.insertUserOrganization(dbHelper, userOrg);
+                sqLiteUtils.insertNewUser(dbHelper, userInfo);
+                sqLiteUtils.insertEventAddictions(dbHelper, addictedEvents);
+                sqLiteUtils.insertVenueAddictions(dbHelper, addictedVenues);
+                sqLiteUtils.insertArtistAddictions(dbHelper, addictedArtists);
+                sqLiteUtils.insertOrgAddictions(dbHelper, addictedOrganizations);
+                */
+
+                // Updating the shared variable login check to true on successful login
+               // MyApplication.userName = userInfo.get(0);
+               // MyApplication.loginCheck = true;
+
+                // Start the next activity right here
+                Intent intent = new Intent(this, DashboardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+
+                break;
+
+            default:
+                alertUserAboutError("Dev Error"+response, "Error " + response);
+                break;
+
+        }
+    }
+
+    public void proceedWithoutAccount(View view){
+
+        Intent intent = new Intent(this, DashboardActivity.class);
+        startActivity(intent);
+
     }
 
     private void implementingOnClicks() {
@@ -144,7 +290,6 @@ public class LoginActivity extends ActionBarActivity {
         im.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhapurpleface, 100));
     }
 
-
     private void resize() {
         // Android functions to determine the screen dimensions.
         Display display = getWindowManager().getDefaultDisplay();
@@ -188,228 +333,6 @@ public class LoginActivity extends ActionBarActivity {
         loginButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         mBackButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
         noLoginButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-    }
-
-    private void startBackActivity(View view) {
-        Intent intent = new Intent(this,SplashActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    private void startForgetPasswordActivity(View view) {
-        Intent intent = new Intent(this,ForgetPasswordActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    private void alertUserAboutError(String errorTitle, String errorMessage) {
-        // A function to call the AlertDialogFragment Activity to alert the user about possible erros.
-        AlertDialogFragment dialog = new AlertDialogFragment().newInstance( errorTitle,errorMessage );
-        dialog.show(getFragmentManager(), "error_dialog");
-    }
-
-    private boolean isNetworkAvailable() {
-        // A function used to check whether users are connected to the internet
-        ConnectivityManager manager = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-
-        // boolean variable initialized to false, set true if there is a connection
-
-        boolean isAvailable = false;
-
-        if(networkInfo != null && networkInfo.isConnected()){
-
-            isAvailable = true;
-        }
-        return isAvailable;
-    }
-
-    // A function used to check whether users are entering a valid username
-    private boolean isValidUsername(String username){
-
-        boolean isAvailable = false;
-
-        int length = username.length();
-
-        // Ensure the proper length and legal characters to prevent query injecting
-        if( length >= 1 && length <= 20 ){
-            if( username.matches("^[a-zA-Z0-9_]*$")){
-
-                isAvailable = true;
-            }
-            else{
-                MyApplication.credentialError = "Your username must only contain letters, numbers, or underscore (_)";
-            }
-        }
-        else{
-            MyApplication.credentialError = "Your username must not contain more than 20 characters.";
-        }
-
-        return isAvailable;
-    }
-
-    // A function used to check whether users are entering a valid password
-    private boolean isValidPassword(String password){
-
-        boolean isAvailable = false;
-
-        int length = password.length();
-
-        // Ensure the proper length and legal characters to prevent query injecting
-
-        if( length >= 8 && length <= 20 ){
-            if( password.matches("^[a-zA-Z0-9_]*$")){
-                if(password.matches(".*\\d.*")){
-                    isAvailable = true;
-                }
-                else{
-                    MyApplication.credentialError = "Your password must contain at least one number";
-                }
-            }
-            else{
-                MyApplication.credentialError = "Your password must only contain letters, numbers, or underscore (_)";
-            }
-        }
-        else{
-            MyApplication.credentialError = "Your password must contain at least 8 characters and no more than 20 characters.";
-        }
-
-        return isAvailable;
-    }
-
-    // A function to run the previous check aswell as to call the PHP class to run the queries
-    private String isValidAccountInformation(String username, String password){
-        String error;
-
-        if(isNetworkAvailable()) {
-
-            if ( isValidUsername(username) ) {
-
-                if( isValidPassword(password) ) {
-
-                    // Calling the init function within PHP with the parameters passed
-
-                    error= credentialsPHP.login(username,password);
-                }
-                // If password is invalid, error string is updated
-
-                else{
-                    error = "passwordInvalid";
-                }
-            }
-            // If username is invalid, error string is updated
-
-            else {
-                error = "usernameInvalid";
-            }
-        }
-        // If a connection cannot be established, update error string
-
-        else{
-            error = "connectionInvalid";
-        }
-        return error;
-    }
-
-    public void loginAccount(View view){
-
-        // Retrieving the entered information and converting to string
-        String username = mLoginUsernameEditText.getText().toString();
-        String password = mLoginPasswordEditText.getText().toString();
-
-        // Importing ressources in order to reference stored string values
-        Resources res = getResources();
-
-        String response = isValidAccountInformation(username, password);
-
-        // A message is displayed to the user corresponding to the response received
-        switch(response){
-
-            case "connectionInvalid":
-                alertUserAboutError(
-                        res.getString(R.string.error_bad_login),
-                        res.getString(R.string.error_message_no_connection));
-                break;
-
-            case "usernameInvalid":
-                alertUserAboutError(
-                        res.getString(R.string.error_bad_login),
-                        MyApplication.credentialError);
-                break;
-
-            case "passwordInvalid":
-                alertUserAboutError(
-                        res.getString(R.string.error_bad_login),
-                        MyApplication.credentialError);
-                break;
-
-            case "1064":
-                alertUserAboutError(
-                        res.getString(R.string.error_title_bad_SQL),
-                        res.getString(R.string.error_message_bad_SQL));
-                break;
-
-            case "badCredentials":
-                alertUserAboutError(
-                        res.getString(R.string.error_bad_login),
-                        res.getString(R.string.error_message_credential_mismatch));
-                break;
-
-            case "Success":
-                // Alerting user of successfull login
-                alertUserAboutError(
-                        res.getString(R.string.success_title_login),
-                        res.getString(R.string.success_message_login));
-
-
-                //Storing the information of the user and his uploaded events into the local database.
-                ArrayList<Event> userEvents= retrieveMyPHP.getUserEventList(username);
-                ArrayList<String> userInfo = retrieveMyPHP.getUserInfo(username);
-                ArrayList<Venue> userVenues = retrieveMyPHP.getUserVenueList(username);
-                ArrayList<Artist> userArtist = retrieveMyPHP.getUserArtistList(username);
-                ArrayList<Organizations> userOrg = retrieveMyPHP.getUserOrgList(username);
-                //Addiction stuff
-                ArrayList<String> addictedEvents = retrieveMyPHP.getAddictedList(username);
-                ArrayList<String> addictedVenues = retrieveMyPHP.getAddictedVenueList(username);
-                ArrayList<String> addictedArtists = retrieveMyPHP.getAddictedArtistList(username);
-                ArrayList<String> addictedOrganizations = retrieveMyPHP.getAddictedOrgList(username);
-                SQLiteUtils sqLiteUtils = new SQLiteUtils();
-                sqLiteUtils.insertUserEvents(dbHelper, userEvents);
-                sqLiteUtils.insertUserVenues(dbHelper, userVenues);
-                sqLiteUtils.insertUserArtist(dbHelper, userArtist);
-                sqLiteUtils.insertUserOrganization(dbHelper, userOrg);
-                sqLiteUtils.insertNewUser(dbHelper, userInfo);
-                sqLiteUtils.insertEventAddictions(dbHelper, addictedEvents);
-                sqLiteUtils.insertVenueAddictions(dbHelper, addictedVenues);
-                sqLiteUtils.insertArtistAddictions(dbHelper, addictedArtists);
-                sqLiteUtils.insertOrgAddictions(dbHelper, addictedOrganizations);
-
-                // Updating the shared variable login check to true on successful login
-                MyApplication.userName = userInfo.get(0);
-                MyApplication.loginCheck = true;
-
-                // Start the next activity right here
-                Intent intent = new Intent(this, DashboardActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                finish();
-
-                break;
-
-            default:
-                alertUserAboutError("Dev Error"+response, "Error " + response);
-                break;
-
-        }
-    }
-
-    public void proceedWithoutAccount(View view){
-
-        Intent intent = new Intent(this, DashboardActivity.class);
-        startActivity(intent);
-
     }
 
     public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){

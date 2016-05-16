@@ -43,6 +43,12 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     public static final String USER_INFO_EMAIL = "email";
     public static final String USER_INFO_LOCATION = "location";
 
+    // User Info Table Stuff
+    public static final String TABLE_USER_TOKEN = "user_token";
+    public static final String USER_TOKEN_ID = "_id";
+    public static final String USER_TOKEN_REMOTEID = "remoteID";
+    public static final String USER_TOKEN_VALUE = "value";
+
     //Addictions:
 
     //Addictions Event
@@ -144,6 +150,14 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
     // Storing our local database name and version as strings
     private static final String DATABASE_NAME="BruhaDatabase.db";
     private static final int DATABASE_VERSION = 1;
+
+
+    // SQL to create DB
+    private static final String DATABASE_CREATE_USER_TOKEN = "create table "
+            + TABLE_USER_TOKEN + "(" + USER_TOKEN_ID
+            + " integer primary key autoincrement, "
+            + USER_TOKEN_REMOTEID + " text not null, "
+            + USER_TOKEN_VALUE + " text not null);";
 
     // SQL to create DB
     private static final String DATABASE_CREATE_USER_INFO = "create table "
@@ -377,6 +391,7 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.execSQL(DATABASE_CREATE_VENUE_INFO);
         db.execSQL(DATABASE_CREATE_OUTFIT_INFO);
         db.execSQL(DATABASE_CREATE_ARTIST_INFO);
+        db.execSQL(DATABASE_CREATE_USER_TOKEN);
     }
 
     //Deleting Addictions
@@ -505,12 +520,20 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         db.execSQL(DATABASE_CREATE_ADDICTIONS_ORG);
         db.execSQL("DROP TABLE IF EXISTS addictionsArtist");
         db.execSQL(DATABASE_CREATE_ADDICTIONS_ARTISTS);
+
+        //DELETE THIS LATER
+        db.execSQL("DROP TABLE IF EXISTS user_token");
+        db.execSQL(DATABASE_CREATE_USER_TOKEN);
+        db.execSQL("DROP TABLE IF EXISTS user_info");
+        db.execSQL(DATABASE_CREATE_USER_INFO);
     }
 
     //DROPING THE INFORMATION CONTANED ABOUT THE USER WHEN LOGGED IN.
     public void onLogout(android.database.sqlite.SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS user_info");
         db.execSQL(DATABASE_CREATE_USER_INFO);
+        db.execSQL("DROP TABLE IF EXISTS user_token");
+        db.execSQL(DATABASE_CREATE_USER_TOKEN);
         db.execSQL("DROP TABLE IF EXISTS user_event_info");
         db.execSQL(DATABASE_CREATE_USER_EVENT_INFO);
         db.execSQL("DROP TABLE IF EXISTS user_venue_info");
@@ -1057,6 +1080,46 @@ public class SQLiteDatabaseModel extends SQLiteOpenHelper{
         cursor.close();
 
         return User;
+    }
+
+
+    //ADDING THE INFO OF THE USER INTO THE LOCAL DATABASE TABLE.
+    public void addUserToken( String tokenValue, String tokenID){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("value", tokenValue);
+        values.put("remoteID",tokenID);
+
+        db.insert(TABLE_USER_TOKEN, null, values);
+    }
+
+    //GETTING THE INFO OF THE USER FROM THE LOCAL DATABASE TABLE.
+    public ArrayList<String> retrieveUserToken(){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<String> UserToken=new ArrayList<>();
+
+        Cursor cursor = db.query(TABLE_USER_TOKEN, null, null, null, null, null, null);
+
+        if(cursor != null)
+        {
+            while(cursor.moveToNext()){
+
+                int id = cursor.getInt(cursor.getColumnIndex("_id"));
+                String tokenValue = cursor.getString(cursor.getColumnIndex("value"));
+                String tokenID = cursor.getString(cursor.getColumnIndex("remoteID"));
+
+                //ADDING THE RETIEVED INFO INTO THE ARRAY TO BE RETURNED.
+                UserToken.add(tokenValue);
+                UserToken.add(tokenID);
+            }
+        }
+
+        cursor.close();
+
+        return UserToken;
     }
 
     //-------------------------------------ADDICTION ITEMS-----------------------------------------

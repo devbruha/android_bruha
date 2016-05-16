@@ -4,12 +4,17 @@ package com.bruha.bruhaandroid.Processing;
 
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Created by Work on 2015-07-31.
@@ -21,13 +26,15 @@ public class CredentialsPHP {
     HttpURLConnection connection;
     OutputStreamWriter request = null;
 
+    ArrayList<String> loginList = new ArrayList<>();
+
     //The method to login.
-    public String login(String mUsername, String mPassword) {
+    public ArrayList<String> login(String mEmail, String mPassword) {
 
         // creates parameters for the DB call to attach to the "initial" URL
         // to attach more paramenters its of the form:
         // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
-        final String parameters = "email="+mUsername+"&password="+mPassword;
+        final String parameters = "email="+mEmail+"&password="+mPassword;
 
         Thread thread;
 
@@ -89,6 +96,19 @@ public class CredentialsPHP {
         }
 
         Log.v("Scene awnn:",response);
+
+        try {
+            JSONObject x = new JSONObject(response);
+
+            loginList.add(x.getString("token"));
+            loginList.add(x.getString("id"));
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
         /*
         double x = Double.parseDouble(response);
         int y= (int) x;
@@ -104,7 +124,7 @@ public class CredentialsPHP {
         }
         return error;
         */
-        return null;
+        return loginList;
     }
 
     //The method to register an account.
