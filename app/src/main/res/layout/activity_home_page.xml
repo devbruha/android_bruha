@@ -113,12 +113,6 @@
         android:id="@+id/listContent"
         >
 
-        <com.github.ksoichiro.android.observablescrollview.ObservableListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@android:id/list"
-            android:drawSelectorOnTop="false"
-            android:dividerHeight="8dp"/>
 
     </LinearLayout>
 
