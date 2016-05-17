@@ -505,7 +505,7 @@
             android:layout_width="match_parent"
             android:layout_height="220dp"
             android:id="@+id/eventList"
-            android:background="#ffdddddd"
+            android:background="#e0e0e0"
             android:weightSum="10">
 
             <LinearLayout
@@ -542,7 +542,8 @@
                         android:textStyle="bold"
                         android:id="@+id/eventTitle"
                         android:layout_weight="0.5"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp"
+                        android:textColor="#24163f"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -550,7 +551,8 @@
                         tools:text="May 6th, 2016"
                         android:id="@+id/eventDate"
                         android:layout_weight="0.5"
-                        android:textSize="15sp"/>
+                        android:textSize="15sp"
+                        android:textColor="#24163f"/>
 
                 </LinearLayout>
 
@@ -568,7 +570,8 @@
                         android:id="@+id/eventPrice"
                         android:layout_alignParentRight="true"
                         android:layout_weight="0.5"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp"
+                        android:textColor="#24163f"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -578,7 +581,8 @@
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
                         android:layout_weight="0.5"
-                        android:layout_marginBottom="4dp"/>
+                        android:layout_marginBottom="4dp"
+                        android:textColor="#24163f"/>
 
                     <ImageView
                         android:layout_width="wrap_content"

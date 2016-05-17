@@ -64,6 +64,7 @@ public class HomePageActivity extends AppCompatActivity {
         navigationBarOnClicks(); // the bottom bar; home(explorer)Icon, calendarIcon, discoverableIcon, ticketsIcon, and profileIcon
 
 
+
     }
 
     private void assigningImages() {
