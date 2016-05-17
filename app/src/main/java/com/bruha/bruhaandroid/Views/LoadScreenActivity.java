@@ -33,8 +33,9 @@ public class LoadScreenActivity extends Activity {
         setContentView(R.layout.activity_load_screen);
 
 
-        CredentialsPHP x = new CredentialsPHP();
-        x.login("robert@bruha.com","testing123");
+       // CredentialsPHP x = new CredentialsPHP();
+        //x.register("Bilalcufi","jggddng961@hotmail.com","321");
+       // x.login("robert@bruha.com","testing123");
 
        // RetrieveMyPHP y = new RetrieveMyPHP();
         //y.getUserInfo("");
