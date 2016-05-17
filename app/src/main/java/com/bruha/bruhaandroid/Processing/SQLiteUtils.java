@@ -105,6 +105,17 @@ public class SQLiteUtils {
 
     //--------------------------------------USER MANAGEMENT-----------------------------------------
 
+
+    public void insertNewUserToken( SQLiteDatabaseModel dbHelper, List<String> user_token){
+        // Attempting to insert these values into the local DB
+        dbHelper.addUserToken(user_token.get(0), user_token.get(1));
+    }
+
+    public ArrayList<String> getUserToken(SQLiteDatabaseModel dbHelper){
+        return dbHelper.retrieveUserToken();
+    }
+
+
     public void insertNewUser( SQLiteDatabaseModel dbHelper, List<String> user_info){
         // Attempting to insert these values into the local DB
         dbHelper.addUser(user_info.get(0), user_info.get(1), user_info.get(2), user_info.get(3), user_info.get(4), user_info.get(5));

@@ -261,7 +261,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Recognize Artists"
+                                android:text="Find Local Organizations"
                                 android:id="@+id/discoverArtistDes"
                                 android:layout_below="@+id/discoverArtist"
                                 android:textColor="#ffffff"
@@ -271,7 +271,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Artists"
+                                android:text="Organizations"
                                 android:layout_centerVertical="true"
                                 android:textSize="30sp"
                                 android:textColor="#ffffff"
@@ -349,7 +349,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Find Local Organizations"
+                                android:text="Coming Soon"
                                 android:id="@+id/discoverOutfitsDes"
                                 android:layout_below="@+id/discoverOutfits"
                                 android:textColor="#ffffff"
@@ -359,7 +359,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Organizations"
+                                android:text="Discoverable"
                                 android:layout_centerVertical="true"
                                 android:textSize="30sp"
                                 android:textColor="#ffffff"

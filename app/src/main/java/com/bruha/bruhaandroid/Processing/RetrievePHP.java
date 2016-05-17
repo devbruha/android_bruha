@@ -318,7 +318,7 @@ public class RetrievePHP {
 
                 try {
 
-                    url = new URL("http://bruha.com/api/v1/explore/search?type=event");
+                    url = new URL("http://bruha.com/api/v1/explore/search?type=event&search=");
                     connection = (HttpURLConnection) url.openConnection();
 
                     String line = "";
@@ -451,7 +451,7 @@ public class RetrievePHP {
             public void run() {
 
                 try {
-                    url = new URL("http://bruha.com/mobile_php/RetrievePHP/VenueList.php");
+                    url = new URL("http://bruha.com/api/v1/explore/search?type=venue&search=");
                     connection = (HttpURLConnection) url.openConnection();
 
                     String line = "";
@@ -481,7 +481,7 @@ public class RetrievePHP {
             e.printStackTrace();
         }
 
-        try {
+       /*try {
             JSONArray x = new JSONArray(response);
 
             for (int i = 0; i < x.length(); i++) {
@@ -505,6 +505,10 @@ public class RetrievePHP {
             e.printStackTrace();
         }
         return mVenues;
+
+        */
+        Log.v("Awn1:",response);
+        return null;
     }
 
     //Gets the List of Outfits uploaded in the Database.
@@ -517,7 +521,7 @@ public class RetrievePHP {
             public void run() {
 
                 try {
-                    url = new URL("http://bruha.com/mobile_php/RetrievePHP/OrganizationList.php");
+                    url = new URL("http://bruha.com/api/v1/explore/search?type=organization&search=");
                     connection = (HttpURLConnection) url.openConnection();
 
                     String line = "";
@@ -549,6 +553,7 @@ public class RetrievePHP {
             e.printStackTrace();
         }
 
+        /*
         try {
             JSONArray x = new JSONArray(response);
 
@@ -573,6 +578,9 @@ public class RetrievePHP {
             e.printStackTrace();
         }
         return mOrg;
+        */
+        Log.v("Awn2:",response);
+        return null;
     }
 
     //Gets the List of Artist uploaded in the Database.

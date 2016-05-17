@@ -298,8 +298,8 @@ public class SplashActivity extends Activity {
             // Android functions to determine the screen dimensions.
             event.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.eventwhite, 70));
             venue.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.venuewhite, 70));
-            artist.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.artistwhite, 70));
-            outfit.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 70));
+            artist.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.outfitwhite, 70));
+            outfit.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, 70));
 
             ImageView im1 = (ImageView) view.findViewById(R.id.imageView31);
             ImageView im2 = (ImageView) view.findViewById(R.id.imageView32);
@@ -331,7 +331,7 @@ public class SplashActivity extends Activity {
             eventtext.setTypeface(opensansregfnt);
             venuetext.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
             venuetext.setTypeface(opensansregfnt);
-            artisttext.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+            artisttext.setTextSize(TypedValue.COMPLEX_UNIT_PX, x2);
             artisttext.setTypeface(opensansregfnt);
             outfittext.setTextSize(TypedValue.COMPLEX_UNIT_PX, x2);
             outfittext.setTypeface(opensansregfnt);
