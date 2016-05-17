@@ -72,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="4"
-                >
+                android:id="@+id/mapButton">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -113,7 +113,6 @@
         android:id="@+id/listContent"
         >
 
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -130,29 +129,44 @@
         android:background="#402c67"
         android:id="@+id/navigationBar">
 
-        <ImageView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/homeIcon"
             android:layout_gravity="bottom"
             android:layout_weight="2.02"
-            android:layout_marginTop="7dp"
-            android:layout_marginBottom="7dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
-            />
+            android:id="@+id/homeButton">
 
-        <ImageView
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/homeIcon"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/calendarIcon"
             android:layout_gravity="bottom"
             android:layout_weight="2.02"
-            android:layout_marginTop="7dp"
-            android:layout_marginBottom="7dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
-            />
+            android:id="@+id/calendarButton">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/calendarIcon"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -160,7 +174,8 @@
             android:layout_weight="1.92"
             android:background="#7effb07c"
             android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp">
+            android:layout_marginRight="3dp"
+            android:id="@+id/discoverableButton">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -170,34 +185,50 @@
                 android:baselineAlignBottom="true"
                 android:layout_marginTop="3dp"
                 android:layout_marginBottom="3dp"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
                 />
         </LinearLayout>
 
-        <ImageView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/ticketsIcon"
             android:layout_gravity="bottom"
             android:layout_weight="2.02"
-            android:layout_marginTop="7dp"
-            android:layout_marginBottom="7dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
-            />
+            android:id="@+id/ticketsButton">
 
-        <ImageView
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/ticketsIcon"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/profileIcon"
             android:layout_gravity="bottom"
             android:layout_weight="2.02"
-            android:layout_marginTop="7dp"
-            android:layout_marginBottom="7dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
-            />
+            android:id="@+id/profileButton">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/profileIcon"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                />
+
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
 
