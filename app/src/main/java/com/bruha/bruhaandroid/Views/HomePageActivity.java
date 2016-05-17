@@ -3,6 +3,7 @@ package com.bruha.bruhaandroid.Views;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +12,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,11 +33,10 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class HomePageActivity extends AppCompatActivity {
+public class HomePageActivity extends FragmentActivity {
 
     ArrayList<Event> mEvents = new ArrayList<>();
-    @InjectView(android.R.id.list)
-    ObservableListView listView;
+   // ObservableListView listView;
 
     // Buttons to be implemented
     // top images
@@ -65,6 +67,17 @@ public class HomePageActivity extends AppCompatActivity {
 
 
 
+        //Activity profileAct = new ProfileActivity();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ExplorerFragment()).commit();
+
+
+
+       /* // Setting Home Page
+        explorerFragment = new ExplorerFragment();
+        fragmentTransaction.add(R.id.layoutFragment, explorerFragment);
+        fragmentTransaction.commit();
+        */
+
     }
 
     private void assigningImages() {
@@ -77,6 +90,7 @@ public class HomePageActivity extends AppCompatActivity {
         discoverableButton = (ImageView) findViewById(R.id.discoverableIcon);
         ticketsButton = (ImageView) findViewById(R.id.ticketsIcon);
         profileButton = (ImageView) findViewById(R.id.profileIcon);
+        //listView = (ObservableListView) findViewById(R.id.list);
     }
 
     private void importingData() {
@@ -106,7 +120,7 @@ public class HomePageActivity extends AppCompatActivity {
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
 
         mEvents = sqLiteUtils.getEventInfo(dbHelper);
-        listView.setAdapter(new ListViewAdapter2(this, mEvents));
+        //listView.setAdapter(new ListViewAdapter2(this, mEvents));
     }
 
     private void filterBarOnClicks() {
@@ -226,9 +240,13 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     private void startHomePageActivity(View view) {
+        //Activity profileAct = new ProfileActivity();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ExplorerFragment()).commit();
+        /*
         Intent intent = new Intent(this, HomePageActivity.class);
         startActivity(intent);
         finish();
+        */
     }
 
     private void startCalendarActivity(View view) {
@@ -248,9 +266,15 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     private void startProfileActivity(View view) {
+
+
+        //Activity profileAct = new ProfileActivity();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new profileFragment()).commit();
+/*
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
         finish();
+        */
     }
 
     public void showDialog() {   //Alert dialog to let the user know discoverable is coming soon..
