@@ -128,12 +128,12 @@ public class CredentialsPHP {
     }
 
     //The method to register an account.
-    public String register(String mUsername, String mPassword, String mEmail) {
+    public String register(String mUsername, String mEmail, String mPassword) {
 
         // creates parameters for the DB call to attach to the "initial" URL
         // to attach more paramenters its of the form:
         // "http://initialurllink?parameter1=parameter1Value&parameter2=parameter2Value&parameter3=parameter3Value" and etc
-        final String parameters = "name="+mUsername+"&email="+mPassword+"&password="+mEmail+"&password_confirmation="+mEmail;
+        final String parameters = "name="+mUsername+"&email="+mEmail+"&password="+mPassword+"&password_confirmation="+mPassword;
 
 
         Thread thread;
@@ -188,8 +188,18 @@ public class CredentialsPHP {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Log.v("Scene",response);
-        return null;
+
+        if(response==null)
+        {
+            return "1062";
+        }
+
+        else
+        {
+            return "Success";
+        }
+        //Log.v("Scene",response);
+        //return null;
       //  return response;
     }
 

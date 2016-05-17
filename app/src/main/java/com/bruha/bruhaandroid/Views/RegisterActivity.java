@@ -60,17 +60,17 @@ public class RegisterActivity extends ActionBarActivity {
         // using ButterKnife.inject to allow the InjectViews to take effect
         ButterKnife.inject(this);
 
+        //Setting the OnClickListeners for all the buttons inside the page.
+        implementOnClicks();
+
+        resize(); //Calling the method that resizes everything inside the page.
+    }
+
+    private void implementOnClicks() {
         //Setting the bruha face inside the Layout.
         ImageView im = (ImageView) findViewById(R.id.registerbruhaface);
         im.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhapurpleface, 100));
 
-        //Setting the OnClickListeners for all the buttons inside the page.
-        implementOnClicks();
-
-    resize(); //Calling the method that resizes everything inside the page.
-    }
-
-    private void implementOnClicks() {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -115,165 +115,6 @@ public class RegisterActivity extends ActionBarActivity {
         });
     }
 
-    private void resize() {
-        // Android functions to determine the screen dimensions.
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-
-        // Storing the screen height into an int variable..
-        int height = size.y;
-
-        Typeface opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
-
-        mRegisterEmailEditText.setTypeface(opensansregfnt);
-        mRegisterEmailTextView.setTypeface(opensansregfnt);
-        mRegisterPasswordEditText.setTypeface(opensansregfnt);
-        mRegisterPasswordTextView.setTypeface(opensansregfnt);
-        mRegisterUsernameEditText.setTypeface(opensansregfnt);
-        mRegisterUsernameTextView.setTypeface(opensansregfnt);
-        mRegisterReenterPasswordEditText.setTypeface(opensansregfnt);
-        mRegisterReenterPasswordTextView.setTypeface(opensansregfnt);
-
-
-        int x= (int)Math.round(height * .024);
-        int x1= (int)Math.round(height * .024);
-        mRegisterEmailEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
-        mRegisterEmailTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        mRegisterPasswordEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
-        mRegisterPasswordTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        mRegisterUsernameEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
-        mRegisterUsernameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        mRegisterReenterPasswordEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
-        mRegisterReenterPasswordTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-
-
-        ViewGroup.LayoutParams mRegisterUsernameEditTextLayoutParams = mRegisterUsernameEditText.getLayoutParams();
-        ViewGroup.LayoutParams mRegisterPasswordEditTextLayoutParams = mRegisterPasswordEditText.getLayoutParams();
-        ViewGroup.LayoutParams mRegisterReenterPasswordEditTextLayoutParams = mRegisterReenterPasswordEditText.getLayoutParams();
-        ViewGroup.LayoutParams mRegisterEmailEditTextLayoutParams = mRegisterEmailEditText.getLayoutParams();
-        mRegisterUsernameEditTextLayoutParams.height =  (int)Math.round(height*.04);
-        mRegisterPasswordEditTextLayoutParams.height =  (int)Math.round(height*.04);
-        mRegisterEmailEditTextLayoutParams.height =  (int)Math.round(height*.04);
-        mRegisterReenterPasswordEditTextLayoutParams.height = (int)Math.round(height*.04);
-        mRegisterUsernameEditTextLayoutParams.width = (int) Math.round(height*.40);
-        mRegisterReenterPasswordEditTextLayoutParams.width = (int) Math.round(height*.40);
-        mRegisterPasswordEditTextLayoutParams.width  = (int) Math.round(height*.40);
-        mRegisterEmailEditTextLayoutParams.width  = (int) Math.round(height*.40);
-
-        ViewGroup.LayoutParams mBacktoSplashButtonLayoutParams = mBacktoSplashButton.getLayoutParams();
-        ViewGroup.LayoutParams noLoginButtonLayoutParams = noRegisterButton.getLayoutParams();
-        ViewGroup.LayoutParams registerButtonLayoutParams = registerButton.getLayoutParams();
-        mBacktoSplashButtonLayoutParams.height =  (int)Math.round(height*.05);
-        noLoginButtonLayoutParams.height =  (int)Math.round(height*.05);
-        registerButtonLayoutParams.height =  (int)Math.round(height*.05);
-        mBacktoSplashButtonLayoutParams.width  = (int) Math.round(height*.17);
-        noLoginButtonLayoutParams.width  = (int) Math.round(height*.17);
-        registerButtonLayoutParams.width  = (int) Math.round(height*.17);
-
-        mBacktoSplashButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        registerButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-        noRegisterButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
-    }
-
-    private void startBackActivity(View view) {
-       Intent intent = new Intent(this,SplashActivity.class);
-       startActivity(intent);
-       finish();
-   }
-
-    private void alertUserAboutError(String errorTitle, String errorMessage) {
-        // A function to call the AlertDialogFragment Activity to alert the user about possible errors
-        AlertDialogFragment dialog = new AlertDialogFragment().newInstance( errorTitle,errorMessage );
-        dialog.show(getFragmentManager(), "error_dialog");
-    }
-
-    private boolean isNetworkAvailable() {
-        // A function used to check whether users are connected to the internet
-        ConnectivityManager manager = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-
-        // boolean variable initialized to false, set true if there is a connection
-        boolean isAvailable = false;
-
-        if(networkInfo != null && networkInfo.isConnected()){
-
-            isAvailable = true;
-        }
-
-        return isAvailable;
-    }
-
-    private boolean isValidEmail(String email) {
-        // A function used to check whether users are entering a valid email address
-        if (TextUtils.isEmpty(email)) {
-            return false;
-        }
-        else {
-            return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-        }
-    }
-
-    private boolean isValidUsername(String username){
-        // A function used to check whether users are entering a valid username
-        boolean isAvailable = false;
-        int length = username.length();
-
-        // Ensure the proper length and legal characters to prevent query injecting
-        if( length >= 1 && length <= 20 ){
-            if( username.matches("^[a-zA-Z0-9_]*$")){
-
-                isAvailable = true;
-            }
-            else{
-                MyApplication.credentialError = "Your username must only contain letters, numbers, or underscore (_)";
-            }
-        }
-        else{
-            MyApplication.credentialError = "Your username must not contain more than 20 characters.";
-        }
-        return isAvailable;
-    }
-
-    private boolean isValidPassword(String password){
-        // A function used to check whether users are entering a valid password
-        boolean isAvailable = false;
-        int length = password.length();
-
-        // Ensure the proper length and legal characters to prevent query injecting
-        if( length >= 8 && length <= 20 ){
-            if( password.matches("^[a-zA-Z0-9_]*$")){
-                if(password.matches(".*\\d.*")){
-                    isAvailable = true;
-                }
-                else{
-                    MyApplication.credentialError = "Your password must contain at least one number";
-                }
-            }
-            else{
-                MyApplication.credentialError = "Your password must only contain letters, numbers, or underscore (_)";
-            }
-        }
-        else{
-            MyApplication.credentialError = "Your password must contain at least 8 characters and no more than 20 characters.";
-        }
-
-        return isAvailable;
-    }
-
-    private boolean isReenterPasswordMatches(String password,String Reenterpassword) {
-        // A function used to check whether password matches Reenterpassword
-        if( password.equals(Reenterpassword)  ){
-            return true;
-        }
-        else {
-            MyApplication.credentialError = "Your re-entered password does not match your password.";
-            return false;
-        }
-    }
-
     private String isValidAccountInformation(String username, String password, String email, String Reenterpassword){
         // A function to run the previous check aswell as to call the PHP class to run the queries.
         String error;
@@ -289,10 +130,7 @@ public class RegisterActivity extends ActionBarActivity {
                             if (isValidEmail(email)) {
                                 // Calling the init function within PHP with the parameters passed
                                 CredentialsPHP credentialsPHP = new CredentialsPHP();
-                                error = credentialsPHP.register(username, password, email);
-                                if (error.contains("1")) {
-                                    error = "Success";
-                                }
+                                error = credentialsPHP.register(username, email, password);
                             }
                             // If email is invalid, error string is updated
 
@@ -400,6 +238,167 @@ public class RegisterActivity extends ActionBarActivity {
                 alertUserAboutError(response, "Error, " + response);
                 break;
         }
+    }
+
+
+    private void resize() {
+        // Android functions to determine the screen dimensions.
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        // Storing the screen height into an int variable..
+        int height = size.y;
+
+        Typeface opensansregfnt = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Regular.ttf");
+
+        mRegisterEmailEditText.setTypeface(opensansregfnt);
+        mRegisterEmailTextView.setTypeface(opensansregfnt);
+        mRegisterPasswordEditText.setTypeface(opensansregfnt);
+        mRegisterPasswordTextView.setTypeface(opensansregfnt);
+        mRegisterUsernameEditText.setTypeface(opensansregfnt);
+        mRegisterUsernameTextView.setTypeface(opensansregfnt);
+        mRegisterReenterPasswordEditText.setTypeface(opensansregfnt);
+        mRegisterReenterPasswordTextView.setTypeface(opensansregfnt);
+
+
+        int x= (int)Math.round(height * .024);
+        int x1= (int)Math.round(height * .024);
+        mRegisterEmailEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
+        mRegisterEmailTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        mRegisterPasswordEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
+        mRegisterPasswordTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        mRegisterUsernameEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
+        mRegisterUsernameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        mRegisterReenterPasswordEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, x1);
+        mRegisterReenterPasswordTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+
+
+        ViewGroup.LayoutParams mRegisterUsernameEditTextLayoutParams = mRegisterUsernameEditText.getLayoutParams();
+        ViewGroup.LayoutParams mRegisterPasswordEditTextLayoutParams = mRegisterPasswordEditText.getLayoutParams();
+        ViewGroup.LayoutParams mRegisterReenterPasswordEditTextLayoutParams = mRegisterReenterPasswordEditText.getLayoutParams();
+        ViewGroup.LayoutParams mRegisterEmailEditTextLayoutParams = mRegisterEmailEditText.getLayoutParams();
+        mRegisterUsernameEditTextLayoutParams.height =  (int)Math.round(height*.04);
+        mRegisterPasswordEditTextLayoutParams.height =  (int)Math.round(height*.04);
+        mRegisterEmailEditTextLayoutParams.height =  (int)Math.round(height*.04);
+        mRegisterReenterPasswordEditTextLayoutParams.height = (int)Math.round(height*.04);
+        mRegisterUsernameEditTextLayoutParams.width = (int) Math.round(height*.40);
+        mRegisterReenterPasswordEditTextLayoutParams.width = (int) Math.round(height*.40);
+        mRegisterPasswordEditTextLayoutParams.width  = (int) Math.round(height*.40);
+        mRegisterEmailEditTextLayoutParams.width  = (int) Math.round(height*.40);
+
+        ViewGroup.LayoutParams mBacktoSplashButtonLayoutParams = mBacktoSplashButton.getLayoutParams();
+        ViewGroup.LayoutParams noLoginButtonLayoutParams = noRegisterButton.getLayoutParams();
+        ViewGroup.LayoutParams registerButtonLayoutParams = registerButton.getLayoutParams();
+        mBacktoSplashButtonLayoutParams.height =  (int)Math.round(height*.05);
+        noLoginButtonLayoutParams.height =  (int)Math.round(height*.05);
+        registerButtonLayoutParams.height =  (int)Math.round(height*.05);
+        mBacktoSplashButtonLayoutParams.width  = (int) Math.round(height*.17);
+        noLoginButtonLayoutParams.width  = (int) Math.round(height*.17);
+        registerButtonLayoutParams.width  = (int) Math.round(height*.17);
+
+        mBacktoSplashButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        registerButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+        noRegisterButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, x);
+    }
+
+    private void startBackActivity(View view) {
+        Intent intent = new Intent(this,SplashActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void alertUserAboutError(String errorTitle, String errorMessage) {
+        // A function to call the AlertDialogFragment Activity to alert the user about possible errors
+        AlertDialogFragment dialog = new AlertDialogFragment().newInstance( errorTitle,errorMessage );
+        dialog.show(getFragmentManager(), "error_dialog");
+    }
+
+    private boolean isReenterPasswordMatches(String password,String Reenterpassword) {
+        // A function used to check whether password matches Reenterpassword
+        if( password.equals(Reenterpassword)  ){
+            return true;
+        }
+        else {
+            MyApplication.credentialError = "Your re-entered password does not match your password.";
+            return false;
+        }
+    }
+
+    private boolean isNetworkAvailable() {
+        // A function used to check whether users are connected to the internet
+        ConnectivityManager manager = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+        // boolean variable initialized to false, set true if there is a connection
+        boolean isAvailable = false;
+
+        if(networkInfo != null && networkInfo.isConnected()){
+
+            isAvailable = true;
+        }
+
+        return isAvailable;
+    }
+
+    private boolean isValidEmail(String email) {
+        // A function used to check whether users are entering a valid email address
+        if (TextUtils.isEmpty(email)) {
+            return false;
+        }
+        else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        }
+    }
+
+    private boolean isValidUsername(String username){
+        // A function used to check whether users are entering a valid username
+        boolean isAvailable = false;
+        int length = username.length();
+
+        // Ensure the proper length and legal characters to prevent query injecting
+        if( length >= 1 && length <= 20 ){
+            if( username.matches("^[a-zA-Z0-9_]*$")){
+
+                isAvailable = true;
+            }
+            else{
+                MyApplication.credentialError = "Your username must only contain letters, numbers, or underscore (_)";
+            }
+        }
+        else{
+            MyApplication.credentialError = "Your username must not contain more than 20 characters.";
+        }
+        return isAvailable;
+    }
+
+    private boolean isValidPassword(String password){
+
+        // A function used to check whether users are entering a valid password
+        boolean isAvailable = false;
+        int length = password.length();
+
+        // Ensure the proper length and legal characters to prevent query injecting
+        if( length >= 8 && length <= 20 ){
+            if( password.matches("^[a-zA-Z0-9_]*$")){
+                if(password.matches(".*\\d.*")){
+                    isAvailable = true;
+                }
+                else{
+                    MyApplication.credentialError = "Your password must contain at least one number";
+                }
+            }
+            else{
+                MyApplication.credentialError = "Your password must only contain letters, numbers, or underscore (_)";
+            }
+        }
+        else{
+            MyApplication.credentialError = "Your password must contain at least 8 characters and no more than 20 characters.";
+        }
+
+        return isAvailable;
     }
 
     @OnClick(R.id.continueNotRegisteredButton)
