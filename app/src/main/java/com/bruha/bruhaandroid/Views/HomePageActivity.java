@@ -11,12 +11,13 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import com.bruha.bruhaandroid.Fragments.CalendarFragment;
 import com.bruha.bruhaandroid.Fragments.ExplorerFragment;
@@ -99,9 +100,10 @@ public class HomePageActivity extends FragmentActivity {
 
     private void importingData() {
 
+        // Setting Images
         settingImages();
 
-        // setting edit text
+        // Setting Top Bar for every layout
 
     }
 
@@ -112,12 +114,13 @@ public class HomePageActivity extends FragmentActivity {
         mapIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.mapicon, buttonResolution));
         // bottom images
 
+        // initial set up with homeButton selected
         homeButton.setBackgroundColor(Color.parseColor("#24163f"));
         calenderButton.setBackgroundColor(Color.parseColor("#402c67"));
         ticketsButton.setBackgroundColor(Color.parseColor("#402c67"));
         profileButton.setBackgroundColor(Color.parseColor("#402c67"));
 
-
+        // initial set up with homeIcon shown as selected
         homeIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.explore, buttonResolution));
         calenderIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.calendarselectedicon, buttonResolution));
         discoverableIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, buttonResolution));
@@ -183,11 +186,14 @@ public class HomePageActivity extends FragmentActivity {
                 });
                 clickAnimator.start();
 
+                // Set up with homeButton selected
                 homeButton.setBackgroundColor(Color.parseColor("#24163f"));
+                //homeButton.setBackgroundColor(Color.parseColor("#ffffff"));
                 calenderButton.setBackgroundColor(Color.parseColor("#402c67"));
                 ticketsButton.setBackgroundColor(Color.parseColor("#402c67"));
                 profileButton.setBackgroundColor(Color.parseColor("#402c67"));
 
+                // Set up with homeIcon shown as selected
                 homeIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.explore, buttonResolution));
                 calenderIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.calendarselectedicon, buttonResolution));
                 discoverableIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, buttonResolution));
@@ -211,11 +217,13 @@ public class HomePageActivity extends FragmentActivity {
                 });
                 clickAnimator.start();
 
+                // Set up with calenderButton selected
                 homeButton.setBackgroundColor(Color.parseColor("#402c67"));
                 calenderButton.setBackgroundColor(Color.parseColor("#24163f"));
                 ticketsButton.setBackgroundColor(Color.parseColor("#402c67"));
                 profileButton.setBackgroundColor(Color.parseColor("#402c67"));
 
+                // Set up with calenderIcon shown as selected
                 homeIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.exploreselectedicon, buttonResolution));
                 calenderIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.calendar, buttonResolution));
                 discoverableIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, buttonResolution));
@@ -262,11 +270,13 @@ public class HomePageActivity extends FragmentActivity {
                 });
                 clickAnimator.start();
 
+                // Set up with ticketsButton selected
                 homeButton.setBackgroundColor(Color.parseColor("#402c67"));
                 calenderButton.setBackgroundColor(Color.parseColor("#402c67"));
                 ticketsButton.setBackgroundColor(Color.parseColor("#24163f"));
                 profileButton.setBackgroundColor(Color.parseColor("#402c67"));
 
+                // Set up with ticketsIcon shown as selected
                 homeIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.exploreselectedicon, buttonResolution));
                 calenderIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.calendarselectedicon, buttonResolution));
                 discoverableIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, buttonResolution));
@@ -288,13 +298,15 @@ public class HomePageActivity extends FragmentActivity {
                         startProfileActivity(view);
                     }
                 });
+                clickAnimator.start();
 
+                // Set up with profileButton selected
                 homeButton.setBackgroundColor(Color.parseColor("#402c67"));
                 calenderButton.setBackgroundColor(Color.parseColor("#402c67"));
                 ticketsButton.setBackgroundColor(Color.parseColor("#402c67"));
                 profileButton.setBackgroundColor(Color.parseColor("#24163f"));
 
-                clickAnimator.start();
+                // Set up with profileIcon shown as selected
                 homeIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.exploreselectedicon, buttonResolution));
                 calenderIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.calendarselectedicon, buttonResolution));
                 discoverableIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, buttonResolution));
