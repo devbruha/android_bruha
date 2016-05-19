@@ -50,7 +50,7 @@ public class DashboardActivity extends ActionBarActivity {
     @InjectView(R.id.hotButton) LinearLayout hotButton;
     @InjectView(R.id.addictionButton) LinearLayout addictionButton;
     @InjectView(R.id.exploreButton) LinearLayout exploreButton;
-    //The Buttons's TextViews
+    //The Buttons'spinner TextViews
     @InjectView(R.id.UploadButton) TextView myUploadText;
     @InjectView(R.id.TicketButton) TextView myTicketText;
     @InjectView(R.id.ProfileButton) TextView profileText;
@@ -119,7 +119,7 @@ public class DashboardActivity extends ActionBarActivity {
             }
         });
 
-        //MyTicket Button's Implementation.
+        //MyTicket Button'spinner Implementation.
         myTicketButton.setAlpha((float) 0.25);
         myTicketButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,10 +141,10 @@ public class DashboardActivity extends ActionBarActivity {
         // in the MyApplication class, by default the variable is set to false but on successful login
         // it gets set to true
 
-        //The myUploadButton's implementation.
+        //The myUploadButton'spinner implementation.
         if(MyApplication.loginCheck == true)
         {
-            //MyUpload Button's Implementation.
+            //MyUpload Button'spinner Implementation.
             myUploadButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
@@ -160,7 +160,7 @@ public class DashboardActivity extends ActionBarActivity {
                 }
             });
 
-            //Profile Button's Implementation
+            //Profile Button'spinner Implementation
             profileButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
@@ -176,7 +176,7 @@ public class DashboardActivity extends ActionBarActivity {
                 }
             });
 
-            //Profile Button's Implementation
+            //Profile Button'spinner Implementation
             hotButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
@@ -192,7 +192,7 @@ public class DashboardActivity extends ActionBarActivity {
                 }
             });
 
-            //Profile Button's Implementation
+            //Profile Button'spinner Implementation
             addictionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
@@ -210,7 +210,7 @@ public class DashboardActivity extends ActionBarActivity {
         }
         else { //If not Logged into the app.
 
-            //UploadButton's Implementation.
+            //UploadButton'spinner Implementation.
             myUploadButton.setAlpha((float) 0.25);
             myUploadButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -219,7 +219,7 @@ public class DashboardActivity extends ActionBarActivity {
                 }
             });
 
-            //WhatsHot's Implementation
+            //WhatsHot'spinner Implementation
             hotButton.setAlpha((float) 0.25);
             hotButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -228,7 +228,7 @@ public class DashboardActivity extends ActionBarActivity {
                 }
             });
 
-            //Profile Button's Implementation
+            //Profile Button'spinner Implementation
             profileButton.setAlpha((float) 0.25);
             profileButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -238,7 +238,7 @@ public class DashboardActivity extends ActionBarActivity {
                 }
             });
 
-            //Addiction Button's Implementaion.
+            //Addiction Button'spinner Implementaion.
             addictionButton.setAlpha((float) 0.25);
             addictionButton.setOnClickListener(new View.OnClickListener() {
                 @Override

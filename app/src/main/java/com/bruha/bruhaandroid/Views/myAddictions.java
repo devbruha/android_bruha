@@ -50,20 +50,20 @@ import butterknife.OnClick;
 
 public class myAddictions extends FragmentActivity implements ObservableScrollViewCallbacks {
 
-    //Event's Addictions Variables.
+    //Event'spinner Addictions Variables.
     ArrayList<Event> mEvents = new ArrayList<>(); //The Array that will hold the mEvents that we will pass around(to Adapter,the List...
     ArrayList<Event> addictedEvents = new ArrayList<>();
     ArrayList<String> eventID = new ArrayList<>();
     EventListviewAdapter adapter;
-    //Venue's Addictions Variables.
+    //Venue'spinner Addictions Variables.
     ArrayList<Venue> mVenues = new ArrayList<>(); //The Array that will hold the mEvents that we will pass around(to Adapter,the List...
     ArrayList<Venue> addictedVenues = new ArrayList<>();
     ArrayList<String> venueID = new ArrayList<>();
-    //Artist's Addictions Variables.
+    //Artist'spinner Addictions Variables.
     ArrayList<Artist> mArtist = new ArrayList<>(); //The Array that will hold the mEvents that we will pass around(to Adapter,the List...
     ArrayList<Artist> addictedArtists = new ArrayList<>();
     ArrayList<String> artistID = new ArrayList<>();
-    //Organization's Addictions Variables.
+    //Organization'spinner Addictions Variables.
     ArrayList<Organizations> mOrg = new ArrayList<>(); //The Array that will hold the mEvents that we will pass around(to Adapter,the List...
     ArrayList<Organizations> addictedOrg = new ArrayList<>();
     ArrayList<String> orgID = new ArrayList<>();

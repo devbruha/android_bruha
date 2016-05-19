@@ -14,19 +14,24 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.bruha.bruhaandroid.Adapters.CustomArrayAdapter;
 import com.bruha.bruhaandroid.Fragments.CalendarFragment;
 import com.bruha.bruhaandroid.Fragments.ExplorerFragment;
+import com.bruha.bruhaandroid.Fragments.ExplorerOrganizationFragment;
+import com.bruha.bruhaandroid.Fragments.ExplorerVenueFragment;
 import com.bruha.bruhaandroid.Fragments.ProfileFragment;
 import com.bruha.bruhaandroid.Fragments.TicketsFragment;
 import com.bruha.bruhaandroid.Model.Event;
-import com.bruha.bruhaandroid.Model.SQLiteDatabaseModel;
-import com.bruha.bruhaandroid.Processing.SQLiteUtils;
+import com.bruha.bruhaandroid.Model.Organizations;
+import com.bruha.bruhaandroid.Model.Venue;
 import com.bruha.bruhaandroid.R;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
@@ -36,16 +41,23 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 
-public class HomePageActivity extends FragmentActivity {
+public class HomePageActivity extends FragmentActivity implements AdapterView.OnItemSelectedListener{
 
+    // Array lists of data
     ArrayList<Event> mEvents = new ArrayList<>();
-   // ObservableListView listView;
+    ArrayList<Venue> mVenues = new ArrayList<>();
+    ArrayList<Organizations> mOrganizations = new ArrayList<>();
 
     // Buttons to be implemented
     // top images
-    ImageView filterButton;
+    ImageView filterIcon;
+    LinearLayout filterButton;
     ImageView mapIcon;
     LinearLayout mapButton;
+    Spinner spinner; // drop down menu
+    EditText searchBar;
+    TextView activityTitle;
+
     // bottom images
     ImageView homeIcon;
     LinearLayout homeButton;
@@ -68,7 +80,7 @@ public class HomePageActivity extends FragmentActivity {
 
         // Setting Design; Images, Texts, etc
         importingData();
-        parseData();
+        //parseData();
 
         // Setting onClicks
         filterBarOnClicks(); // the top bar; filterIcon, categoryName, and mapIcon
@@ -77,22 +89,12 @@ public class HomePageActivity extends FragmentActivity {
         //Activity profileAct = new ProfileActivity();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ExplorerFragment()).commit();
 
-
-        List<String> objects = new ArrayList<>();
-        objects.add("Events");
-        objects.add("Venues");
-        objects.add("Organizations");
-
-        Spinner s = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<String> myAdapter = new CustomArrayAdapter(this, R.layout.simple_spinner_item, objects);
-        //CustomArrayAdapter<String> adapter = new CustomArrayAdapter<String>(this,arraySpinner);
-        //adapter.setDropDownViewResource(R.layout.simple_spinner_item);
-        s.setAdapter(myAdapter);
     }
 
     private void assigningImages() {
         // top images
-        filterButton = (ImageView) findViewById(R.id.filterIcon);
+        filterIcon = (ImageView) findViewById(R.id.filterIcon);
+        filterButton = (LinearLayout) findViewById(R.id.filterButton);
         mapIcon = (ImageView) findViewById(R.id.mapIcon);
         mapButton = (LinearLayout) findViewById(R.id.mapButton);
         // bottom images
@@ -115,8 +117,10 @@ public class HomePageActivity extends FragmentActivity {
         // Setting Images
         settingImages();
 
-        // Setting Top Bar for every layout
-
+        // Setting Top Bar
+        spinner = (Spinner) findViewById(R.id.spinner);
+        searchBar = (EditText) findViewById(R.id.searchBar);
+        activityTitle = (TextView) findViewById(R.id.activityTitle);
     }
 
     private void settingImages() {
@@ -139,14 +143,14 @@ public class HomePageActivity extends FragmentActivity {
         ticketsIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.ticketsselectedicon, buttonResolution));
         profileIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.profileselectedicon, buttonResolution));
     }
-
+/*
     private void parseData() {
         // Create the local DB object
         SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
         SQLiteUtils sqLiteUtils = new SQLiteUtils();
 
         mEvents = sqLiteUtils.getEventInfo(dbHelper);
-    }
+    }*/
 
     private void filterBarOnClicks() {
         final int buttonResolution = 50;
@@ -154,6 +158,19 @@ public class HomePageActivity extends FragmentActivity {
         // filterIcon
 
         // categoryName
+
+        // Setting spinner -- initially at Events
+        List<String> objects = new ArrayList<>();
+        objects.add("Events");
+        objects.add("Venues");
+        objects.add("Organizations");
+
+        ArrayAdapter<String> myAdapter = new CustomArrayAdapter(this, R.layout.simple_spinner_item, objects);
+        //CustomArrayAdapter<String> adapter = new CustomArrayAdapter<String>(this,arraySpinner);
+        //adapter.setDropDownViewResource(R.layout.simple_spinner_item);
+        spinner.setAdapter(myAdapter);
+        spinner.setOnItemSelectedListener(this);
+
 
         // mapsIcon
         mapButton.setOnClickListener(new View.OnClickListener() {
@@ -183,6 +200,7 @@ public class HomePageActivity extends FragmentActivity {
         final int buttonResolution = 50;
         final int animationDuration = 0;
 
+
         // home(explorer)Icon
         homeButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -198,6 +216,9 @@ public class HomePageActivity extends FragmentActivity {
                 });
                 clickAnimator.start();
 
+                // Setting activity title
+                activityTitle.setVisibility(View.INVISIBLE);
+
                 // Set up with homeButton selected
                 homeButton.setBackgroundColor(Color.parseColor("#24163f"));
                 //homeButton.setBackgroundColor(Color.parseColor("#ffffff"));
@@ -211,6 +232,14 @@ public class HomePageActivity extends FragmentActivity {
                 discoverableIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, buttonResolution));
                 ticketsIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.ticketsselectedicon, buttonResolution));
                 profileIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.profileselectedicon, buttonResolution));
+
+                // Set Spinner VISIBILE or GONE
+                spinner.setVisibility(View.VISIBLE);
+                searchBar.setVisibility(View.VISIBLE);
+                filterIcon.setVisibility(View.VISIBLE);
+                filterButton.setEnabled(true);
+                mapIcon.setVisibility(View.VISIBLE);
+                mapButton.setEnabled(true);
             }
         });
 
@@ -229,6 +258,9 @@ public class HomePageActivity extends FragmentActivity {
                 });
                 clickAnimator.start();
 
+                // Setting activity title
+                activityTitle.setText("Calender");
+
                 // Set up with calenderButton selected
                 homeButton.setBackgroundColor(Color.parseColor("#402c67"));
                 calenderButton.setBackgroundColor(Color.parseColor("#24163f"));
@@ -241,6 +273,14 @@ public class HomePageActivity extends FragmentActivity {
                 discoverableIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, buttonResolution));
                 ticketsIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.ticketsselectedicon, buttonResolution));
                 profileIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.profileselectedicon, buttonResolution));
+
+                // Setting Top Bar
+                spinner.setVisibility(View.GONE);
+                searchBar.setVisibility(View.GONE);
+                filterIcon.setVisibility(View.INVISIBLE);
+                filterButton.setEnabled(false);
+                mapIcon.setVisibility(View.INVISIBLE);
+                mapButton.setEnabled(false);
             }
         });
 
@@ -259,11 +299,23 @@ public class HomePageActivity extends FragmentActivity {
                 });
                 clickAnimator.start();
 
+                // Setting activity title
+                activityTitle.setText("Discoverable");
+
                 homeIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.exploreselectedicon, buttonResolution));
                 calenderIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.calendarselectedicon, buttonResolution));
                 discoverableIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhalogoicon, buttonResolution));
                 ticketsIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.ticketsselectedicon, buttonResolution));
                 profileIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.profileselectedicon, buttonResolution));
+
+                // Set Spinner VISIBILE or GONE
+                spinner.setVisibility(View.GONE);
+                searchBar.setVisibility(View.GONE);
+                filterIcon.setVisibility(View.INVISIBLE);
+                filterButton.setEnabled(false);
+                mapIcon.setVisibility(View.INVISIBLE);
+                mapButton.setEnabled(false);
+
             }
         });
 
@@ -282,6 +334,9 @@ public class HomePageActivity extends FragmentActivity {
                 });
                 clickAnimator.start();
 
+                // Setting activity title
+                activityTitle.setText("My Tickets");
+
                 // Set up with ticketsButton selected
                 homeButton.setBackgroundColor(Color.parseColor("#402c67"));
                 calenderButton.setBackgroundColor(Color.parseColor("#402c67"));
@@ -294,6 +349,14 @@ public class HomePageActivity extends FragmentActivity {
                 discoverableIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, buttonResolution));
                 ticketsIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.tickets, buttonResolution));
                 profileIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.profileselectedicon, buttonResolution));
+
+                // Set Spinner VISIBILE or GONE
+                spinner.setVisibility(View.GONE);
+                searchBar.setVisibility(View.VISIBLE);
+                filterIcon.setVisibility(View.VISIBLE);
+                filterButton.setEnabled(true);
+                mapIcon.setVisibility(View.VISIBLE);
+                mapButton.setEnabled(true);
             }
         });
 
@@ -312,6 +375,9 @@ public class HomePageActivity extends FragmentActivity {
                 });
                 clickAnimator.start();
 
+                // Setting activity title
+                activityTitle.setText("My Profile");
+
                 // Set up with profileButton selected
                 homeButton.setBackgroundColor(Color.parseColor("#402c67"));
                 calenderButton.setBackgroundColor(Color.parseColor("#402c67"));
@@ -324,17 +390,39 @@ public class HomePageActivity extends FragmentActivity {
                 discoverableIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.bruhawhite, buttonResolution));
                 ticketsIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.ticketsselectedicon, buttonResolution));
                 profileIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.profile, buttonResolution));
+
+                // Set Spinner VISIBILE or GONE
+                spinner.setVisibility(View.GONE);
+                searchBar.setVisibility(View.GONE);
+                filterIcon.setVisibility(View.INVISIBLE);
+                filterButton.setEnabled(false);
+                mapIcon.setVisibility(View.INVISIBLE);
+                mapButton.setEnabled(false);
             }
         });
     }
 
     private void startHomePageActivity(View view) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ExplorerFragment()).commit();
+        String text = spinner.getSelectedItem().toString();
+
+        if(text == "Venues"){
+            // To go to Venues
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ExplorerVenueFragment()).commit();
+        }
+        else if(text == "Organizations"){
+            // To go to Organizations
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ExplorerOrganizationFragment()).commit();
+        }
+        else{
+            // To go to Events
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ExplorerFragment()).commit();
+        }
 
     }
 
     private void startCalendarActivity(View view) {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new CalendarFragment()).commit();
+
     }
 
     private void startDiscoverable(View view) {
@@ -381,6 +469,32 @@ public class HomePageActivity extends FragmentActivity {
             e.printStackTrace();
         }
         return null;
+    }
+
+    // Methods for Spinners
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        Spinner s = (Spinner) findViewById(R.id.spinner);
+        String text = s.getSelectedItem().toString();
+
+        if(text == "Venues"){
+            // To go to Venues
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ExplorerVenueFragment()).commit();
+        }
+        else if(text == "Organizations"){
+            // To go to Organizations
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ExplorerOrganizationFragment()).commit();
+        }
+        else{
+            // To go to Events
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ExplorerFragment()).commit();
+        }
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
 

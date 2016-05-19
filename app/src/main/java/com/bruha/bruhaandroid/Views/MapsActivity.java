@@ -429,7 +429,7 @@ public class MapsActivity extends FragmentActivity implements
                         }
                     }
 
-                    setVenAdapter(); //Sets the Adapter of the mListView to the respective Venue's Adapter.
+                    setVenAdapter(); //Sets the Adapter of the mListView to the respective Venue'spinner Adapter.
 
                     mLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
                     mLowerLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
@@ -777,7 +777,7 @@ public class MapsActivity extends FragmentActivity implements
 
     @Override
     public void onConnected(Bundle connectionHint) {
-        // Provides a simple way of getting a device's location and is well suited for
+        // Provides a simple way of getting a device'spinner location and is well suited for
         // applications that do not require a fine-grained location and that do not need location
         // updates. Gets the best and most recent location currently available, which may be null
         // in rare cases when a location is not available.

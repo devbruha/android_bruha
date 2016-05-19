@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="4"
-                >
+                android:id="@+id/filterButton">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -45,28 +45,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:id="@+id/categoryBar">
+                android:id="@+id/topBar">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:text="Events"
-                    android:id="@+id/categoryName"
+                    android:id="@+id/activityTitle"
                     android:textColor="#eeeeee"
                     android:textSize="27sp"
-                    android:visibility="invisible"
                     android:layout_alignParentTop="true"
-                    android:layout_centerInParent="true"/>
+                    android:layout_centerInParent="true"
+                    android:gravity="center"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/arrowIcon"
-                    android:layout_toEndOf="@id/categoryName"
-                    android:layout_toRightOf="@+id/categoryName"
+                    android:layout_toEndOf="@id/activityTitle"
+                    android:layout_toRightOf="@+id/activityTitle"
                     android:layout_marginLeft="7dp"
                     android:layout_centerInParent="true"
-                    android:src="@android:drawable/arrow_down_float"/>
+                    android:src="@android:drawable/arrow_down_float"
+                    android:visibility="invisible"/>
 
                 <Spinner
                                     android:layout_width="match_parent"
