@@ -344,7 +344,7 @@ public class FilterView {
             public void onSelectDate(Date date, View view) {
 
                 // if the selected date has already been selected, set background to black and remove from
-                // date array list(s), other wise set background to light blue and add to array list
+                // date array list(spinner), other wise set background to light blue and add to array list
                 // we have two arraylists to store the dates as date variables as well as formatted string
                 // variables
 
