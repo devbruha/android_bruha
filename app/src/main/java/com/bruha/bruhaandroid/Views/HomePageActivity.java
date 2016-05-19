@@ -217,7 +217,7 @@ public class HomePageActivity extends FragmentActivity implements AdapterView.On
                 clickAnimator.start();
 
                 // Setting activity title
-                activityTitle.setVisibility(View.INVISIBLE);
+                activityTitle.setVisibility(View.VISIBLE);
 
                 // Set up with homeButton selected
                 homeButton.setBackgroundColor(Color.parseColor("#24163f"));
