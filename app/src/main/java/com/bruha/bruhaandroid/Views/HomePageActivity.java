@@ -298,7 +298,7 @@ public class HomePageActivity extends FragmentActivity implements AdapterView.On
                     }
                 });
                 clickAnimator.start();
-
+/*
                 // Setting activity title
                 activityTitle.setText("Discoverable");
 
@@ -315,7 +315,7 @@ public class HomePageActivity extends FragmentActivity implements AdapterView.On
                 filterButton.setEnabled(false);
                 mapIcon.setVisibility(View.INVISIBLE);
                 mapButton.setEnabled(false);
-
+*/
             }
         });
 
