@@ -88,6 +88,8 @@ public class VenListViewAdapter2 extends BaseSwipeAdapter {
 
 
 
+        holder.VenueIcon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(),R.raw.vencoffee,50));
+
         /* Grabbing events */
         final Venue venue = (Venue) getItem(position);
 

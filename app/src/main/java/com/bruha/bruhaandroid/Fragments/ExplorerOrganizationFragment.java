@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bruha.bruhaandroid.Adapters.ListViewAdapter2;
+import com.bruha.bruhaandroid.Adapters.OrgListViewAdapter2;
 import com.bruha.bruhaandroid.Model.Event;
 import com.bruha.bruhaandroid.Model.Organizations;
 import com.bruha.bruhaandroid.Model.SQLiteDatabaseModel;
@@ -34,7 +35,7 @@ public class ExplorerOrganizationFragment extends Fragment{
         ArrayList<Organizations> mOrganizations = new ArrayList<>();
         mOrganizations = sqLiteUtils.getOrganizationsInfo(dbHelper);
         ObservableListView list = (ObservableListView) view.findViewById(R.id.list);
-        //list.setAdapter(new ListViewAdapter2(this.getActivity(),mOrganizations)); // add organization adapters
+        list.setAdapter(new OrgListViewAdapter2(this.getActivity(),mOrganizations)); // add organization adapters
         return view;
     }
 

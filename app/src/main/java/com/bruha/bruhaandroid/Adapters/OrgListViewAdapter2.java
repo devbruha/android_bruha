@@ -89,6 +89,8 @@ public class OrgListViewAdapter2 extends BaseSwipeAdapter {
 
 
 
+        holder.OrganizationIcon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(),R.raw.orgstudent,50));
+
         /* Grabbing events */
         final Organizations organization = (Organizations) getItem(position);
 

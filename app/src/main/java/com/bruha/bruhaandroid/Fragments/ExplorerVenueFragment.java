@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bruha.bruhaandroid.Adapters.ListViewAdapter2;
+import com.bruha.bruhaandroid.Adapters.VenListViewAdapter2;
 import com.bruha.bruhaandroid.Model.Event;
 import com.bruha.bruhaandroid.Model.SQLiteDatabaseModel;
 import com.bruha.bruhaandroid.Model.Venue;
@@ -34,7 +35,7 @@ public class ExplorerVenueFragment extends Fragment {
         ArrayList<Venue> mVenues = new ArrayList<>();
         mVenues = sqLiteUtils.getVenuesInfo(dbHelper);
         ObservableListView list = (ObservableListView) view.findViewById(R.id.list);
-        //list.setAdapter(new ListViewAdapter2(this.getActivity(),mVenues)); // add adapter for Venue
+        list.setAdapter(new VenListViewAdapter2(this.getActivity(),mVenues)); // add adapter for Venue
         return view;
     }
 

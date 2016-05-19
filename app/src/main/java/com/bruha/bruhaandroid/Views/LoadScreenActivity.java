@@ -303,7 +303,7 @@ public class LoadScreenActivity extends Activity {
         ArrayList<Organizations> outfits= new ArrayList<>() ;
         try {
             Organizations x = new Organizations();
-            x.setOrgName("Bean bar");
+            x.setOrgName("Pakistani Student Association");
             x.setOrgId(0+"");
             x.setOrgDescription("Small local artists");
             x.setOrgPrimaryCategory("Theatre");
@@ -312,7 +312,7 @@ public class LoadScreenActivity extends Activity {
             x.setLat(102.3);
             x.setOrgSt("ya");
             x.setLng(73.2);
-            x.setOrgPicture("http://urbanicity.ca/wp-content/uploads/2014/05/bean-bar-front-entrance.jpg");
+            x.setOrgPicture("http://www.uscpsa.com/uploads/2/6/0/8/26083121/7983101_orig.png");
             outfits.add(x);
 
             Organizations x1 = new Organizations();

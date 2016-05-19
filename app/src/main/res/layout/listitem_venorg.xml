@@ -105,36 +105,51 @@
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:background="#474747"
+                        android:layout_margin="5dp">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:id="@+id/orgvenShowMap" />
+                            android:id="@+id/orgvenShowMap"
+                            android:text="Show On Map"
+                            android:gravity="center"
+                            android:textColor="#ffffff"
+                            android:textSize="10sp"
+                            />
                     </LinearLayout>
 
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:background="#1c1745"
+                        android:layout_margin="5dp">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:id="@+id/orgvenMoreInfo" />
+                            android:id="@+id/orgvenMoreInfo"
+                            android:textColor="#ffffff"
+                            android:text="More Info"
+                            android:gravity="center"
+                            android:textSize="10sp"/>
                     </LinearLayout>
 
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        >
 
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:id="@+id/orgvenIcon" />
+                            android:id="@+id/orgvenIcon"
+                            android:layout_margin="15dp"/>
                     </LinearLayout>
 
                 </LinearLayout>
