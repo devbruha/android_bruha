@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
+
 import com.bruha.bruhaandroid.Model.Artist;
 import com.bruha.bruhaandroid.Model.Event;
 import com.bruha.bruhaandroid.Model.MyApplication;
@@ -39,8 +41,11 @@ public class LoadScreenActivity extends Activity {
 
        // RetrieveMyPHP y = new RetrieveMyPHP();
         //y.getUserInfo("");
-      //  RetrievePHP z = new RetrievePHP();
-       // z.getEventList();
+       RetrievePHP z = new RetrievePHP();
+       ArrayList<Event> l=  z.getEventList();
+        Log.v("SceneSize",l.size()+"");
+        Log.v("Scenehai",l.get(0).getEventName());
+
        // z.getVenueList();
        // z.getOrgList();
        // x.register("Bilalcui","jggddng961@hotmail.com","123");
@@ -255,15 +260,88 @@ public class LoadScreenActivity extends Activity {
         //The call to get the list of Venue.
         ArrayList<Venue> venues= new ArrayList<>() ;
         try {
-            //  venues = retrievedInfo.getVenueList();
+            Venue x = new Venue();
+            x.setVenueName("Bean bar");
+            x.setVenueId(0+"");
+            x.setVenueDescription("Small local artists");
+            x.setVenuePrimaryCategory("Music");
+            x.setVenueLocation("Westdale");
+            x.setLat(102.3);
+            x.setLng(73.2);
+            x.setVenueSt("Haa");
+            x.setVenuePicture("http://urbanicity.ca/wp-content/uploads/2014/05/bean-bar-front-entrance.jpg");
+            venues.add(x);
+
+            Venue x1 = new Venue();
+            x1.setVenueName("Ron Joyce");
+            x1.setVenueId(1+"");
+            x1.setVenueDescription("Football Stadium");
+            x1.setVenuePrimaryCategory("Sports");
+            x1.setVenueLocation("McMaster University");
+            x1.setLat(85.4);
+            x1.setLat(82.7);
+            x1.setVenueSt("Ya");
+            x1.setVenuePicture("http://pnimg.net/w/articles/0/569/53906f2f36.jpg");
+            venues.add(x1);
+
+            Venue x2 = new Venue();
+            x2.setVenueName("Formal Event");
+            x2.setVenueId(2+"");
+            x2.setVenueDescription("HAIIIIII");
+            x2.setVenuePrimaryCategory("Sports");
+            x2.setVenueLocation("Phiti");
+            x2.setLng(80.2);
+            x2.setVenueSt("Ye");
+            x2.setLat(50.5);
+            x2.setVenuePicture("http://www.dreameurotrip.com/wp-content/uploads/2014/04/stockholm-party-Sturecompagniet.jpg");
+            venues.add(x2);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         //The call to get the list of Organizations.
         ArrayList<Organizations> outfits= new ArrayList<>() ;
         try {
-            // outfits = retrievedInfo.getOrgList();
-        } catch (Exception e) {
+            Organizations x = new Organizations();
+            x.setOrgName("Bean bar");
+            x.setOrgId(0+"");
+            x.setOrgDescription("Small local artists");
+            x.setOrgPrimaryCategory("Theatre");
+            x.setLocId(1);
+            x.setOrgLocation("Westdale");
+            x.setLat(102.3);
+            x.setOrgSt("ya");
+            x.setLng(73.2);
+            x.setOrgPicture("http://urbanicity.ca/wp-content/uploads/2014/05/bean-bar-front-entrance.jpg");
+            outfits.add(x);
+
+            Organizations x1 = new Organizations();
+            x1.setOrgName("Ron Joyce");
+            x1.setOrgId(1+"");
+            x1.setOrgDescription("Football Stadium");
+            x1.setOrgPrimaryCategory("Sports");
+            x1.setOrgLocation("McMaster University");
+            x1.setLocId(2);
+            x1.setOrgSt("yeah");
+            x1.setLat(85.4);
+            x1.setLat(82.7);
+            x1.setOrgPicture("http://pnimg.net/w/articles/0/569/53906f2f36.jpg");
+            outfits.add(x1);
+
+            Organizations x2 = new Organizations();
+            x2.setOrgName("Formal Event");
+            x2.setOrgId(2+"");
+            x2.setOrgDescription("HAIIIIII");
+            x2.setOrgPrimaryCategory("Sports");
+            x2.setOrgLocation("Phiti");
+            x2.setLng(80.2);
+            x2.setLat(50.5);
+            x2.setOrgSt("yee");
+            x2.setLocId(3);
+            x2.setOrgPicture("http://www.dreameurotrip.com/wp-content/uploads/2014/04/stockholm-party-Sturecompagniet.jpg");
+            outfits.add(x2);
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
         //The call to get the list of Artist.

@@ -351,97 +351,58 @@ public class RetrievePHP {
         }
 
 
-        Log.v("Awn",response);
+        Log.v("Awn", response);
 
-      //  try {
+        try {
 
 
+            JSONObject x = new JSONObject(response);
+            JSONArray EventArray = x.getJSONArray("events");
 
-            /*
-            JSONArray x = new JSONArray(response);
-
-            for (int i = 0; i < x.length(); i++) {
-                JSONObject Event = x.getJSONObject(i);
+            for (int i = 0; i < EventArray.length(); i++) {
+                JSONObject Event = EventArray.getJSONObject(i);
                 final com.bruha.bruhaandroid.Model.Event even = new Event();
 
-                even.setEventid(Event.getString("event_id"));
-                even.setEventName(Event.getString("event_name"));
+                Log.v("Awn50", EventArray.length() + "");
+
+                //Event
+                even.setEventid(Event.getString("id"));
+                even.setEventName(Event.getString("name"));
                 even.setVenueid(Event.getString("venue_id"));
-                even.setEventDescription(Event.getString("event_desc"));
-                even.setEventDate(Event.getString("event_start_date"));
-                even.setEventEndDate(Event.getString("event_end_date"));
-                even.setEventStartTime(Event.getString("event_start_time"));
-                even.setEventEndTime(Event.getString("event_end_time"));
+                even.setEventDescription(Event.getString("description"));
+                even.setEventDate(Event.getString("startdate"));
+                even.setEventEndDate(Event.getString("enddate"));
 
-                if (!Event.getString("Admission_price").equals("null")){
+                //PlaceHolders
+                even.setEventStartTime(" ");
+                even.setEventEndTime(" ");
+                even.setEventPrice(0.0);
 
-                    even.setEventPrice(Double.parseDouble(Event.getString("Admission_price")));
-                }
-                else{
+                //Venue
+                JSONObject venueSubJSON = Event.getJSONObject("venue");
+                even.setEventLocName(venueSubJSON.getString("name"));
 
-                    even.setEventPrice(0.0);
-                }
+                //Location
+                JSONObject locationSubJSON = venueSubJSON.getJSONObject("location");
+                even.setEventLocSt(locationSubJSON.getString("street"));
+                even.setEventLocAdd(locationSubJSON.getString("city") + ", " + locationSubJSON.getString("country"));
+                even.setEventLatitude(Double.parseDouble(locationSubJSON.getString("latitude")));
+                even.setEventLongitude(Double.parseDouble(locationSubJSON.getString("longitude")));
 
-                even.setEventLocName(Event.getString("venue_name"));
-                even.setEventLocSt(Event.getString("street_no") + " " + Event.getString("street_name"));
-                even.setEventLocAdd(Event.getString("location_city") + ", " + Event.getString("country"));
-                even.setEventLatitude(Double.parseDouble(Event.getString("location_lat")));
-                even.setEventLongitude(Double.parseDouble(Event.getString("location_lng")));
-
-                if (!Event.getString("image_link").equals("null")){
-
-                    even.setEventPicture("http://bruha.com/"+Event.getString("image_link"));
-                }
-                else{
-
-                    even.setEventPicture("http://bruha.com/assets/uploads/Events/Concrete_Android-Lrg.jpg");
-                }
-
-                even.setEventPrimaryCategory((Event.getString("primary_category")));
-
-                JSONArray evenSubJSON = ((JSONArray)Event.get("sub_category"));
-                JSONArray evenSubIDJSON = ((JSONArray)Event.get("sub_category_id"));
-
-                JSONArray evenOrgJSON = ((JSONArray)Event.get("organization_id"));
-
-                ArrayList<String> evenSubArrayList = new ArrayList<>();
-                ArrayList<String> evenSubIDArrayList = new ArrayList<>();
-
-                ArrayList<String> evenOrgList = new ArrayList<>();
-
-                for(int j=0; j<evenOrgJSON.length();j++){
-
-                    evenOrgList.add(evenOrgJSON.getString(j));
-                }
-
-                even.setOrganizationid(evenOrgList);
-
-                for(int j=0; j<evenSubJSON.length();j++){
-
-                    evenSubArrayList.add(evenSubJSON.getString(j));
-                    evenSubIDArrayList.add(evenSubIDJSON.getString(j));
-                }
-
-                even.setEventSubCategories(evenSubArrayList);
-                even.setEventSubCategoriesID(evenSubIDArrayList);
+                //Category
+                JSONArray categorySubJSON = Event.getJSONArray("evocategories");
+                JSONObject categoryObjJSON = categorySubJSON.getJSONObject(0);
+                even.setEventPrimaryCategory(categoryObjJSON.getString("name"));
 
                 mEvents.add(even);
             }
 
-
-
-        } catch (JSONException e) {
-
-            e.printStackTrace();
         }
-
-        }
+        catch (JSONException e) {e.printStackTrace();}
         return mEvents;
-        */
-        return null;
     }
 
-    //Gets the List of Venue uploaded in the Database.
+        //Gets the List of Venue uploaded in the Database.
     public ArrayList<Venue> getVenueList() {
 
         Thread thread;
