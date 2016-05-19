@@ -46,7 +46,7 @@ public class CredentialsPHP {
                 {
                     // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
                     // alot of boiler plate stuff
-                    url = new URL("http://bruha.com/api/v1/login?"+parameters);
+                    url = new URL("http://dev.bruha.com/api/v1/login?"+parameters);
                     // url = new URL("http://dev.bruha.com/api/v1/login?");
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
@@ -147,7 +147,7 @@ public class CredentialsPHP {
                     // construction new url object to be "http://bruha.com/mobile_php/login.php?username=mUsername&password=mPassword"
                     // alot of boiler plate stuff
                  //   url = new URL("http://bruha.com/mobile_php/CredentialsPHP/SignUp.php?"+parameters);
-                    url = new URL("http://bruha.com/api/v1/register?"+parameters);
+                    url = new URL("http://dev.bruha.com/api/v1/register?"+parameters);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                   //  connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");

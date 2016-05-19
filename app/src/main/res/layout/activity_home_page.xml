@@ -54,6 +54,7 @@
                     android:id="@+id/categoryName"
                     android:textColor="#eeeeee"
                     android:textSize="27sp"
+                    android:visibility="invisible"
                     android:layout_alignParentTop="true"
                     android:layout_centerInParent="true"/>
 
@@ -62,10 +63,16 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/arrowIcon"
                     android:layout_toEndOf="@id/categoryName"
+                    android:layout_toRightOf="@+id/categoryName"
                     android:layout_marginLeft="7dp"
                     android:layout_centerInParent="true"
                     android:src="@android:drawable/arrow_down_float"/>
 
+                <Spinner
+                                    android:layout_width="match_parent"
+                                   android:layout_height="match_parent"
+                                    android:textAlignment="center"
+                                    android:id="@+id/spinner" />
 
             </RelativeLayout>
 

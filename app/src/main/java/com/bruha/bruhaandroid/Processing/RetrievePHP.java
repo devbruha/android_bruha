@@ -318,7 +318,7 @@ public class RetrievePHP {
 
                 try {
 
-                    url = new URL("http://bruha.com/api/v1/explore/search?type=event&search=");
+                    url = new URL("http://dev.bruha.com/api/v1/explore/search?type=event&search=");
                     connection = (HttpURLConnection) url.openConnection();
 
                     String line = "";
@@ -451,7 +451,7 @@ public class RetrievePHP {
             public void run() {
 
                 try {
-                    url = new URL("http://bruha.com/api/v1/explore/search?type=venue&search=");
+                    url = new URL("http://dev.bruha.com/api/v1/explore/search?type=venue&search=");
                     connection = (HttpURLConnection) url.openConnection();
 
                     String line = "";
@@ -521,7 +521,7 @@ public class RetrievePHP {
             public void run() {
 
                 try {
-                    url = new URL("http://bruha.com/api/v1/explore/search?type=organization&search=");
+                    url = new URL("http://dev.bruha.com/api/v1/explore/search?type=organization&search=");
                     connection = (HttpURLConnection) url.openConnection();
 
                     String line = "";

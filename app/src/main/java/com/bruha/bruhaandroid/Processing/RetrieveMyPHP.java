@@ -636,7 +636,7 @@ public class RetrieveMyPHP {
             public void run() {
 
                 try {
-                    url = new URL("http://bruha.com/api/v1/user/1?api_token=uR862Mh3vMuVnxdQq22ANGdP1WlQtC2B0f98x53NdZETHhKbrkp6JJQ5RWos");
+                    url = new URL("http://dev.bruha.com/api/v1/user/1?api_token=uR862Mh3vMuVnxdQq22ANGdP1WlQtC2B0f98x53NdZETHhKbrkp6JJQ5RWos");
                     connection = (HttpURLConnection) url.openConnection();
                    // connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                     connection.setRequestProperty("Content-Type", "application/json");

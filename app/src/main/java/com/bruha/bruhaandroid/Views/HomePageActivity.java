@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import com.bruha.bruhaandroid.Adapters.CustomArrayAdapter;
 import com.bruha.bruhaandroid.Fragments.CalendarFragment;
 import com.bruha.bruhaandroid.Fragments.ExplorerFragment;
 import com.bruha.bruhaandroid.Fragments.ProfileFragment;
@@ -31,6 +32,7 @@ import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -76,6 +78,16 @@ public class HomePageActivity extends FragmentActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ExplorerFragment()).commit();
 
 
+        List<String> objects = new ArrayList<>();
+        objects.add("Events");
+        objects.add("Venues");
+        objects.add("Organizations");
+
+        Spinner s = (Spinner) findViewById(R.id.spinner);
+        ArrayAdapter<String> myAdapter = new CustomArrayAdapter(this, R.layout.simple_spinner_item, objects);
+        //CustomArrayAdapter<String> adapter = new CustomArrayAdapter<String>(this,arraySpinner);
+        //adapter.setDropDownViewResource(R.layout.simple_spinner_item);
+        s.setAdapter(myAdapter);
     }
 
     private void assigningImages() {
