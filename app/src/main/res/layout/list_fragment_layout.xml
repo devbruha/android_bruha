@@ -7,8 +7,7 @@
         android:layout_height="match_parent"
         android:id="@+id/list"
         android:drawSelectorOnTop="false"
-        android:dividerHeight="8dp"
-        android:layout_marginTop="8dp" />
+        />
 
 
 </LinearLayout>

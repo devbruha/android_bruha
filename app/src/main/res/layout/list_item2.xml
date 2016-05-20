@@ -497,6 +497,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/MapMainLayout"
+        android:padding="15dp"
         >
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

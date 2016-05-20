@@ -353,6 +353,7 @@ public class HomePageActivity extends FragmentActivity implements AdapterView.On
                 // Set Spinner VISIBILE or GONE
                 spinner.setVisibility(View.GONE);
                 searchBar.setVisibility(View.VISIBLE);
+                searchBar.setHint("Search Tickets");
                 filterIcon.setVisibility(View.VISIBLE);
                 filterButton.setEnabled(true);
                 mapIcon.setVisibility(View.VISIBLE);
@@ -408,14 +409,17 @@ public class HomePageActivity extends FragmentActivity implements AdapterView.On
         if(text == "Venues"){
             // To go to Venues
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ExplorerVenueFragment()).commit();
+            searchBar.setHint("Search Venues");
         }
         else if(text == "Organizations"){
             // To go to Organizations
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ExplorerOrganizationFragment()).commit();
+            searchBar.setHint("Search Organizations");
         }
         else{
             // To go to Events
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ExplorerFragment()).commit();
+            searchBar.setHint("Search Events");
         }
 
     }
@@ -480,14 +484,17 @@ public class HomePageActivity extends FragmentActivity implements AdapterView.On
         if(text == "Venues"){
             // To go to Venues
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ExplorerVenueFragment()).commit();
+            searchBar.setHint("Search Venues");
         }
         else if(text == "Organizations"){
             // To go to Organizations
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ExplorerOrganizationFragment()).commit();
+            searchBar.setHint("Search Organizations");
         }
         else{
             // To go to Events
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ExplorerFragment()).commit();
+            searchBar.setHint("Search Events");
         }
 
     }
