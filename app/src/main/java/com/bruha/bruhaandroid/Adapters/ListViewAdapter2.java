@@ -14,6 +14,10 @@ import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.ListFragment;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -30,6 +34,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bruha.bruhaandroid.Fragments.ShowOnMapFragment;
 import com.bruha.bruhaandroid.Model.Event;
 import com.bruha.bruhaandroid.Model.MyApplication;
 import com.bruha.bruhaandroid.Model.SQLiteDatabaseModel;
@@ -52,7 +57,7 @@ import java.util.ArrayList;
  * Created by ArhamRazaMac on 16-05-09.
  */
 public class ListViewAdapter2 extends BaseSwipeAdapter{
-    private Activity mActivity;
+    private FragmentActivity mActivity;
     private ArrayList<Event> mEvents;
     //public static int Clicks=0;
     private ArrayList<String> addictedEventsID;
@@ -60,12 +65,13 @@ public class ListViewAdapter2 extends BaseSwipeAdapter{
     //SQLiteDatabaseModel dbHelper;
 
     //the Constructor for the class.
-    public ListViewAdapter2(Activity activity, ArrayList<Event> events) {
+    public ListViewAdapter2(FragmentActivity activity, ArrayList<Event> events) {
         mActivity = activity;
         mEvents = events;
         // addictedEventsID = addictevent;
         //  retrieveMyPHP = new RetrieveMyPHP();
         //   dbHelper = new SQLiteDatabaseModel(mActivity);
+
     }
 
     public String TimeFormat(String Time)
@@ -152,6 +158,7 @@ public class ListViewAdapter2 extends BaseSwipeAdapter{
 
     @Override
     public void fillValues(final int position, final View convertView) {
+
         //Setting all the variables and words for each ROW:
         ViewHolder holder;
 
@@ -224,6 +231,54 @@ public class ListViewAdapter2 extends BaseSwipeAdapter{
         eventPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) adjTopText);
         eventPrice.setTypeface(opensansregfnt);
         eventPrice.setTypeface(domboldfnt);
+
+        //Implements the Button 'Buy Ticket' that appears after swipe right,Shows Button Highlight for half a second when clicked.
+        TableRow GoBuyTicketPage = (TableRow) convertView.findViewById(R.id.MapTopHalf);
+        GoBuyTicketPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final LinearLayout BuyTicketLayout= (LinearLayout) convertView.findViewById(R.id.MapBuyTicketLayout);
+                ObjectAnimator animator = ObjectAnimator.ofFloat(BuyTicketLayout, "alpha", 1f, 0.5f);
+                animator.setDuration(0);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        BuyTicketLayout.setAlpha(.25f);
+                        Toast.makeText(mActivity.getApplicationContext(),"Still under development,sorry!",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                animator.start();
+            }
+        });
+
+        Fragment eventOnMap = new ShowOnMapFragment();
+        //Intents
+        Bundle bundle=new Bundle();
+        bundle.putString("id",event.getEventid());
+        //bundle.putString("Type","Event");
+        //set Fragmentclass Arguments
+        eventOnMap.setArguments(bundle);
+
+        //Implements the Button 'Preview' that appears after swipe right,Shows Button Highlight for half a second when clicked.
+        TableRow GoPreviewPage  = (TableRow) convertView.findViewById(R.id.MapPreview);
+        GoPreviewPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final LinearLayout PreviewLayout= (LinearLayout) convertView.findViewById(R.id.MapPreviewLayout);
+                ObjectAnimator animator = ObjectAnimator.ofFloat(PreviewLayout, "alpha", 1f, 0.5f);
+                animator.setDuration(0);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        PreviewLayout.setAlpha(.25f);
+                        mActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ShowOnMapFragment()).commit();
+
+                        // intent.putExtra("Id",event.getEventid());
+                        //intent.putExtra("Type","Event");
+                        //mActivity.startActivity(intent);
+                    }
+                });
+                animator.start();
+            }
+        });
     }
 
     @Override

@@ -402,7 +402,8 @@ public class RetrievePHP {
         return mEvents;
     }
 
-        //Gets the List of Venue uploaded in the Database.
+
+    //Gets the List of Venue uploaded in the Database.
     public ArrayList<Venue> getVenueList() {
 
         Thread thread;
@@ -442,34 +443,42 @@ public class RetrievePHP {
             e.printStackTrace();
         }
 
-       /*try {
-            JSONArray x = new JSONArray(response);
+        try {
+            JSONObject x = new JSONObject(response);
+            JSONArray venueArray = x.getJSONArray("venues");
 
-            for (int i = 0; i < x.length(); i++) {
-                JSONObject Venue = x.getJSONObject(i);
+            for (int i = 0; i < venueArray.length(); i++) {
+                JSONObject Venue = venueArray.getJSONObject(i);
                 com.bruha.bruhaandroid.Model.Venue ven = new Venue();
 
-                ven.setVenueId(Venue.getString("venue_id"));
-                ven.setVenueName(Venue.getString("venue_name"));
-                ven.setVenueDescription(Venue.getString("venue_desc"));
-                ven.setVenuePrimaryCategory((Venue.getString("primary_category")));
-                ven.setVenueSt(Venue.getString("street_no") + " " + Venue.getString("street_name") + ", " + Venue.getString("postal_code"));
-                ven.setVenueLocation(Venue.getString("location_city") + ", " + Venue.getString("country"));
-                ven.setLat(Double.parseDouble(Venue.getString("location_lat")));
-                ven.setLng(Double.parseDouble(Venue.getString("location_lng")));
-                ven.setVenuePicture("http://bruha.com/"+Venue.getString("media"));
-                ven.setVenuePrimaryCategory(Venue.getString("primary_category"));
+                //Venue
+                ven.setVenueId(Venue.getString("id"));
+                ven.setVenueName(Venue.getString("name"));
+                ven.setVenueDescription(Venue.getString("description"));
+
+                //Venue Media Data
+                ven.setVenuePicture("http://www.dreameurotrip.com/wp-content/uploads/2014/04/stockholm-party-Sturecompagniet.jpg");
+
+                //Location
+                JSONObject locationSubJSON = Venue.getJSONObject("location");
+                ven.setVenueSt(locationSubJSON.getString("unit") + locationSubJSON.getString("street"));
+                ven.setVenueLocation(locationSubJSON.getString("city") + "," + locationSubJSON.getString("country"));
+                ven.setLat(Double.parseDouble(locationSubJSON.getString("latitude")));
+                ven.setLng(Double.parseDouble(locationSubJSON.getString("longitude")));
+
+                //Category
+                JSONArray evocategoriesSubJSON = Venue.getJSONArray("evocategories");
+                JSONObject evocategoriesObjJSON = evocategoriesSubJSON.getJSONObject(0);
+                ven.setVenuePrimaryCategory(evocategoriesObjJSON.getString("name"));
 
                 mVenues.add(ven);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         return mVenues;
 
-        */
-        Log.v("Awn1:",response);
-        return null;
     }
 
     //Gets the List of Outfits uploaded in the Database.

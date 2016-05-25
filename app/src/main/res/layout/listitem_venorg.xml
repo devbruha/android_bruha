@@ -38,8 +38,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/MapMainLayout"
-        android:padding="15dp"
-                    android:background="#e0e0e0">
+        android:padding="10dp"
+        android:background="#e0e0e0">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="220dp"
             android:id="@+id/venorgList"
-                      android:weightSum="2">
+            android:weightSum="2">
 
             <LinearLayout
                 android:orientation="horizontal"

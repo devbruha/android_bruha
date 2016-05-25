@@ -3,8 +3,10 @@ package com.bruha.bruhaandroid.Views;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -13,6 +15,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -27,6 +31,7 @@ import com.bruha.bruhaandroid.Fragments.ExplorerFragment;
 import com.bruha.bruhaandroid.Fragments.ExplorerOrganizationFragment;
 import com.bruha.bruhaandroid.Fragments.ExplorerVenueFragment;
 import com.bruha.bruhaandroid.Fragments.ProfileFragment;
+import com.bruha.bruhaandroid.Fragments.ShowOnMapFragment;
 import com.bruha.bruhaandroid.Fragments.TicketsFragment;
 import com.bruha.bruhaandroid.Model.Event;
 import com.bruha.bruhaandroid.Model.Organizations;
@@ -34,7 +39,6 @@ import com.bruha.bruhaandroid.Model.Venue;
 import com.bruha.bruhaandroid.R;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
-import com.google.android.gms.maps.SupportMapFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +53,7 @@ public class HomePageActivity extends FragmentActivity implements AdapterView.On
     ArrayList<Organizations> mOrganizations = new ArrayList<>();
 
     // Buttons to be implemented
+    LinearLayout homePageView;
     // top images
     ImageView filterIcon;
     LinearLayout filterButton;
@@ -119,9 +124,21 @@ public class HomePageActivity extends FragmentActivity implements AdapterView.On
 
         // Setting Top Bar
         spinner = (Spinner) findViewById(R.id.spinner);
-        searchBar = (EditText) findViewById(R.id.searchBar);
         activityTitle = (TextView) findViewById(R.id.activityTitle);
+        // For Search bar
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        searchBar = (EditText) findViewById(R.id.searchBar);
+        homePageView = (LinearLayout) findViewById(R.id.filterButton);
+        homePageView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(final View view) {
+                searchBar.clearFocus();
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+            }
+        });
+
     }
+
 
     private void settingImages() {
         int buttonResolution = 50;
@@ -143,14 +160,6 @@ public class HomePageActivity extends FragmentActivity implements AdapterView.On
         ticketsIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.ticketsselectedicon, buttonResolution));
         profileIcon.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.profileselectedicon, buttonResolution));
     }
-/*
-    private void parseData() {
-        // Create the local DB object
-        SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this);
-        SQLiteUtils sqLiteUtils = new SQLiteUtils();
-
-        mEvents = sqLiteUtils.getEventInfo(dbHelper);
-    }*/
 
     private void filterBarOnClicks() {
         final int buttonResolution = 50;
@@ -191,7 +200,7 @@ public class HomePageActivity extends FragmentActivity implements AdapterView.On
     }
 
     private void startMapActivity(View view) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new SupportMapFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ShowOnMapFragment()).commit();
     }
 
     private void navigationBarOnClicks() {
@@ -501,6 +510,8 @@ public class HomePageActivity extends FragmentActivity implements AdapterView.On
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
+
 }
 
 
