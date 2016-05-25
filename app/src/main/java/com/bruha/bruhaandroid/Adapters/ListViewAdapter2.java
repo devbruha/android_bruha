@@ -250,11 +250,15 @@ public class ListViewAdapter2 extends BaseSwipeAdapter{
             }
         });
 
-        Fragment eventOnMap = new ShowOnMapFragment();
+        final Fragment eventOnMap = new ShowOnMapFragment();
         //Intents
         Bundle bundle=new Bundle();
+        bundle.putString("type","Event");
         bundle.putString("id",event.getEventid());
-        //bundle.putString("Type","Event");
+        bundle.putString("name",event.getEventName());
+        bundle.putDouble("latitude", event.getEventLatitude());
+        bundle.putDouble("longitude", event.getEventLongitude());
+        bundle.putString("category",event.getEventPrimaryCategory());
         //set Fragmentclass Arguments
         eventOnMap.setArguments(bundle);
 
@@ -269,11 +273,7 @@ public class ListViewAdapter2 extends BaseSwipeAdapter{
                 animator.addListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
                         PreviewLayout.setAlpha(.25f);
-                        mActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ShowOnMapFragment()).commit();
-
-                        // intent.putExtra("Id",event.getEventid());
-                        //intent.putExtra("Type","Event");
-                        //mActivity.startActivity(intent);
+                        mActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,eventOnMap).commit();
                     }
                 });
                 animator.start();

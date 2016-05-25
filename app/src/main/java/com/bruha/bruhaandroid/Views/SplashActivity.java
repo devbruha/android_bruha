@@ -165,7 +165,7 @@ public class SplashActivity extends Activity {
     }
 
     private void setImages() {       //The method that sets all the images inside the Dashboard activity.
-        mSplashImageView.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.splash, 100));
+        mSplashImageView.setImageDrawable(svgToBitmapDrawable(getResources(), R.raw.splash,400));
     }
 
     public class MyPagerAdapter extends PagerAdapter {

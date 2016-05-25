@@ -1,5 +1,8 @@
 package com.bruha.bruhaandroid.Adapters;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -7,6 +10,9 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -14,9 +20,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.bruha.bruhaandroid.Fragments.ShowOnMapFragment;
 import com.bruha.bruhaandroid.Model.Organizations;
 
 import com.bruha.bruhaandroid.R;
@@ -43,7 +51,7 @@ public class OrgListViewAdapter2 extends BaseSwipeAdapter {
 
     }
 
-    private Activity mActivity;
+    private FragmentActivity mActivity;
     private ArrayList<Organizations> mOrganizations;
     //public static int Clicks=0;
     private ArrayList<String> addictedVenuesID;
@@ -51,7 +59,7 @@ public class OrgListViewAdapter2 extends BaseSwipeAdapter {
     //SQLiteDatabaseModel dbHelper;
 
     //the Constructor for the class.
-    public OrgListViewAdapter2(Activity activity, ArrayList<Organizations> organizations) {
+    public OrgListViewAdapter2(FragmentActivity activity, ArrayList<Organizations> organizations) {
         mActivity = activity;
         mOrganizations = organizations;
         // addictedVenuesID = addictvenue;
@@ -136,6 +144,35 @@ public class OrgListViewAdapter2 extends BaseSwipeAdapter {
         organizationTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) adjTopText);
         organizationTitle.setTypeface(opensansregfnt);
         organizationTitle.setTypeface(domboldfnt);
+
+        final Fragment organizationOnMap = new ShowOnMapFragment();
+        //Intents
+        Bundle bundle=new Bundle();
+        bundle.putString("type","Organization");
+        bundle.putString("id",organization.getOrgId());
+        bundle.putString("name",organization.getOrgName());
+        bundle.putDouble("latitude", organization.getLat());
+        bundle.putDouble("longitude", organization.getLng());
+        bundle.putString("category",organization.getOrgPrimaryCategory());
+        //set Fragmentclass Arguments
+        organizationOnMap.setArguments(bundle);
+
+        //Implements the Button 'Preview' that appears after swipe right,Shows Button Highlight for half a second when clicked.
+        final LinearLayout showOnMapButton  = (LinearLayout) convertView.findViewById(R.id.onMapButton);
+        showOnMapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(showOnMapButton, "alpha", 1f, 0.5f);
+                animator.setDuration(0);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        showOnMapButton.setAlpha(.25f);
+                        mActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,organizationOnMap).commit();
+                    }
+                });
+                animator.start();
+            }
+        });
     }
 
     //Method to set the icon of the event.

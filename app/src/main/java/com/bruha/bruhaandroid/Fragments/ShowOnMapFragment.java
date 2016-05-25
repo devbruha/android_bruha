@@ -40,14 +40,10 @@ public class ShowOnMapFragment extends Fragment{
 
 
     //Initializing the Variables that will be used to populate our page.
-    ArrayList<Event> mEvents= new ArrayList<>();
-    ArrayList<Venue> mVenues = new ArrayList<>();
-    ArrayList<Artist> mArtists = new ArrayList<>();
-    ArrayList<Organizations> mOutfit = new ArrayList<>();
     Event event;
     Venue venue;
-    Artist artist;
-    Organizations outfit;
+    Organizations organization;
+
     String type;
 
     @Override
@@ -56,44 +52,46 @@ public class ShowOnMapFragment extends Fragment{
 
         View view = inflater.inflate(R.layout.activity_show_on_map, container, false);
 
-        grabId();
+        grabInfo();
         setUpMapIfNeeded(); //Sets the map up.
 
         return view;
     }
 
-    private void grabId() {
-        String id= getArguments().getString("id");
-        type = getArguments().getString("Type");
+    private void grabInfo() {
+        // find type
+        type = getArguments().getString("type");
 
-        if(type.equals("Event")) {
-            //Finding out and storing the event that is to be displayed.
-            for (Event x : mEvents) {
-                if (x.getEventid().equals(id)) {
-                    event = x;
-                }
-            }
+        // event info
+        if(type == "Event" ) {
+            event = new Event();
+            event.setEventid(getArguments().getString("id"));
+            event.setEventName(getArguments().getString("name"));
+            event.setEventLatitude(getArguments().getDouble("latitude"));
+            event.setEventLongitude(getArguments().getDouble("longitude"));
+            event.setEventPrimaryCategory(getArguments().getString("category"));
         }
 
-        else if(type.equals("Venue"))
-        {
-            //Finding out and storing the event that is to be displayed.
-            for (Venue x : mVenues) {
-                if (x.getVenueId().equals(id)) {
-                    venue = x;
-                }
-            }
+        // Venue info
+        if(type == "Venue" ) {
+            venue = new Venue();
+            venue.setVenueId(getArguments().getString("id"));
+            venue.setVenueName(getArguments().getString("name"));
+            venue.setLat(getArguments().getDouble("latitude"));
+            venue.setLng(getArguments().getDouble("longitude"));
+            venue.setVenuePrimaryCategory(getArguments().getString("category"));
         }
 
-        else if(type.equals("Organizations"))
-        {
-            //Finding out and storing the event that is to be displayed.
-            for (Organizations x : mOutfit) {
-                if (x.getOrgId().equals(id)) {
-                    outfit = x;
-                }
-            }
+        // Organization info
+        if(type == "Organization" ) {
+            organization = new Organizations();
+            organization.setOrgId(getArguments().getString("id"));
+            organization.setOrgName(getArguments().getString("name"));
+            organization.setLat(getArguments().getDouble("latitude"));
+            organization.setLng(getArguments().getDouble("longitude"));
+            organization.setOrgPrimaryCategory(getArguments().getString("category"));
         }
+
     }
 
     @Override
@@ -149,14 +147,14 @@ public class ShowOnMapFragment extends Fragment{
             BitmapDescriptor bitmapDescriptorIcon = BitmapDescriptorFactory.fromBitmap(bitmapIcon);
             eventMarker.setIcon(bitmapDescriptorIcon);
         }
-/*
+
         else if(type.equals("Organization"))
         {
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(outfit.getLat(), outfit.getLng()), 14.0f));
-            LatLng eventLocation = new LatLng(outfit.getLat(), outfit.getLng());
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(organization.getLat(), organization.getLng()), 14.0f));
+            LatLng eventLocation = new LatLng(organization.getLat(), organization.getLng());
 
-            Marker eventMarker = mMap.addMarker(new MarkerOptions().position(eventLocation).title(outfit.getOrgName()));
-            Bitmap bitmapIcon = setOrgIcon(outfit);
+            Marker eventMarker = mMap.addMarker(new MarkerOptions().position(eventLocation).title(organization.getOrgName()));
+            Bitmap bitmapIcon = setOrgIcon(organization);
             BitmapDescriptor bitmapDescriptorIcon = BitmapDescriptorFactory.fromBitmap(bitmapIcon);
             eventMarker.setIcon(bitmapDescriptorIcon);
         }
@@ -172,24 +170,9 @@ public class ShowOnMapFragment extends Fragment{
             eventMarker.setIcon(bitmapDescriptorIcon);
         }
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.2686181,-79.8657209), 14.0f));
-        LatLng eventLocation = new LatLng(43.2686181,-79.8657209);
-
-        Marker eventMarker = mMap.addMarker(new MarkerOptions().position(eventLocation)); */
 
     }
 
-    private void init() {   //The method that calls the local database and sets all the variables accordingly.
-        // Create the local DB object
-        SQLiteDatabaseModel dbHelper = new SQLiteDatabaseModel(this.getActivity());
-        SQLiteUtils sqLiteUtils = new SQLiteUtils();
-
-        //Assigns the array containing the list of events.
-        mEvents = sqLiteUtils.getEventInfo(dbHelper);
-        mVenues= sqLiteUtils.getVenuesInfo(dbHelper);
-        mOutfit= sqLiteUtils.getOrganizationsInfo(dbHelper);
-        mArtists= sqLiteUtils.getArtistInfo(dbHelper);
-    }
 
     //Method to set the icon of the event.
     public Bitmap setEventIcon(Event event) {

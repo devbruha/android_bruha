@@ -1,5 +1,8 @@
 package com.bruha.bruhaandroid.Adapters;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -7,6 +10,9 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -14,8 +20,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.bruha.bruhaandroid.Fragments.ShowOnMapFragment;
 import com.bruha.bruhaandroid.Model.Event;
 import com.bruha.bruhaandroid.Model.Venue;
 import com.bruha.bruhaandroid.R;
@@ -42,7 +51,7 @@ public class VenListViewAdapter2 extends BaseSwipeAdapter {
 
     }
 
-    private Activity mActivity;
+    private FragmentActivity mActivity;
     private ArrayList<Venue> mVenues;
     //public static int Clicks=0;
     private ArrayList<String> addictedVenuesID;
@@ -50,7 +59,7 @@ public class VenListViewAdapter2 extends BaseSwipeAdapter {
     //SQLiteDatabaseModel dbHelper;
 
     //the Constructor for the class.
-    public VenListViewAdapter2(Activity activity, ArrayList<Venue> venues) {
+    public VenListViewAdapter2(FragmentActivity activity, ArrayList<Venue> venues) {
         mActivity = activity;
         mVenues = venues;
         // addictedVenuesID = addictvenue;
@@ -86,8 +95,6 @@ public class VenListViewAdapter2 extends BaseSwipeAdapter {
         holder.VenueIcon = (ImageView) convertView.findViewById(R.id.orgvenIcon);
         holder.VenueShowMap = (TextView) convertView.findViewById(R.id.orgvenShowMap);
 
-
-
         holder.VenueIcon.setImageDrawable(svgToBitmapDrawable(mActivity.getResources(),R.raw.vencoffee,50));
 
         /* Grabbing events */
@@ -103,9 +110,6 @@ public class VenListViewAdapter2 extends BaseSwipeAdapter {
         else{
             holder.VenueTitle.setText(venue.getVenueName());
         }
-
-
-
 
         //Swipe methods being Implemented
         SwipeLayout swipeLayout = (SwipeLayout)convertView.findViewById(getSwipeLayoutResourceId(position));
@@ -135,6 +139,35 @@ public class VenListViewAdapter2 extends BaseSwipeAdapter {
         venueTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) adjTopText);
         venueTitle.setTypeface(opensansregfnt);
         venueTitle.setTypeface(domboldfnt);
+
+        final Fragment venueOnMap = new ShowOnMapFragment();
+        //Intents
+        Bundle bundle=new Bundle();
+        bundle.putString("type","Venue");
+        bundle.putString("id",venue.getVenueId());
+        bundle.putString("name",venue.getVenueName());
+        bundle.putDouble("latitude", venue.getLat());
+        bundle.putDouble("longitude", venue.getLng());
+        bundle.putString("category",venue.getVenuePrimaryCategory());
+        //set Fragmentclass Arguments
+        venueOnMap.setArguments(bundle);
+
+        //Implements the Button 'Preview' that appears after swipe right,Shows Button Highlight for half a second when clicked.
+        final LinearLayout showOnMapButton  = (LinearLayout) convertView.findViewById(R.id.onMapButton);
+        showOnMapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(showOnMapButton, "alpha", 1f, 0.5f);
+                animator.setDuration(0);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        showOnMapButton.setAlpha(.25f);
+                        mActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,venueOnMap).commit();
+                    }
+                });
+                animator.start();
+            }
+        });
     }
 
     //Method to set the icon of the event.

@@ -163,6 +163,8 @@ public class LoadScreenActivity extends Activity {
             x.setEventPrice(10.00);
             x.setEventPicture("https://thump-images.vice.com/images/articles/meta/2015/07/22/veld-festival-2015-is-coming-and-so-are-the-after-parties-1437601122.jpg");
             x.setEventLocSt("85 ward");
+            x.setEventLatitude(43.254436);
+            x.setEventLongitude(-79.9246225);
             x.setVenueid(0+"");
             x.setOrganizationid(new ArrayList<String>());
             events.add(x);
@@ -181,6 +183,8 @@ public class LoadScreenActivity extends Activity {
             x1.setEventLocName("Hai");
             x1.setEventPicture("http://assets.lfcimages.com/v2/uploads/media/default/0001/07/thumb_6249_default_news_size_5.jpeg");
             x1.setEventLocSt("85 ward");
+            x1.setEventLatitude(43.2565857);
+            x1.setEventLongitude(-79.9227579);
             x1.setEventPrice(20.0);
             x1.setVenueid(1+"");
             x1.setOrganizationid(new ArrayList<String>());
@@ -200,6 +204,8 @@ public class LoadScreenActivity extends Activity {
             x2.setEventLocName("Hai");
             x2.setEventPicture("http://www.dreameurotrip.com/wp-content/uploads/2014/04/stockholm-party-Sturecompagniet.jpg");
             x2.setEventLocSt("85 ward");
+            x2.setEventLatitude(43.2556535);
+            x2.setEventLongitude(-79.9209809);
             x2.setVenueid(2+"");
             x2.setOrganizationid(new ArrayList<String>());
             events.add(x2);
@@ -219,6 +225,8 @@ public class LoadScreenActivity extends Activity {
             x3.setEventPrice(53.24);
             x3.setEventPicture("http://www.dreameurotrip.com/wp-content/uploads/2014/04/amsterdam-party-1024x488.jpg");
             x3.setEventLocSt("85 ward");
+            x3.setEventLatitude(43.2594733);
+            x3.setEventLongitude(-79.9266316);
             x3.setVenueid(3+"");
             x3.setOrganizationid(new ArrayList<String>());
             events.add(x3);
@@ -237,6 +245,8 @@ public class LoadScreenActivity extends Activity {
             x4.setEventLocName("Hai");
             x4.setEventPicture("http://www.dreameurotrip.com/wp-content/uploads/2014/04/hula-hula-hvar-beach-party-clubbing-croatia.jpg");
             x4.setEventLocSt("85 ward");
+            x4.setEventLatitude(43.2589223);
+            x4.setEventLongitude(-79.9297044);
             x4.setVenueid(4+"");
             x4.setOrganizationid(new ArrayList<String>());
             events.add(x4);
@@ -296,9 +306,9 @@ public class LoadScreenActivity extends Activity {
             x.setOrgPrimaryCategory("Theatre");
             x.setLocId(1);
             x.setOrgLocation("Westdale");
-            x.setLat(102.3);
+            x.setLat(24.8666853);
             x.setOrgSt("ya");
-            x.setLng(73.2);
+            x.setLng(66.9772329);
             x.setOrgPicture("http://www.uscpsa.com/uploads/2/6/0/8/26083121/7983101_orig.png");
             outfits.add(x);
 
