@@ -168,7 +168,7 @@ public class TicketListView extends BaseAdapter {
         convertView.setTag(holder); //sets the tag
 
 
-
+/*
 
         //Obtaining References to the Image/Text to change inside the layout.
         holder.Picture = (ImageView) convertView.findViewById(R.id.ticketPic);
@@ -179,7 +179,7 @@ public class TicketListView extends BaseAdapter {
         holder.Quantity = (TextView) convertView.findViewById(R.id.ticketQuantity);
         holder.Total = (TextView) convertView.findViewById(R.id.ticketTotal);
         holder.Price= (TextView) convertView.findViewById(R.id.ticketPrice);
-
+*/
         //Initializing each item to the required type
         final Event event = mEvent.get(position);
 
@@ -253,13 +253,14 @@ public class TicketListView extends BaseAdapter {
 
         holder.Price.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
 
-
+/*
         TextView typ = (TextView) convertView.findViewById(R.id.type);
         TextView rem = (TextView) convertView.findViewById(R.id.rem);
         TextView nd = (TextView) convertView.findViewById(R.id.en);
         TextView prce = (TextView) convertView.findViewById(R.id.prce);
         TextView quan = (TextView) convertView.findViewById(R.id.quan);
         TextView ttl = (TextView) convertView.findViewById(R.id.ttl);
+
 
         typ.setTextSize(TypedValue.COMPLEX_UNIT_PX, x3);
         typ.setTypeface(rest);
@@ -273,6 +274,8 @@ public class TicketListView extends BaseAdapter {
         quan.setTypeface(rest);
         ttl.setTextSize(TypedValue.COMPLEX_UNIT_PX,x3);
         ttl.setTypeface(rest);
+
+        */
 
 
 
