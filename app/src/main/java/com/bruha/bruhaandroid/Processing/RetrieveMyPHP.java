@@ -7,6 +7,7 @@ import android.util.Log;
 import com.bruha.bruhaandroid.Model.Artist;
 import com.bruha.bruhaandroid.Model.Event;
 import com.bruha.bruhaandroid.Model.Organizations;
+import com.bruha.bruhaandroid.Model.User;
 import com.bruha.bruhaandroid.Model.Venue;
 
 import org.json.JSONArray;
@@ -33,6 +34,7 @@ public class RetrieveMyPHP {
     ArrayList<String> mAddictedArtist = new ArrayList<>();
     ArrayList<String> mAddictedOrg = new ArrayList<>();
     String display = "";
+    User newUser = new User();
     //Variables used when connecting to a network.
     URL url = null;
     String response = null;
@@ -622,7 +624,7 @@ public class RetrieveMyPHP {
     }
 
     //Returns a String array containing information about the User.
-    public ArrayList<String> getUserInfo(String user) {
+    public User getUserInfo(String user) {
         ArrayList<String> UserInfo = new ArrayList<>();
 
         //"http://bruha.com/api/v1/user?"+parameters
@@ -636,7 +638,7 @@ public class RetrieveMyPHP {
             public void run() {
 
                 try {
-                    url = new URL("http://dev.bruha.com/api/v1/user/1?api_token=uR862Mh3vMuVnxdQq22ANGdP1WlQtC2B0f98x53NdZETHhKbrkp6JJQ5RWos");
+                    url = new URL("https://bruha.com/api/v1/user/1?api_token=uR862Mh3vMuVnxdQq22ANGdP1WlQtC2B0f98x53NdZETHhKbrkp6JJQ5RWos");
                     connection = (HttpURLConnection) url.openConnection();
                    // connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                     connection.setRequestProperty("Content-Type", "application/json");
@@ -672,30 +674,25 @@ public class RetrieveMyPHP {
         }
 
         Log.v("Sceneee",response);
-        /*
+
         try {
 
-            JSONArray x = new JSONArray(response);
+            JSONObject x = new JSONObject(response);
 
-            for (int i = 0; i < x.length(); i++) {
-                JSONObject User = x.getJSONObject(i);
+            JSONObject userE = x.getJSONObject("user");
+            newUser.setName(userE.getString("name"));
+            newUser.setId(userE.getString("id"));
+            newUser.setEmail(userE.getString("email"));
 
-                UserInfo.add(User.getString("Username"));
-                UserInfo.add(User.getString("Name"));
-                UserInfo.add(User.getString("Birthdate"));
-                UserInfo.add(User.getString("Gender"));
-                UserInfo.add(User.getString("Email"));
-                UserInfo.add(User.getString("City"));
-            }
-            return UserInfo;
+
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        */
 
 
-        return null;
+
+        return newUser;
     }
 
     //Addicted Stuff

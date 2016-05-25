@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="3"
-    android:background="#e0e0e0"
+    android:background="@drawable/grey_gradient"
     tools:context="com.bruha.bruhaandroid.Views.ProfileActivity">
 
 
@@ -19,32 +19,29 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/profilePageUserPic"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"/>
+            android:layout_centerInParent="true"  />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name:"
+            android:text="Name of User"
             android:id="@+id/profilePageUserName"
             android:textColor="#24163f"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/profilePageUserPic"
-            android:layout_marginLeft="10dp"
-
-            />
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email:"
+            android:text="Email of User"
             android:id="@+id/profilePageUserEmail"
-            android:layout_marginTop="10dp"
             android:textColor="#24163f"
-            android:layout_marginBottom="5dp"
-            android:layout_below="@+id/profilePageUserName"
-            android:layout_toRightOf="@+id/profilePageUserPic"
-            android:layout_marginLeft="10dp"
-            android:layout_toEndOf="@+id/profilePageUserPic" />
+            android:layout_below="@+id/profilePageUserPic"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true" />
+
     </RelativeLayout>
 
     <LinearLayout
@@ -90,7 +87,9 @@
                 android:layout_height="match_parent"
                 android:id="@+id/profilePageAddictionPic"
                 android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_toStartOf="@+id/profilePageAddictionText"
+                android:layout_toLeftOf="@+id/profilePageAddictionText"
                 />
 
 
@@ -199,7 +198,9 @@
                 android:layout_height="match_parent"
                 android:id="@+id/profilePageUploadPic"
                 android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_toStartOf="@+id/profilePageUploadText"
+                android:layout_toLeftOf="@+id/profilePageUploadText"
                 />
         </RelativeLayout>
 

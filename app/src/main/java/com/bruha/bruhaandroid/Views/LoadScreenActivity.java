@@ -15,6 +15,7 @@ import com.bruha.bruhaandroid.Model.Event;
 import com.bruha.bruhaandroid.Model.MyApplication;
 import com.bruha.bruhaandroid.Model.Organizations;
 import com.bruha.bruhaandroid.Model.SQLiteDatabaseModel;
+import com.bruha.bruhaandroid.Model.User;
 import com.bruha.bruhaandroid.Model.Venue;
 import com.bruha.bruhaandroid.Processing.CredentialsPHP;
 import com.bruha.bruhaandroid.Processing.RetrieveMyPHP;
@@ -35,20 +36,6 @@ public class LoadScreenActivity extends Activity {
         setContentView(R.layout.activity_load_screen);
 
 
-       // CredentialsPHP x = new CredentialsPHP();
-        //x.register("Bilalcufi","jggddng961@hotmail.com","321");
-       // x.login("robert@bruha.com","testing123");
-
-       // RetrieveMyPHP y = new RetrieveMyPHP();
-        //y.getUserInfo("");
-       RetrievePHP z = new RetrievePHP();
-       ArrayList<Event> l=  z.getEventList();
-        Log.v("SceneSize",l.size()+"");
-        Log.v("Scenehai",l.get(0).getEventName());
-
-       // z.getVenueList();
-       // z.getOrgList();
-       // x.register("Bilalcui","jggddng961@hotmail.com","123");
 
         //In the case that there is no internet connection.
         if(!isNetworkAvailable())

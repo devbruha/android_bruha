@@ -64,9 +64,9 @@ public class CalendarActivity extends FragmentActivity {
          mListView = (ListView) findViewById(R.id.ChangeList);
         init();
         setCalendar();
-        setButton();
+        //setButton();
     }
-
+/*
     private void setButton() {
         // Android functions to determine the screen dimensions.
         Display display = getWindowManager().getDefaultDisplay();
@@ -99,7 +99,7 @@ public class CalendarActivity extends FragmentActivity {
             }
         });
     }
-
+*/
     private void init() {
 
         // Create the local DB object

@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -35,6 +34,7 @@ import com.bruha.bruhaandroid.Model.Venue;
 import com.bruha.bruhaandroid.R;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
+import com.google.android.gms.maps.SupportMapFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -191,9 +191,7 @@ public class HomePageActivity extends FragmentActivity implements AdapterView.On
     }
 
     private void startMapActivity(View view) {
-        Intent intent = new Intent(this, MapsActivity.class);
-        startActivity(intent);
-        finish();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new SupportMapFragment()).commit();
     }
 
     private void navigationBarOnClicks() {
