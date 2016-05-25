@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -58,6 +59,7 @@ public class HomePageActivity extends FragmentActivity implements AdapterView.On
     EditText searchBar;
     TextView activityTitle;
 
+
     // bottom images
     ImageView homeIcon;
     LinearLayout homeButton;
@@ -70,6 +72,8 @@ public class HomePageActivity extends FragmentActivity implements AdapterView.On
     ImageView profileIcon;
     LinearLayout profileButton;
 
+
+    RelativeLayout CategoriesLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +112,7 @@ public class HomePageActivity extends FragmentActivity implements AdapterView.On
         ticketsButton = (LinearLayout) findViewById(R.id.ticketsButton);
         profileIcon = (ImageView) findViewById(R.id.profileIcon);
         profileButton = (LinearLayout) findViewById(R.id.profileButton);
+        CategoriesLayout= (RelativeLayout) findViewById(R.id.CategoriesLayout);
 
 
     }
@@ -399,6 +404,18 @@ public class HomePageActivity extends FragmentActivity implements AdapterView.On
                 filterButton.setEnabled(false);
                 mapIcon.setVisibility(View.INVISIBLE);
                 mapButton.setEnabled(false);
+            }
+        });
+
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int visibility = CategoriesLayout.getVisibility();
+
+                if(visibility==View.GONE)
+                    CategoriesLayout.setVisibility(View.VISIBLE);
+
+
             }
         });
     }

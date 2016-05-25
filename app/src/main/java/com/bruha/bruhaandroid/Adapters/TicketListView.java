@@ -168,7 +168,7 @@ public class TicketListView extends BaseAdapter {
         convertView.setTag(holder); //sets the tag
 
 
-
+/*
 
         //Obtaining References to the Image/Text to change inside the layout.
         holder.Picture = (ImageView) convertView.findViewById(R.id.ticketPic);
@@ -275,7 +275,7 @@ public class TicketListView extends BaseAdapter {
         ttl.setTypeface(rest);
 
 
-
+*/
 
         return convertView;
     }

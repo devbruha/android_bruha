@@ -6,7 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
-import com.bruha.bruhaandroid.Adapters.TicketListView;
+//import com.bruha.bruhaandroid.Adapters.TicketListView;
 import com.bruha.bruhaandroid.Model.Event;
 import com.bruha.bruhaandroid.R;
 
@@ -34,7 +34,7 @@ public class MyTicketActivity extends ActionBarActivity {
         Ev.add(new Event());
 
 
-        TicketListView adapter = new TicketListView(this,Ev);
-        List.setAdapter(adapter);
+       // TicketListView adapter = new TicketListView(this,Ev);
+        //List.setAdapter(adapter);
     }
 }

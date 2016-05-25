@@ -2,154 +2,114 @@
 
 
 
-    <RelativeLayout
+    <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:background="#7fa9a9a9">
+    android:background="#7fa9a9a9"
+        android:id="@+id/TicketLayout"
+        android:weightSum="2">
 
 
-    <ImageView
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:id="@+id/ticketPic"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="#ffc3ff67"
-        android:layout_marginLeft="20dp" />
+        <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Type:"
-        android:id="@+id/type"
-        android:layout_alignTop="@+id/ticketPic"
-        android:layout_centerHorizontal="true"
-        android:textSize="15sp"
-        android:layout_marginBottom="3dp" />
+        <ImageView
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:id="@+id/ticketPic"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="#050505"
+            android:layout_margin="20dp"
+            android:layout_gravity="center" />
+    </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/rem"
-        android:layout_below="@+id/type"
-        android:layout_alignLeft="@+id/ttl"
-        android:layout_alignStart="@+id/ttl"
-        android:text="Remaining:"
-        android:textSize="15sp"
-        android:layout_marginBottom="3dp" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:weightSum="1">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="End:"
-        android:id="@+id/en"
-        android:layout_below="@+id/rem"
-        android:layout_alignLeft="@+id/type"
-        android:layout_alignStart="@+id/type"
-        android:textSize="15dp"
-        android:layout_marginBottom="3dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25833333333333333333">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Price:"
-        android:id="@+id/prce"
-        android:layout_below="@+id/en"
-        android:layout_alignLeft="@+id/rem"
-        android:layout_alignStart="@+id/rem"
-        android:textSize="15sp"
-        android:layout_marginBottom="3dp" />
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/TicketName"
+            android:layout_gravity="center"
+            android:layout_alignTop="@+id/ticketPic"
+            android:layout_toRightOf="@+id/ticketPic"
+            android:layout_toEndOf="@+id/ticketPic"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="61dp"
+            android:textSize="30dp" />
+        </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Quantity:"
-        android:id="@+id/quan"
-        android:layout_below="@+id/prce"
-        android:layout_alignLeft="@+id/en"
-        android:layout_alignStart="@+id/en"
-        android:textSize="15sp"
-        android:layout_marginBottom="3dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25833333333333333333">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Total:"
-        android:id="@+id/ttl"
-        android:layout_below="@+id/quan"
-        android:layout_centerHorizontal="true"
-        android:textSize="15sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/Date"
+                android:textSize="30dp"
+                android:layout_above="@+id/TicketPrice"
+                android:layout_alignLeft="@+id/TicketPrice"
+                android:layout_alignStart="@+id/TicketPrice"
+                android:linksClickable="false"
+                android:layout_marginLeft="20dp" />
+        </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/ticketType"
-        android:layout_alignBottom="@+id/type"
-        android:layout_toRightOf="@+id/type"
-        android:layout_toEndOf="@+id/type"
-        android:layout_marginLeft="10dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25833333333333333333">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/ticketRemaining"
-        android:layout_alignBottom="@+id/rem"
-        android:layout_toRightOf="@+id/rem"
-        android:layout_toEndOf="@+id/rem"
-        android:layout_marginLeft="10dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/TicketPrice"
+                android:textSize="30dp"
+                android:layout_above="@+id/TicketAddress"
+                android:layout_alignLeft="@+id/TicketName"
+                android:layout_alignStart="@+id/TicketName"
+                android:layout_marginLeft="20dp" />
+        </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/ticketEnd"
-        android:layout_alignBottom="@+id/en"
-        android:layout_toRightOf="@+id/en"
-        android:layout_toEndOf="@+id/en"
-        android:layout_marginLeft="10dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.225">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/ticketPrice"
-        android:layout_alignBottom="@+id/prce"
-        android:layout_alignLeft="@+id/ticketEnd"
-        android:layout_alignStart="@+id/ticketEnd"
-        android:layout_marginLeft="10dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/TicketAddress"
+                android:textSize="20dp"
+                android:layout_alignBottom="@+id/ticketPic"
+                android:layout_alignLeft="@+id/TicketPrice"
+                android:layout_alignStart="@+id/TicketPrice"
+                android:layout_marginLeft="10dp" />
+        </LinearLayout>
+    </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/ticketTotal"
-        android:layout_alignBottom="@+id/ttl"
-        android:layout_alignLeft="@+id/ticketEnd"
-        android:layout_alignStart="@+id/ticketEnd"
-        android:layout_marginLeft="10dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/ticketQuantity"
-        android:layout_alignBottom="@+id/quan"
-        android:layout_toRightOf="@+id/quan"
-        android:layout_toEndOf="@+id/quan"
-        android:layout_marginLeft="10dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Event Name"
-        android:id="@+id/ticketName"
-        android:layout_above="@+id/ticketPic"
-        android:textSize="25sp"
-        android:layout_alignLeft="@+id/ticketPic"
-        android:textStyle="bold" />
-
-</RelativeLayout>
+</LinearLayout>

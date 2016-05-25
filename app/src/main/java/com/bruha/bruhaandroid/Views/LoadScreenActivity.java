@@ -42,9 +42,9 @@ public class LoadScreenActivity extends Activity {
        // RetrieveMyPHP y = new RetrieveMyPHP();
         //y.getUserInfo("");
        RetrievePHP z = new RetrievePHP();
-       ArrayList<Event> l=  z.getEventList();
-        Log.v("SceneSize",l.size()+"");
-        Log.v("Scenehai",l.get(0).getEventName());
+       ArrayList<Organizations> meow= z.getOrgList();
+        Log.v("Hodor",meow.size()+"");
+
 
        // z.getVenueList();
        // z.getOrgList();

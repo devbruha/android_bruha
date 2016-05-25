@@ -2,6 +2,7 @@
 
 package com.bruha.bruhaandroid.Processing;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.bruha.bruhaandroid.Model.Artist;
@@ -514,24 +515,39 @@ public class RetrievePHP {
             e.printStackTrace();
         }
 
-        /*
+
         try {
-            JSONArray x = new JSONArray(response);
+            JSONObject x = new JSONObject(response);
+            JSONArray OrganizationArray = x.getJSONArray("organizations");
 
-            for (int i = 0; i < x.length(); i++) {
-                JSONObject Organization = x.getJSONObject(i);
-                com.bruha.bruhaandroid.Model.Organizations org = new Organizations();
+            for (int i = 0; i < OrganizationArray.length(); i++) {
+                JSONObject Organization = OrganizationArray.getJSONObject(i);
+                final com.bruha.bruhaandroid.Model.Organizations org = new Organizations();
 
-                org.setOrgId(Organization.getString("organization_id"));
-                org.setOrgName(Organization.getString("organization_name"));
-                org.setOrgDescription(Organization.getString("organization_desc"));
-                org.setOrgPrimaryCategory((Organization.getString("primary_category")));
-                org.setOrgSt(Organization.getString("street_no") + " " + Organization.getString("street_name") + ", " + Organization.getString("postal_code"));
-                org.setOrgLocation(Organization.getString("location_city") + ", " + Organization.getString("country"));
-                org.setLat(Double.parseDouble(Organization.getString("location_lat")));
-                org.setLng(Double.parseDouble(Organization.getString("location_lng")));
-                org.setOrgPicture("http://bruha.com/"+Organization.getString("media"));
-                org.setOrgPrimaryCategory(Organization.getString("primary_category"));
+
+                org.setOrgId(Organization.getString("id"));
+
+                org.setOrgName(Organization.getString("name"));
+
+                org.setOrgDescription(Organization.getString("description"));
+
+
+                //Location
+                JSONObject locationSubJSON = Organization.getJSONObject("location");
+                org.setLocId(Integer.parseInt(locationSubJSON.getString("id")));
+
+                org.setOrgSt(locationSubJSON.getString("street") + ", " + locationSubJSON.getString("postalcode"));
+                org.setOrgLocation(locationSubJSON.getString("city") + ", " +locationSubJSON.getString("province") + ", " + locationSubJSON.getString("country"));
+                org.setLat(Double.parseDouble(locationSubJSON.getString("latitude")));
+                org.setLng(Double.parseDouble(locationSubJSON.getString("longitude")));
+
+
+
+                //Category
+                JSONArray categorySubJSON = Organization.getJSONArray("evocategories");
+                JSONObject categoryObjJSON = categorySubJSON.getJSONObject(0);
+                org.setOrgPicture("https://usercontent1.hubstatic.com/8875588.jpg");
+                org.setOrgPrimaryCategory(categoryObjJSON.getString("name"));
 
                 mOrg.add(org);
             }
@@ -539,9 +555,9 @@ public class RetrievePHP {
             e.printStackTrace();
         }
         return mOrg;
-        */
-        Log.v("Awn2:",response);
-        return null;
+
+
+
     }
 
     //Gets the List of Artist uploaded in the Database.
