@@ -185,7 +185,7 @@ public class LoadScreenActivity extends Activity {
             x1.setEventLocSt("85 ward");
             x1.setEventLatitude(43.2565857);
             x1.setEventLongitude(-79.9227579);
-            x1.setEventPrice(20.0);
+            x1.setEventPrice(20.00);
             x1.setVenueid(1+"");
             x1.setOrganizationid(new ArrayList<String>());
             events.add(x1);
