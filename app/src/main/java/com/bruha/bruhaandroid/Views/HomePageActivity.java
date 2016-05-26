@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -74,6 +75,7 @@ public class HomePageActivity extends FragmentActivity implements AdapterView.On
     LinearLayout ticketsButton;
     ImageView profileIcon;
     LinearLayout profileButton;
+    RelativeLayout CategoriesLayout;
 
 
     @Override
@@ -113,6 +115,7 @@ public class HomePageActivity extends FragmentActivity implements AdapterView.On
         ticketsButton = (LinearLayout) findViewById(R.id.ticketsButton);
         profileIcon = (ImageView) findViewById(R.id.profileIcon);
         profileButton = (LinearLayout) findViewById(R.id.profileButton);
+        CategoriesLayout= (RelativeLayout) findViewById(R.id.CategoriesLayout);
 
 
     }
@@ -136,6 +139,7 @@ public class HomePageActivity extends FragmentActivity implements AdapterView.On
                 getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
             }
         });
+
 
     }
 
@@ -513,7 +517,3 @@ public class HomePageActivity extends FragmentActivity implements AdapterView.On
 
 
 }
-
-
-
-
