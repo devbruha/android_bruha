@@ -188,7 +188,7 @@ public class ListViewAdapter2 extends BaseSwipeAdapter{
         holder.eventDate.setText(dateFormat(event.getEventDate()));
 
         // Setting event price
-        holder.eventPrice.setText(freeEventCheck(event.getEventPrice()));
+        holder.eventPrice.setText(freeEventCheck((event.getEventPrice())));
 
         // Setting event distance (to do once database complete)
 
@@ -202,6 +202,7 @@ public class ListViewAdapter2 extends BaseSwipeAdapter{
         //Setting the font
         Typeface opensansregfnt = Typeface.createFromAsset(mActivity.getAssets(), "fonts/OpenSans-Regular.ttf");
         Typeface domboldfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Bold.ttf");
+        Typeface captureitfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Capture_it.ttf");
 
         // Resizing for different displays:
         // Android functions to determine the screen dimensions.
@@ -220,8 +221,8 @@ public class ListViewAdapter2 extends BaseSwipeAdapter{
         // Layout Params & height adjustment of eventTitle
         TextView eventTitle = (TextView) convertView.findViewById(R.id.eventTitle);
         eventTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) adjTopText);
-        eventTitle.setTypeface(opensansregfnt);
-        eventTitle.setTypeface(domboldfnt);
+        eventTitle.setTypeface(captureitfnt);
+        //eventTitle.setTypeface(domboldfnt);
         // Layout Params & height adjustment of eventDate
         TextView eventDate = (TextView) convertView.findViewById(R.id.eventDate);
         eventDate.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) adjBottomText);
