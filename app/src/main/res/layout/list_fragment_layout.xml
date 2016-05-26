@@ -16,22 +16,17 @@
         android:layout_height="match_parent"
         android:weightSum="3">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.40"></LinearLayout>
-
         <RelativeLayout
             android:background="#cb46287f"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:layout_weight="0.20"
             android:weightSum="1"
             android:visibility="visible"
             android:id="@+id/CategoriesLayout"
             android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp">
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -66,7 +61,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.10"
-                        android:id="@+id/tableRow" >
+                        android:id="@+id/Category1" >
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -84,7 +79,7 @@
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:id="@+id/imageView5" />
+                                    android:id="@+id/CategoryPicture1" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -97,7 +92,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:text="Art"
-                                    android:id="@+id/textView7"
+                                    android:id="@+id/CategoryText1"
                                     android:textColor="#ffffff"
                                     android:gravity="center_vertical"
                                     android:textSize="22sp"
@@ -110,7 +105,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.10"
-                        android:id="@+id/tableRow2" >
+                        android:id="@+id/Category2" >
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -128,7 +123,7 @@
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:id="@+id/imageView7" />
+                                    android:id="@+id/CategoryPicture2" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -141,7 +136,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:text="Ceremony"
-                                    android:id="@+id/textView8"
+                                    android:id="@+id/CategoryText2"
                                     android:gravity="center_vertical"
                                     android:textColor="#ffffff"
                                     android:textSize="22sp"
@@ -154,7 +149,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.10"
-                        android:id="@+id/tableRow3" >
+                        android:id="@+id/Category3" >
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -172,7 +167,7 @@
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:id="@+id/imageView9" />
+                                    android:id="@+id/CategoryPicture3" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -186,7 +181,7 @@
                                     android:layout_height="match_parent"
                                     android:text="Comedy"
                                     android:gravity="center_vertical"
-                                    android:id="@+id/textView11"
+                                    android:id="@+id/CategoryText3"
                                     android:textColor="#ffffff"
                                     android:textSize="22sp"
                                     android:layout_marginLeft="3dp" />
@@ -198,7 +193,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.10"
-                        android:id="@+id/tableRow4" >
+                        android:id="@+id/Category4" >
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -216,7 +211,7 @@
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:id="@+id/imageView10" />
+                                    android:id="@+id/CategoryPicture4" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -230,7 +225,7 @@
                                     android:layout_height="match_parent"
                                     android:text="Festivals"
                                     android:gravity="center_vertical"
-                                    android:id="@+id/textView12"
+                                    android:id="@+id/CategoryText4"
                                     android:textColor="#ffffff"
                                     android:textSize="22sp"
                                     android:layout_marginLeft="3dp" />
@@ -242,7 +237,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.10"
-                        android:id="@+id/tableRow5" >
+                        android:id="@+id/Category5" >
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -260,7 +255,7 @@
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:id="@+id/imageView11" />
+                                    android:id="@+id/CategoryPicture5" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -273,7 +268,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:text="Food &amp; Drink"
-                                    android:id="@+id/textView13"
+                                    android:id="@+id/CategoryText5"
                                     android:gravity="center_vertical"
                                     android:textColor="#ffffff"
                                     android:textSize="19sp"
@@ -286,7 +281,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.10"
-                        android:id="@+id/tableRow6" >
+                        android:id="@+id/Category6" >
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -304,7 +299,7 @@
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:id="@+id/imageView12" />
+                                    android:id="@+id/CategoryPicture6" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -317,7 +312,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:text="Party"
-                                    android:id="@+id/textView14"
+                                    android:id="@+id/CategoryText6"
                                     android:gravity="center_vertical"
                                     android:textColor="#ffffff"
                                     android:textSize="22sp"
@@ -330,7 +325,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.10"
-                        android:id="@+id/tableRow7" >
+                        android:id="@+id/Category7" >
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -348,7 +343,7 @@
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:id="@+id/imageView13" />
+                                    android:id="@+id/CategoryPicture7" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -362,7 +357,7 @@
                                     android:layout_height="match_parent"
                                     android:text="Political"
                                     android:gravity="center_vertical"
-                                    android:id="@+id/textView15"
+                                    android:id="@+id/CategoryText7"
                                     android:textColor="#ffffff"
                                     android:textSize="22sp"
                                     android:layout_marginLeft="3dp" />
@@ -374,7 +369,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.10"
-                        android:id="@+id/tableRow8" >
+                        android:id="@+id/Category8" >
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -392,7 +387,7 @@
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:id="@+id/imageView14" />
+                                    android:id="@+id/CategoryPicture8" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -406,7 +401,7 @@
                                     android:layout_height="match_parent"
                                     android:text="Social"
                                     android:gravity="center_vertical"
-                                    android:id="@+id/textView16"
+                                    android:id="@+id/CategoryText8"
                                     android:textColor="#ffffff"
                                     android:textSize="22sp"
                                     android:layout_marginLeft="3dp" />
@@ -418,7 +413,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.10"
-                        android:id="@+id/tableRow9" >
+                        android:id="@+id/Category9" >
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -436,7 +431,7 @@
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:id="@+id/imageView15" />
+                                    android:id="@+id/CategoryPicture9" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -449,7 +444,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:text="Tech"
-                                    android:id="@+id/textView17"
+                                    android:id="@+id/CategoryText9"
                                     android:gravity="center_vertical"
                                     android:textColor="#ffffff"
                                     android:textSize="22sp"
@@ -469,7 +464,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.10"
-                        android:id="@+id/tableRow10" >
+                        android:id="@+id/Category10" >
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -486,7 +481,7 @@
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:id="@+id/imageView16" />
+                                    android:id="@+id/CategoryPicture10" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -500,7 +495,7 @@
                                     android:layout_height="match_parent"
                                     android:text="Business"
                                     android:gravity="center_vertical"
-                                    android:id="@+id/textView18"
+                                    android:id="@+id/CategoryText10"
                                     android:textColor="#ffffff"
                                     android:textSize="22sp"
                                     android:layout_marginLeft="3dp" />
@@ -512,7 +507,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.10"
-                        android:id="@+id/tableRow11" >
+                        android:id="@+id/Category11" >
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -529,7 +524,7 @@
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:id="@+id/imageView17" />
+                                    android:id="@+id/CategoryPicture11" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -543,7 +538,7 @@
                                     android:layout_height="match_parent"
                                     android:text="Club"
                                     android:gravity="center_vertical"
-                                    android:id="@+id/textView19"
+                                    android:id="@+id/CategoryText11"
                                     android:textColor="#ffffff"
                                     android:textSize="22sp"
                                     android:layout_marginLeft="3dp" />
@@ -555,7 +550,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.10"
-                        android:id="@+id/tableRow12" >
+                        android:id="@+id/Category12" >
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -572,7 +567,7 @@
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:id="@+id/imageView18" />
+                                    android:id="@+id/CategoryPicture12" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -586,7 +581,7 @@
                                     android:layout_height="match_parent"
                                     android:text="Fashion"
                                     android:gravity="center_vertical"
-                                    android:id="@+id/textView20"
+                                    android:id="@+id/CategoryText12"
                                     android:textColor="#ffffff"
                                     android:textSize="22sp"
                                     android:layout_marginLeft="3dp" />
@@ -598,7 +593,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.10"
-                        android:id="@+id/tableRow13" >
+                        android:id="@+id/Category13" >
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -615,7 +610,7 @@
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:id="@+id/imageView19" />
+                                    android:id="@+id/CategoryPicture13" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -629,7 +624,7 @@
                                     android:layout_height="match_parent"
                                     android:text="Film"
                                     android:gravity="center_vertical"
-                                    android:id="@+id/textView21"
+                                    android:id="@+id/CategoryText13"
                                     android:textColor="#ffffff"
                                     android:textSize="22sp"
                                     android:layout_marginLeft="3dp" />
@@ -641,7 +636,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.10"
-                        android:id="@+id/tableRow14" >
+                        android:id="@+id/Category14" >
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -658,7 +653,7 @@
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:id="@+id/imageView20" />
+                                    android:id="@+id/CategoryPicture14" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -671,7 +666,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:text="Music"
-                                    android:id="@+id/textView22"
+                                    android:id="@+id/CategoryText14"
                                     android:gravity="center_vertical"
                                     android:textColor="#ffffff"
                                     android:textSize="22sp"
@@ -684,7 +679,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.10"
-                        android:id="@+id/tableRow15" >
+                        android:id="@+id/Category15" >
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -701,7 +696,7 @@
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:id="@+id/imageView21" />
+                                    android:id="@+id/CategoryPicture15" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -714,7 +709,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:text="Performing Arts"
-                                    android:id="@+id/textView23"
+                                    android:id="@+id/CategoryText15"
                                     android:gravity="center_vertical"
                                     android:textColor="#ffffff"
                                     android:textSize="19sp"
@@ -727,7 +722,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.10"
-                        android:id="@+id/tableRow16" >
+                        android:id="@+id/Category16" >
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -744,7 +739,7 @@
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:id="@+id/imageView22" />
+                                    android:id="@+id/CategoryPicture16" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -758,7 +753,7 @@
                                     android:layout_height="match_parent"
                                     android:text="School"
                                     android:gravity="center_vertical"
-                                    android:id="@+id/textView24"
+                                    android:id="@+id/CategoryText16"
                                     android:textColor="#ffffff"
                                     android:textSize="22sp"
                                     android:layout_marginLeft="3dp" />
@@ -770,7 +765,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.087"
-                        android:id="@+id/tableRow17" >
+                        android:id="@+id/SubmitButton" >
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -782,7 +777,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="30dp"
                                 android:text="Submit"
-                                android:id="@+id/button"
+                                android:id="@+id/ScanButton"
                                 android:layout_marginLeft="40dp"
                                 android:layout_marginRight="15dp"
                                 android:background="@drawable/rounded_corner_button"
@@ -796,11 +791,6 @@
             </LinearLayout>
         </RelativeLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.40"></LinearLayout>
     </LinearLayout>
 
 
