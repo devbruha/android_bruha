@@ -140,15 +140,23 @@ public class ExplorerFragment extends Fragment {
         list.setAdapter(new ListViewAdapter2(this.getActivity(),mEvents));
     }
 
-
+    int c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16 = 0;
 
     private void seteventviews() {
         categorytxt1.setText("Art");
+
         categoryim1.setImageDrawable(svgToBitmapDrawable(this.getResources(), R.raw.arts, 30));
         category1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category1.setBackgroundColor(Color.parseColor("#e146287f"));
+                if(c1 == 0){
+                    category1.setBackgroundColor(Color.parseColor("#24163f "));
+                    c1++;
+                }
+                else{
+                    category1.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c1--;
+                }
                 categories.add("Art");
             }
         });
@@ -158,7 +166,14 @@ public class ExplorerFragment extends Fragment {
         category2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category2.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c2 == 0){
+                    category2.setBackgroundColor(Color.parseColor("#24163f "));
+                    c2++;
+                }
+                else{
+                    category2.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c2--;
+                }
                 categories.add("Business");
             }
         });
@@ -168,7 +183,14 @@ public class ExplorerFragment extends Fragment {
         category3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category3.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c3== 0){
+                category3.setBackgroundColor(Color.parseColor("#24163f "));
+                c3++;
+            }
+            else{
+                category3.setBackgroundColor(Color.parseColor("#e146287f"));
+                c3--;
+            }
                 categories.add("Music");
             }
         });
@@ -178,7 +200,14 @@ public class ExplorerFragment extends Fragment {
         category4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category4.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c4 == 0){
+                category4.setBackgroundColor(Color.parseColor("#24163f "));
+                c4++;
+            }
+            else{
+                category4.setBackgroundColor(Color.parseColor("#e146287f"));
+                c4--;
+            }
                 categories.add("Fashion & Beauty");
             }
         });
@@ -188,7 +217,14 @@ public class ExplorerFragment extends Fragment {
         category5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category5.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c5 == 0){
+                    category4.setBackgroundColor(Color.parseColor("#24163f "));
+                    c5++;
+                }
+                else{
+                    category5.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c5--;
+                }
                 categories.add("Party");
             }
         });
@@ -198,7 +234,14 @@ public class ExplorerFragment extends Fragment {
         category6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category6.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c6 == 0){
+                category6.setBackgroundColor(Color.parseColor("#24163f "));
+                c6++;
+            }
+            else{
+                category6.setBackgroundColor(Color.parseColor("#e146287f"));
+                c6--;
+            }
                 categories.add("Comedy");
             }
         });
@@ -208,7 +251,14 @@ public class ExplorerFragment extends Fragment {
         category7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category7.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c7 == 0){
+                category7.setBackgroundColor(Color.parseColor("#24163f "));
+                c7++;
+            }
+            else{
+                category7.setBackgroundColor(Color.parseColor("#e146287f"));
+                c7--;
+            }
                 categories.add("Sports Fitness");
             }
         });
@@ -218,7 +268,14 @@ public class ExplorerFragment extends Fragment {
         category8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category8.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c1 == 0){
+                    category8.setBackgroundColor(Color.parseColor("#24163f "));
+                    c8++;
+                }
+                else{
+                    category8.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c8--;
+                }
                 categories.add("Performing Arts");
             }
         });
@@ -229,7 +286,14 @@ public class ExplorerFragment extends Fragment {
         category9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category9.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c9 == 0){
+                    category9.setBackgroundColor(Color.parseColor("#24163f "));
+                    c9++;
+                }
+                else{
+                    category9.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c9--;
+                }
                 categories.add("Social");
             }
         });
@@ -240,7 +304,14 @@ public class ExplorerFragment extends Fragment {
         category10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category10.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c10 == 0){
+                    category10.setBackgroundColor(Color.parseColor("#24163f "));
+                    c10++;
+                }
+                else{
+                    category10.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c10--;
+                }
                 categories.add("Festival");
             }
         });
@@ -250,7 +321,14 @@ public class ExplorerFragment extends Fragment {
         category11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category11.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c12 == 0){
+                    category11.setBackgroundColor(Color.parseColor("#24163f "));
+                    c11++;
+                }
+                else{
+                    category11.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c11--;
+                }
                 categories.add("School Event");
             }
         });
@@ -260,7 +338,14 @@ public class ExplorerFragment extends Fragment {
         category12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category12.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c12 == 0){
+                    category12.setBackgroundColor(Color.parseColor("#24163f "));
+                    c12++;
+                }
+                else{
+                    category12.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c12--;
+                }
                 categories.add("Tech");
             }
         });
@@ -271,7 +356,14 @@ public class ExplorerFragment extends Fragment {
         category13.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category13.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c13 == 0){
+                    category13.setBackgroundColor(Color.parseColor("#24163f "));
+                    c1++;
+                }
+                else{
+                    category13.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c13--;
+                }
                 categories.add("Food & Drink");
             }
         });
@@ -281,7 +373,14 @@ public class ExplorerFragment extends Fragment {
         category14.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category14.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c1 == 0){
+                    category14.setBackgroundColor(Color.parseColor("#24163f "));
+                    c14++;
+                }
+                else{
+                    category14.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c14--;
+                }
                 categories.add("Film");
             }
         });
