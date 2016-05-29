@@ -1,12 +1,18 @@
 package com.bruha.bruhaandroid.Fragments;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -17,6 +23,8 @@ import com.bruha.bruhaandroid.Model.SQLiteDatabaseModel;
 import com.bruha.bruhaandroid.Model.Venue;
 import com.bruha.bruhaandroid.Processing.SQLiteUtils;
 import com.bruha.bruhaandroid.R;
+import com.caverock.androidsvg.SVG;
+import com.caverock.androidsvg.SVGParseException;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 
 import java.util.ArrayList;
@@ -79,12 +87,15 @@ public class ExplorerVenueFragment extends Fragment {
     ArrayList<String> categories = new ArrayList<>();
 
     View view;
-
+    LinearLayout filterButton;
+    RelativeLayout filterBox;
+    int c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16 = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
          view = inflater.inflate(R.layout.list_fragment_layout, container, false);
 
+        filterSetup();
         setcategories();
         setvenueviews();
 
@@ -102,6 +113,26 @@ public class ExplorerVenueFragment extends Fragment {
 
 
     }
+
+    private void filterSetup() {
+            filterBox = (RelativeLayout) view.findViewById(R.id.CategoriesLayout);
+            filterButton = (LinearLayout) getActivity().findViewById(R.id.filterButton);
+            filterBox.setVisibility(View.GONE);
+
+            filterButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int visibility = filterBox.getVisibility();
+
+                    if(visibility==View.GONE)
+                        filterBox.setVisibility(View.VISIBLE);
+
+                    if(visibility==View.VISIBLE)
+                        filterBox.setVisibility(View.GONE);
+                }
+            });
+    }
+
     private void setcategories() {
         category1= (TableRow) view.findViewById(R.id.Category1);
         categoryim1= (ImageView) view.findViewById(R.id.CategoryPicture1);
@@ -170,183 +201,304 @@ public class ExplorerVenueFragment extends Fragment {
     private void setvenueviews() {
 
         categorytxt1.setText("Church");
-        //categoryim1.setimage....
+        categoryim1.setImageDrawable(svgToBitmapDrawable(this.getResources(), R.raw.venchurch, 30));
         category1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category1.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c1 == 0){
+                    category1.setBackgroundColor(Color.parseColor("#24163f "));
+                    c1++;
+                }
+                else{
+                    category1.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c1--;
+                }
                 categories.add("Church");
             }
         });
 
         categorytxt2.setText("Coffee Shop");
-        //categoryim2.setimage....
+        categoryim2.setImageDrawable(svgToBitmapDrawable(this.getResources(), R.raw.vencoffee, 30));
         category2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category1.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c2 == 0){
+                    category2.setBackgroundColor(Color.parseColor("#24163f "));
+                    c2++;
+                }
+                else{
+                    category2.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c2--;
+                }
                 categories.add("Coffee Shop");
             }
         });
 
         categorytxt3.setText("Store");
-        //categoryim3.setimage....
+        categoryim3.setImageDrawable(svgToBitmapDrawable(this.getResources(), R.raw.venstore, 30));
         category3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category1.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c3== 0){
+                    category3.setBackgroundColor(Color.parseColor("#24163f "));
+                    c3++;
+                }
+                else{
+                    category3.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c3--;
+                }
                 categories.add("Store");
             }
         });
 
         categorytxt4.setText("House");
-        //categoryim1.setimage....
+        categoryim4.setImageDrawable(svgToBitmapDrawable(this.getResources(), R.raw.venhouse, 30));
         category4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category4.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c4 == 0){
+                    category4.setBackgroundColor(Color.parseColor("#24163f "));
+                    c4++;
+                }
+                else{
+                    category4.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c4--;
+                }
                 categories.add("House");
             }
         });
 
         categorytxt5.setText("Restaurant");
-        //categoryim1.setimage....
+        categoryim5.setImageDrawable(svgToBitmapDrawable(this.getResources(), R.raw.venrestauratns, 30));
         category5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category5.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c5 == 0){
+                    category5.setBackgroundColor(Color.parseColor("#24163f "));
+                    c5++;
+                }
+                else{
+                    category5.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c5--;
+                }
                 categories.add("Restaurant");
             }
         });
 
         categorytxt6.setText("Cinema");
-        //categoryim1.setimage....
+        categoryim6.setImageDrawable(svgToBitmapDrawable(this.getResources(), R.raw.vencinema, 30));
         category6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category6.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c6 == 0){
+                    category6.setBackgroundColor(Color.parseColor("#24163f "));
+                    c6++;
+                }
+                else{
+                    category6.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c6--;
+                }
                 categories.add("Cinema");
             }
         });
 
         categorytxt7.setText("Arena");
-        //categoryim1.setimage....
+        categoryim7.setImageDrawable(svgToBitmapDrawable(this.getResources(), R.raw.venarena, 30));
         category7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category7.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c7 == 0){
+                    category7.setBackgroundColor(Color.parseColor("#24163f "));
+                    c7++;
+                }
+                else{
+                    category7.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c7--;
+                }
                 categories.add("Arena");
             }
         });
 
         categorytxt8.setText("Amphitheatre");
-        //categoryim1.setimage....
+        categoryim8.setImageDrawable(svgToBitmapDrawable(this.getResources(), R.raw.venamphiteather, 30));
         category8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category8.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c8 == 0){
+                    category8.setBackgroundColor(Color.parseColor("#24163f "));
+                    c8++;
+                }
+                else{
+                    category8.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c8--;
+                }
                 categories.add("Amphitheatre");
             }
         });
 
 
         categorytxt9.setText("Casino");
-        //categoryim1.setimage....
+        categoryim9.setImageDrawable(svgToBitmapDrawable(this.getResources(), R.raw.vencasino, 30));
         category9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category9.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c9 == 0){
+                    category9.setBackgroundColor(Color.parseColor("#24163f "));
+                    c9++;
+                }
+                else{
+                    category9.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c9--;
+                }
                 categories.add("Casino");
             }
         });
 
 
         categorytxt10.setText("Fairground");
-        //categoryim1.setimage....
+        categoryim10.setImageDrawable(svgToBitmapDrawable(this.getResources(), R.raw.venfairground, 30));
         category10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category10.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c10 == 0){
+                    category10.setBackgroundColor(Color.parseColor("#24163f "));
+                    c10++;
+                }
+                else{
+                    category10.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c10--;
+                }
                 categories.add("Fairground");
             }
         });
 
         categorytxt11.setText("Park");
-        //categoryim1.setimage....
+        categoryim11.setImageDrawable(svgToBitmapDrawable(this.getResources(), R.raw.venparks, 30));
         category11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category11.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c11 == 0){
+                    category11.setBackgroundColor(Color.parseColor("#24163f "));
+                    c11++;
+                }
+                else{
+                    category11.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c11--;
+                }
                 categories.add("Park");
             }
         });
 
         categorytxt12.setText("Gallery");
-        //categoryim1.setimage....
+        categoryim12.setImageDrawable(svgToBitmapDrawable(this.getResources(), R.raw.vengallery, 30));
         category12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category12.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c12 == 0){
+                    category12.setBackgroundColor(Color.parseColor("#24163f "));
+                    c12++;
+                }
+                else{
+                    category12.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c12--;
+                }
                 categories.add("Gallery");
             }
         });
 
         categorytxt13.setText("Theatre");
-        //categoryim1.setimage....
+        categoryim13.setImageDrawable(svgToBitmapDrawable(this.getResources(), R.raw.ventheater, 30));
         category13.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category13.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c13 == 0){
+                    category13.setBackgroundColor(Color.parseColor("#24163f "));
+                    c13++;
+                }
+                else{
+                    category13.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c13--;
+                }
                 categories.add("Theatre");
             }
         });
 
         categorytxt14.setText("Comedy Club");
-        //categoryim1.setimage....
+        categoryim14.setImageDrawable(svgToBitmapDrawable(this.getResources(), R.raw.vencomedy, 30));
         category14.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category14.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c14 == 0){
+                    category14.setBackgroundColor(Color.parseColor("#24163f "));
+                    c14++;
+                }
+                else{
+                    category14.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c14--;
+                }
                 categories.add("Comedy Club");
             }
         });
 
-        categorytxt14.setText("Community Hall");
-        //categoryim1.setimage....
-        category14.setOnClickListener(new View.OnClickListener() {
+        categorytxt15.setText("Community Hall");
+        categoryim15.setImageDrawable(svgToBitmapDrawable(this.getResources(), R.raw.vencommunity, 30));
+        category15.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category14.setBackgroundColor(Color.parseColor("#24163f"));
+                if(c15 == 0){
+                    category15.setBackgroundColor(Color.parseColor("#24163f "));
+                    c15++;
+                }
+                else{
+                    category15.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c15--;
+                }
                 categories.add("Community Hall");
             }
         });
 
 
-        categorytxt15.setText("Club");
-        //categoryim1.setimage....
-        category15.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                category15.setBackgroundColor(Color.parseColor("#24163f"));
-                categories.add("Club");
-            }
-
-
-
-
-        });
-
-
-        categorytxt16.setText("School");
-        //categoryim1.setimage....
+        categorytxt16.setText("Club");
+        categoryim16.setImageDrawable(svgToBitmapDrawable(this.getResources(), R.raw.venclubs, 30));
         category16.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category16.setBackgroundColor(Color.parseColor("#24163f"));
-                categories.add("School");
+                if(c16 == 0){
+                    category16.setBackgroundColor(Color.parseColor("#24163f "));
+                    c16++;
+                }
+                else{
+                    category16.setBackgroundColor(Color.parseColor("#e146287f"));
+                    c16--;
+                }
+
+
+                categories.add("Club");
             }
+
         });
 
+
+
+
+    }
+    public BitmapDrawable svgToBitmapDrawable(Resources res, int resource, int size){
+        try {
+            size = (int)(size*res.getDisplayMetrics().density);
+            SVG svg = SVG.getFromResource(getActivity().getApplicationContext(), resource);
+
+            Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bmp);
+            svg.renderToCanvas(canvas);
+
+            BitmapDrawable drawable = new BitmapDrawable(res, bmp);
+
+
+            return drawable;
+        }catch(SVGParseException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

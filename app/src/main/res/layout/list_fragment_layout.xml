@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="Categories"
+                android:text="Filters"
                 android:textStyle="bold"
                 android:textColor="#ffffff"
                 android:textSize="25sp"
@@ -708,7 +708,6 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:text="Performing Arts"
                                     android:id="@+id/CategoryText15"
                                     android:gravity="center_vertical"
                                     android:textColor="#ffffff"
@@ -751,7 +750,6 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:text="School"
                                     android:gravity="center_vertical"
                                     android:id="@+id/CategoryText16"
                                     android:textColor="#ffffff"
@@ -765,26 +763,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.087"
-                        android:id="@+id/SubmitButton" >
+                        android:id="@+id/submitButton" >
 
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
                             android:weightSum="6"
-                            android:layout_height="match_parent" >
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp">
 
                             <Button
-                                android:layout_width="100dp"
+                                android:layout_width="150dp"
                                 android:layout_height="30dp"
                                 android:text="Submit"
-                                android:id="@+id/ScanButton"
-                                android:layout_marginLeft="40dp"
-                                android:layout_marginRight="15dp"
-                                android:background="@drawable/rounded_corner_button"
-                                android:layout_marginBottom="5dp"
+                                android:id="@+id/SubmitButton"
                                 android:layout_gravity="center_vertical"
                                 android:textColor="#ffffff"
-                                android:textSize="10dp" />
+                                android:textSize="15dp"
+                                android:background="@drawable/rounded_corner_button"/>
                         </LinearLayout>
                     </TableRow>
                 </LinearLayout>

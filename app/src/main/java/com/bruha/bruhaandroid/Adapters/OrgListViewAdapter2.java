@@ -123,7 +123,8 @@ public class OrgListViewAdapter2 extends BaseSwipeAdapter {
 
         //Setting the font
         Typeface opensansregfnt = Typeface.createFromAsset(mActivity.getAssets(), "fonts/OpenSans-Regular.ttf");
-        Typeface domboldfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Bold.ttf");
+        Typeface cavBoldfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Caviar_Dreams_Bold.ttf");
+        Typeface cavBoldItalfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/CaviarDreams_BoldItalic.ttf");
 
         // Resizing for different displays:
         // Android functions to determine the screen dimensions.
@@ -133,7 +134,7 @@ public class OrgListViewAdapter2 extends BaseSwipeAdapter {
         // Storing the screen height into an int variable and adjustment variables
         int height = size.y;
         double adjItem = 0.30; //for eventImage
-        double adjTopText = (int)Math.round(height*0.0225); // for eventTitle and event Price
+        double adjEventText = (int)Math.round(height*0.023); // for eventTitle
         double adjBottomText = (int)Math.round(height*0.015); // for eventDate and eventDistance
 
         // Layout Params of the item list and setting height for it
@@ -141,9 +142,8 @@ public class OrgListViewAdapter2 extends BaseSwipeAdapter {
         params.height = (int)Math.round(height*adjItem);
         // Layout Params & height adjustment of eventTitle
         TextView organizationTitle = (TextView) convertView.findViewById(R.id.orgvenName);
-        organizationTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) adjTopText);
-        organizationTitle.setTypeface(opensansregfnt);
-        organizationTitle.setTypeface(domboldfnt);
+        organizationTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) adjEventText);
+        organizationTitle.setTypeface(cavBoldfnt);
 
         final Fragment organizationOnMap = new ShowOnMapFragment();
         //Intents
