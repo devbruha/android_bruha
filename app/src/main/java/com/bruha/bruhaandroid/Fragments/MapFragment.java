@@ -18,7 +18,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
 public class MapFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
-    private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    private GoogleMap mMap; // Might be null if Google Play services APK is not available.//
     View view;
     /**
      * Provides the entry point to Google Play services.
