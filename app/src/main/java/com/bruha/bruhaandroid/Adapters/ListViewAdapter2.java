@@ -201,8 +201,10 @@ public class ListViewAdapter2 extends BaseSwipeAdapter{
 
         //Setting the font
         Typeface opensansregfnt = Typeface.createFromAsset(mActivity.getAssets(), "fonts/OpenSans-Regular.ttf");
-        Typeface domboldfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Bold.ttf");
-        Typeface captureitfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Capture_it.ttf");
+        Typeface cavfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/CaviarDreams.ttf");
+        Typeface cavBoldfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Caviar_Dreams_Bold.ttf");
+        Typeface cavBoldItalfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/CaviarDreams_BoldItalic.ttf");
+
 
         // Resizing for different displays:
         // Android functions to determine the screen dimensions.
@@ -212,7 +214,8 @@ public class ListViewAdapter2 extends BaseSwipeAdapter{
         // Storing the screen height into an int variable and adjustment variables
         int height = size.y;
         double adjItem = 0.30; //for eventImage
-        double adjTopText = (int)Math.round(height*0.0225); // for eventTitle and event Price
+        double adjEventText = (int)Math.round(height*0.025); // for eventTitle
+        double adjPriceText = (int)Math.round(height*0.023); // for eventPrice
         double adjBottomText = (int)Math.round(height*0.015); // for eventDate and eventDistance
 
         // Layout Params of the item list and setting height for it
@@ -220,18 +223,17 @@ public class ListViewAdapter2 extends BaseSwipeAdapter{
         params.height = (int)Math.round(height*adjItem);
         // Layout Params & height adjustment of eventTitle
         TextView eventTitle = (TextView) convertView.findViewById(R.id.eventTitle);
-        eventTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) adjTopText);
-        eventTitle.setTypeface(captureitfnt);
+        eventTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) adjEventText);
+        eventTitle.setTypeface(cavBoldfnt);
         //eventTitle.setTypeface(domboldfnt);
         // Layout Params & height adjustment of eventDate
         TextView eventDate = (TextView) convertView.findViewById(R.id.eventDate);
         eventDate.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) adjBottomText);
-        eventDate.setTypeface(opensansregfnt);
+        eventDate.setTypeface(cavfnt);
         // Layout Params & height adjustment of eventPrice
         TextView eventPrice = (TextView) convertView.findViewById(R.id.eventPrice);
-        eventPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) adjTopText);
-        eventPrice.setTypeface(opensansregfnt);
-        eventPrice.setTypeface(domboldfnt);
+        eventPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) adjPriceText);
+        eventPrice.setTypeface(cavBoldItalfnt);
 
         //Implements the Button 'Buy Ticket' that appears after swipe right,Shows Button Highlight for half a second when clicked.
         TableRow GoBuyTicketPage = (TableRow) convertView.findViewById(R.id.MapTopHalf);

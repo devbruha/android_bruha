@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -79,12 +81,15 @@ public class ExplorerVenueFragment extends Fragment {
     ArrayList<String> categories = new ArrayList<>();
 
     View view;
+    LinearLayout filterButton;
+    RelativeLayout filterBox;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
          view = inflater.inflate(R.layout.list_fragment_layout, container, false);
 
+        filterSetup();
         setcategories();
         setvenueviews();
 
@@ -102,6 +107,26 @@ public class ExplorerVenueFragment extends Fragment {
 
 
     }
+
+    private void filterSetup() {
+            filterBox = (RelativeLayout) view.findViewById(R.id.CategoriesLayout);
+            filterButton = (LinearLayout) getActivity().findViewById(R.id.filterButton);
+            filterBox.setVisibility(View.GONE);
+
+            filterButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int visibility = filterBox.getVisibility();
+
+                    if(visibility==View.GONE)
+                        filterBox.setVisibility(View.VISIBLE);
+
+                    if(visibility==View.VISIBLE)
+                        filterBox.setVisibility(View.GONE);
+                }
+            });
+    }
+
     private void setcategories() {
         category1= (TableRow) view.findViewById(R.id.Category1);
         categoryim1= (ImageView) view.findViewById(R.id.CategoryPicture1);

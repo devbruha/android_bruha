@@ -7,12 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.bruha.bruhaandroid.Adapters.ListViewAdapter2;
 import com.bruha.bruhaandroid.Adapters.OrgListViewAdapter2;
-import com.bruha.bruhaandroid.Model.Event;
 import com.bruha.bruhaandroid.Model.Organizations;
 import com.bruha.bruhaandroid.Model.SQLiteDatabaseModel;
 import com.bruha.bruhaandroid.Processing.SQLiteUtils;
@@ -79,6 +79,8 @@ public class ExplorerOrganizationFragment extends Fragment{
     ArrayList<String> categories = new ArrayList<>();
 
     View view;
+    LinearLayout filterButton;
+    RelativeLayout filterBox;
 
 
 
@@ -87,6 +89,7 @@ public class ExplorerOrganizationFragment extends Fragment{
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.list_fragment_layout, container, false);
 
+        filterSetup();
         setcategories();
         setorganizationviews();
 // Create the local DB object
@@ -98,6 +101,25 @@ public class ExplorerOrganizationFragment extends Fragment{
         ObservableListView list = (ObservableListView) view.findViewById(R.id.list);
         list.setAdapter(new OrgListViewAdapter2(this.getActivity(),mOrganizations)); // add organization adapters
         return view;
+    }
+
+    private void filterSetup() {
+        filterBox = (RelativeLayout) view.findViewById(R.id.CategoriesLayout);
+        filterButton = (LinearLayout) getActivity().findViewById(R.id.filterButton);
+        filterBox.setVisibility(View.GONE);
+
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int visibility = filterBox.getVisibility();
+
+                if(visibility==View.GONE)
+                    filterBox.setVisibility(View.VISIBLE);
+
+                if(visibility==View.VISIBLE)
+                    filterBox.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void setorganizationviews() {

@@ -118,7 +118,8 @@ public class VenListViewAdapter2 extends BaseSwipeAdapter {
 
         //Setting the font
         Typeface opensansregfnt = Typeface.createFromAsset(mActivity.getAssets(), "fonts/OpenSans-Regular.ttf");
-        Typeface domboldfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Domine-Bold.ttf");
+        Typeface cavBoldfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/Caviar_Dreams_Bold.ttf");
+        Typeface cavBoldItalfnt = Typeface.createFromAsset(mActivity.getAssets(),"fonts/CaviarDreams_BoldItalic.ttf");
 
         // Resizing for different displays:
         // Android functions to determine the screen dimensions.
@@ -128,7 +129,7 @@ public class VenListViewAdapter2 extends BaseSwipeAdapter {
         // Storing the screen height into an int variable and adjustment variables
         int height = size.y;
         double adjItem = 0.30; //for eventImage
-        double adjTopText = (int)Math.round(height*0.0225); // for eventTitle and event Price
+        double adjEventText = (int)Math.round(height*0.023); // for eventTitle
         double adjBottomText = (int)Math.round(height*0.015); // for eventDate and eventDistance
 
         // Layout Params of the item list and setting height for it
@@ -136,9 +137,8 @@ public class VenListViewAdapter2 extends BaseSwipeAdapter {
         params.height = (int)Math.round(height*adjItem);
         // Layout Params & height adjustment of eventTitle
         TextView venueTitle = (TextView) convertView.findViewById(R.id.orgvenName);
-        venueTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) adjTopText);
-        venueTitle.setTypeface(opensansregfnt);
-        venueTitle.setTypeface(domboldfnt);
+        venueTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) adjEventText);
+        venueTitle.setTypeface(cavBoldfnt);
 
         final Fragment venueOnMap = new ShowOnMapFragment();
         //Intents

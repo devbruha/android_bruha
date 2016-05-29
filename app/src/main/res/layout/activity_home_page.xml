@@ -65,16 +65,18 @@
                     android:id="@+id/arrowIcon"
                     android:layout_toEndOf="@id/activityTitle"
                     android:layout_toRightOf="@+id/activityTitle"
-                    android:layout_marginLeft="7dp"
                     android:layout_centerInParent="true"
                     android:src="@android:drawable/arrow_down_float"
-                    android:visibility="invisible"/>
+                    android:visibility="visible"
+                    android:background="#eeeeee"
+                    />
 
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textAlignment="center"
-                    android:id="@+id/spinner" />
+                    android:id="@+id/spinner"
+                    style="@style/spinner_style" />
 
             </RelativeLayout>
 

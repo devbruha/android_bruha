@@ -32,8 +32,9 @@ public class ExplorerFragment extends Fragment {
 
     ArrayList<Event> mEvents;
     View view;
-    LinearLayout filter;
-    RelativeLayout caaa;
+    LinearLayout filterButton;
+    RelativeLayout filterBox;
+    int color;
 
     TableRow category1;
     TableRow category2;
@@ -94,21 +95,7 @@ public class ExplorerFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.list_fragment_layout, container, false);
 
-        caaa = (RelativeLayout) view.findViewById(R.id.CategoriesLayout);
-
-        filter = (LinearLayout) getActivity().findViewById(R.id.filterButton);
-        filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int visibility = caaa.getVisibility();
-
-                if(visibility==View.GONE)
-                    caaa.setVisibility(View.VISIBLE);
-
-                if(visibility==View.VISIBLE)
-                    caaa.setVisibility(View.GONE);
-            }
-        });
+        filterSetup();
 
         parseData();
         setcategories();
@@ -118,6 +105,25 @@ public class ExplorerFragment extends Fragment {
 
 
 
+    }
+
+    private void filterSetup() {
+        filterBox = (RelativeLayout) view.findViewById(R.id.CategoriesLayout);
+        filterButton = (LinearLayout) getActivity().findViewById(R.id.filterButton);
+        filterBox.setVisibility(View.GONE);
+
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int visibility = filterBox.getVisibility();
+
+                if(visibility==View.GONE)
+                    filterBox.setVisibility(View.VISIBLE);
+
+                if(visibility==View.VISIBLE)
+                    filterBox.setVisibility(View.GONE);
+            }
+        });
     }
 
 
@@ -137,13 +143,12 @@ public class ExplorerFragment extends Fragment {
 
 
     private void seteventviews() {
-
         categorytxt1.setText("Art");
         categoryim1.setImageDrawable(svgToBitmapDrawable(this.getResources(), R.raw.arts, 30));
         category1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category1.setBackgroundColor(Color.parseColor("#24163f"));
+                category1.setBackgroundColor(Color.parseColor("#e146287f"));
                 categories.add("Art");
             }
         });
