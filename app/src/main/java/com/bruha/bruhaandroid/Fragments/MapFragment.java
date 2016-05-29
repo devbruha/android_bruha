@@ -22,7 +22,7 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
     View view;
     /**
      * Provides the entry point to Google Play services.
-     */
+     *///
     protected GoogleApiClient mGoogleApiClient;
     protected Location mLastLocation;
 
