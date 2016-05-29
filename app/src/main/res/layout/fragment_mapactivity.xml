@@ -18,6 +18,53 @@
 
         <!-- MAIN CONTENT s-->
 
+        <com.sothree.slidinguppanel.SlidingUpPanelLayout
+            xmlns:sothree="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/sliding_layout_lower"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+
+            android:clickable="true"
+            sothree:umanoDragView="@+id/dragView"
+            sothree:umanoOverlay="true"
+            sothree:umanoFadeColor="@android:color/transparent"
+            android:background="@android:color/transparent">
+
+            <!-- MAIN CONTENT s-->
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:minHeight="100dp">
+
+                <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/map"
+                    tools:context="com.bruha.bruhaandroid.Views.MapsActivity"
+                    android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+                <!-- Transparent View to fix the map bug -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent" />
+
+            </FrameLayout>
+
+            <!-- SLIDING LAYOUT -->
+
+
+            <include android:id="@+id/mapFilterLayout" layout="@layout/empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+
+        </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
         <!-- SLIDING LAYOUT -->
 
         <LinearLayout
@@ -41,23 +88,5 @@
         </LinearLayout>
 
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:minHeight="100dp">
-
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/map"
-            tools:context="com.bruha.bruhaandroid.Views.MapsActivity"
-            android:name="com.google.android.gms.maps.SupportMapFragment" />
-
-        <!-- Transparent View to fix the map bug -->
-
-    </FrameLayout>
 
 </RelativeLayout>
