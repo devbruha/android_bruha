@@ -537,23 +537,27 @@
                     android:weightSum="1">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         tools:text="Tatti Scene Awnnn"
                         android:textStyle="bold"
                         android:id="@+id/eventTitle"
                         android:layout_weight="0.5"
                         android:textSize="20sp"
-                        android:textColor="#24163f"/>
+                        android:textColor="#24163f"
+                        android:paddingStart="4dp"
+                        android:paddingLeft="4dp"/>
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         tools:text="May 6th, 2016"
                         android:id="@+id/eventDate"
                         android:layout_weight="0.5"
                         android:textSize="15sp"
-                        android:textColor="#24163f"/>
+                        android:textColor="#24163f"
+                        android:paddingStart="4dp"
+                        android:paddingLeft="4dp"/>
 
                 </LinearLayout>
 
@@ -565,17 +569,19 @@
                     android:weightSum="1">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         tools:text="$25.00"
                         android:id="@+id/eventPrice"
                         android:layout_alignParentRight="true"
-                        android:layout_weight="0.5"
                         android:textSize="18sp"
-                        android:textColor="#24163f"/>
+                        android:textColor="#24163f"
+                        android:gravity="right"
+                        android:paddingEnd="4dp"
+                        android:paddingRight="4dp"/>
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         tools:text="1.0km"
                         android:id="@+id/eventDistance"
@@ -583,7 +589,9 @@
                         android:layout_alignParentRight="true"
                         android:layout_weight="0.5"
                         android:layout_marginBottom="4dp"
-                        android:textColor="#24163f"/>
+                        android:textColor="#24163f"
+                        android:gravity="right"
+                        />
 
                     <ImageView
                         android:layout_width="wrap_content"
