@@ -31,6 +31,7 @@ import com.bruha.bruhaandroid.Fragments.CalendarFragment;
 import com.bruha.bruhaandroid.Fragments.ExplorerFragment;
 import com.bruha.bruhaandroid.Fragments.ExplorerOrganizationFragment;
 import com.bruha.bruhaandroid.Fragments.ExplorerVenueFragment;
+import com.bruha.bruhaandroid.Fragments.MapFragment;
 import com.bruha.bruhaandroid.Fragments.ProfileFragment;
 import com.bruha.bruhaandroid.Fragments.ShowOnMapFragment;
 import com.bruha.bruhaandroid.Fragments.TicketsFragment;
@@ -204,7 +205,7 @@ public class HomePageActivity extends FragmentActivity implements AdapterView.On
     }
 
     private void startMapActivity(View view) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ShowOnMapFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MapFragment()).commit();
     }
 
     private void navigationBarOnClicks() {
